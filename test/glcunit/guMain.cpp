@@ -37,9 +37,12 @@ Glich* g_glc = nullptr;
 
 int main( int argc, char* argv[] )
 {
-    g_glc = new Glich( InitLibrary::Hics );
+    init_glc( InitLibrary::Hics );
+    g_glc = get_glc();
 
     int result = Catch::Session().run( argc, argv );
+
+    exit_glc();
 
     return result;
 }
