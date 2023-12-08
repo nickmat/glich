@@ -51,7 +51,8 @@ Glich* g_glc = nullptr;
 
 int main( int argc, char* argv[] )
 {
-    g_glc = new Glich( InitLibrary::Hics );
+    init_glc( InitLibrary::Hics );
+    g_glc = get_glc();
 
     std::cout << GLCTEST_TYPE;
 
@@ -63,6 +64,7 @@ int main( int argc, char* argv[] )
     int m = (int) s / 60;
     std::cout << "Timed: " << m << "m " << s - (m * 60) << "s" << std::endl;
 
+    exit_glc();
     return result;
 }
 
