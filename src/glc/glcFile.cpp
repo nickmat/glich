@@ -38,6 +38,9 @@ bool File::open()
     std::fstream::openmode mode = std::fstream::out;
     switch ( m_filetype )
     {
+    case FT_read:
+        mode = std::fstream::in;
+        break;
     case FT_write:
         mode |= std::fstream::trunc;
         break;

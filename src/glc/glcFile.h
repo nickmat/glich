@@ -34,7 +34,7 @@ namespace glich {
 
     class File {
     public:
-        enum FileType { FT_null, FT_write, FT_append };
+        enum FileType { FT_null, FT_read, FT_write, FT_append };
 
         File ( const std::string& code ) : m_code( code ), m_filetype( FT_write ) {}
         
@@ -45,6 +45,7 @@ namespace glich {
 
         bool open();
         std::ostream* get_out() { return &m_file; }
+        std::istream* get_input() { return &m_file; }
 
     private:
         std::string  m_code;
