@@ -1,0 +1,14 @@
+// file001.glcs  Test creating a file object
+
+let filename = "Test-glcs-file2.txt";
+
+write nl;
+
+file test filename read;
+
+
+/*[OUTPUT]
+
+Error (7): Unable to open file: Test-glcs-file2.txt
+
+[OUTPUT]*/
