@@ -522,6 +522,7 @@ bool Script::do_write( const std::string& term )
         }
     }
     *out << term;
+    out->flush();
     return true;
 }
 
@@ -687,7 +688,9 @@ bool glich::Script::do_object()
 
 bool Script::do_file()
 {
-    string code = get_name_or_primary( GetToken::next );
+    File* file = nullptr;
+    SToken token = next_token();
+    string code = get_name_or_primary( GetToken::current );
     if( code.empty() ) {
         error( "File code missing." );
         return false;
@@ -697,14 +700,17 @@ bool Script::do_file()
         error( "Filename missing." );
         return false;
     }
-    File::FileType type = File::FT_null;
+    File::FileType type = File::FT_write;
     if( current_token().type() != SToken::Type::Semicolon ) {
-        string type_str = get_name_or_primary( GetToken::next );
+        string type_str = get_name_or_primary( GetToken::current );
         if( type_str.empty() ) {
             error( "';' or switch expected." );
             return false;
         }
-        if( type_str == "write" ) {
+        if( type_str == "read" ) {
+            type = File::FT_read;
+        }
+        else if( type_str == "write" ) {
             type = File::FT_write;
         }
         else if( type_str == "append" ) {
@@ -715,10 +721,8 @@ bool Script::do_file()
         error( "';' expected." );
         return false;
     }
-    File* file = m_glc->create_file( code );
-    if( type != File::FT_null ) {
-        file->set_filetype( type );
-    }
+    file = m_glc->create_file( code );
+    file->set_filetype( type );
     file->set_filename( name );
     bool ok = file->open();
     if( !ok ) {
@@ -1441,12 +1445,25 @@ SValue Script::at_if()
 // The result is always a string.
 SValue Script::at_read()
 {
-    SValueVec args = get_args( GetToken::next );
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current );
     string prompt;
     if( args.size() > 0 && args[0].type() == SValue::Type::String ) {
         prompt = args[0].get_str();
     }
-    return m_glc->read_input( prompt );
+    if( quals.empty() ) {
+        return m_glc->read_input( prompt );
+    }
+    string filecode = quals[0];
+    File* file = m_glc->get_file( filecode );
+    if( file == nullptr ) {
+        return create_error( "File \"" + filecode + "\" not found." );
+    }
+    std::istream* input = file->get_input();
+    assert( input != nullptr );
+    string line;
+    std::getline( *input, line );
+    return SValue( line );
 }
 
 // Return an error value
