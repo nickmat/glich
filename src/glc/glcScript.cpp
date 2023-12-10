@@ -721,7 +721,7 @@ bool Script::do_file()
         error( "';' expected." );
         return false;
     }
-    file = m_glc->create_file( code );
+    file = new File( code );
     file->set_filetype( type );
     file->set_filename( name );
     bool ok = file->open();
@@ -730,7 +730,7 @@ bool Script::do_file()
         error( "Unable to open file: " + name );
         return false;
     }
-    return true;
+    return m_glc->add_file( file );
 }
 
 bool Script::do_scheme()

@@ -571,13 +571,20 @@ Object* Glich::get_object( const string& code ) const
     return nullptr;
 }
 
-File* Glich::create_file( const string& code )
+bool Glich::add_file( File* file )
 {
-    File* file = new File( code );
+    if( file == nullptr ) {
+        return false;
+    }
+    string code = file->get_code();
+    if( m_files.count( code ) ) {
+        delete file;
+        return false;
+    }
     assert( m_marks.size() > 0 );
     m_marks[m_marks.size() - 1]->add_file( file );
     m_files[code] = file;
-    return file;
+    return true;
 }
 
 File* Glich::get_file( const string& code ) const
