@@ -52,8 +52,8 @@ namespace glich {
 
         bool reset();
 
-        void set_output_format( const std::string& fcode ) { m_output_fcode = fcode; }
-        void set_input_format( const std::string& fcode ) { m_input_fcode = fcode; }
+        void set_output_format( const std::string& fcode );
+        void set_input_format( const std::string& fcode );
 
         SValue complete_object( Field jdn ) const;
         SValue complete_object( const std::string& input, const std::string& fcode ) const;

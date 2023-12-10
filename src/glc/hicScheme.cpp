@@ -85,6 +85,30 @@ bool glich::Scheme::reset()
     return true;
 }
 
+void Scheme::set_output_format( const string& fcode )
+{
+    if( !fcode.empty() ) {
+        Format* fmt = m_base.get_format( fcode );
+        if( fmt != nullptr ) {
+            if( fmt->has_output() ) {
+                m_output_fcode = fcode;
+            }
+        }
+    }
+}
+
+void Scheme::set_input_format( const string& fcode )
+{
+    if( !fcode.empty() ) {
+        Format* fmt = m_base.get_format( fcode );
+        if( fmt != nullptr ) {
+            if( fmt->has_input() ) {
+                m_input_fcode = fcode;
+            }
+        }
+    }
+}
+
 SValue Scheme::complete_object( Field jdn ) const
 {
     const Base& base = get_base();
