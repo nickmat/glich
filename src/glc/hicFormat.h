@@ -55,6 +55,8 @@ namespace glich {
         int get_priority() const { return m_priority; }
         std::string get_input_str() const { return m_input_str; }
         std::string get_output_str() const { return m_output_str; }
+        bool has_input() const { return !m_input_str.empty(); }
+        bool has_output() const { return !m_output_str.empty(); }
         Grammar* get_owner() const { return &m_owner; }
         const Grammar& get_grammar() const { return m_owner; }
         const Glich& get_glich() const { return get_grammar().get_glich(); }
