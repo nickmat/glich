@@ -47,7 +47,7 @@
 </p>
 
 <table class='basic'>
- <tr><th>if Statement Format</th></tr>
+ <tr><th>do Statement Format</th></tr>
  <tr>
   <td class='code'><b>do</b>
     <i>statements ...</i>
@@ -60,13 +60,13 @@
 </table>
 
 <table class='basic'>
- <tr><th colspan='2'>if Statement</th></tr>
+ <tr><th colspan='2'>do Statement</th></tr>
  <tr><th>Example</th><th>Output</th></tr>
  <tr>
-  <td class='example'>let day = date.g:dmy "1apr2017";
+  <td class='example'>let day = @date.g:dmy("1apr2017");
 <b>do</b>
-    writeln text."g:wdmy+" day;
-    <b>until</b> day >= date.g:dmy "1may2017"
+    write @text."g:wdmy+"(day) nl;
+    <b>until</b> day >= @date.g:dmy("1may2017");
     day += 7;
 <b>loop</b></td>
   <td>

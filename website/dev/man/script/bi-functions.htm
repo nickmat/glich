@@ -45,10 +45,11 @@
 <table class='basic'>
 <tr><th>Function</th><th>Description</th></tr>
 <tr><td>@<b>if</b>( <i>comp, t, f</i> )</td><td>Acts as a comparison operator.</td></tr>
+<tr><td>@<b>quote</b>( <i>value</i> )</td><td>Stringize the value and enclose in <b>"</b> quotes.</td></tr>
 <tr><td>@<b>read</b>.<i>input</i>( <i>prompt</i> )</td><td>Obtain text from file or console.</td></tr>
 </table>
 
-<h4>Function @if( comp, t, f )</h4>
+<h4>Function: @if( comp, t, f )</h4>
 <p>
  The @if function behaves similar to the C language ? : tertiary operator.
  If the comp argument is true the result is the t argument,
@@ -61,7 +62,21 @@
 </td></tr>
 </table>
 
-<h4>Function @read.input( prompt = "" )</h4>
+<h4>Function @quote( value )</h4>
+<p>
+ The quote function is identical to the string function below,
+ except the resulting text is enclosed in <b>"</b> double quotes
+</p>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+ <tr><td class='example'>@quote( 1 = 2 )</td><td class='example'>"false"</td></tr>
+ <tr><td class='example'>@quote( 345f )</td><td class='example'>"345"</td></tr>
+ <tr><td class='example'>@quote( 50 | 5 .. 10 )</td><td class='example'>"5..10 | 50"</td></tr>
+ <tr><td class='example'>@quote( "Text" )</td><td class='example'>"Text"</td></tr>
+ <tr><td class='example'>@quote( "say ""hello""" )</td><td class='example'>"say ""hello"""</td></tr>
+</table>
+
+<h4 id="read">Function: @read.input( prompt = "" )</h4>
 <p>
  The current version is limited to writing and reading from the standard in/out streams.
 </p>
@@ -80,7 +95,6 @@
 <tr><th>Function</th><th>Description</th></tr>
 <tr><td>@<b>error</b>( <i>message</i> )</td><td>Create an error value.</td></tr>
 <tr><td>@<b>string</b>( <i>value</i> )</td><td>Stringize the value.</td></tr>
-<tr><td>@<b>quote</b>( <i>value</i> )</td><td>Same as @string but enclose in <b>"</b> quotes.</td></tr>
 <tr><td>@<b>field</b>( <i>value</i>, <i>default</i> = ? )</td><td>Convert value to a field type.</td></tr>
 <tr><td>@<b>range</b>( <i>value</i>, <i>default</i> = 0..0 )</td><td>Convert value to a range type.</td></tr>
 <tr><td>@<b>rlist</b>( <i>value</i>, <i>default</i> = empty )</td><td>Convert value to a rlist type.</td></tr>
@@ -120,19 +134,7 @@
  <tr><td class='example'>@string( {:,11} )</td><td class='example'>{: null, 11}</td></tr>
  <tr><td class='example'>@string( @error( "Test" ) )</td><td class='example'>Error (1): Test</td></tr>
  <tr><td class='example'>@string( "Text" )</td><td class='example'>Text</td></tr>
-</table>
-
-<h4>Function @quote( value )</h4>
-<p>
- The quote function is identical to the string function,
- except the resulting text is enclosed in <b>"</b> double quotes
-</p>
-<table class='basic'>
-<tr><th>Example</th><th>Result</th></tr>
- <tr><td class='example'>@quote( 1 = 2 )</td><td class='example'>"false"</td></tr>
- <tr><td class='example'>@quote( 345f )</td><td class='example'>"345"</td></tr>
- <tr><td class='example'>@quote( 50 | 5 .. 10 )</td><td class='example'>"5..10 | 50"</td></tr>
- <tr><td class='example'>@quote( "Text" )</td><td class='example'>"Text"</td></tr>
+ <tr><td class='example'>@string( "say ""hello""" )</td><td class='example'>say "hello"</td></tr>
 </table>
 
 <h4>Function @field( value, default )</h4>

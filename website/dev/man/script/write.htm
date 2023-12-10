@@ -85,13 +85,13 @@
 
 <p>
  In addition to expressions, the write statement can contain ',' (comma)
- character and the <b>nl</b> constant. The comma will output the ", "
- string. The nl value outputs a new line character.
+ character and the <b>nl</b> constant. The comma will output the string ", ".
+ The nl value outputs a new line character.
 </p>
 
 <h3>Output</h3>
 <p>
- If the write statement has a <code>filecode</code> property attached,
+ If the write statement has a <code>filecode</code> qualifier,
  the output will be sent to the appropriate file.
  Otherwise output is sent to the standard output device.
 </p>
@@ -101,6 +101,19 @@
  The Gliched editor displays the output in the output window.
 </p>
 
+<h2>Statement: writeln</h2>
+<p>
+ The <b>writeln</b> statement is the same as the <b>write</b> statement
+ except writeln adds a newline character to the end of the output.
+</p>
+<p>
+ The following two statements are identical:
+ <code>writeln "some text";</code> and <code>write "some text" nl;</code>
+ The second is preferred.
+</p>
+<p>
+ The writeln statement may be removed in a future version.
+</p>
 
 </div><!--id=content-->
 

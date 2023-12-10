@@ -47,7 +47,7 @@
 
 <p>
  The statement defines a <code>filecode</code> which can later be used
- as a qualifier to the write statement and @read function.
+ as a qualifier to the <a href="write.htm">write statement</a> and <a href="bi-functions.htm#read">@read function</a>.
 </p>
 <p>
  The filename is expected in the form of a string expression.
@@ -58,6 +58,10 @@
 <table class='basic'>
  <tr><th>Switch</th><th>Note</th></tr>
  <tr>
+  <td class='code'><b>read</b></td>
+  <td>Open an existing file for reading text.</td>
+ </tr>
+ <tr>
   <td class='code'><b>write</b></td>
   <td>Open for writing, truncating any existing text.</td>
  </tr>
@@ -67,9 +71,28 @@
  </tr>
 </table>
 <p>
- If no switch is given then 'write' is assumed.
+ If no switch is given then 'read' is assumed.
 </p>
 
+<!-- This example is based on test script test\glcscripts\suite\glich\statements\file\file001.glcs-->
+<table class='code'>
+<tr><th>Example Script</th></tr>
+<tr><td class='example'
+>let filename = "Notes-file.txt";
+file note filename write;
+write.note "This is a test string." nl;
+write.note "And this is a second." nl;
+
+file note2 filename read;
+write @read.note2 nl;
+write @read.note2;
+</td></tr>
+<tr><td class='note'>
+<b>Output:-</b><br />
+<code>This is a test string.
+And this is a second.</code>
+</td></tr>
+</table>
 
 </div><!--id=content-->
 
