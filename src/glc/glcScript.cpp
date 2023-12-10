@@ -700,7 +700,7 @@ bool Script::do_file()
         error( "Filename missing." );
         return false;
     }
-    File::FileType type = File::FT_write;
+    File::FileType type = File::FT_read;
     if( current_token().type() != SToken::Type::Semicolon ) {
         string type_str = get_name_or_primary( GetToken::current );
         if( type_str.empty() ) {
