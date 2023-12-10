@@ -123,7 +123,7 @@ namespace glich {
         bool is_level_zero() const;
         std::string read_input( const std::string& prompt ) const;
 
-        void set_context( Context ct );
+        bool set_property( const std::string& property, const std::string& value );
         void set_ischeme( Scheme* sch );
         void set_oscheme( Scheme* sch );
         Context get_context() const;

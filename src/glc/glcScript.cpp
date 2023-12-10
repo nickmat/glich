@@ -340,49 +340,11 @@ bool Script::do_set()
         error( "set statement is \"set propery value;\"." );
         return false;
     }
-    if( prop == "context" ) {
-        if( value == "glich" ) {
-            m_glc->set_context( Context::glich );
-        }
-        else if( value == "hics" ) {
-            m_glc->set_context( Context::hics );
-        }
-        else {
-            error( "Unknown context value \"" + value + "\"." );
-        }
-        return true;
+    if( !m_glc->set_property( prop, value ) ) {
+        error( "Set property \"" + prop + "\" not recognised." );
+        return false;
     }
-    string scode, fcode;
-    split_code( &scode, &fcode, value );
-    Scheme* sch = m_glc->get_scheme( scode );
-    if( sch != nullptr ) {
-        if( prop == "input" ) {
-            m_glc->set_ischeme( sch );
-            if( !fcode.empty() ) {
-                sch->set_input_format( fcode );
-            }
-            return true;
-        }
-        if( prop == "output" ) {
-            m_glc->set_oscheme( sch );
-            if( !fcode.empty() ) {
-                sch->set_output_format( fcode );
-            }
-            return true;
-        }
-        if( prop == "inout" ) {
-            m_glc->set_ischeme( sch );
-            m_glc->set_oscheme( sch );
-            if( !fcode.empty() ) {
-                sch->set_input_format( fcode );
-                sch->set_output_format( fcode );
-            }
-            return true;
-        }
-
-    }
-    error( "Set property \"" + prop + "\" not recognised." );
-    return false;
+    return true;
 }
 
 bool Script::do_let()

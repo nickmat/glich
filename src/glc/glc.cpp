@@ -761,12 +761,50 @@ string Glich::read_input( const string& prompt ) const
     return m_inout->get_input( prompt );
 }
 
-void Glich::set_context( Context ct )
+bool Glich::set_property( const string& property, const string& value )
 {
+
     int i = int( m_marks.size() ) - 1;
-    if( i >= 0 ) {
-        m_marks[i]->set_context( ct );
+    if( i < 0 ) {
+        return false;
     }
+    if( property == "context" ) {
+        Context ct;
+        if( value == "glich" ) {
+            ct = Context::glich;
+        }
+        else if( value == "hics" ) {
+            ct = Context::hics;
+        }
+        else {
+            return false;
+        }
+        m_marks[i]->set_context( ct );
+        return true;
+    }
+    string scode, fcode;
+    split_code( &scode, &fcode, value );
+    Scheme* sch = get_scheme( scode );
+    if( sch != nullptr ) {
+        if( property == "input" ) {
+            m_marks[i]->set_ischeme( sch );
+            sch->set_input_format( fcode );
+            return true;
+        }
+        if( property == "output" ) {
+            m_marks[i]->set_oscheme( sch );
+            sch->set_output_format( fcode );
+            return true;
+        }
+        if( property == "inout" ) {
+            m_marks[i]->set_ischeme( sch );
+            sch->set_input_format( fcode );
+            m_marks[i]->set_oscheme( sch );
+            sch->set_output_format( fcode );
+            return true;
+        }
+    }
+    return false;
 }
 
 void Glich::set_ischeme( Scheme* sch )
