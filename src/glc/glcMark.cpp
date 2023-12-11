@@ -43,9 +43,11 @@ using std::vector;
 
 
 Mark::Mark( const string& name, Mark* prev )
-    : m_name( name ), m_context( Context::glich ), m_ischeme( nullptr ), m_oscheme( nullptr )
+    : m_name( name ), m_integer( Integer::number ), m_context( Context::glich ),
+    m_ischeme( nullptr ), m_oscheme( nullptr )
 {
     if( prev != nullptr ) {
+        m_integer = prev->get_integer();
         m_context = prev->get_context();
         m_ischeme = prev->get_ischeme();
         m_oscheme = prev->get_oscheme();

@@ -71,10 +71,12 @@ namespace glich {
         std::string remove_next_grammar();
         std::string remove_next_format();
 
+        void set_integer( Integer intgr ) { m_integer = intgr; }
         void set_context( Context ct ) { m_context = ct; }
         void set_ischeme( Scheme* sch ) { m_ischeme = sch; }
         void set_oscheme( Scheme* sch ) { m_oscheme = sch; }
 
+        Integer get_integer() const { return m_integer; }
         Context get_context() const { return m_context; }
         Scheme* get_ischeme() const { return m_ischeme; }
         Scheme* get_oscheme() const { return m_oscheme; }
@@ -93,6 +95,7 @@ namespace glich {
         std::vector<Lexicon*>  m_lexicons;
         std::vector<Grammar*>  m_grammars;
         std::vector<Format*>   m_formats;
+        Integer m_integer;
         Context m_context;
         Scheme* m_ischeme;
         Scheme* m_oscheme;
