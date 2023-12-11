@@ -763,10 +763,23 @@ string Glich::read_input( const string& prompt ) const
 
 bool Glich::set_property( const string& property, const string& value )
 {
-
     int i = int( m_marks.size() ) - 1;
     if( i < 0 ) {
         return false;
+    }
+    if( property == "integer" ) {
+        Integer intgr;
+        if( value == "number" ) {
+            intgr = Integer::number;
+        }
+        else if( value == "field" ) {
+            intgr = Integer::field;
+        }
+        else {
+            return false;
+        }
+        m_marks[i]->set_integer( intgr );
+        return true;
     }
     if( property == "context" ) {
         Context ct;
@@ -821,6 +834,15 @@ void Glich::set_oscheme( Scheme* sch )
     if( i >= 0 ) {
         m_marks[i]->set_oscheme( sch );
     }
+}
+
+Integer Glich::get_integer() const
+{
+    int i = int( m_marks.size() ) - 1;
+    if( i >= 0 ) {
+        return m_marks[i]->get_integer();
+    }
+    return Integer::number;
 }
 
 Context Glich::get_context() const

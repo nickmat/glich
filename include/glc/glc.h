@@ -126,6 +126,7 @@ namespace glich {
         bool set_property( const std::string& property, const std::string& value );
         void set_ischeme( Scheme* sch );
         void set_oscheme( Scheme* sch );
+        Integer get_integer() const;
         Context get_context() const;
         Scheme* get_ischeme() const;
         Scheme* get_oscheme() const;
