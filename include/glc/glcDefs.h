@@ -106,6 +106,7 @@ namespace glich {
     class SValue;
     using SValueMap = std::map<std::string, SValue>;
 
+    enum class Integer { number, field };
     enum class Context { glich, hics };
 
     enum class GetToken { current, next }; // Was a bool, next=true : current=false
