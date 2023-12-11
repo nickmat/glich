@@ -37,7 +37,60 @@
  and defaults.
 </p>
 
-<h3>Setting "context" property</h3>
+<table class='basic'>
+ <tr><th>Format</th><th>Example</th></tr>
+ <tr>
+  <td class='code'><b>set</b> <i>property value</i><b>;</b></td>
+  <td class='example'><b>set</b> integer field;</td>
+ </tr>
+</table>
+
+<p>
+ The following properties can be changed with the set statement.
+</p>
+
+<table class='basic'>
+<tr><th colspan='2'>Language Properties</th></tr>
+<tr><th>Property</th><th>Use</th></tr>
+<tr><td class='code'><b>integer</b></td><td>Default type integer input values.</td></tr>
+<tr><td class='code'><b>context</b></td><td>Set the output text of certain values.</td></tr>
+</table>
+
+<h3>Setting Property: integer</h3>
+<p>
+ The integer setting determines what type of value an integer is input,
+ if postfix letter is not given.
+</p>
+
+<table class='basic'>
+ <tr><th>Format</th></tr>
+ <tr><td class='code'><b>set</b> integer number; // Default</td></tr>
+ <tr><td class='code'><b>set</b> integer field;</td></tr>
+</table>
+
+<table class='basic'>
+ <tr><th>Example</th></tr>
+ <tr>
+  <td class='example'>set integer number;
+let a = 10n;
+let b = 10f;
+let c = 10;
+write a[.type], b[.type], c[.type] nl;
+set integer field;
+let a = 10n;
+let b = 10f;
+let c = 10;
+write a[.type], b[.type], c[.type] nl;</td>
+ </tr>
+ <tr>
+  <td><b>Output:-</b><br />
+number, field, number<br />
+number, field, field</td>
+ </tr>
+</table>
+
+
+<h3>Setting Property: context</h3>
 <p>
  The <b>context</b> property changes some defaults values
  to suit different contexts.
@@ -47,8 +100,8 @@
 
 <table class='basic'>
  <tr><th>Format</th></tr>
- <tr><td class='code'><b>set</b> context glich;</td></tr>
- <tr><td class='code'><b>set</b> context hics;</td></tr>
+ <tr><td class='code'><b>set</b> context glich; // Default for no library.</td></tr>
+ <tr><td class='code'><b>set</b> context hics;  // Default for Hics library.</td></tr>
 </table>
 
 <p>
@@ -57,7 +110,6 @@
 
 <table class='basic'>
  <tr><th></th><th>glich</th><th>hics</th></tr>
- <tr><td>Integer input default:</td><td>number</td><td>field</td></tr>
  <tr><td>Field maximum output:</td><td>"+infinity"</td><td>"future"</td></tr>
  <tr><td>Field minimum output:</td><td>"-infinity"</td><td>"past"</td></tr>
 </table>
