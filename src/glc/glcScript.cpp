@@ -341,7 +341,7 @@ bool Script::do_set()
         return false;
     }
     if( !m_glc->set_property( prop, value ) ) {
-        error( "Set property \"" + prop + "\" not recognised." );
+        error( "Set property \"" + prop + "\" value \"" + value + "\" not recognised." );
         return false;
     }
     return true;
