@@ -1,0 +1,31 @@
+// set001.glcs Test integer setting
+
+let x = 100;
+let a1 = 100n;
+let a2 = 100f;
+
+set integer field;
+
+let y = 100;
+let b1 = 100n;
+let b2 = 100f;
+
+set integer number;
+
+let z = 100;
+let c1 = 100n;
+let c2 = 100f;
+
+write nl;
+write x[.type], y[.type], z[.type] nl;
+write a1[.type], b1[.type], c1[.type] nl;
+write a2[.type], b2[.type], c2[.type] nl;
+
+
+/*[OUTPUT]
+
+number, field, number
+number, number, number
+field, field, field
+
+[OUTPUT]*/

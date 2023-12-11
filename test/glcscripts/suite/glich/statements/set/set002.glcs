@@ -1,0 +1,23 @@
+// set002.glcs Test context setting
+
+let a = infinity;
+let b = future;
+let c = !empty;
+
+write nl;
+write a, b, c nl;
+
+set context hics;
+write a, b, c nl;
+
+set context glich;
+write a, b, c nl;
+
+
+/*[OUTPUT]
+
++infinity, +infinity, -infinity..+infinity
+future, future, past..future
++infinity, +infinity, -infinity..+infinity
+
+[OUTPUT]*/
