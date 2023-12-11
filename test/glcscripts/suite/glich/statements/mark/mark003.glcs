@@ -3,18 +3,19 @@
 let a = 1;
 let b = infinity;
 let c = !empty;
-writeln "";
-writeln b + ", " + c + ", " + a[.type];
+write nl;
+write b, c, a[.type] nl;
 
 mark "test";
 set context hics;
+set integer field;
 let d = 2;
-writeln b + ", " + c + ", " + a[.type] + ", " + d[.type];
+write b, c, a[.type], d[.type] nl;
 
 mark "test";
 let e = 3;
-writeln b + ", " + c + ", " + a[.type] + ", " + e[.type];
-writeln d;
+write b, c, a[.type], e[.type] nl;
+write d;
 
 
 /*[OUTPUT]
@@ -22,6 +23,5 @@ writeln d;
 +infinity, -infinity..+infinity, number
 future, past..future, number, field
 +infinity, -infinity..+infinity, number, number
-Error (17): Variable "d" not found.
-
+Error (18): Variable "d" not found.
 [OUTPUT]*/
