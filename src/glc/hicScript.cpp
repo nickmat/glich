@@ -829,18 +829,18 @@ SValue glich::at_date( Script& script )
     Glich* glc = script.get_glich();
     Scheme* sch = glc->get_scheme( scode );
     if( args.empty() ) {
-        return script.create_error( "One argument required." );
+        return SValue::create_error( "One argument required." );
     }
     SValue value( args[0] );
     if( value.type() == SValue::Type::Object ) {
         Object* obj = value.get_object_ptr();
         if( obj == nullptr ) {
-            return script.create_error( "Object type not recognised." );
+            return SValue::create_error( "Object type not recognised." );
         }
         // We ignore any suffix scheme setting
         sch = dynamic_cast<Scheme*>(obj);
         if( sch == nullptr ) {
-            return script.create_error( "Object is not a scheme." );
+            return SValue::create_error( "Object is not a scheme." );
         }
         return sch->object_to_demoted_rlist( value );
     }
@@ -848,7 +848,7 @@ SValue glich::at_date( Script& script )
         if( sch == nullptr ) {
             sch = glc->get_ischeme();
             if( sch == nullptr ) {
-                return script.create_error( "No default scheme set." );
+                return SValue::create_error( "No default scheme set." );
             }
             scode = sch->get_code();
         }
@@ -856,7 +856,7 @@ SValue glich::at_date( Script& script )
         value.set_rlist_demote( rlist );
         return value;
     }
-    return script.create_error( "Expected an object or string type." );
+    return SValue::create_error( "Expected an object or string type." );
 }
 
 SValue glich::at_record( Script& script )
@@ -865,7 +865,7 @@ SValue glich::at_record( Script& script )
     StdStrVec quals = script.get_qualifiers( GetToken::next );
     SValueVec args = script.get_args( GetToken::current );
     if( args.empty() ) {
-        return script.create_error( "One argument required." );
+        return SValue::create_error( "One argument required." );
     }
     SValue value( args[0] );
     string sig, scode, fcode;
@@ -881,7 +881,7 @@ SValue glich::at_record( Script& script )
         if( sch == nullptr ) {
             sch = glc->get_oscheme();
             if( sch == nullptr ) {
-                return script.create_error( no_default_mess );
+                return SValue::create_error( no_default_mess );
             }
         }
         return sch->complete_object( jdn );
@@ -890,12 +890,12 @@ SValue glich::at_record( Script& script )
         if( sch == nullptr ) {
             sch = glc->get_ischeme();
             if( sch == nullptr ) {
-                return script.create_error( no_default_mess );
+                return SValue::create_error( no_default_mess );
             }
         }
         return sch->complete_object( value.get_str(), fcode );
     }
-    return script.create_error( "Expected a field or string type." );
+    return SValue::create_error( "Expected a field or string type." );
 }
 
 SValue glich::at_element( Script& script )
@@ -933,7 +933,7 @@ SValue glich::at_phrase( Script& script )
     StdStrVec quals = script.get_qualifiers( GetToken::next );
     SValueVec args = script.get_args( GetToken::current );
     if( args.size() != 1 || args[0].type() != SValue::Type::String ) {
-        return script.create_error( "@phrase requires 1 string argument." );
+        return SValue::create_error( "@phrase requires 1 string argument." );
     }
     string sig;
     if( !quals.empty() ) {
@@ -951,16 +951,16 @@ SValue glich::at_leapyear( Script& script )
     StdStrVec quals = script.get_qualifiers( GetToken::next );
     SValueVec args = script.get_args( GetToken::current );
     if( quals.empty() ) {
-        return script.create_error( "@leapyear requires a qualifier." );
+        return SValue::create_error( "@leapyear requires a qualifier." );
     }
     string mess = "@leapyear requires integer argument.";
     if( args.empty() ) {
-        return script.create_error( mess );
+        return SValue::create_error( mess );
     }
     bool success = false;
     Field year = args[0].get_field( success );
     if( !success ) {
-        return script.create_error( mess );
+        return SValue::create_error( mess );
     }
 
     string calendar = quals[0];
@@ -987,11 +987,11 @@ SValue glich::at_last( Script& script )
     StdStrVec quals = script.get_qualifiers( GetToken::next );
     SValueVec args = script.get_args( GetToken::current );
     if( quals.empty() ) {
-        return script.create_error( "@last requires a qualifier." );
+        return SValue::create_error( "@last requires a qualifier." );
     }
     string mess = "@last requires integer arguments.";
     if( args.empty() ) {
-        return script.create_error( mess );
+        return SValue::create_error( mess );
     }
     bool success = false;
     FieldVec fields;
@@ -999,7 +999,7 @@ SValue glich::at_last( Script& script )
         Field field = value.get_field( success );
         if( !success ) {
             if( value.type() != SValue::Type::Null ) {
-                return script.create_error( mess );
+                return SValue::create_error( mess );
             }
             field = f_invalid;
         }
@@ -1026,11 +1026,11 @@ SValue glich::at_first( Script& script )
     StdStrVec quals = script.get_qualifiers( GetToken::next );
     SValueVec args = script.get_args( GetToken::current );
     if( quals.empty() ) {
-        return script.create_error( "@first requires a qualifier." );
+        return SValue::create_error( "@first requires a qualifier." );
     }
     string mess = "@first requires integer arguments.";
     if( args.empty() ) {
-        return script.create_error( mess );
+        return SValue::create_error( mess );
     }
     bool success = false;
     FieldVec fields;
@@ -1038,7 +1038,7 @@ SValue glich::at_first( Script& script )
         Field field = value.get_field( success );
         if( !success ) {
             if( value.type() != SValue::Type::Null ) {
-                return script.create_error( mess );
+                return SValue::create_error( mess );
             }
             field = f_invalid;
         }

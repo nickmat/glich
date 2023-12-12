@@ -98,13 +98,6 @@ bool Script::error_value( const SValue& value )
     return m_ts.error_value( mess );
 }
 
-SValue Script::create_error( const string& mess )
-{
-    SValue value;
-    value.set_error( mess );
-    return value;
-}
-
 bool Script::statement()
 {
     SToken token = current_token();
@@ -1126,15 +1119,15 @@ SValue Script::do_dot( const SValue& left, const SValue& right )
 {
     string ocode = left.get_object_code();
     if( ocode.empty() ) {
-        return create_error( "Object expected." );
+        return SValue::create_error( "Object expected." );
     }
     Object* obj = m_glc->get_object( ocode );
     if( obj == nullptr ) {
-        return create_error( "Object not found." );
+        return SValue::create_error( "Object not found." );
     }
     string fcode = right.as_string();
     if( fcode.empty() ) {
-        return create_error( "Object function expected." );
+        return SValue::create_error( "Object function expected." );
     }
     Function* fun = obj->get_function( fcode );
     if( fun == nullptr ) {
@@ -1146,7 +1139,7 @@ SValue Script::do_dot( const SValue& left, const SValue& right )
         if( success ) {
             return value;
         }
-        return create_error( "Function not found." );
+        return SValue::create_error( "Function not found." );
     }
     return run_function( fun, obj, &left );
 }
@@ -1203,7 +1196,7 @@ SValue Script::function_call()
 
     SToken token = next_token();
     if( token.type() != SToken::Type::Name ) {
-        return create_error( "Function name expected." );
+        return SValue::create_error( "Function name expected." );
     }
     string name = token.get_str();
 
@@ -1231,12 +1224,12 @@ SValue Script::function_call()
         case f_first: return at_last( *this );
         case f_last: return at_first( *this );
         }
-        return create_error( "Built-in funtion whoopsy." );
+        return SValue::create_error( "Built-in funtion whoopsy." );
     }
 
     Function* fun = m_glc->get_function( name );
     if( fun == nullptr ) {
-        return create_error( "Function \"" + name + "\" not found." );
+        return SValue::create_error( "Function \"" + name + "\" not found." );
     }
     return run_function( fun );
 }
@@ -1312,10 +1305,10 @@ SValue Script::dot_mask( const Object* obj, const SValue* left )
     SValueVec args = get_args( GetToken::current );
     string name = left->get_object_code();
     if( name.empty() ) {
-        return create_error( "Object type reqired for mask function." );
+        return SValue::create_error( "Object type reqired for mask function." );
     }
     if( args.size() != 1 || args[0].type() != SValue::Type::Object ) {
-        return create_error( "Function argument must be object type." );
+        return SValue::create_error( "Function argument must be object type." );
     }
     SValueVec& vleft = left->get_object();
     SValueVec& vright = args[0].get_object();
@@ -1391,10 +1384,10 @@ SValue Script::at_if()
 {
     SValueVec args = get_args( GetToken::next );
     if( args.size() != 3 ) {
-        return create_error( "@if requires 3 arguments." );
+        return SValue::create_error( "@if requires 3 arguments." );
     }
     if( args[0].type() != SValue::Type::Bool ) {
-        return create_error( "1st argument of @if must be a boolean." );
+        return SValue::create_error( "1st argument of @if must be a boolean." );
     }
     if( args[0].get_bool() ) {
         return args[1];
@@ -1421,7 +1414,7 @@ SValue Script::at_read()
     string filecode = quals[0];
     File* file = m_glc->get_file( filecode );
     if( file == nullptr ) {
-        return create_error( "File \"" + filecode + "\" not found." );
+        return SValue::create_error( "File \"" + filecode + "\" not found." );
     }
     std::istream* input = file->get_input();
     assert( input != nullptr );
@@ -1451,14 +1444,14 @@ SValue Script::at_error()
     if( args.size() > 0 && args[0].type() == SValue::Type::String ) {
         mess = args[0].get_str();
     }
-    return create_error( mess );
+    return SValue::create_error( mess );
 }
 
 SValue Script::at_string()
 {
     SValueVec args = get_args( GetToken::next );
     if( args.empty() ) {
-        return create_error( "Function @string requires one argument." );
+        return SValue::create_error( "Function @string requires one argument." );
     }
     return SValue( args[0].as_string());
 }
@@ -1473,7 +1466,7 @@ SValue Script::at_field()
 {
     SValueVec args = get_args( GetToken::next );
     if( args.empty() ) {
-        return create_error( "Function @field requires one argument." );
+        return SValue::create_error( "Function @field requires one argument." );
     }
 
     Field field = f_invalid;
@@ -1510,7 +1503,7 @@ SValue Script::at_range()
 {
     SValueVec args = get_args( GetToken::next );
     if( args.empty() ) {
-        return create_error( "Function @range requires one argument." );
+        return SValue::create_error( "Function @range requires one argument." );
     }
 
     SValue value;
@@ -1555,7 +1548,7 @@ SValue Script::at_rlist()
 {
     SValueVec args = get_args( GetToken::next );
     if( args.empty() ) {
-        return create_error( "Function @rlist requires one argument." );
+        return SValue::create_error( "Function @rlist requires one argument." );
     }
 
     SValue value;
@@ -1602,7 +1595,7 @@ SValue Script::at_number()
 {
     SValueVec args = get_args( GetToken::next );
     if( args.empty() ) {
-        return create_error( "Function @number requires one argument." );
+        return SValue::create_error( "Function @number requires one argument." );
     }
 
     Num number = 0;
@@ -1644,7 +1637,7 @@ SValue Script::at_float()
 {
     SValueVec args = get_args( GetToken::next );
     if( args.empty() ) {
-        return create_error( "Function @field requires one argument." );
+        return SValue::create_error( "Function @field requires one argument." );
     }
 
     double dbl = std::numeric_limits<double>::quiet_NaN();
@@ -1694,14 +1687,14 @@ SValue Script::get_value_var( const std::string& name )
     if( m_glc->is_named( name ) ) {
         return m_glc->get_named( name );
     }
-    return create_error( "Variable \"" + name + "\" not found." );
+    return SValue::create_error( "Variable \"" + name + "\" not found." );
 }
 
 SValue Script::get_cur_object()
 {
     SValue value;
     if( m_cur_obj == nullptr ) {
-        return create_error( "Object not currently running." );
+        return SValue::create_error( "Object not currently running." );
     }
     const NameIndexMap& vnames_map = m_cur_obj->get_vnames_map();
     SValueVec values( vnames_map.size() + 1 );
