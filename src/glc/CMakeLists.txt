@@ -11,6 +11,7 @@
 set( GLC_SOURCES
     glc.cpp
     glcFile.cpp
+    glcFilesys.cpp
     glcHelper.cpp
     glcLibScripts.cpp
     glcMark.cpp
@@ -56,6 +57,7 @@ set( GLC_HEADERS
     ../../include/glc/glcDefs.h
     ../../include/glc/hicDefs.h
     glcFile.h
+    glcFilesys.h
     glcFunction.h
     glcHelper.h
     glcLibScripts.h
