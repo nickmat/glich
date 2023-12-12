@@ -63,6 +63,7 @@ namespace glich {
 
         static void init( Glich* glc ) { s_glc = glc; }
         static Glich* get_glc() { return s_glc; }
+        static SValue create_error( const std::string& mess );
 
         void set_str( const std::string& str ) { m_type = Type::String; m_data = str; }
         void set_bool( bool b ) { m_type = Type::Bool; m_data = b; }
@@ -155,6 +156,8 @@ namespace glich {
     };
 
     using SValueVec = std::vector<SValue>;
+
+
 }
 
 #endif // SRC_GLC_GLCVALUE_H_GUARD

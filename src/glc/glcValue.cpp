@@ -109,6 +109,14 @@ std::string glich::SValue::object_to_string( const SValueVec& values ) const
     return result + "}";
 }
 
+/* static */
+SValue SValue::create_error( const std::string& mess )
+{
+    SValue value;
+    value.set_error( mess );
+    return value;
+}
+
 void glich::SValue::set_range_demote( Range rng )
 {
     if( rng.m_beg == f_invalid || rng.m_end == f_invalid ) {
