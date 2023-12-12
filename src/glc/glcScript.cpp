@@ -28,6 +28,7 @@
 #include "glcScript.h"
 
 #include "glcFile.h"
+#include "glcFilesys.h"
 #include "glcFunction.h"
 #include "glcHelper.h"
 #include "glcObject.h"
@@ -1188,13 +1189,13 @@ SValueVec Script::get_args( GetToken get )
 SValue Script::function_call()
 {
     enum f {
-        f_if, f_error, f_string, f_quote, f_field, f_range, f_rlist, f_number, f_float, f_read,
+        f_if, f_error, f_string, f_quote, f_field, f_range, f_rlist, f_number, f_float, f_read, f_filesys,
         f_date, f_text, f_record, f_element, f_phrase, f_leapyear, f_first, f_last
     };
     const static std::map<string, f> fmap = {
         { "if", f_if }, { "error", f_error }, { "string", f_string }, { "quote", f_quote }, { "field", f_field },
         { "range", f_range }, { "rlist", f_rlist }, { "number", f_number }, { "float", f_float },
-        { "read", f_read },
+        { "read", f_read }, { "filesys", f_filesys },
         // Hics extension
         { "date", f_date }, { "text", f_text }, { "record", f_record }, { "element", f_element },
         { "phrase", f_phrase }, { "leapyear", f_leapyear }, { "first", f_first }, { "last", f_last }
@@ -1220,6 +1221,7 @@ SValue Script::function_call()
         case f_number: return at_number();
         case f_float: return at_float();
         case f_read: return at_read();
+        case f_filesys: return at_filesys();
         case f_date: return at_date( *this );
         case f_text: return at_text( *this );
         case f_record: return at_record( *this );
@@ -1426,6 +1428,18 @@ SValue Script::at_read()
     string line;
     std::getline( *input, line );
     return SValue( line );
+}
+
+SValue glich::Script::at_filesys()
+{
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current ); // No arguments expected.
+
+    string qual;
+    if( !quals.empty() ) {
+        qual = quals[0];
+    }
+    return action_at_filesys( qual );
 }
 
 // Return an error value
