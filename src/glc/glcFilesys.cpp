@@ -34,6 +34,22 @@ using std::string;
 namespace fs = std::filesystem;
 
 
+static SValue create_file_list()
+{
+    fs::path dir = fs::current_path();
+    SValueVec values = { ":", dir.u8string() };
+
+    SValue value;
+    for( const auto& entry : fs::directory_iterator( dir ) ) {
+        string prefix = entry.is_directory() ? "D: " : "F: ";
+        string filename = prefix + entry.path().filename().u8string();
+        value.set_str( filename );
+        values.push_back( value );
+    }
+
+    return SValue( values );
+}
+
 SValue glich::action_at_filesys( const StdStrVec& quals, const SValueVec& args )
 {
     string cmnd, arg0;
@@ -56,6 +72,9 @@ SValue glich::action_at_filesys( const StdStrVec& quals, const SValueVec& args )
             }
             return SValue::create_error( ec.message() );
         }
+    }
+    else if( cmnd == "dir" ) {
+        return create_file_list();
     }
     else if( !cmnd.empty() ) {
         return SValue::create_error( "@filesys command \"" + cmnd + "\" not recognised." );
