@@ -1426,13 +1426,8 @@ SValue Script::at_read()
 SValue glich::Script::at_filesys()
 {
     StdStrVec quals = get_qualifiers( GetToken::next );
-    SValueVec args = get_args( GetToken::current ); // No arguments expected.
-
-    string qual;
-    if( !quals.empty() ) {
-        qual = quals[0];
-    }
-    return action_at_filesys( qual );
+    SValueVec args = get_args( GetToken::current );
+    return action_at_filesys( quals, args );
 }
 
 // Return an error value

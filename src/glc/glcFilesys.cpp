@@ -27,21 +27,40 @@
 
 #include "glcFilesys.h"
 
-#include "glcValue.h"
-
 #include <filesystem>
 
 using namespace glich;
 using std::string;
 namespace fs = std::filesystem;
 
-SValue glich::action_at_filesys( const std::string& cmnd )
+
+SValue glich::action_at_filesys( const StdStrVec& quals, const SValueVec& args )
 {
-    fs::path cpath = fs::current_path();
-    if( cmnd.empty() ) {
-        return SValue( cpath.u8string() );
+    string cmnd, arg0;
+    if( !quals.empty() ) {
+        cmnd = quals[0];
     }
-    return SValue::create_error( "@filesys command \"" + cmnd + "\" not recognised." );
+    if( !args.empty() ) {
+        arg0 = args[0].as_string();
+    }
+
+    if( cmnd == "cd" ) {
+        if( args.empty() ) {
+            return SValue::create_error( "@filesys command \"cd\" requires argument." );
+        }
+        std::error_code ec;
+        fs::current_path( fs::path( arg0 ), ec );
+        if( ec ) {
+            if( ec == std::errc::no_such_file_or_directory ) {
+                return SValue::create_error( "Directory \"" + arg0 + "\" does not exist." );
+            }
+            return SValue::create_error( ec.message() );
+        }
+    }
+    else if( !cmnd.empty() ) {
+        return SValue::create_error( "@filesys command \"" + cmnd + "\" not recognised." );
+    }
+    return SValue( fs::current_path().u8string() );
 }
 
 // End of src/glcs/glsFile.cpp file

@@ -28,13 +28,13 @@
 #ifndef SRC_GLC_GLCFILESYS_H_GUARD
 #define SRC_GLC_GLCFILESYS_H_GUARD
 
-#include <glc/glcDefs.h>
+#include "glcValue.h"
 
 namespace glich {
 
     class SValue;
 
-    SValue action_at_filesys( const std::string& cmnd );
+    SValue action_at_filesys( const StdStrVec& quals, const SValueVec& args );
 
 }
 
