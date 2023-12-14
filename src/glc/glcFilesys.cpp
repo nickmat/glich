@@ -50,11 +50,40 @@ static SValue create_file_list()
     return SValue( values );
 }
 
+static bool file_dir_exists( const string& qual, const fs::path& name )
+{
+    if( qual.empty() ) {
+        return  fs::exists( fs::path( name ) );
+    }
+    fs::path path;
+    if( name.is_relative() ) {
+        std::error_code ec;
+        path = fs::absolute( name, ec );
+        if( ec ) {
+            return false;
+        }
+    }
+    else {
+        path = name;
+    }
+    fs::file_status status = fs::status( path );
+    if( qual == "dir" && status.type() == fs::file_type::directory ) {
+        return true;
+    }
+    if( qual == "file" && status.type() == fs::file_type::regular ) {
+        return true;
+    }
+    return false;
+}
+
 SValue glich::action_at_filesys( const StdStrVec& quals, const SValueVec& args )
 {
-    string cmnd, arg0;
+    string cmnd, qual1, arg0;
     if( !quals.empty() ) {
         cmnd = quals[0];
+    }
+    if( quals.size() > 1 ) {
+        qual1 = quals[1];
     }
     if( !args.empty() ) {
         arg0 = args[0].as_string();
@@ -75,6 +104,15 @@ SValue glich::action_at_filesys( const StdStrVec& quals, const SValueVec& args )
     }
     else if( cmnd == "dir" ) {
         return create_file_list();
+    }
+    else if( cmnd == "exists" ) {
+        if( arg0.empty() ) {
+            return SValue::create_error( "No file name supplied." );
+        }
+        if( qual1.empty() ) {
+            return SValue( fs::exists( fs::path( arg0 ) ) );
+        }
+        return SValue( file_dir_exists( qual1, arg0 ) );
     }
     else if( !cmnd.empty() ) {
         return SValue::create_error( "@filesys command \"" + cmnd + "\" not recognised." );
