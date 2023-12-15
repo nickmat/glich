@@ -47,6 +47,7 @@
 <tr><td>@<b>if</b>( <i>comp, t, f</i> )</td><td>Acts as a comparison operator.</td></tr>
 <tr><td>@<b>quote</b>( <i>value</i> )</td><td>Stringize the value and enclose in <b>"</b> quotes.</td></tr>
 <tr><td>@<b>read</b>.<i>input</i>( <i>prompt</i> )</td><td>Obtain text from file or console.</td></tr>
+<tr><td>@<b>filesys</b></td><td>Examine and control the file system.</td></tr>
 </table>
 
 <h4>Function: @if( comp, t, f )</h4>
@@ -88,6 +89,57 @@
  The result of the function is always a string value.
  Use the convert cast to read a field value.
 </p>
+
+<h4 id="filesys">Function: @filesys</h4>
+<p>
+ The filesys function and its qualifiers give limited control
+ over the underlying file system.
+</p>
+
+<table class='basic'>
+<tr><th>Function</th><th>Description</th></tr>
+<tr><td>@<b>filesys</b></td><td>Return the current working directory.</td></tr>
+<tr><td>@<b>filesys.cd</b>( <i>path</i> )</td><td>Change the current working directory.</td></tr>
+<tr><td>@<b>filesys.dir</b></td><td>Return object listing all files in the current directory.</td></tr>
+<tr><td>@<b>filesys.exists</b>( <i>path</i> )</td><td>Return true if the path exists.</td></tr>
+<tr><td>@<b>filesys.exists.file</b>( <i>path</i> )</td><td>Return true if the file exists.</td></tr>
+<tr><td>@<b>filesys.exists.dir</b>( <i>path</i> )</td><td>Return true if the directory exists.</td></tr>
+</table>
+
+<p>
+ The @filesys function without any qualifiers or arguments
+ will return a string value holding the current working directory.
+ If the script creates or opens any files,
+ this is where they will be located.
+</p>
+
+<h4 id="filesys">Function: @filesys.cd( path )</h4>
+<p>
+ The @filesys.cd( path ) qualified function will change the current working directory
+ to the given (absolute or relative) path.
+ It will return the new current working directory if successful.
+ If the change fails, an error value is returned.
+</p>
+
+<h4 id="filesys">Function: @filesys.dir</h4>
+<p>
+ The @filesys.dir qualified function will return a general object
+ containing the current directory as its first value
+ followed by a list of all directories and files it contains.
+ Directories will have the prefix "D: " and the files "F: ".
+</p>
+
+<h4 id="filesys">Function: @filesys.exists( path )</h4>
+<p>
+ The @filesys.dir qualified function will return the boolean value
+ true if the (absolute or relative) path is a valid directory or file,
+ and false otherwise.
+</p>
+<p>
+ The "file" or "dir" additional qualifiers are used to specify
+ which type of path we are testing for.
+</p>
+
 
 <h3>Type Conversion</h3>
 
