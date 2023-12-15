@@ -585,7 +585,7 @@ bool Script::do_call()
 {
     SValue value = command_call();
     if( value.is_error() ) {
-        error( value.get_str() );
+        error_value( value );
         return false;
     }
     if( current_token().type() != SToken::Type::Semicolon ) {
