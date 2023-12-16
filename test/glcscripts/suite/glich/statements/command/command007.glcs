@@ -1,0 +1,24 @@
+// command007.hcs - Test qualified command statement.
+
+command say.greet {
+    if greet = "hi"
+        write "Hello" nl;
+    elseif greet = "bye"
+        write "Goodbye" nl;
+    else
+        write "What's up?" nl;
+    endif
+}
+
+write nl;
+call say.hi;
+call say;
+call say.bye;
+
+/*[OUTPUT]
+
+Hello
+What's up?
+Goodbye
+
+[OUTPUT]*/

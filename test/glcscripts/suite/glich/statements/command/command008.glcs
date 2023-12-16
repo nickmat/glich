@@ -1,0 +1,26 @@
+// command0077.hcs - Test qualified and arguments command statement.
+
+command maths.op( a = 1, b = 10 ) {
+    if op = "add"
+        write a + b nl;
+    elseif op = "sub"
+        write a - b nl;
+    else
+        result = @error( "Qualifier must be ""add"" or ""sub""" );
+    endif
+}
+
+write nl;
+call maths.add( 10, 2 );
+call maths.add;
+call maths.sub( 2 );
+call maths(2,4);
+
+/*[OUTPUT]
+
+12
+11
+-8
+Error (9): Qualifier must be "add" or "sub"
+
+[OUTPUT]*/
