@@ -1331,47 +1331,21 @@ SValue glich::Script::command_call()
 {
     SValue value;
     SToken token = next_token();
+    if( token.type() == SToken::Type::At ) {
+        return function_call();
+    }
     if( token.type() != SToken::Type::Name ) {
         value.set_error( "Command name expected." );
         return value;
     }
     string name = token.get_str();
-
-    SValueVec args = get_args( GetToken::next );
-    Function* com = m_glc->get_command( name );
+    Function* com = nullptr;
+    com = m_glc->get_command( name );
     if( com == nullptr ) {
         value.set_error( "Command \"" + name + "\" not found." );
         return value;
     }
-
-    STokenStream prev_ts = m_ts;
-    m_ts.set_line( com->get_line() );
-    std::istringstream iss( com->get_script() );
-    m_ts.reset_in( &iss );
-    m_glc->push_store();
-
-    for( size_t i = 0; i < com->get_arg_size(); i++ ) {
-        string arg_name = com->get_arg_name( i );
-        m_glc->create_local( arg_name );
-        if( i < args.size() ) {
-            m_glc->update_local( arg_name, args[i] );
-        }
-        else {
-            m_glc->update_local( arg_name, com->get_default_value( i ) );
-        }
-    }
-
-    next_token();
-    while( statement() ) {
-        if( next_token().type() == SToken::Type::End ) {
-            break;
-        }
-    }
-
-    m_glc->pop_store();
-    m_ts = prev_ts;
-
-    return SValue();
+    return run_function( com );
 }
 
 // Evaluate the built-in @if function:
