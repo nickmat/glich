@@ -1,0 +1,15 @@
+// filesys001.glcs  Test filesys function
+
+let path = @filesys;
+
+let newpath = @filesys.cd("..");
+
+call @filesys.cd( path );
+
+let curpath = @filesys;
+
+write path[.size] > newpath[.size], path = curpath;
+
+/*[OUTPUT]
+true, true
+[OUTPUT]*/
