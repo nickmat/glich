@@ -29,7 +29,7 @@ lexicon jg {
     name "Hybrid Julian and Gregorian scheme names";
     fieldname scheme;
     lang en;
-    pseudo    Scheme, sch;
+    pseudo    Scheme sch;
     tokens {
         0, "Julian",     "j";
         1, "Gregorian",  "g";
@@ -54,7 +54,7 @@ grammar jg {
 scheme ay {
     name "Astronomical Year";
     base hybrid {
-        fields scheme year, month, day;
+        fields scheme year month day;
         scheme 0 { base julian; }
         change 2299161;  // g# 15 Oct 1582
         scheme 1 { base gregorian; }

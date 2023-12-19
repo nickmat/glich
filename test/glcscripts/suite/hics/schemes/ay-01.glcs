@@ -33,7 +33,6 @@ lexicon JG {
 }
 
 grammar JG {
-    inherit j;
     fields scheme year month day;
     rank year month day;
     lexicons M JG;
@@ -49,7 +48,7 @@ grammar JG {
 scheme AY {
     name "Astronomical Year";
     base hybrid {
-        fields scheme year, month, day;
+        fields scheme year month day;
         scheme 0 { base julian; }
         change 2299161;  // g# 15 Oct 1582
         scheme 1 { base gregorian; }

@@ -1,5 +1,5 @@
 // ay-01.glc // Test ay hybrid scheme
-/*[SKIP]*/
+
 write nl;
 write @record.ay( 2299160 ), @record.ay( 2299161 ) nl;
 write @record.ay:dmys( "4 Oct 1582 j" ), @record.ay:dmys( "15 Oct 1582 g" ) nl;
