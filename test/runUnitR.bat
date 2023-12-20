@@ -1,5 +1,5 @@
 @echo off
 echo Glich Unit Tests Release
-..\..\tfp\build\vc-working\Release\glcunit.exe
+..\build\msvc\Release\glcunit.exe
 echo.
 pause
