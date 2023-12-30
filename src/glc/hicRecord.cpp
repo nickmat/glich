@@ -277,6 +277,9 @@ BoolVec Record::mark_balanced_fields( Record& rec, const XIndexVec& rank_to_def,
         {
             mask[def_index] = false;
         }
+        else {
+            break;
+        }
         --rank_index;
     }
     return mask;

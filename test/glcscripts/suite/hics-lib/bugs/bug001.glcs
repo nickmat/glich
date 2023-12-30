@@ -1,0 +1,8 @@
+// hics-lib/bugs/bug001.glcs - Text ranges get confused on first or last months
+
+write @text( 2459960..2460299 );
+// bug: outputs "15 2023..20 2023" not "15 Jan 2023..20 Dec 2023"
+
+/*[OUTPUT]
+15 Jan 2023..20 Dec 2023
+[OUTPUT]*/
