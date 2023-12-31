@@ -1,0 +1,61 @@
+// hics/schemes/fr-02.glcs - Test French Republic Calendar schemes.
+
+lexicon FRM {
+    name "Month names";
+    fieldname month;
+    lang en;
+    pseudo    Month,  Mon;
+    tokens {
+        1, "Vendémiaire",      "Vend";
+        2, "Brumaire",         "Brum";
+        3, "Frimaire",         "Frim";
+        4, "Nivôse",           "Nivo";
+        5, "Pluviôse",         "Pluv";
+        6, "Ventôse",          "Vent";
+        7, "Germinal",         "Germ";
+        8, "Floréal",          "Flor";
+        9, "Prairial",         "Prai";
+        10, "Messidor",        "Mess";
+        11, "Thermidor",       "Ther";
+        12, "Fructidor",       "Fruc";
+        13, "Complémentaires", "Comp";
+    }
+}
+
+grammar FR {
+    fields year month day;
+    lexicons FRM;
+    alias pseudo { d day; mm month; yyyy year; }
+    alias unit { d day; m month; y year; }
+
+    format dmy      "{day} |{month:FRM:a} |{year}";
+    format "dmy+"   "{day} |{month:FRM} |{year}";
+    format ymd      "{year} |{month:FRM:a} |{day}";
+    preferred dmy;
+}
+
+scheme FR {
+    name "French Republic";
+    base french;
+    grammar FR;
+}
+
+
+write nl;
+write @record.FR( 2460300 ) nl;
+write @record.FR:dmy( "30 Frim 232" ) nl;
+write @text.FR:ymd( 2460300 ) nl;
+write @text.FR:ymd( {s:FR 232, 3, 30} ) nl;
+write @date.FR:ymd( "232 Frim 30" ) nl;
+write @date( {s:FR 232, 3, 30} ) nl;
+
+/*[OUTPUT]
+
+{s:FR 232, 3, 30}
+{s:FR 232, 3, 30}
+232 Frim 30
+232 Frim 30
+2460300
+2460300
+
+[OUTPUT]*/
