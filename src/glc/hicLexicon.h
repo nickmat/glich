@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     19th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -57,7 +57,8 @@ namespace glich {
 
         Lexicon( const std::string& code );
 
-        void set_name(const std::string& name ) { m_name = name; }
+        void set_name( const std::string& name ) { m_name = name; }
+        void set_inherit( const std::string& inherit );// { m_inherit = inherit; }
         void set_fieldname(const std::string& fname ) { m_fieldname = fname; }
         void set_lang(const std::string& lang ) { m_lang = lang; }
         void set_pseudo_names( const StdStrVec& pseudos );
@@ -65,9 +66,11 @@ namespace glich {
 
         std::string get_code() const { return m_code; }
         std::string get_name() const { return m_name; }
-        std::string get_fieldname() const { return m_fieldname; }
-        std::string get_lang() const { return m_lang; }
+        std::string get_fieldname() const;
+        std::string get_lang() const;
         std::string get_pseudo_name( Pseudo style ) const;
+        StdStrVec get_token_words() const;
+        StdStrVec get_token_abbrev() const;
         void get_info( Lexicon_info* info ) const;
         Field find( const std::string& word ) const;
         std::string lookup( Field field, Pseudo style ) const;
@@ -75,7 +78,8 @@ namespace glich {
     private:
         std::string  m_code;
         std::string  m_name;
-		std::string  m_fieldname;
+        Lexicon*  m_inherit;
+        std::string  m_fieldname;
         std::string  m_lang;
         std::string  m_pseudo_name;
         std::string  m_pseudo_a_name;

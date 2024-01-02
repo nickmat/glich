@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     19th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -34,8 +34,13 @@ using namespace glich;
 using std::string;
 
 
-Lexicon::Lexicon( const std::string& code ) : m_code(code)
+Lexicon::Lexicon( const std::string& code ) : m_code( code ), m_inherit( nullptr )
 {
+}
+
+void Lexicon::set_inherit( const std::string& inherit )
+{
+    m_inherit = get_glc()->get_lexicon( inherit );
 }
 
 void Lexicon::set_pseudo_names( const StdStrVec & pseudos )
@@ -63,29 +68,74 @@ void Lexicon::add_token( Field value, const string& name, const string& abbrev )
     m_fields[value] = token;
 }
 
+string Lexicon::get_fieldname() const
+{
+    if( m_fieldname.empty() && m_inherit ) {
+        m_inherit->get_fieldname();
+    }
+    return m_fieldname;
+}
+
+string Lexicon::get_lang() const
+{
+    if( m_lang.empty() && m_inherit ) {
+        m_inherit->get_lang();
+    }
+    return m_lang;
+}
+
 string Lexicon::get_pseudo_name( Pseudo style ) const
 {
-    return style == Lexicon::Pseudo::full ? m_pseudo_name : m_pseudo_a_name;
+    if( style == Lexicon::Pseudo::full ) {
+        if( m_pseudo_name.empty() && m_inherit ) {
+            m_inherit->get_pseudo_name( style );
+        }
+        return m_pseudo_name;
+    }
+    else if( style == Lexicon::Pseudo::abbrev ) {
+        if( m_pseudo_a_name.empty() && m_inherit ) {
+            m_inherit->get_pseudo_name( style );
+        }
+        return m_pseudo_a_name;
+    }
+    return string();
+}
+
+StdStrVec glich::Lexicon::get_token_words() const
+{
+    StdStrVec words;
+    for( const auto& pair : m_fields ) {
+        words.push_back( pair.second.get_word() );
+    }
+    return words;
+}
+
+StdStrVec glich::Lexicon::get_token_abbrev() const
+{
+    StdStrVec abbrevs;
+    for( const auto& pair : m_fields ) {
+        string abbrev = pair.second.get_abbrev();
+        if( abbrev.empty() ) {
+            abbrev = pair.second.get_word();
+        }
+        abbrevs.push_back( abbrev );
+    }
+    return abbrevs;
 }
 
 void Lexicon::get_info( Lexicon_info* info ) const
 {
     if( info ) {
-        info->name = m_name;
-        info->lang = m_lang;
-        info->style_full_name = m_pseudo_name;
-        info->style_abbrev_name = m_pseudo_a_name;
-        std::map<Field,Token>::const_iterator it;
-        for( it = m_fields.begin() ; it != m_fields.end() ; it++ ) {
-            Token token = it->second;
-            info->words.push_back( token.get_word() );
-            string abbrev = token.get_abbrev();
-            if( abbrev.empty() ) {
-                info->abbrevs.push_back( token.get_word() );
-            } else {
-                info->abbrevs.push_back( token.get_abbrev() );
-            }
+        info->name = get_name();
+        info->lang = get_lang();
+        info->style_full_name = get_pseudo_name( Pseudo::full );
+        info->style_abbrev_name = get_pseudo_name( Pseudo::abbrev );
+        if( m_inherit ) {
+            info->words = m_inherit->get_token_words();
+            info->abbrevs = m_inherit->get_token_abbrev();
         }
+        vec_append( info->words, get_token_words() );
+        vec_append( info->abbrevs, get_token_abbrev() );
     }
 }
 
