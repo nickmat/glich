@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -391,6 +391,10 @@ Lexicon* glich::do_create_lexicon( Script& script, const std::string& code )
             if( name == "name" ) {
                 str = script.expr( GetToken::next ).as_string();
                 lex->set_name( str );
+            }
+            else if( name == "inherit" ) {
+                str = script.get_name_or_primary( GetToken::next );
+                lex->set_inherit( str );
             }
             else if( name == "fieldname" ) {
                 str = script.get_name_or_primary( GetToken::next );
