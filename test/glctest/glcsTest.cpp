@@ -203,7 +203,8 @@ int main( int argc, char* argv[] )
     std::cout << g_title << "\n";
 
     clock_t t = clock();
-    Glich glc;
+    init_glc( InitLibrary::None );
+    Glich& glc = *get_glc();
     string result;
     TestResults totals;
     for ( int i = 1; i < argc; i++ ) {
@@ -239,6 +240,7 @@ int main( int argc, char* argv[] )
         "  skip (" + std::to_string( totals.skips ) + ")"
         "  Timed: " + std::to_string( dt ) + "s\n\n";
 
+    exit_glc();
     return 0;
 }
 
