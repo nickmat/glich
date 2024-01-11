@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     24th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -52,6 +52,7 @@ namespace glich {
 
         void set_name( const std::string& name ) { m_name = name; }
         void set_inherit( const std::string& gcode );
+        void set_inherit( StdStrVec inherit );
         void set_base_fieldnames( StdStrVec fieldnames ) { m_base_fieldnames = fieldnames; }
         void set_opt_fieldnames( StdStrVec fieldnames ) { m_opt_fieldnames = fieldnames; }
         void set_calc_fieldnames( StdStrVec fieldnames ) { m_calc_fieldnames = fieldnames; }
@@ -114,6 +115,7 @@ namespace glich {
         bool        m_ok;
         std::string m_create_error;
         Grammar*    m_inherit;
+        bool        m_inherit_lexicons;
         LexiconVec  m_lexicons;
         FormatMap   m_formats;
         std::string m_pref_input_fcode;

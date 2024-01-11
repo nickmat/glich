@@ -468,8 +468,8 @@ Grammar* glich::do_create_grammar( Script& script, const std::string& code, cons
                 do_grammar_alias( script, gmr );
             }
             else if( name == "inherit" ) {
-                str = script.get_name_or_primary( GetToken::next );
-                gmr->set_inherit( str );
+                StdStrVec inherit = script.get_string_list( GetToken::next );
+                gmr->set_inherit( inherit );
             }
             else if( name == "fields" ) {
                 basefields = script.get_string_list( GetToken::next );

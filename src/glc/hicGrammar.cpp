@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     24th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -41,7 +41,8 @@ using std::string;
 
 
 Grammar::Grammar( const string& code, Glich* glc )
-    : m_code( code ), m_glc( glc ), m_ok( false ), m_inherit( nullptr )
+    : m_code( code ), m_glc( glc ), m_ok( false ), m_inherit( nullptr ),
+    m_inherit_lexicons( true )
 {
 }
 
@@ -99,6 +100,19 @@ void Grammar::set_inherit( const string& gcode )
 {
     if( m_glc ) {
         m_inherit = m_glc->get_grammar( gcode );
+    }
+}
+
+void glich::Grammar::set_inherit( StdStrVec inherit )
+{
+    if( m_glc ) {
+        for( const auto& str : inherit ) {
+            if( str == "not:lexicon" ) {
+                m_inherit_lexicons = false;
+                continue;
+            }
+            m_inherit = m_glc->get_grammar( str );
+        }
     }
 }
 
@@ -243,7 +257,7 @@ std::string Grammar::resolve_lex_alias( const std::string& alias ) const
     if( m_lex_alias.count( alias ) > 0 ) {
         return m_lex_alias.find( alias )->second;
     }
-    if( m_inherit ) {
+    if( m_inherit && m_inherit_lexicons ) {
         return m_inherit->resolve_lex_alias( alias );
     }
     return alias;
@@ -310,7 +324,7 @@ Format* Grammar::get_format( const string& code ) const
 StdStrVec glich::Grammar::get_lexicon_codes() const
 {
     StdStrVec vec;
-    if( m_inherit ) {
+    if( m_inherit && m_inherit_lexicons ) {
         vec = m_inherit->get_lexicon_codes();
     }
     for( size_t i = 0; i < m_lexicons.size(); i++ ) {
@@ -322,7 +336,7 @@ StdStrVec glich::Grammar::get_lexicon_codes() const
 StdStrVec glich::Grammar::get_lexicon_names() const
 {
     StdStrVec vec;
-    if( m_inherit ) {
+    if( m_inherit && m_inherit_lexicons ) {
         vec = m_inherit->get_lexicon_names();
     }
     for( size_t i = 0; i < m_lexicons.size(); i++ ) {
@@ -343,7 +357,7 @@ Field Grammar::find_token( Lexicon** lex, const std::string& word ) const
             return field;
         }
     }
-    if( m_inherit ) {
+    if( m_inherit && m_inherit_lexicons ) {
         field = m_inherit->find_token( lex, word );
         if( field != f_invalid ) {
             return field;
@@ -365,7 +379,7 @@ Lexicon* Grammar::find_lexicon( const string& code ) const
             return lexicon;
         }
     }
-    if( m_inherit ) {
+    if( m_inherit && m_inherit_lexicons ) {
         return m_inherit->find_lexicon( code );
     }
     return nullptr;
