@@ -728,7 +728,9 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
         return false;
     }
     fmt->set_style( style );
-    fmt->construct();
+    if( gmr == nullptr ) {
+        fmt->construct();
+    }
     return true;
 }
 

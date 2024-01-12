@@ -92,6 +92,9 @@ bool Grammar::constuct()
     if( m_pref_output_fcode.empty() ) {
         m_pref_output_fcode = "def";
     }
+    for( auto& fmt : m_formats ) {
+        fmt.second->construct();
+    }
     m_ok = true;
     return true;
 }
@@ -491,7 +494,6 @@ void Grammar::create_def_format()
     fmt->set_control_in( control );
     fmt->set_control_out( control );
     fmt->set_style( FormatStyle::Hidden );
-    fmt->construct();
 }
 
 void Grammar::create_u_format()
@@ -501,7 +503,6 @@ void Grammar::create_u_format()
         return;
     }
     fmt->set_style( FormatStyle::Hidden );
-    fmt->construct();
 }
 
 // End of src/cal/calgrammar.cpp file
