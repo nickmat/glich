@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     http://historycal.org
  * Created:     9th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  glctest is free software: you can redistribute it and/or modify
@@ -152,7 +152,7 @@ string run_full_test( TestResults* totals, Glich& glc, const string& path )
         if( !dir_entry.is_directory() ) {
             continue;
         }
-        glc.run_script( "mark __:clean:__; clear;" ); // Start directory clean;
+        glc.run_script( "mark __user;" ); // Start directory clean;
         string dir = dir_entry.path().string();
         if( ends_with( dir, "hics-lib" ) ) {
             glc.load_hics_library();
