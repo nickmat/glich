@@ -231,7 +231,9 @@ int main( int argc, char* argv[] )
         }
         result += "Unknown command line switch " + arg + "\n\n";
     }
-    std::cout << result;
+    if( !totals.show_files && !totals.show_skips ) {
+        std::cout << result;
+    }
 
     double dt = ((double) clock() - t) / CLOCKS_PER_SEC;
 
