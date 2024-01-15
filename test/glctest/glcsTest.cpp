@@ -173,6 +173,10 @@ string run_full_test( TestResults* totals, Glich& glc, const string& path )
 string run_test_script( TestResults* totals, Glich& glc, const string& filename )
 {
     string script = read_file( filename );
+    glc.run_script( "mark __user;" ); // Start clean;
+    if( filename.find( "hics-lib" ) != string::npos ) {
+        glc.load_hics_library();
+    }
     string output = glc.run_script( script );
     string expected;
     size_t pos1 = script.find( "/*[OUTPUT]\n" );
@@ -215,10 +219,6 @@ int main( int argc, char* argv[] )
         }
         if( arg == "-f" ) {
             totals.show_files = true;
-            continue;
-        }
-        if( arg == "-hics-lib" ) {
-            glc.load_hics_library();
             continue;
         }
         CheckFile cf = check_file( arg );
