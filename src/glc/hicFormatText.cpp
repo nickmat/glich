@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     21st March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -180,9 +180,8 @@ void FormatText::setup_control_out()
 //    m_sig_rank_size = get_sig_rank_size();
 
     ElementControlOut ele;
-    string fieldout, output;
+    string fieldout, output, lcode;
     bool do_output = true;
-
     for( auto it = m_control_out.begin(); it != m_control_out.end(); it++ ) {
         if( do_output ) {
             if( *it == '|' ) {
@@ -200,6 +199,10 @@ void FormatText::setup_control_out()
         if( *it == '}' ) {
             ele.expand_specifier( get_owner() );
             fieldout += ele.get_field_output_name();
+            lcode = ele.get_lcode();
+            if( !lcode.empty() ) {
+                m_lexicons.push_back( lcode );
+            }
             if( m_shorthand ) {
                 string field_name = get_owner()->resolve_field_alias( ele.get_field_name() );
                 if( !is_significant_rank_name( field_name ) ) {

@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     21st March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -86,6 +86,8 @@ namespace glich {
 
         StdStrVec   m_format_order;
         XIndexVec   m_fmt_to_rank_index;
+
+        StdStrVec   m_lexicons;
 
         // =============[unchecked]================
         StdStrVec   m_rankout_fieldnames;
