@@ -146,6 +146,9 @@ Field Lexicon::find( const string& word ) const
         Token token = m_words.find( key )->second;
         return token.get_field();
     }
+    if( m_inherit ) {
+        return m_inherit->find( word );
+    }
     return f_invalid;
 }
 
