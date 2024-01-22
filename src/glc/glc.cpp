@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2023, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -889,9 +889,15 @@ void glich::exit_glc()
 }
 
 Glich* glich::get_glc()
-{ 
+{
     assert( s_glc != nullptr );
     return s_glc;
+}
+
+Glich& glich::glc()
+{
+    assert( s_glc != nullptr );
+    return *s_glc;
 }
 
 // End of src/hg/historygen.cpp
