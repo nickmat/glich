@@ -62,7 +62,7 @@ string InOut::get_input( const string& prompt ) {
     return result;
 }
 
-Glich::Glich( InitLibrary lib, InOut* inout )
+Glich::Glich( InOut* inout )
     : m_store( new Store ), m_inout( inout )
 {
     Mark::set_zero_store( m_store );
@@ -112,18 +112,6 @@ Glich::Glich( InitLibrary lib, InOut* inout )
         { "nl", "\n" },
         { "pi", cal_pi }
     };
-
-    load_builtin_library();
-    switch( lib )
-    {
-    case InitLibrary::None:
-        break;
-    case InitLibrary::Hics:
-        load_hics_library();
-        break;
-    }
-    // Mark the start of user definitions.
-    run_script( "mark __user;" );
 }
 
 Glich::~Glich()
@@ -880,7 +868,18 @@ void glich::init_glc( InitLibrary lib, InOut* inout )
     if( s_glc ) {
         delete s_glc;
     }
-    s_glc = new Glich( lib, inout );
+    s_glc = new Glich( inout );
+    s_glc->load_builtin_library();
+    switch( lib )
+    {
+    case InitLibrary::None:
+        break;
+    case InitLibrary::Hics:
+        s_glc->load_hics_library();
+        break;
+    }
+    // Mark the start of user definitions.
+    s_glc->run_script( "mark __user;" );
 }
 
 void glich::exit_glc()

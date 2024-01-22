@@ -56,7 +56,7 @@ namespace glich {
 
     class Glich {
     public:
-        Glich( InitLibrary lib = InitLibrary::None, InOut* inout = nullptr );
+        Glich( InOut* inout = nullptr );
         ~Glich();
 
         static const char* version();
