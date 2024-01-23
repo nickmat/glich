@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     5th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -45,8 +45,6 @@ SToken::SToken( const SToken& token )
     m_type = token.m_type;
     m_value = token.m_value;
 }
-
-Glich* STokenStream::s_glc = nullptr;
 
 SToken& STokenStream::next()
 {
@@ -113,7 +111,7 @@ SToken& STokenStream::next()
         }
         m_in->putback( ch );
         SToken::Type type = SToken::Type::Number;
-        Integer integer = s_glc->get_integer();
+        Integer integer = glc().get_integer();
         if( integer == Integer::field ) {
             type = SToken::Type::Field;
         }

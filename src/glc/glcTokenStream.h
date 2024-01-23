@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     5th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -91,8 +91,6 @@ namespace glich {
         STokenStream( std::istream& in, std::ostream& err )
             : m_in( &in ), m_err( &err ), m_line( 1 ), m_errors( 0 ) {}
 
-        static void init( Glich* glc ) { s_glc = glc; }
-
         SToken& next();
         SToken& current() { return m_cur_token; }
         void skip_to( SToken::Type type );
@@ -109,8 +107,6 @@ namespace glich {
     private:
         void set_type( SToken::Type type ) { m_cur_token.set_type( type ); }
         void set_current( SToken::Type type, const std::string& str );
-
-        static Glich* s_glc;
 
         std::istream* m_in;
         std::ostream* m_err;

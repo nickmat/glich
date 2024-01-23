@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023..2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -70,7 +70,6 @@ Glich::Glich( InOut* inout )
     if( !m_inout ) {
         m_inout = new InOut;
     }
-    STokenStream::init( this );
 
     // Add dummy built-in functions to avoid redefinition.
     Function* fptr = new Function( string() );
