@@ -71,7 +71,6 @@ Glich::Glich( InOut* inout )
         m_inout = new InOut;
     }
     STokenStream::init( this );
-    SValue::init( this );
 
     // Add dummy built-in functions to avoid redefinition.
     Function* fptr = new Function( string() );

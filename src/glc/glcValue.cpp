@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     5th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -39,7 +39,6 @@
 using namespace glich;
 using std::string;
 
-Glich* SValue::s_glc = nullptr;
 
 SValue::SValue( const SValue& value )
 {
@@ -49,7 +48,7 @@ SValue::SValue( const SValue& value )
 
 string SValue::as_string() const
 {
-    Context context = s_glc->get_context();
+    Context context = glc().get_context();
     switch( m_type )
     {
     case Type::Null:
@@ -198,7 +197,7 @@ Object* SValue::get_object_ptr()
     if( ocode.empty() ) {
         return nullptr;
     }
-    return s_glc->get_object( ocode );
+    return glc().get_object(ocode);
 }
 
 void glich::SValue::object_fill_store( Store* store )
@@ -209,7 +208,7 @@ void glich::SValue::object_fill_store( Store* store )
             return;
         }
         string ocode = vv[0].get_str();
-        Object* obj = s_glc->get_object( ocode );
+        Object* obj = glc().get_object(ocode);
         if( obj == nullptr ) {
             return;
         }

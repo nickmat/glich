@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -61,8 +61,6 @@ namespace glich {
         SValue( double real ) : m_type( Type::Float ), m_data( real) {}
         SValue( SValueVec obj ) : m_type( Type::Object ), m_data( obj ) {}
 
-        static void init( Glich* glc ) { s_glc = glc; }
-        static Glich* get_glc() { return s_glc; }
         static SValue create_error( const std::string& mess );
 
         void set_str( const std::string& str ) { m_type = Type::String; m_data = str; }
@@ -149,8 +147,6 @@ namespace glich {
         bool is_integer() const { return (m_type == Type::Number || m_type == Type::field); }
 
     private:
-        static Glich* s_glc;
-
         Type m_type;
         std::variant<bool, Num, std::string, Range, RList, double, SValueVec> m_data;
     };
