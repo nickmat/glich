@@ -69,6 +69,7 @@ namespace glich {
             std::string::const_iterator end ) const;
         Field get_field( const Record& record, const std::string& fname, const BoolVec* reveal ) const;
         int parse_date( InputFieldVec& ifs, const std::string& str ) const;
+        Field find_token( Lexicon** lex, const std::string& word ) const;
         bool resolve_input( const Base& base, FieldVec& fields, InputFieldVec& input ) const;
 
         RList multirange_str_to_rlist( const Base& base, const std::string& input ) const;

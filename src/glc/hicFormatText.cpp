@@ -441,7 +441,7 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
                     }
                 }
                 if( token_grp == CP_Group::Other ) {
-                    Field f = get_grammar().find_token( &(ifs[i].lexicon), token );
+                    Field f = find_token( &(ifs[i].lexicon), token );
                     if( f == f_invalid ) {
                         return -1; // Unrecognised token
                     }
@@ -486,6 +486,23 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
         }
     }
     return 0;
+}
+
+Field glich::FormatText::find_token( Lexicon** lex, const std::string& word ) const
+{
+    Field field = f_invalid;
+    for( size_t i = 0; i < m_lexicons.size(); i++ ) {
+        Lexicon* lex_ptr = get_glc()->get_lexicon( m_lexicons[i] );
+        field = lex_ptr->find( word );
+        if( field != f_invalid ) {
+            if( lex ) {
+                *lex = lex_ptr;
+            }
+            return field;
+        }
+    }
+
+    return get_grammar().find_token( lex, word );
 }
 
 bool FormatText::resolve_input( const Base& base, FieldVec& fields, InputFieldVec& input ) const
