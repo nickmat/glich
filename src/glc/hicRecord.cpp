@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     http://historycal.org
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -189,8 +189,7 @@ void Record::calculate_expression( const string& script_expr )
             rec_values[i + 1] = value;
         }
     }
-    Glich* glc = SValue::get_glc();
-    SValue calc = glc->evaluate( script_expr, store );
+    SValue calc = glc().evaluate(script_expr, store);
     SValue rec( rec_values );
     rec.mask_op( calc );
     const SValueVec* values_ptr = rec.get_object_values();
