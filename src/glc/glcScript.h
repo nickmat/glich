@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     5th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -89,7 +89,7 @@ namespace glich {
         SValue get_object( GetToken get );
 
         SValue do_subscript( const SValue& left, const SValue& right );
-        SValue do_dot( const SValue& left, const SValue& right );
+        SValue do_at( const SValue& left, const SValue& right );
         StdStrVec get_qualifiers( GetToken get );
         SValueVec get_args( GetToken get );
         SValue function_call();

@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     5th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -928,8 +928,8 @@ SValue Script::subscript( GetToken get )
                 next_token();
             }
             break;
-        case SToken::Type::Dot:
-            left = do_dot( left, get_name_or_primary( GetToken::next ) );
+        case SToken::Type::At:
+            left = do_at( left, get_name_or_primary( GetToken::next ) );
             break;
         default:
             return left;
@@ -1115,7 +1115,7 @@ SValue Script::do_subscript( const SValue& left, const SValue& right )
     return SValue();
 }
 
-SValue Script::do_dot( const SValue& left, const SValue& right )
+SValue Script::do_at( const SValue& left, const SValue& right )
 {
     string ocode = left.get_object_code();
     if( ocode.empty() ) {

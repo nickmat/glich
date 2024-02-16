@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -58,13 +58,13 @@ glich::Scheme::Scheme( const std::string& code, const Base& base )
     string calc_output = base.get_calc_output();
     if( !calc_output.empty() ) {
         Function* out_fun = new Function( "output" );
-        out_fun->set_script( "result=this.mask(" + calc_output + ");" );
+        out_fun->set_script( "result=this@mask(" + calc_output + ");" );
         add_function( out_fun );
     }
     string calc_input = base.get_calc_input();
     if( !calc_input.empty() ) {
         Function* in_fun = new Function( "input" );
-        in_fun->set_script( "result=this.mask(" + calc_input + ");" );
+        in_fun->set_script( "result=this@mask(" + calc_input + ");" );
         add_function( in_fun );
     }
 }
