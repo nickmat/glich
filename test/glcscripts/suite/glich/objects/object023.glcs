@@ -1,0 +1,16 @@
+mark test;
+
+object obj {
+    values first second;
+    function fun.qual( arg ) {
+        result = qual + " " + arg;
+    }
+}
+
+let x = {obj};
+
+write x @fun.hello( "world" );
+
+/*[OUTPUT]
+hello world
+[OUTPUT]*/
