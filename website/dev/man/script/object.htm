@@ -38,7 +38,7 @@
  An object value is an array of other values
  which can referenced by number or given names.
  Additionally functions can be defined which can be called
- using the dot <b>'.'</b> operator.
+ using the function operator <b>'@'</b>.
 </p>
 <p>
  Two sub-statements can be used in an object definition.
@@ -68,11 +68,11 @@
 <b>}</b>
 
 let c1 = {complex 5, 9};
-let c2 = c1.add( {complex 20, 6} );
+let c2 = c1 @add( {complex 20, 6} );
 let c2 = {complex 20, 6};
 
-write c1.add( c2 ) nl;
-write c1.add( 1 ) nl;
+write c1 @add( c2 ) nl;
+write c1 @add( 1 ) nl;
 </td>
 <td>{complex 25, 15}<br />
 Error (9): Must have 'complex' argument
@@ -93,8 +93,7 @@ Error (9): Must have 'complex' argument
 <p>
  The function sub-statement is similar other functions
  except it has access to the objects values and it is instigated
- with the dot <b>'.'</b> operator following an object value.
- Note, any local variables outside the function are  not visible.
+ with the function <b>'@'</b> operator following an object value.
 </p>
 
 </div><!--id=content-->

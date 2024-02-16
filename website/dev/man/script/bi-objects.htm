@@ -34,7 +34,7 @@
 <h2>Introduction</h2>
 <p>
  Glich has just one built-in object,
- the general purpose object with the code name ":" (colon).
+ the general purpose object with the code name <b>":"</b> (colon).
 </p>
 <p>
  There is also one built-in object function.
@@ -72,10 +72,10 @@ write x nl;
 
 <table class='basic'>
 <tr><th>Function</th><th>Description</th></tr>
-<tr><td><i>object_type</i><b>.mask</b>( <i>object_type</i> )</td><td>Overlays one object value on another.</td></tr>
+<tr><td><i>object_type</i> <b>@mask</b>( <i>object_type</i> )</td><td>Overlays one object value on another.</td></tr>
 </table>
 
-<h4>Object Function ovalue.mask( value )</h4>
+<h4>Object Function <cpde>ovalue @mask( value )</cpde></h4>
 <p>
  The elements of the value object are used to replace any values
  in the calling ovalue object that are of type null.
@@ -89,9 +89,9 @@ write x nl;
 <tr> <!-- See test file - test\glcscripts\suite\glich\built-in\objects\object-colon002.glcs -->
 <td class='example'>let x = {: 1,,3,,5};
 write x nl;
-x = x.mask( {: 10, 20, 30} );
+x = x @mask( {: 10, 20, 30} );
 write x nl;
-x = x.mask( {: ,,,400,500,600} );
+x = x @mask( {: ,,,400,500,600} );
 write x nl;
 </td>
 <td>{: 1, null, 3, null, 5}<br />
