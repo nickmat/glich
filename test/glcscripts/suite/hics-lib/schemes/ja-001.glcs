@@ -8,10 +8,10 @@ write @text.ja:dmc( 2360328 ), @text.ja:dmc( 2360329 ) nl;
 write @text.ja:dmcy( 2360328 ), @text.ja:dmcy( 2360329 ) nl;
 write @text.ja:wdmcy( 2360328 ), @text.ja:wdmcy( 2360329 ) nl;
 write @text.ja:dmcy( {s:ja 1750,3,24} ), @text.ja:dmcy( {s:ja 1750,3,25} ) nl;
-write @text.ja:dmcy({s:ja ,3,24,1749}.input), @text.ja:dmcy({s:ja ,3,25,1750}.input) nl;
+write @text.ja:dmcy({s:ja ,3,24,1749}@input), @text.ja:dmcy({s:ja ,3,25,1750}@input) nl;
 write @date.ja:dmcy( "24 mar 1749" ), @date.ja:dmcy( "25 Mar 1750" ) nl;
 write @date.ja:dmcy( {s:ja 1750,3,24} ), @date.ja:dmcy( {s:ja 1750,3,25} ) nl;
-write @date.ja:dmcy( {s:ja ,3,24,1749}.input ), @date.ja:dmcy( {s:ja ,3,25,1750}.input ) nl;
+write @date.ja:dmcy( {s:ja ,3,24,1749}@input ), @date.ja:dmcy( {s:ja ,3,25,1750}@input ) nl;
 write @text.ja:out( 2430792 ) nl;
 write @text.ja:full( 2430792 ) nl;
 

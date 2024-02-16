@@ -10,7 +10,7 @@ object obj {
 }
 
 let x = {obj 10};
-let y = x.test( 99, 5 );
+let y = x@test( 99, 5 );
 
 write x + ", " + y;
 

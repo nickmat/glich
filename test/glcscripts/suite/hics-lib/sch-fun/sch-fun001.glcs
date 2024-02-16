@@ -1,8 +1,8 @@
 // sch-fun001.glcs  - Test scheme functions
 
 writeln "";
-writeln {s:g}.name + ": " + {s:g}.pseudo_out("mdy");
-writeln {s:j}.name + ": " + {s:j}.pseudo_in("mdy");
+writeln {s:g}@name + ": " + {s:g}@pseudo_out("mdy");
+writeln {s:j}@name + ": " + {s:j}@pseudo_in("mdy");
 
 
 /*[OUTPUT]

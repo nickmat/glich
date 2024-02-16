@@ -7,8 +7,8 @@ object test {}
 let a = {test ,,5,,};
 let b = {test 99,,,,88};
 
-let b = a.mask( b );
-let c = b.mask( {test 10, 20, 30, 40, 50, 60} );
+let b = a@mask( b );
+let c = b@mask( {test 10, 20, 30, 40, 50, 60} );
 
 write b + ", " + c;
 

@@ -3,8 +3,8 @@
 scheme G { base gregorian; }
 
 writeln "";
-writeln {s:G}.pseudo_in( "def" );
-writeln {s:G}.pseudo_out( "def" );
+writeln {s:G}@pseudo_in( "def" );
+writeln {s:G}@pseudo_out( "def" );
 
 /*[OUTPUT]
 

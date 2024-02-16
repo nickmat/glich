@@ -60,15 +60,16 @@ scheme JA {
     grammar JA;
 }
 
+
 write nl;
 write @record.JA( 2360328 ), @record.JA( 2360329 ) nl;
 write @record.JA:dmc( "24 mar 1749" ), @record.JA:dmc( "25 Mar 1750" ) nl;
 write @text.JA:wdmc( 2360328 ), @text.JA:wdmc( 2360329 ) nl;
 write @text.JA:wdmc( {s:JA 1750,3,24} ), @text.JA:wdmc( {s:JA 1750,3,25} ) nl;
-write @text.JA:wdmc ({s:JA ,3,24,1749}.input), @text.JA:wdmc ({s:JA ,3,25,1750}.input) nl;
+write @text.JA:wdmc ({s:JA ,3,24,1749}@input), @text.JA:wdmc ({s:JA ,3,25,1750}@input) nl;
 write @date.JA:dmc( "24 mar 1749" ), @date.JA:dmc( "25 Mar 1750" ) nl;
 write @date.JA:dmc( {s:JA 1750,3,24} ), @date.JA:dmc( {s:JA 1750,3,25} ) nl;
-write @date.JA:dmc( {s:JA ,3,24,1749}.input ), @date.JA:dmc( {s:JA ,3,25,1750}.input ) nl;
+write @date.JA:dmc( {s:JA ,3,24,1749}@input ), @date.JA:dmc( {s:JA ,3,25,1750}@input ) nl;
 write @text.JA:out( 2432814 ) nl;
 
 /*[OUTPUT]

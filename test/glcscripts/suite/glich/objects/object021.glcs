@@ -3,14 +3,14 @@
 object test {
     values year month day wday ce ceyear;
     function calc {
-        result = this.mask(
+        result = this@mask(
             {: ,,,,@if(year<1, 0, 1), @if(year<1, -year-1, year) }
         );
     }
 }
 
 let a = {test 1948, 9, 6, 7};
-let b = a.calc;
+let b = a@calc;
 
 write b;
 

@@ -65,10 +65,10 @@ write @record.JAP( 2360328 ), @record.JAP( 2360329 ) nl;
 write @record.JAP:dmc( "24 mar 1750" ), @record.JAP:dmc( "25 Mar 1751" ) nl;
 write @text.JAP:wdmc( 2360328 ), @text.JAP:wdmc( 2360329 ) nl;
 write @text.JAP:wdmc( {s:JAP 1750,3,24} ), @text.JAP:wdmc( {s:JAP 1750,3,25} ) nl;
-write @text.JAP:wdmc ({s:JAP ,3,24,1750}.input), @text.JAP:wdmc ({s:JAP ,3,25,1751}.input) nl;
+write @text.JAP:wdmc ({s:JAP ,3,24,1750}@input), @text.JAP:wdmc ({s:JAP ,3,25,1751}@input) nl;
 write @date.JAP:dmc( "24 mar 1750" ), @date.JAP:dmc( "25 Mar 1751" ) nl;
 write @date.JAP:dmc( {s:JAP 1750,3,24} ), @date.JAP:dmc( {s:JAP 1750,3,25} ) nl;
-write @date.JAP:dmc( {s:JAP ,3,24,1750}.input ), @date.JAP:dmc({s:JAP ,3,25,1751}.input ) nl;
+write @date.JAP:dmc( {s:JAP ,3,24,1750}@input ), @date.JAP:dmc({s:JAP ,3,25,1751}@input ) nl;
 write @text.JAP:out( 2432814 ) nl;
 
 /*[OUTPUT]

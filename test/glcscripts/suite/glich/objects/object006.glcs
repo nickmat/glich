@@ -7,8 +7,8 @@ object greet {
 
 let g = {greet "Hello"};
 
-writeln g.hi("John");
-writeln g.hi( 1 );
+writeln g@hi("John");
+writeln g@hi( 1 );
 
 
 /*[OUTPUT]

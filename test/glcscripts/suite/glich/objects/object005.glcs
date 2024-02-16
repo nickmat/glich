@@ -7,7 +7,7 @@ object greet {
 
 let g = {greet "Hello"};
 
-write g.hi;
+write g@hi;
 
 
 /*[OUTPUT]

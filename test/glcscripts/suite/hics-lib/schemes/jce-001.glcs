@@ -5,10 +5,10 @@ write @record.jce( 1721423 ), @record.jce( 1721424 ) nl;
 write @record.jce:dmye( "31 dec 1 bce" ), @record.jce:dmye( "1 jan 1 ce" ) nl;
 write @text.jce:dmye( 1721423 ), @text.jce:dmye( 1721424 ) nl;
 write @text.jce:dmye( {s:jce 0,12,31} ), @text.jce:dmye( {s:jce 1,1,1} ) nl;
-write @text.jce:dmye({s:jce ,12,31,0,1}.input), @text.jce:dmye({s:jce ,1,1,1,1}.input) nl;
+write @text.jce:dmye({s:jce ,12,31,0,1}@input), @text.jce:dmye({s:jce ,1,1,1,1}@input) nl;
 write @date.jce:dmye( "31 dec 1 bce" ), @date.jce:dmye( "1 jan 1 ce" ) nl;
 write @date.jce( {s:jce 0,12,31} ), @date.jce( {s:jce 1,1,1} ) nl;
-write @date.jce( {s:jce ,12,31,0,1}.input ), @date.jce( {s:jce ,1,1,1,1}.input ) nl;
+write @date.jce( {s:jce ,12,31,0,1}@input ), @date.jce( {s:jce ,1,1,1,1}@input ) nl;
 write @text.jce:out( 2432814 ) nl;
 
 /*[OUTPUT]

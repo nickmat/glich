@@ -3,10 +3,10 @@
 let x = {: 1,,3,,5};
 write x nl;
 
-x = x.mask( {: 10, 20, 30} );
+x = x @ mask( {: 10, 20, 30} );
 write x nl;
 
-x = x.mask( {: ,,,400,500,600} );
+x = x @mask( {: ,,,400,500,600} );
 write x nl;
 
 /*[OUTPUT]
