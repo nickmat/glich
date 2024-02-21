@@ -734,7 +734,7 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
     return true;
 }
 
-SValue glich::hics_dot( Script& script, bool& success, Object* obj, const std::string& fcode, const SValue& left )
+SValue glich::hics_at( Script& script, bool& success, Object* obj, const std::string& fcode, const SValue& left )
 {
     Scheme* sch = dynamic_cast<Scheme*>(obj);
     if( sch == nullptr ) {

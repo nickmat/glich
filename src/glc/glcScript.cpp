@@ -1135,7 +1135,7 @@ SValue Script::do_at( const SValue& left, const SValue& right )
             return dot_mask( obj, &left );
         }
         bool success = false;
-        SValue value = hics_dot( *this, success, obj, fcode, left );
+        SValue value = hics_at( *this, success, obj, fcode, left );
         if( success ) {
             return value;
         }
