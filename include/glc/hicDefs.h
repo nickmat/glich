@@ -82,7 +82,7 @@ namespace glich {
 
     struct PCode {
         std::string code;
-        int priority;
+        int priority = 0;
     };
 
     struct PDesc {
