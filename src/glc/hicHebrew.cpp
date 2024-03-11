@@ -122,40 +122,51 @@ namespace {
         {
         case 6: // fall thru intended
             mdays += 30; // month 5
+            [[fallthrough]];
         case 5:
             mdays += 29; // month 4
+            [[fallthrough]];
         case 4:
             mdays += 30; // month 3
+            [[fallthrough]];
         case 3:
             mdays += 29; // month 2
+            [[fallthrough]];
         case 2:
             mdays += 30; // month 1
+            [[fallthrough]];
         case 1:
             if( leap ) { // month 13
                 mdays += 29;
             }
+            [[fallthrough]];
         case 13:
             if( leap ) { // month 12
                 mdays += 30;
             } else {
                 mdays += 29;
             }
+            [[fallthrough]];
         case 12:
             mdays += 30; // month 11
+            [[fallthrough]];
         case 11:
             mdays += 29; // month 10
+            [[fallthrough]];
         case 10:
             if( diy == 353 || diy == 383 ) { // month 9
                 mdays += 29;
             } else {
                 mdays += 30;
             }
+            [[fallthrough]];
         case 9:
             if( diy == 355 || diy == 385 ) { // month 8
                 mdays += 30;
             } else {
                 mdays += 29;
             }
+            [[fallthrough]];
         case 8:
             mdays += 30;  // month 7
         }

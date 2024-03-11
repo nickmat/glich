@@ -370,7 +370,8 @@ double nth_new_moon_since_j2000( Field n )
         switch( a1[i].w )
         {
         case 2:
-            vEw *= E; // fall thru
+            vEw *= E;
+            [[fallthrough]];
         case 1:
             vEw *= E;
         }
@@ -520,7 +521,8 @@ double lunar_longitude( double moment )
         switch( a[i].x )
         {
         case 2: case -2:
-            vEx *= E; // fall thru
+            vEx *= E;
+            [[fallthrough]];
         case 1: case -1:
             vEx *= E;
         }
