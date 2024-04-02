@@ -136,7 +136,7 @@ string Mark::remove_next_object()
 string Mark::remove_next_file()
 {
     string code;
-    if( m_files.size() ) {
+    if( !m_files.empty() ) {
         File* file = m_files[m_files.size() - 1];
         code = file->get_code();
         delete file;
@@ -148,7 +148,7 @@ string Mark::remove_next_file()
 string Mark::remove_next_lexicon()
 {
     string code;
-    if( m_lexicons.size() ) {
+    if( !m_lexicons.empty() ) {
         Lexicon* lex = m_lexicons[m_lexicons.size() - 1];
         code = lex->get_code();
         delete lex;
@@ -160,7 +160,7 @@ string Mark::remove_next_lexicon()
 string Mark::remove_next_grammar()
 {
     string code;
-    if( m_grammars.size() ) {
+    if( !m_grammars.empty() ) {
         Grammar* gmr = m_grammars[m_grammars.size() - 1];
         code = gmr->get_code();
         delete gmr;
@@ -172,7 +172,7 @@ string Mark::remove_next_grammar()
 string Mark::remove_next_format()
 {
     string code;
-    if( m_formats.size() ) {
+    if( !m_formats.empty() ) {
         Format* fmt = m_formats[m_formats.size() - 1];
         code = fmt->get_code();
         Grammar* gmr = fmt->get_owner();
