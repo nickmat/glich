@@ -861,6 +861,10 @@ Scheme* Glich::get_oscheme() const
 
 static Glich* s_glc = nullptr;
 
+#if !defined(NDEBUG) || defined(_DEBUG)
+Glich* g_glc_test = nullptr; // To allow Visual Studio watch to see it
+#endif
+
 void glich::init_glc( InitLibrary lib, InOut* inout )
 {
     if( s_glc ) {
@@ -878,6 +882,10 @@ void glich::init_glc( InitLibrary lib, InOut* inout )
     }
     // Mark the start of user definitions.
     s_glc->run_script( "mark __user;" );
+
+#if !defined(NDEBUG) || defined(_DEBUG)
+    g_glc_test = s_glc;
+#endif
 }
 
 void glich::exit_glc()
