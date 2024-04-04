@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     6th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -30,10 +30,23 @@
 using namespace glich;
 using std::string;
 
+
+File::File( const string& code )
+    : m_code( code ), m_filetype( FT_read )
+{
+}
+
+File::~File()
+{
+    if( m_file.is_open() ) {
+        m_file.close();
+    }
+}
+
 bool File::open()
 {
     if ( m_file.is_open() ) {
-        return false;
+        m_file.close();
     }
     std::fstream::openmode mode = std::fstream::out;
     switch ( m_filetype )
@@ -55,6 +68,11 @@ bool File::open()
         return false;
     }
     return true;
+}
+
+void File::close()
+{
+    m_file.close();
 }
 
 // End of src/glcs/glsFile.cpp file

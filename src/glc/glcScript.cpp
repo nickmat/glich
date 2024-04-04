@@ -644,18 +644,35 @@ bool glich::Script::do_object()
 
 bool Script::do_file()
 {
-    File* file = nullptr;
     SToken token = next_token();
-    string code = get_name_or_primary( GetToken::current );
-    if( code.empty() ) {
-        error( "File code missing." );
-        return false;
+    string filecode;
+    File* file = nullptr;
+    if( token.type() == SToken::Type::Dot ) {
+        filecode = get_name_or_primary( GetToken::next );
+        file = glc().get_file(filecode);
+        if( file == nullptr ) {
+            error( "File code \"" + filecode + "\" does not exist." );
+            return false;
+        }
     }
-    string name = expr( GetToken::current ).as_string();
-    if( name.empty() ) {
-        error( "Filename missing." );
-        return false;
+    else {
+        filecode = get_name_or_primary( GetToken::current );
+        file = glc().get_file( filecode );
+        if( file != nullptr ) {
+            error( "File code \"" + filecode + "\" already exists." );
+            return false;
+        }
+        file = glc().create_file( filecode );
+        if( file == nullptr ) {
+            error( "Unable to create file." );
+            return false;
+        }
+        if( current_token().type() == SToken::Type::Semicolon ) {
+            return true;
+        }
     }
+
+    string filename = expr( GetToken::current ).as_string();
     File::FileType type = File::FT_read;
     if( current_token().type() != SToken::Type::Semicolon ) {
         string type_str = get_name_or_primary( GetToken::current );
@@ -677,16 +694,19 @@ bool Script::do_file()
         error( "';' expected." );
         return false;
     }
-    file = new File( code );
+
+    file->close();
+    if( !filename.empty() ) {
+        file->set_filename( filename );
+    }
     file->set_filetype( type );
-    file->set_filename( name );
+
     bool ok = file->open();
     if( !ok ) {
-        delete file;
-        error( "Unable to open file: " + name );
+        error( "Unable to open file: " + filename );
         return false;
     }
-    return m_glc->add_file( file );
+    return true;
 }
 
 bool Script::do_scheme()

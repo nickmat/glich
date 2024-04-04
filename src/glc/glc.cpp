@@ -558,20 +558,19 @@ Object* Glich::get_object( const string& code ) const
     return nullptr;
 }
 
-bool Glich::add_file( File* file )
+File* Glich::create_file( const string& code )
 {
-    if( file == nullptr ) {
-        return false;
+    File* file = get_file( code );
+    if( file != nullptr ) {
+        // Already exists.
+        return nullptr;
     }
-    string code = file->get_code();
-    if( m_files.count( code ) ) {
-        delete file;
-        return false;
-    }
+    file = new File( code );
+
     assert( m_marks.size() > 0 );
     m_marks[m_marks.size() - 1]->add_file( file );
     m_files[code] = file;
-    return true;
+    return file;
 }
 
 File* Glich::get_file( const string& code ) const

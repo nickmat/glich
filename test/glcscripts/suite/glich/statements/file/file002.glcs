@@ -1,4 +1,4 @@
-// file001.glcs  Test creating a file object
+// file002.glcs  Opening a non existant file
 
 let filename = "Test-glcs-file2.txt";
 

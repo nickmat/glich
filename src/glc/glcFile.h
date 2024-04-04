@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     6th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -36,7 +36,10 @@ namespace glich {
     public:
         enum FileType { FT_null, FT_read, FT_write, FT_append };
 
-        File ( const std::string& code ) : m_code( code ), m_filetype( FT_write ) {}
+        File( const std::string& code );
+        ~File();
+        File( const File& ) = delete;
+        File& operator=( const File& ) = delete;
         
         void set_filename( const std::string& filename ) { m_filename = filename; }
         void set_filetype( FileType filetype ) { m_filetype = filetype; }
@@ -44,6 +47,7 @@ namespace glich {
         std::string get_code() const { return m_code; }
 
         bool open();
+        void close();
         std::ostream* get_out() { return &m_file; }
         std::istream* get_input() { return &m_file; }
 
