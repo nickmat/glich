@@ -4,4 +4,5 @@ write -true;
 
 /*[OUTPUT]
 Error (3): Can only negate number types.
+
 [OUTPUT]*/

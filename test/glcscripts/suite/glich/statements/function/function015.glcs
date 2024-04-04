@@ -10,9 +10,9 @@ function range_plus(start, duration = 7) {
 
 let r = @range_plus(100);
 
-writeln "";
-writeln r + ", Duration: " + r[.span];
-writeln @range_plus( 100, 0 );
+write nl;
+write r + ", Duration: " + r[.span] nl;
+write @range_plus( 100, 0 ) nl;
 
 /*[OUTPUT]
 

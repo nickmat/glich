@@ -1,14 +1,14 @@
 // mod005.hcs Test file to test modulus of invalid fields
 
-writeln "";
+write nl;
 
-writeln 9 mod 0;
-writeln 9 mod ?;
-writeln ? mod 3;
-writeln 9 mod -infinity;
-writeln -infinity mod 3;
-writeln 9 mod +infinity;
-writeln +infinity mod 3;
+write 9 mod 0;
+write 9 mod ?;
+write ? mod 3;
+write 9 mod -infinity;
+write -infinity mod 3 nl;
+write 9 mod +infinity;
+write +infinity mod 3 nl;
 
 /*[OUTPUT]
 

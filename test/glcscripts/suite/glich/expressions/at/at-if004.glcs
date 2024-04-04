@@ -1,7 +1,7 @@
 // at-if004.hcs - Test @if 1st arg error.
 
-writeln "";
-writeln @if(0,true,false);
+write nl;
+write @if(0,true,false);
 
 /*[OUTPUT]
 

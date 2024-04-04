@@ -4,4 +4,5 @@ write (8..10 | 12..25) - (-12..-20 | 2..11);
 
 /*[OUTPUT]
 Error (3): Unable to add or subtract rlists.
+
 [OUTPUT]*/

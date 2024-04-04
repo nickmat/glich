@@ -14,9 +14,9 @@ object complex {
 let c1 = {complex 5, 9};
 let c2 = {complex 20, 6};
 
-writeln "";
-writeln c1@add( c2 );
-writeln c1@add( 1 );
+write nl;
+write c1@add( c2 ) nl;
+write c1@add( 1 ) nl;
 
 
 /*[OUTPUT]

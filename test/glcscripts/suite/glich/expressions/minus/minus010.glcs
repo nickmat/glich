@@ -4,4 +4,5 @@ write infinity - (infinity..500 | 100..111);
 
 /*[OUTPUT]
 Error (3): Invalid rlist.
+
 [OUTPUT]*/

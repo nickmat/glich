@@ -1,11 +1,11 @@
 // multiply002.hcs Test file for multiplication of fields
 
-writeln "";
+write nl;
 
-writeln 3 * ?;
-writeln ? * -infinity;
-writeln ? * infinity;
-writeln -infinity * infinity;
+write 3 * ?;
+write ? * -infinity;
+write ? * infinity;
+write -infinity * infinity;
 
 /*[OUTPUT]
 

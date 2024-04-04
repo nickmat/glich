@@ -1,13 +1,13 @@
 // divide005.glcs Test file to test division of special field errors
 
-writeln "";
+write nl;
 
-writeln 10 div 0;
-writeln 10f div 0;
-writeln 10 div ?;
-writeln 10 div -infinity;
-writeln 10 div +infinity;
-writeln ? div 2;
+write 10 div 0;
+write 10f div 0;
+write 10 div ?;
+write 10 div -infinity;
+write 10 div +infinity;
+write ? div 2;
 
 /*[OUTPUT]
 

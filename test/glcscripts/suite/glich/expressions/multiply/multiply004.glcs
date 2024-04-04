@@ -1,11 +1,11 @@
 // multiply003.hcs Test file for multiplication of fields
 
-writeln "";
+write nl;
 
-writeln 2147483640f * 1;
-writeln 2147483640f * 2; // overflow
-writeln -2147483640f * 1;
-writeln -2147483640f * 2; // overflow
+write 2147483640f * 1 nl;
+write 2147483640f * 2 nl; // overflow
+write -2147483640f * 1 nl;
+write -2147483640f * 2 nl; // overflow
 
 /*[OUTPUT]
 

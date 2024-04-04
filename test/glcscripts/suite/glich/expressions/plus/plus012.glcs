@@ -4,4 +4,5 @@ write -infinity + (+infinity..5);
 
 /*[OUTPUT]
 Error (3): Invalid range.
+
 [OUTPUT]*/

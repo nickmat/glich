@@ -54,8 +54,9 @@ string SValue::as_string() const
     case Type::Null:
         return "null";
     case Type::String:
-    case Type::Error:
         return std::get<string>( m_data );
+    case Type::Error:
+        return std::get<string>( m_data ) + "\n";
     case Type::Bool:
         return bool_to_string( std::get<bool>( m_data ) );
     case Type::Number:

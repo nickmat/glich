@@ -4,4 +4,5 @@ write (+infinity .. 500 | 100 .. 111) + -infinity;
 
 /*[OUTPUT]
 Error (3): Invalid rlist.
+
 [OUTPUT]*/

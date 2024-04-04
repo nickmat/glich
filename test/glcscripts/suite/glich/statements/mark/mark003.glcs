@@ -24,4 +24,5 @@ write d;
 future, past..future, number, field
 +infinity, -infinity..+infinity, number, number
 Error (18): Variable "d" not found.
+
 [OUTPUT]*/
