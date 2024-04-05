@@ -1,0 +1,21 @@
+// literal008.glcs Multi-line strings and line count
+
+let s = "Text
+on
+multiple
+lines
+";
+
+write nl;
+write s;
+write @error( "Display line count" );
+
+/*[OUTPUT]
+
+Text
+on
+multiple
+lines
+Error (11): Display line count
+
+[OUTPUT]*/
