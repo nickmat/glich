@@ -91,7 +91,7 @@ SValue Script::run_script( string& script )
 bool Script::error_value( const SValue& value )
 {
     bool ok;
-    string mess = value.get_str( ok );
+    string mess = value.get_str( ok ) + "\n";
     if( !ok ) {
         return false;
     }

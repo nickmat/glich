@@ -530,7 +530,7 @@ bool SValue::propagate_error( const SValue& value )
     }
     if( value.is_error() ) {
         m_type = Type::Error;
-        m_data = value.as_string();
+        m_data = value.m_data;
         return true;
     }
     return false;

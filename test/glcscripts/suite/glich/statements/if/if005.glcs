@@ -1,4 +1,4 @@
-// if003.glcs - Test if statement errors.
+// if005.glcs - Test if statement errors.
 
 
 if 8 = "eight"

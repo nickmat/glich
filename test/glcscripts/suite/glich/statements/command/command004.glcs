@@ -13,5 +13,4 @@ call say;
 /*[OUTPUT]
 Error (6): Variable "d" not found.
 
-
 [OUTPUT]*/

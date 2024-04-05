@@ -334,7 +334,7 @@ bool STokenStream::error( const std::string& mess )
 
 bool STokenStream::error_value( const std::string& mess )
 {
-    *m_err << mess << "\n";
+    *m_err << mess;
     return (++m_errors > MAX_ALLOWED_ERRORS);
 }
 
