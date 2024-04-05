@@ -357,7 +357,7 @@ bool Script::do_let()
     return do_assign( name );
 }
 
-bool Script::do_assign( const std::string& name )
+bool Script::do_assign( const string& name )
 {
     SToken token = next_token();
     SValue* vp = m_glc->get_local_ptr( name );
@@ -434,7 +434,7 @@ bool Script::do_assign( const std::string& name )
     return true;
 }
 
-bool Script::do_write( const std::string& term )
+bool Script::do_write( const string& term )
 {
     SToken token = next_token();
     string filecode;
@@ -482,7 +482,7 @@ bool Script::do_write( const std::string& term )
     return true;
 }
 
-Function* Script::create_function( const std::string& code )
+Function* Script::create_function( const string& code )
 {
     SToken token = current_token();
     StdStrVec quals;
@@ -544,7 +544,7 @@ Function* Script::create_function( const std::string& code )
     return fun;
 }
 
-bool glich::Script::do_function()
+bool Script::do_function()
 {
     string code = get_name_or_primary( GetToken::next );
     if( code.empty() ) {
@@ -562,7 +562,7 @@ bool glich::Script::do_function()
     return m_glc->add_function( fun );
 }
 
-bool glich::Script::do_command()
+bool Script::do_command()
 {
     string code = get_name_or_primary( GetToken::next );
     if( code.empty() ) {
@@ -595,7 +595,7 @@ bool Script::do_call()
     return true;
 }
 
-bool glich::Script::do_object()
+bool Script::do_object()
 {
     string code = get_name_or_primary( GetToken::next );
     if( code.empty() ) {
@@ -759,7 +759,7 @@ bool Script::do_grammar()
 // as in "gmr:fmt"
 // If parsing the format within a grammar then gmr is not a nullptr
 // and the Format code just contains just the Format code, as in "fmt".
-bool glich::Script::do_format( Grammar* gmr )
+bool Script::do_format( Grammar* gmr )
 {
     string code = get_name_or_primary( GetToken::next );
     if( code.empty() ) {
@@ -1017,7 +1017,7 @@ SValue Script::primary( GetToken get )
     return value;
 }
 
-std::string Script::get_name_or_primary( GetToken get )
+string Script::get_name_or_primary( GetToken get )
 {
     string str;
     SToken token = (get == GetToken::next) ? next_token() : current_token();
@@ -1035,7 +1035,7 @@ std::string Script::get_name_or_primary( GetToken get )
     return str;
 }
 
-StdStrVec glich::Script::get_string_list( GetToken get )
+StdStrVec Script::get_string_list( GetToken get )
 {
     StdStrVec vec;
     SToken token = (get == GetToken::next) ? next_token() : current_token();
@@ -1054,7 +1054,7 @@ StdStrVec glich::Script::get_string_list( GetToken get )
     return vec;
 }
 
-SValue glich::Script::get_object( GetToken get )
+SValue Script::get_object( GetToken get )
 {
     string ocode = get_name_or_primary( get );
     Object* obj = m_glc->get_object( ocode );
@@ -1347,7 +1347,7 @@ SValue Script::dot_mask( const Object* obj, const SValue* left )
     return SValue( result );
 }
 
-SValue glich::Script::command_call()
+SValue Script::command_call()
 {
     SValue value;
     SToken token = next_token();
@@ -1417,7 +1417,7 @@ SValue Script::at_read()
     return SValue( line );
 }
 
-SValue glich::Script::at_filesys()
+SValue Script::at_filesys()
 {
     StdStrVec quals = get_qualifiers( GetToken::next );
     SValueVec args = get_args( GetToken::current );
@@ -1665,7 +1665,7 @@ SValue Script::at_float()
     return value;
 }
 
-SValue Script::get_value_var( const std::string& name )
+SValue Script::get_value_var( const string& name )
 {
     if( name == "today" ) {
         return SValue( Gregorian::today() );
