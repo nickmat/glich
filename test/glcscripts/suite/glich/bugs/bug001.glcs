@@ -1,0 +1,24 @@
+// bug001.glcs Multi-line strings in functions and line count
+
+function test {
+    result = "Text
+on
+multiple
+lines
+"
+    ;
+}
+
+write nl;
+write @test;
+write @error( "Display line count" );
+
+/*[OUTPUT]
+
+Text
+on
+multiple
+lines
+Error (14): Display line count
+
+[OUTPUT]*/

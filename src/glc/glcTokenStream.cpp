@@ -315,6 +315,9 @@ std::string STokenStream::read_until( const std::string& name, const std::string
         if( ch == '"' ) {
             code += ch;
             while( m_in->get( ch ) && ch != '"' ) {
+                if( ch == '\n' ) {
+                    m_line++;
+                }
                 code += ch;
             }
         }
