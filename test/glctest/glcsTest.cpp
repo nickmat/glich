@@ -231,7 +231,7 @@ int main( int argc, char* argv[] )
         }
         result += "Unknown command line switch " + arg + "\n\n";
     }
-    if( !totals.show_files && !totals.show_skips ) {
+    if( !totals.show_files ) {
         std::cout << result;
     }
 
