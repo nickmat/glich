@@ -4,11 +4,11 @@ let filename = "Test-glcs-file1.txt";
 
 file test;
 
-file.test filename write;
+file.test write filename;
 
 write.test "This is some text for test file." nl;
 
-file.test filename read;
+file.test read filename;
 
 write @read.test;
 

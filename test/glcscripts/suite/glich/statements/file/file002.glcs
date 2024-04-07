@@ -4,7 +4,7 @@ let filename = "Test-glcs-file2.txt";
 
 write nl;
 
-file test filename read;
+file test read filename;
 
 
 /*[OUTPUT]

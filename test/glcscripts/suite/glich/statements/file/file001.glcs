@@ -2,12 +2,12 @@
 
 let filename = "Test-glcs-file.txt";
 
-file test filename write;
+file test write filename;
 
 write.test "This is a test string." nl;
 write.test "And this is a second." nl;
 
-file test2 filename read;
+file test2 read filename;
 
 write nl;
 write @read.test2 nl;
