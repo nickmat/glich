@@ -107,6 +107,7 @@ namespace glich {
         SValue at_rlist();
         SValue at_number();
         SValue at_float();
+        SValue at_version();
 
         SValue get_value_var( const std::string& name );
         SValue get_cur_object();
