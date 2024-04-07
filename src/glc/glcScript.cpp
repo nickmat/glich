@@ -672,8 +672,7 @@ bool Script::do_file()
         }
     }
 
-    string filename = expr( GetToken::current ).as_string();
-    File::FileType type = File::FT_read;
+    File::FileType type = File::FT_null;
     if( current_token().type() != SToken::Type::Semicolon ) {
         string type_str = get_name_or_primary( GetToken::current );
         if( type_str.empty() ) {
@@ -689,7 +688,12 @@ bool Script::do_file()
         else if( type_str == "append" ) {
             type = File::FT_append;
         }
+        else {
+            error( "File mode \"" + type_str + "\" not understood." );
+            return false;
+        }
     }
+    string filename = expr( GetToken::current ).as_string();
     if( current_token().type() != SToken::Type::Semicolon ) {
         error( "';' expected." );
         return false;

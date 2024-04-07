@@ -32,7 +32,7 @@ using std::string;
 
 
 File::File( const string& code )
-    : m_code( code ), m_filetype( FT_read )
+    : m_code( code ), m_filetype( FT_null )
 {
 }
 
