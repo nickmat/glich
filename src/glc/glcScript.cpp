@@ -1675,6 +1675,11 @@ SValue Script::at_float()
 SValue glich::Script::at_version()
 {
     StdStrVec quals = get_qualifiers( GetToken::next );
+    if( !quals.empty() ) {
+        if( quals[0] == "number" ) {
+            return glc_version_number;
+        }
+    }
     return glc_version;
 }
 

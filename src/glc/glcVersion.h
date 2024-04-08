@@ -30,6 +30,7 @@
 
 namespace glich {
 
+    extern const char* glc_version_number;
     extern const char* glc_version;
 
 }

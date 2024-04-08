@@ -37,6 +37,8 @@
 
 using namespace glich;
 
+const char* glich::glc_version_number = VERSION_NUM;
+
 /*! A string containing the current full version number.
  */
 const char* glich::glc_version = VERSION_NUM VERSION_CONFIG;
