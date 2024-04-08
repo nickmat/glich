@@ -1,0 +1,22 @@
+// file001.glcs  Test creating a file object
+
+let filename = "Test-glcs-file.txt";
+
+file test write filename;
+
+write.test "This is a test string." nl;
+write.test "And this is a second." nl;
+
+file.test read filename;
+
+write nl;
+write @read.test nl;
+write @read.test nl;
+
+
+/*[OUTPUT]
+
+This is a test string.
+And this is a second.
+
+[OUTPUT]*/
