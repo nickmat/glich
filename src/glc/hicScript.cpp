@@ -729,7 +729,7 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
         if( !instring.empty() ) {
             fmtt->set_user_input_str( instring );
         }
-        if( !instring.empty() ) {
+        if( !outstring.empty() ) {
             fmtt->set_user_output_str( outstring );
         }
         if( !ufunction.empty() ) {
