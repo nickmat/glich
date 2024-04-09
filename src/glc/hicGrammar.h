@@ -45,6 +45,8 @@ namespace glich {
     public:
         Grammar( const std::string& code, Glich* glc );
         ~Grammar();
+        Grammar( const Grammar& ) = delete;
+        Grammar& operator=( const Grammar& ) = delete;
 
         bool is_ok() const { return m_ok; }
         void create_error( const std::string& mess );
