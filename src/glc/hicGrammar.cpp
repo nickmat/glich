@@ -28,6 +28,7 @@
 #include "hicGrammar.h"
 
 #include <glc/glc.h>
+#include "glcFunction.h"
 #include "hicBase.h"
 #include "hicFormatIso.h"
 #include "hicFormatText.h"
@@ -49,6 +50,9 @@ Grammar::Grammar( const string& code, Glich* glc )
 Grammar::~Grammar()
 {
     for( auto& pair : m_formats ) {
+        delete pair.second;
+    }
+    for( auto& pair : m_functions ) {
         delete pair.second;
     }
 }
@@ -384,6 +388,20 @@ Lexicon* Grammar::find_lexicon( const string& code ) const
     }
     if( m_inherit && m_inherit_lexicons ) {
         return m_inherit->find_lexicon( code );
+    }
+    return nullptr;
+}
+
+bool glich::Grammar::add_function( Function* fun )
+{
+    m_functions[fun->get_code()] = fun;
+    return true;
+}
+
+Function* glich::Grammar::get_function( const std::string& code ) const
+{
+    if( m_functions.count( code ) > 0 ) {
+        return m_functions.find( code )->second;
     }
     return nullptr;
 }
