@@ -369,6 +369,24 @@ namespace {
         return true;
     }
 
+    bool do_grammar_function( Script& script, Grammar* gmr )
+    {
+        string code = script.get_name_or_primary( GetToken::next );
+        if( code.empty() ) {
+            script.error( "Function name missing." );
+            return false;
+        }
+        if( gmr->get_function( code ) != nullptr ) {
+            script.error( "The function \"" + code + "\" already exists." );
+            return false;
+        }
+        Function* fun = script.create_function( code );
+        if( fun == nullptr ) {
+            return false;
+        }
+        return gmr->add_function( fun );
+    }
+
 } // namespace
 
 Lexicon* glich::do_create_lexicon( Script& script, const std::string& code )
@@ -486,6 +504,9 @@ Grammar* glich::do_create_grammar( Script& script, const std::string& code, cons
             else if( name == "rank" ) {
                 StdStrVec rankfields = script.get_string_list( GetToken::next );
                 gmr->set_rank_fieldnames( rankfields );
+            }
+            else if( name == "function" ) {
+                do_grammar_function( script, gmr );
             }
         }
         else {
