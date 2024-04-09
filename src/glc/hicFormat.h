@@ -42,6 +42,8 @@ namespace glich {
     public:
         Format( const std::string& code, Grammar& gmr );
         virtual ~Format();
+        Format( const Format& ) = delete;
+        Format& operator=( const Format& ) = delete;
 
         virtual bool construct() { m_ok = true; return m_ok; }
         bool is_ok() const { return m_ok; }
