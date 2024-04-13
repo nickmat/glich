@@ -118,7 +118,6 @@ namespace glich {
         STokenStream m_ts;
         std::ostream* m_out;
         std::ostream* m_err;
-        const Object* m_cur_obj;
     };
 
 } // namespace HistoryGen

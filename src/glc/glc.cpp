@@ -63,7 +63,7 @@ string InOut::get_input( const string& prompt ) {
 }
 
 Glich::Glich( InOut* inout )
-    : m_store( new Store ), m_inout( inout )
+    : m_store( new Store ), m_inout( inout ), m_cur_object( nullptr )
 {
     Mark::set_zero_store( m_store );
     m_marks.push_back( new Mark( "", nullptr ) );
@@ -856,6 +856,13 @@ Scheme* Glich::get_oscheme() const
         return m_marks[i]->get_oscheme();
     }
     return nullptr;
+}
+
+const Object* Glich::set_cur_object( const Object* obj )
+{
+    const Object* prev_obj = m_cur_object;
+    m_cur_object = obj;
+    return prev_obj;
 }
 
 static Glich* s_glc = nullptr;

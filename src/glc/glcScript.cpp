@@ -54,7 +54,7 @@ using std::vector;
 STokenStream* Script::s_current_ts = nullptr;
 
 Script::Script( Glich* glc, std::istream& in, std::ostream& out )
-    : m_glc( glc ), m_ts( in, out ), m_out( &out ), m_err( &out ), m_cur_obj( nullptr )
+    : m_glc( glc ), m_ts( in, out ), m_out( &out ), m_err( &out )
 {
     assert( glc != nullptr );
 }
@@ -1271,13 +1271,13 @@ SValue Script::run_function( Function* fun, const Object* obj, const SValue* lef
     std::istringstream iss( fun->get_script() );
     m_ts.reset_in( &iss );
     m_glc->push_store();
-    const Object* prev_obj = m_cur_obj;
+    const Object* prev_obj = glc().get_cur_object();
 
     m_glc->create_local( "result" );
     if( obj != nullptr ) {
         assert( left != nullptr );
         assert( left->type() == SValue::Type::Object );
-        m_cur_obj = obj;
+        glc().set_cur_object( obj );
         SValueVec left_values = left->get_object();
         const NameIndexMap& vnames = obj->get_vnames_map();
         for( const auto& vname : vnames ) {
@@ -1321,7 +1321,7 @@ SValue Script::run_function( Function* fun, const Object* obj, const SValue* lef
     value = m_glc->get_local( "result" );
     m_glc->pop_store();
     m_ts = prev_ts;
-    m_cur_obj = prev_obj;
+    glc().set_cur_object( prev_obj );
 
     return value;
 }
@@ -1700,12 +1700,13 @@ SValue Script::get_value_var( const string& name )
 SValue Script::get_cur_object()
 {
     SValue value;
-    if( m_cur_obj == nullptr ) {
+    const Object* cur_obj = glc().get_cur_object();
+    if( cur_obj == nullptr ) {
         return SValue::create_error( "Object not currently running." );
     }
-    const NameIndexMap& vnames_map = m_cur_obj->get_vnames_map();
+    const NameIndexMap& vnames_map = cur_obj->get_vnames_map();
     SValueVec values( vnames_map.size() + 1 );
-    values[0].set_str( m_cur_obj->get_code() );
+    values[0].set_str( cur_obj->get_code() );
     for( const auto& v : vnames_map ) {
         values[v.second] = m_glc->get_local( v.first );
     }

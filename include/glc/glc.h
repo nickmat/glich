@@ -131,6 +131,9 @@ namespace glich {
         Scheme* get_ischeme() const;
         Scheme* get_oscheme() const;
 
+        const Object* set_cur_object( const Object* obj );
+        const Object* get_cur_object() const { return m_cur_object; }
+
     private:
         FunctionMap m_functions;
         FunctionMap m_commands;
@@ -143,6 +146,7 @@ namespace glich {
         SValueMap m_constants;
         std::string m_init_error;
         InOut* m_inout;
+        const Object* m_cur_object;
     };
 
     void init_glc( InitLibrary lib, InOut* inout = nullptr );
