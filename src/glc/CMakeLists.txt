@@ -4,7 +4,7 @@
 # Author:      Nick Matthews
 # Website:     https://github.com/nickmat/glich
 # Created:     8th February 2023
-# Copyright:   Copyright (c) 2023, Nick Matthews.
+# Copyright:   Copyright (c) 2023..2024, Nick Matthews.
 # Licence:     GNU GPLv3
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
@@ -12,6 +12,7 @@ set( GLC_SOURCES
     glc.cpp
     glcFile.cpp
     glcFilesys.cpp
+    glcFunction.cpp
     glcHelper.cpp
     glcLibScripts.cpp
     glcMark.cpp

@@ -1166,7 +1166,7 @@ SValue Script::do_at( const SValue& left, const SValue& right )
         }
         return SValue::create_error( "Function not found." );
     }
-    return run_function( fun, obj, &left );
+    return run_function( fun, &left );
 }
 
 StdStrVec Script::get_qualifiers( GetToken get )
@@ -1261,69 +1261,16 @@ SValue Script::function_call()
     return run_function( fun );
 }
 
-SValue Script::run_function( Function* fun, const Object* obj, const SValue* left )
+SValue Script::run_function( Function* fun, const SValue* left )
 {
-    GetToken get = (obj == nullptr) ? GetToken::next : GetToken::current;
+    GetToken get = (left == nullptr) ? GetToken::next : GetToken::current;
     StdStrVec qualifiers = get_qualifiers( get );
     SValueVec args = get_args( GetToken::current );
-    STokenStream prev_ts = m_ts;
-    m_ts.set_line( fun->get_line() );
-    std::istringstream iss( fun->get_script() );
-    m_ts.reset_in( &iss );
-    m_glc->push_store();
-    const Object* prev_obj = glc().get_cur_object();
 
-    m_glc->create_local( "result" );
-    if( obj != nullptr ) {
-        assert( left != nullptr );
-        assert( left->type() == SValue::Type::Object );
-        glc().set_cur_object( obj );
-        SValueVec left_values = left->get_object();
-        const NameIndexMap& vnames = obj->get_vnames_map();
-        for( const auto& vname : vnames ) {
-            size_t index = vname.second;
-            m_glc->create_local( vname.first );
-            if( index < left_values.size() ) {
-                m_glc->update_local( vname.first, left_values[vname.second] );
-            }
-        }
+    if( left != nullptr ) {
+        return fun->run( left, qualifiers, args, get_out_stream() );
     }
-    SValue value;
-    for( size_t i = 0; i < fun->get_qualifier_size(); i++ ) {
-        string qual_name = fun->get_qualifier_name( i );
-        m_glc->create_local( qual_name );
-        if( i < qualifiers.size() ) {
-            value = qualifiers[i];
-        }
-        else {
-            value = "";
-        }
-        m_glc->update_local( qual_name, value );
-    }
-    for( size_t i = 0; i < fun->get_arg_size(); i++ ) {
-        string arg_name = fun->get_arg_name( i );
-        m_glc->create_local( arg_name );
-        if( i < args.size() ) {
-            m_glc->update_local( arg_name, args[i] );
-        }
-        else {
-            m_glc->update_local( arg_name, fun->get_default_value( i ) );
-        }
-    }
-
-    next_token();
-    while( statement() ) {
-        if( next_token().type() == SToken::Type::End ) {
-            break;
-        }
-    }
-
-    value = m_glc->get_local( "result" );
-    m_glc->pop_store();
-    m_ts = prev_ts;
-    glc().set_cur_object( prev_obj );
-
-    return value;
+    return fun->run( qualifiers, args, get_out_stream() );
 }
 
 SValue Script::dot_mask( const Object* obj, const SValue* left )

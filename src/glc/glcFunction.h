@@ -1,11 +1,11 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Name:        include/glc/glcFunction.h
+ * Name:        src/glc/glcFunction.h
  * Project:     Glich: Extendable Script Language.
  * Purpose:     Function class to handle script functions.
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -53,13 +53,18 @@ namespace glich {
         std::string get_arg_name( size_t index ) const { return m_args[index]; }
         SValue get_default_value( size_t index ) const { return m_defs[index]; }
 
+        SValue run( StdStrVec& qual, SValueVec& args, std::ostream& out ) const;
+        SValue run( const SValue* left, StdStrVec& qual, SValueVec& args, std::ostream& out ) const;
+
     private:
+        void create_locals( StdStrVec& qual, SValueVec& args ) const;
+
         std::string  m_code;
         int          m_line;
         std::string  m_script;
         StdStrVec    m_qualifiers;
         StdStrVec    m_args;
-        SValueVec m_defs;
+        SValueVec    m_defs;
     };
 
 }

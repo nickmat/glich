@@ -53,6 +53,8 @@ namespace glich {
             { return m_ts.read_until( name, esc ); }
         Glich* get_glich() { return m_glc; }
 
+        std::ostream& get_out_stream() { return *m_out; }
+        void set_line( int line ) { m_ts.set_line( line ); }
         bool error( const std::string& mess ) { return m_ts.error( mess ); }
         bool error_value( const SValue& value );
 
@@ -93,7 +95,7 @@ namespace glich {
         StdStrVec get_qualifiers( GetToken get );
         SValueVec get_args( GetToken get );
         SValue function_call();
-        SValue run_function( Function* fun, const Object* obj = nullptr, const SValue* left = nullptr );
+        SValue run_function( Function* fun, const SValue* left = nullptr );
         SValue dot_mask( const Object* obj, const SValue* left );
         SValue command_call();
         SValue at_if();
