@@ -32,6 +32,7 @@
 #include <cstdlib>
 #include <cinttypes>
 #include <map>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -101,6 +102,9 @@ namespace glich {
 
     class Function;
     using FunctionMap = std::map<std::string, Function*>;
+    using SpFunction = std::shared_ptr<Function>;
+    using SpFunctionMap = std::map<std::string, SpFunction>;
+    using SpFunctionVec = std::vector<SpFunction>;
     using NameIndexMap = std::map<std::string, size_t>;
 
     class SValue;
