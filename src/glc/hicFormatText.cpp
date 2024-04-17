@@ -301,7 +301,15 @@ bool FormatText::set_input( Record& record, const string& input, Boundary rb ) c
     InputFieldVec ifs( base.object_size() );
     parse_date( ifs, input );
     bool ret = resolve_input( base, record.get_field_vec(), ifs );
-    if( ret && base.has_calc_input() ) {
+
+    if( ret && !m_use_function.empty() ) {
+        string in_function = "in:" + m_use_function;
+        Function* fun = m_owner.get_function( in_function );
+        if( fun == nullptr ) {
+            fun = m_owner.get_function( m_use_function );
+        }
+    }
+    else if( ret && base.has_calc_input() ) {
         record.calculate_expression( base.get_calc_input() );
     }
     record.update_input();

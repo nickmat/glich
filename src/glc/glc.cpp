@@ -72,7 +72,7 @@ Glich::Glich( InOut* inout )
     }
 
     // Add dummy built-in functions to avoid redefinition.
-    Function* fptr = new Function( string() );
+    SpFunction fptr = std::shared_ptr<Function>( new Function( string() ) );
     m_functions = {
         { "boolean", fptr },
         { "error", fptr },
@@ -500,34 +500,46 @@ bool Glich::is_constant( const string& name ) const
     return m_constants.count( name ) == 1;
 }
 
-bool Glich::add_function( Function* fun )
+bool Glich::add_function( SpFunction fun )
 {
     assert( m_marks.size() > 0 );
-    m_marks[m_marks.size() - 1]->add_function( fun );
-    m_functions[fun->get_code()] = fun;
+    const string code = fun->get_code();
+    m_marks[m_marks.size() - 1]->add_function( code );
+    m_functions[code] = fun;
     return true;
+}
+
+void Glich::remove_function( const string& code )
+{
+    m_functions.erase( code );
 }
 
 Function* Glich::get_function( const string& code ) const
 {
     if( m_functions.count( code ) > 0 ) {
-        return m_functions.find( code )->second;
+        return m_functions.find( code )->second.get();
     }
     return nullptr;
 }
 
-bool Glich::add_command( Function* com )
+bool Glich::add_command( SpFunction com )
 {
     assert( m_marks.size() > 0 );
-    m_marks[m_marks.size() - 1]->add_command( com );
-    m_commands[com->get_code()] = com;
+    const string code = com->get_code();
+    m_marks[m_marks.size() - 1]->add_command( code );
+    m_commands[code] = com;
     return true;
+}
+
+void Glich::remove_command( const string& code )
+{
+    m_commands.erase( code );
 }
 
 Function* Glich::get_command( const string& code ) const
 {
     if( m_commands.count( code ) > 0 ) {
-        return m_commands.find( code )->second;
+        return m_commands.find( code )->second.get();
     }
     return nullptr;
 }
@@ -665,22 +677,9 @@ bool Glich::clear_mark( const string& name )
         return false; // Can't find mark name.
     }
     for( size_t i = end; i >= pos; --i ) {
+        m_marks[i]->clear();
         m_marks[i]->remove_variables();
         string code;
-        for( ;;) {
-            code = m_marks[i]->remove_next_function();
-            if( code.empty() ) {
-                break;
-            }
-            m_functions.erase( code );
-        }
-        for( ;;) {
-            code = m_marks[i]->remove_next_command();
-            if( code.empty() ) {
-                break;
-            }
-            m_commands.erase( code );
-        }
         for( ;;) {
             code = m_marks[i]->remove_next_object();
             if( code.empty() ) {

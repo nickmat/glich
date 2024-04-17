@@ -28,14 +28,12 @@
 #ifndef GLC_HICGRAMMAR_H_GUARD
 #define GLC_HICGRAMMAR_H_GUARD
 
+#include <glc/glc.h>
 #include "hicHelper.h"
-#include <glc/hicDefs.h>
 
 namespace glich {
 
-    class Glich;
     class Base;
-    class Grammar;
     class FormatText;
     class FormatIso;
     class FormatUnit;
@@ -102,7 +100,7 @@ namespace glich {
         Glich& get_glich() const { return *m_glc; }
         void remove_format( const std::string& fcode ) { m_formats.erase( fcode ); }
 
-        bool add_function( Function* fun );
+        bool add_function( SpFunction fun );
         Function* get_function( const std::string& code ) const;
 
         static Grammar* create_default_grammar( const Base* base, Glich* glc );
@@ -138,7 +136,7 @@ namespace glich {
         std::string m_calculate_output;
         std::string m_calculate_first;
         std::string m_calculate_last;
-        FunctionMap m_functions;
+        SpFunctionMap m_functions;
     };
 
 }

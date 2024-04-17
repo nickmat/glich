@@ -67,7 +67,7 @@ namespace glich {
         bool do_assign( const std::string& name );
         bool do_write( const std::string& term = "" );
         bool do_writeln() { return do_write( "\n" ); }
-        Function* create_function( const std::string& code );
+        SpFunction create_function( const std::string& code );
         bool do_function();
         bool do_command();
         bool do_call();

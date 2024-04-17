@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -56,12 +56,6 @@ Mark::Mark( const string& name, Mark* prev )
 
 Mark::~Mark()
 {
-    for( auto function : m_functions ) {
-        delete function;
-    }
-    for( auto command : m_commands ) {
-        delete command;
-    }
     for( auto object : m_objects ) {
         delete object;
     }
@@ -97,28 +91,14 @@ void Mark::remove_variables()
     }
 }
 
-string Mark::remove_next_function()
+void Mark::clear()
 {
-    string code;
-    if( !m_functions.empty() ) {
-        Function* func = m_functions[m_functions.size() - 1];
-        code = func->get_code();
-        delete func;
-        m_functions.pop_back();
+    for( auto& code : m_functions ) {
+        glc().remove_function( code );
     }
-    return code;
-}
-
-string Mark::remove_next_command()
-{
-    string code;
-    if( !m_commands.empty() ) {
-        Function* com = m_commands[m_commands.size() - 1];
-        code = com->get_code();
-        delete com;
-        m_commands.pop_back();
+    for( auto& code : m_commands ) {
+        glc().remove_command( code );
     }
-    return code;
 }
 
 string Mark::remove_next_object()
@@ -190,13 +170,13 @@ GlcMark Mark::get_mark_data( const Glich* glc ) const
     GlcMark mark;
     mark.name = m_name;
     GlcData data;
-    for( auto fun : m_functions ) {
-        data.name = fun->get_code();
+    for( auto code : m_functions ) {
+        data.name = code;
         data.value = string();
         mark.fun.push_back( data );
     }
-    for( auto com : m_commands ) {
-        data.name = com->get_code();
+    for( auto code : m_commands ) {
+        data.name = code;
         data.value = string();
         mark.com.push_back( data );
     }

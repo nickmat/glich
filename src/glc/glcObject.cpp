@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     4th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -36,9 +36,6 @@ using std::vector;
 
 Object::~Object()
 {
-    for( auto fun : m_functions ) {
-        delete fun.second;
-    }
 }
 
 void Object::set_value_names( const StdStrVec& vnames )
@@ -58,7 +55,7 @@ size_t Object::get_vindex( const string& str ) const
     return 0;
 }
 
-bool Object::add_function( Function* fun )
+bool Object::add_function( SpFunction fun )
 {
     if( m_functions.count( fun->get_code() ) > 0 ) {
         return false;
@@ -72,7 +69,7 @@ Function* Object::get_function( const std::string& fcode ) const
     if( m_functions.count( fcode ) == 0 ) {
         return nullptr;
     }
-    return m_functions.find( fcode )->second;
+    return m_functions.find( fcode )->second.get();
 }
 
 // End of src/glc/glcValue.cpp

@@ -483,7 +483,7 @@ bool Script::do_write( const string& term )
     return true;
 }
 
-Function* Script::create_function( const string& code )
+SpFunction Script::create_function( const string& code )
 {
     SToken token = current_token();
     StdStrVec quals;
@@ -533,7 +533,7 @@ Function* Script::create_function( const string& code )
         error( "Terminating '}' not found." );
         return nullptr;
     }
-    Function* fun = new Function( code );
+    SpFunction fun = SpFunction( new Function(code) );
     if( fun == nullptr ) {
         return nullptr;
     }
@@ -556,7 +556,7 @@ bool Script::do_function()
         error( "The function \"" + code + "\" already exists." );
         return false;
     }
-    Function* fun = create_function( code );
+    SpFunction fun = create_function( code );
     if( fun == nullptr ) {
         return false;
     }
@@ -570,12 +570,12 @@ bool Script::do_command()
         error( "Command name missing." );
         return false;
     }
-    if( m_glc->get_command( code ) != NULL ) {
+    if( m_glc->get_command( code ) != nullptr ) {
         error( "command \"" + code + "\" already exists." );
         return false;
     }
 
-    Function* com = create_function( code );
+    SpFunction com = create_function( code );
     if( com == nullptr ) {
         return false;
     }
@@ -627,7 +627,7 @@ bool Script::do_object()
             }
             else if( name == "function" ) {
                 string fcode = get_name_or_primary( GetToken::next );
-                Function* fun = create_function( fcode );
+                SpFunction fun = create_function( fcode );
                 if( fun == nullptr ) {
                     error( "Unable to create function." );
                     return false;

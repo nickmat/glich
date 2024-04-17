@@ -380,7 +380,7 @@ namespace {
             script.error( "The function \"" + code + "\" already exists." );
             return false;
         }
-        Function* fun = script.create_function( code );
+        SpFunction fun = script.create_function( code );
         if( fun == nullptr ) {
             return false;
         }

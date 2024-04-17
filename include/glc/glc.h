@@ -99,9 +99,11 @@ namespace glich {
         bool is_local( const std::string& name ) const;
         bool is_constant( const std::string& name ) const;
 
-        bool add_function( Function* fun );
+        bool add_function( SpFunction fun );
+        void remove_function( const std::string& code );
         Function* get_function( const std::string& code ) const;
-        bool add_command( Function* com );
+        bool add_command( SpFunction com );
+        void remove_command( const std::string& code );
         Function* get_command( const std::string& code ) const;
         Object* create_object( const std::string& code );
         bool add_object( Object* obj, const std::string& code );
@@ -135,8 +137,8 @@ namespace glich {
         const Object* get_cur_object() const { return m_cur_object; }
 
     private:
-        FunctionMap m_functions;
-        FunctionMap m_commands;
+        SpFunctionMap m_functions;
+        SpFunctionMap m_commands;
         ObjectMap m_objects;
         FileMap m_files;
         LexiconMap m_lexicons;

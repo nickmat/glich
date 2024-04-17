@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -54,8 +54,8 @@ namespace glich {
 
         bool create_local( const std::string& name, Store* store );
 
-        void add_function( Function* function ) { m_functions.push_back( function ); }
-        void add_command( Function* command ) { m_commands.push_back( command ); }
+        void add_function( const std::string& code ) { m_functions.push_back( code ); }
+        void add_command( const std::string& code ) { m_commands.push_back( code ); }
         void add_object( Object* object ) { m_objects.push_back( object ); }
         void add_file( File* file ) { m_files.push_back( file ); }
         void add_lexicon( Lexicon* lex ) { m_lexicons.push_back( lex ); }
@@ -63,8 +63,7 @@ namespace glich {
         void add_format( Format* fmt ) { m_formats.push_back( fmt ); }
 
         void remove_variables();
-        std::string remove_next_function();
-        std::string remove_next_command();
+        void clear();
         std::string remove_next_object();
         std::string remove_next_file();
         std::string remove_next_lexicon();
@@ -88,8 +87,8 @@ namespace glich {
 
         std::string            m_name;
         StdStrVec              m_locals;
-        std::vector<Function*> m_functions;
-        std::vector<Function*> m_commands;
+        StdStrVec              m_functions;
+        StdStrVec              m_commands;
         std::vector<Object*>   m_objects;
         std::vector<File*>     m_files;
         std::vector<Lexicon*>  m_lexicons;

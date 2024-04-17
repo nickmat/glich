@@ -57,13 +57,13 @@ glich::Scheme::Scheme( const std::string& code, const Base& base )
     set_value_names( base.get_fieldnames() );
     string calc_output = base.get_calc_output();
     if( !calc_output.empty() ) {
-        Function* out_fun = new Function( "output" );
+        SpFunction out_fun = SpFunction( new Function( "output" ) );
         out_fun->set_script( "result=this@mask(" + calc_output + ");" );
         add_function( out_fun );
     }
     string calc_input = base.get_calc_input();
     if( !calc_input.empty() ) {
-        Function* in_fun = new Function( "input" );
+        SpFunction in_fun = SpFunction( new Function( "input" ) );
         in_fun->set_script( "result=this@mask(" + calc_input + ");" );
         add_function( in_fun );
     }

@@ -52,9 +52,6 @@ Grammar::~Grammar()
     for( auto& pair : m_formats ) {
         delete pair.second;
     }
-    for( auto& pair : m_functions ) {
-        delete pair.second;
-    }
 }
 
 void glich::Grammar::create_error( const std::string& mess )
@@ -392,16 +389,16 @@ Lexicon* Grammar::find_lexicon( const string& code ) const
     return nullptr;
 }
 
-bool glich::Grammar::add_function( Function* fun )
+bool Grammar::add_function( SpFunction fun )
 {
     m_functions[fun->get_code()] = fun;
     return true;
 }
 
-Function* glich::Grammar::get_function( const std::string& code ) const
+Function* Grammar::get_function( const string& code ) const
 {
     if( m_functions.count( code ) > 0 ) {
-        return m_functions.find( code )->second;
+        return m_functions.find( code )->second.get();
     }
     return nullptr;
 }
