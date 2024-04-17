@@ -102,6 +102,7 @@ namespace glich {
 
         bool add_function( SpFunction fun );
         Function* get_function( const std::string& code ) const;
+        const SpFunctionMap& get_function_map() const { return m_functions; }
 
         static Grammar* create_default_grammar( const Base* base, Glich* glc );
 

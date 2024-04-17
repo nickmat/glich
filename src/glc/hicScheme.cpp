@@ -82,6 +82,9 @@ bool glich::Scheme::reset()
     }
     m_input_fcode = gmr->get_pref_input_fcode();
     m_output_fcode = gmr->get_pref_output_fcode();
+    for( const auto& fun : gmr->get_function_map() ) {
+        add_function( fun.second );
+    }
     return true;
 }
 
