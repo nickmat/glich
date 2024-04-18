@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     24th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -50,6 +50,8 @@ namespace glich {
 
         void set_user_input_str( const std::string str ) { m_input_str = str; }
         void set_user_output_str( const std::string str ) { m_output_str = str; }
+        void set_input_function( const std::string& ufcode ) { m_input_function = ufcode; }
+        void set_output_function( const std::string& ufcode ) { m_output_function = ufcode; }
         void set_style( FormatStyle style ) { m_style = style; }
         void set_ok( bool ok ) { m_ok = ok; }
 
@@ -62,6 +64,9 @@ namespace glich {
         Grammar* get_owner() const { return &m_owner; }
         const Grammar& get_grammar() const { return m_owner; }
         const Glich& get_glich() const { return get_grammar().get_glich(); }
+        bool has_use_function() const { return !m_input_function.empty() || !m_output_function.empty(); }
+        std::string get_input_funcode() const { return m_input_function; }
+        std::string get_output_funcode() const { return m_output_function; }
         FormatStyle get_style() const { return m_style; }
         void get_info( Format_info* info ) const;
 
@@ -88,6 +93,9 @@ namespace glich {
         int         m_priority;
         std::string m_input_str;
         std::string m_output_str;
+
+        std::string m_input_function;
+        std::string m_output_function;
     };
 
 }
