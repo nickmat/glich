@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     24th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -60,6 +60,11 @@ SValue Format::string_to_object( const string& ocode, const Base& base, const st
 {
     Record mask( base, input, *this, Boundary::None );
     return mask.get_object( ocode );
+}
+
+bool glich::Format::set_input( Record& record, const std::string& input ) const
+{
+    return set_input( record, input, Boundary::None );
 }
 
 string Format::jdn_to_string( const Base& base, Field jdn ) const
