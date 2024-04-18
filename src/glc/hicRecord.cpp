@@ -57,6 +57,12 @@ Record::Record( const Base& base, Field jdn )
     m_f = m_base.get_fields( jdn );
 }
 
+Record::Record( const Base& base, const string& str, const Format& fmt )
+    : m_base( base ), m_jdn( f_invalid ), m_f( base.record_size() )
+{
+    set_str( str, fmt );
+}
+
 Record::Record( const Base& base, const string& str, const Format& fmt, Boundary rb )
     : m_base( base ), m_jdn( f_invalid ), m_f( base.record_size() )
 {
@@ -96,6 +102,27 @@ Field Record::calc_jdn()
         m_jdn = m_base.get_jdn( m_f );
     }
     return m_jdn;
+}
+
+void Record::set_str( const string& str, const Format& fmt )
+{
+    clear_fields();
+    string in = full_trim( str );
+    if( in == "past" ) {
+        m_jdn = m_f[0] = f_minimum;
+        return;
+    }
+    if( in == "future" ) {
+        m_jdn = m_f[0] = f_maximum;
+        return;
+    }
+    if( in == "today" ) {
+        set_jdn( Gregorian::today() );
+        return;
+    }
+    if( !fmt.set_input( *this, in ) ) {
+        clear_fields();
+    }
 }
 
 void Record::set_str( const string& str, const Format& fmt, Boundary rb )

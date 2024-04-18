@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     http://historycal.org
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -44,12 +44,14 @@ namespace glich {
     public:
         Record( const Base& base );
         Record( const Base& base, Field jdn );
+        Record( const Base& base, const std::string& str, const Format& fmt );
         Record( const Base& base, const std::string& str, const Format& fmt, Boundary rb );
         Record( const Base& base, const FieldVec& fields );
         Record( const Base& base, const SValue& ovalue );
 
         void set_jdn( Field jdn );
         Field calc_jdn();
+        void set_str( const std::string& str, const Format& fmt );
         void set_str( const std::string& str, const Format& fmt, Boundary rb );
         void set_fields( const FieldVec fields );
         void set_object( const SValue& ovalue );
