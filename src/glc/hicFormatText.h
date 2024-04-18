@@ -46,7 +46,6 @@ namespace glich {
         void set_rankout_fieldnames( StdStrVec fieldnames ) { m_rankout_fieldnames = fieldnames; }
         void set_control_out( const std::string& format ) { m_control_out = format; }
         void set_control_in( const std::string& format ) { m_control_in = format; }
-        void set_use_function( const std::string& ufcode ) { m_use_function = ufcode; }
 
         std::string get_control_in() const { return m_control_in; }
         std::string get_control_out() const { return m_control_out; }
@@ -57,6 +56,7 @@ namespace glich {
         RList string_to_rlist( const Base& base, const std::string& input ) const override;
 
         bool set_input( Record& record, const std::string& input, Boundary rb ) const override;
+        bool set_input( Record& record, const std::string& input ) const override;
 
         std::string range_to_string( const Base& base, const Range& range ) const override;
 
@@ -78,7 +78,6 @@ namespace glich {
 
         std::string m_control_in;
         std::string m_control_out;
-        std::string m_use_function;
         std::string m_separators;
         bool m_shorthand; // Shorthand range allowed
 

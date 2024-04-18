@@ -303,12 +303,9 @@ bool FormatText::set_input( Record& record, const string& input, Boundary rb ) c
     parse_date( ifs, input );
     bool ret = resolve_input( base, record.get_field_vec(), ifs );
 
-    if( ret && !m_use_function.empty() ) {
-        string in_function = "in:" + m_use_function;
+    if( ret && has_use_function() ) {
+        string in_function = get_input_funcode();
         Function* fun = m_owner.get_function( in_function );
-        if( fun == nullptr ) {
-            fun = m_owner.get_function( m_use_function );
-        }
     }
     else if( ret && base.has_calc_input() ) {
         record.calculate_expression( base.get_calc_input() );
@@ -327,6 +324,14 @@ bool FormatText::set_input( Record& record, const string& input, Boundary rb ) c
         fld = record.complete_fields_as_end();
     }
     return (fld != f_invalid);
+}
+
+bool FormatText::set_input( Record& record, const string& input ) const
+{
+    const Base& base = record.get_base();
+    InputFieldVec ifs( base.object_size() );
+    parse_date( ifs, input );
+    return resolve_input( base, record.get_field_vec(), ifs );
 }
 
 string FormatText::range_to_string( const Base& base, const Range& range ) const
