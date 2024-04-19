@@ -908,6 +908,21 @@ SValue glich::at_date( Script& script )
 
 namespace {
 
+    SValue complete_object( Script& script, Scheme* sch, Field jdn )
+    {
+        assert( sch != nullptr );
+        const Base& base = sch->get_base();
+        Record record( base, jdn );
+        SValue value = record.get_object( sch->get_code() );
+        const Grammar* gmr = sch->get_grammar();
+        assert( gmr != nullptr );
+        Function* fun = gmr->get_function( gmr->get_use_jdn() );
+        if( fun != nullptr ) {
+            value = fun->run( &value, StdStrVec(), SValueVec(), script.get_out_stream() );
+        }
+        return value;
+    }
+
     SValue complete_object( Script& script, Scheme* sch, const string& input, const string& fcode )
     {
         assert( sch != nullptr );
@@ -957,7 +972,7 @@ SValue glich::at_record( Script& script )
                 return SValue::create_error( no_default_mess );
             }
         }
-        return sch->complete_object( jdn );
+        return complete_object( script, sch, jdn );
     }
     if( value.type() == SValue::Type::String ) {
         if( sch == nullptr ) {
