@@ -27,6 +27,7 @@
 
 #include "hicScript.h"
 
+#include "glcFunction.h"
 #include "glcScript.h"
 #include "hicBase.h"
 #include "hicCalendars.h"
@@ -37,6 +38,7 @@
 #include "hicFormatText.h"
 #include "hicFormatUnit.h"
 #include "hicLexicon.h"
+#include "hicRecord.h"
 #include "hicScheme.h"
 
 #include <cassert>
@@ -900,6 +902,32 @@ SValue glich::at_date( Script& script )
     return SValue::create_error( "Expected an object or string type." );
 }
 
+namespace {
+
+    SValue complete_object( Script& script, Scheme* sch, const string& input, const string& fcode )
+    {
+        assert( sch != nullptr );
+        Format* fmt = sch->get_input_format( fcode );
+        if( fmt == nullptr ) {
+            return SValue();
+        }
+        const Base& base = sch->get_base();
+        Record mask( base, input, *fmt );
+        string ocode = sch->get_code();
+        SValue value = mask.get_object( ocode );
+        if( fmt->has_use_function() ) {
+            string funcode = fmt->get_input_funcode();
+            Object* obj = glc().get_object( ocode );
+            Function* fun = obj->get_function( funcode );
+            if( fun != nullptr ) {
+                value = fun->run( &value, StdStrVec(), SValueVec(), script.get_out_stream() );
+            }
+        }
+        return value;
+    }
+
+} // namespace
+
 SValue glich::at_record( Script& script )
 {
     const char* no_default_mess = "No default scheme set.";
@@ -934,7 +962,7 @@ SValue glich::at_record( Script& script )
                 return SValue::create_error( no_default_mess );
             }
         }
-        return sch->complete_object( value.get_str(), fcode );
+        return complete_object( script, sch, value.get_str(), fcode );
     }
     return SValue::create_error( "Expected a field or string type." );
 }
