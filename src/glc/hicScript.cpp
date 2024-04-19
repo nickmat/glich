@@ -806,6 +806,30 @@ SValue glich::hics_at( Script& script, bool& success, Object* obj, const std::st
     return SValue();
 }
 
+namespace {
+
+    string jdn_to_str( Script& script, Scheme* sch, Field jdn, const string& fcode )
+    {
+        assert( sch != nullptr );
+        const Base& base = sch->get_base();
+        Record record( base, jdn );
+        SValue value = record.get_object( sch->get_code() );
+        const Grammar* gmr = sch->get_grammar();
+        assert( gmr != nullptr );
+        Function* fun = gmr->get_function( gmr->get_use_jdn() );
+        if( fun != nullptr ) {
+            value = fun->run( &value, StdStrVec(), SValueVec(), script.get_out_stream() );
+        }
+        record.set_object( value );
+        Format* fmt = sch->get_input_format( fcode );
+        if( fmt == nullptr ) {
+            return string();
+        }
+        return fmt->get_text_output( record );
+    }
+
+} // namespace
+
 SValue glich::at_text( Script& script )
 {
     StdStrVec quals = script.get_qualifiers( GetToken::next );
@@ -848,8 +872,8 @@ SValue glich::at_text( Script& script )
     bool success = false;
     Field jdn = value.get_field( success );
     if( success ) {
-        value.set_str( sch->jdn_to_str( jdn, fcode ) );
-        return value;
+        string text = jdn_to_str( script, sch, jdn, fcode );
+        return SValue( text );
     }
     Range rng = value.get_range( success );
     if( success ) {
