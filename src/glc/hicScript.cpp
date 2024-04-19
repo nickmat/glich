@@ -888,6 +888,35 @@ SValue glich::at_text( Script& script )
     return value;
 }
 
+namespace {
+
+    SValue str_to_date( Script& script, Scheme* sch, const string& text, const string& fcode )
+    {
+        assert( sch != nullptr );
+        Format* fmt = sch->get_input_format( fcode );
+        if( fmt == nullptr ) {
+            return SValue();
+        }
+        const Base& base = sch->get_base();
+        Record mask( base, text, *fmt );
+        string ocode = sch->get_code();
+        SValue value = mask.get_object( ocode );
+        if( fmt->has_use_function() ) {
+            string funcode = fmt->get_input_funcode();
+            Object* obj = glc().get_object( ocode );
+            Function* fun = obj->get_function( funcode );
+            if( fun != nullptr ) {
+                value = fun->run( &value, StdStrVec(), SValueVec(), script.get_out_stream() );
+            }
+            mask.set_object( value );
+        }
+        RList rlist = mask.get_rlist_from_mask();
+        value.set_rlist_demote( rlist );
+        return value;
+    }
+
+} // namespace
+
 SValue glich::at_date( Script& script )
 {
     StdStrVec quals = script.get_qualifiers( GetToken::next );
@@ -921,11 +950,9 @@ SValue glich::at_date( Script& script )
             if( sch == nullptr ) {
                 return SValue::create_error( "No default scheme set." );
             }
-            scode = sch->get_code();
         }
-        RList rlist = sch->str_to_rlist( value.get_str(), fcode );
-        value.set_rlist_demote( rlist );
-        return value;
+        string text = value.get_str();
+        return str_to_date( script, sch, text, fcode );
     }
     return SValue::create_error( "Expected an object or string type." );
 }
