@@ -890,6 +890,16 @@ SValue glich::at_text( Script& script )
 
 namespace {
 
+
+    SValue object_to_date( Script& script, Scheme* sch, SValue value )
+    {
+        assert( sch != nullptr );
+        const Base& base = sch->get_base();
+        Record record( base, value );
+        record.calc_jdn();
+        return SValue( record.get_jdn(), SValue::Type::field );
+    }
+
     SValue str_to_date( Script& script, Scheme* sch, const string& text, const string& fcode )
     {
         assert( sch != nullptr );
@@ -942,7 +952,7 @@ SValue glich::at_date( Script& script )
         if( sch == nullptr ) {
             return SValue::create_error( "Object is not a scheme." );
         }
-        return sch->object_to_demoted_rlist( value );
+        return object_to_date( script, sch, value );
     }
     if( value.type() == SValue::Type::String ) {
         if( sch == nullptr ) {
