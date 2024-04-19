@@ -1,0 +1,143 @@
+// hics/schemes/fr-03.glcs - Test French Republic Calendar schemes.
+
+lexicon FRNM {
+    name "Normal Month names";
+    fieldname nmonth;
+    lang en;
+    pseudo    Month,  Mon;
+    tokens {
+        1, "Vendémiaire",      "Vend";
+        2, "Brumaire",         "Brum";
+        3, "Frimaire",         "Frim";
+        4, "Nivôse",           "Nivo";
+        5, "Pluviôse",         "Pluv";
+        6, "Ventôse",          "Vent";
+        7, "Germinal",         "Germ";
+        8, "Floréal",          "Flor";
+        9, "Prairial",         "Prai";
+        10, "Messidor",        "Mess";
+        11, "Thermidor",       "Ther";
+        12, "Fructidor",       "Fruc";
+    }
+}
+
+lexicon FRM {
+    name "Month names";
+    inherit FRNM;
+    fieldname month;
+    tokens {
+        13, "Complémentaires", "Comp";
+    }
+}
+
+lexicon FRCOMP {
+    name "Complementary Days";
+    fieldname cday;
+    lang en;
+    pseudo    CompDay,           CDay;
+    tokens {
+        1, "Fête de la Vertu",      "Ver";
+        2, "Fête du Génie",         "Gen";
+        3, "Fête du Travail",       "Trav";
+        4, "Fête de l'Opinion",     "Opin";
+        5, "Fête des Récompenses",  "Rec";
+        6, "Fête de la Révolution", "Rev";
+    }
+}
+
+lexicon FRDD {
+    name "Decade Day";
+    fieldname dday;
+    lang en;
+    pseudo    DecDay,  DDay;
+    tokens {
+        1, "Primidi",  "Prim";
+        2, "Duodi",    "Duo";
+        3, "Tridi",    "Tri";
+        4, "Quartidi", "Quar";
+        5, "Quintidi", "Quin";
+        6, "Sextidi",  "Sext";
+        7, "Septidi",  "Sept";
+        8, "Octidi",   "Oct";
+        9, "Nonidi",   "Non";
+        10, "Décadi",  "Dec";
+    }
+}
+
+grammar FR {
+    name "French Republic";
+    fields year month day;
+    calculated nmonth nmday cday;
+    rank year nmonth nmday;
+    lexicons FRM FRNM FRCOMP;
+    alias pseudo { d day; mm month; yyyy year; }
+    alias unit { d day; m month; y year; }
+
+    // Record: year month day nmonth nmday cday
+    function calc_to_def {
+        month = @if( cday=null, nmonth, 13 );
+        day = @if( cday=null, nmday, cday );
+        result = this;
+    }
+    function def_to_calc {
+        nmonth = @if( month<13, month, null );
+        nmday = @if( month<13, day, null );
+        cday = @if( month=13, day, null );
+        result = this;
+    }
+
+    use:jdn def_to_calc;
+    format dmy {
+        inout "{day} |{month:FRM:a} |{year}";
+        rank year month day;
+        use:in def_to_calc;
+        use:out calc_to_def;
+    }
+    format "dmy+" {
+        inout "{day} |{month:FRM} |{year}";
+        rank year month day;
+        use:in def_to_calc;
+        use:out calc_to_def;
+    }
+    format ymd {
+        inout "{year} |{month:FRM:a} |{day}";
+        rank year month day;
+        use:in def_to_calc;
+        use:out calc_to_def;
+    }
+    format cdmy {
+        inout "{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";
+        use:in calc_to_def;
+        use:out def_to_calc;
+    }
+    preferred dmy;
+}
+
+
+scheme FR {
+    name "French Republic";
+    base french;
+    grammar FR;
+}
+
+
+write nl;
+write @record.FR( 2460300 ) nl;
+write @record.FR:cdmy( "30 Frim 232" ) nl;
+write @record.FR:dmy( "30 Frim 232" ) nl;
+write @text.FR:ymd( 2460300 ) nl;
+write @text.FR:ymd( {s:FR 232, 3, 30} ) nl;
+write @date.FR:ymd( "232 Frim 30" ) nl;
+write @date( {s:FR 232, 3, 30} ) nl;
+
+/*[OUTPUT]
+
+{s:FR 232, 3, 30, 3, 30, null}
+{s:FR 232, 3, 30, 3, 30, null}
+{s:FR 232, 3, 30, 3, 30, null}
+232 Frim 30
+232 Frim 30
+2460300
+2460300
+
+[OUTPUT]*/
