@@ -120,7 +120,6 @@ Glich::~Glich()
     while( pop_store() );
     delete m_store;
     delete m_inout;
-    delete get_function( "if" ); // delete dummy function.
 }
 
 const char* Glich::version()
