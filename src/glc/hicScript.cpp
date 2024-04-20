@@ -909,9 +909,9 @@ namespace {
         }
         const Base& base = sch->get_base();
         Record mask( base, text, *fmt );
-        string ocode = sch->get_code();
-        SValue value = mask.get_object( ocode );
         if( fmt->has_use_function() ) {
+            string ocode = sch->get_code();
+            SValue value = mask.get_object( ocode );
             string funcode = fmt->get_input_funcode();
             Object* obj = glc().get_object( ocode );
             Function* fun = obj->get_function( funcode );
@@ -920,9 +920,9 @@ namespace {
             }
             mask.set_object( value );
         }
+        mask.calc_jdn();
         RList rlist = mask.get_rlist_from_mask();
-        value.set_rlist_demote( rlist );
-        return value;
+        return SValue( rlist );
     }
 
 } // namespace
