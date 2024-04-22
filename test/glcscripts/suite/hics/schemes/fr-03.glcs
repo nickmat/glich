@@ -128,6 +128,7 @@ write @record.FR:dmy( "30 Frim 232" ) nl;
 write @text.FR:ymd( 2460300 ) nl;
 write @text.FR:ymd( {s:FR 232, 3, 30} ) nl;
 write @date.FR:ymd( "232 Frim 30" ) nl;
+write @date.FR:cdmy( "30 Frim 232" ) nl;
 write @date( {s:FR 232, 3, 30} ) nl;
 
 /*[OUTPUT]
@@ -137,6 +138,7 @@ write @date( {s:FR 232, 3, 30} ) nl;
 {s:FR 232, 3, 30, 3, 30, null}
 232 Frim 30
 232 Frim 30
+2460300
 2460300
 2460300
 
