@@ -1001,8 +1001,9 @@ namespace {
             if( fun != nullptr ) {
                 value = fun->run( &value, StdStrVec(), SValueVec(), script.get_out_stream() );
             }
+            mask.set_object( value );
         }
-        return value;
+        return mask.get_object( ocode );
     }
 
 } // namespace

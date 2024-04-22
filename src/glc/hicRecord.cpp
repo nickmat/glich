@@ -120,7 +120,10 @@ void Record::set_str( const string& str, const Format& fmt )
         set_jdn( Gregorian::today() );
         return;
     }
-    if( !fmt.set_input( *this, in ) ) {
+    if( fmt.set_input( *this, in ) ) {
+        calc_jdn();
+    }
+    else {
         clear_fields();
     }
 }
@@ -141,7 +144,10 @@ void Record::set_str( const string& str, const Format& fmt, Boundary rb )
         set_jdn( Gregorian::today() );
         return;
     }
-    if( !fmt.set_input( *this, in, rb ) ) {
+    if( fmt.set_input( *this, in, rb ) ) {
+        calc_jdn();
+    }
+    else {
         clear_fields();
     }
 }
