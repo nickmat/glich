@@ -41,16 +41,30 @@ grammar JA {
     fields year month day;
     optional wday;
     calculated cyear;
-    calculate {
-        output {: ,,,@if( month<3 or (month=3 and day<25), year-1, year) };
-        input {: @if( month<3 or (month=3 and day<25), cyear+1, cyear) };
-    }
     rank cyear, month, day;
     lexicons M, W;
     alias pseudo { w wday; dd day; mm month; yyyy cyear; }
     alias unit { d day; m month; y year; }
-    format  dmc, "{day} |{month:M:a} |{cyear}";
-    format  wdmc, "{wday:W:a} |{day} |{month:M:a} |{cyear}";
+
+    // Record: year month day cyear
+    function calc_to_def {
+        year = @if( month<3 or (month=3 and day<25), cyear+1, cyear);
+        result = this;
+    }
+    function def_to_calc {
+        cyear = @if( month<3 or (month=3 and day<25), year-1, year);
+        result = this;
+    }
+    use:jdn def_to_calc;
+
+    format  dmc {
+        inout "{day} |{month:M:a} |{cyear}";
+        use:in calc_to_def;
+}
+    format  wdmc {
+        inout "{wday:W:a} |{day} |{month:M:a} |{cyear}";
+        use:in calc_to_def;
+    }
     format  out {
         output "{day::os} |{month:M} |{cyear}";
     }
@@ -69,10 +83,10 @@ write @record.JA( 2360328 ), @record.JA( 2360329 ) nl;
 write @record.JA:dmc( "24 mar 1749" ), @record.JA:dmc( "25 Mar 1750" ) nl;
 write @text.JA:wdmc( 2360328 ), @text.JA:wdmc( 2360329 ) nl;
 write @text.JA:wdmc( {s:JA 1750,3,24} ), @text.JA:wdmc( {s:JA 1750,3,25} ) nl;
-write @text.JA:wdmc ({s:JA ,3,24,1749}@input), @text.JA:wdmc ({s:JA ,3,25,1750}@input) nl;
+write @text.JA:wdmc ({s:JA ,3,24,1749}@calc_to_def), @text.JA:wdmc ({s:JA ,3,25,1750}@calc_to_def) nl;
 write @date.JA:dmc( "24 mar 1749" ), @date.JA:dmc( "25 Mar 1750" ) nl;
 write @date.JA:dmc( {s:JA 1750,3,24} ), @date.JA:dmc( {s:JA 1750,3,25} ) nl;
-write @date.JA:dmc( {s:JA ,3,24,1749}@input ), @date.JA:dmc( {s:JA ,3,25,1750}@input ) nl;
+write @date.JA:dmc( {s:JA ,3,24,1749}@calc_to_def ), @date.JA:dmc( {s:JA ,3,25,1750}@calc_to_def ) nl;
 write @text.JA:out( 2432814 ) nl;
 
 
