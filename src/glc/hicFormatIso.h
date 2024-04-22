@@ -41,7 +41,7 @@ namespace glich {
 
         FormatType get_format_type() const override { return FormatType::iso; };
         std::string get_text_output( Record& record ) const override;
-        RList string_to_rlist( const Base& base, const std::string& input ) const override;
+        RList string_to_rlist( const Base& base, const std::string& input, FunctionData* fdata = nullptr ) const override;
         bool set_input( Record& record, const std::string& input, Boundary rb ) const override;
 
         std::string jdn_to_string( const Base& base, Field jdn ) const override;

@@ -61,7 +61,7 @@ std::string FormatUnit::get_text_output( Record& record ) const
     return output;
 }
 
-RList FormatUnit::string_to_rlist( const Base& base, const std::string& input ) const
+RList FormatUnit::string_to_rlist( const Base& base, const std::string& input, FunctionData* fdata ) const
 {
     RList rlist;
     Record rec1( base ), rec2( base );

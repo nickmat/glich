@@ -118,7 +118,7 @@ std::string FormatIso::get_text_output( Record& record ) const
     return str;
 }
 
-RList FormatIso::string_to_rlist( const Base& base, const string& input ) const
+RList FormatIso::string_to_rlist( const Base& base, const string& input, FunctionData* fdata ) const
 {
     if( input[0] == '[' ) {
         return string_set_to_rlist( base, input );

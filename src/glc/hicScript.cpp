@@ -903,25 +903,24 @@ namespace {
     SValue str_to_date( Script& script, Scheme* sch, const string& text, const string& fcode )
     {
         assert( sch != nullptr );
+        const Base& base = sch->get_base();
         Format* fmt = sch->get_input_format( fcode );
         if( fmt == nullptr ) {
             return SValue();
         }
-        const Base& base = sch->get_base();
-        Record mask( base, text, *fmt );
+        RList rlist;
         if( fmt->has_use_function() ) {
             string ocode = sch->get_code();
-            SValue value = mask.get_object( ocode );
-            string funcode = fmt->get_input_funcode();
             Object* obj = glc().get_object( ocode );
+            string funcode = fmt->get_input_funcode();
             Function* fun = obj->get_function( funcode );
-            if( fun != nullptr ) {
-                value = fun->run( &value, StdStrVec(), SValueVec(), script.get_out_stream() );
-            }
-            mask.set_object( value );
+            FunctionData fundata( *fun, script.get_out_stream() );
+            fundata.ocode = ocode;
+            rlist = fmt->string_to_rlist( base, text, &fundata );
         }
-        mask.calc_jdn();
-        RList rlist = mask.get_rlist_from_mask();
+        else {
+            rlist = fmt->string_to_rlist( base, text );
+        }
         return SValue( rlist );
     }
 

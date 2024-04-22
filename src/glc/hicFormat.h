@@ -28,12 +28,32 @@
 #ifndef SRC_GLC_HICFORMAT_H_GUARD
 #define SRC_GLC_HICFORMAT_H_GUARD
 
-#include <glc/hicDefs.h>
+#include <glc/glc.h>
+#include "glcFunction.h"
+#include "glcValue.h"
 #include "hicGrammar.h"
 #include "hicHelper.h"
 
 
 namespace glich {
+
+    struct FunctionData {
+        FunctionData( Function& fun, std::ostream& os )
+            : function( fun ), out_stream( os ) {}
+        
+        SValue run() {
+            return function.run( qualifiers, arguments, out_stream );
+        }
+        SValue run( const SValue* left ) {
+            return function.run( left, qualifiers, arguments, out_stream );
+        }
+
+        std::string ocode;
+        Function& function;
+        StdStrVec qualifiers;
+        SValueVec arguments;
+        std::ostream& out_stream;
+    };
 
     class Record;
 
@@ -74,7 +94,7 @@ namespace glich {
 
         virtual FormatType get_format_type() const = 0;
         virtual std::string get_text_output( Record& rec ) const = 0;
-        virtual RList string_to_rlist( const Base& base, const std::string& input ) const = 0;
+        virtual RList string_to_rlist( const Base& base, const std::string& input, FunctionData* fdata = nullptr ) const = 0;
         virtual bool set_input( Record& record, const std::string& input, Boundary rb ) const = 0;
         virtual bool set_input( Record& record, const std::string& input ) const;
 

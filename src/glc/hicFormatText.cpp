@@ -287,13 +287,13 @@ string FormatText::get_revealed_output( const Record& record, const BoolVec* rev
     return output + fieldout;
 }
 
-RList FormatText::string_to_rlist( const Base& base, const string& input ) const
+RList FormatText::string_to_rlist( const Base& base, const string& input, FunctionData* fdata ) const
 {
     if( input.find( ".." ) != string::npos ||
         input.find( '|' ) != string::npos ) {
         return multirange_str_to_rlist( base, input );
     }
-    return bare_str_to_rlist( base, input );
+    return bare_str_to_rlist( base, input, fdata );
 }
 
 bool FormatText::set_input( Record& record, const string& input, Boundary rb ) const
@@ -331,7 +331,9 @@ bool FormatText::set_input( Record& record, const string& input ) const
     const Base& base = record.get_base();
     InputFieldVec ifs( base.object_size() );
     parse_date( ifs, input );
-    return resolve_input( base, record.get_field_vec(), ifs );
+    bool ret = resolve_input( base, record.get_field_vec(), ifs );
+    record.update_input();
+    return ret;
 }
 
 string FormatText::range_to_string( const Base& base, const Range& range ) const
@@ -619,9 +621,14 @@ RList FormatText::multirange_str_to_rlist( const Base& base, const string& input
     return op_set_well_order( rlist );
 }
 
-RList FormatText::bare_str_to_rlist( const Base& base, const string& input ) const
+RList FormatText::bare_str_to_rlist( const Base& base, const string& input, FunctionData* fdata ) const
 {
     Record mask( base, input, *this, Boundary::None );
+    if( fdata ) {
+        SValue value = mask.get_object( fdata->ocode );
+        value = fdata->run( &value );
+        mask.set_object( value );
+    }
     return mask.get_rlist_from_mask();
 }
 
