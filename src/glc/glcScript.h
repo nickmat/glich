@@ -54,6 +54,7 @@ namespace glich {
         Glich* get_glich() { return m_glc; }
 
         std::ostream& get_out_stream() { return *m_out; }
+        int get_line() const { return m_ts.get_line(); }
         void set_line( int line ) { m_ts.set_line( line ); }
         bool error( const std::string& mess ) { return m_ts.error( mess ); }
         bool error_value( const SValue& value );
