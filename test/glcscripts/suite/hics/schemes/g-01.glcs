@@ -72,21 +72,22 @@ let t_r = @record.G( t );
 let r_d = @date( r );
 let r_t = @text( r );
 
-writeln "";
-writeln "text.G cast:   " + d[.type] + ", " + d_t + ", " + d_t[.type];
-writeln "record.G cast: " + d[.type] + ", " + d_r + ", " + d_r[.type];
-writeln "date.G cast:   " + t[.type] + ", " + t_d + ", " + t_d[.type];
-writeln "record.G cast: " + t[.type] + ", " + t_r + ", " + t_r[.type];
-writeln "date cast:     " + r[.type] + ", " + r_d + ", " + r_d[.type];
-writeln "text cast:     " + r[.type] + ", " + r_t + ", " + r_t[.type];
+
+write nl;
+write d[.type], d_t, d_t[.type] nl;
+write d[.type], d_r, d_r[.type] nl;
+write t[.type], t_d, t_d[.type] nl;
+write t[.type], t_r, t_r[.type] nl;
+write r[.type], r_d, r_d[.type] nl;
+write r[.type], r_t, r_t[.type] nl;
 
 /*[OUTPUT]
 
-text.G cast:   number, 6 Mar 1948, string
-record.G cast: number, {s:G 1948, 3, 6, 6}, object
-date.G cast:   string, 2432617, field
-record.G cast: string, {s:G 1948, 3, 6, 6}, object
-date cast:     object, 2432617, field
-text cast:     object, 6 Mar 1948, string
+number, 6 Mar 1948, string
+number, {s:G 1948, 3, 6, 6}, object
+string, 2432617, field
+string, {s:G 1948, 3, 6, 6}, object
+object, 2432617, field
+object, 6 Mar 1948, string
 
 [OUTPUT]*/
