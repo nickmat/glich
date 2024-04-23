@@ -115,6 +115,9 @@ FormatIso::FormatIso( const string& code, Grammar& gmr, const StdStrVec& rules )
 std::string FormatIso::get_text_output( Record& record ) const
 {
     string str = get_masked_output( record, nullptr );
+    if( m_dateset ) {
+        return "[" + str + "]";
+    }
     return str;
 }
 
