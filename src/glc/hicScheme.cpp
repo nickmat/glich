@@ -257,6 +257,58 @@ SValue Scheme::object_to_demoted_rlist( const SValue& ovalue ) const
     return SValue( record.get_jdn(), SValue::Type::field );
 }
 
+bool Scheme::create_epoch_functions( Field epoch, int line )
+{
+    int index = m_base.get_fieldname_index( "cyear" );
+    if( index != 3 ) {
+        return false;
+    }
+    FieldVec f = m_base.get_fields( epoch );
+    string f0 = std::to_string( f[0] );
+    string f1 = std::to_string( f[1] );
+    string f2 = std::to_string( f[2] );
+    Field std_epoch = m_base.get_jdn( { 1, 1, 1 } );
+    string adj_year_true, adj_year_false, adj_cyear_true, adj_cyear_false;
+    if( epoch > std_epoch ) {
+        string adj = std::to_string( f[0] );
+        adj_year_true = "-" + adj;
+        adj_cyear_true = "+" + adj;
+    }
+    else if( epoch < std_epoch ) {
+        string adj = std::to_string( 1 - f[0] );
+        adj_year_false = "+" + adj;
+        adj_cyear_false = "-" + adj;
+    }
+    string script =
+        " year = @if( month<" + f1 + " or (month=" + f1 + " and day<" + f2 + "),"
+        " cyear" + adj_cyear_true + ", cyear" + adj_cyear_false + ");"
+        " result = this;";
+
+
+    SpFunction fun = SpFunction( new Function( "calc_year" ) );
+    if( fun == nullptr ) {
+        return nullptr;
+    }
+    fun->set_line( line );
+    fun->set_script( script );
+    add_function( fun );
+
+    script =
+        " cyear = @if( month<" + f1 + " or (month=" + f1 + " and day<" + f2 + "),"
+        " year" + adj_year_true + ", year" + adj_year_false + ");"
+        " result = this;";
+
+    fun = SpFunction( new Function( "calc_cyear" ) );
+    if( fun == nullptr ) {
+        return nullptr;
+    }
+    fun->set_line( line );
+    fun->set_script( script );
+    add_function( fun );
+
+    return true;
+}
+
 /* static */
 Base* Scheme::create_base( BaseName bs, const std::string& data )
 {

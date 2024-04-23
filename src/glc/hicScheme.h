@@ -84,6 +84,8 @@ namespace glich {
         std::string object_to_str( const SValue& ovalue, const std::string& fcode ) const;
         SValue object_to_demoted_rlist( const SValue& ovalue ) const;
 
+        bool create_epoch_functions( Field epoch, int line );
+
         static Base* create_base( BaseName bs, const std::string& data );
         static Base* create_base_hybrid(
             const StdStrVec& fieldnames,

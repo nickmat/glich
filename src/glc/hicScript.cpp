@@ -173,6 +173,7 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
     Base* base = nullptr;
     string name, gmr_code;
     Field epoch = f_invalid;
+    int epoch_line = 0;
     Grammar* gmr = nullptr;
     SchemeStyle style = SchemeStyle::Default;
     for( ;;) {
@@ -193,6 +194,7 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
             }
             else if( token.get_str() == "epoch" ) {
                 epoch = script.expr( GetToken::next ).get_as_field();
+                epoch_line = script.get_line();
             }
             else if( token.get_str() == "grammar" ) {
                 token = script.next_token();
@@ -249,6 +251,11 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
     sch->reset();
     sch->set_name( name );
     sch->set_style( style );
+    if( epoch != f_invalid ) {
+        if( !sch->create_epoch_functions( epoch, epoch_line ) ) {
+            script.error( "Unable to set epoch." );
+        }
+    }
     return sch;
 }
 
@@ -976,7 +983,8 @@ namespace {
         SValue value = record.get_object( sch->get_code() );
         const Grammar* gmr = sch->get_grammar();
         assert( gmr != nullptr );
-        Function* fun = gmr->get_function( gmr->get_use_jdn() );
+        string funcode = gmr->get_use_jdn();
+        Function* fun = sch->get_function( funcode );
         if( fun != nullptr ) {
             value = fun->run( &value, StdStrVec(), SValueVec(), script.get_out_stream() );
         }
