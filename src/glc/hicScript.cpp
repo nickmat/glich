@@ -910,10 +910,11 @@ namespace {
     SValue str_to_date( Script& script, Scheme* sch, const string& text, const string& fcode )
     {
         assert( sch != nullptr );
+        SValue value = SValue();
         const Base& base = sch->get_base();
         Format* fmt = sch->get_input_format( fcode );
         if( fmt == nullptr ) {
-            return SValue();
+            return value;
         }
         RList rlist;
         if( fmt->has_use_function() ) {
@@ -928,7 +929,8 @@ namespace {
         else {
             rlist = fmt->string_to_rlist( base, text );
         }
-        return SValue( rlist );
+        value.set_rlist_demote( rlist );
+        return value;
     }
 
 } // namespace
