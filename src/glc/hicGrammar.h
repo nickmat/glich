@@ -68,6 +68,7 @@ namespace glich {
             const std::string& input, const std::string& output,
             const std::string& first, const std::string& last );
         void set_use_jdn( const std::string& funcode ) { m_use_jdn = funcode; }
+        void set_use_function( StdStrMap& usemap ) { m_use_function = usemap; }
 
         std::string get_code() const { return m_code; }
         std::string get_name() const { return m_name; }
@@ -104,7 +105,8 @@ namespace glich {
         bool add_function( SpFunction fun );
         Function* get_function( const std::string& funcode ) const;
         const SpFunctionMap& get_function_map() const { return m_functions; }
-        std::string get_use_jdn() const { return m_use_jdn; }
+        std::string get_funcode( const std::string& name ) const;
+        std::string get_calculate() const { return get_funcode( "calculate" ); }
 
         static Grammar* create_default_grammar( const Base* base, Glich* glc );
 
@@ -141,6 +143,7 @@ namespace glich {
         std::string m_calculate_last;
         SpFunctionMap m_functions;
         std::string m_use_jdn;
+        StdStrMap   m_use_function;
     };
 
 }

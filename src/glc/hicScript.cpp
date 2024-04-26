@@ -396,6 +396,58 @@ namespace {
         return gmr->add_function( fun );
     }
 
+    bool do_grammar_use( Script& script, Grammar* gmr )
+    {
+        StdStrMap usemap;
+        SToken token = script.next_token();
+        if( script.current_token().type() == SToken::Type::Name ) {
+            string sub = token.get_str();
+            if( sub == "epoch" ) {
+                usemap = {
+                    { "calculate", "calc_cyear" },
+                    { "to_text", "calc_cyear" },
+                    { "from_text", "calc_year" }
+                };
+                token = script.next_token();
+                if( token.type() != SToken::Type::Semicolon ) {
+                    script.error( "';' expected." );
+                    return false;
+                }
+                gmr->set_use_function( usemap );
+                return true;
+            }
+            else {
+                script.error( "'{' expected." );
+                return false;
+            }
+        }
+        if( script.current_token().type() != SToken::Type::LCbracket ) {
+            script.error( "'{' expected." );
+            return false;
+        }
+        for( ;;) {
+            // Look ahead for '}'
+            script.next_token();
+            if( script.current_token().type() == SToken::Type::RCbracket ||
+                script.current_token().type() == SToken::Type::End )
+            {
+                break; // All done.
+            }
+            StdStrVec pair = script.get_string_list( GetToken::current );
+            if( pair.size() != 2 ) {
+                script.error( "Name or String pair expected." );
+                return false;
+            }
+            if( script.current_token().type() != SToken::Type::Semicolon ) {
+                script.error( "';' expected." );
+                return false;
+            }
+            usemap[pair[0]] = pair[1];
+        }
+        gmr->set_use_function( usemap );
+        return true;
+    }
+
 } // namespace
 
 Lexicon* glich::do_create_lexicon( Script& script, const std::string& code )
@@ -520,6 +572,9 @@ Grammar* glich::do_create_grammar( Script& script, const std::string& code, cons
             else if( name == "use:jdn" ) {
                 str = script.get_name_or_primary( GetToken::next );
                 gmr->set_use_jdn( str );
+            }
+            else if( name == "use" ) {
+                do_grammar_use( script, gmr );
             }
         }
         else {
@@ -823,7 +878,7 @@ namespace {
         SValue value = record.get_object( sch->get_code() );
         const Grammar* gmr = sch->get_grammar();
         assert( gmr != nullptr );
-        Function* fun = gmr->get_function( gmr->get_use_jdn() );
+        Function* fun = gmr->get_function( gmr->get_calculate() );
         if( fun != nullptr ) {
             value = fun->run( &value, StdStrVec(), SValueVec(), script.get_out_stream() );
         }
@@ -985,7 +1040,7 @@ namespace {
         SValue value = record.get_object( sch->get_code() );
         const Grammar* gmr = sch->get_grammar();
         assert( gmr != nullptr );
-        string funcode = gmr->get_use_jdn();
+        string funcode = gmr->get_calculate();
         Function* fun = sch->get_function( funcode );
         if( fun != nullptr ) {
             value = fun->run( &value, StdStrVec(), SValueVec(), script.get_out_stream() );
