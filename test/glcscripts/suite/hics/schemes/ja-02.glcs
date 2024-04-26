@@ -45,16 +45,12 @@ grammar JA {
     lexicons M, W;
     alias pseudo { w wday; dd day; mm month; yyyy cyear; }
     alias unit { d day; m month; y year; }
-    use:jdn calc_cyear;
 
-    format  dmc {
-        inout "{day} |{month:M:a} |{cyear}";
-        use:in calc_year;
-    }
-    format  wdmc {
-        inout "{wday:W:a} |{day} |{month:M:a} |{cyear}";
-        use:in calc_year;
-    }
+//    use { calculate calc_cyear; to_text calc_cyear; from_text calc_year; }
+    use epoch;
+
+    format  dmc "{day} |{month:M:a} |{cyear}";
+    format  wdmc "{wday:W:a} |{day} |{month:M:a} |{cyear}";
     format  out {
         output "{day::os} |{month:M} |{cyear}";
     }

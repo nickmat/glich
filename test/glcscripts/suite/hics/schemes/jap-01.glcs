@@ -41,16 +41,35 @@ grammar JAP {
     fields year month day;
     optional wday;
     calculated cyear;
-    calculate {
-        output {: ,,,@if( month<3 or (month=3 and day<25), year, year+1) };
-        input {: @if( month<3 or (month=3 and day<25), cyear, cyear-1) };
-    }
+//    calculate {
+//        output {: ,,,@if( month<3 or (month=3 and day<25), year, year+1) };
+//        input {: @if( month<3 or (month=3 and day<25), cyear, cyear-1) };
+//    }
     rank cyear, month, day;
     lexicons M, W;
     alias pseudo { w wday; dd day; mm month; yyyy cyear; }
     alias unit { d day; m month; y year; }
-    format  dmc, "{day} |{month:M:a} |{cyear}";
-    format  wdmc, "{wday:W:a} |{day} |{month:M:a} |{cyear}";
+
+    // Record: year month day cyear
+    function calc_to_def {
+        year = @if( month<3 or (month=3 and day<25), cyear, cyear-1);
+        result = this;
+    }
+    function def_to_calc {
+        cyear = @if( month<3 or (month=3 and day<25), year, year+1);
+        result = this;
+    }
+
+    use { calculate def_to_calc; to_text def_to_calc; from_text calc_to_def; }
+
+    format  dmc {
+        inout "{day} |{month:M:a} |{cyear}";
+        use:in calc_to_def;
+}
+    format  wdmc {
+        inout "{wday:W:a} |{day} |{month:M:a} |{cyear}";
+        use:in calc_to_def;
+    }
     format  out {
         output "{day::os} |{month:M} |{cyear}";
     }
@@ -68,10 +87,10 @@ write @record.JAP( 2360328 ), @record.JAP( 2360329 ) nl;
 write @record.JAP:dmc( "24 mar 1750" ), @record.JAP:dmc( "25 Mar 1751" ) nl;
 write @text.JAP:wdmc( 2360328 ), @text.JAP:wdmc( 2360329 ) nl;
 write @text.JAP:wdmc( {s:JAP 1750,3,24} ), @text.JAP:wdmc( {s:JAP 1750,3,25} ) nl;
-write @text.JAP:wdmc ({s:JAP ,3,24,1750}@input), @text.JAP:wdmc ({s:JAP ,3,25,1751}@input) nl;
+write @text.JAP:wdmc ({s:JAP ,3,24,1750}@calc_to_def), @text.JAP:wdmc ({s:JAP ,3,25,1751}@calc_to_def) nl;
 write @date.JAP:dmc( "24 mar 1750" ), @date.JAP:dmc( "25 Mar 1751" ) nl;
 write @date.JAP:dmc( {s:JAP 1750,3,24} ), @date.JAP:dmc( {s:JAP 1750,3,25} ) nl;
-write @date.JAP:dmc( {s:JAP ,3,24,1750}@input ), @date.JAP:dmc( {s:JAP ,3,25,1751}@input ) nl;
+write @date.JAP:dmc( {s:JAP ,3,24,1750}@calc_to_def ), @date.JAP:dmc( {s:JAP ,3,25,1751}@calc_to_def ) nl;
 write @text.JAP:out( 2432814 ) nl;
 
 /*[OUTPUT]

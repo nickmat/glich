@@ -55,12 +55,12 @@ grammar JA {
         cyear = @if( month<3 or (month=3 and day<25), year-1, year);
         result = this;
     }
-    use:jdn def_to_calc;
+    use { calculate def_to_calc; to_text def_to_calc; from_text calc_to_def; }
 
     format  dmc {
         inout "{day} |{month:M:a} |{cyear}";
         use:in calc_to_def;
-}
+    }
     format  wdmc {
         inout "{wday:W:a} |{day} |{month:M:a} |{cyear}";
         use:in calc_to_def;

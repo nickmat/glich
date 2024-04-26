@@ -41,10 +41,6 @@ grammar jce {
     calculated ce ceyear;
     optional wday;
     rank ce ceyear month day;
-    calculate {
-        output {: ,,,@if(year<1, 0, 1), @if(year<1, -year+1, year) };
-        input {: @if(ce=1, ceyear, -ceyear+1) };
-    }
     alias pseudo {
         w wday; dd day; mm month; yyyy ceyear; ce ce;
     }
@@ -52,6 +48,19 @@ grammar jce {
         d day; m month; y year;
     }
     lexicons m w ce;
+
+    // Record: year month day ce ceyear
+    function calc_ceyear { // output
+        ce = @if( year<1, 0, 1 );
+        ceyear = @if( year<1, -year+1, year );
+        result = this;
+    }
+    function calc_year { // input
+        year = @if( ce=1, ceyear, -ceyear+1 );
+        result = this;
+    }
+    use { calculate calc_ceyear; to_text calc_ceyear; from_text calc_year; }
+
     format  dmye,  "{day} |{month:m:a} |{ceyear} |{ce:ce:a}";
     format  wdmye "{wday:w:a} |{day} |{month:m:a} |{ceyear} |{ce:ce:a}";
     format  mdye  "{month:m:a} |{day} |{ceyear} |{ce:ce:a}";

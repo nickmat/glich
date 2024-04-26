@@ -45,6 +45,9 @@ grammar JAP {
     lexicons M, W;
     alias pseudo { w wday; dd day; mm month; yyyy cyear; }
     alias unit { d day; m month; y year; }
+
+    use { calculate calc_cyear; to_text calc_cyear; from_text calc_year; }
+
     format  dmc, "{day} |{month:M:a} |{cyear}";
     format  wdmc, "{wday:W:a} |{day} |{month:M:a} |{cyear}";
     format  out {

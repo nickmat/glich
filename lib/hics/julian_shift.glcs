@@ -35,6 +35,7 @@ grammar j_sh {
     lexicons m w;
     alias pseudo { w wday; dd day; mm month; yyyy cyear; }
     alias unit { d day; m month; y year; }
+    use epoch;
     format  dmc "{day} |{month:m:a} |{cyear}";
     format  dmcy "{day} |{month:m:a} |{cyear/year}";
     format  wdmcy "{wday:w:a} |{day} |{month:m:a} |{cyear/year}";
