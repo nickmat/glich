@@ -164,7 +164,7 @@ string Lexicon::lookup( Field field, Pseudo style ) const
             result = token.get_word();
         }
     }
-    if( m_inherit ) {
+    if( m_inherit && result.empty() ) {
         return m_inherit->lookup( field, style );
     }
     return result;
