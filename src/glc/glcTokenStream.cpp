@@ -33,6 +33,8 @@
 #include <string>
 #include <vector>
 
+#include <cassert>
+
 using namespace glich;
 using std::string;
 using std::vector;
@@ -77,7 +79,10 @@ SToken& STokenStream::next()
             m_line++;
             lcomment = false;
         }
-    } while( isspace( ch ) || lcomment || mcomment );
+    } while( u8_isspace( ch ) || lcomment || mcomment );
+
+    // Cannot cope with utf8 outside quotes and comments
+    assert( ch >= -1 && ch <= 255 );
 
     if( isdigit( ch ) ) {
         string text;
