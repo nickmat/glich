@@ -36,6 +36,11 @@
 #include <fstream>
 #include <sstream>
 
+#ifdef _WIN32
+#include <Windows.h>
+#include <Wincon.h>
+#endif
+
 #define VERSION   "0.1.0"
 #define PROGNAME  "GlichTest"
 #define COPYRIGHT  "2023 Nick Matthews"
@@ -204,8 +209,15 @@ string run_test_script( TestResults* totals, Glich& glc, const string& filename 
 
 int main( int argc, char* argv[] )
 {
-    std::cout << g_title << "\n";
+#ifdef _WIN32
+    // Set Windows console in/out to use utf-8.
+    SetConsoleCP( CP_UTF8 );
+    setvbuf( stdin, nullptr, _IOFBF, 1000 );
+    SetConsoleOutputCP( CP_UTF8 );
+    setvbuf( stdout, nullptr, _IOFBF, 1000 );
+#endif
 
+    std::cout << g_title << "\n";
     clock_t t = clock();
     init_glc( InitLibrary::None );
     Glich& glc = *get_glc();
