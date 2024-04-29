@@ -98,10 +98,10 @@ bool FormatText::construct()
         setup_control_out();
     }
     if( m_input_function.empty() ) {
-        m_input_function = gmr.get_funcode( "from_text" );
+        m_input_function = gmr.get_funcode( "from:text" );
     }
     if( m_output_function.empty() ) {
-        m_output_function = gmr.get_funcode( "to_text" );
+        m_output_function = gmr.get_funcode( "to:text" );
     }
     set_ok( true );
     return true;

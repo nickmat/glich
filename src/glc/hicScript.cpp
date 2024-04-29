@@ -405,8 +405,8 @@ namespace {
             if( sub == "epoch" ) {
                 usemap = {
                     { "calculate", "calc_cyear" },
-                    { "to_text", "calc_cyear" },
-                    { "from_text", "calc_year" }
+                    { "to:text", "calc_cyear" },
+                    { "from:text", "calc_year" }
                 };
                 token = script.next_token();
                 if( token.type() != SToken::Type::Semicolon ) {

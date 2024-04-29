@@ -68,7 +68,7 @@ grammar JCE {
         result = this;
     }
 
-    use { calculate calc_ceyear; to_text calc_ceyear; from_text calc_year; }
+    use { calculate calc_ceyear; to:text calc_ceyear; from:text calc_year; }
 
     format  dmye, "{day} |{month:M:a} |{ceyear} |{ce:CE:a}";
     format  wdmye, "{wday:W:a} |{day} |{month:M:a} |{ceyear} |{ce:CE:a}";

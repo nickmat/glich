@@ -290,7 +290,7 @@ glich::ScriptModule glich::hics_default_scripts[] = {
  "year = @if( ce=1, ceyear, -ceyear+1 );\n"
  "result = this;\n"
  "}\n"
- "use { calculate calc_ceyear; to_text calc_ceyear; from_text calc_year; }\n"
+ "use { calculate calc_ceyear; to:text calc_ceyear; from:text calc_year; }\n"
  "format dmye, \"{day} |{month:m:a} |{ceyear} |{ce:ce:a}\";\n"
  "format wdmye \"{wday:w:a} |{day} |{month:m:a} |{ceyear} |{ce:ce:a}\";\n"
  "format mdye \"{month:m:a} |{day} |{ceyear} |{ce:ce:a}\";\n"
