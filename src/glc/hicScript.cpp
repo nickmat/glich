@@ -805,10 +805,10 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
             fmtt->set_user_output_str( outstring );
         }
         if( !infun.empty() ) {
-            fmtt->set_input_function( infun );
+            fmtt->set_from_text_function( infun );
         }
         if( !outfun.empty() ) {
-            fmtt->set_output_function( outfun );
+            fmtt->set_to_text_function( outfun );
         }
         fmt = fmtt;
     }
@@ -975,7 +975,7 @@ namespace {
         if( fmt->has_use_function() ) {
             string ocode = sch->get_code();
             Object* obj = glc().get_object( ocode );
-            string funcode = fmt->get_input_funcode();
+            string funcode = fmt->get_from_text_funcode();
             Function* fun = obj->get_function( funcode );
             FunctionData fundata( *fun, script.get_out_stream() );
             fundata.ocode = ocode;
@@ -1060,7 +1060,7 @@ namespace {
         string ocode = sch->get_code();
         SValue value = mask.get_object( ocode );
         if( fmt->has_use_function() ) {
-            string funcode = fmt->get_input_funcode();
+            string funcode = fmt->get_from_text_funcode();
             Object* obj = glc().get_object( ocode );
             Function* fun = obj->get_function( funcode );
             if( fun != nullptr ) {

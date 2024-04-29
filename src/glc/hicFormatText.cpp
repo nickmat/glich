@@ -310,7 +310,7 @@ bool FormatText::set_input( Record& record, const string& input, Boundary rb ) c
     bool ret = resolve_input( base, record.get_field_vec(), ifs );
 
     if( ret && has_use_function() ) {
-        string in_function = get_input_funcode();
+        string in_function = get_from_text_funcode();
         Function* fun = m_owner.get_function( in_function );
     }
     else if( ret && base.has_calc_input() ) {
