@@ -681,7 +681,7 @@ namespace {
 // If gmr == nullptr then this is a standalone format.
 bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
 {
-    string format_in, format_out, instring, outstring, separators, infun, outfun;
+    string format_in, format_out, instring, outstring, separators, infun;
     StdStrVec rankfields, rankoutfields, rules;
     FormatStyle style = FormatStyle::Default;
 
@@ -748,10 +748,6 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
                     infun = script.get_name_or_primary( GetToken::next );
                     continue;
                 }
-                if( name == "use:out" ) {
-                    outfun = script.get_name_or_primary( GetToken::next );
-                    continue;
-                }
                 script.error( "Expected format sub-statement." );
             }
         }
@@ -806,9 +802,6 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
         }
         if( !infun.empty() ) {
             fmtt->set_from_text_function( infun );
-        }
-        if( !outfun.empty() ) {
-            fmtt->set_to_text_function( outfun );
         }
         fmt = fmtt;
     }
