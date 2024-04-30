@@ -1,0 +1,108 @@
+// hics\schemes\h-02.glcs test Hebrew calendar scheme
+
+
+lexicon HM {
+    name "Month names";
+    fieldname month;
+    lang en;
+    pseudo     Month,     Mon;
+    tokens {
+        1, "Nisan",      "Nsn";
+        2, "Iyyar",      "Iyr";
+        3, "Sivan",      "Svn";
+        4, "Tammuz",     "Tmz";
+        5, "Av",         "Aav";
+        6, "Elul",       "Ell";
+        7, "Tishri",     "Tsh";
+        8, "Marheshvan", "Csh";
+        9, "Kislev",     "Ksl";
+        10, "Tevet",     "Tvt";
+        11, "Shevat",    "Shv";
+        12, "Adar",      "Adr";
+        13, "Adar II",   "Ads";
+    }
+}
+
+lexicon HCM {
+    name "Month names";
+    fieldname cmonth;
+    inherit HM;
+    tokens {
+        14, "Adar I",    "Adf";
+    }
+}
+
+lexicon HW {
+    name "Weekday names";
+    fieldname wsday; // Note: Days are numbered from Sunday, unlike "wday".
+    lang en;
+    pseudo    Weekday,      WDay;
+    tokens {
+        1, "Yom Rishon",   "Rish"; // Sunday
+        2, "Yom Sheni",    "Shen"; // Monday
+        3, "Yom Shelishi", "Shel"; // Tuesday
+        4, "Yom Revi'i",   "Revi"; // Wednesday
+        5, "Yom Hamishi",  "Hami"; // Thursday
+        6, "Yom Shishi",   "Shis"; // Friday
+        7, "Yom Shabbat",  "Shab"; // Saturday
+    }
+}
+
+grammar H {
+    name "Hebrew";
+    fields year month day;
+    calculated cmonth;
+    optional wsday;
+    rank year cmonth day;
+    lexicons HM, HW;
+    alias pseudo { w wday; dd day; mm month; yyyy year; }
+    alias unit { d day; m month; y year; }
+
+    function calc_cmonth {
+        cmonth = @if( month=12 and @leapyear.hebrew(year), 14, month );
+        result = this;
+    }
+    function calc_month {
+        month = @if( cmonth=14, 12, cmonth );
+        result = this;
+    }
+    use { calculate calc_cmonth; to:text calc_cmonth; from:text calc_month; }
+
+    format  dmy    "{day} |{cmonth:HCM} |{year}";
+    format "dmy-" {
+        inout "{day} |{month} |{year}";
+        rank year month day;
+        use:in calc_month;
+    }
+    format  wdmy   "{wsday:HW:a} |{day} |{cmonth:HCM:a} |{year}";
+    format "wdmy+" "{wsday:HW} |{day} |{cmonth:HCM} |{year}";
+    format  ymd    "{year}| {cmonth:HCM}| {day}";
+    format "ymd-"  "{year}| {cmonth}| {day}";
+    preferred dmy;
+}
+
+scheme H {
+    name "Hebrew";
+    base hebrew;
+    grammar H;
+}
+
+
+write nl;
+write @record.H( 2459282 ), @record.H( 2459636 ), @record.H( 2459666 ) nl;
+write @record.H:ymd( "5781 Adar 24" ), @record.H:ymd( "5782 Adar I 24" ), @record.H:ymd( "5782 Adar II 24" ) nl;
+write @text.H:ymd( 2459282 ), @text.H:ymd( 2459636 ), @text.H:ymd( 2459666 ) nl;
+write @text.H:ymd( {s:H 5781, 12, 24} ), @text.H:ymd( {s:H 5782, 12, 24} ), @text.H:ymd( {s:H 5782, 13, 24} ) nl;
+write @date.H:ymd( "5781 Adar 24" ), @date.H:ymd( "5782 Adar I 24" ), @date.H:ymd( "5782 Adar II 24" ) nl;
+write @date( {s:H 5781, 12, 24} ), @date( {s:H 5782, 12, 24} ), @date( {s:H 5782, 13, 24} ) nl;
+
+/*[OUTPUT]
+
+{s:H 5781, 12, 24, 12, 2}, {s:H 5782, 12, 24, 14, 6}, {s:H 5782, 13, 24, 13, 1}
+{s:H 5781, 12, 24, 12, 2}, {s:H 5782, 12, 24, 14, 6}, {s:H 5782, 13, 24, 13, 1}
+5781 Adar 24, 5782 Adar I 24, 5782 Adar II 24
+5781 Adar 24, 5782 Adar I 24, 5782 Adar II 24
+2459282, 2459636, 2459666
+2459282, 2459636, 2459666
+
+[OUTPUT]*/
