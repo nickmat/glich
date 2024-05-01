@@ -45,6 +45,8 @@ grammar JA {
     lexicons M, W;
     alias pseudo { w wday; dd day; mm month; yyyy cyear; }
     alias unit { d day; m month; y year; }
+    use epoch;
+
     format  dmc, "{day} |{month:M:a} |{cyear/year}";
     format  wdmc, "{wday:W:a} |{day} |{month:M:a} |{cyear/year}";
     format  out {
@@ -60,11 +62,13 @@ scheme JA {
     grammar JA;
 }
 
+
 write nl;
 write @record.JA:dmc( "24 mar 1749/50" ), @record.JA:dmc( "25 Mar 1750" ) nl;
 write @text.JA:wdmc( 2360328 ), @text.JA:wdmc( 2360329 ) nl;
 write @date.JA:dmc( "24 mar 1749/50" ), @date.JA:dmc( "25 Mar 1750" ) nl;
 write @text.JA:out( 2430792 ) nl;
+write @text.JA:dmc( 1507232 ) nl;
 
 /*[OUTPUT]
 
@@ -72,5 +76,6 @@ write @text.JA:out( 2430792 ) nl;
 Sat 24 Mar 1749/50, Sun 25 Mar 1750
 2360328, 2360329
 23rd February 1942/3
+30 Jul -586
 
 [OUTPUT]*/

@@ -66,13 +66,13 @@ grammar H {
         month = @if( cmonth=14, 12, cmonth );
         result = this;
     }
-    use { calculate calc_cmonth; to:text calc_cmonth; from:text calc_month; }
+    use { calculate calc_cmonth; from:text calc_month; }
 
     format  dmy    "{day} |{cmonth:HCM} |{year}";
     format "dmy-" {
         inout "{day} |{month} |{year}";
         rank year month day;
-        use:in calc_month;
+        use:in calc_cmonth;
     }
     format  wdmy   "{wsday:HW:a} |{day} |{cmonth:HCM:a} |{year}";
     format "wdmy+" "{wsday:HW} |{day} |{cmonth:HCM} |{year}";
@@ -95,6 +95,7 @@ write @text.H:ymd( 2459282 ), @text.H:ymd( 2459636 ), @text.H:ymd( 2459666 ) nl;
 write @text.H:ymd( {s:H 5781, 12, 24} ), @text.H:ymd( {s:H 5782, 12, 24} ), @text.H:ymd( {s:H 5782, 13, 24} ) nl;
 write @date.H:ymd( "5781 Adar 24" ), @date.H:ymd( "5782 Adar I 24" ), @date.H:ymd( "5782 Adar II 24" ) nl;
 write @date( {s:H 5781, 12, 24} ), @date( {s:H 5782, 12, 24} ), @date( {s:H 5782, 13, 24} ) nl;
+write @text."H:dmy-"(2459636), @date."H:dmy-"( "24 12 5782" ) nl;
 
 /*[OUTPUT]
 
@@ -104,5 +105,6 @@ write @date( {s:H 5781, 12, 24} ), @date( {s:H 5782, 12, 24} ), @date( {s:H 5782
 5781 Adar 24, 5782 Adar I 24, 5782 Adar II 24
 2459282, 2459636, 2459666
 2459282, 2459636, 2459666
+24 12 5782, 2459636
 
 [OUTPUT]*/
