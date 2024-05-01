@@ -64,7 +64,6 @@ namespace glich {
         FormatUnit* create_format_unit( const std::string& code );
         bool add_format( Format* fmt );
         void add_alias( const std::string& alias, const StdStrVec& pairs );
-        void set_use_jdn( const std::string& funcode ) { m_use_jdn = funcode; }
         void set_use_function( StdStrMap& usemap ) { m_use_function = usemap; }
 
         std::string get_code() const { return m_code; }
@@ -133,7 +132,6 @@ namespace glich {
         StdStrMap   m_unit_alias;
         StrUnitMap  m_unit_type_alias;
         SpFunctionMap m_functions;
-        std::string m_use_jdn;
         StdStrMap   m_use_function;
     };
 

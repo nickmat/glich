@@ -524,10 +524,6 @@ Grammar* glich::do_create_grammar( Script& script, const std::string& code, cons
             else if( name == "function" ) {
                 do_grammar_function( script, gmr );
             }
-            else if( name == "use:jdn" ) {
-                str = script.get_name_or_primary( GetToken::next );
-                gmr->set_use_jdn( str );
-            }
             else if( name == "use" ) {
                 do_grammar_use( script, gmr );
             }
