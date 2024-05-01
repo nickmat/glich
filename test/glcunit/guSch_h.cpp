@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     15th November 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -79,9 +79,11 @@ TEST_CASE( "Library Scheme h", "[h]" )
     REQUIRE( info.code == "h" );
     REQUIRE( info.grammar_code == "h" );
     REQUIRE( info.lexicon_codes[0] == "hm" );
-    REQUIRE( info.lexicon_codes[1] == "hw" );
+    REQUIRE( info.lexicon_codes[1] == "hcm" );
+    REQUIRE( info.lexicon_codes[2] == "hw" );
     REQUIRE( info.lexicon_names[0] == "Month names" );
-    REQUIRE( info.lexicon_names[1] == "Weekday names" );
+    REQUIRE( info.lexicon_names[1] == "Complete Month names" );
+    REQUIRE( info.lexicon_names[2] == "Weekday names" );
 }
 
 TEST_CASE( "Scheme h Test Table", "[h TestTable]" )
