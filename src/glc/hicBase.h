@@ -42,7 +42,6 @@ namespace glich {
 
         // Set initial data from string.
         void set_data( const std::string& data );
-        virtual bool set_epoch( Field epoch ) { return false; }
 
         bool attach_grammar( Grammar* gmr );
         // Return true if in a usable state.
@@ -61,10 +60,6 @@ namespace glich {
         int get_fieldname_record_index( const std::string& fieldname ) const;
         int get_alias_fieldname_index( const std::string& alias ) const;
 
-        std::string get_calc_input() const { return m_calculate_input; }
-        std::string get_calc_output() const { return m_calculate_output; }
-        bool has_calc_input() const { return !m_calculate_input.empty(); }
-        bool has_calc_output() const { return !m_calculate_output.empty(); }
         Format* get_format( const std::string& fcode ) const;
         std::string get_input_fcode() const;
         std::string get_output_fcode() const;
@@ -90,9 +85,6 @@ namespace glich {
         size_t m_record_size;
         LocaleData m_locale;
         Grammar* m_grammar;
-
-        std::string m_calculate_input;
-        std::string m_calculate_output;
     };
 
 }

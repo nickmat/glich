@@ -224,16 +224,6 @@ void Grammar::add_alias( const string& alias, const StdStrVec& pairs )
     }
 }
 
-void glich::Grammar::set_calculate(
-    const std::string& input, const std::string& output,
-    const std::string& first, const std::string& last )
-{
-    m_calculate_input = input;
-    m_calculate_output = output;
-    m_calculate_first = first;
-    m_calculate_last = last;
-}
-
 std::string glich::Grammar::resolve_field_alias( const std::string& alias )
 {
     if( m_field_alias.count( alias ) > 0 ) {

@@ -59,7 +59,6 @@ namespace glich {
         Field complete_fields_as_beg(); // Returns jdn for record
         Field complete_fields_as_end();
 
-        void calculate_expression( const std::string& script_expr );
         void update_input();
         void update_output();
 

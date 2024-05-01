@@ -64,9 +64,6 @@ namespace glich {
         FormatUnit* create_format_unit( const std::string& code );
         bool add_format( Format* fmt );
         void add_alias( const std::string& alias, const StdStrVec& pairs );
-        void set_calculate(
-            const std::string& input, const std::string& output,
-            const std::string& first, const std::string& last );
         void set_use_jdn( const std::string& funcode ) { m_use_jdn = funcode; }
         void set_use_function( StdStrMap& usemap ) { m_use_function = usemap; }
 
@@ -84,8 +81,6 @@ namespace glich {
         bool has_output_format() const { return has_format( InOut::output ); }
         void get_output_formats( SchemeFormatInfo* info, const std::string& cur_code ) const;
 
-        std::string get_calc_output() const { return m_calculate_output; }
-        std::string get_calc_input() const { return m_calculate_input; }
         Format* get_format( const std::string& code ) const;
         std::string get_pref_input_fcode() const { return m_pref_input_fcode; }
         std::string get_pref_output_fcode() const { return m_pref_output_fcode; }
@@ -137,10 +132,6 @@ namespace glich {
         StdStrMap   m_num_pseudo_alias;
         StdStrMap   m_unit_alias;
         StrUnitMap  m_unit_type_alias;
-        std::string m_calculate_input;
-        std::string m_calculate_output;
-        std::string m_calculate_first;
-        std::string m_calculate_last;
         SpFunctionMap m_functions;
         std::string m_use_jdn;
         StdStrMap   m_use_function;

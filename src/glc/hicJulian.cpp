@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -111,35 +111,6 @@ void Julian::set_data( const std::string& data )
     else {
         Base::set_data( data );
     }
-}
-
-bool Julian::set_epoch( Field epoch )
-{
-    int index = get_fieldname_index( "cyear" );
-    if( index != 3 ) {
-        return false;
-    }
-    FieldVec f = get_fields( epoch );
-    string f0 = std::to_string( f[0] );
-    string f1 = std::to_string( f[1] );
-    string f2 = std::to_string( f[2] );
-    Field std_epoch = get_jdn( { 1, 1, 1 } );
-    string adj_year_true, adj_year_false, adj_cyear_true, adj_cyear_false;
-    if( epoch > std_epoch ) {
-        string adj = std::to_string( f[0] );
-        adj_year_true = "-" + adj;
-        adj_cyear_true = "+" + adj;
-    }
-    else if( epoch < std_epoch ) {
-        string adj = std::to_string( 1 - f[0] );
-        adj_year_false = "+" + adj;
-        adj_cyear_false = "-" + adj;
-    }
-    m_calculate_input = "{: @if( month<" + f1 + " or (month=" + f1 + " and day<" + f2 + "),"
-        " cyear" + adj_cyear_true + ", cyear" + adj_cyear_false + ") }";
-    m_calculate_output = "{: ,,,@if( month<" + f1 + " or (month=" + f1 + " and day<" + f2 + "),"
-        " year" + adj_year_true + ", year" + adj_year_false + ") }";
-    return true;
 }
 
 Field Julian::get_jdn( const FieldVec& fields ) const

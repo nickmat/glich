@@ -55,18 +55,6 @@ glich::Scheme::Scheme( const std::string& code, const Base& base )
     : m_style( SchemeStyle::Default ), m_base( base ), Object( code )
 {
     set_value_names( base.get_fieldnames() );
-    string calc_output = base.get_calc_output();
-    if( !calc_output.empty() ) {
-        SpFunction out_fun = SpFunction( new Function( "output" ) );
-        out_fun->set_script( "result=this@mask(" + calc_output + ");" );
-        add_function( out_fun );
-    }
-    string calc_input = base.get_calc_input();
-    if( !calc_input.empty() ) {
-        SpFunction in_fun = SpFunction( new Function( "input" ) );
-        in_fun->set_script( "result=this@mask(" + calc_input + ");" );
-        add_function( in_fun );
-    }
 }
 
 Scheme::~Scheme()
@@ -116,10 +104,6 @@ SValue Scheme::complete_object( Field jdn ) const
 {
     const Base& base = get_base();
     Record record( base, jdn );
-    string calc_output = base.get_calc_output();
-    if( !calc_output.empty() ) {
-        record.calculate_expression( calc_output );
-    }
     return record.get_object( get_code() );
 }
 

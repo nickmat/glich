@@ -84,8 +84,6 @@ bool Base::attach_grammar( Grammar* gmr )
     vec_append( m_fieldnames, gmr->get_calc_fieldnames() );
     m_record_size = m_fieldnames.size();
     vec_append( m_fieldnames, gmr->get_opt_fieldnames() );
-    m_calculate_input = gmr->get_calc_input();
-    m_calculate_output = gmr->get_calc_output();
     return true;
 }
 

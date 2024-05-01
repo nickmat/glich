@@ -229,9 +229,6 @@ void FormatText::setup_control_out()
 std::string glich::FormatText::get_text_output( Record& record ) const
 {
     const Base& base = record.get_base();
-    if( base.has_calc_output() ) {
-        record.calculate_expression( base.get_calc_output() );
-    }
     return get_revealed_output( record, nullptr );
 }
 
@@ -309,9 +306,6 @@ bool FormatText::set_input( Record& record, const string& input, Boundary rb ) c
     if( ret && has_use_function() ) {
         string in_function = get_from_text_funcode();
         Function* fun = m_owner.get_function( in_function );
-    }
-    else if( ret && base.has_calc_input() ) {
-        record.calculate_expression( base.get_calc_input() );
     }
     record.update_input();
     if( !ret || rb == Boundary::None ) {

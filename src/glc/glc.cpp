@@ -29,6 +29,7 @@
 
 #include "glcFile.h"
 #include "glcFunction.h"
+#include "glcHelper.h"
 #include "glcLibScripts.h"
 #include "glcMark.h"
 #include "glcMath.h"
@@ -286,6 +287,16 @@ string Glich::range_to_text( Range range, const string& sig )
 
 string Glich::field_to_text( Field field, const string& sig )
 {
+    string qual;
+    if( !sig.empty() ) {
+        qual = ".\"" + sig + "\"";
+    }
+    string function = "@text" + qual + "(" + field_to_string( field ) + ")";
+    SValue value = evaluate( function );
+    bool success;
+    return value.get_str( success );
+
+
     string scode, fcode;
     Scheme* sch = nullptr;
     if( !sig.empty() ) {
@@ -347,6 +358,15 @@ Range Glich::text_to_range( const string& text, const string& sig )
 
 Field Glich::text_to_field( const string& text, const string& sig )
 {
+    string qual;
+    if( !sig.empty() ) {
+        qual = ".\"" + sig + "\"";
+    }
+    string function = "@date" + qual + "(\"" + text + "\")";
+    SValue value = evaluate( function );
+    bool success;
+    return value.get_field( success );
+
     string scode, fcode;
     Scheme* sch = nullptr;
     if( !sig.empty() ) {

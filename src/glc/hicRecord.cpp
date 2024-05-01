@@ -207,44 +207,13 @@ Field Record::complete_fields_as_end()
     return calc_jdn();
 }
 
-void Record::calculate_expression( const string& script_expr )
-{
-    Store* store = new Store;
-    StdStrVec names = m_base.get_fieldnames();
-    assert( names.size() >= m_f.size() );
-    SValueVec rec_values( m_f.size() + 1 );
-    rec_values[0] = ":";
-    for( size_t i = 0; i < m_f.size();i++ ) {
-        store->create_local( names[i] );
-        if( m_f[i] != f_invalid ) {
-            SValue value( m_f[i] );
-            store->update_local( names[i], value );
-            rec_values[i + 1] = value;
-        }
-    }
-    SValue calc = glc().evaluate(script_expr, store);
-    SValue rec( rec_values );
-    rec.mask_op( calc );
-    const SValueVec* values_ptr = rec.get_object_values();
-    bool success = false;
-    for( size_t i = 0; i < m_f.size(); i++ ) {
-        m_f[i] = (*values_ptr)[i + 1].get_int_as_field( success );
-    }
-}
-
 void Record::update_input()
 {
-    if( m_base.has_calc_input() ) {
-        calculate_expression( m_base.get_calc_input() );
-    }
     m_base.update_input( m_f );
 }
 
 void Record::update_output()
 {
-    if( m_base.has_calc_output() ) {
-        calculate_expression( m_base.get_calc_output() );
-    }
     m_base.update_output( m_f );
 }
 
