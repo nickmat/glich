@@ -871,7 +871,7 @@ namespace {
         SValue value = record.get_object( sch->get_code() );
         const Grammar* gmr = sch->get_grammar();
         assert( gmr != nullptr );
-        Function* fun = gmr->get_function( gmr->get_calculate() );
+        Function* fun = sch->get_function( gmr->get_calculate() );
         if( fun != nullptr ) {
             value = fun->run( &value, StdStrVec(), SValueVec(), script.get_out_stream() );
         }
