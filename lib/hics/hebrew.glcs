@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     12th November 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -26,7 +26,7 @@
 
 lexicon hm {
     name "Month names";
-    fieldname cmonth;
+    fieldname month;
     lang en;
     pseudo     Month,     Mon;
     tokens {
@@ -43,6 +43,14 @@ lexicon hm {
         11, "Shevat",  "Shv", "Shvat";
         12, "Adar",    "Adr";
         13, "Adar II", "Ads";
+    }
+}
+
+lexicon hcm {
+    name "Complete Month names";
+    fieldname cmonth;
+    inherit hm;
+    tokens {
         14, "Adar I",  "Adf";
     }
 }
@@ -65,24 +73,43 @@ lexicon hw {
 
 grammar h {
     name "Hebrew";
-    name "Hebrew";
     fields year month day;
     calculated cmonth;
     optional wsday;
     rank year cmonth day;
-    calculate {
-        output {: ,,,@if(month=12 and @leapyear.hebrew(year), 14, month)};
-        input {: ,@if(cmonth=14, 12, cmonth)};
-    }
-    lexicons hm, hw;
+    lexicons hm, hcm, hw;
     alias pseudo { w wday; dd day; mm month; yyyy year; }
     alias unit { d day; m month; y year; }
-    format  dmy_a "{day} |{cmonth:hm:a} |{year}";
-    format  dmy   "{day} |{cmonth:hm} |{year}";
-    format "dmy-" "{day} |{month} |{year}";
-    format  wdmy  "{wsday:hw} |{day} |{cmonth:hm} |{year}";
-    format  ymd   "{year}| {cmonth:hm}| {day}";
-    format "ymd-" "{year}| {month}| {day}";
+
+    function calc_cmonth {
+        cmonth = @if( month=12 and @leapyear.hebrew(year), 14, month );
+        result = this;
+    }
+    function calc_month {
+        month = @if( cmonth=14, 12, cmonth );
+        result = this;
+    }
+    use { calculate calc_cmonth; from:text calc_month; }
+
+    format  dmy_a "{day} |{cmonth:hcm:a} |{year}";
+    format  dmy   "{day} |{cmonth:hcm} |{year}";
+    format "dmy-" {
+        inout "{day} |{month} |{year}";
+        rank year month day;
+        use:in calc_cmonth;
+    }
+    format  wdmy  "{wsday:hw} |{day} |{cmonth:hcm} |{year}";
+    format  ymd   "{year}| {cmonth:hcm}| {day}";
+    format "ymd-" {
+        inout "{year}| {month}| {day}";
+        rank year month day;
+        use:in calc_cmonth;
+    }
+    format gedcom {
+        inout "{day} |{month:hm:a:u} |{year}";
+        rank year month day;
+        use:in calc_cmonth;
+    }
     preferred dmy;
 }
 
