@@ -244,9 +244,6 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
         script.error( "Unable to attach grammar." );
         return nullptr;
     }
-    if( epoch != f_invalid && !base->set_epoch( epoch ) ) {
-        script.error( "Unable to set epoch." );
-    }
     Scheme* sch = new Scheme( "s:" + code, *base);
     sch->reset();
     sch->set_name( name );
@@ -339,45 +336,6 @@ namespace {
         gmr->add_alias( alias, pairs );
         return true;
     }
-
-    bool do_grammar_calculate( Script& script, Grammar* gmr )
-    {
-        SToken token = script.next_token();
-        if( token.type() != SToken::Type::LCbracket ) {
-            script.error( "'{' expected." );
-            return false;
-        }
-        string input, output, first, last;
-        for( ;; ) {
-            token = script.next_token();
-            if( token.type() == SToken::Type::RCbracket ||
-                token.type() == SToken::Type::End )
-            {
-                break; // All done.
-            }
-            if( token.type() == SToken::Type::Name ) {
-                string sub = token.get_str();
-                if( sub == "output" ) {
-                    output = script.read_until( ";" );
-                }
-                else if( sub == "input" ) {
-                    input = script.read_until( ";" );
-                }
-                else if( sub == "first" ) {
-                    first = script.read_until( ";" );
-                }
-                else if( sub == "last" ) {
-                    last = script.read_until( ";" );
-                }
-                else {
-                    script.error( "Grammar calculate sub-statement expected." );
-                }
-            }
-        }
-        gmr->set_calculate( input, output, first, last );
-        return true;
-    }
-
     bool do_grammar_function( Script& script, Grammar* gmr )
     {
         string code = script.get_name_or_primary( GetToken::next );
@@ -539,9 +497,6 @@ Grammar* glich::do_create_grammar( Script& script, const std::string& code, cons
             else if( name == "preferred" ) {
                 str = script.get_name_or_primary( GetToken::next );
                 gmr->set_preferred( str );
-            }
-            else if( name == "calculate" ) {
-                do_grammar_calculate( script, gmr );
             }
             else if( name == "alias" ) {
                 do_grammar_alias( script, gmr );
