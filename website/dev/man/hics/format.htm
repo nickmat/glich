@@ -31,7 +31,6 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Page Under Construction</h2>
 <h2>Statement: format</h2>
 <p>
  The <b>format</b> statement is used to control the
@@ -146,6 +145,7 @@ writeln text.XS:html 2460127;</td>
 <tr><td class='code'><b>style</b> <i>switch</i>;</td><td class='example'><b>style</b> hide;</td><td>Set the style for the format.</td></tr>
 <tr><td class='code'><b>pseudo:in</b> <i>string</i>;</td><td class='example'><b>pseudo:in</b> "Day Month Year";</td><td>Set the string that shows the input format.</td></tr>
 <tr><td class='code'><b>pseudo:out</b> <i>string</i>;</td><td class='example'><b>pseudo:out</b> "d-Mmm-yyyy";</td><td>Set the string that shows the output format.</td></tr>
+<tr><td class='code'><b>use:in</b> <i>string</i>;</td><td class='example'><b>use:in</b> calc_month;</td><td>Function code used to complete default fields.</td></tr>
 </table>
 
 <p>
@@ -249,6 +249,17 @@ writeln text.XS:html 2460127;</td>
 <p>
  The <b>pseudo:in</b> and <b>pseudo:out</b> sub-statements
  can be used to override the automatically constructed ones.
+</p>
+
+<h4 id="use-in">Format Sub-Statement: use:in</h4>
+<p>
+ Required when there are calculated fields included in the scheme.
+</p>
+<p>
+ The function name to be used to complete all the fields
+ based on those fields used in the input text string.
+ If not given the the function specified by the grammar
+ sub-statement <b><a href="grammar.htm#use">use from_text</a></b> is used.
 </p>
 
 <h3 id='rules-units'>Format Sub-Statement: rules units</h3>
