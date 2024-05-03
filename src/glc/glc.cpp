@@ -94,6 +94,8 @@ Glich::Glich( InOut* inout )
         { "last", fptr },
         { "leapyear", fptr },
         { "phrase", fptr },
+        { "pseudo:in", fptr },
+        { "pseudo:out", fptr },
         { "record", fptr },
         { "text", fptr }
     };

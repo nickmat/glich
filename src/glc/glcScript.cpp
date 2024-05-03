@@ -1209,7 +1209,8 @@ SValue Script::function_call()
     enum f {
         f_if, f_error, f_string, f_quote, f_field, f_range, f_rlist, f_number, f_float, f_read, f_filesys,
         f_version,
-        f_date, f_text, f_record, f_element, f_phrase, f_leapyear, f_first, f_last
+        f_date, f_text, f_record, f_element, f_phrase, f_leapyear, f_first, f_last,
+        f_pseudo_in, f_pseudo_out
     };
     const static std::map<string, f> fmap = {
         { "if", f_if }, { "error", f_error }, { "string", f_string }, { "quote", f_quote }, { "field", f_field },
@@ -1217,7 +1218,8 @@ SValue Script::function_call()
         { "read", f_read }, { "filesys", f_filesys }, { "version", f_version },
         // Hics extension
         { "date", f_date }, { "text", f_text }, { "record", f_record }, { "element", f_element },
-        { "phrase", f_phrase }, { "leapyear", f_leapyear }, { "first", f_first }, { "last", f_last }
+        { "phrase", f_phrase }, { "leapyear", f_leapyear }, { "first", f_first }, { "last", f_last },
+        { "pseudo:in", f_pseudo_in }, { "pseudo:out", f_pseudo_out }
     };
 
     SToken token = next_token();
@@ -1250,6 +1252,8 @@ SValue Script::function_call()
         case f_leapyear: return at_leapyear( *this );
         case f_first: return at_last( *this );
         case f_last: return at_first( *this );
+        case f_pseudo_in: return at_pseudo_in( *this );
+        case f_pseudo_out: return at_pseudo_out( *this );
         }
         return SValue::create_error( "Built-in funtion whoopsy." );
     }
