@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     24th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -38,8 +38,19 @@ using std::string;
 FormatUnit::FormatUnit( const std::string& code, Grammar& gmr )
     : Format( code, gmr )
 {
-    set_user_input_str( "Value Unit ..." );
-    set_user_output_str( "Value Unit ..." );
+    StdStrVec rank = gmr.get_base_fieldnames();
+    string pseudo;
+    bool started = false;
+    for( string& fname : rank ) {
+        if( started ) {
+            pseudo += " ";
+        }
+        started = true;
+        string unit = gmr.find_unit_key( fname );
+        pseudo += "9" + unit;
+    }
+    set_user_input_str( pseudo );
+    set_user_output_str( pseudo );
 }
 
 std::string FormatUnit::get_text_output( Record& record ) const
