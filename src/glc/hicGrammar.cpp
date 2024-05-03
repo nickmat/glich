@@ -246,6 +246,19 @@ std::string Grammar::resolve_unit_alias( const std::string& alias )
     return resolve_field_alias( alias );
 }
 
+string Grammar::find_unit_key( const string& fieldname )
+{
+    for( auto& unit : m_unit_alias ) {
+        if( unit.second == fieldname ) {
+            return unit.first;
+        }
+    }
+    if( m_inherit ) {
+        return m_inherit->find_unit_key( fieldname );
+    }
+    return fieldname;
+}
+
 std::string Grammar::resolve_lex_alias( const std::string& alias ) const
 {
     if( m_lex_alias.count( alias ) > 0 ) {

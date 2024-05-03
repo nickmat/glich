@@ -71,6 +71,7 @@ namespace glich {
         std::string get_error_string() const { return m_create_error; }
         std::string resolve_field_alias( const std::string& alias );
         std::string resolve_unit_alias( const std::string& alias );
+        std::string find_unit_key( const std::string& fieldname );
         std::string resolve_lex_alias( const std::string& alias ) const;
         std::string get_num_pseudo_alias( const std::string& fname ) const;
         std::string get_unit_alias( const std::string& fieldname ) const;
