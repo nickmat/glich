@@ -82,7 +82,7 @@
  The Julian Day Number calendar is the same as that used by the internal hics library,
  so its definition in terms of itself is not helpful.
  Instead, it is defined by a day in history.
- The date chosen is the day the "Convention du Mètre" was signed, the 20th May 1875.
+ The date chosen is the day the "Convention du Mètre" was signed, the 20th May 1875 Gregorian
  This is also selected as the reference date by the ISO-8601 standard.
 </p>
 <div class='p'>
@@ -98,11 +98,23 @@
  </table>.
 </div>
 
+<h3>Formats</h3>
+<p>
+ The formats supplied with this scheme.
+</p>
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></Note></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9day</td><td>9day</td><td class='example'>2459984</td><td>Hidden</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>day</td><td>ddddd</td><td class='example'>2459984</td><td>Hidden</td></tr>
+<tr><td><b>d</b></td><td>text</td><td>day</td><td>ddddd</td><td class='example'>2459984</td><td></td></tr>
+</table>
+
 <h3>Script</h3>
 <table class='code lfloat'>
 <tr><th>Default Script</th></tr>
 <tr><td
 >grammar d {
+    name "Day Number";
     fields day;
     alias pseudo { ddddd day; }
     format d "{day}";

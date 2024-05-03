@@ -46,7 +46,7 @@
 <p>
  There are more than one way of numbering the week days.
  If the scheme only uses text names for the week days,
- any numbering system can be used since they will not normally be visible.
+ any numbering system can be used since they are not normally visible.
  However, some calendars routinely use the weekday number
  (i.e. ISO, Hebrew and Islamic calendars)
  and so the numbering system can be selected depending on how the scheme is specified.
@@ -99,6 +99,19 @@
  a Monday.
 </div>
 
+<h3>Formats</h3>
+<p>
+ The formats supplied with this scheme.
+</p>
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9w 9d</td><td>9w 9d</td><td class='example'>351426w 3d</td><td>Hidden</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>week day</td><td>wwwww d</td><td class='example'>351426 3</td><td>Hidden</td></tr>
+<tr><td><b>wd</b></td><td>text</td><td>week day</td><td>wwwww d</td><td class='example'>351426 3</td><td></td></tr>
+<tr><td><b>wday</b></td><td>text</td><td>week day</td><td>wwwww Wday</td><td class='example'>351426 Wed</td><td></td></tr>
+<tr><td><b>wday+</b></td><td>text</td><td>week day</td><td>wwwww Weekday</td><td class='example'>351426 Wednesday</td><td></td></tr>
+</table>
+
 <h3>Script</h3>
 <table class='code lfloat'>
 <tr><th>Default Script</th></tr>
@@ -107,7 +120,7 @@
     name "Weekday names Monday start";
     fieldname wday;
     lang en;
-    pseudo    Weekday,  WDay;
+    pseudo    Weekday,  Wday;
     tokens {
         1, "Monday",    "Mon";
         2, "Tuesday",   "Tue";
@@ -118,22 +131,26 @@
         7, "Sunday",    "Sun";
     }
 }
+
 grammar jwn {
+    name "Julian Week Number (Monday)";
     fields week day;
     lexicons w;
+    alias lexicon { wday day; }
     alias pseudo { wwwww week; d day; }
+    alias unit { d day; w week; }
     format  wd      "{week}| {day}";
     format  wday    "{week}| {day:w:a}";
     format "wday+", "{week}| {day:w}";
     preferred wday;
 }
+
 scheme jwn {
     name "Julian Week Number";
     base jwn;
     grammar jwn;
-    style hide;
-}
-</td></tr>
+    style hidden;
+}</td></tr>
 </table>
 <p>
  The script has no dependencies.

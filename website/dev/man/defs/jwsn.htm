@@ -96,6 +96,19 @@
  a Sunday.
 </div>
 
+<h3>Formats</h3>
+<p>
+ The formats supplied with this scheme.
+</p>
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9w 9d</td><td>9w 9d</td><td class='example'>351426w 4d</td><td>Hidden</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>week day</td><td>wwwww d</td><td class='example'>351426 4</td><td>Hidden</td></tr>
+<tr><td><b>wd</b></td><td>text</td><td>week day</td><td>wwwww d</td><td class='example'>351426 4</td><td></td></tr>
+<tr><td><b>wday</b></td><td>text</td><td>week day</td><td>wwwww Wday</td><td class='example'>351426 Wed</td><td></td></tr>
+<tr><td><b>wday+</b></td><td>text</td><td>week day</td><td>wwwww Weekday</td><td class='example'>351426 Wednesday</td><td></td></tr>
+</table>
+
 <h3>Script</h3>
 <table class='code lfloat'>
 <tr><th>Default Script</th></tr>
@@ -104,7 +117,7 @@
     name "Weekday names Sunday start";
     fieldname wsday;
     lang en;
-    pseudo    Weekday,  WDay;
+    pseudo    Weekday,  Wday;
     tokens {
         1, "Sunday",    "Sun";
         2, "Monday",    "Mon";
@@ -115,20 +128,25 @@
         7, "Saturday",  "Sat";
     }
 }
+
 grammar jwsn {
+    name "Julian Week Number (Sunday)";
     fields week day;
     lexicons ws;
+    alias lexicon { wsday day; }
     alias pseudo { wwwww week; d day; }
+    alias unit { d day; w week; }
     format  wd      "{week}| {day}";
     format  wday    "{week}| {day:ws:a}";
     format "wday+", "{week}| {day:ws}";
     preferred wday;
 }
+
 scheme jwsn {
     name "Julian Week (Sunday) Number";
     base jwn sunday;
     grammar jwsn;
-    style hide;
+    style hidden;
 }
 </td></tr>
 </table>
