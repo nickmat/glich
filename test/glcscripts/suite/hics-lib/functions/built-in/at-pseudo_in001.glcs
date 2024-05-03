@@ -1,0 +1,14 @@
+// record001.hcs - 
+
+write nl;
+write @pseudo:in.g:dmy, @pseudo:in.g:def nl;
+write @pseudo:in.g:iso, @pseudo:in.g:iso_set nl;
+write @pseudo:in.g:u nl;
+
+/*[OUTPUT]
+
+day month year, year month day
+ISO:8601 Date -YYYY, ISO:8601 Date -YYYY
+9y 9m 9d
+
+[OUTPUT]*/
