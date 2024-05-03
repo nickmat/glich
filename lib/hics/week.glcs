@@ -29,7 +29,7 @@ lexicon w {
     name "Weekday names Monday start";
     fieldname wday;
     lang en;
-    pseudo    Weekday,  WDay;
+    pseudo    Weekday,  Wday;
     tokens {
         1, "Monday",    "Mon";
         2, "Tuesday",   "Tue";
@@ -47,6 +47,7 @@ grammar jwn {
     lexicons w;
     alias lexicon { wday day; }
     alias pseudo { wwwww week; d day; }
+    alias unit { d day; w week; }
     format  wd      "{week}| {day}";
     format  wday    "{week}| {day:w:a}";
     format "wday+", "{week}| {day:w}";
@@ -64,7 +65,7 @@ lexicon ws {
     name "Weekday names Sunday start";
     fieldname wsday;
     lang en;
-    pseudo    Weekday,  WDay;
+    pseudo    Weekday,  Wday;
     tokens {
         1, "Sunday",    "Sun";
         2, "Monday",    "Mon";
@@ -82,6 +83,7 @@ grammar jwsn {
     lexicons ws;
     alias lexicon { wsday day; }
     alias pseudo { wwwww week; d day; }
+    alias unit { d day; w week; }
     format  wd      "{week}| {day}";
     format  wday    "{week}| {day:ws:a}";
     format "wday+", "{week}| {day:ws}";
