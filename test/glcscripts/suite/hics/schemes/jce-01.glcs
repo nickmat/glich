@@ -55,7 +55,7 @@ grammar JCE {
     rank ce, ceyear, month, day;
     lexicons M, W, CE;
     alias pseudo { w wday; dd day; mm month; yyyy ceyear; ce ce; }
-    alias unit { d day; m month; y year; }
+    alias unit { d day; m month; y year; cy ceyear; }
 
     // Record: year month day ce ceyear
     function calc_ceyear { // output
@@ -68,7 +68,7 @@ grammar JCE {
         result = this;
     }
 
-    use { calculate calc_ceyear; to:text calc_ceyear; from:text calc_year; }
+    use { calculate calc_ceyear; from:text calc_year; }
 
     format  dmye, "{day} |{month:M:a} |{ceyear} |{ce:CE:a}";
     format  wdmye, "{wday:W:a} |{day} |{month:M:a} |{ceyear} |{ce:CE:a}";
@@ -84,6 +84,7 @@ scheme JCE {
     grammar JCE;
 }
 
+
 write nl;
 write @record.JCE( 1721423 ), @record.JCE( 1721424 ) nl;
 write @record.JCE:dmye( "31 dec 1 bce" ), @record.JCE:dmye( "1 jan 1 ce" ) nl;
@@ -94,6 +95,7 @@ write @date.JCE:dmye( "31 dec 1 bce" ), @date.JCE:dmye( "1 jan 1 ce" ) nl;
 write @date.JCE( {s:JCE 0,12,31} ), @date.JCE( {s:JCE 1,1,1} ) nl;
 write @date.JCE( {s:JCE ,12,31,0,1}@calc_year ), @date.JCE( {s:JCE ,1,1,1,1}@calc_year ) nl;
 write @text.JCE:out( 2432814 ) nl;
+write @pseudo:in.JCE:u, @pseudo:out.JCE:u nl;
 
 /*[OUTPUT]
 
@@ -106,5 +108,6 @@ write @text.JCE:out( 2432814 ) nl;
 1721423, 1721424
 1721423, 1721424
 6th September 1948 Common Era
+9y 9m 9d 9ce 9cy, 9y 9m 9d 9ce 9cy
 
 [OUTPUT]*/
