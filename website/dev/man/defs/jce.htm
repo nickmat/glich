@@ -102,6 +102,24 @@
  </table>.
 </div>
 
+<h3>Formats</h3>
+<p>
+ The formats supplied with this scheme.
+</p>
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d 9ce 9cy</td><td>9y 9m 9d 9ce 9cy</td><td class='example'>2023y 1m 26d 1ce 2023cy</td><td>Hidden</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2023 1 26</td><td>Hidden</td></tr>
+<tr><td><b>dmye</b></td><td>text</td><td>day month ceyear ce</td><td>dd Mon yyyy CE</td><td class='example'>26 Jan 2023 CE</td><td></td></tr>
+<tr><td><b>wdmye</b></td><td>text</td><td>wday day month ceyear ce</td><td>Wday dd Mon yyyy CE</td><td class='example'>Wed 26 Jan 2023 CE</td><td></td></tr>
+<tr><td><b>mdye</b></td><td>text</td><td>month day ceyear ce</td><td>Mon dd, yyyy CE</td><td class='example'>Jan 26, 2023 CE</td><td></td></tr>
+<tr><td><b>wmdye</b></td><td>text</td><td>wday month day ceyear ce</td><td>Wday Mon dd, yyyy CE</td><td class='example'>Wed Jan 26, 2023 CE</td><td></td></tr>
+<tr><td><b>dmye+</b></td><td>text</td><td>day month ceyear ce</td><td>dd Month yyyy CommonEra</td><td class='example'>26 Jan 2023 Common Era</td><td></td></tr>
+<tr><td><b>wdmye+</b></td><td>text</td><td>wday day month ceyear ce</td><td>Weekday dd Month yyyy CommonEra</td><td class='example'>Wednesday 26 January 2023 Common Era</td><td></td></tr>
+<tr><td><b>out</b></td><td>text</td><td></td><td>ddth Month yyyy CommonEra</td><td class='example'>26th January 2023 Common Era</td><td></td></tr>
+<tr><td><b>full</b></td><td>text</td><td></td><td>Weekday ddth Month yyyy CommonEra</td><td class='example'>Wednesday 26th January 2023 Common Era</td><td></td></tr>
+</table>
+
 <h3>Script</h3>
 <table class='code lfloat'>
 <tr><th>Default Script</th></tr>
@@ -116,28 +134,37 @@
         1, "Common Era",        "CE";
     }
 }
+
 grammar jce {
+    name "Julian Common Era";
     fields year month day;
     calculated ce ceyear;
     optional wday;
     rank ce ceyear month day;
-    calculate {
-        output {: ,,,@if(year&lt;1, 0, 1), @if(year&lt;1, -year+1, year) };
-        input {: @if(ce=1, ceyear, -ceyear+1) };
-    }
-    alias pseudo { w wday; dd day; mm month; yyyy ceyear; ce ce; }
-    alias unit { d day; m month; y year; }
     lexicons m w ce;
-    format dmye  "{day} |{month:m:a} |{ceyear} |{ce:ce:a}";
+    alias pseudo { w wday; dd day; mm month; yyyy ceyear; ce ce; }
+    alias unit { d day; m month; y year; cy ceyear; }
+    function calc_ceyear { // output
+        ce = @if( year&lt;1, 0, 1 );
+        ceyear = @if( year&lt;1, -year+1, year );
+        result = this;
+    }
+    function calc_year { // input
+        year = @if( ce=1, ceyear, -ceyear+1 );
+        result = this;
+    }
+    use { calculate calc_ceyear; from:text calc_year; }
+    format dmye "{day} |{month:m:a} |{ceyear} |{ce:ce:a}";
     format wdmye "{wday:w:a} |{day} |{month:m:a} |{ceyear} |{ce:ce:a}";
-    format mdye  "{month:m:a} |{day} |{ceyear} |{ce:ce:a}";
-    format wmdye "{wday:w:a} |{month:m:a} |{day} |{ceyear} |{ce:ce:a}";
-    format "dmye+"  "{day} |{month:m:a} |{ceyear} |{ce:ce}";
+    format mdye "{month:m:a} |{day}, |{ceyear} |{ce:ce:a}";
+    format wmdye "{wday:w:a} |{month:m:a} |{day}, |{ceyear} |{ce:ce:a}";
+    format "dmye+" "{day} |{month:m} |{ceyear} |{ce:ce}";
     format "wdmye+" "{wday:w} |{day} |{month:m} |{ceyear} |{ce:ce}";
     format out { output "{day::os} |{month:m} |{ceyear} |{ce:ce}"; }
     format full { output "{wday:w} |{day::os} |{month:m} |{ceyear} |{ce:ce}"; }
     preferred dmye;
 }
+
 scheme jce {
     name "Julian Common Era";
     base julian;

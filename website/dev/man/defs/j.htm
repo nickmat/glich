@@ -106,6 +106,27 @@
  </table>.
 </div>
 
+<h3>Formats</h3>
+<p>
+ The formats supplied with this scheme.
+</p>
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>2023y 1m 26d</td><td>Hidden</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2023 1 26</td><td>Hidden</td></tr>
+<tr><td><b>dmy</b></td><td>text</td><td>day month year</td><td>dd Mon yyyy</td><td class='example'>26 Jan 2023</td><td></td></tr>
+<tr><td><b>dmy+</b></td><td>text</td><td>day month year</td><td>dd Month yyyy</td><td class='example'>26 January 2023</td><td></td></tr>
+<tr><td><b>wdmy</b></td><td>text</td><td>wday day month year</td><td>Wday dd Mon yyyy</td><td class='example'>Wed 26 Jan 2023</td><td></td></tr>
+<tr><td><b>wdmy+</b></td><td>text</td><td>wday day month year</td><td>Weekday dd Month yyyy</td><td class='example'>Wednesday 26 January 2023</td><td></td></tr>
+<tr><td><b>out</b></td><td>text</td><td></td><td>ddth Month yyyy</td><td class='example'>26th January 2023</td><td></td></tr>
+<tr><td><b>full</b></td><td>text</td><td></td><td>Weekday ddth Month yyyy</td><td class='example'>Wednesday 26th January 2023</td><td></td></tr>
+<tr><td><b>mdy</b></td><td>text</td><td>month day year</td><td>Mon dd, yyyy</td><td class='example'>Jan 26, 2023</td><td></td></tr>
+<tr><td><b>mdy+</b></td><td>text</td><td>month day year</td><td>Month dd, yyyy</td><td class='example'>January 26, 2023</td><td></td></tr>
+<tr><td><b>wmdy</b></td><td>text</td><td>wday month day year</td><td>Wday, Mon dd, yyyy</td><td class='example'>Wed, Jan 26, 2023</td><td></td></tr>
+<tr><td><b>wmdy+</b></td><td>text</td><td>wday month day year</td><td>Weekday, Month dd, yyyy</td><td class='example'>Wednesday, January 26, 2023</td><td></td></tr>
+<tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>yyyy:Mon:dd</td><td class='example'>2023:Jan:26</td><td></td></tr>
+</table>
+
 <h3>Script</h3>
 <table class='code lfloat'>
 <tr><th>Default Script</th></tr>
@@ -130,22 +151,28 @@
         12, "December",  "Dec";
     }
 }
+
 grammar j {
+    name "Julian";
     fields year month day;
     optional wday;
     lexicons m, w;
     alias pseudo { w wday; dd day; mm month; yyyy year; }
     alias unit { d day; m month; y year; }
     format dmy "{day} |{month:m:a} |{year}";
+    format "dmy+" "{day} |{month:m} |{year}";
     format wdmy "{wday:w:a} |{day} |{month:m:a} |{year}";
+    format "wdmy+" "{wday:w} |{day} |{month:m} |{year}";
     format out { output "{day::os} |{month:m} |{year}"; }
     format full { output "{wday:w} |{day::os} |{month:m} |{year}"; }
-    format "dmy+" "{day} |{month:m} |{year}";
-    format "wdmy+" "{wday:w} |{day} |{month:m} |{year}";
     format mdy "{month:m:a} |{day}, |{year}";
+    format "mdy+" "{month:m} |{day}, |{year}";
+    format wmdy "{wday:w:a}, |{month:m:a} |{day}, |{year}";
+    format "wmdy+" "{wday:w}, |{month:m} |{day}, |{year}";
     format ymd "{year}|:{month:m:a}|:{day}";
     preferred dmy;
 }
+
 scheme j {
     name "Julian";
     base julian;
