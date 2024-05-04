@@ -41,15 +41,9 @@ grammar jce {
     calculated ce ceyear;
     optional wday;
     rank ce ceyear month day;
-    alias pseudo {
-        w wday; dd day; mm month; yyyy ceyear; ce ce;
-    }
-    alias unit {
-        d day; m month; y year;
-    }
     lexicons m w ce;
-
-    // Record: year month day ce ceyear
+    alias pseudo { w wday; dd day; mm month; yyyy ceyear; ce ce; }
+    alias unit { d day; m month; y year; cy ceyear; }
     function calc_ceyear { // output
         ce = @if( year<1, 0, 1 );
         ceyear = @if( year<1, -year+1, year );
@@ -59,21 +53,15 @@ grammar jce {
         year = @if( ce=1, ceyear, -ceyear+1 );
         result = this;
     }
-    use { calculate calc_ceyear; to:text calc_ceyear; from:text calc_year; }
-
-    format  dmye,  "{day} |{month:m:a} |{ceyear} |{ce:ce:a}";
-    format  wdmye "{wday:w:a} |{day} |{month:m:a} |{ceyear} |{ce:ce:a}";
-    format  mdye  "{month:m:a} |{day} |{ceyear} |{ce:ce:a}";
-    format  wmdye "{wday:w:a} |{month:m:a} |{day} |{ceyear} |{ce:ce:a}";
-
-    format  "dmye+"  "{day} |{month:m:a} |{ceyear} |{ce:ce}";
-    format  "wdmye+" "{wday:w} |{day} |{month:m} |{ceyear} |{ce:ce}";
-    format  out {
-        output "{day::os} |{month:m} |{ceyear} |{ce:ce}";
-    }
-    format  full {
-        output "{wday:w} |{day::os} |{month:m} |{ceyear} |{ce:ce}";
-    }
+    use { calculate calc_ceyear; from:text calc_year; }
+    format dmye "{day} |{month:m:a} |{ceyear} |{ce:ce:a}";
+    format wdmye "{wday:w:a} |{day} |{month:m:a} |{ceyear} |{ce:ce:a}";
+    format mdye "{month:m:a} |{day}, |{ceyear} |{ce:ce:a}";
+    format wmdye "{wday:w:a} |{month:m:a} |{day}, |{ceyear} |{ce:ce:a}";
+    format "dmye+" "{day} |{month:m} |{ceyear} |{ce:ce}";
+    format "wdmye+" "{wday:w} |{day} |{month:m} |{ceyear} |{ce:ce}";
+    format out { output "{day::os} |{month:m} |{ceyear} |{ce:ce}"; }
+    format full { output "{wday:w} |{day::os} |{month:m} |{ceyear} |{ce:ce}"; }
     preferred dmye;
 }
 
