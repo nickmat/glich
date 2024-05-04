@@ -38,10 +38,11 @@ using std::string;
 FormatUnit::FormatUnit( const std::string& code, Grammar& gmr )
     : Format( code, gmr )
 {
-    StdStrVec rank = gmr.get_base_fieldnames();
+    StdStrVec fieldnames = gmr.get_base_fieldnames();
+    fieldnames = vec_append( fieldnames, gmr.get_calc_fieldnames() );
     string pseudo;
     bool started = false;
-    for( string& fname : rank ) {
+    for( string& fname : fieldnames ) {
         if( started ) {
             pseudo += " ";
         }
