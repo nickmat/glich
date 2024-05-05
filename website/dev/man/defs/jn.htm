@@ -40,9 +40,12 @@
 <h3>Use Case</h3>
 <p>
  This is the form the <i>Anno Domimi</i> or AD era took when it originated.
- It was used by the Church and more generally from the 8th century. It was
- gradually replaced by the Annunciation year change from the 9th century,
- but was still in use up to the 14th century.
+ It was developed in 525 CE by the monk Dionysius Exiguus for use
+ when he was calculating tables of the Easter date.
+ It was used by the Venerable Bede in his writing
+ and then by the Church and more generally from the 8th century.
+ It was gradually replaced by the Annunciation year change (25th March) from the 9th century
+ but was still in common use up to the 14th century.
 </p>
 
 <h3>Definition</h3>
@@ -61,7 +64,7 @@
 </table>
 <table class='record'>
 <tr><th colspan='5'>Record - Ranking order</th></tr>
-<tr><<td class='rec-calc'>cyear</td><td>month</td><td>day</td><td class='rec-opt'>wday</td><td>year</td></tr>
+<tr><td class='rec-calc'>cyear</td><td>month</td><td>day</td><td class='rec-opt'>wday</td><td>year</td></tr>
 </table>
 <p class='lclear'>
  The field <code>cyear</code> (Civil Year) equals <code>year</code> (Historic Year)
@@ -86,29 +89,87 @@
  </table>.
 </div>
 
+<h3>Formats</h3>
+<p>
+ Formatting a date for schemes where the New Year date (Historical Year)
+ and Year number increment date (Civil Year) is different
+ can lead to confusion if it is not made clear which year is displayed.
+ It is proposed that the dual dating system is used for this scheme.
+</p>
+<h4>Dual Dates</h4>
+<p>
+ The Civil year is always shown in full.
+ If this is the same as the Historical year then this is the only year shown.
+ If the years differ, then the last digit (or as many as are different)
+ is shown. This is separated from the Civil year with a '/' slash character. 
+</p>
+
+<table class="basic data">
+<tr><th colspan="4">Examples jn:dmy#</th></tr>
+<tr><td class="example">24 Dec 1134</td>
+<td class="example">25 Dec 1135/4</td>
+<td class="example">31 Dec 1135/4</td>
+<td class="example">1 Jan 1135</td></tr>
+</table>
+<p>
+ The term 'Dual Dates' is often used for different types of formatting,
+ such as combining Julian and Gregorian dates.
+ This library only uses the term for Civil/Historical years, as described above.
+</p>
+
+<h4>Formats Provided</h4>
+
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th colspan="2">Example</th><th>Note</th></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9hy 9m 9d 9cy</td><td>9hy 9m 9d 9cy</td><td class='example'>1234hy 12m 24d 1234cy</td><td class='example'>1234hy 12m 25d 1235cy</td><td>Hidden</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>h mm dd</td><td class='example'>1234 12 24</td><td class='example'>1234 12 25</td><td>Hidden</td></tr>
+<tr><td><b>dmy</b></td><td>text</td><td>day month cyear</td><td>dd Mon yyyy/h</td><td class='example'>24 Dec 1234</td><td class='example'>25 Dec 1235/4</td><td></td></tr>
+<tr><td><b>dmy+</b></td><td>text</td><td>day month cyear</td><td>dd Month yyyy/h</td><td class='example'>24 December 1234</td><td class='example'>25 December 1235/4</td><td></td></tr>
+<tr><td><b>wdmy</b></td><td>text</td><td>wday day month cyear</td><td>Wday dd Mon yyyy/h</td><td class='example'>Sun 24 Dec 1234</td><td class='example'>Mon 25 Dec 1235/4</td><td></td></tr>
+<tr><td><b>wdmy+</b></td><td>text</td><td>wday day month cyear</td><td>Weekday dd Month yyyy/h</td><td class='example'>Sunday 24 December 1234</td><td class='example'>Monday 25 December 1235/4</td><td></td></tr>
+<tr><td><b>out</b></td><td>text</td><td></td><td>ddth Month yyyy/h</td><td class='example'>24th December 1234</td><td class='example'>25th December 1235/4</td><td></td></tr>
+<tr><td><b>full</b></td><td>text</td><td></td><td>Weekday ddth Month yyyy/h</td><td class='example'>Sunday 24th December 1234</td><td class='example'>Monday 25th December 1235/4</td><td></td></tr>
+<tr><td><b>mdy</b></td><td>text</td><td>month day cyear</td><td>Mon dd, yyyy/h</td><td class='example'>Dec 24, 1234</td><td class='example'>Dec 25, 1235/4</td><td></td></tr>
+<tr><td><b>mdy+</b></td><td>text</td><td>month day cyear</td><td>Month dd, yyyy/h</td><td class='example'>December 24, 1234</td><td class='example'>December 25, 1235/4</td><td></td></tr>
+<tr><td><b>wmdy</b></td><td>text</td><td>wday month day cyear</td><td>Wday, Mon dd, yyyy/h</td><td class='example'>Sun, Dec 24, 1234</td><td class='example'>Mon, Dec 25, 1235/4</td><td></td></tr>
+<tr><td><b>wmdy+</b></td><td>text</td><td>wday month day cyear</td><td>Weekday, Month dd, yyyy/h</td><td class='example'>Sunday, December 24, 1234</td><td class='example'>Monday, December 25, 1235/4</td><td></td></tr>
+<tr><td><b>cdef</b></td><td>text</td><td>cyear month day</td><td>yyyy mm dd</td><td class='example'>1234 12 24</td><td class='example'>1235 12 25</td><td>Hidden</td></tr>
+</table>
+
 <h3>Script</h3>
 <table class='code lfloat'>
 <tr><th>Default Script</th></tr>
 <tr><td
 >grammar j_sh {
+    name "Julian shifted epoch";
     fields year month day;
     calculated cyear;
     optional wday;
     rank cyear month day;
     lexicons m w;
-    alias pseudo { w wday; dd day; mm month; yyyy cyear; }
-    alias unit { d day; m month; y year; }
-    format  dmc "{day} |{month:m:a} |{cyear}";
-    format  dmcy "{day} |{month:m:a} |{cyear/year}";
-    format  wdmcy "{wday:w:a} |{day} |{month:m:a} |{cyear/year}";
+    alias pseudo { w wday; dd day; mm month; yyyy cyear; h year; }
+    alias unit { d day; m month; hy year; cy cyear; }
+    use epoch;
+    format  dmy "{day} |{month:m:a} |{cyear/year}";
+    format "dmy+" "{day} |{month:m} |{cyear/year}";
+    format  wdmy "{wday:w:a} |{day} |{month:m:a} |{cyear/year}";
+    format "wdmy+" "{wday:w} |{day} |{month:m} |{cyear/year}";
     format  out { output "{day::os} |{month:m} |{cyear/year}"; }
     format  full { output "{wday:w} |{day::os} |{month:m} |{cyear/year}"; }
-    preferred dmcy;
+    format  mdy "{month:m:a} |{day}, |{cyear/year}";
+    format "mdy+" "{month:m} |{day}, |{cyear/year}";
+    format  wmdy "{wday:w:a}, |{month:m:a} |{day}, |{cyear/year}";
+    format "wmdy+" "{wday:w}, |{month:m} |{day}, |{cyear/year}";
+    format  cdef {
+        inout "{cyear}| {month}| {day}";
+        style hidden;
+    }
+    preferred dmy;
 }
 scheme jn {
     name "Julian Nativity";
     base julian;
-    epoch 1721417; // j:dmy# 25 Dec 0
+    epoch 1721417;    // j:dmy# 25 Dec 0
     grammar j_sh;
 }
 </td></tr>

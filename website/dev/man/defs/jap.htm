@@ -89,6 +89,40 @@
  </table>.
 </div>
 
+<h3>Formats</h3>
+<p>
+ Formatting a date for schemes where the New Year date (Historical Year)
+ and Year number increment date (Civil Year) is different
+ can lead to confusion if it is not made clear which year is displayed.
+ It is proposed that the dual dating system is used for this scheme.
+</p>
+<h4>Dual Dates</h4>
+<p>
+ The Civil year is always shown in full.
+ If this is the same as the Historical year then this is the only year shown.
+ If the years differ, then the last digit (or as many as are different)
+ is shown. This is separated from the Civil year with a '/' slash character. 
+</p>
+
+<h4>Formats Provided</h4>
+
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th colspan="2">Example</th><th>Note</th></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9hy 9m 9d 9cy</td><td>9hy 9m 9d 9cy</td><td class='example'>1234hy 3m 24d 1234cy</td><td class='example'>1234hy 3m 25d 1235cy</td><td>Hidden</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>h mm dd</td><td class='example'>1234 3 24</td><td class='example'>1234 3 25</td><td>Hidden</td></tr>
+<tr><td><b>dmy</b></td><td>text</td><td>day month cyear</td><td>dd Mon yyyy/h</td><td class='example'>24 Mar 1234</td><td class='example'>25 Mar 1235/4</td><td></td></tr>
+<tr><td><b>dmy+</b></td><td>text</td><td>day month cyear</td><td>dd Month yyyy/h</td><td class='example'>24 March 1234</td><td class='example'>25 March 1235/4</td><td></td></tr>
+<tr><td><b>wdmy</b></td><td>text</td><td>wday day month cyear</td><td>Wday dd Mon yyyy/h</td><td class='example'>Fri 24 Mar 1234</td><td class='example'>Sat 25 Mar 1235/4</td><td></td></tr>
+<tr><td><b>wdmy+</b></td><td>text</td><td>wday day month cyear</td><td>Weekday dd Month yyyy/h</td><td class='example'>Friday 24 March 1234</td><td class='example'>Saturday 25 March 1235/4</td><td></td></tr>
+<tr><td><b>out</b></td><td>text</td><td></td><td>ddth Month yyyy/h</td><td class='example'>24th March 1234</td><td class='example'>25th March 1235/4</td><td></td></tr>
+<tr><td><b>full</b></td><td>text</td><td></td><td>Weekday ddth Month yyyy/h</td><td class='example'>Friday 24th March 1234</td><td class='example'>Saturday 25th March 1235/4</td><td></td></tr>
+<tr><td><b>mdy</b></td><td>text</td><td>month day cyear</td><td>Mon dd, yyyy/h</td><td class='example'>Mar 24, 1234</td><td class='example'>Mar 25, 1235/4</td><td></td></tr>
+<tr><td><b>mdy+</b></td><td>text</td><td>month day cyear</td><td>Month dd, yyyy/h</td><td class='example'>March 24, 1234</td><td class='example'>March 25, 1235/4</td><td></td></tr>
+<tr><td><b>wmdy</b></td><td>text</td><td>wday month day cyear</td><td>Wday, Mon dd, yyyy/h</td><td class='example'>Fri, Mar 24, 1234</td><td class='example'>Sat, Mar 25, 1235/4</td><td></td></tr>
+<tr><td><b>wmdy+</b></td><td>text</td><td>wday month day cyear</td><td>Weekday, Month dd, yyyy/h</td><td class='example'>Friday, March 24, 1234</td><td class='example'>Saturday, March 25, 1235/4</td><td></td></tr>
+<tr><td><b>cdef</b></td><td>text</td><td>cyear month day</td><td>yyyy mm dd</td><td class='example'>1234 3 24</td><td class='example'>1235 3 25</td><td>Hidden</td></tr>
+</table>
+
 <h3>Script</h3>
 <table class='code lfloat'>
 <tr><th>Default Script</th></tr>
@@ -96,7 +130,7 @@
 >scheme jap {
     name "Julian Annunciation Pisa";
     base julian;
-    epoch 1721142; // j:dmy# 25 Mar 0
+    epoch 1721142;    // j:dmy# 25 Mar 0
     grammar j_sh;
 }
 </td></tr>
