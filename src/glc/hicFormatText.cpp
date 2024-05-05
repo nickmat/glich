@@ -125,8 +125,6 @@ void FormatText::setup_control_in()
             input += ele.get_input_text();
             InputFieldType type = ele.get_type();
             if( ele.has_dual_field() ) {
-                input += "/";
-                m_dual2_fieldname = ele.get_dual_record_field_name();
                 type = IFT_dual1;
             }
             string fieldname = ele.get_record_field_name();
@@ -525,10 +523,6 @@ bool FormatText::resolve_input( const Base& base, FieldVec& fields, InputFieldVe
     FieldVec element_list;
     for( size_t i = 0; i < input.size(); i++ ) {
         if( input[i].type == IFT_dual2 ) {
-            int index = base.get_fieldname_record_index( m_dual2_fieldname );
-            if( index >= 0 ) {
-                fields[index] = input[i].value;
-            }
             continue;
         }
         if( input[i].type == IFT_lexicon ) {
