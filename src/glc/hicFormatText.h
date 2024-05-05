@@ -99,9 +99,6 @@ namespace glich {
 
         StdStrVec   m_default_names;
         FieldVec    m_default_values;
-
-        std::string m_dual2_fieldname;
-
     };
 
 }
