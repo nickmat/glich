@@ -1,26 +1,24 @@
 // ja-001.glc // Test formats
 
+
 write nl;
 write @record.ja( 2360328 ), @record.ja( 2360329 ) nl;
-write @record.ja:dmc( "24 mar 1749" ), @record.ja:dmc( "25 Mar 1750" ) nl;
-write @record.ja:dmcy( "24 mar 1749" ), @record.ja:dmcy( "25 Mar 1750" ) nl;
-write @text.ja:dmc( 2360328 ), @text.ja:dmc( 2360329 ) nl;
-write @text.ja:dmcy( 2360328 ), @text.ja:dmcy( 2360329 ) nl;
-write @text.ja:wdmcy( 2360328 ), @text.ja:wdmcy( 2360329 ) nl;
-write @text.ja:dmcy( {s:ja 1750,3,24} ), @text.ja:dmcy( {s:ja 1750,3,25} ) nl;
-write @text.ja:dmcy({s:ja ,3,24,1749}@calc_year), @text.ja:dmcy({s:ja ,3,25,1750}@calc_year) nl;
-write @date.ja:dmcy( "24 mar 1749" ), @date.ja:dmcy( "25 Mar 1750" ) nl;
-write @date.ja:dmcy( {s:ja 1750,3,24} ), @date.ja:dmcy( {s:ja 1750,3,25} ) nl;
-write @date.ja:dmcy( {s:ja ,3,24,1749}@calc_year ), @date.ja:dmcy( {s:ja ,3,25,1750}@calc_year ) nl;
+write @record.ja:dmy( "24 mar 1749" ), @record.ja:dmy( "25 Mar 1750" ) nl;
+write @text.ja:dmy( 2360328 ), @text.ja:dmy( 2360329 ) nl;
+write @text.ja:wdmy( 2360328 ), @text.ja:wdmy( 2360329 ) nl;
+write @text.ja:dmy( {s:ja 1750,3,24} ), @text.ja:dmy( {s:ja 1750,3,25} ) nl;
+write @text.ja:dmy({s:ja ,3,24,1749}@calc_year), @text.ja:dmy({s:ja ,3,25,1750}@calc_year) nl;
+write @date.ja:dmy( "24 mar 1749" ), @date.ja:dmy( "25 Mar 1750" ) nl;
+write @date.ja:dmy( {s:ja 1750,3,24} ), @date.ja:dmy( {s:ja 1750,3,25} ) nl;
+write @date.ja:dmy( {s:ja ,3,24,1749}@calc_year ), @date.ja:dmy( {s:ja ,3,25,1750}@calc_year ) nl;
 write @text.ja:out( 2430792 ) nl;
 write @text.ja:full( 2430792 ) nl;
+
 
 /*[OUTPUT]
 
 {s:ja 1750, 3, 24, 1749, 6}, {s:ja 1750, 3, 25, 1750, 7}
 {s:ja 1750, 3, 24, 1749, 6}, {s:ja 1750, 3, 25, 1750, 7}
-{s:ja 1750, 3, 24, 1749, 6}, {s:ja 1750, 3, 25, 1750, 7}
-24 Mar 1749, 25 Mar 1750
 24 Mar 1749/50, 25 Mar 1750
 Sat 24 Mar 1749/50, Sun 25 Mar 1750
 24 Mar 1749/50, 25 Mar 1750
