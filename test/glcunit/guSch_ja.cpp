@@ -87,24 +87,24 @@ TEST_CASE( "Library Scheme ja", "[ja]" )
 TEST_CASE( "Scheme ja Test Table", "[ja TestTable]" )
 {
     for( size_t i = 0; i < guTT_size; i++ ) {
-        Field jdn = g_glc->text_to_field( table_ja[i][0], "ja:dmcy" );
+        Field jdn = g_glc->text_to_field( table_ja[i][0], "ja:dmy" );
         REQUIRE( jdn == guTT_jdn[i] );
-        string str = g_glc->field_to_text( jdn, "ja:dmcy" );
+        string str = g_glc->field_to_text( jdn, "ja:dmy" );
         REQUIRE( str == table_ja[i][0] );
 
-        jdn = g_glc->text_to_field( table_ja[i][1], "ja:mdcy" );
+        jdn = g_glc->text_to_field( table_ja[i][1], "ja:mdy" );
         REQUIRE( jdn == guTT_jdn[i] );
-        str = g_glc->field_to_text( jdn, "ja:mdcy" );
+        str = g_glc->field_to_text( jdn, "ja:mdy" );
         REQUIRE( str == table_ja[i][1] );
 
-        jdn = g_glc->text_to_field( table_ja[i][2], "ja:wdmcy" );
+        jdn = g_glc->text_to_field( table_ja[i][2], "ja:wdmy" );
         REQUIRE( jdn == guTT_jdn[i] );
-        str = g_glc->field_to_text( jdn, "ja:wdmcy" );
+        str = g_glc->field_to_text( jdn, "ja:wdmy" );
         REQUIRE( str == table_ja[i][2] );
 
-        jdn = g_glc->text_to_field( table_ja[i][3], "ja:wmdcy+" );
+        jdn = g_glc->text_to_field( table_ja[i][3], "ja:wmdy+" );
         REQUIRE( jdn == guTT_jdn[i] );
-        str = g_glc->field_to_text( jdn, "ja:wmdcy+" );
+        str = g_glc->field_to_text( jdn, "ja:wmdy+" );
         REQUIRE( str == table_ja[i][3] );
 
     }
