@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     6th April 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -36,7 +36,6 @@ scheme g {
     name "Gregorian";
     base gregorian;
     grammar g;
-    style selected;
 }
 
 set inout g; // Set Gregorian as the default input and output scheme.
@@ -50,7 +49,7 @@ grammar gw {
     alias unit { d day; w week; y year; }
     format  ywd "{year}| {week}| {day:w:a}";
     format "ywd+", "{year}| {week}| {day:w}";
-    format iso { rules iso8601 week; }
+    format iso { rules iso8601 week minus; }
     preferred ywd;
 }
 
@@ -65,8 +64,8 @@ grammar go {
     fields year day;
     alias pseudo { ddd day; yyyy year; }
     alias unit { d day; y year; }
-    format iso { rules iso8601 ordinal; }
     format yd "{year}| {day}";
+    format iso { rules iso8601 ordinal minus; }
     preferred yd;
 }
 
@@ -76,4 +75,4 @@ scheme go {
     grammar go;
 }
 
-// End of scripts/jdn.hcs file
+// End of lib/hics/gregorian.glcs file
