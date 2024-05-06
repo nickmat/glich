@@ -56,7 +56,7 @@ grammar J {
 
 scheme SE {
     name "Julian Spanish Era";
-    base julian year:38;
+    base julian "year:-38";
     grammar J;
 }
 

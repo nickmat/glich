@@ -118,7 +118,7 @@ Field Julian::get_jdn( const FieldVec& fields ) const
     if( fields.size() < 3 || fields[0] == f_invalid || fields[1] == f_invalid || fields[2] == f_invalid ) {
         return f_invalid;
     }
-    Field year = fields[0] - m_year_offset;
+    Field year = fields[0] + m_year_offset;
     return julian_to_jdn( year, fields[1], fields[2] );
 }
 
@@ -145,7 +145,7 @@ FieldVec Julian::get_fields( Field jdn ) const
     FieldVec fields( record_size(), f_invalid );
     Field year = f_invalid;
     julian_from_jdn( &year, &fields[1], &fields[2], jdn );
-    fields[0] = year + m_year_offset;
+    fields[0] = year - m_year_offset;
     return fields;
 }
 

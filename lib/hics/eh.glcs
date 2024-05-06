@@ -28,7 +28,7 @@
 
 scheme eh {
     name "Julian Era Hispanica";
-    base julian year:38;
+    base julian "year:-38";
     grammar j;
 }
 
