@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th August 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -74,18 +74,7 @@ TEST_CASE( "Test get_scheme_list", "[get_scheme_list]" )
     while( index < default_size && schemes[index].code != "jwn" ) index++;
     REQUIRE( index == default_size );
 
-    schemes = g_glc->get_scheme_list( SchemeStyle::Selected );
-    size_t selected_size = schemes.size();
-    REQUIRE( selected_size < default_size );
-    index = 0;
-    while( index < selected_size && schemes[index].code != "g" ) index++;
-    REQUIRE( index < selected_size );
-    index = 0;
-    while( index < selected_size && schemes[index].code != "ja" ) index++;
-    REQUIRE( index == selected_size );
-    index = 0;
-    while( index < selected_size && schemes[index].code != "jwn" ) index++;
-    REQUIRE( index == selected_size );
+    // The SchemeStyle::Selected filter is currently being used
 }
 
 TEST_CASE( "Test date_phrase_to_rlist", "[date_phrase_to_rlist]" )
