@@ -94,14 +94,45 @@
  In all other respects, the calendar is the same as the <a href='j.htm'>Julian</a> calendar.
 </p>
 
+<h3>Formats</h3>
+<p>
+ The formats supplies the same formats as the <a href='j.htm'><b>j</b> Julian</a> scheme
+ with the addition of two ISO 8601 formats.
+</p>
+<p>
+ Details of the the ISO 8601 standard format is shown in the format statement
+ <a href='..\hics\format.htm#rules-iso8601'>rules iso8601 section</a>
+ with examples to show how to extend the available formats.
+</p>
+
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>2023y 2m 8d</td><td>Hidden</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2023 2 8</td><td>Hidden</td></tr>
+<tr><td><b>dmy</b></td><td>text</td><td>day month year</td><td>dd Mon yyyy</td><td class='example'>8 Feb 2023</td><td>Default</td></tr>
+<tr><td><b>dmy+</b></td><td>text</td><td>day month year</td><td>dd Month yyyy</td><td class='example'>8 February 2023</td><td></td></tr>
+<tr><td><b>wdmy</b></td><td>text</td><td>wday day month year</td><td>Wday dd Mon yyyy</td><td class='example'>Wed 8 Feb 2023</td><td></td></tr>
+<tr><td><b>wdmy+</b></td><td>text</td><td>wday day month year</td><td>Weekday dd Month yyyy</td><td class='example'>Wednesday 8 February 2023</td><td></td></tr>
+<tr><td><b>out</b></td><td>text</td><td></td><td>ddth Month yyyy</td><td class='example'>8th February 2023</td><td></td></tr>
+<tr><td><b>full</b></td><td>text</td><td></td><td>Weekday ddth Month yyyy</td><td class='example'>Wednesday 8th February 2023</td><td></td></tr>
+<tr><td><b>mdy</b></td><td>text</td><td>month day year</td><td>Mon dd, yyyy</td><td class='example'>Feb 8, 2023</td><td></td></tr>
+<tr><td><b>mdy+</b></td><td>text</td><td>month day year</td><td>Month dd, yyyy</td><td class='example'>February 8, 2023</td><td></td></tr>
+<tr><td><b>wmdy</b></td><td>text</td><td>wday month day year</td><td>Wday, Mon dd, yyyy</td><td class='example'>Wed, Feb 8, 2023</td><td></td></tr>
+<tr><td><b>wmdy+</b></td><td>text</td><td>wday month day year</td><td>Weekday, Month dd, yyyy</td><td class='example'>Wednesday, February 8, 2023</td><td></td></tr>
+<tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>yyyy:Mon:dd</td><td class='example'>2023:Feb:8</td><td></td></tr>
+<tr><td><b>iso</b></td><td>iso8601</td><td>ISO:8601 Date -YYYY</td><td>-YYYY-MM-DD</td><td class='example'>2023-02-08</td><td></td></tr>
+<tr><td><b>iso_set</b></td><td>iso8601</td><td>ISO:8601 Date -YYYY</td><td>[-YYYY-MM-DD]</td><td class='example'>[2023-02-08]</td><td></td></tr>
+</table>
+
 <h3>Script</h3>
 <table class='code lfloat'>
 <tr><th>Default Script</th></tr>
 <tr><td
 >grammar g {
+    name "Gregorian";
     inherit j;
-    format iso { rules iso8601; }
-    format iso_set { rules iso8601 dateset; }
+    format iso { rules iso8601 minus; }
+    format iso_set { rules iso8601 dateset minus; }
     preferred dmy;
 }
 scheme g {
@@ -115,31 +146,6 @@ set inout g; // Set Gregorian as the default input and output scheme.
 <p class='lclear'>
  The grammar "g" inherits from the grammar "j" used by the <a href='j.htm'>Julian</a> scheme.
 </p>
-
-<table class='code lfloat'>
-<tr><th>example/iso5.glcs Script</th></tr>
-<tr><td
->format g:iso_y5 {
-    rules iso8601 caldate year5;
-}
-format g:iso_y5set {
-    rules iso8601 dateset year5;
-}
-</td></tr>
-</table>
-
-<table class='code lfloat'>
-<tr><th>example/iso6.glcs Script</th></tr>
-<tr><td
->format g:iso_y6 {
-    rules iso8601 caldate year6;
-}
-format g:iso_y6set {
-    rules iso8601 dateset year6;
-}
-</td></tr>
-</table>
-
 
 </div><!--id=content-->
 

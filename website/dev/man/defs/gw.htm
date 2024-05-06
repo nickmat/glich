@@ -87,11 +87,31 @@
  </table>.
 </div>
 
+<h3>Formats</h3>
+<p>
+ The formats supplied with this scheme.
+</p>
+<p>
+ Details of the the ISO 8601 standard format is shown in the format statement
+ <a href='..\hics\format.htm#rules-iso8601'>rules iso8601 section</a>
+ with examples to show how to extend the available formats.
+</p>
+
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9y 9w 9d</td><td>9y 9w 9d</td><td class='example'>2023y 6w 3d</td><td>Hidden</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>year week day</td><td>yyyy ww d</td><td class='example'>2023 6 3</td><td>Hidden</td></tr>
+<tr><td><b>ywd</b></td><td>text</td><td>year week day</td><td>yyyy ww Wday</td><td class='example'>2023 6 Wed</td><td>Default</td></tr>
+<tr><td><b>ywd+</b></td><td>text</td><td>year week day</td><td>yyyy ww Weekday</td><td class='example'>2023 6 Wednesday</td><td></td></tr>
+<tr><td><b>iso</b></td><td>iso8601</td><td>ISO:8601 Week -YYYY</td><td>-YYYY-Www-D</td><td class='example'>2023-W06-3</td><td></td></tr>
+</table>
+
 <h3>Script</h3>
 <table class='code lfloat'>
 <tr><th>Default Library Script</th></tr>
 <tr><td
 >grammar gw {
+    name "Year Week Day";
     fields year week day;
     lexicons w;
     alias field { wday week; }
@@ -99,7 +119,7 @@
     alias unit { d day; w week; y year; }
     format  ywd "{year}| {week}| {day:w:a}";
     format "ywd+", "{year}| {week}| {day:w}";
-    format iso { rules iso8601 week; }
+    format iso { rules iso8601 week minus; }
     preferred ywd;
 }
 scheme gw {
@@ -109,29 +129,11 @@ scheme gw {
 }
 </td></tr>
 </table>
-<p class='lclear'>
+<p>
  The script uses the lexicon "w" definition from the
  <a href='jwn.htm'><b>jwn</b> Julian Week Number</a> scheme
  for the field <code>day.</code>
 </p>
-
-<table class='code lfloat'>
-<tr><th>example/iso5.glcs Script</th></tr>
-<tr><td
->format gw:iso_y5wd {
-    rules iso8601 week year5;
-}
-</td></tr>
-</table>
-
-<table class='code lfloat'>
-<tr><th>example/iso6.glcs Script</th></tr>
-<tr><td
->format gw:iso_y6wd {
-    rules iso8601 week year6;
-}
-</td></tr>
-</table>
 
 </div><!--id=content-->
 

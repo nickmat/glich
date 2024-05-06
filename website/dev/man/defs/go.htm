@@ -90,16 +90,35 @@
  </table>.
 </p>
 
+<h3>Formats</h3>
+<p>
+ The formats supplied with this scheme.
+</p>
+<p>
+ Details of the the ISO 8601 standard format is shown in the format statement
+ <a href='..\hics\format.htm#rules-iso8601'>rules iso8601 section</a>
+ with examples to show how to extend the available formats.
+</p>
+
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9y 9d</td><td>9y 9d</td><td class='example'>2023y 39d</td><td>Hidden</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>year day</td><td>yyyy ddd</td><td class='example'>2023 39</td><td>Hidden</td></tr>
+<tr><td><b>yd</b></td><td>text</td><td>year day</td><td>yyyy ddd</td><td class='example'>2023 39</td><td>Default</td></tr>
+<tr><td><b>iso</b></td><td>iso8601</td><td>ISO:8601 Ordinal -YYYY</td><td>-YYYY-DDD</td><td class='example'>2023-039</td><td></td></tr>
+</table>
+
 <h3>Script</h3>
 <table class='code lfloat'>
 <tr><th>Default Library Script</th></tr>
 <tr><td
 >grammar go {
+    name "Year Day";
     fields year day;
     alias pseudo { ddd day; yyyy year; }
     alias unit { d day; y year; }
-    format iso { rules iso8601 ordinal; }
     format yd "{year}| {day}";
+    format iso { rules iso8601 ordinal minus; }
     preferred yd;
 }
 scheme go {
@@ -109,28 +128,8 @@ scheme go {
 }
 </td></tr>
 </table>
-<p class='lclear'>
- The script has no dependencies. 
-</p>
-
-<table class='code lfloat'>
-<tr><th>example/iso5.glcs Script</th></tr>
-<tr><td
->format go:iso_y5d {
-    rules iso8601 ordinal year5;
-}
-</td></tr>
-</table>
-
-<table class='code lfloat'>
-<tr><th>example/iso6.glcs Script</th></tr>
-<tr><td
->format go:iso_y6d {
-    rules iso8601 ordinal year6;
-}
-</td></tr>
-</table>
 <p>
+ The script has no dependencies. 
 </p>
 
 </div><!--id=content-->
