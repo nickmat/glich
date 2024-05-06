@@ -163,6 +163,15 @@
  otherwise it is a common year and it has 28 days.
  The epoch is jdn# 1721424.
 </p>
+<p>
+ An additional keyword <code>year:<i>offset</i></code> may be used
+ which effectively changes the epoch by a fixed number of years.
+</p>
+<table class='basic'>
+<tr><th colspan='4'>Base julian Keyword</th></tr>
+<tr><th>Keyword</th><th>Description</th><th>Example</th><th>Reference Scheme</th></tr>
+<tr><td class='code'>year:<i>offset</i></td><td>Offset the year by a fixed amount.</td><td class="example">base julian "year:-38"</td><td><a href='../defs/eh.htm'>eh</a></td></tr>
+</table>
 
 <h4>base gregorian Sub-Statement</h4>
 <p>
@@ -317,10 +326,9 @@ epoch 2400001 jdn; // Modified Julian Day</td>
 </td></tr>
 </table>
 
-
 <h3>hybrid Sub-Statement</h3>
 <p>
- When an authority changes from calender system to another,
+ When an authority changes from one calender system to another,
  and where the underling system is the same,
  we can create a hybrid calender.
  This occurred quite often with the Julian and Gregorian calenders.
@@ -336,9 +344,9 @@ epoch 2400001 jdn; // Modified Julian Day</td>
  The hybrid calendar has the appearance of adding or removing days from the calender.
  On the occasions that days are added, this produces an ambiguity.
  When one of these ambiguities occurs,
- entering a date produces two possible results.
+ entering a date may produces two possible results.
  An additional element is required to indicate the required day,
- for example, the scheme being used.
+ for example, the precise scheme being used.
  Alternatively, something like the day of the week can be added.
 </p>
 <p>
