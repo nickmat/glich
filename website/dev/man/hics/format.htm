@@ -304,7 +304,6 @@ writeln text.XS:html 2460127;</td>
  Various optional parts of the standard can be activated using a number of switches following the <b>rules</b> sub-statement.
  these can be broken down into a number of groups as follows.
 </p>
-
 <table class='basic'>
 <tr><th colspan='5'>Switches used with rules iso8601 Sub-Statement</th></tr>
 <tr><th>Group</th><th>Switch</th><th>Description</th><th>Example</th><th>Output</th></tr>
@@ -326,6 +325,45 @@ writeln text.XS:html 2460127;</td>
  The order of the switches is not significant,
  except if rules are contradictory then the value to the right has precedence. 
 </p>
+
+<p>
+ Examples of extending the formats of the library schemes.
+</p>
+<table class='code lfloat'>
+<tr><th>example/iso5.glcs Script</th></tr>
+<tr><td
+>format g:iso_y5 {
+    rules iso8601 caldate minus year5;
+}
+format g:iso_y5set {
+    rules iso8601 dateset minus year5;
+}
+format gw:iso_y5wd {
+    rules iso8601 week minus year5;
+}
+format go:iso_y5d {
+    rules iso8601 ordinal minus year5;
+}
+</td></tr>
+</table>
+
+<table class='code lfloat'>
+<tr><th>example/iso6.glcs Script</th></tr>
+<tr><td
+>format g:iso_y6 {
+    rules iso8601 caldate minus year6;
+}
+format g:iso_y6set {
+    rules iso8601 dateset minus year6;
+}
+format gw:iso_y6wd {
+    rules iso8601 week minus year6;
+}
+format go:iso_y6d {
+    rules iso8601 ordinal minus year6;
+}
+</td></tr>
+</table>
 
 </div><!--id=content-->
 
