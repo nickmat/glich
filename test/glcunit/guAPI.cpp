@@ -74,7 +74,9 @@ TEST_CASE( "Test get_scheme_list", "[get_scheme_list]" )
     while( index < default_size && schemes[index].code != "jwn" ) index++;
     REQUIRE( index == default_size );
 
-    // The SchemeStyle::Selected filter is currently being used
+    // The SchemeStyle::Selected filter is not currently being used
+    schemes = g_glc->get_scheme_list( SchemeStyle::Selected );
+    REQUIRE( schemes.size() == 0 );
 }
 
 TEST_CASE( "Test date_phrase_to_rlist", "[date_phrase_to_rlist]" )
