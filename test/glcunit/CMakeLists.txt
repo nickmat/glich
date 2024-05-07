@@ -11,6 +11,7 @@
 set( TEST_GLCUNIT_FILES
     guAPI.cpp
     guMain.cpp
+    guSch_ay.cpp
     guSch_g.cpp
     guSch_h.cpp
     guSch_j.cpp
