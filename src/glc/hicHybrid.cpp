@@ -69,7 +69,7 @@ bool Hybrid::is_ok() const
 Field Hybrid::get_jdn( const FieldVec& fields ) const
 {
     Field sch = fields[0];
-    if (sch == f_invalid ) {
+    if( sch < 0 || sch >= m_data.size() ) {
         return f_invalid;
     }
     FieldVec fs = get_xref( fields, sch );
