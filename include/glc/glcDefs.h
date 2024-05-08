@@ -115,6 +115,9 @@ namespace glich {
 
     enum class GetToken { current, next }; // Was a bool, next=true : current=false
 
+    using StringPair = std::pair<std::string, std::string>;
+    using StringPairVec = std::vector<StringPair>;
+
     // Append std::vector
     // Appends the 2nd argument to the 1st.
     // Returns a reference to the 1st argument.
