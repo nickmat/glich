@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     13th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -86,6 +86,30 @@ namespace glich {
     inline bool u8_isspace( int ch ) { return (ch > 0 && isspace( ch )); }
     inline bool u8_isdigit( int ch ) { return (ch > 0 && isdigit( ch )); }
 
+    inline Field get_if_field( RList& rlist ) {
+        if( rlist.size() == 1 && rlist[0].m_beg == rlist[0].m_beg ) {
+            return rlist[0].m_beg;
+        }
+        return f_invalid;
+    }
+
+    inline Field get_if_field( Range range ) {
+        if( range.m_beg == range.m_beg ) {
+            return range.m_beg;
+        }
+        return f_invalid;
+    }
+
+    inline Range get_if_range( RList& rlist ) {
+        if( rlist.size() == 1 ) {
+            return rlist[0];
+        }
+        return { f_invalid, f_invalid };
+    }
+
+    inline bool is_range_valid( Range range ) {
+        return range.m_beg != f_invalid && range.m_end != f_invalid;
+    }
 }
 
 #endif // SRC_GLC_GLCHELPER_H
