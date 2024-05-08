@@ -28,6 +28,7 @@
 #include "hicScript.h"
 
 #include "glcFunction.h"
+#include "glcHelper.h"
 #include "glcScript.h"
 #include "hicBase.h"
 #include "hicCalendars.h"
@@ -906,28 +907,48 @@ namespace {
         return SValue( record.get_jdn(), SValue::Type::field );
     }
 
-    SValue str_to_date( Script& script, Scheme* sch, const string& text, const string& fcode )
+    FunctionData* get_function_data( Script& script, Scheme* sch, Format* fmt )
     {
-        assert( sch != nullptr );
-        SValue value = SValue();
-        const Base& base = sch->get_base();
-        Format* fmt = sch->get_input_format( fcode );
-        if( fmt == nullptr ) {
-            return value;
-        }
-        RList rlist;
         if( fmt->has_use_function() ) {
             string ocode = sch->get_code();
             Object* obj = glc().get_object( ocode );
             string funcode = fmt->get_from_text_funcode();
             Function* fun = obj->get_function( funcode );
-            FunctionData fundata( *fun, script.get_out_stream() );
-            fundata.ocode = ocode;
-            rlist = fmt->string_to_rlist( base, text, &fundata );
+            FunctionData* fundata = new FunctionData( *fun, script.get_out_stream() );
+            fundata->ocode = ocode;
+            return fundata;
         }
-        else {
-            rlist = fmt->string_to_rlist( base, text );
+        return nullptr;
+    }
+
+    SValue str_to_date( Script& script, Scheme* sch, string& text, const string& fcode )
+    {
+        assert( sch != nullptr );
+        Format* fmt = sch->get_input_format( fcode );
+        if( fmt == nullptr ) {
+            return SValue::create_error( "Unable to find \"" + fcode + "\" format." );
         }
+        StringPairVec pairs = fmt->string_to_stringpair( text );
+        RList rlist;
+        Range range;
+        const Base& base = sch->get_base();
+        FunctionData* fundata = get_function_data( script, sch, fmt );
+        for( auto& pair : pairs ) {
+            RList rlist1 = fmt->string_to_rlist( base, pair.first, fundata );
+            if( !pair.second.empty() ) {
+                Range range;
+                range.m_beg = get_if_field( rlist1 );
+                rlist1 = fmt->string_to_rlist( base, pair.second, fundata );
+                range.m_end = get_if_field( rlist1 );
+                rlist1.clear();
+                if( is_range_valid( range ) ) {
+                    rlist1.push_back( range );
+                }
+            }
+            rlist = vec_append( rlist, rlist1 );
+        }
+        delete fundata;
+        SValue value( rlist );
         value.set_rlist_demote( rlist );
         return value;
     }
