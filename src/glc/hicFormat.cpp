@@ -99,4 +99,29 @@ string Format::rlist_to_string( const Base& base, const RList& rlist ) const
     return output;
 }
 
+StringPairVec glich::Format::string_to_stringpair( std::string& text ) const
+{
+    StringPair pair;
+    StringPairVec pairs;
+    for( ;;) {
+        size_t pos1 = text.find( '|' );
+        string rangestr = text.substr( 0, pos1 );
+        size_t pos2 = rangestr.find( '..' );
+        if( pos2 == string::npos ) {
+            pair.first = rangestr;
+            pair.second = string();
+        }
+        else {
+            pair.first = rangestr.substr( 0, pos2 );
+            pair.second = rangestr.substr( pos2 + 2 );
+        }
+        pairs.push_back( pair );
+        if( pos1 == string::npos ) {
+            break;
+        }
+        text = text.substr( pos1 + 1 );
+    }
+    return pairs;
+}
+
 // End of src/cal/calformat.cpp file

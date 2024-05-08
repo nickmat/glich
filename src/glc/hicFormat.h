@@ -100,6 +100,8 @@ namespace glich {
         virtual std::string range_to_string( const Base& base, const Range& rng ) const;
         virtual std::string rlist_to_string( const Base& base, const RList& rlist ) const;
 
+        virtual StringPairVec string_to_stringpair( std::string& text ) const;
+
     protected:
         std::string m_code;
         Grammar& m_owner;
