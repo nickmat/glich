@@ -408,6 +408,18 @@ Range SValue::get_range( bool& success ) const
     if( std::holds_alternative<Range>( m_data ) ) {
         return std::get<Range>( m_data );
     }
+    if( std::holds_alternative<Num>( m_data ) && m_type == Type::field ) {
+        Field fld = std::get<Num>( m_data );
+        return { fld, fld };
+    }
+    if( std::holds_alternative<Num>( m_data ) && m_type == Type::Number ) {
+        Num num = std::get<Num>( m_data );
+        if( num >= f_maximum || num <= f_minimum ) {
+            return f_invalid;
+        }
+        Field fld = num;
+        return { fld, fld };
+    }
     if( std::holds_alternative<RList>( m_data ) ) {
         RList rl = std::get<RList>( m_data );
         if( rl.size() == 1 ) {
