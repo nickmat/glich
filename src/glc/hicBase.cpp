@@ -158,4 +158,30 @@ Field Base::get_beg_field_value( const FieldVec& fields, size_t index ) const
     return 1;
 }
 
+Field glich::Base::complete_beg( FieldVec& fields ) const
+{
+    bool begining = true;
+    for( size_t i = 0; i < required_size(); i++ ) {
+        if( begining && fields[i] != f_invalid ) {
+            continue;
+        }
+        fields[i] = get_beg_field_value( fields, i );
+        begining = false;
+    }
+    return get_jdn( fields );
+}
+
+Field glich::Base::complete_end( FieldVec& fields ) const
+{
+    bool begining = true;
+    for( size_t i = 0; i < required_size(); i++ ) {
+        if( begining && fields[i] != f_invalid ) {
+            continue;
+        }
+        fields[i] = get_end_field_value( fields, i );
+        begining = false;
+    }
+    return get_jdn( fields );
+}
+
 // End of src/glc/hicBase.cpp file

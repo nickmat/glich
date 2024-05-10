@@ -70,6 +70,8 @@ namespace glich {
 
         virtual Field get_beg_field_value( const FieldVec& fields, size_t index ) const;
         virtual Field get_end_field_value( const FieldVec& fields, size_t index ) const = 0;
+        virtual Field complete_beg( FieldVec& fields ) const;
+        virtual Field complete_end( FieldVec& fields ) const;
 
         // Complete any redundant fields.
         virtual void update_input( FieldVec& fields ) const {}

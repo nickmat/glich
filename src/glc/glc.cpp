@@ -318,6 +318,16 @@ string Glich::field_to_text( Field field, const string& sig )
 
 RList Glich::text_to_rlist( const string& text, const string& sig )
 {
+    string qual;
+    if( !sig.empty() ) {
+        qual = ".\"" + sig + "\"";
+    }
+    string function = "@date" + qual + "(\"" + text + "\")";
+    SValue value = evaluate( function );
+    bool success;
+    return value.get_rlist( success );
+
+
     string scode, fcode;
     Scheme* sch = nullptr;
     if( !sig.empty() ) {
@@ -337,6 +347,17 @@ RList Glich::text_to_rlist( const string& text, const string& sig )
 
 Range Glich::text_to_range( const string& text, const string& sig )
 {
+    string qual;
+    if( !sig.empty() ) {
+        qual = ".\"" + sig + "\"";
+    }
+    string function = "@date" + qual + "(\"" + text + "\")";
+    SValue value = evaluate( function );
+    bool success;
+    return value.get_range( success );
+
+
+
     string scode, fcode;
     Scheme* sch = nullptr;
     if( !sig.empty() ) {
