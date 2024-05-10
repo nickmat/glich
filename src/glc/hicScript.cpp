@@ -29,6 +29,7 @@
 
 #include "glcFunction.h"
 #include "glcHelper.h"
+#include "glcMath.h"
 #include "glcScript.h"
 #include "hicBase.h"
 #include "hicCalendars.h"
@@ -934,22 +935,18 @@ namespace {
         const Base& base = sch->get_base();
         FunctionData* fundata = get_function_data( script, sch, fmt );
         for( auto& pair : pairs ) {
-            RList rlist1 = fmt->string_to_rlist( base, pair.first, fundata );
+            range = fmt->string_to_range( base, pair.first, fundata );
             if( !pair.second.empty() ) {
-                Range range;
-                range.m_beg = get_if_field( rlist1 );
-                rlist1 = fmt->string_to_rlist( base, pair.second, fundata );
-                range.m_end = get_if_field( rlist1 );
-                rlist1.clear();
-                if( is_range_valid( range ) ) {
-                    rlist1.push_back( range );
-                }
+                Range range2 = fmt->string_to_range( base, pair.second, fundata );
+                range.m_end = range2.m_end;
             }
-            rlist = vec_append( rlist, rlist1 );
+            if( range.is_valid() ) {
+                rlist.push_back( range );
+            }
         }
         delete fundata;
-        SValue value( rlist );
-        value.set_rlist_demote( rlist );
+        SValue value;
+        value.set_rlist_demote( op_set_well_order( rlist ) );
         return value;
     }
 

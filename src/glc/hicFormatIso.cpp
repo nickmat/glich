@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     11th July 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -121,20 +121,17 @@ std::string FormatIso::get_text_output( Record& record ) const
     return str;
 }
 
-RList FormatIso::string_to_rlist( const Base& base, const string& input, FunctionData* fdata ) const
+Range FormatIso::string_to_range( const Base& base, const string& input, FunctionData* fdata ) const
 {
-    if( input[0] == '[' ) {
-        return string_set_to_rlist( base, input );
-    }
-    RList rlist;
+    Range range;
     Record rec1( base ), rec2( base );
     if( set_input( rec1, input, Boundary::Begin ) && set_input( rec2, input, Boundary::End ) ) {
-        Range range( rec1.get_jdn(), rec2.get_jdn() );
-        if( range.m_beg != f_invalid && range.m_end != f_invalid ) {
-            rlist.push_back( range );
+        range = { rec1.get_jdn(), rec2.get_jdn() };
+        if( range.is_valid() ) {
+            return range;
         }
     }
-    return rlist;
+    return Range();
 }
 
 bool FormatIso::set_input( Record& record, const string& input, Boundary rb ) const
@@ -566,6 +563,34 @@ RList FormatIso::string_set_to_rlist( const Base& base, const string& input ) co
         str = str.substr( pos1 + 1 );
     } while( pos1 != string::npos );
     return op_set_well_order( rlist );
+}
+
+StringPairVec FormatIso::string_to_stringpair( string& text ) const
+{
+    if( text.size() >= 2 && text[0] == '[' && text[text.size() - 1] == ']' ) {
+        text = text.substr( 1, text.size() - 2 );
+    }
+    StringPair pair;
+    StringPairVec pairs;
+    for( ;;) {
+        size_t pos1 = text.find( ',' );
+        string rangestr = text.substr( 0, pos1 );
+        size_t pos2 = rangestr.find( '..' );
+        if( pos2 == string::npos ) {
+            pair.first = rangestr;
+            pair.second = string();
+        }
+        else {
+            pair.first = rangestr.substr( 0, pos2 );
+            pair.second = rangestr.substr( pos2 + 2 );
+        }
+        pairs.push_back( pair );
+        if( pos1 == string::npos ) {
+            break;
+        }
+        text = text.substr( pos1 + 1 );
+    }
+    return pairs;
 }
 
 // End of glc/glc/hicFormatIso.cpp file

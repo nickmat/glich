@@ -53,7 +53,7 @@ namespace glich {
         FormatType get_format_type() const override { return FormatType::text; };
         std::string get_text_output( Record& record ) const override;
         std::string get_revealed_output( const Record& rec, const BoolVec* reveal ) const;
-        RList string_to_rlist( const Base& base, const std::string& input, FunctionData* fdata = nullptr ) const override;
+        Range string_to_range( const Base& base, const std::string& input, FunctionData* fdata = nullptr ) const override;
 
         bool set_input( Record& record, const std::string& input, Boundary rb ) const override;
         bool set_input( Record& record, const std::string& input ) const override;
@@ -72,9 +72,6 @@ namespace glich {
         int parse_date( InputFieldVec& ifs, const std::string& str ) const;
         Field find_token( Lexicon** lex, const std::string& word ) const;
         bool resolve_input( const Base& base, FieldVec& fields, InputFieldVec& input ) const;
-
-        RList multirange_str_to_rlist( const Base& base, const std::string& input ) const;
-        RList bare_str_to_rlist( const Base& base, const std::string& input, FunctionData* fdata = nullptr ) const;
 
         std::string m_control_in;
         std::string m_control_out;

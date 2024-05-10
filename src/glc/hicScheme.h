@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -79,7 +79,6 @@ namespace glich {
         std::string jdn_to_str( Field jdn, const std::string& fcode ) const;
         std::string range_to_str( const Range& rng, const std::string& fcode ) const;
         std::string rlist_to_str( const RList& rlist, const std::string& fcode ) const;
-        RList str_to_rlist( const std::string& str, const std::string& fcode ) const;
 
         std::string object_to_str( const SValue& ovalue, const std::string& fcode ) const;
         SValue object_to_demoted_rlist( const SValue& ovalue ) const;

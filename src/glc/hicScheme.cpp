@@ -212,15 +212,6 @@ std::string Scheme::rlist_to_str( const RList& rlist, const std::string& fcode )
     return fmt->rlist_to_string( m_base, rlist );
 }
 
-RList Scheme::str_to_rlist( const std::string& input, const std::string& fcode ) const
-{
-    Format* fmt = get_input_format( fcode );
-    if( fmt == nullptr ) {
-        return RList();
-    }
-    return fmt->string_to_rlist( m_base, input );
-}
-
 string Scheme::object_to_str( const SValue& ovalue, const string& fcode ) const
 {
     const Base& base = get_base();

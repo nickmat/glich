@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     24th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -41,7 +41,7 @@ namespace glich {
 
         FormatType get_format_type() const override { return FormatType::unit; };
         std::string get_text_output( Record& rec ) const override;
-        RList string_to_rlist( const Base& base, const std::string& input, FunctionData* fdata = nullptr ) const override;
+        Range string_to_range( const Base& base, const std::string& input, FunctionData* fdata = nullptr ) const override;
         bool set_input( Record& record, const std::string& input, Boundary rb ) const override;
 
     private:

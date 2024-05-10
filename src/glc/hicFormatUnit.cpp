@@ -73,17 +73,17 @@ std::string FormatUnit::get_text_output( Record& record ) const
     return output;
 }
 
-RList FormatUnit::string_to_rlist( const Base& base, const std::string& input, FunctionData* fdata ) const
+Range glich::FormatUnit::string_to_range( const Base& base, const std::string& input, FunctionData* fdata ) const
 {
-    RList rlist;
+    Range range;
     Record rec1( base ), rec2( base );
     if( set_input( rec1, input, Boundary::Begin ) && set_input( rec2, input, Boundary::End ) ) {
-        Range range( rec1.get_jdn(), rec2.get_jdn() );
+        range = { rec1.get_jdn(), rec2.get_jdn() };
         if( range.m_beg != f_invalid && range.m_end != f_invalid ) {
-            rlist.push_back( range );
+            return range;
         }
     }
-    return rlist;
+    return Range();
 }
 
 // Ignores the boundary as we need a mask for multiple ranges.

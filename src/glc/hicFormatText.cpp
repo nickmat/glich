@@ -285,13 +285,15 @@ string FormatText::get_revealed_output( const Record& record, const BoolVec* rev
     return output + fieldout;
 }
 
-RList FormatText::string_to_rlist( const Base& base, const string& input, FunctionData* fdata ) const
+Range glich::FormatText::string_to_range( const Base& base, const std::string& input, FunctionData* fdata ) const
 {
-    if( input.find( ".." ) != string::npos ||
-        input.find( '|' ) != string::npos ) {
-        return multirange_str_to_rlist( base, input );
+    Record mask( base, input, *this, Boundary::None );
+    if( fdata ) {
+        SValue value = mask.get_object( fdata->ocode );
+        value = fdata->run( &value );
+        mask.set_object( value );
     }
-    return bare_str_to_rlist( base, input, fdata );
+    return mask.get_range_from_mask();
 }
 
 bool FormatText::set_input( Record& record, const string& input, Boundary rb ) const
@@ -555,72 +557,6 @@ bool FormatText::resolve_input( const Base& base, FieldVec& fields, InputFieldVe
         }
     }
     return true;
-}
-
-RList FormatText::multirange_str_to_rlist( const Base& base, const string& input ) const
-{
-    RList rlist;
-    string str = input;
-    string rangestr, begval, endval;
-    size_t pos1;
-    for( ;;) {
-        pos1 = str.find( '|' );
-        rangestr = str.substr( 0, pos1 );
-        size_t pos2 = rangestr.find( '~' );
-        if( pos2 == string::npos ) {
-            pos2 = rangestr.find( ".." );
-            if( pos2 != string::npos ) {
-                pos2++; // Step over second dot.
-            }
-        }
-        if( pos2 == string::npos ) {
-            // single value
-            RList rl = bare_str_to_rlist( base, rangestr );
-            rlist.insert( rlist.end(), rl.begin(), rl.end() );
-        }
-        else {
-            // start and end
-            begval = rangestr.substr( 0, pos2 );
-            endval = rangestr.substr( pos2 + 1 );
-            bool ret1 = true, ret2 = true;
-            Range range;
-            if( begval.empty() ) {
-                range.m_beg = f_minimum;
-            }
-            else {
-                Record rec( base );
-                ret1 = set_input( rec, begval, Boundary::Begin );
-                range.m_beg = rec.get_jdn();
-            }
-            if( endval.empty() ) {
-                range.m_end = f_maximum;
-            }
-            else {
-                Record rec( base );
-                ret2 = set_input( rec, endval, Boundary::End );
-                range.m_end = rec.get_jdn();
-            }
-            if( ret1 && ret2 && range.m_beg != f_invalid && range.m_end != f_invalid ) {
-                rlist.push_back( range );
-            }
-        }
-        if( pos1 == string::npos ) {
-            break;
-        }
-        str = str.substr( pos1 + 1 );
-    }
-    return op_set_well_order( rlist );
-}
-
-RList FormatText::bare_str_to_rlist( const Base& base, const string& input, FunctionData* fdata ) const
-{
-    Record mask( base, input, *this, Boundary::None );
-    if( fdata ) {
-        SValue value = mask.get_object( fdata->ocode );
-        value = fdata->run( &value );
-        mask.set_object( value );
-    }
-    return mask.get_rlist_from_mask();
 }
 
 // End of src/cal/calformattext.cpp file

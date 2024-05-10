@@ -225,25 +225,20 @@ void Record::set_field( Field value, size_t index )
     }
 }
 
-// Treat the record as a mask and generate rlist
-// Mask is of the form "val, ..., ?, ..."
-RList Record::get_rlist_from_mask() const
+Range Record::get_range_from_mask() const
 {
-    RList rlist;
     Range range;
     if( m_base.is_complete( get_field_vec() ) ) {
         range = { m_jdn, m_jdn };
-        rlist.push_back( range );
-        return rlist;
+        return range;
     }
     if( m_f[0] == f_invalid ) {
-        return rlist;
+        return Range();
     }
     Record beg( *this ), end(*this);
     range.m_beg = beg.complete_fields_as_beg();
     range.m_end = end.complete_fields_as_end();
-    rlist.push_back( range );
-    return rlist;
+    return range;
 }
 
 SValue Record::get_object( const string& ocode ) const
