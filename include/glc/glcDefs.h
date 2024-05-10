@@ -74,6 +74,8 @@ namespace glich {
         Range() : m_beg( f_invalid ), m_end( f_invalid ) {}
         Range( Field fld ) : m_beg( fld ), m_end( fld ) {}
         Range( Field beg, Field end ) : m_beg( beg ), m_end( end ) {}
+
+        bool is_valid() const { return m_beg != f_invalid && m_end != f_invalid && m_beg <= m_end; }
     };
 
     inline bool operator==( const Range& left, const Range& right ) {
