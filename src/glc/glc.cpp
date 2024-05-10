@@ -297,23 +297,6 @@ string Glich::field_to_text( Field field, const string& sig )
     SValue value = evaluate( function );
     bool success;
     return value.get_str( success );
-
-
-    string scode, fcode;
-    Scheme* sch = nullptr;
-    if( !sig.empty() ) {
-        split_code( &scode, &fcode, sig );
-        if( !scode.empty() ) {
-            sch = get_scheme( scode );
-        }
-    }
-    if( sch == nullptr ) {
-        sch = get_oscheme();
-        if( sch == nullptr ) {
-            return string();
-        }
-    }
-    return sch->jdn_to_str( field, fcode );
 }
 
 RList Glich::text_to_rlist( const string& text, const string& sig )
@@ -326,23 +309,6 @@ RList Glich::text_to_rlist( const string& text, const string& sig )
     SValue value = evaluate( function );
     bool success;
     return value.get_rlist( success );
-
-
-    string scode, fcode;
-    Scheme* sch = nullptr;
-    if( !sig.empty() ) {
-        split_code( &scode, &fcode, sig );
-        if( !scode.empty() ) {
-            sch = get_scheme( scode );
-        }
-    }
-    if( sch == nullptr ) {
-        sch = get_oscheme();
-        if( sch == nullptr ) {
-            return RList();
-        }
-    }
-    return sch->str_to_rlist( text, fcode );
 }
 
 Range Glich::text_to_range( const string& text, const string& sig )
@@ -355,28 +321,6 @@ Range Glich::text_to_range( const string& text, const string& sig )
     SValue value = evaluate( function );
     bool success;
     return value.get_range( success );
-
-
-
-    string scode, fcode;
-    Scheme* sch = nullptr;
-    if( !sig.empty() ) {
-        split_code( &scode, &fcode, sig );
-        if( !scode.empty() ) {
-            sch = get_scheme( scode );
-        }
-    }
-    if( sch == nullptr ) {
-        sch = get_oscheme();
-        if( sch == nullptr ) {
-            return Range();
-        }
-    }
-    RList rlist = sch->str_to_rlist( text, fcode );
-    if( rlist.size() != 1 ) {
-        return Range();
-    }
-    return rlist[0];
 }
 
 Field Glich::text_to_field( const string& text, const string& sig )
@@ -389,30 +333,6 @@ Field Glich::text_to_field( const string& text, const string& sig )
     SValue value = evaluate( function );
     bool success;
     return value.get_field( success );
-
-    string scode, fcode;
-    Scheme* sch = nullptr;
-    if( !sig.empty() ) {
-        split_code( &scode, &fcode, sig );
-        if( !scode.empty() ) {
-            sch = get_scheme( scode );
-        }
-    }
-    if( sch == nullptr ) {
-        sch = get_oscheme();
-        if( sch == nullptr ) {
-            return f_invalid;
-        }
-    }
-    RList rlist = sch->str_to_rlist( text, fcode );
-    if( rlist.size() != 1 ) {
-        return f_invalid;
-    }
-    Range range = rlist[0];
-    if( range.m_beg != range.m_end ) {
-        return f_invalid;
-    }
-    return range.m_beg;
 }
 
 GlcMarkVec Glich::get_glc_data() const
