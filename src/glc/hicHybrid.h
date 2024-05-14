@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     15th June 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -32,16 +32,17 @@
 
 namespace glich {
 
-//    class Calendars;
-
     struct HybridData {
-        HybridData() : start(f_invalid), base(nullptr), scheme(nullptr) {}
+        HybridData() : start(f_invalid), end(f_maximum), base(nullptr), scheme(nullptr) {}
 
-        bool ok() { return ( start != f_invalid && base != nullptr ); }
+        bool ok() { return (start != f_invalid && end != f_invalid && base != nullptr); }
 
         Field        start;
+        Field        end;
         const Base*  base;
         Scheme*      scheme; // NULL if not local
+        XRefVec      s_to_h_index;
+        XRefVec      h_to_s_index;
     };
 
     class Hybrid : public Base
@@ -56,6 +57,8 @@ namespace glich {
         Field get_jdn( const FieldVec& fields ) const override;
 
         Field get_end_field_value( const FieldVec& fields, size_t index ) const override;
+        void complete_beg( FieldVec& fields ) const override;
+        void complete_end( FieldVec& fields ) const override;
 
         // Complete the scheme field if possible.
         void update_input( FieldVec& fields ) const override;
@@ -67,6 +70,8 @@ namespace glich {
         bool is_in_scheme( Field jdn, Field scheme ) const;
         size_t find_scheme( Field jdn ) const;
         void set_hybrid_fields( Field* fields, const Field* mask, Field scheme ) const;
+        FieldVec get_scheme_fields( const FieldVec& fields, Field scheme ) const;
+        void set_hybrid_fields( FieldVec& hfields, const FieldVec& fields, Field scheme ) const;
 
         // Note: m_data.size() == m_xref_fields.size()
         std::vector<HybridData> m_data;

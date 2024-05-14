@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     15th June 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -27,9 +27,6 @@
 
 #include "hicHybrid.h"
 
-//#include "cal/calendars.h"
-//#include "calformattext.h"
-//#include "calparse.h"
 #include "hicScheme.h"
 #include "hicRecord.h"
 
@@ -42,6 +39,19 @@ Hybrid::Hybrid( const StdStrVec& fields, const std::vector<HybridData>& data )
     : m_data( data ), m_rec_size( fields.size() ), Base( std::string(), fields.size() )
 {
     m_fieldnames = fields;
+    for( size_t s = 0; s < m_data.size(); s++ ) {
+        for( size_t i = 0; i < m_fieldnames.size(); i++ ) {
+            int index = m_data[s].base->get_fieldname_index( m_fieldnames[i] );
+            m_data[s].s_to_h_index.push_back( index );
+        }
+        StdStrVec sfieldnames = m_data[s].base->get_fieldnames();
+        for( size_t i = 0; i < sfieldnames.size(); i++ ) {
+            int index = get_fieldname_index( sfieldnames[i] );
+            m_data[s].h_to_s_index.push_back( index );
+        }
+    }
+
+
     XRefVec xref( fields.size() );
     for( size_t i = 0; i < data.size(); i++ ) {
         for( size_t j = 0; j < xref.size(); j++ ) {
@@ -79,6 +89,48 @@ Field Hybrid::get_jdn( const FieldVec& fields ) const
 Field Hybrid::get_end_field_value( const FieldVec& fields, size_t index ) const
 {
     return f_invalid;
+}
+
+void Hybrid::complete_beg( FieldVec& fields ) const
+{
+    assert( fields.size() == m_record_size );
+    Field scheme = fields[0];
+    if( scheme >= 0 && scheme < m_record_size ) {
+        FieldVec sfields = get_scheme_fields( fields, scheme );
+        m_data[scheme].base->complete_beg( sfields );
+        set_hybrid_fields( fields, sfields, scheme );
+        return;
+    }
+    for( size_t i = 0; i < m_data.size(); i++ ) {
+        FieldVec sfields = get_scheme_fields( fields, i );
+        m_data[i].base->complete_beg( sfields );
+        Field jdn = m_data[i].base->get_jdn( sfields );
+        if( jdn < m_data[i].end ) {
+            set_hybrid_fields( fields, sfields, i );
+            return;
+        }
+    }
+}
+
+void Hybrid::complete_end( FieldVec& fields ) const
+{
+    assert( fields.size() == m_record_size );
+    Field scheme = fields[0];
+    if( scheme >= 0 && scheme < m_record_size ) {
+        FieldVec sfields = get_scheme_fields( fields, scheme );
+        m_data[scheme].base->complete_end( sfields );
+        set_hybrid_fields( fields, sfields, scheme );
+        return;
+    }
+    for( size_t i = 0; i < m_data.size(); i++ ) {
+        FieldVec sfields = get_scheme_fields( fields, i );
+        m_data[i].base->complete_end( sfields );
+        Field jdn = m_data[i].base->get_jdn( sfields );
+        if( jdn < m_data[i].end ) {
+            set_hybrid_fields( fields, sfields, i );
+            return;
+        }
+    }
 }
 
 void Hybrid::update_input( FieldVec& fields ) const
@@ -165,6 +217,36 @@ void Hybrid::set_hybrid_fields( Field* fields, const Field* mask, Field sch ) co
             continue;
         }
         fields[i] = mask[xref[i]];
+    }
+}
+
+FieldVec Hybrid::get_scheme_fields( const FieldVec& hfields, Field scheme ) const
+{
+    assert( scheme >= 0 && scheme < m_xref_fields.size() );
+    size_t size = m_data[scheme].base->record_size();
+    FieldVec sfields( size, f_invalid );
+    for( size_t i = 0; i < size; i++ ) {
+        int index = m_data[scheme].h_to_s_index[i];
+        if( index < 0 ) {
+            continue;
+        }
+        sfields[i] = hfields[index];
+    }
+    return sfields;
+}
+
+void Hybrid::set_hybrid_fields( FieldVec& hfields, const FieldVec& sfields, Field scheme ) const
+{
+    assert( scheme >= 0 && scheme < m_xref_fields.size() );
+    assert( hfields.size() == m_rec_size );
+    assert( sfields.size() == m_data[scheme].h_to_s_index.size() );
+    hfields[0] = scheme;
+    for( size_t i = 1; i < m_rec_size; i++ ) {
+        int index = m_data[scheme].s_to_h_index[i];
+        if( index < 0 ) {
+            continue;
+        }
+        hfields[i] = sfields[index];
     }
 }
 

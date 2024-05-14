@@ -56,8 +56,8 @@ namespace glich {
         void set_fields( const FieldVec fields );
         void set_object( const SValue& ovalue );
 
-        Field complete_fields_as_beg(); // Returns jdn for record
-        Field complete_fields_as_end();
+        Field complete_fields_as_beg() { m_base.complete_beg( m_f ); return calc_jdn(); } // Returns jdn for record
+        Field complete_fields_as_end() { m_base.complete_end( m_f ); return calc_jdn(); }
 
         void update_input();
         void update_output();

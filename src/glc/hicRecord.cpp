@@ -176,37 +176,6 @@ void Record::set_object( const SValue& ovalue )
     calc_jdn();
 }
 
-// Complete all invalid required fields by setting them to the first valid value.
-// If the first field is invalid, set it to past.
-Field Record::complete_fields_as_beg()
-{
-    bool begining = true;
-    for( size_t i = 0; i < m_base.required_size(); i++ ) {
-        if( begining && m_f[i] != f_invalid ) {
-            continue;
-        }
-        m_f[i] = m_base.get_beg_field_value( m_f, i );
-        begining = false;
-    }
-    return calc_jdn();
-}
-
-
-// Complete all invalid required fields by setting them to the last valid value.
-// If the first field is invalid, set it to future.
-Field Record::complete_fields_as_end()
-{
-    bool begining = true;
-    for( size_t i = 0; i < m_base.required_size(); i++ ) {
-        if( begining && m_f[i] != f_invalid ) {
-            continue;
-        }
-        m_f[i] = m_base.get_end_field_value( m_f, i );
-        begining = false;
-    }
-    return calc_jdn();
-}
-
 void Record::update_input()
 {
     m_base.update_input( m_f );
@@ -232,9 +201,6 @@ Range Record::get_range_from_mask() const
         range = { m_jdn, m_jdn };
         return range;
     }
-    if( m_f[0] == f_invalid ) {
-        return Range();
-    }
     Record beg( *this ), end(*this);
     range.m_beg = beg.complete_fields_as_beg();
     range.m_end = end.complete_fields_as_end();
@@ -245,6 +211,7 @@ SValue Record::get_object( const string& ocode ) const
 {
     SValueVec values( m_base.object_size() + 1);
     values[0] = { ocode };
+
     for( size_t i = 0; i < m_f.size(); i++ ) {
         if( m_f[i] == f_invalid ) {
             continue;

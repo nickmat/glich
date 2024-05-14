@@ -99,6 +99,10 @@ namespace {
                     if( data.start == f_invalid ) {
                         script.error( "Change start must be Field." );
                     }
+                    size_t datasize = data_vec.size();
+                    if( datasize > 0 ) {
+                        data_vec[datasize - 1].end = data.start;
+                    }
                 }
                 else {
                     script.error( "Unrecognised statement." );

@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -158,7 +158,7 @@ Field Base::get_beg_field_value( const FieldVec& fields, size_t index ) const
     return 1;
 }
 
-Field glich::Base::complete_beg( FieldVec& fields ) const
+void Base::complete_beg( FieldVec& fields ) const
 {
     bool begining = true;
     for( size_t i = 0; i < required_size(); i++ ) {
@@ -168,10 +168,9 @@ Field glich::Base::complete_beg( FieldVec& fields ) const
         fields[i] = get_beg_field_value( fields, i );
         begining = false;
     }
-    return get_jdn( fields );
 }
 
-Field glich::Base::complete_end( FieldVec& fields ) const
+void Base::complete_end( FieldVec& fields ) const
 {
     bool begining = true;
     for( size_t i = 0; i < required_size(); i++ ) {
@@ -181,7 +180,6 @@ Field glich::Base::complete_end( FieldVec& fields ) const
         fields[i] = get_end_field_value( fields, i );
         begining = false;
     }
-    return get_jdn( fields );
 }
 
 // End of src/glc/hicBase.cpp file
