@@ -77,6 +77,7 @@ namespace glich {
         Field get_field_at( size_t index ) const { return m_f[index]; }
         Field get_field( size_t index ) const;
         Field get_field( size_t index, const BoolVec* mask ) const;
+        Field get_revealed_field( size_t index, const BoolVec& mask ) const;
         Field get_jdn() const { return m_jdn; }
 
         int get_field_index( const std::string& fn ) const { return m_base.get_alias_fieldname_index( fn ); }

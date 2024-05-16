@@ -269,4 +269,13 @@ Field glich::Record::get_field( size_t index, const BoolVec* mask ) const
     return f_invalid;
 }
 
+Field glich::Record::get_revealed_field( size_t index, const BoolVec& reveal ) const
+{
+    assert( m_f.size() == reveal.size() );
+    if( index < m_f.size() && reveal[index] ) {
+        return m_f[index];
+    }
+    return f_invalid;
+}
+
 // End of src/glc/hicRecord.cpp file
