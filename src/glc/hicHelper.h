@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -38,7 +38,7 @@ namespace glich {
     bool split_code( std::string* scheme, std::string* format, const std::string& str );
 
     enum InputFieldType {
-        IFT_null, IFT_quest, IFT_number, IFT_dual1, IFT_dual2, IFT_lexicon, IFT_calc
+        IFT_null, IFT_quest, IFT_number, IFT_dual1, IFT_dual2, IFT_lexicon
     };
 
     class Lexicon;

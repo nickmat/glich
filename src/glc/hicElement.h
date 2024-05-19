@@ -72,7 +72,7 @@ namespace glich {
     {
     public:
         ElementControlIn() : Element(), m_type( IFT_number ), m_lex( nullptr ),
-            m_calc_field( nullptr ), m_default_value( f_invalid ) {}
+            m_default_value( f_invalid ) {}
 
         void clear() override;
         bool expand_specifier( Grammar* gmr );
@@ -83,7 +83,6 @@ namespace glich {
         std::string get_default_text() const { return m_default_text; }
 
         Lexicon* get_lexicon() const { return m_lex; }
-        ElementField* get_calc_field() const { return m_calc_field; }
         InputFieldType get_type() const { return m_type; }
         Field get_default_value() const { return m_default_value; }
 
@@ -93,7 +92,6 @@ namespace glich {
     private:
         InputFieldType m_type;
         Lexicon* m_lex;
-        ElementField* m_calc_field;
         std::string m_record_field_name;
         std::string m_dual_record_field_name;
         Field m_default_value;

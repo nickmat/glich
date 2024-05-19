@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     19th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -178,11 +178,9 @@ void ElementControlIn::clear()
 
 bool ElementControlIn::expand_specifier( Grammar* gmr )
 {
-//    m_lex = gmr->find_vocab( m_vcode );
     if( !m_dual_field_name.empty() ) {
         m_type = IFT_dual2;
     }
-//    m_calc_field = gmr->get_calc_field( m_field_name );
     m_record_field_name = gmr->resolve_field_alias( m_field_name );
     if( m_lex ) {
         m_type = IFT_lexicon;
@@ -212,7 +210,6 @@ void ElementControlOut::clear()
 bool ElementControlOut::expand_specifier( Grammar* gmr )
 {
     Lexicon* lex = gmr->find_lexicon( m_lcode );
-    // m_field_output_name = gmr->get_element_pseudo_name( m_field_name );
     if( lex ) {
         if( m_field_output_name.empty() ) {
             if( m_spec == "a" ) {
