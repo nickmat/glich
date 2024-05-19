@@ -160,6 +160,9 @@ Field Base::get_beg_field_value( const FieldVec& fields, size_t index ) const
 
 void Base::complete_beg( FieldVec& fields ) const
 {
+    if( fields[0] == f_invalid ) {
+        return;
+    }
     bool begining = true;
     for( size_t i = 0; i < required_size(); i++ ) {
         if( begining && fields[i] != f_invalid ) {
@@ -172,6 +175,9 @@ void Base::complete_beg( FieldVec& fields ) const
 
 void Base::complete_end( FieldVec& fields ) const
 {
+    if( fields[0] == f_invalid ) {
+        return;
+    }
     bool begining = true;
     for( size_t i = 0; i < required_size(); i++ ) {
         if( begining && fields[i] != f_invalid ) {
