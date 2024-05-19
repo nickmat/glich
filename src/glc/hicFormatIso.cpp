@@ -44,6 +44,7 @@ FormatIso::FormatIso( const string& code, Grammar& gmr, const StdStrVec& rules )
     : Format( code, gmr ), m_daterep(DateRep::gregorian), m_extended(true),
     m_yplusminus(false), m_yminus(false), m_dateset(false), m_ydigits(4)
 {
+    m_shorthand = true;
     for( size_t i = 1 ; i < rules.size() ; i++ ) {
         if( rules[i] == "caldate" ) {
             m_daterep = DateRep::gregorian;
@@ -115,6 +116,113 @@ FormatIso::FormatIso( const string& code, Grammar& gmr, const StdStrVec& rules )
 std::string FormatIso::get_text_output( Record& record ) const
 {
     string str = get_masked_output( record, nullptr );
+    if( m_dateset ) {
+        return "[" + str + "]";
+    }
+    return str;
+}
+
+BoolVec FormatIso::get_reveal( Record& rec1, Record& rec2 ) const
+{
+    const Base& base = rec1.get_base();
+    XIndexVec xref( base.record_size() );
+    for( size_t i = 0; i < xref.size(); i++ ) {
+        xref[i] = i;
+    }
+    return rec1.mark_balanced_fields( rec2, xref, base.record_size() );
+}
+
+string FormatIso::get_revealed_text( Record& record, BoolVec& reveal ) const
+{
+    // This format only works with Gregorian, ISO Week or ISO Ordinal schemes
+    // so one of the following will valid and the other two nullptr.
+    const Gregorian* greg = dynamic_cast<const Gregorian*>(&record.get_base());
+    const IsoWeek* isow = nullptr;
+    const IsoOrdinal* isoo = nullptr;
+    if( greg == nullptr ) {
+        isow = dynamic_cast<const IsoWeek*>(&record.get_base());
+        if( isow == nullptr ) {
+            isoo = dynamic_cast<const IsoOrdinal*>(&record.get_base());
+            if( isoo == nullptr ) {
+                return "";
+            }
+        }
+    }
+    string str = output_year( record.get_revealed_field( 0, reveal ) );
+    if( str.empty() ) {
+        return "";
+    }
+    Field jdn = f_invalid;
+    if( m_daterep == DateRep::ordinal ) {
+        Field oday = f_invalid;
+        if( isoo == nullptr ) {
+            jdn = record.get_jdn();
+            IsoOrdinal::from_jdn( nullptr, &oday, jdn );
+        }
+        else {
+            oday = record.get_revealed_field( 1, reveal );
+        }
+        if( oday != f_invalid ) {
+            if( m_extended ) {
+                str += "-";
+            }
+            str += get_left_padded( oday, "0", 3 );
+        }
+        return str;
+    }
+    if( m_daterep == DateRep::week ) {
+        Field week = f_invalid, wday = f_invalid;
+        if( isow == nullptr ) {
+            jdn = record.get_jdn();
+            IsoWeek::from_jdn( nullptr, &week, &wday, jdn );
+        }
+        else {
+            week = record.get_revealed_field( 1, reveal );
+            wday = record.get_revealed_field( 2, reveal );
+        }
+        if( week != f_invalid ) {
+            if( m_extended ) {
+                str += "-";
+            }
+            str += "W" + get_left_padded( week, "0", 2 );
+            if( wday != f_invalid ) {
+                if( m_extended ) {
+                    str += "-";
+                }
+                str += get_left_padded( wday, "0", 1 );
+            }
+        }
+        return str;
+    }
+    if( m_daterep != DateRep::gregorian ) {
+        return "";
+    }
+    Field year = f_invalid, month = f_invalid, day = f_invalid;
+    if( greg == nullptr ) {
+        jdn = record.get_jdn();
+        gregorian_from_jdn( &year, &month, &day, jdn );
+    }
+    else {
+        month = record.get_revealed_field( 1, reveal );
+        day = record.get_revealed_field( 2, reveal );
+    }
+    if( month != f_invalid ) {
+        if( m_extended ) {
+            str += "-";
+        }
+        str += get_left_padded( month, "0", 2 );
+        if( day != f_invalid ) {
+            if( m_extended ) {
+                str += "-";
+            }
+            str += get_left_padded( day, "0", 2 );
+        }
+    }
+    return str;
+}
+
+std::string glich::FormatIso::get_date_text( const std::string& str ) const
+{
     if( m_dateset ) {
         return "[" + str + "]";
     }

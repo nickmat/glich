@@ -52,6 +52,8 @@ namespace glich {
 
         FormatType get_format_type() const override { return FormatType::text; };
         std::string get_text_output( Record& record ) const override;
+        BoolVec get_reveal( Record& rec1, Record& rec2 ) const override;
+        std::string get_revealed_text( Record& record, BoolVec& reveal ) const override;
         std::string get_revealed_output( const Record& rec, const BoolVec* reveal ) const;
         Range string_to_range( const Base& base, const std::string& input, FunctionData* fdata = nullptr ) const override;
 
@@ -76,7 +78,7 @@ namespace glich {
         std::string m_control_in;
         std::string m_control_out;
         std::string m_separators;
-        bool m_shorthand; // Shorthand range allowed
+//        bool m_shorthand; // Shorthand range allowed
 
         StdStrVec   m_default_fieldnames;
         StdStrVec   m_rank_fieldnames;

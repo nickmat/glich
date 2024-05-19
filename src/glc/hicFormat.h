@@ -88,10 +88,15 @@ namespace glich {
         FormatStyle get_style() const { return m_style; }
         void get_info( Format_info* info ) const;
 
-        SValue string_to_object( const std::string& ocode, const Base& base, const std::string& input ) const;;
+        SValue string_to_object( const std::string& ocode, const Base& base, const std::string& input ) const;
+        bool allow_shorthand() const { return m_shorthand; }
 
         virtual FormatType get_format_type() const = 0;
         virtual std::string get_text_output( Record& rec ) const = 0;
+        virtual BoolVec get_reveal( Record& rec1, Record& rec2 ) const { return BoolVec(); }
+        virtual std::string get_revealed_text( Record& record, BoolVec& reveal ) const;
+        virtual std::string get_date_text( const std::string& str ) const { return str; };
+        virtual std::string get_range_text( const std::string& beg, const std::string& end ) const;
         virtual Range string_to_range( const Base& base, const std::string& input, FunctionData* fdata = nullptr ) const = 0;
         virtual bool set_input( Record& record, const std::string& input, Boundary rb ) const = 0;
         virtual bool set_input( Record& record, const std::string& input ) const;
@@ -116,6 +121,7 @@ namespace glich {
         std::string m_output_str;
 
         std::string m_input_function;
+        bool m_shorthand; // Shorthand range allowed
     };
 
 }

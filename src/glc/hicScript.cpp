@@ -820,9 +820,8 @@ SValue glich::hics_at( Script& script, bool& success, Object* obj, const std::st
 
 namespace {
 
-    string jdn_to_str( Script& script, Scheme* sch, Field jdn, const string& fcode )
+    Record complete_record( Script& script, Scheme* sch, Field jdn )
     {
-        assert( sch != nullptr );
         const Base& base = sch->get_base();
         Record record( base, jdn );
         SValue value = record.get_object( sch->get_code() );
@@ -833,11 +832,44 @@ namespace {
             value = fun->run( &value, StdStrVec(), SValueVec(), script.get_out_stream() );
         }
         record.set_object( value );
+        return record;
+    }
+
+    string jdn_to_str( Script& script, Scheme* sch, Field jdn, const string& fcode )
+    {
+        assert( sch != nullptr );
+        Record record = complete_record( script, sch, jdn );
         Format* fmt = sch->get_input_format( fcode );
         if( fmt == nullptr ) {
             return string();
         }
         return fmt->get_text_output( record );
+    }
+
+    string range_to_str( Script& script, Scheme* sch, Range range, const string& fcode )
+    {
+        assert( sch != nullptr );
+        Record rec1 = complete_record( script, sch, range.m_beg );
+        Record rec2 = complete_record( script, sch, range.m_end );
+
+        Format* fmt = sch->get_input_format( fcode );
+        if( fmt == nullptr ) {
+            return string();
+        }
+        string str1, str2;
+        if( fmt->allow_shorthand() ) {
+            BoolVec reveal = fmt->get_reveal( rec1, rec2 );
+            str1 = fmt->get_revealed_text( rec1, reveal );
+            str2 = fmt->get_revealed_text( rec2, reveal );
+        }
+        else {
+            str1 = fmt->get_text_output( rec1 );
+            str2 = fmt->get_text_output( rec2 );
+        }
+        if( str1 == str2 ) {
+            return fmt->get_date_text( str1 );
+        }
+        return fmt->get_range_text( str1, str2 );
     }
 
 } // namespace
@@ -887,10 +919,10 @@ SValue glich::at_text( Script& script )
         string text = jdn_to_str( script, sch, jdn, fcode );
         return SValue( text );
     }
-    Range rng = value.get_range( success );
+    Range range = value.get_range( success );
     if( success ) {
-        value.set_str( sch->range_to_str( rng, fcode ) );
-        return value;
+        string text = range_to_str( script, sch, range, fcode );
+        return SValue( text );
     }
     RList rlist = value.get_rlist( success );
     if( !success ) {

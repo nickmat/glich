@@ -37,7 +37,7 @@ using std::string;
 
 Format::Format( const std::string& code, Grammar& gmr )
     : m_code( code ), m_owner( gmr ), m_ok( false ), m_style( FormatStyle::Default ),
-    m_priority( 0 )
+    m_priority( 0 ), m_shorthand( false )
 {
 }
 
@@ -45,7 +45,7 @@ Format::~Format()
 {
 }
 
-void glich::Format::get_info( Format_info* info ) const
+void Format::get_info( Format_info* info ) const
 {
     info->code = m_code;
     info->gmr_code = m_owner.get_code();
@@ -62,7 +62,17 @@ SValue Format::string_to_object( const string& ocode, const Base& base, const st
     return mask.get_object( ocode );
 }
 
-bool glich::Format::set_input( Record& record, const std::string& input ) const
+string Format::get_revealed_text( Record& record, BoolVec& reveal ) const
+{
+    return get_text_output( record );
+}
+
+string Format::get_range_text( const string& beg, const string& end ) const
+{
+    return beg + ".." + end;
+}
+
+bool Format::set_input( Record& record, const string& input ) const
 {
     return set_input( record, input, Boundary::None );
 }
@@ -123,5 +133,6 @@ StringPairVec glich::Format::string_to_stringpair( std::string& text ) const
     }
     return pairs;
 }
+
 
 // End of src/cal/calformat.cpp file

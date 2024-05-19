@@ -42,8 +42,9 @@ using std::string;
 
 
 FormatText::FormatText( const string& code, Grammar& gmr )
-    : Format( code, gmr ), m_separators(":,"), m_shorthand(true), m_sig_rank_size(0)
+    : Format( code, gmr ), m_separators(":,"), m_sig_rank_size(0)
 {
+    m_shorthand = true;
 }
 
 bool FormatText::construct()
@@ -228,6 +229,17 @@ std::string glich::FormatText::get_text_output( Record& record ) const
 {
     const Base& base = record.get_base();
     return get_revealed_output( record, nullptr );
+}
+
+BoolVec glich::FormatText::get_reveal( Record& rec1, Record& rec2 ) const
+{
+    return rec1.mark_balanced_fields( rec2, m_rank_to_def_index, m_sig_rank_size );
+}
+
+string FormatText::get_revealed_text( Record& record, BoolVec& reveal ) const
+{
+    BoolVec* rev = &reveal;
+    return get_revealed_output( record, rev );
 }
 
 string FormatText::get_revealed_output( const Record& record, const BoolVec* reveal ) const

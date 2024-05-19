@@ -41,6 +41,9 @@ namespace glich {
 
         FormatType get_format_type() const override { return FormatType::iso; };
         std::string get_text_output( Record& record ) const override;
+        BoolVec get_reveal( Record& rec1, Record& rec2 ) const override;
+        std::string get_revealed_text( Record& record, BoolVec& reveal ) const override;
+        std::string get_date_text( const std::string& str ) const override;
         Range string_to_range( const Base& base, const std::string& input, FunctionData* fdata = nullptr ) const override;
         bool set_input( Record& record, const std::string& input, Boundary rb ) const override;
 
