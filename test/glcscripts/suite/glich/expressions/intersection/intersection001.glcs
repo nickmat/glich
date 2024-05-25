@@ -1,0 +1,9 @@
+// complement001.glcs
+
+write 20..75 & 100..120;
+
+
+
+/*[OUTPUT]
+empty
+[OUTPUT]*/

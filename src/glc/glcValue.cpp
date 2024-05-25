@@ -132,10 +132,7 @@ void glich::SValue::set_range_demote( Range rng )
 
 void glich::SValue::set_rlist_demote( const RList& rlist )
 {
-    if( rlist.empty() ) {
-        set_field( f_invalid );
-    }
-    else if( rlist.size() == 1 ) {
+    if( rlist.size() == 1 ) {
         set_range_demote( rlist[0] );
     }
     else {
