@@ -181,6 +181,13 @@ writeln text.XS:html 2460127;</td>
  If only 1 value is input then it is assigned to the <code>year</code> field.
 </p>
 <p>
+ An element can be removed from from the ranking system
+ by including a lexicon Name followed by an '*' asterisk.
+ This means the lexicon name must be used
+ and the element is positioned using the lexicon fieldname entry.
+ It has the effect of making the element optional.
+</p>
+<p>
  The value inside the curly brackets describes the field to be output.
  The field name may be the default, or alias field name detailed in the associated <b>grammar</b>. 
  Text outside of the curly brackets (excluding the '|' characters) is output verbatim.
@@ -199,6 +206,10 @@ writeln text.XS:html 2460127;</td>
 <tr><td>Qualified Lexicon token</td><td class='code'>{<i>Name</i>:<i>Lexicon::l</i>}<br />{<i>Name</i>:<i>Lexicon::u</i>}</td><td class='example'>{month:m::l}<br />{month:m:a:u}</td><td>september<br />SEP</td></tr>
 <tr><td>Left padded number</td><td class='code'>{<i>Name</i>::lp:<i>cwidth</i>}</td><td class='example'>{month::lp:02}</td><td>09</td></tr>
 <tr><td colspan='4'>Note, <i>cwidth</i> is the character used for padding followed by the minimum width.</td></tr>
+<tr><th colspan='4'>Input Only Specifiers</th></tr>
+<tr><td rowspan='2'>Text value only.</td><td class='code'>{<i>Name</i>:<i>Lexicon<b>*</b></i>}</td><td class='example'>{month:jg*}</td><td></td></tr>
+<tr><td class='code'>{<i>Name</i>:<i>Lexicon<b>*</b>:a</i>}</td><td class='example'>{month:jg*:a}</td><td></td></tr>
+<tr><td colspan='4'>Note, Has the effect of making the element optional.</td></tr>
 <tr><th colspan='4'>Output Only Specifiers</th></tr>
 <tr><td>Number and ordinal suffix</td><td class='code'>{<i>Name</i>::os}<br />{<i>Name</i>::os.u}</td><td class='example'>{month::os}<br />{month::os:u}</td><td>9th<br />9TH</td></tr>
   <tr><td>Just ordinal suffix</td><td class='code'>{<i>Name</i>::oa}<br />{<i>Name</i>::oa:u}</td><td class='example'>{month}_{month::oa}<br />{month}_{month::oa:u}</td><td>9_th<br />9_TH</td></tr>
