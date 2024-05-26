@@ -1,0 +1,7 @@
+// jce-002.glc // Test formats
+
+write @date.jce( "44xx..411xx" ), @date.jce( "44xx" ), @date.jce( "411xx" );
+
+/*[OUTPUT]
+empty, empty, empty
+[OUTPUT]*/

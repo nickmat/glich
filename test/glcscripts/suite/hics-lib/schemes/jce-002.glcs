@@ -1,0 +1,19 @@
+// jce-002.glc // Test formats
+
+
+write nl;
+write @date.jce( "may2024ce" ), @text.jce( 2460445..2460475 ) nl;
+write @date.jce( "2024ce" ), @text.jce( 2460324..2460689 ) nl;
+write @date.jce( "400bce" ), @text.jce( 1575324..1575688 ) nl;
+write @date.jce( "44bce..411ce" ), @text.jce( 1705353..1871540 ) nl;
+write @date.jce( "ce" ) nl;
+
+/*[OUTPUT]
+
+2460445..2460475, May 2024 CE
+2460324..2460689, 2024 CE
+1575324..1575688, 400 BCE
+1705353..1871540, 44 BCE..411 CE
+empty
+
+[OUTPUT]*/
