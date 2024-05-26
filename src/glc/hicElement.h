@@ -39,7 +39,7 @@ namespace glich {
     class Element
     {
     public:
-        Element() : m_state( State::do_field ) {}
+        Element() : m_state( State::do_field ), m_text_only( false ) {}
         virtual ~Element() {}
 
         virtual void clear();
@@ -54,6 +54,7 @@ namespace glich {
         Field get_converted_field( Glich* glc, const std::string& str ) const;
 
         bool has_dual_field_name() const { return !m_dual_field_name.empty(); }
+        bool is_text_only() const { return m_text_only; }
 
     private:
         enum class State { do_field, do_dual, do_lcode, do_spec, do_qual, do_default };
@@ -62,6 +63,7 @@ namespace glich {
         std::string m_field_name;
         std::string m_dual_field_name;
         std::string m_lcode;
+        bool m_text_only;
         std::string m_spec;
         std::string m_qualifier;
         std::string m_default_text;
@@ -86,6 +88,7 @@ namespace glich {
         InputFieldType get_type() const { return m_type; }
         Field get_default_value() const { return m_default_value; }
 
+        bool has_lexicon_only() const { return m_text_only; }
         bool has_dual_field() const { return !m_dual_record_field_name.empty(); }
         bool has_valid_default() const { return m_default_value != f_invalid; }
 

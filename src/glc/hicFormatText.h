@@ -67,6 +67,7 @@ namespace glich {
         enum class CP_Group { Hyphen, Digit, Quest, Dual, Sep, Other };
 
         bool is_significant_rank_name( const std::string& fieldname ) const;
+        void remove_from_rank( const std::string& fieldname );
         CP_Group get_cp_group(
             std::string::const_iterator it,
             std::string::const_iterator end ) const;
@@ -82,6 +83,7 @@ namespace glich {
 
         StdStrVec   m_default_fieldnames;
         StdStrVec   m_rank_fieldnames;
+        StdStrVec   m_lex_only_fielnames;
         size_t      m_sig_rank_size; // Significant rank size
         XIndexVec   m_rank_to_def_index;
 

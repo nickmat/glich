@@ -46,6 +46,7 @@ void Element::clear()
     m_lcode.clear();
     m_spec.clear();
     m_qualifier.clear();
+    m_text_only = false;
 }
 
 void Element::add_char( char ch )
@@ -68,6 +69,7 @@ void Element::add_char( char ch )
         {
         case ':': m_state = State::do_spec; return;
         case '=': m_state = State::do_default; return;
+        case '*': m_text_only = true; return;
         }
         m_lcode += ch;
         return;

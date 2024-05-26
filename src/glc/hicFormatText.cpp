@@ -83,6 +83,9 @@ bool FormatText::construct()
         }
     }
     assert( m_default_fieldnames.size() == m_rank_fieldnames.size() );
+    if( !m_control_in.empty() ) {
+        setup_control_in();
+    }
     m_rank_to_def_index.resize( m_rank_fieldnames.size() );
     for( size_t i = 0; i < m_rank_fieldnames.size(); i++ ) {
         for( size_t j = 0; j < m_default_fieldnames.size(); j++ ) {
@@ -91,9 +94,6 @@ bool FormatText::construct()
                 break;
             }
         }
-    }
-    if( !m_control_in.empty() ) {
-        setup_control_in();
     }
     if( !m_control_out.empty() ) {
         setup_control_out();
@@ -120,6 +120,9 @@ void FormatText::setup_control_in()
         if( *it == '}' ) {
             ele.expand_specifier( get_owner() );
 
+            if( ele.is_text_only() ) {
+                remove_from_rank( ele.get_field_name() );
+            }
             if( input.size() ) {
                 input += " ";
             }
@@ -130,7 +133,10 @@ void FormatText::setup_control_in()
             }
             string fieldname = ele.get_record_field_name();
             if( !fieldname.empty() ) {
-                if( ele.has_valid_default() ) {
+                if( ele.has_lexicon_only() ) {
+                    m_lex_only_fielnames.push_back( fieldname );
+                }
+                else if( ele.has_valid_default() ) {
                     m_default_names.push_back( fieldname );
                     m_default_values.push_back( ele.get_default_value() );
                 }
@@ -379,6 +385,17 @@ bool FormatText::is_significant_rank_name( const string& fieldname ) const
         }
     }
     return false;
+}
+
+void glich::FormatText::remove_from_rank( const std::string& fieldname )
+{
+    for( size_t i = 0; i < m_sig_rank_size; i++ ) {
+        if( fieldname == m_rank_fieldnames[i] ) {
+            m_rank_fieldnames.erase( m_rank_fieldnames.begin() + i );
+            --m_sig_rank_size;
+            return;
+        }
+    }
 }
 
 FormatText::CP_Group FormatText::get_cp_group(
