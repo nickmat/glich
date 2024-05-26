@@ -1105,7 +1105,8 @@ SValue glich::at_record( Script& script )
                 return SValue::create_error( no_default_mess );
             }
         }
-        return complete_object( script, sch, value.get_str(), fcode );
+        string text = value.get_str();
+        return complete_object( script, sch, text, fcode );
     }
     return SValue::create_error( "Expected a field or string type." );
 }
