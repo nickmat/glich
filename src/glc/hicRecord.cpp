@@ -232,20 +232,7 @@ BoolVec Record::mark_balanced_fields( Record& rec, const XIndexVec& rank_to_def,
     if( &m_base != &rec.m_base || m_jdn == rec.get_jdn() ) {
         return mask;
     }
-    size_t rank_index = size - 1;
-    while( rank_index > 0 ) {
-        size_t def_index = rank_to_def[rank_index];
-        if( m_f[def_index] == m_base.get_beg_field_value( m_f, def_index ) &&
-            rec.m_f[def_index] == m_base.get_end_field_value( rec.m_f, def_index ) )
-        {
-            mask[def_index] = false;
-        }
-        else {
-            break;
-        }
-        --rank_index;
-    }
-    return mask;
+    return m_base.mark_balanced_fields( get_field_vec(), rec.get_field_vec(), rank_to_def, size );
 }
 
 Field Record::get_field( size_t index ) const
