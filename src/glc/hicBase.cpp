@@ -188,4 +188,24 @@ void Base::complete_end( FieldVec& fields ) const
     }
 }
 
+BoolVec Base::mark_balanced_fields(
+    const FieldVec& fbeg, const FieldVec& fend, const XIndexVec& rank_to_def, size_t size ) const
+{
+    BoolVec mask( m_record_size, true );
+    size_t rank_index = size - 1;
+    while( rank_index > 0 ) {
+        size_t def_index = rank_to_def[rank_index];
+        if( fbeg[def_index] == get_beg_field_value( fbeg, def_index ) &&
+            fend[def_index] == get_end_field_value( fend, def_index ) )
+        {
+            mask[def_index] = false;
+        }
+        else {
+            break;
+        }
+        --rank_index;
+    }
+    return mask;
+}
+
 // End of src/glc/hicBase.cpp file

@@ -82,6 +82,9 @@ namespace glich {
 
         virtual bool is_leap_year( Field year ) const { return false; }
 
+        virtual BoolVec mark_balanced_fields(
+            const FieldVec& fbeg, const FieldVec& fend, const XIndexVec& rank_to_def, size_t size ) const;
+
     protected:
         StdStrVec m_fieldnames; // This is both required, calculated and optional.
         size_t m_record_size;
