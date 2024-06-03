@@ -110,6 +110,29 @@ namespace glich {
     inline bool is_range_valid( Range range ) {
         return range.m_beg != f_invalid && range.m_end != f_invalid;
     }
+
+
+    // Append std::vector
+    // Appends the 2nd argument to the 1st.
+    // Returns a reference to the 1st argument.
+    // Note, this could be used to implement the operator += for vectors.
+    template <class T>
+    std::vector<T>& vec_append( std::vector<T>& v1, const std::vector<T>& v2 )
+    {
+        v1.insert( v1.end(), v2.begin(), v2.end() );
+        return v1;
+    }
+
+    // Find if element is contained in an a vector.
+    template <class T>
+    bool vec_contains( const std::vector<T>& vec, const T& element )
+    {
+        if( std::find( vec.begin(), vec.end(), element ) != vec.end() ) {
+            return true;
+        }
+        return false;
+    }
+
 }
 
 #endif // SRC_GLC_GLCHELPER_H

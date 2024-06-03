@@ -28,7 +28,7 @@
 #ifndef SRC_GLC_HICHELPER_H_GUARD
 #define SRC_GLC_HICHELPER_H_GUARD
 
-#include <glc/glcDefs.h>
+#include "glcHelper.h"
 
 namespace glich {
 

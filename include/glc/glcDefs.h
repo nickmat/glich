@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -119,17 +119,6 @@ namespace glich {
 
     using StringPair = std::pair<std::string, std::string>;
     using StringPairVec = std::vector<StringPair>;
-
-    // Append std::vector
-    // Appends the 2nd argument to the 1st.
-    // Returns a reference to the 1st argument.
-    // Note, this could be used to implement the operator += for vectors.
-    template <class T>
-    std::vector<T>& vec_append( std::vector<T>& v1, const std::vector<T>& v2 )
-    {
-        v1.insert( v1.end(), v2.begin(), v2.end() );
-        return v1;
-    }
 
     struct GlcData {
         std::string type;
