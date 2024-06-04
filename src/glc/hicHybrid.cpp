@@ -167,6 +167,38 @@ FieldVec Hybrid::get_fields( Field jdn ) const
     return f;
 }
 
+BoolVec Hybrid::mark_balanced_fields(
+    const FieldVec& fbeg, const FieldVec& fend, const XIndexVec& rank_to_def, size_t size ) const
+{
+    BoolVec mask( m_record_size, true );
+
+    Field bsch = fbeg[0];
+    assert( bsch >= 0 && bsch < m_data.size() );
+    Field esch = fend[0];
+    assert( esch >= 0 && esch < m_data.size() );
+    FieldVec fb = get_scheme_fields( fbeg, bsch );
+    FieldVec fe = get_scheme_fields( fend, esch );
+    const Base* bbase = m_data[bsch].base;
+    const Base* ebase = m_data[esch].base;
+
+    for( size_t i = size - 1; i > 0; --i ) {
+        int bsi = m_data[bsch].h_to_s_index[i - 1];
+        int esi = m_data[esch].h_to_s_index[i - 1];
+        if( bsi < 0 || esi < 0 ) {
+            continue;
+        }
+        if( fbeg[rank_to_def[i]] == bbase->get_beg_field_value( fb, bsi ) ) {
+            if( fend[rank_to_def[i]] == ebase->get_end_field_value( fe, esi ) ) {
+                mask[rank_to_def[i]] = false;
+            }
+        }
+        else {
+            break;
+        }
+    }
+    return mask;
+}
+
 FieldVec Hybrid::get_xref( const FieldVec& fields, Field sch ) const
 {
     FieldVec result( m_rec_size - 1, f_invalid );
@@ -250,4 +282,4 @@ void Hybrid::set_hybrid_fields( FieldVec& hfields, const FieldVec& sfields, Fiel
     }
 }
 
-// End of src/cal/calhybrid.cpp
+// End of src/glc/hicHybrid.cpp

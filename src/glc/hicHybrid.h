@@ -65,6 +65,9 @@ namespace glich {
         // Converts the given jdn into the Records' Fields.
         FieldVec get_fields( Field jdn ) const override;
 
+        BoolVec mark_balanced_fields(
+            const FieldVec& fbeg, const FieldVec& fend, const XIndexVec& rank_to_def, size_t size ) const override;
+
     private:
         FieldVec get_xref( const FieldVec& fields, Field sch ) const;
         bool is_in_scheme( Field jdn, Field scheme ) const;
