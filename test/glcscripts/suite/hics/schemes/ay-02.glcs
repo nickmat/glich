@@ -1,4 +1,4 @@
-// ay-01.glc // Test ay hybrid scheme
+// ay-02.glc // Test ay hybrid scheme with alternative grammar.
 
 lexicon M {
     name "Month names";
@@ -34,13 +34,15 @@ lexicon JG {
 
 grammar JG {
     fields scheme year month day;
-    rank year month day;
     lexicons M JG;
     alias pseudo {
         s, scheme;
     }
-    format  dmy   "{day} |{month:M:a} |{year}";
-    format  dmys  "{day} |{month:M:a} |{year} |{scheme:JG:a}";
+    format  dmy {
+        inout "{day} |{month:M:a} |{year}";
+        rank year month day;
+    }
+    format  dmys    "{day} |{month:M:a} |{year} |{scheme:JG*:a}";
     preferred dmy;
 }
 
