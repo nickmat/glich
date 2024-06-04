@@ -186,7 +186,6 @@ void FormatText::setup_control_out()
     if( m_rankout_fieldnames.empty() ) {
         m_rankout_fieldnames = m_rank_fieldnames;
     }
-//    m_sig_rank_size = get_sig_rank_size();
 
     ElementControlOut ele;
     string fieldout, output, lcode;
