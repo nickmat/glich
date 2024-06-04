@@ -80,6 +80,25 @@
  As a Hybrid calendar, it has no single epoch.
 </p>
 
+<h3>Formats</h3>
+<p>
+ The formats supplied with this scheme.
+</p>
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9s 9y 9m 9d</td><td>9s 9y 9m 9d</td><td class='example'>2024y 6m 4d</td><td>H</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>scheme year month day</td><td>s yyyy mm dd</td><td class='example'>1 2024 6 4</td><td>H</td></tr>
+<tr><td><b>dmy</b></td><td>text</td><td>day month year</td><td>dd Mon yyyy</td><td class='example'>4 Jun 2024</td><td>D, S</td></tr>
+<tr><td><b>dmy+</b></td><td>text</td><td>day month year</td><td>dd Month yyyy</td><td class='example'>4 June 2024</td><td>S</td></tr>
+<tr><td><b>mdy</b></td><td>text</td><td>month day year</td><td>Mon dd, yyyy</td><td class='example'>Jun 4, 2024</td><td>S</td></tr>
+<tr><td><b>mdy+</b></td><td>text</td><td>month day year</td><td>Month dd, yyyy</td><td class='example'>June 4, 2024</td><td>S</td></tr>
+<tr><td><b>dmys</b></td><td>text</td><td>day month year scheme</td><td>dd Mon yyyy sch</td><td class='example'>4 Jun 2024 g</td><td></td></tr>
+<tr><td><b>dmys+</b></td><td>text</td><td>day month year scheme</td><td>dd Month yyyy Scheme</td><td class='example'>4 June 2024 Gregorian</td><td></td></tr>
+<tr><td><b>mdys</b></td><td>text</td><td>month day year scheme</td><td>Mon dd, yyyy sch</td><td class='example'>Jun 4, 2024 g</td><td></td></tr>
+<tr><td><b>mdys+</b></td><td>text</td><td>month day year scheme</td><td>Month dd, yyyy Scheme</td><td class='example'>June 4, 2024 Gregorian</td><td></td></tr>
+<tr><td colspan='6'>Notes: H = Hidden, D = Default, S = Range shortcut supported.</td></tr>
+</table>
+
 <h3>Script</h3>
 <table class='code lfloat'>
 <tr><th>Default Library Script</th></tr>
@@ -102,10 +121,14 @@ grammar jg {
     alias pseudo { dd day; mm month; yyyy year; s scheme; }
     alias unit { d day; m month; y year; s scheme; }
 
-    format  dmys    "{day} |{month:m:a} |{year} |{scheme:jg:a}";
-    format "dmys+", "{day} |{month:m} |{year} |{scheme:jg}";
-    format  dmy     "{day} |{month:m:a} |{year}";
-    format "dmy+",  "{day} |{month:m} |{year}";
+    format  dmy    "{day} |{month:m:a} |{year}";
+    format "dmy+"  "{day} |{month:m} |{year}";
+    format  mdy    "{month:m:a} |{day}, |{year}";
+    format "mdy+"  "{month:m} |{day}, |{year}";
+    format  dmys   "{day} |{month:m:a} |{year} |{scheme:jg:a}";
+    format "dmys+" "{day} |{month:m} |{year} |{scheme:jg}";
+    format  mdys   "{month:m:a} |{day}, |{year} |{scheme:jg:a}";
+    format "mdys+" "{month:m} |{day}, |{year} |{scheme:jg}";
     preferred dmy;
 }
 scheme ay {
