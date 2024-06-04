@@ -1,4 +1,4 @@
-// ay-01.glc // Test ay hybrid scheme
+// ay-001.glcs // Test ay hybrid scheme
 
 write nl;
 write @record.ay( 2299160 ), @record.ay( 2299161 ) nl;

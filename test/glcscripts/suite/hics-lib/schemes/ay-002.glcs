@@ -1,0 +1,31 @@
+// ay-002.glcs // Test ranges with ay hybrid scheme
+
+
+write nl;
+
+write @date.ay:dmy( "1582" ), @text.ay:dmy( 2298884..2299238 ), @date.ay:dmy( "1582" )[.span] nl;
+write @date.ay:dmy( "1500" ), @text.ay:dmy( 2268933..2269298 ), @date.ay:dmy( "1500" )[.span] nl;
+write @date.ay:dmy( "1800" ), @text.ay:dmy( 2378497..2378861 ), @date.ay:dmy( "1800" )[.span] nl;
+
+write @date.ay:dmy( "oct1582" ), @text.ay:dmy( 2299157..2299177 ), @date.ay:dmy( "oct1582" )[.span] nl;
+write @date.ay:dmy( "jun1500" ), @text.ay:dmy( 2269085..2269114 ), @date.ay:dmy( "jun1500" )[.span] nl;
+write @date.ay:dmy( "jun1800" ), @text.ay:dmy( 2378648..2378677 ), @date.ay:dmy( "jun1800" )[.span] nl;
+
+write @date.ay:dmys( "1582" ), @text.ay:dmys( 2298884..2299238 ) nl;
+write @date.ay:dmys( "1500" ), @text.ay:dmys( 2268933..2269298 ) nl;
+write @date.ay:dmys( "1800" ), @text.ay:dmys( 2378497..2378861 ) nl;
+
+
+/*[OUTPUT]
+
+2298884..2299238, 1582, 355
+2268933..2269298, 1500, 366
+2378497..2378861, 1800, 365
+2299157..2299177, Oct 1582, 21
+2269085..2269114, Jun 1500, 30
+2378648..2378677, Jun 1800, 30
+2298884..2299238, 1 Jan 1582 j..31 Dec 1582 g
+2268933..2269298, 1 Jan 1500 j..31 Dec 1500 j
+2378497..2378861, 1 Jan 1800 g..31 Dec 1800 g
+
+[OUTPUT]*/
