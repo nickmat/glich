@@ -71,7 +71,7 @@ void Lexicon::add_token( Field value, const string& name, const string& abbrev )
 string Lexicon::get_fieldname() const
 {
     if( m_fieldname.empty() && m_inherit ) {
-        m_inherit->get_fieldname();
+        return m_inherit->get_fieldname();
     }
     return m_fieldname;
 }
@@ -79,7 +79,7 @@ string Lexicon::get_fieldname() const
 string Lexicon::get_lang() const
 {
     if( m_lang.empty() && m_inherit ) {
-        m_inherit->get_lang();
+        return m_inherit->get_lang();
     }
     return m_lang;
 }
@@ -88,13 +88,13 @@ string Lexicon::get_pseudo_name( Pseudo style ) const
 {
     if( style == Lexicon::Pseudo::full ) {
         if( m_pseudo_name.empty() && m_inherit ) {
-            m_inherit->get_pseudo_name( style );
+            return m_inherit->get_pseudo_name( style );
         }
         return m_pseudo_name;
     }
     else if( style == Lexicon::Pseudo::abbrev ) {
         if( m_pseudo_a_name.empty() && m_inherit ) {
-            m_inherit->get_pseudo_name( style );
+            return m_inherit->get_pseudo_name( style );
         }
         return m_pseudo_a_name;
     }
