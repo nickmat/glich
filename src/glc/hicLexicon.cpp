@@ -84,21 +84,32 @@ string Lexicon::get_lang() const
     return m_lang;
 }
 
-string Lexicon::get_pseudo_name( Pseudo style ) const
+string Lexicon::get_pseudo_name( Pseudo style, StrStyle ss ) const
 {
+    string name;
     if( style == Lexicon::Pseudo::full ) {
         if( m_pseudo_name.empty() && m_inherit ) {
-            return m_inherit->get_pseudo_name( style );
+            name = m_inherit->get_pseudo_name( style, ss );
         }
-        return m_pseudo_name;
+        else {
+            name = m_pseudo_name;
+        }
     }
     else if( style == Lexicon::Pseudo::abbrev ) {
         if( m_pseudo_a_name.empty() && m_inherit ) {
-            return m_inherit->get_pseudo_name( style );
+            name = m_inherit->get_pseudo_name( style, ss );
         }
-        return m_pseudo_a_name;
+        else {
+            name = m_pseudo_a_name;
+        }
     }
-    return string();
+    if( ss == StrStyle::uppercase ) {
+        ascii_toupper( name );
+    }
+    else if( ss == StrStyle::lowercase ) {
+        ascii_tolower( name );
+    }
+    return name;
 }
 
 StdStrVec glich::Lexicon::get_token_words() const
@@ -128,8 +139,8 @@ void Lexicon::get_info( Lexicon_info* info ) const
     if( info ) {
         info->name = get_name();
         info->lang = get_lang();
-        info->style_full_name = get_pseudo_name( Pseudo::full );
-        info->style_abbrev_name = get_pseudo_name( Pseudo::abbrev );
+        info->style_full_name = get_pseudo_name( Pseudo::full, StrStyle::undefined );
+        info->style_abbrev_name = get_pseudo_name( Pseudo::abbrev, StrStyle::undefined );
         if( m_inherit ) {
             info->words = m_inherit->get_token_words();
             info->abbrevs = m_inherit->get_token_abbrev();

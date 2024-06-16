@@ -211,25 +211,25 @@ void ElementControlOut::clear()
 
 bool ElementControlOut::expand_specifier( Grammar* gmr )
 {
+    StrStyle ss = StrStyle::undefined;
+    if( m_qualifier == "u" ) {
+        ss = StrStyle::uppercase;
+    }
+    else if( m_qualifier == "l" ) {
+        ss = StrStyle::lowercase;
+    }
     Lexicon* lex = gmr->find_lexicon( m_lcode );
     if( lex ) {
         if( m_field_output_name.empty() ) {
             if( m_spec == "a" ) {
-                m_field_output_name = lex->get_pseudo_name( Lexicon::Pseudo::abbrev );
+                m_field_output_name = lex->get_pseudo_name( Lexicon::Pseudo::abbrev, ss );
             }
             else {
-                m_field_output_name = lex->get_pseudo_name( Lexicon::Pseudo::full );
+                m_field_output_name = lex->get_pseudo_name( Lexicon::Pseudo::full, ss );
             }
         }
     }
     else if( m_lcode.empty() && !m_spec.empty() ) {
-        StrStyle ss = StrStyle::undefined;
-        if( m_qualifier == "u" ) {
-            ss = StrStyle::uppercase;
-        }
-        else if( m_qualifier == "l" ) {
-            ss = StrStyle::lowercase;
-        }
         if( m_spec == "oa" ) {
             m_field_output_name = get_ordinal_suffix_style( ss );
         }

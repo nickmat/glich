@@ -31,6 +31,8 @@
 #include <glc/glc.h>
 #include <glc/hicDefs.h>
 
+#include "glcHelper.h"
+
 namespace glich {
 
     class Token
@@ -68,7 +70,7 @@ namespace glich {
         std::string get_name() const { return m_name; }
         std::string get_fieldname() const;
         std::string get_lang() const;
-        std::string get_pseudo_name( Pseudo style ) const;
+        std::string get_pseudo_name( Pseudo style, StrStyle ss ) const;
         StdStrVec get_token_words() const;
         StdStrVec get_token_abbrev() const;
         void get_info( Lexicon_info* info ) const;
