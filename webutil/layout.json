@@ -50,7 +50,8 @@
           { "name": "g", "subtitle": "g - Gregorian", "map-label": false },
           { "name": "gw", "subtitle": "gw - Gregorian ISO Week", "map-label": false },
           { "name": "go", "subtitle": "go - Gregorian Ordinal", "map-label": false },
-          { "name": "ay", "subtitle": "ay - Astronomical Year", "map-label": false }
+          { "name": "ay", "subtitle": "ay - Astronomical Year", "map-label": false },
+          { "name": "h", "subtitle": "h - Hebrew", "map-label": false }
         ]},
         { "folder": "tut", "name": "index", "label": "Tutorial", "subtitle": "Script Language Tutorial", "content": [
           { "name": "glich", "label": "Glich Basics" },
