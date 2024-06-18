@@ -78,8 +78,8 @@ grammar h {
     optional wsday;
     rank year cmonth day;
     lexicons hm, hcm, hw;
-    alias pseudo { w wday; dd day; mm month; yyyy year; }
-    alias unit { d day; m month; y year; }
+    alias pseudo { w wsday; dd day; mm month; mm cmonth; yyyy year; }
+    alias unit { d day; m month; cm cmonth; y year; }
 
     function calc_cmonth {
         cmonth = @if( month=12 and @leapyear.hebrew(year), 14, month );
