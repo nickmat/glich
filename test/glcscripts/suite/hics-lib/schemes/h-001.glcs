@@ -1,0 +1,28 @@
+// h-001.glc // Test formats
+
+
+write nl;
+write @record.h( 2460481 ) nl;
+write @record.h:dmy( "13 Sivan 5784" ) nl;
+write @text.h:dmy( 2460481 ) nl;
+write @text.h:dmy( {s:h 5784,3,13} ) nl;
+write @date.h:dmy( "13 Sivan 5784" ) nl;
+write @date( {s:h 5784,3,13} ) nl;
+
+let d = @date({s:h 5784,1,1}) - 1;
+write @text.h(d-29), @text.h(d) nl;
+let d = @date({s:h 5785,1,1}) - 1;
+write @text.h(d-29), @text.h(d) nl;
+
+/*[OUTPUT]
+
+{s:h 5784, 3, 13, 3, 4}
+{s:h 5784, 3, 13, 3, 4}
+13 Sivan 5784
+13 Sivan 5784
+2460481
+2460481
+30 Adar I 5784, 29 Adar II 5784
+30 Shevat 5785, 29 Adar 5785
+
+[OUTPUT]*/
