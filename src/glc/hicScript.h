@@ -43,7 +43,8 @@ namespace glich {
 
     SValue at_text( Script& script );
     SValue at_date( Script& script );
-    SValue at_record( Script& script );
+    SValue at_scheme( Script& script );
+    inline SValue at_record( Script& script ) { return at_scheme( script ); }
     SValue at_element( Script& script );
     SValue at_phrase( Script& script );
     SValue at_leapyear( Script& script );

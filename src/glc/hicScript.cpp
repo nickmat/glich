@@ -1071,7 +1071,7 @@ namespace {
 
 } // namespace
 
-SValue glich::at_record( Script& script )
+SValue glich::at_scheme( Script& script )
 {
     const char* no_default_mess = "No default scheme set.";
     StdStrVec quals = script.get_qualifiers( GetToken::next );

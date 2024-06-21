@@ -1209,7 +1209,7 @@ SValue Script::function_call()
     enum f {
         f_if, f_error, f_string, f_quote, f_field, f_range, f_rlist, f_number, f_float, f_read, f_filesys,
         f_version,
-        f_date, f_text, f_record, f_element, f_phrase, f_leapyear, f_first, f_last,
+        f_date, f_text, f_record, f_scheme, f_element, f_phrase, f_leapyear, f_first, f_last,
         f_pseudo_in, f_pseudo_out
     };
     const static std::map<string, f> fmap = {
@@ -1217,7 +1217,7 @@ SValue Script::function_call()
         { "range", f_range }, { "rlist", f_rlist }, { "number", f_number }, { "float", f_float },
         { "read", f_read }, { "filesys", f_filesys }, { "version", f_version },
         // Hics extension
-        { "date", f_date }, { "text", f_text }, { "record", f_record }, { "element", f_element },
+        { "date", f_date }, { "text", f_text }, { "record", f_record }, { "scheme", f_scheme }, { "element", f_element },
         { "phrase", f_phrase }, { "leapyear", f_leapyear }, { "first", f_first }, { "last", f_last },
         { "pseudo:in", f_pseudo_in }, { "pseudo:out", f_pseudo_out }
     };
@@ -1247,6 +1247,7 @@ SValue Script::function_call()
         case f_date: return at_date( *this );
         case f_text: return at_text( *this );
         case f_record: return at_record( *this );
+        case f_scheme: return at_scheme( *this );
         case f_element: return at_element( *this );
         case f_phrase: return at_phrase( *this );
         case f_leapyear: return at_leapyear( *this );

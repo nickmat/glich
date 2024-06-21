@@ -97,6 +97,7 @@ Glich::Glich( InOut* inout )
         { "pseudo:in", fptr },
         { "pseudo:out", fptr },
         { "record", fptr },
+        { "scheme", fptr },
         { "text", fptr }
     };
     
