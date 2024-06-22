@@ -1,0 +1,68 @@
+// fr-001.glcs  Test fr scheme
+
+
+write nl;
+write @date.fr:dmy( "" ) nl;
+write @date.fr({s:fr 232, 13, 5}), @scheme.fr( 2460576 ) nl;
+write @date.fr({s:fr 233, 1, 1}), @scheme.fr( 2460575 ) nl;
+write @date.fr:u("232y 13m 5d 5cd"), @text.fr:u( 2460575 ) nl;
+write @date.fr:u("233y 1m 1d 1nm 1nd 1dd"), @text.fr:u( 2460576 ) nl;
+write @date.fr:def("232 13 5"), @text.fr:def( 2460575 ) nl;
+write @date.fr:def("233 1 1"), @text.fr:def( 2460576 ) nl;
+write @date.fr:dmy_a("5 Comp 232"), @text.fr:dmy_a( 2460575 ) nl;
+write @date.fr:dmy_a("1 Vend 233"), @text.fr:dmy_a( 2460576 ) nl;
+write @date.fr:dmy("5 Complémentaires 232"), @text.fr:dmy( 2460575 ) nl;
+write @date.fr:dmy("1 Vendémiaire 233"), @text.fr:dmy( 2460576 ) nl;
+write @date.fr:ymd("232 Complémentaires 5"), @text.fr:ymd( 2460575 ) nl;
+write @date.fr:ymd("233 Vendémiaire 1"), @text.fr:ymd( 2460576 ) nl;
+write @date.fr:cdmy("Fête des Récompenses 232"), @text.fr:cdmy( 2460575 ) nl;
+write @date.fr:cdmy("1 Vendémiaire 233"), @text.fr:cdmy( 2460576 ) nl;
+write @date."fr:cdmy-"("Rec 232"), @text."fr:cdmy-"( 2460575 ) nl;
+write @date."fr:cdmy-"("1 Vend 233"), @text."fr:cdmy-"( 2460576 ) nl;
+write @text.fr:out( 2460575 ) nl;
+write @text.fr:out( 2460576 ) nl;
+write @date.fr:dcdmy("Fête des Récompenses 232"), @text.fr:dcdmy( 2460575 ) nl;
+write @date.fr:dcdmy("Primidi 1 Vendémiaire 233"), @text.fr:dcdmy( 2460576 ) nl;
+write @date."fr:dcdmy-"("Rec 232"), @text."fr:dcdmy-"( 2460575 ) nl;
+write @date."fr:dcdmy-"("Prim 1 Vend 233"), @text."fr:dcdmy-"( 2460576 ) nl;
+write @date.fr:wcdmy("Saturday, Fête des Récompenses 232"), @text.fr:wcdmy( 2460575 ) nl;
+write @date.fr:wcdmy("Sunday, 1 Vendémiaire 233"), @text.fr:wcdmy( 2460576 ) nl;
+write @date."fr:wcdmy-"("Sat, Rec 232"), @text."fr:wcdmy-"( 2460575 ) nl;
+write @date."fr:wcdmy-"("Sun, 1 Vend 233"), @text."fr:wcdmy-"( 2460576 ) nl;
+write @date.fr:gedcom("5 COMP 232"), @text.fr:gedcom( 2460575 ) nl;
+write @date.fr:gedcom("1 VEND 233"), @text.fr:gedcom( 2460576 ) nl;
+
+
+/*[OUTPUT]
+
+empty
+2460575, {s:fr 233, 1, 1, 1, 1, null, 1, 7}
+2460576, {s:fr 232, 13, 5, null, null, 5, null, 6}
+2460575, 232y 13m 5d 5cd
+2460576, 233y 1m 1d 1nm 1nd 1dd
+2460575, 232 13 5
+2460576, 233 1 1
+2460575, 5 Comp 232
+2460576, 1 Vend 233
+2460575, 5 Complémentaires 232
+2460576, 1 Vendémiaire 233
+2460575, 232 Complémentaires 5
+2460576, 233 Vendémiaire 1
+2460575, Fête des Récompenses 232
+2460576, 1 Vendémiaire 233
+2460575, Rec 232
+2460576, 1 Vend 233
+Fête des Récompenses an CCXXXII
+1 Vendémiaire an CCXXXIII
+2460575, Fête des Récompenses 232
+2460576, Primidi 1 Vendémiaire 233
+2460575, Rec 232
+2460576, Prim 1 Vend 233
+2460575, Saturday, Fête des Récompenses 232
+2460576, Sunday, 1 Vendémiaire 233
+2460575, Sat, Rec 232
+2460576, Sun, 1 Vend 233
+2460575, 5 COMP 232
+2460576, 1 VEND 233
+
+[OUTPUT]*/
