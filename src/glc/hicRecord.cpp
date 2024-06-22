@@ -165,7 +165,7 @@ void Record::set_object( const SValue& ovalue )
 {
     clear_fields();
     const SValueVec* values = ovalue.get_object_values();
-    if( values->size() <= 1 ) {
+    if( values == nullptr || values->size() <= 1 ) {
         return;
     }
     size_t size = std::min( m_base.record_size(), values->size() - 1 );
