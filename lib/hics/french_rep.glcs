@@ -113,6 +113,9 @@ grammar fr {
         result = this;
     }
     function def_to_calc {
+        if month = null
+            end;
+        endif
         if month < 13
             nmonth = month;
             nmday = day;
