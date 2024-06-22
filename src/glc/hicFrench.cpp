@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     13th August 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -117,6 +117,9 @@ French::French( const string& data )
 
 Field French::get_jdn( const FieldVec& fields ) const
 {
+    if( fields.size() < 3 || fields[0] == f_invalid || fields[1] == f_invalid || fields[2] == f_invalid ) {
+        return f_invalid;
+    }
     return french_to_jdn( fields[0], fields[1], fields[2] );
 }
 
