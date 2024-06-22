@@ -982,6 +982,10 @@ namespace {
         }
         delete fundata;
         SValue value;
+        RList rl = op_set_well_order( rlist );
+        if( rl.empty() ) {
+            return SValue::create_error( "Cannot convert text." );
+        }
         value.set_rlist_demote( op_set_well_order( rlist ) );
         return value;
     }
