@@ -104,6 +104,9 @@ grammar FR {
         result = this;
     }
     function def_to_calc {
+        if month = null
+            end;
+        endif
         if month < 13
             nmonth = month;
             nmday = day;
@@ -154,9 +157,10 @@ scheme FR {
 
 
 write nl;
-write @record.FR( 2460300 ), @record.FR( 2460572 ) nl;
-write @record.FR:cdmy( "30 Frim 232" ), @record.FR:cdmy( "Fête du Génie 232" ) nl;
-write @record.FR:dmy( "30 Frim 232" ), @record.FR:dmy( "2 Comp 232" ) nl;
+write @date.FR:dmy("xyz") nl;
+write @scheme.FR( 2460300 ), @scheme.FR( 2460572 ) nl;
+write @scheme.FR:cdmy( "30 Frim 232" ), @scheme.FR:cdmy( "Fête du Génie 232" ) nl;
+write @scheme.FR:dmy( "30 Frim 232" ), @scheme.FR:dmy( "2 Comp 232" ) nl;
 write @text.FR:ymd( 2460300 ), @text.FR:ymd( 2460572 ) nl;
 write @text.FR:cdmy( 2460300 ), @text.FR:cdmy( 2460572 ) nl;
 write @text.FR:out( 2460300 ), @text.FR:out( 2460572 ) nl;
@@ -171,6 +175,7 @@ write @date( {s:FR 232, 3, 30} ), @date( {s:FR 232,,,,,2}@calc_to_def ) nl;
 
 /*[OUTPUT]
 
+empty
 {s:FR 232, 3, 30, 3, 30, null, 10, 4}, {s:FR 232, 13, 2, null, null, 2, null, 3}
 {s:FR 232, 3, 30, 3, 30, null, 10, 4}, {s:FR 232, 13, 2, null, null, 2, null, 3}
 {s:FR 232, 3, 30, 3, 30, null, 10, 4}, {s:FR 232, 13, 2, null, null, 2, null, 3}
