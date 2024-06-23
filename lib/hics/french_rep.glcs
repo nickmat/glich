@@ -113,19 +113,18 @@ grammar fr {
         result = this;
     }
     function def_to_calc {
-        if month = null
-            end;
-        endif
-        if month < 13
-            nmonth = month;
-            nmday = day;
-            cday = null;
-            dday = ( (day - 1) mod 10 ) + 1;
-        else
-            nmonth = null;
-            nmday = null;
-            cday = day;
-            dday = null;
+        if month <> null
+            if month < 13
+                nmonth = month;
+                nmday = day;
+                cday = null;
+                dday = ( (day - 1) mod 10 ) + 1;
+            else
+                nmonth = null;
+                nmday = null;
+                cday = day;
+                dday = null;
+            endif
         endif
         result = this;
     }
@@ -143,7 +142,7 @@ grammar fr {
         use:in def_to_calc;
     }
     format ymd {
-        inout "{year} |{month:frm} |{day}";
+        inout "{year}| {month:frm}| {day}";
         rank year month day;
         use:in def_to_calc;
     }
