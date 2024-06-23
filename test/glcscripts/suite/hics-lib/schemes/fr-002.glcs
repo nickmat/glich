@@ -1,0 +1,29 @@
+// fr-002.glcs  Test fr scheme shortcut ranges.
+
+
+write nl;
+write @date.fr:dmy_a( "mess232" ), @text.fr:dmy_a( 2460481..2460510 ) nl;
+write @date.fr:dmy_a( "232" ), @text.fr:dmy_a( 2460211..2460575 ) nl;
+
+write @date.fr:dmy( "mess232" ), @text.fr:dmy( 2460481..2460510 ) nl;
+write @date.fr:dmy( "232" ), @text.fr:dmy( 2460211..2460575 ) nl;
+
+write @date.fr:ymd( "232mess" ), @text.fr:ymd( 2460481..2460510 ) nl;
+write @date.fr:ymd( "232" ), @text.fr:ymd( 2460211..2460575 ) nl;
+
+write @date.fr:gedcom( "MESS232" ), @text.fr:gedcom( 2460481..2460510 ) nl;
+write @date.fr:gedcom( "232" ), @text.fr:gedcom( 2460211..2460575 ) nl;
+
+
+/*[OUTPUT]
+
+2460481..2460510, Mess 232
+2460211..2460575, 232
+2460481..2460510, Messidor 232
+2460211..2460575, 232
+2460481..2460510, 232 Messidor
+2460211..2460575, 232
+2460481..2460510, MESS 232
+2460211..2460575, 232
+
+[OUTPUT]*/
