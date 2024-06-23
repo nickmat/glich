@@ -1,0 +1,19 @@
+// hics/schemes/i-01.glcs - Test Islamic Tabular Calendar schemes.
+
+scheme I {
+    name "Islamic Tabular";
+    base islamic IIc;
+}
+
+write nl;
+write @text.I( 2460485 ), @scheme.I( 2460485 ) nl;
+write @date.I( "1445 12 16" ),  @scheme.I( "1445 12 16" ) nl;
+write @text( {s:I 1445, 12, 16} ), @date( {s:I 1445, 12, 16} ) nl;
+
+/*[OUTPUT]
+
+1445 12 16, {s:I 1445, 12, 16}
+2460485, {s:I 1445, 12, 16}
+1445 12 16, 2460485
+
+[OUTPUT]*/
