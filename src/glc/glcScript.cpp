@@ -1246,7 +1246,7 @@ SValue Script::function_call()
         case f_version: return at_version();
         case f_date: return at_date( *this );
         case f_text: return at_text( *this );
-        case f_record: return at_record( *this );
+        case f_record: [[fallthrough]];
         case f_scheme: return at_scheme( *this );
         case f_element: return at_element( *this );
         case f_phrase: return at_phrase( *this );
