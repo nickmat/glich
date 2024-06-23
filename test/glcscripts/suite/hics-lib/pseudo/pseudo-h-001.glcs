@@ -1,0 +1,23 @@
+// pseudo-h-001.glcs - Test Hebrew format pseudo text.
+
+
+write nl;
+write @pseudo:in.h:u nl;
+write @pseudo:out.h:u nl;
+
+write @pseudo:in.h:dmy_a nl;
+write @pseudo:out.h:dmy_a nl;
+
+write @pseudo:in.h:gedcom nl;
+write @pseudo:out.h:gedcom nl;
+
+/*[OUTPUT]
+
+9y 9m 9d 9cm
+9y 9m 9d 9cm
+day cmonth year
+dd Mon yyyy
+day month year
+dd MON yyyy
+
+[OUTPUT]*/
