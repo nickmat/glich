@@ -1208,14 +1208,15 @@ SValue Script::function_call()
 {
     enum f {
         f_if, f_error, f_string, f_quote, f_field, f_range, f_rlist, f_number, f_float, f_read, f_filesys,
-        f_version,
+        f_version, f_low, f_high,
         f_date, f_text, f_record, f_scheme, f_element, f_phrase, f_leapyear, f_first, f_last,
         f_pseudo_in, f_pseudo_out
     };
     const static std::map<string, f> fmap = {
         { "if", f_if }, { "error", f_error }, { "string", f_string }, { "quote", f_quote }, { "field", f_field },
         { "range", f_range }, { "rlist", f_rlist }, { "number", f_number }, { "float", f_float },
-        { "read", f_read }, { "filesys", f_filesys }, { "version", f_version },
+        { "read", f_read }, { "filesys", f_filesys }, { "version", f_version }, { "low", f_low },
+        { "high", f_high },
         // Hics extension
         { "date", f_date }, { "text", f_text }, { "record", f_record }, { "scheme", f_scheme }, { "element", f_element },
         { "phrase", f_phrase }, { "leapyear", f_leapyear }, { "first", f_first }, { "last", f_last },
@@ -1244,6 +1245,8 @@ SValue Script::function_call()
         case f_read: return at_read();
         case f_filesys: return at_filesys();
         case f_version: return at_version();
+        case f_low: return at_low();
+        case f_high: return at_high();
         case f_date: return at_date( *this );
         case f_text: return at_text( *this );
         case f_record: [[fallthrough]];
@@ -1633,6 +1636,60 @@ SValue glich::Script::at_version()
         }
     }
     return glc_version;
+}
+
+SValue glich::Script::at_low()
+{
+    SValueVec args = get_args( GetToken::next );
+    if( args.empty() ) {
+        return SValue::create_error( "Function @low requires one argument." );
+    }
+    SValue value = args[0];
+    switch( value.type() )
+    {
+    case SValue::Type::field:
+    case  SValue::Type::Number:
+    case  SValue::Type::Float:
+    case SValue::Type::Error:
+        return value;
+    case SValue::Type::range:
+        return SValue( value.get_range().m_beg, SValue::Type::field );
+    case SValue::Type::rlist: {
+        RList rlist = value.get_rlist();
+        if( !rlist.empty() ) {
+            return SValue( rlist[0].m_beg, SValue::Type::field );
+        }
+        break;
+    }
+    }
+    return SValue( f_invalid, SValue::Type::field );
+}
+
+SValue glich::Script::at_high()
+{
+    SValueVec args = get_args( GetToken::next );
+    if( args.empty() ) {
+        return SValue::create_error( "Function @low requires one argument." );
+    }
+    SValue value = args[0];
+    switch( value.type() )
+    {
+    case SValue::Type::field:
+    case  SValue::Type::Number:
+    case  SValue::Type::Float:
+    case SValue::Type::Error:
+        return value;
+    case SValue::Type::range:
+        return SValue( value.get_range().m_end, SValue::Type::field );
+    case SValue::Type::rlist: {
+        RList rlist = value.get_rlist();
+        if( !rlist.empty() ) {
+            return SValue( rlist[rlist.size() - 1].m_end, SValue::Type::field );
+        }
+        break;
+    }
+    }
+    return SValue( f_invalid, SValue::Type::field );
 }
 
 SValue Script::get_value_var( const string& name )

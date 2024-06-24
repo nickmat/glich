@@ -87,6 +87,9 @@ Glich::Glich( InOut* inout )
         { "string", fptr },
         { "quote", fptr },
         { "filesys", fptr },
+        { "version", fptr },
+        { "low", fptr },
+        { "high", fptr },
         // Hics functions
         { "date", fptr },
         { "element", fptr },
