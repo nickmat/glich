@@ -1,0 +1,21 @@
+// low001.glcs - @low( value ) & @high( value ) // return high and low values.
+
+let a = 123n;
+let b = 456f;
+let c = 10.5;
+let d = "text";
+let e = 5..10;
+let f = 4..8 | 10..18;
+let g = {: 10, 20, 30};
+let h = true;
+let i = null;
+let j = @error( "Whoops" );
+
+write nl;
+write @low( a ), @low( b ), @low( c ), @low( d ), @low( e ), @low( f ), @low( g ), @low( h ), @low( i ), @low( j );
+
+/*[OUTPUT]
+
+123, 456, 10.5, ?, 5, 4, ?, ?, ?, Error (12): Whoops
+
+[OUTPUT]*/
