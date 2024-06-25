@@ -90,6 +90,7 @@ Glich::Glich( InOut* inout )
         { "version", fptr },
         { "low", fptr },
         { "high", fptr },
+        { "span", fptr },
         // Hics functions
         { "date", fptr },
         { "element", fptr },

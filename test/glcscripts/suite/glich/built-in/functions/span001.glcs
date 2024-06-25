@@ -1,0 +1,21 @@
+// span001.glcs - @span( value ) // return span values.
+
+let a = 123n;
+let b = 456f;
+let c = 10.5;
+let d = "text";
+let e = 5..10;
+let f = 4..8 | 10..18;
+let g = {: 10, 20, 30};
+let h = true;
+let i = null;
+let j = @error( "Whoops" );
+
+write nl;
+write @span( a ), @span( b ), @span( c ), @span( d ), @span( e ), @span( f ), @span( g ), @span( h ), @span( i ), @span( j ) nl;
+
+/*[OUTPUT]
+
+1, 1, ?, ?, 6, 15, ?, ?, ?, Error (12): Whoops
+
+[OUTPUT]*/

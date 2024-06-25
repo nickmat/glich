@@ -1321,6 +1321,8 @@ void SValue::property_op( const SValue& value )
         switch( m_type )
         {
         case Type::field:
+        case Type::Number:
+        case Type::Float:
             return;
         case Type::range:
             set_field( get_range().m_beg );
@@ -1328,20 +1330,21 @@ void SValue::property_op( const SValue& value )
         case Type::rlist: {
             RList rlist = get_rlist();
             if( rlist.empty() ) {
-                set_field( f_invalid );
-                return;
+                break;
             }
             set_field( rlist[0].m_beg );
             return;
         }
         }
-        set_error( type_err_mess );
+        set_field( f_invalid );
         return;
     }
     if( property == "high" ) {
         switch( m_type )
         {
         case Type::field:
+        case Type::Number:
+        case Type::Float:
             return;
         case Type::range:
             set_field( get_range().m_end );
@@ -1349,19 +1352,19 @@ void SValue::property_op( const SValue& value )
         case Type::rlist: {
             RList rlist = get_rlist();
             if( rlist.empty() ) {
-                set_field( f_invalid );
-                return;
+                break;
             }
             set_field( rlist[rlist.size() - 1].m_end );
             return;
         }
         }
-        set_error( type_err_mess );
+        set_field( f_invalid );
         return;
     }
     if( property == "span" ) {
         switch( m_type )
         {
+        case Type::Number:
         case Type::field:
             set_field( 1 );
             return;
@@ -1389,7 +1392,7 @@ void SValue::property_op( const SValue& value )
             return;
         }
         }
-        set_error( type_err_mess );
+        set_field( f_invalid );
         return;
     }
     if( property == "size" ) {
