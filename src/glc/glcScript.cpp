@@ -1208,7 +1208,7 @@ SValue Script::function_call()
 {
     enum f {
         f_if, f_error, f_string, f_quote, f_field, f_range, f_rlist, f_number, f_float, f_read, f_filesys,
-        f_version, f_low, f_high, f_span,
+        f_version, f_low, f_high, f_span, f_size, f_envelope,
         f_date, f_text, f_record, f_scheme, f_element, f_phrase, f_leapyear, f_first, f_last,
         f_pseudo_in, f_pseudo_out
     };
@@ -1216,7 +1216,7 @@ SValue Script::function_call()
         { "if", f_if }, { "error", f_error }, { "string", f_string }, { "quote", f_quote }, { "field", f_field },
         { "range", f_range }, { "rlist", f_rlist }, { "number", f_number }, { "float", f_float },
         { "read", f_read }, { "filesys", f_filesys }, { "version", f_version }, { "low", f_low },
-        { "high", f_high }, { "span", f_span },
+        { "high", f_high }, { "span", f_span }, { "size", f_size }, { "envelope", f_envelope },
         // Hics extension
         { "date", f_date }, { "text", f_text }, { "record", f_record }, { "scheme", f_scheme }, { "element", f_element },
         { "phrase", f_phrase }, { "leapyear", f_leapyear }, { "first", f_first }, { "last", f_last },
@@ -1247,7 +1247,9 @@ SValue Script::function_call()
         case f_version: return at_version();
         case f_low:
         case f_high:
-        case f_span: return do_at_property( name );
+        case f_span:
+        case f_size:
+        case f_envelope: return do_at_property( name );
         case f_date: return at_date( *this );
         case f_text: return at_text( *this );
         case f_record: [[fallthrough]];

@@ -1408,7 +1408,7 @@ void SValue::property_op( const SValue& value )
             set_field( get_str().size() );
             return;
         }
-        set_error( type_err_mess );
+        set_number( 0 );
         return;
     }
     if( property == "envelope" ) {
@@ -1417,8 +1417,7 @@ void SValue::property_op( const SValue& value )
         case Type::rlist: {
             RList rlist = get_rlist();
             if( rlist.empty() ) {
-                set_field( f_invalid );
-                return;
+                break;
             }
             Range rng;
             rng.m_beg = rlist[0].m_beg;
@@ -1427,7 +1426,7 @@ void SValue::property_op( const SValue& value )
             return;
         }
         }
-        set_error( type_err_mess );
+        set_field( f_invalid );
         return;
     }
     if( property == "object" ) {

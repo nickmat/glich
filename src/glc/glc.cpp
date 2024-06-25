@@ -91,6 +91,8 @@ Glich::Glich( InOut* inout )
         { "low", fptr },
         { "high", fptr },
         { "span", fptr },
+        { "size", fptr },
+        { "envelope", fptr },
         // Hics functions
         { "date", fptr },
         { "element", fptr },

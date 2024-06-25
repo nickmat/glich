@@ -1,0 +1,21 @@
+// size001.glcs - @size( value ) // return size values.
+
+let a = 123n;
+let b = 456f;
+let c = 10.5;
+let d = "text";
+let e = 5..10;
+let f = 4..8 | 10..18;
+let g = {: 10, 20, 30};
+let h = true;
+let i = null;
+let j = @error( "Whoops" );
+
+write nl;
+write @size( a ), @size( b ), @size( c ), @size( d ), @size( e ), @size( f ), @size( g ), @size( h ), @size( i ), @size( j ) nl;
+
+/*[OUTPUT]
+
+0, 0, 0, 4, 0, 2, 3, 0, 0, Error (12): Whoops
+
+[OUTPUT]*/
