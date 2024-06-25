@@ -1,0 +1,12 @@
+// object019.glcs  Test function object_name.
+
+object test {}
+
+let a = {test 1, 2, 3};
+
+write a@object_name;
+
+
+/*[OUTPUT]
+test
+[OUTPUT]*/

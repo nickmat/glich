@@ -1,7 +1,5 @@
 // mask001.glcs  Test object function mask.
 
-//function Max( a, b ) { result = @if(a>b,a,b); }
-
 object test {}
 
 let a = {test ,,5,,};
