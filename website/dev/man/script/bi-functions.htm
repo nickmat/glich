@@ -312,6 +312,158 @@
  <tr><td class='example'>@float( "10 + 2" )</td><td class='example'>12.0</td></tr>
 </table>
 
+<h3>Value Properties</h3>
+
+<table class='basic'>
+<tr><th>Function</th><th>Description</th></tr>
+<tr><td>@<b>type</b>( <i>value</i> )</td><td>Return the type of value as a string.</td></tr>
+<tr><td>@<b>low</b>( <i>value</i> )</td><td>Return the lower bound of a range or rlist.</td></tr>
+<tr><td>@<b>high</b>( <i>value</i> )</td><td>Return the upper bound of a range or rlist.</td></tr>
+<tr><td>@<b>span</b>( <i>value</i> )</td><td>Return the inclusive count between upper and lower bounds of a range or rlist.</td></tr>
+<tr><td>@<b>size</b>( <i>value</i> )</td><td>Return the number of elements in a rlist, object or string</td></tr>
+<tr><td>@<b>envelope</b>( <i>value</i> )</td><td>Return the enclosing range af an rlist.</td></tr>
+</table>
+
+<h4>Function: @type( value )</h4>
+<p>
+ The function returns a <b>string</b> type with the name of the value type,
+ as shown in the table below.
+</p>
+<p>
+ An <b>error</b> value is not passed through, but the value type "error" is returned instead.
+</p>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+ <tr><td class='example'>@type( 123n )</td><td class='example'>number</td></tr>
+ <tr><td class='example'>@type( 456f )</td><td class='example'>field</td></tr>
+ <tr><td class='example'>@type( 10.5 )</td><td class='example'>float</td></tr>
+ <tr><td class='example'>@type( "text" )</td><td class='example'>string</td></tr>
+ <tr><td class='example'>@type( 5..10 )</td><td class='example'>range</td></tr>
+ <tr><td class='example'>@type( 4..8 | 10..18 )</td><td class='example'>rlist</td></tr>
+ <tr><td class='example'>@type( {: 10, 20, 30} )</td><td class='example'>object</td></tr>
+ <tr><td class='example'>@type( true )</td><td class='example'>bool</td></tr>
+ <tr><td class='example'>@type( null )</td><td class='example'>null</td></tr>
+ <tr><td class='example'>@type( @error( "Whoops" ) )</td><td class='example'>error</td></tr>
+</table>
+
+<h4>Function: @low( value )</h4>
+<p>
+ If <i>value</i> is of type <b>range</b>, the function returns the lower <b>field</b> value.
+ If <i>value</i> is of type <b>rlist</b>, the function returns the lower <b>field</b> of the first range in the rlist.
+</p>
+<p>
+ If the value is a <i>numeric_type</i>, then the value is returned unchanged.
+ An <b>error</b> value will also be returned unchanged.
+ All other <i>values</i> will return the <b>field</b> value <b>?</b> (invalid).
+</p>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+ <tr><td class='example'>@low( 123n )</td><td class='example'>123</td></tr>
+ <tr><td class='example'>@low( 456f )</td><td class='example'>456</td></tr>
+ <tr><td class='example'>@low( 10.5 )</td><td class='example'>10.5</td></tr>
+ <tr><td class='example'>@low( "text" )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@low( 5..10 )</td><td class='example'>5</td></tr>
+ <tr><td class='example'>@low( 4..8 | 10..18 )</td><td class='example'>4</td></tr>
+ <tr><td class='example'>@low( {: 10, 20, 30} )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@low( true )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@low( null )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@low( @error( "Whoops" ) )</td><td class='example'>Error (12): Whoops</td></tr>
+</table>
+
+<h4>Function: @high( value )</h4>
+<p>
+ If <i>value</i> is of type <b>range</b>, the function returns the higher <b>field</b> value.
+ If <i>value</i> is of type <b>rlist</b>, the function returns the higher <b>field</b> of the last range in the rlist.
+</p>
+<p>
+ If the value is a <i>numeric_type</i>, then the value is returned unchanged.
+ An <b>error</b> value will also be returned unchanged.
+ All other <i>values</i> will return the <b>field</b> value <b>?</b> (invalid).
+</p>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+ <tr><td class='example'>@high( 123n )</td><td class='example'>123</td></tr>
+ <tr><td class='example'>@high( 456f )</td><td class='example'>456</td></tr>
+ <tr><td class='example'>@high( 10.5 )</td><td class='example'>10.5</td></tr>
+ <tr><td class='example'>@high( "text" )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@high( 5..10 )</td><td class='example'>10</td></tr>
+ <tr><td class='example'>@high( 4..8 | 10..18 )</td><td class='example'>18</td></tr>
+ <tr><td class='example'>@high( {: 10, 20, 30} )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@high( true )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@high( null )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@high( @error( "Whoops" ) )</td><td class='example'>Error (12): Whoops</td></tr>
+</table>
+
+<h4>Function: @span( value )</h4>
+<p>
+ If the value is an <i>integer_type</i>, then the function returns the <b>field</b> value 1.
+ If <i>value</i> is of type <b>range</b> or <b>rlist</b>, the function returns the
+ inclusive count between upper and lower bounds of the range or rlist.
+</p>
+<p>
+ An <b>error</b> value will be returned unchanged.
+ All other <i>values</i> will return the <b>field</b> value <b>?</b> (invalid).
+</p>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+ <tr><td class='example'>@span( 123n )</td><td class='example'>1</td></tr>
+ <tr><td class='example'>@span( 456f )</td><td class='example'>1</td></tr>
+ <tr><td class='example'>@span( 10.5 )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@span( "text" )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@span( 5..10 )</td><td class='example'>6</td></tr>
+ <tr><td class='example'>@span( 4..8 | 10..18 )</td><td class='example'>15</td></tr>
+ <tr><td class='example'>@span( {: 10, 20, 30} )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@span( true )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@span( null )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@span( @error( "Whoops" ) )</td><td class='example'>Error (12): Whoops</td></tr>
+</table>
+
+<h4>Function: @size( value )</h4>
+<p>
+ If <i>value</i> is of type <b>text</b>, the function returns the number of characters in the string.
+ If <i>value</i> is of type <b>rlist</b>, the function returns the number of ranges in the rlist.
+ If <i>value</i> is of type <b>object</b>, the function returns the number of elements in the object.
+</p>
+<p>
+ An <b>error</b> value will be returned unchanged.
+ All other <i>values</i> will return the number 0.
+</p>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+ <tr><td class='example'>@size( 123n )</td><td class='example'>0</td></tr>
+ <tr><td class='example'>@size( 456f )</td><td class='example'>0</td></tr>
+ <tr><td class='example'>@size( 10.5 )</td><td class='example'>0</td></tr>
+ <tr><td class='example'>@size( "text" )</td><td class='example'>4</td></tr>
+ <tr><td class='example'>@size( 5..10 )</td><td class='example'>0</td></tr>
+ <tr><td class='example'>@size( 4..8 | 10..18 )</td><td class='example'>2</td></tr>
+ <tr><td class='example'>@size( {: 10, 20, 30} )</td><td class='example'>3</td></tr>
+ <tr><td class='example'>@size( true )</td><td class='example'>0</td></tr>
+ <tr><td class='example'>@size( null )</td><td class='example'>0</td></tr>
+ <tr><td class='example'>@size( @error( "Whoops" ) )</td><td class='example'>Error (12): Whoops</td></tr>
+</table>
+
+<h4>Function: @envelope( value )</h4>
+<p>
+ The @envelope function is only intended to be used with an <b>rlist</b> value,
+ when it returns the enclosing <b>range</b> value.
+</p>
+<p>
+ An <b>error</b> value will be returned unchanged.
+ All other <i>values</i> will return the <b>field</b> value <b>?</b> (invalid).
+</p>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+ <tr><td class='example'>@envelope( 123n )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@envelope( 456f )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@envelope( 10.5 )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@envelope( "text" )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@envelope( 5..10 )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@envelope( 4..8 | 10..18 )</td><td class='example'>4..18</td></tr>
+ <tr><td class='example'>@envelope( {: 10, 20, 30} )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@envelope( true )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@envelope( null )</td><td class='example'>?</td></tr>
+ <tr><td class='example'>@envelope( @error( "Whoops" ) )</td><td class='example'>Error (12): Whoops</td></tr>
+</table>
 
 </div><!--id=content-->
 
