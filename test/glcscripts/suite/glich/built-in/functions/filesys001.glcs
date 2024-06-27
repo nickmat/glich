@@ -8,7 +8,7 @@ call @filesys.cd( path );
 
 let curpath = @filesys;
 
-write path[.size] > newpath[.size], path = curpath;
+write @size(path) > @size(newpath), path = curpath;
 
 /*[OUTPUT]
 true, true

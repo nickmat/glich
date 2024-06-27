@@ -4,7 +4,7 @@ object array {}
 
 let a = {array};
 
-write a + ", " + a[.size] + ", " + a[0] + ", " + @object(a);
+write a + ", " + @size(a) + ", " + a[0] + ", " + @object(a);
 
 /*[OUTPUT]
 {array}, 0, null, array

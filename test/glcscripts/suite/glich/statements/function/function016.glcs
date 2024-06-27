@@ -11,7 +11,7 @@ function range_plus(start, duration = 7) {
 let r = @range_plus(100);
 
 write nl;
-write r + ", Duration: " + r[.span] nl;
+write r + ", Duration: " + @span(r) nl;
 write @range_plus( 100, 0 ) nl;
 
 /*[OUTPUT]

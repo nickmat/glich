@@ -3,13 +3,13 @@
 
 write nl;
 
-write @date.ay:dmy( "1582" ), @text.ay:dmy( 2298884..2299238 ), @date.ay:dmy( "1582" )[.span] nl;
-write @date.ay:dmy( "1500" ), @text.ay:dmy( 2268933..2269298 ), @date.ay:dmy( "1500" )[.span] nl;
-write @date.ay:dmy( "1800" ), @text.ay:dmy( 2378497..2378861 ), @date.ay:dmy( "1800" )[.span] nl;
+write @date.ay:dmy( "1582" ), @text.ay:dmy( 2298884..2299238 ), @span( @date.ay:dmy( "1582" ) ) nl;
+write @date.ay:dmy( "1500" ), @text.ay:dmy( 2268933..2269298 ), @span( @date.ay:dmy( "1500" ) ) nl;
+write @date.ay:dmy( "1800" ), @text.ay:dmy( 2378497..2378861 ), @span( @date.ay:dmy( "1800" ) ) nl;
 
-write @date.ay:dmy( "oct1582" ), @text.ay:dmy( 2299157..2299177 ), @date.ay:dmy( "oct1582" )[.span] nl;
-write @date.ay:dmy( "jun1500" ), @text.ay:dmy( 2269085..2269114 ), @date.ay:dmy( "jun1500" )[.span] nl;
-write @date.ay:dmy( "jun1800" ), @text.ay:dmy( 2378648..2378677 ), @date.ay:dmy( "jun1800" )[.span] nl;
+write @date.ay:dmy( "oct1582" ), @text.ay:dmy( 2299157..2299177 ), @span( @date.ay:dmy( "oct1582" ) ) nl;
+write @date.ay:dmy( "jun1500" ), @text.ay:dmy( 2269085..2269114 ), @span( @date.ay:dmy( "jun1500" ) ) nl;
+write @date.ay:dmy( "jun1800" ), @text.ay:dmy( 2378648..2378677 ), @span( @date.ay:dmy( "jun1800" ) ) nl;
 
 write @date.ay:dmys( "1582" ), @text.ay:dmys( 2298884..2299238 ) nl;
 write @date.ay:dmys( "1500" ), @text.ay:dmys( 2268933..2269298 ) nl;

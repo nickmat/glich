@@ -3,7 +3,7 @@
 //let year = @read( "Enter year: " );
 let year = "2023";
 
-let days = @date(year)[.span];
+let days = @span( @date(year) );
 
 let answer = "[" + year + "] is not a valid year.";
 if days = 365
