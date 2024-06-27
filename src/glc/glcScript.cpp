@@ -926,27 +926,14 @@ SValue Script::subscript( GetToken get )
         case SToken::Type::LSbracket: {
                 SValue right;
                 token = next_token();
-                if( token.type() == SToken::Type::Dot ) {
-                    token = next_token();
-                    if( token.type() == SToken::Type::Name ) {
-                        right.set_str( token.get_str() );
-                        next_token();
-                    }
-                    else {
-                        right = expr( GetToken::current );
-                    }
-                    left.property_op( right );
+                if( token.type() == SToken::Type::Name ) {
+                    right.set_str( token.get_str() );
+                    next_token();
                 }
                 else {
-                    if( token.type() == SToken::Type::Name ) {
-                        right.set_str( token.get_str() );
-                        next_token();
-                    }
-                    else {
-                        right = expr( GetToken::current );
-                    }
-                    left = do_subscript( left, right );
+                    right = expr( GetToken::current );
                 }
+                left = do_subscript( left, right );
                 if( current_token().type() != SToken::Type::RSbracket ) {
                     error( "']' expected." );
                 }
