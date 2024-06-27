@@ -1159,6 +1159,10 @@ SValue Script::do_at( const SValue& left, const SValue& right )
         if( fcode == "mask" ) {
             return dot_mask( obj, &left );
         }
+        else if( fcode == "size" ) {
+            const SValueVec* elements = left.get_object_values();
+            return SValue( elements->size() - 1, SValue::Type::Number );
+        }
         else if( fcode == "object_name" ) {
             return obj->get_code();
         }
