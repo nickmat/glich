@@ -17,9 +17,9 @@ let c1 = 100n;
 let c2 = 100f;
 
 write nl;
-write x[.type], y[.type], z[.type] nl;
-write a1[.type], b1[.type], c1[.type] nl;
-write a2[.type], b2[.type], c2[.type] nl;
+write @type(x), @type(y), @type(z) nl;
+write @type(a1), @type(b1), @type(c1) nl;
+write @type(a2), @type(b2), @type(c2) nl;
 
 
 /*[OUTPUT]

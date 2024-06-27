@@ -24,22 +24,22 @@ let t_r = @record.JDN:d( t );
 let r_d = @date( r );
 let r_t = @text.:d( r );
 
-writeln "";
-writeln "text.JDN:d cast:   " + d[.type] + ", " + d_t + ", " + d_t[.type];
-writeln "record.JDN:d cast: " + d[.type] + ", " + d_r + ", " + d_r[.type];
-writeln "date.JDN:d cast:   " + t[.type] + ", " + t_d + ", " + t_d[.type];
-writeln "record.JDN:d cast: " + t[.type] + ", " + t_r + ", " + t_r[.type];
-writeln "date cast:         " + r[.type] + ", " + r_d + ", " + r_d[.type];
-writeln "text.:d cast:      " + r[.type] + ", " + r_t + ", " + r_t[.type];
+write nl;
+write @type(d), d_t, @type(d_t) nl;
+write @type(d), d_r, @type(d_r) nl;
+write @type(t), t_d, @type(t_d) nl;
+write @type(t), t_r, @type(t_r) nl;
+write @type(r), r_d, @type(r_d) nl;
+write @type(r), r_t, @type(r_t) nl;
 
 
 /*[OUTPUT]
 
-text.JDN:d cast:   number, 2432617, string
-record.JDN:d cast: number, {s:JDN 2432617}, object
-date.JDN:d cast:   string, 2432617, field
-record.JDN:d cast: string, {s:JDN 2432617}, object
-date cast:         object, 2432617, field
-text.:d cast:      object, 2432617, string
+number, 2432617, string
+number, {s:JDN 2432617}, object
+string, 2432617, field
+string, {s:JDN 2432617}, object
+object, 2432617, field
+object, 2432617, string
 
 [OUTPUT]*/

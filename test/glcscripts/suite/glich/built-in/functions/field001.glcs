@@ -4,35 +4,35 @@ write nl;
 
 let a = null;
 let v = @field( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = "321";
 let v = @field( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = true;
 let v = @field( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = 123n;
 let v = @field( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = 345f;
 let v = @field( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = 1.2;
 let v = @field( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = 10 .. 10;
 let v = @field( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 // Note, RLists are automatically well formed and demoted.
 a = 199 | 199 .. 199;
 let v = @field( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = {:,11};
 let v = @field( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = @error( "Test" );
 let v = @field( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 
 
 /*[OUTPUT]

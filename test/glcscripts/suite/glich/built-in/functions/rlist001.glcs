@@ -4,34 +4,34 @@ write nl;
 
 let a = null;
 let v = @rlist( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = "300|321..320";
 let v = @rlist( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = true;
 let v = @rlist( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = 123n;
 let v = @rlist( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = 345f;
 let v = @rlist( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = 1.2;
 let v = @rlist( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = 10 .. 20;
 let v = @rlist( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = 100 | 199 .. 200;
 let v = @rlist( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = {:,11};
 let v = @rlist( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = @error( "Test" );
 let v = @rlist( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 
 
 /*[OUTPUT]

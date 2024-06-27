@@ -71,21 +71,22 @@ let t_r = @record.J( t );
 let r_d = @date( r );
 let r_t = @text( r );
 
-writeln "";
-writeln "text.J cast:   " + d[.type] + ", " + d_t + ", " + d_t[.type];
-writeln "record.J cast: " + d[.type] + ", " + d_r + ", " + d_r[.type];
-writeln "date.J cast:   " + t[.type] + ", " + t_d + ", " + t_d[.type];
-writeln "record.J cast: " + t[.type] + ", " + t_r + ", " + t_r[.type];
-writeln "date cast:     " + r[.type] + ", " + r_d + ", " + r_d[.type];
-writeln "text cast:     " + r[.type] + ", " + r_t + ", " + r_t[.type];
+write nl;
+write @type(d), d_t, @type(d_t) nl;
+write @type(d), d_r, @type(d_r) nl;
+write @type(t), t_d, @type(t_d) nl;
+write @type(t), t_r, @type(t_r) nl;
+write @type(r), r_d, @type(r_d) nl;
+write @type(r), r_t, @type(r_t) nl;
+
 
 /*[OUTPUT]
 
-text.J cast:   number, 22 Feb 1948, string
-record.J cast: number, {s:J 1948, 2, 22, 6}, object
-date.J cast:   string, 2432617, field
-record.J cast: string, {s:J 1948, 2, 22, 6}, object
-date cast:     object, 2432617, field
-text cast:     object, 22 Feb 1948, string
+number, 22 Feb 1948, string
+number, {s:J 1948, 2, 22, 6}, object
+string, 2432617, field
+string, {s:J 1948, 2, 22, 6}, object
+object, 2432617, field
+object, 22 Feb 1948, string
 
 [OUTPUT]*/

@@ -5,31 +5,31 @@ write nl;
 
 let a = null;
 let v = @string( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = true;
 let v = @string( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = 123n;
 let v = @string( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = 345f;
 let v = @string( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = 1.2;
 let v = @string( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = 10 .. 20;
 let v = @string( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = 50 | 5 .. 10;
 let v = @string( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = {:,11};
 let v = @string( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 a = @error( "Test" );
 let v = @string( a );
-write v, a[.type], v[.type] nl;
+write v, @type( a ), @type( v ) nl;
 
 
 /*[OUTPUT]

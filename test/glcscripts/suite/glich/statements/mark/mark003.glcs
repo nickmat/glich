@@ -4,17 +4,17 @@ let a = 1;
 let b = infinity;
 let c = !empty;
 write nl;
-write b, c, a[.type] nl;
+write b, c, @type(a) nl;
 
 mark "test";
 set context hics;
 set integer field;
 let d = 2;
-write b, c, a[.type], d[.type] nl;
+write b, c, @type(a), @type(d) nl;
 
 mark "test";
 let e = 3;
-write b, c, a[.type], e[.type] nl;
+write b, c, @type(a), @type(e) nl;
 write d;
 
 
