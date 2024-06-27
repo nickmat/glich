@@ -5,7 +5,7 @@ object complex {
 }
 
 command write_complex( c ) {
-    if c[.object] = "complex"
+    if @object(c) = "complex"
         if c[imaginary] < 0
             write c[real] + " - " + -c[imaginary] + "i";
         elseif c[imaginary] = 0
