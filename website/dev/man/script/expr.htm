@@ -470,30 +470,6 @@
  <tr><td class='example'>{complex 10, 25}[real]</td><td class='example'>10</td></tr>
 </table>
 
-<h4>Property operator</h4>
-<p>
- A subscript starting with a dot '.' and followed by a name will return a property of the value,
- as listed below.
-</p>
-<table class='basic'>
-<tr><th>Property</th><th>Use</th><th>Result</th><th>Comment</th></tr>
-<tr><td class='code'>low</td><td class='example'>(7..16)[.low]</td><td class='example'>7</td><td>Return the lower bound of a range or rlist.</td></tr>
-<tr><td class='code'>high</td><td class='example'>(7..16)[.high]</td><td class='example'>16</td><td>Return the upper bound of a range or rlist.</td></tr>
-<tr><td class='code'>span</td><td class='example'>(7..16)[.span]</td><td class='example'>10</td><td rowspan='2'>Return the inclusive count between upper and lower bounds of a range or rlist.</td></tr>
-<tr><td class='code'>span</td><td class='example'>(21|79..88|100..120|200..210)[.span]</td><td class='example'>190</td></tr>
-<tr><td class='code'>size</td><td class='example'>(21|79..88|100..120|200..210)[.size]</td><td class='example'>4</td><td rowspan='2'>Return the number of elements in a rlist or record.</td></tr>
-<tr><td class='code'>size</td><td class='example'>{s:g 1948,9,19}[.size]</td><td class='example'>3</td></tr>
-<tr><td class='code'>size</td><td class='example'>"Hello"[.size]</td><td class='example'>5</td><td>Return the number of characters in a string. May not match the number of unicode code points.</td></tr>
-<tr><td class='code'>envelope</td><td class='example'>(21|79..88|100..120|200..210)[.envelope]</td><td class='example'>21..210</td><td>Return the enclosing range af an rlist.</td></tr>
-<tr><td class='code'>object</td><td class='example'>{s:g 1948,9,19}[.object]</td><td class='example'>"s:g"</td><td>Return the object code name as a string.</td></tr>
-<tr><td class='code'>type</td><td class='example'>2432814[.type]</td><td class='example'>"field"</td><td>Return the type of value as a string.</td></tr>
-</table>
-<p>
- The [.type] property returns one of the following strings:
- "string", "float", "number", "field", "range", "rlist", "bool", "object" and "null".
- Note, if the value is an error then the error will be propagated and so will not be detected.
-</p>
-
 <h3>Functions</h3>
 <p>
  A function first has to be defined using the function statement.
@@ -528,9 +504,17 @@
 <tr><td class='code'>()</td><td>Parenthesized expression</td><td class='example'><b>(</b> expr <b>)</b></td><td class='example'>value</td></tr>
 <tr><td class='code' colspan='4'></td></tr>
 <tr><td class='code'>{}</td><td>Object</td><td class='example'><b>{sig</b> value, ...<b>}</b></td><td class='example'>object_value</td></tr>
-<tr><td class='code'>@</td><td>Function</td><td class='example'><b>@name.qualifier</b><br /><b>@name.qualifier(</b>expr, ...<b>)</b></td><td class='example'>value</td></tr>
+<tr><td class='code'>@</td><td>Unary Function</td><td class='example'><b>@</b>name
+<b>@</b>name<b>(</b>expr, ...<b>)</b>
+<b>@</b>name<b>.</b>qualifier
+<b>@</b>name<b>.</b>qualifier<b>(</b>expr, ...<b>)</b>
+</td><td class='example'>value</td></tr>
 <tr><td class='code' colspan='4'></td></tr>
-<tr><td class='code'>[.<i>name</i>]</td><td>Property</td><td class='example'>value<b>[.</b>name<b>]</b></td><td class='example'>value</td></tr>
+<tr><td class='code'>@</td><td>Object Function</td><td class='example'>object_value<b>@</b>name
+object_value<b>@</b>name<b>(</b>expr, ...<b>)</b>
+object_value<b>@</b>name<b>.</b>qualifier
+object_value<b>@</b>name<b>.</b>qualifier<b>(</b>expr, ...<b>)</b>
+</td><td class='example'>value</td></tr>
 <tr><td class='code'>[<i>name</i>]</td><td>Member</td><td class='example'>object_value<b>[</b>name<b>]</b></td><td class='example'>value</td></tr>
 <tr><td class='code' colspan='4'></td></tr>
 <tr><td class='code'>!</td><td>Complement</td><td class='example'><b>!</b>rlist_value</td><td class='example'>rlist_value</td></tr>
