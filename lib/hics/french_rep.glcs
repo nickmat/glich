@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Name:        lib/hics/french_rep.hcs
+ * Name:        lib/hics/french_rep.glcs
  * Project:     Glich: Extendable Script Language.
  * Purpose:     Default script for French Republican calendar.
  * Author:      Nick Matthews
@@ -170,4 +170,4 @@ scheme fr {
     grammar fr;
 }
 
-// End of scripts/french_rep.hcs file
+// End of lib/hics/french_rep.glcs file
