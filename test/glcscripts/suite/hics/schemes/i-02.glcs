@@ -1,0 +1,92 @@
+// hics/schemes/i-02.glcs - Test Islamic Tabular Calendar schemes.
+
+lexicon IM {
+    name "Month names";
+    fieldname month;
+    lang en;
+    pseudo    Month, Mon;
+    tokens {
+        1, "Muḥarram",         "Muharram";
+        2, "Ṣafar",            "Safar";
+        3, "Rabī‘ al-Awwal",   "Rabi' I";
+        4, "Rabī‘ al-Ākhir",   "Rabi' II";
+        5, "Jumādá al-Ūlá",    "Jumada I";
+        6, "Jumādá al-Ākhira", "Jumada II";
+        7, "Rajab";
+        8, "Sha‘bān",          "Sha'aban";
+        9, "Ramaḍān",          "Ramadan";
+        10, "Shawwāl",         "Shawwal";
+        11, "Dhū al-Qa‘dah",   "Dhu al-Qa'dah";
+        12, "Dhū al-Ḥijjah",   "Dhu al-Hijjah";
+    }
+}
+
+lexicon IW {
+    name "Weekday names";
+    fieldname wsday; // Note: Days are numbered from Sunday, unlike "wday".
+    lang en;
+    pseudo    Weekday, WDay;
+    tokens {
+        1, "Yawm al-Aḥad",       "Ahad"; // Sunday
+        2, "Yawm al-Ithnayn",    "Ithn"; // Monday
+        3, "Yawm ath-Thulāthāʼ", "Thul"; // Tuesday
+        4, "Yawm al-Arbi‘ā’",    "Arbi"; // Wednesday
+        5, "Yawm al-Khamīs",     "Kham"; // Thursday
+        6, "Yawm al-Jumu‘ah",    "Jumu"; // Friday
+        7, "Yawm as-Sabt",       "Sabt"; // Saturday
+    }
+}
+
+grammar I {
+    fields year month day;
+    optional wsday;
+    lexicons IM IW;
+    alias pseudo {
+        w,    WDay;
+        dd,   Day;
+        mm,   Month;
+        yyyy, Year;
+    }
+    alias unit {
+        d, day;
+        m, month;
+        y, year;
+        w, week;
+    }
+    format  dmy    "{day} |{month:IM} |{year}";
+    format  dmy_a  "{day} |{month:IM:a} |{year}";
+    format  dmy_d  "{day} |{month} |{year}";
+    format  wdmy   "{wsday:IW} |{day} |{month:IM} |{year}";
+    format  wdmy_a "{wsday:IW:a} |{day} |{month:IM:a} |{year}";
+    format  ymd    "{year}| {month:IM:a}| {day}";
+    preferred dmy;
+}
+
+scheme I {
+    name "Islamic Tabular";
+    base islamic IIc;
+    grammar I;
+}
+
+
+write nl;
+
+
+write @text.I( 2460485 ), @scheme.I( 2460485 ), @date.I("16 Dhū al-Ḥijjah 1445") nl;
+write @text.I:dmy_a( 2460485 ), @scheme.I:dmy_a( "16 Dhu al-Hijjah 1445" ), @date.I:dmy_a("16 Dhu al-Hijjah 1445") nl;
+write @text.I:dmy_d( 2460485 ), @scheme.I:dmy_d( "16 12 1445" ), @date.I:dmy_d("16 12 1445") nl;
+write @text.I:wdmy( 2460485 ), @scheme.I:wdmy( "Yawm al-Aḥad 16 Dhū al-Ḥijjah 1445" ), @date.I:wdmy("Yawm al-Aḥad 16 Dhū al-Ḥijjah 1445") nl;
+write @text.I:wdmy_a( 2460485 ), @scheme.I:wdmy_a( "Ahad 16 Dhu al-Hijjah 1445" ), @date.I:wdmy_a("Ahad 16 Dhu al-Hijjah 1445") nl;
+write @text.I:ymd( 2460485 ), @scheme.I:ymd( "1445 Dhu al-Hijjah 16" ), @date.I:ymd("1445 Dhu al-Hijjah 16") nl;
+
+
+/*[OUTPUT]
+
+16 Dhū al-Ḥijjah 1445, {s:I 1445, 12, 16, 1}, 2460485
+16 Dhu al-Hijjah 1445, {s:I 1445, 12, 16, 1}, 2460485
+16 12 1445, {s:I 1445, 12, 16, 1}, 2460485
+Yawm al-Aḥad 16 Dhū al-Ḥijjah 1445, {s:I 1445, 12, 16, 1}, 2460485
+Ahad 16 Dhu al-Hijjah 1445, {s:I 1445, 12, 16, 1}, 2460485
+1445 Dhu al-Hijjah 16, {s:I 1445, 12, 16, 1}, 2460485
+
+[OUTPUT]*/
