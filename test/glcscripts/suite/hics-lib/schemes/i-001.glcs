@@ -1,0 +1,22 @@
+// h-001.glc // Test formats
+
+
+write nl;
+write @record.i( 2460491 ) nl;
+write @record.i:dmy( "22 Dhū al-Ḥijjah 1445" ) nl;
+write @text.i:dmy( 2460491 ) nl;
+write @text.i:dmy( {s:i 1445, 12, 22} ) nl;
+write @date.i:dmy( "22 Dhū al-Ḥijjah 1445" ) nl;
+write @date( {s:i 1445, 12, 22} ) nl;
+
+
+/*[OUTPUT]
+
+{s:i 1445, 12, 22, 7}
+{s:i 1445, 12, 22, 7}
+22 Dhū al-Ḥijjah 1445
+22 Dhū al-Ḥijjah 1445
+2460491
+2460491
+
+[OUTPUT]*/
