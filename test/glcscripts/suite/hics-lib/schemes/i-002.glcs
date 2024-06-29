@@ -1,0 +1,24 @@
+// i-002.glcs  Test i scheme shortcut ranges.
+
+
+write nl;
+write @date.i:dmy_a( "Dhu al-Hijjah1445" ), @text.i:dmy_a( 2460470..2460499 ) nl;
+write @date.i:dmy_a( "1445" ), @text.i:dmy_a( 2460145..2460499 ) nl;
+
+write @date.i:dmy( "Dhu al-Hijjah 1445" ), @text.i:dmy( 2460470..2460499 ) nl;
+write @date.i:dmy( "1445" ), @text.i:dmy( 2460145..2460499 ) nl;
+
+write @date.i:ymd( "1445 Dhu al-Hijjah" ), @text.i:ymd( 2460470..2460499 ) nl;
+write @date.i:ymd( "1445" ), @text.i:ymd( 2460145..2460499 ) nl;
+
+
+/*[OUTPUT]
+
+2460470..2460499, Dhu al-Hijjah 1445
+2460145..2460499, 1445
+2460470..2460499, Dhū al-Ḥijjah 1445
+2460145..2460499, 1445
+2460470..2460499, 1445 Dhu al-Hijjah
+2460145..2460499, 1445
+
+[OUTPUT]*/
