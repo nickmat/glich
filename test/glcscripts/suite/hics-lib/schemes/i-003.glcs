@@ -1,0 +1,26 @@
+// i-002.glcs  Test i scheme shortcut ranges.
+
+
+write nl;
+write @text.i:u( 2460491 ), @date.i:u( "1445y 12m 22d" ) nl;
+write @text.i:def( 2460491 ), @date.i:def( "1445 12 22" ) nl;
+write @text.i:dmy( 2460491 ), @date.i:dmy( "22 Dhū al-Ḥijjah 1445" ) nl;
+write @text.i:dmy_a( 2460491 ), @date.i:dmy_a( "22 Dhu al-Hijjah 1445" ) nl;
+write @text.i:dmy_d( 2460491 ), @date.i:dmy_d( "22 12 1445" ) nl;
+write @text.i:wdmy( 2460491 ), @date.i:wdmy( "Yawm as-Sabt 22 Dhū al-Ḥijjah 1445" ) nl;
+write @text.i:wdmy_a( 2460491 ), @date.i:wdmy_a( "Sabt 22 Dhu al-Hijjah 1445" ) nl;
+write @text.i:ymd( 2460491 ), @date.i:ymd( "1445 Dhu al-Hijjah 22" ) nl;
+
+
+/*[OUTPUT]
+
+1445y 12m 22d, 2460491
+1445 12 22, 2460491
+22 Dhū al-Ḥijjah 1445, 2460491
+22 Dhu al-Hijjah 1445, 2460491
+22 12 1445, 2460491
+Yawm as-Sabt 22 Dhū al-Ḥijjah 1445, 2460491
+Sabt 22 Dhu al-Hijjah 1445, 2460491
+1445 Dhu al-Hijjah 22, 2460491
+
+[OUTPUT]*/
