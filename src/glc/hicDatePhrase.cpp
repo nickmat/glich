@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -88,16 +88,29 @@ string glich::parse_date_phrase( const string& str )
                 }
             }
             break;
-        case '&': case '.': case '/': // Must be followed by dot.
-            nit = it+1;
-            if( nit != str.end() && ( *nit == '.' ) ) {
+        case '.': case '/': // Must be followed by dot.
+            nit = it + 1;
+            if( nit != str.end() && (*nit == '.') ) {
                 script += create_date_str( sig, date, ct );
                 script += *it; // It's an operator.
                 if( *it == '.' ) {
                     script += ".";
                 }
                 it++;       // Step over dot.
-            } else {
+            }
+            else {
+                date += *it; // Treat & as part of date string.
+            }
+            break;
+        case '&': // Is doubled up?.
+            nit = it + 1;
+            if( nit != str.end() && (*nit == *it) ) {
+                script += create_date_str( sig, date, ct );
+                script += *it; // It's an operator.
+                script += *nit;
+                it++;       // Step over second.
+            }
+            else {
                 date += *it; // Treat & as part of date string.
             }
             break;

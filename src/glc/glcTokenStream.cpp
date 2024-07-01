@@ -230,7 +230,11 @@ SToken& STokenStream::next()
         } break;
     case '~': set_type( SToken::Type::Tilde ); break;
     case '|': set_type( SToken::Type::Vline ); break;
-    case '&': set_type( SToken::Type::Ampersand ); break;
+    case '&':
+        switch( m_in->peek() ) {
+        case '&': m_in->get( ch ); set_type( SToken::Type::DblAmpersand ); break;
+        default: set_type( SToken::Type::Ampersand ); break;
+        } break;        
     case '!': set_type( SToken::Type::Exclamation ); break;
     case '^': set_type( SToken::Type::Carrot ); break;
     case '\\': set_type( SToken::Type::Backslash ); break;

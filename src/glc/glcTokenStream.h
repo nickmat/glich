@@ -45,7 +45,7 @@ namespace glich {
             PlusEq, MinusEq, DivideEq, StarEq,
             Percent, Backslash, Tilde,
             Dot, Comma, Semicolon, Qmark,
-            Vline, Ampersand, Exclamation, Carrot, At,
+            Vline, Ampersand, DblAmpersand, Exclamation, Carrot, At,
             Lbracket, Rbracket, LCbracket, RCbracket,
             LSbracket, RSbracket,
             Div, Mod, And, Or, Not,
@@ -57,7 +57,7 @@ namespace glich {
             LessThanEq,  //  "<="
             // Alternative token names
             UNION = Vline,
-            INTERSECTION = Ampersand,
+            INTERSECTION = DblAmpersand,
             REL_COMPLEMENT = Backslash,
             SYM_DIFFERENCE = Carrot,
             COMPLEMENT = Exclamation

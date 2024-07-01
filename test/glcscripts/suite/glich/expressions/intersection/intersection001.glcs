@@ -1,6 +1,6 @@
-// complement001.glcs
+// intersection001.glcs
 
-write 20..75 & 100..120;
+write 20..75 && 100..120;
 
 
 
