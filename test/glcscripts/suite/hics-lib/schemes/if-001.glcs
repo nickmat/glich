@@ -1,0 +1,26 @@
+// if-001.glcs  Test if scheme formats.
+
+
+write nl;
+write @text.if:u( 2460491 ), @date.if:u( "1445y 12m 23d" ) nl;
+write @text.if:def( 2460491 ), @date.if:def( "1445 12 23" ) nl;
+write @text.if:dmy( 2460491 ), @date.if:dmy( "23 Dhū al-Ḥijjah 1445" ) nl;
+write @text.if:dmy_a( 2460491 ), @date.if:dmy_a( "23 Dhu al-Hijjah 1445" ) nl;
+write @text.if:dmy_d( 2460491 ), @date.if:dmy_d( "23 12 1445" ) nl;
+write @text.if:wdmy( 2460491 ), @date.if:wdmy( "Yawm as-Sabt 23 Dhū al-Ḥijjah 1445" ) nl;
+write @text.if:wdmy_a( 2460491 ), @date.if:wdmy_a( "Sabt 23 Dhu al-Hijjah 1445" ) nl;
+write @text.if:ymd( 2460491 ), @date.if:ymd( "1445 Dhu al-Hijjah 23" ) nl;
+
+
+/*[OUTPUT]
+
+1445y 12m 23d, 2460491
+1445 12 23, 2460491
+23 Dhū al-Ḥijjah 1445, 2460491
+23 Dhu al-Hijjah 1445, 2460491
+23 12 1445, 2460491
+Yawm as-Sabt 23 Dhū al-Ḥijjah 1445, 2460491
+Sabt 23 Dhu al-Hijjah 1445, 2460491
+1445 Dhu al-Hijjah 23, 2460491
+
+[OUTPUT]*/

@@ -1,0 +1,26 @@
+// ims-001.glcs  Test ims scheme formats.
+
+
+write nl;
+write @text.ims:u( 2460491 ), @date.ims:u( "1445y 12m 23d" ) nl;
+write @text.ims:def( 2460491 ), @date.ims:def( "1445 12 23" ) nl;
+write @text.ims:dmy( 2460491 ), @date.ims:dmy( "23 Dhū al-Ḥijjah 1445" ) nl;
+write @text.ims:dmy_a( 2460491 ), @date.ims:dmy_a( "23 Dhu al-Hijjah 1445" ) nl;
+write @text.ims:dmy_d( 2460491 ), @date.ims:dmy_d( "23 12 1445" ) nl;
+write @text.ims:wdmy( 2460491 ), @date.ims:wdmy( "Yawm as-Sabt 23 Dhū al-Ḥijjah 1445" ) nl;
+write @text.ims:wdmy_a( 2460491 ), @date.ims:wdmy_a( "Sabt 23 Dhu al-Hijjah 1445" ) nl;
+write @text.ims:ymd( 2460491 ), @date.ims:ymd( "1445 Dhu al-Hijjah 23" ) nl;
+
+
+/*[OUTPUT]
+
+1445y 12m 23d, 2460491
+1445 12 23, 2460491
+23 Dhū al-Ḥijjah 1445, 2460491
+23 Dhu al-Hijjah 1445, 2460491
+23 12 1445, 2460491
+Yawm as-Sabt 23 Dhū al-Ḥijjah 1445, 2460491
+Sabt 23 Dhu al-Hijjah 1445, 2460491
+1445 Dhu al-Hijjah 23, 2460491
+
+[OUTPUT]*/
