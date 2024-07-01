@@ -31,7 +31,81 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Page Under Construction</h2>
+<h2>Calendar Description</h2>
+<p>
+ The Islamic calendar is a lunar calendar used throughout the Arabic and Muslim areas.
+</p>
+
+<h3>Use Case</h3>
+<p>
+ This version is used in some Microsoft applications, notably Excel.
+</p>
+
+<h3>Definition</h3>
+<table class='record'>
+<tr><th colspan='4'>Record</th></tr>
+<tr><td>year</td><td>month</td><td>day</td><td class='rdonly'>wsday</td></tr>
+</table>
+
+<p class='lclear'>
+ The year consists of twelve lunar months which in a common year alternate between of 30 and 29 days.
+ In a leap year, the 12<sup>th</sup> month has 30 days instead of the usual 29. 
+ A common year has 354 days and a leap year 355 days.
+</p>
+<p>
+ Leap years occur on a 30 year cycle in years 2, 5, 7, 10, 13, 16, 18, 21, 24, 26 and 29.
+</p>
+
+<div class='p'>
+ The <b>Epoch</b> is set at the astronomical epoch, which is:-
+ <table class='rec-value'>
+   <tr><td rowspan='2' class='sig'>i</td><th>year</th><th>month</th><th>day</th></tr>
+   <tr class='value'><td>1</td><td>1</td><td>1</td></tr>
+ </table>
+ =
+ <table class='rec-value'>
+   <tr><td rowspan='2' class='sig'>j</td><th>year</th><th>month</th><th>day</th></tr>
+   <tr class='value'><td>622</td><td>7</td><td>15</td></tr>
+ </table>
+ =
+ <table class='rec-value'>
+  <tr><td rowspan='2' class='sig'>jdn</td><th>day</th></tr>
+  <tr class='value'><td>1948439</td></tr>
+ </table>.
+</div>
+
+<h3 class="clear">Formats</h3>
+<p>
+ The formats supplied with this scheme.
+</p>
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>1445y 12m 23d</td><td>H</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>1445 12 23</td><td>H</td></tr>
+<tr><td><b>dmy</b></td><td>text</td><td>day month year</td><td>dd Month yyyy</td><td class='example'>23 Dhū al-Ḥijjah 1445</td><td>D, S</td></tr>
+<tr><td><b>dmy_a</b></td><td>text</td><td>day month year</td><td>dd Mon yyyy</td><td class='example'>23 Dhu al-Hijjah 1445</td><td>S</td></tr>
+<tr><td><b>dmy_d</b></td><td>text</td><td>day month year</td><td>dd mm yyyy</td><td class='example'>23 12 1445</td><td>S</td></tr>
+<tr><td><b>wdmy</b></td><td>text</td><td>wsday day month year</td><td>Weekday dd Month yyyy</td><td class='example'>Yawm as-Sabt 23 Dhū al-Ḥijjah 1445</td><td></td></tr>
+<tr><td><b>wdmy_a</b></td><td>text</td><td>wsday day month year</td><td>WDay dd Mon yyyy</td><td class='example'>Sabt 23 Dhu al-Hijjah 1445</td><td></td></tr>
+<tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>yyyy Mon dd</td><td class='example'>1445 Dhu al-Hijjah 23</td><td>S</td></tr>
+<tr><td colspan='6'>Notes: H = Hidden, D = Default, S = Range shortcut supported.</td></tr>
+</table>
+
+<h3>Script</h3>
+<table class='code lfloat'>
+<tr><th>Default Script</th></tr>
+<tr><td
+>scheme ims {
+    name "Islamic Microsoft Hijri";
+    base islamic IIa;
+    grammar i;
+}
+</td></tr>
+</table>
+
+<p>
+ The scheme uses the "i" grammar as defined for the <a href='i.htm'>Islamic Tabular</a> calendar.
+</p>
 
 </div><!--id=content-->
 
