@@ -236,7 +236,11 @@ SToken& STokenStream::next()
         default: set_type( SToken::Type::Ampersand ); break;
         } break;        
     case '!': set_type( SToken::Type::Exclamation ); break;
-    case '^': set_type( SToken::Type::Carrot ); break;
+    case '^':
+        switch( m_in->peek() ) {
+        case '^': m_in->get( ch ); set_type( SToken::Type::DblCarrot ); break;
+        default: set_type( SToken::Type::Carrot ); break;
+        } break;
     case '\\':
         switch( m_in->peek() ) {
         case '\\': m_in->get( ch ); set_type( SToken::Type::DblBackslash ); break;

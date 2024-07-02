@@ -45,7 +45,8 @@ namespace glich {
             PlusEq, MinusEq, DivideEq, StarEq,
             Percent, Backslash, DblBackslash, Tilde,
             Dot, Comma, Semicolon, Qmark,
-            Vline, Ampersand, DblAmpersand, Exclamation, Carrot, At,
+            Vline, Ampersand, DblAmpersand, Exclamation,
+            Carrot, DblCarrot, At,
             Lbracket, Rbracket, LCbracket, RCbracket,
             LSbracket, RSbracket,
             Div, Mod, And, Or, Not,
@@ -59,7 +60,7 @@ namespace glich {
             UNION = Vline,
             INTERSECTION = DblAmpersand,
             REL_COMPLEMENT = DblBackslash,
-            SYM_DIFFERENCE = Carrot,
+            SYM_DIFFERENCE = DblCarrot,
             COMPLEMENT = Exclamation
         };
 
