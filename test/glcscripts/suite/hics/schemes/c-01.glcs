@@ -1,0 +1,19 @@
+// hics/schemes/c-01.glcs - Test Chinese Calendar scheme.
+
+scheme C {
+    name "Chinese";
+    base chinese;
+}
+
+write nl;
+write @text.C( 2460494 ), @scheme.C( 2460494 ) nl;
+write @date.C( "78 41 5 0 27" ),  @scheme.C( "78 41 5 0 27" ) nl;
+write @text( {s:C 78, 41, 5, 0, 27} ), @date( {s:C 78, 41, 5, 0, 27} ) nl;
+
+/*[OUTPUT]
+
+78 41 5 0 27, {s:C 78, 41, 5, 0, 27}
+2460494, {s:C 78, 41, 5, 0, 27}
+78 41 5 0 27, 2460494
+
+[OUTPUT]*/
