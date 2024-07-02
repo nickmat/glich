@@ -43,7 +43,7 @@ namespace glich {
             Null, End, String, Name, Number, Field, Real,
             Equal, Plus, Minus, Divide, Star,
             PlusEq, MinusEq, DivideEq, StarEq,
-            Percent, Backslash, Tilde,
+            Percent, Backslash, DblBackslash, Tilde,
             Dot, Comma, Semicolon, Qmark,
             Vline, Ampersand, DblAmpersand, Exclamation, Carrot, At,
             Lbracket, Rbracket, LCbracket, RCbracket,
@@ -58,7 +58,7 @@ namespace glich {
             // Alternative token names
             UNION = Vline,
             INTERSECTION = DblAmpersand,
-            REL_COMPLEMENT = Backslash,
+            REL_COMPLEMENT = DblBackslash,
             SYM_DIFFERENCE = Carrot,
             COMPLEMENT = Exclamation
         };
