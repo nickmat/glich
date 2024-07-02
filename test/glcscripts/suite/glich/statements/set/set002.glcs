@@ -2,7 +2,7 @@
 
 let a = infinity;
 let b = future;
-let c = !empty;
+let c = !!empty;
 
 write nl;
 write a, b, c nl;

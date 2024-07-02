@@ -3,8 +3,8 @@
 
 let year = @string( @scheme( today )[year] );
 
-let x1 = !today && @date( year );
-let x2 = @phrase( "!today && " + year );
+let x1 = !!today && @date( year );
+let x2 = @phrase( "!!today && " + year );
 
 write x1 = x2;
 
