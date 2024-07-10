@@ -56,6 +56,9 @@ Mark::Mark( const string& name, Mark* prev )
 
 Mark::~Mark()
 {
+    for( auto& var : m_locals ) {
+        s_zero_store->remove( var );
+    }
     for( auto& code : m_functions ) {
         glc().remove_function( code );
     }
@@ -89,14 +92,6 @@ bool Mark::create_local( const string& name, Store* store )
     store->add_local( name, SValue() );
     m_locals.push_back( name );
     return true;
-}
-
-void Mark::remove_variables()
-{
-    assert( s_zero_store != nullptr );
-    for( auto& var : m_locals ) {
-        s_zero_store->remove( var );
-    }
 }
 
 string Mark::remove_next_object()

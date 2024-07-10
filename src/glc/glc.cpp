@@ -631,7 +631,6 @@ bool Glich::clear_mark( const string& name )
         return false; // Can't find mark name.
     }
     for( size_t i = end; i >= pos; --i ) {
-        m_marks[i]->remove_variables();
         string code;
         for( ;;) {
             code = m_marks[i]->remove_next_object();

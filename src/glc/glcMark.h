@@ -62,7 +62,6 @@ namespace glich {
         void add_grammar( Grammar* gmr ) { m_grammars.push_back( gmr ); }
         void add_format( Format* fmt ) { m_formats.push_back( fmt ); }
 
-        void remove_variables();
         std::string remove_next_object();
         std::string remove_next_file();
         std::string remove_next_lexicon();
