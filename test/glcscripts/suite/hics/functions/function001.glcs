@@ -2,9 +2,9 @@
 
 scheme G { base gregorian; }
 
-writeln "";
-writeln {s:G}@pseudo_in( "def" );
-writeln {s:G}@pseudo_out( "def" );
+write nl;
+write {s:G}@pseudo_in( "def" ) nl;
+write {s:G}@pseudo_out( "def" ) nl;
 
 /*[OUTPUT]
 
