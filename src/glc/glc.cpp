@@ -396,23 +396,6 @@ std::string glich::Glich::run_script_file( const std::string& filename )
     return oss.str();
 }
 
-SValue Glich::evaluate( const string& expression, Store* store )
-{
-    if( store ) {
-        store->set_prev( m_store );
-        m_store = store;
-    }
-    else {
-        push_store();
-    }
-    std::istringstream iss( expression );
-    std::ostringstream oss;
-    Script scr( this, iss, oss );
-    SValue value = evaluate( expression );
-    pop_store();
-    return value;
-}
-
 SValue Glich::evaluate( const string& expression )
 {
     std::istringstream iss( expression );

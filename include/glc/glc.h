@@ -85,7 +85,6 @@ namespace glich {
 
         std::string run_script( const std::string& script );
         std::string run_script_file( const std::string& filename );
-        SValue evaluate( const std::string& expression, Store* store );
         SValue evaluate( const std::string& expression );
 
         std::string get_init_error() const { return m_init_error; }
