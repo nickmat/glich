@@ -611,8 +611,8 @@ bool Script::do_object()
         error( "'{' expected." );
         return false;
     }
-    Object* obj = m_glc->create_object( code );
-    string str;
+    Object* obj = new Object( code );
+    bool ok = true;
     for( ;;) {
         SToken token = next_token();
         if( token.type() == SToken::Type::RCbracket ||
@@ -630,17 +630,24 @@ bool Script::do_object()
                 SpFunction fun = create_function( fcode );
                 if( fun == nullptr ) {
                     error( "Unable to create function." );
-                    return false;
+                    ok = false;
+                    break;
                 }
                 obj->add_function( fun );
             }
             else {
                 error( "Unknown object subcommand." );
-                return false;
+                ok = false;
+                break;
             }
         }
     }
-    return true;
+    if( ok ) {
+        glc().add_object( obj, code );
+        return true;
+    }
+    delete obj;
+    return false;
 }
 
 bool Script::do_file()

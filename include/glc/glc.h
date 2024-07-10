@@ -104,7 +104,6 @@ namespace glich {
         bool add_command( SpFunction com );
         void remove_command( const std::string& code );
         Function* get_command( const std::string& code ) const;
-        Object* create_object( const std::string& code );
         bool add_object( Object* obj, const std::string& code );
         Object* get_object( const std::string& code ) const;
         File* create_file( const std::string& code );

@@ -498,13 +498,6 @@ Function* Glich::get_command( const string& code ) const
     return nullptr;
 }
 
-Object* Glich::create_object( const string& code )
-{
-    Object* obj = new Object( code );
-    add_object( obj, code );
-    return obj;
-}
-
 bool Glich::add_object( Object* obj, const string& code )
 {
     if( obj == nullptr || m_lexicons.count( code ) ) {
