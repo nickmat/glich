@@ -65,8 +65,8 @@ Mark::~Mark()
     for( auto& code : m_commands ) {
         glc().remove_command( code );
     }
-    for( auto object : m_objects ) {
-        delete object;
+    for( auto code : m_objects ) {
+        glc().remove_object( code );
     }
     for( auto file : m_files ) {
         delete file;
@@ -92,18 +92,6 @@ bool Mark::create_local( const string& name, Store* store )
     store->add_local( name, SValue() );
     m_locals.push_back( name );
     return true;
-}
-
-string Mark::remove_next_object()
-{
-    string code;
-    if( !m_objects.empty() ) {
-        Object* obj = m_objects[m_objects.size() - 1];
-        code = obj->get_code();
-        delete obj;
-        m_objects.pop_back();
-    }
-    return code;
 }
 
 string Mark::remove_next_file()
@@ -179,9 +167,10 @@ GlcMark Mark::get_mark_data( const Glich* glc ) const
         mark.file.push_back( data );
     }
     for( auto object : m_objects ) {
-        Scheme* sch = dynamic_cast<Scheme*>(object);
+        Object* obj = glc->get_object( object );
+        Scheme* sch = dynamic_cast<Scheme*>(obj);
         if( sch == nullptr ) {
-            data.name = object->get_code();
+            data.name = object;
             data.value = string();
             mark.obj.push_back( data );
         }

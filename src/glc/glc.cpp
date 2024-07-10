@@ -500,13 +500,22 @@ Function* Glich::get_command( const string& code ) const
 
 bool Glich::add_object( Object* obj, const string& code )
 {
-    if( obj == nullptr || m_lexicons.count( code ) ) {
+    if( obj == nullptr || m_objects.count( code ) ) {
         delete obj;
         return false;
     }
-    m_marks[m_marks.size() - 1]->add_object( obj );
+    m_marks[m_marks.size() - 1]->add_object( code );
     m_objects[code] = obj;
     return true;
+}
+
+void Glich::remove_object( const string& code )
+{
+    if( m_objects.count( code ) == 0 ) {
+        return;
+    }
+    delete m_objects.find( code )->second;
+    m_objects.erase( code );
 }
 
 Object* Glich::get_object( const string& code ) const
@@ -625,13 +634,6 @@ bool Glich::clear_mark( const string& name )
     }
     for( size_t i = end; i >= pos; --i ) {
         string code;
-        for( ;;) {
-            code = m_marks[i]->remove_next_object();
-            if( code.empty() ) {
-                break;
-            }
-            m_objects.erase( code );
-        }
         for( ;;) {
             code = m_marks[i]->remove_next_file();
             if( code.empty() ) {

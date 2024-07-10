@@ -105,6 +105,7 @@ namespace glich {
         void remove_command( const std::string& code );
         Function* get_command( const std::string& code ) const;
         bool add_object( Object* obj, const std::string& code );
+        void remove_object( const std::string& code );
         Object* get_object( const std::string& code ) const;
         File* create_file( const std::string& code );
         File* get_file( const std::string& code ) const;
