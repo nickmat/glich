@@ -126,39 +126,6 @@ void Grammar::set_preferred( const string& fcode )
     m_pref_input_fcode = fcode;
 }
 
-FormatText* Grammar::create_format_text( const string& code )
-{
-    if( m_formats.count( code ) ) {
-        // Already there
-        return nullptr;
-    }
-    FormatText* fmt = new FormatText( code, *this );
-    m_formats[code] = fmt;
-    return fmt;
-}
-
-FormatIso* Grammar::create_format_iso( const string& code, const StdStrVec& rules )
-{
-    if( m_formats.count( code ) ) {
-        // Already there
-        return nullptr;
-    }
-    FormatIso* fmt = new FormatIso( code, *this, rules );
-    m_formats[code] = fmt;
-    return fmt;
-}
-
-FormatUnit* Grammar::create_format_unit( const string& code )
-{
-    if( m_formats.count( code ) ) {
-        // Already there
-        return nullptr;
-    }
-    FormatUnit* fmt = new FormatUnit( code, *this );
-    m_formats[code] = fmt;
-    return fmt;
-}
-
 bool Grammar::add_format( Format* fmt )
 {
     assert( fmt != NULL );
@@ -168,15 +135,6 @@ bool Grammar::add_format( Format* fmt )
         return false;
     }
     m_formats[code] = fmt;
-#if 0
-    // Set preferences to the first format by default.
-    if( m_pref_input_fcode.empty() ) {
-        m_pref_input_fcode = code;
-    }
-    if( m_pref_output_fcode.empty() ) {
-        m_pref_output_fcode = code;
-    }
-#endif
     return true;
 }
 
@@ -506,7 +464,7 @@ void Grammar::get_format_info( SchemeFormatInfo* info, const string& cur_code, I
 
 void Grammar::create_def_format()
 {
-    FormatText* fmt = create_format_text( "def" );
+    FormatText* fmt = new FormatText( "def", *this ); //create_format_text( "def" );
     if( fmt == nullptr ) {
         return;
     }
@@ -520,15 +478,17 @@ void Grammar::create_def_format()
     fmt->set_control_in( control );
     fmt->set_control_out( control );
     fmt->set_style( FormatStyle::Hidden );
+    add_format( fmt );
 }
 
 void Grammar::create_u_format()
 {
-    FormatUnit* fmt = create_format_unit( "u" );
+    FormatUnit* fmt = new FormatUnit( "u", *this ); // create_format_unit( "u" );
     if( fmt == nullptr ) {
         return;
     }
     fmt->set_style( FormatStyle::Hidden );
+    add_format( fmt );
 }
 
 // End of src/cal/calgrammar.cpp file

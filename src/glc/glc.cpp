@@ -656,17 +656,17 @@ bool Glich::clear_mark( const string& name )
             m_lexicons.erase( code );
         }
         for( ;;) {
+            code = m_marks[i]->remove_next_format();
+            if( code.empty() ) {
+                break;
+            }
+        }
+        for( ;;) {
             code = m_marks[i]->remove_next_grammar();
             if( code.empty() ) {
                 break;
             }
             m_grammars.erase( code );
-        }
-        for( ;;) {
-            code = m_marks[i]->remove_next_format();
-            if( code.empty() ) {
-                break;
-            }
         }
         delete m_marks[i];
         m_marks.pop_back();

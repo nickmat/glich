@@ -65,11 +65,13 @@ Mark::~Mark()
     for( auto lexicon : m_lexicons ) {
         delete lexicon;
     }
+    for( auto format : m_formats ) {
+        Grammar* owner = format->get_owner();
+        owner->remove_format( format->get_code() );
+        delete format;
+    }
     for( auto grammar : m_grammars ) {
         delete grammar;
-    }
-    for( auto format : m_formats ) {
-        delete format;
     }
 }
 

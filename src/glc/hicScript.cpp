@@ -551,97 +551,28 @@ Grammar* glich::do_create_grammar( Script& script, const std::string& code, cons
     return gmr;
 }
 
-namespace {
-
-    FormatText* create_format_text( Glich* glc, const string& code, Grammar* gmr )
-    {
-        size_t pos = code.find( ':' );
-        if( pos == string::npos ) {
-            if( gmr == nullptr ) {
-                return nullptr;
-            }
-            return gmr->create_format_text( code );
-        }
-        if( gmr != nullptr ) {
-            return nullptr;
-        }
-        string gcode = code.substr( 0, pos );
-        string fcode = code.substr( pos + 1 );
-        gmr = glc->get_grammar( gcode );
-        if( gmr == nullptr || gmr->get_format( fcode ) != nullptr ) {
-            return nullptr;
-        }
-        FormatText* fmt = new FormatText( fcode, *gmr );
-        if( !gmr->add_format( fmt ) ) {
-            delete fmt;
-            return nullptr;
-        }
-        glc->add_format( fmt, code );
-        return fmt;
-    }
-
-    FormatIso* create_format_iso( Glich* glc, const string& code, Grammar* gmr, const StdStrVec& rules )
-    {
-        size_t pos = code.find( ':' );
-        if( pos == string::npos ) {
-            if( gmr == nullptr ) {
-                return nullptr;
-            }
-            return gmr->create_format_iso( code, rules );
-        }
-        if( gmr != nullptr ) {
-            return nullptr;
-        }
-        string gcode = code.substr( 0, pos );
-        string fcode = code.substr( pos + 1 );
-        gmr = glc->get_grammar( gcode );
-        if( gmr == nullptr || gmr->get_format( fcode ) != nullptr ) {
-            return nullptr;
-        }
-        FormatIso* fmt = new FormatIso( fcode, *gmr, rules );
-        if( !gmr->add_format( fmt ) ) {
-            delete fmt;
-            return nullptr;
-        }
-        glc->add_format( fmt, code );
-        return fmt;
-    }
-
-    FormatUnit* create_format_unit( Glich* glc, const std::string& code, Grammar* gmr )
-    {
-        size_t pos = code.find( ':' );
-        if( pos == string::npos ) {
-            if( gmr == nullptr ) {
-                return nullptr;
-            }
-            return gmr->create_format_unit( code );
-        }
-        if( gmr != nullptr ) {
-            return nullptr;
-        }
-        string gcode = code.substr( 0, pos );
-        string fcode = code.substr( pos + 1 );
-        gmr = glc->get_grammar( gcode );
-        if( gmr == nullptr || gmr->get_format( fcode ) != nullptr ) {
-            return nullptr;
-        }
-        FormatUnit* fmt = new FormatUnit( fcode, *gmr );
-        if( !gmr->add_format( fmt ) ) {
-            delete fmt;
-            return nullptr;
-        }
-        glc->add_format( fmt, code );
-        return fmt;
-    }
-}
-
 // If gmr == nullptr then this is a standalone format.
 bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
 {
+    bool in_gmr = bool( gmr );
+    string gcode, fcode;
+    if( code.find( ':' ) == string::npos ) {
+        assert( in_gmr );
+        fcode = code;
+    }
+    else {
+        assert( !in_gmr );
+        split_code( &gcode, &fcode, code );
+        gmr = glc().get_grammar( gcode );
+        if( gmr == nullptr ) {
+            script.error( "Grammar not found." );
+            return false;
+        }
+    }
+
     string format_in, format_out, instring, outstring, separators, infun;
     StdStrVec rankfields, rankoutfields, rules;
     FormatStyle style = FormatStyle::Default;
-
     if( script.current_token().type() == SToken::Type::LCbracket ) {
         for( ;;) {
             SToken token = script.next_token();
@@ -731,7 +662,7 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
             script.error( "Format string not found." );
             return false;
         }
-        FormatText* fmtt = create_format_text( script.get_glich(), code, gmr );
+        FormatText* fmtt = new FormatText( fcode, *gmr ); // create_format_text( script.get_glich(), code, gmr );
         if( fmtt == nullptr ) {
             script.error( "Unable to create format." );
             return false;
@@ -763,14 +694,14 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
         fmt = fmtt;
     }
     else if( rules[0] == "iso8601" ) {
-        fmt = create_format_iso( script.get_glich(), code, gmr, rules );
+        fmt = new FormatIso( fcode, *gmr, rules ); // create_format_iso( script.get_glich(), code, gmr, rules );
         if( fmt == nullptr ) {
             script.error( "Unable to create ISO format." );
             return false;
         }
     }
     else if( rules[0] == "units" ) {
-        fmt = create_format_unit( script.get_glich(), code, gmr );
+        fmt = new FormatUnit( fcode, *gmr ); // create_format_unit( script.get_glich(), code, gmr );
         if( fmt == nullptr ) {
             script.error( "Unable to create Units format." );
             return false;
@@ -780,9 +711,16 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
         script.error( "Unknown rules statement." );
         return false;
     }
+    assert( fmt != nullptr );
     fmt->set_style( style );
-    if( gmr == nullptr ) {
-        fmt->construct();
+    fmt->construct();
+    
+    if( !gmr->add_format( fmt ) ) {
+        script.error( "Unable to add format to grammar." );
+        return false;
+    }
+    if( !in_gmr ) {
+        glc().add_format( fmt );
     }
     return true;
 }
