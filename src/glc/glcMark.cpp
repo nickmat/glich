@@ -56,6 +56,12 @@ Mark::Mark( const string& name, Mark* prev )
 
 Mark::~Mark()
 {
+    for( auto& code : m_functions ) {
+        glc().remove_function( code );
+    }
+    for( auto& code : m_commands ) {
+        glc().remove_command( code );
+    }
     for( auto object : m_objects ) {
         delete object;
     }
@@ -90,16 +96,6 @@ void Mark::remove_variables()
     assert( s_zero_store != nullptr );
     for( auto& var : m_locals ) {
         s_zero_store->remove( var );
-    }
-}
-
-void Mark::clear()
-{
-    for( auto& code : m_functions ) {
-        glc().remove_function( code );
-    }
-    for( auto& code : m_commands ) {
-        glc().remove_command( code );
     }
 }
 

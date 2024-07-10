@@ -63,7 +63,6 @@ namespace glich {
         void add_format( Format* fmt ) { m_formats.push_back( fmt ); }
 
         void remove_variables();
-        void clear();
         std::string remove_next_object();
         std::string remove_next_file();
         std::string remove_next_lexicon();
