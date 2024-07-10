@@ -589,7 +589,7 @@ Grammar* Glich::get_grammar( const string& code ) const
     return nullptr;
 }
 
-bool Glich::add_format( Format* fmt, const string& code )
+bool Glich::add_format( Format* fmt )
 {
     assert( m_marks.size() > 0 );
     m_marks[m_marks.size() - 1]->add_format( fmt );
