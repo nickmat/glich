@@ -59,11 +59,8 @@ namespace glich {
         void add_object( const std::string& code ) { m_objects.push_back( code ); }
         void add_file( const std::string& code ) { m_files.push_back( code ); }
         void add_lexicon( const std::string& code ) { m_lexicons.push_back( code ); }
-        void add_grammar( Grammar* gmr ) { m_grammars.push_back( gmr ); }
-        void add_format( Format* fmt ) { m_formats.push_back( fmt ); }
-
-        std::string remove_next_grammar();
-        std::string remove_next_format();
+        void add_grammar( const std::string& code ) { m_grammars.push_back( code ); }
+        void add_format( const std::string& code ) { m_formats.push_back( code ); }
 
         void set_integer( Integer intgr ) { m_integer = intgr; }
         void set_context( Context ct ) { m_context = ct; }
@@ -80,15 +77,15 @@ namespace glich {
     private:
         static inline Store*   s_zero_store = nullptr;
 
-        std::string            m_name;
-        StdStrVec              m_locals;
-        StdStrVec              m_functions;
-        StdStrVec              m_commands;
-        StdStrVec              m_objects;
-        StdStrVec              m_files;
-        StdStrVec              m_lexicons;
-        std::vector<Grammar*>  m_grammars;
-        std::vector<Format*>   m_formats;
+        std::string m_name;
+        StdStrVec m_locals;
+        StdStrVec m_functions;
+        StdStrVec m_commands;
+        StdStrVec m_objects;
+        StdStrVec m_files;
+        StdStrVec m_lexicons;
+        StdStrVec m_grammars;
+        StdStrVec m_formats;
         Integer m_integer;
         Context m_context;
         Scheme* m_ischeme;

@@ -114,8 +114,9 @@ namespace glich {
         void remove_lexicon( const std::string& code );
         Lexicon* get_lexicon( const std::string& code ) const;
         bool add_grammar( Grammar* gmr, const std::string& code );
+        void remove_grammar( const std::string& code );
         Grammar* get_grammar( const std::string& code ) const;
-        bool add_format( Format* fmt );
+        bool add_format( const std::string& code );
         bool add_scheme( Scheme* sch, const std::string& scode );
         Scheme* get_scheme( const std::string& scode ) const;
 

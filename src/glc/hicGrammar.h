@@ -92,7 +92,7 @@ namespace glich {
         StdStrVec get_calc_fieldnames() const { return m_calc_fieldnames; }
         StdStrVec get_rank_fieldnames() const { return m_rank_fieldnames; }
         Glich& get_glich() const { return *m_glc; }
-        void remove_format( const std::string& fcode ) { m_formats.erase( fcode ); }
+        void remove_format( const std::string& fcode );
 
         bool add_function( SpFunction fun );
         Function* get_function( const std::string& funcode ) const;

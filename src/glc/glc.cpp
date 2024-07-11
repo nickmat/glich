@@ -586,15 +586,24 @@ Lexicon* Glich::get_lexicon( const string& code ) const
 
 bool Glich::add_grammar( Grammar* gmr, const string& code )
 {
-    // Only add lexicons and that are not already there.
+    // Only add grammars and that are not already there.
     if( gmr == nullptr || m_grammars.count( code ) ) {
         delete gmr;
         return false;
     }
     assert( m_marks.size() > 0 );
-    m_marks[m_marks.size() - 1]->add_grammar( gmr );
+    m_marks[m_marks.size() - 1]->add_grammar( code );
     m_grammars[code] = gmr;
     return true;
+}
+
+void Glich::remove_grammar( const string& code )
+{
+    if( m_grammars.count( code ) == 0 ) {
+        return;
+    }
+    delete m_grammars.find( code )->second;
+    m_grammars.erase( code );
 }
 
 Grammar* Glich::get_grammar( const string& code ) const
@@ -605,10 +614,10 @@ Grammar* Glich::get_grammar( const string& code ) const
     return nullptr;
 }
 
-bool Glich::add_format( Format* fmt )
+bool Glich::add_format( const string& code )
 {
     assert( m_marks.size() > 0 );
-    m_marks[m_marks.size() - 1]->add_format( fmt );
+    m_marks[m_marks.size() - 1]->add_format( code );
     return true;
 }
 
@@ -647,20 +656,6 @@ bool Glich::clear_mark( const string& name )
         return false; // Can't find mark name.
     }
     for( size_t i = end; i >= pos; --i ) {
-        string code;
-        for( ;;) {
-            code = m_marks[i]->remove_next_format();
-            if( code.empty() ) {
-                break;
-            }
-        }
-        for( ;;) {
-            code = m_marks[i]->remove_next_grammar();
-            if( code.empty() ) {
-                break;
-            }
-            m_grammars.erase( code );
-        }
         delete m_marks[i];
         m_marks.pop_back();
     }

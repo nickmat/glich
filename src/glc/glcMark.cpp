@@ -74,13 +74,15 @@ Mark::~Mark()
     for( auto code : m_lexicons ) {
         glc().remove_lexicon( code );
     }
-    for( auto format : m_formats ) {
-        Grammar* owner = format->get_owner();
-        owner->remove_format( format->get_code() );
-        delete format;
+    for( auto code : m_formats ) {
+        string gcode, fcode;
+        split_code( &gcode, &fcode, code );
+        Grammar* gmr = glc().get_grammar( gcode );
+        assert( gmr != nullptr );
+        gmr->remove_format( fcode );
     }
-    for( auto grammar : m_grammars ) {
-        delete grammar;
+    for( auto code : m_grammars ) {
+        glc().remove_grammar( code );
     }
 }
 
@@ -92,34 +94,6 @@ bool Mark::create_local( const string& name, Store* store )
     store->add_local( name, SValue() );
     m_locals.push_back( name );
     return true;
-}
-
-string Mark::remove_next_grammar()
-{
-    string code;
-    if( !m_grammars.empty() ) {
-        Grammar* gmr = m_grammars[m_grammars.size() - 1];
-        code = gmr->get_code();
-        delete gmr;
-        m_grammars.pop_back();
-    }
-    return code;
-}
-
-string Mark::remove_next_format()
-{
-    string code;
-    if( !m_formats.empty() ) {
-        Format* fmt = m_formats[m_formats.size() - 1];
-        code = fmt->get_code();
-        Grammar* gmr = fmt->get_owner();
-        if( gmr ) {
-            gmr->remove_format( code );
-        }
-        delete fmt;
-        m_formats.pop_back();
-    }
-    return code;
 }
 
 GlcMark Mark::get_mark_data( const Glich* glc ) const
@@ -164,13 +138,14 @@ GlcMark Mark::get_mark_data( const Glich* glc ) const
         data.value = lex->get_name();
         mark.lex.push_back( data );
     }
-    for( auto gmr : m_grammars ) {
-        data.name = gmr->get_code();
+    for( auto code : m_grammars ) {
+        data.name = code;
+        Grammar* gmr = glc->get_grammar( code );
         data.value = gmr->get_name();
         mark.gmr.push_back( data );
     }
-    for( auto fmt : m_formats ) {
-        data.name = fmt->get_code();
+    for( auto code : m_formats ) {
+        data.name = code;
         data.value = string();
         mark.fmt.push_back( data );
     }

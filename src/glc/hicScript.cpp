@@ -720,7 +720,7 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
         return false;
     }
     if( !in_gmr ) {
-        glc().add_format( fmt );
+        glc().add_format( code );
     }
     return true;
 }

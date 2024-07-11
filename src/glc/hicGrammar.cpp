@@ -350,6 +350,15 @@ Lexicon* Grammar::find_lexicon( const string& code ) const
     return nullptr;
 }
 
+void Grammar::remove_format( const string& fcode )
+{
+    if( m_formats.count( fcode ) == 0 ) {
+        return;
+    }
+    delete m_formats.find( fcode )->second;
+    m_formats.erase( fcode );
+}
+
 bool Grammar::add_function( SpFunction fun )
 {
     m_functions[fun->get_code()] = fun;
