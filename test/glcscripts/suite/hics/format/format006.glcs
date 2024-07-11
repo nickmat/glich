@@ -1,0 +1,32 @@
+// format003.glcs  Test unit format declaration
+
+grammar G { 
+    fields year month day;
+    format DEF "{year}| {month}| {day}";
+}
+
+scheme J { base julian; grammar G; }
+
+format G:OBLIQUE {
+    separators "/";
+    inout "{day}/|{month}/|{year}";
+}
+
+write nl;
+write @text.J:DEF( 2460503 ) nl;
+write @text.J:DEF( 2460476..2460505 ) nl;
+write @text.J:DEF( 2432809..2432814 | 2460324..2460689 ) nl;
+write @text.J:OBLIQUE( 2460503 ) nl;
+write @text.J:OBLIQUE( 2460476..2460505 ) nl;
+write @text.J:OBLIQUE( 2432809..2432814 | 2460324..2460689 ) nl;
+
+/*[OUTPUT]
+
+2024 6 28
+2024 6
+1948 9 1..1948 9 6 | 2024
+28/6/2024
+6/2024
+1/9/1948..6/9/1948 | 2024
+
+[OUTPUT]*/
