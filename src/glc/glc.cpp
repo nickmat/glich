@@ -562,9 +562,18 @@ bool Glich::add_lexicon( Lexicon* lex, const string& code )
         return false;
     }
     assert( m_marks.size() > 0 );
-    m_marks[m_marks.size() - 1]->add_lexicon( lex );
+    m_marks[m_marks.size() - 1]->add_lexicon( code );
     m_lexicons[code] = lex;
     return true;
+}
+
+void Glich::remove_lexicon( const string& code )
+{
+    if( m_lexicons.count( code ) == 0 ) {
+        return;
+    }
+    delete m_lexicons.find( code )->second;
+    m_lexicons.erase( code );
 }
 
 Lexicon* Glich::get_lexicon( const string& code ) const
@@ -639,13 +648,6 @@ bool Glich::clear_mark( const string& name )
     }
     for( size_t i = end; i >= pos; --i ) {
         string code;
-        for( ;;) {
-            code = m_marks[i]->remove_next_lexicon();
-            if( code.empty() ) {
-                break;
-            }
-            m_lexicons.erase( code );
-        }
         for( ;;) {
             code = m_marks[i]->remove_next_format();
             if( code.empty() ) {

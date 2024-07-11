@@ -58,11 +58,10 @@ namespace glich {
         void add_command( const std::string& code ) { m_commands.push_back( code ); }
         void add_object( const std::string& code ) { m_objects.push_back( code ); }
         void add_file( const std::string& code ) { m_files.push_back( code ); }
-        void add_lexicon( Lexicon* lex ) { m_lexicons.push_back( lex ); }
+        void add_lexicon( const std::string& code ) { m_lexicons.push_back( code ); }
         void add_grammar( Grammar* gmr ) { m_grammars.push_back( gmr ); }
         void add_format( Format* fmt ) { m_formats.push_back( fmt ); }
 
-        std::string remove_next_lexicon();
         std::string remove_next_grammar();
         std::string remove_next_format();
 
@@ -87,7 +86,7 @@ namespace glich {
         StdStrVec              m_commands;
         StdStrVec              m_objects;
         StdStrVec              m_files;
-        std::vector<Lexicon*>  m_lexicons;
+        StdStrVec              m_lexicons;
         std::vector<Grammar*>  m_grammars;
         std::vector<Format*>   m_formats;
         Integer m_integer;

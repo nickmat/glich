@@ -111,6 +111,7 @@ namespace glich {
         void remove_file( const std::string& code );
         File* get_file( const std::string& code ) const;
         bool add_lexicon( Lexicon* lex, const std::string& code );
+        void remove_lexicon( const std::string& code );
         Lexicon* get_lexicon( const std::string& code ) const;
         bool add_grammar( Grammar* gmr, const std::string& code );
         Grammar* get_grammar( const std::string& code ) const;

@@ -71,8 +71,8 @@ Mark::~Mark()
     for( auto code : m_files ) {
         glc().remove_file( code );
     }
-    for( auto lexicon : m_lexicons ) {
-        delete lexicon;
+    for( auto code : m_lexicons ) {
+        glc().remove_lexicon( code );
     }
     for( auto format : m_formats ) {
         Grammar* owner = format->get_owner();
@@ -92,18 +92,6 @@ bool Mark::create_local( const string& name, Store* store )
     store->add_local( name, SValue() );
     m_locals.push_back( name );
     return true;
-}
-
-string Mark::remove_next_lexicon()
-{
-    string code;
-    if( !m_lexicons.empty() ) {
-        Lexicon* lex = m_lexicons[m_lexicons.size() - 1];
-        code = lex->get_code();
-        delete lex;
-        m_lexicons.pop_back();
-    }
-    return code;
 }
 
 string Mark::remove_next_grammar()
@@ -170,8 +158,9 @@ GlcMark Mark::get_mark_data( const Glich* glc ) const
             mark.sch.push_back( data );
         }
     }
-    for( auto lex : m_lexicons ) {
-        data.name = lex->get_code();
+    for( auto code : m_lexicons ) {
+        data.name = code;
+        Lexicon* lex = glc->get_lexicon( code );
         data.value = lex->get_name();
         mark.lex.push_back( data );
     }
