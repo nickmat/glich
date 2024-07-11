@@ -670,8 +670,8 @@ bool Script::do_file()
             error( "File code \"" + filecode + "\" already exists." );
             return false;
         }
-        file = glc().create_file( filecode );
-        if( file == nullptr ) {
+        file = new File( filecode );
+        if( !glc().add_file(file, filecode ) ) {
             error( "Unable to create file." );
             return false;
         }

@@ -107,7 +107,8 @@ namespace glich {
         bool add_object( Object* obj, const std::string& code );
         void remove_object( const std::string& code );
         Object* get_object( const std::string& code ) const;
-        File* create_file( const std::string& code );
+        bool add_file( File* file, const std::string& code );
+        void remove_file( const std::string& code );
         File* get_file( const std::string& code ) const;
         bool add_lexicon( Lexicon* lex, const std::string& code );
         Lexicon* get_lexicon( const std::string& code ) const;

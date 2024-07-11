@@ -526,19 +526,24 @@ Object* Glich::get_object( const string& code ) const
     return nullptr;
 }
 
-File* Glich::create_file( const string& code )
+bool Glich::add_file( File* file, const string& code )
 {
-    File* file = get_file( code );
-    if( file != nullptr ) {
-        // Already exists.
-        return nullptr;
+    if( file == nullptr || m_files.count( code ) ) {
+        delete file;
+        return false;
     }
-    file = new File( code );
-
-    assert( m_marks.size() > 0 );
-    m_marks[m_marks.size() - 1]->add_file( file );
+    m_marks[m_marks.size() - 1]->add_file( code );
     m_files[code] = file;
-    return file;
+    return true;
+}
+
+void Glich::remove_file( const string& code )
+{
+    if( m_files.count( code ) == 0 ) {
+        return;
+    }
+    delete m_files.find( code )->second;
+    m_files.erase( code );
 }
 
 File* Glich::get_file( const string& code ) const
@@ -634,13 +639,6 @@ bool Glich::clear_mark( const string& name )
     }
     for( size_t i = end; i >= pos; --i ) {
         string code;
-        for( ;;) {
-            code = m_marks[i]->remove_next_file();
-            if( code.empty() ) {
-                break;
-            }
-            m_files.erase( code );
-        }
         for( ;;) {
             code = m_marks[i]->remove_next_lexicon();
             if( code.empty() ) {
