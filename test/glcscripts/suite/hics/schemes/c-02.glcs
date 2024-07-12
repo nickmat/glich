@@ -12,9 +12,8 @@ lexicon CLMON {
 }
 
 grammar C {
-    fields cycle cyear month lmonth day;
+    fields cycle cyear lmonth month day;
     calculated clmonth;
-    rank cycle cyear clmonth month day;
     lexicons CLMON;
     alias pseudo { dd day; mm month; lm lmonth; yy year; cc cycle; }
     alias unit { d day; m month; lm lmonth; y cyear; c cycle; }
@@ -53,9 +52,9 @@ write @text.C:full( d2 ), @scheme.C( d2 ) nl;
 
 /*[OUTPUT]
 
-78 1 10 15, {s:C 78, 1, 10, 0, 15, null}
-78 1 Leap 10 15, {s:C 78, 1, 10, 1, 15, 1}
-Cycle: 78 Year: 1 Month: 10 Day: 15, {s:C 78, 1, 10, 0, 15, null}
-Cycle: 78 Year: 1 Leap Month: 10 Day: 15, {s:C 78, 1, 10, 1, 15, 1}
+78 1 10 15, {s:C 78, 1, 0, 10, 15, null}
+78 1 Leap 10 15, {s:C 78, 1, 1, 10, 15, 1}
+Cycle: 78 Year: 1 Month: 10 Day: 15, {s:C 78, 1, 0, 10, 15, null}
+Cycle: 78 Year: 1 Leap Month: 10 Day: 15, {s:C 78, 1, 1, 10, 15, 1}
 
 [OUTPUT]*/
