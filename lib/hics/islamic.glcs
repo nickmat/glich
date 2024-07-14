@@ -1,0 +1,98 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Name:        lib/hics/islamic.glcs
+ * Project:     Glich: Extendable Script Language.
+ * Purpose:     Default script for Islamic Calendar Schemes.
+ * Author:      Nick Matthews
+ * Website:     https://github.com/nickmat/glich
+ * Created:     28th June 2024
+ * Copyright:   Copyright (c) 2024, Nick Matthews.
+ * Licence:     GNU GPLv3
+ *
+ *  Glich is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Glich is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Glich.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*/
+
+lexicon im {
+    name "Islamic Month names";
+    fieldname month;
+    lang en;
+    pseudo    Month, Mon;
+    tokens {
+        1, "Muḥarram",         "Muharram";
+        2, "Ṣafar",            "Safar";
+        3, "Rabī‘ al-Awwal",   "Rabi' I";
+        4, "Rabī‘ al-Ākhir",   "Rabi' II";
+        5, "Jumādá al-Ūlá",    "Jumada I";
+        6, "Jumādá al-Ākhira", "Jumada II";
+        7, "Rajab";
+        8, "Sha‘bān",          "Sha'aban";
+        9, "Ramaḍān",          "Ramadan";
+        10, "Shawwāl",         "Shawwal";
+        11, "Dhū al-Qa‘dah",   "Dhu al-Qa'dah";
+        12, "Dhū al-Ḥijjah",   "Dhu al-Hijjah";
+    }
+}
+
+lexicon iw {
+    name "Islamic Weekday names";
+    fieldname wsday; // Note: Days are numbered from Sunday, unlike "wday".
+    lang en;
+    pseudo    Weekday, WDay;
+    tokens {
+        1, "Yawm al-Aḥad",       "Ahad"; // Sunday
+        2, "Yawm al-Ithnayn",    "Ithn"; // Monday
+        3, "Yawm ath-Thulāthāʼ", "Thul"; // Tuesday
+        4, "Yawm al-Arbi‘ā’",    "Arbi"; // Wednesday
+        5, "Yawm al-Khamīs",     "Kham"; // Thursday
+        6, "Yawm al-Jumu‘ah",    "Jumu"; // Friday
+        7, "Yawm as-Sabt",       "Sabt"; // Saturday
+    }
+}
+
+grammar i {
+    fields year month day;
+    optional wsday;
+    lexicons im iw;
+    alias pseudo { w wsday; dd day; mm month; yyyy year; }
+    alias unit { d day; m month; y year; }
+
+    format  dmy    "{day} |{month:im} |{year}";
+    format  dmy_a  "{day} |{month:im:a} |{year}";
+    format  dmy_d  "{day} |{month} |{year}";
+    format  wdmy   "{wsday:iw} |{day} |{month:im} |{year}";
+    format  wdmy_a "{wsday:iw:a} |{day} |{month:im:a} |{year}";
+    format  ymd    "{year}| {month:im:a}| {day}";
+    preferred dmy;
+}
+
+scheme i {
+    name "Islamic Tabular";
+    base islamic IIc;
+    grammar i;
+}
+
+scheme ims {
+    name "Islamic Microsoft Hijri";
+    base islamic IIa;
+    grammar i;
+}
+
+scheme "if" {
+    name "Islamic Fātimid";
+    base islamic IIIa;
+    grammar i;
+}
+
+// End of lib/hics/islamic.glcs file
