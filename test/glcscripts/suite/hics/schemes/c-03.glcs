@@ -1,0 +1,150 @@
+// hics/schemes/c-03.glcs - Test Proposed Chinese Calendar scheme.
+
+lexicon CSTEM {
+    name "Chinese Year Stem";
+    fieldname stem;
+    lang en;
+    pseudo   Stem,   Stm;
+    tokens {
+        1,  "Jiǎ",  "Jia";
+        2,  "Yǐ",   "Yi";
+        3,  "Bǐng", "Bing";
+        4,  "Dīng", "Ding";
+        5,  "Wù",   "Wu";
+        6,  "Jǐ",   "Ji";
+        7,  "Gēng", "Geng";
+        8,  "Xīn",  "Xin";
+        9,  "Rén",  "Ren";
+        10, "Guì",  "Gui";
+    }
+}
+
+lexicon CBRCH {
+    name "Chinese Year Branch";
+    fieldname branch;
+    lang en;
+    pseudo  branch,  brch;
+    tokens {
+        1,  "Zǐ",   "Zi";
+        2,  "Chǒu", "Chou";
+        3,  "Yín",  "Yin";
+        4,  "Mǎo",  "Mao";
+        5,  "Chén", "Chen";
+        6,  "Sì",   "Si";
+        7,  "Wǔ",   "Wu";
+        8,  "Wèi",  "Wei";
+        9,  "Shēn", "Shen";
+        10, "Yǒu",  "You";
+        11, "Xū",   "Xu";
+        12, "Hài",  "Hai";
+    }
+}
+
+lexicon LMON {
+    name "Leap month";
+    fieldname clmonth;
+    lang en;
+    pseudo     LeapMon,     LM;
+    tokens {
+        0,  "Month";
+        1,  "Leap-month", "Leap";
+    }
+}
+
+lexicon FS {
+    name "First and Second";
+    fieldname lmonth;
+    lang en;
+    pseudo     FirstSecond,     FS;
+    tokens {
+        0,  "First", "F";
+        1,  "Second", "S";
+    }
+}
+
+grammar C {
+    fields cycle cyear lmonth month day;
+    calculated clmonth stem branch;
+    // cycle cyear lmonth month day clmonth stem branch
+    lexicons LMON FS CSTEM CBRCH;
+    alias pseudo { dd day; mm month; lm lmonth; yy year; cc cycle; }
+    alias unit { d day; m month; lm lmonth; y cyear; c cycle; }
+
+    function calc_to_def {
+        lmonth = @if(clmonth=null, 0, 1);
+        if stem <> null and branch <> null
+            cyear = ((stem - branch) mod 12) * 5 + stem;
+        endif
+        result = this;
+    }
+    function def_to_calc {
+        clmonth = @if(lmonth=0, null, 1);
+        stem = (cyear - 1) mod 10 + 1;
+        branch = (cyear - 1) mod 12 + 1;
+        result = this;
+    }
+    use { calculate def_to_calc; from:text calc_to_def; }
+
+    // Note, format used in "Calendrical Calculations"
+    format cymld {
+        inout "{cycle}| {cyear}| {month}| {lmonth:FS:a:l}| {day}";
+        use:in def_to_calc;
+    }
+
+    format cylmd {
+        inout "{cycle}| {cyear}| {clmonth:LMON:a}| {month}| {day}";
+        rank cycle cyear month day;
+        use:in calc_to_def;
+    }
+    format cylmd_s {
+        inout "{cycle}| {stem:CSTEM}|-{branch:CBRCH::l}|, {clmonth:LMON:a}| {month}| {day}";
+        rank cycle month day;
+        separators ",-";
+    }
+    format full {
+        output "Cycle: {cycle},| Year: {stem:CSTEM}-{branch:CBRCH::l} ({cyear}),| {lmonth:LMON}:| {month},| Day: {day}";
+    }
+    preferred cymld;
+}
+
+scheme C {
+  name "Chinese";
+  base chinese;
+  grammar C;
+}
+
+let d1 = 2460866;
+let d2 = 2460896;
+
+
+write nl;
+write @scheme.C(d1), @scheme.C(d2) nl;
+write @scheme.C("78 42 6 f 15"), @scheme.C("78 42 6 s 15") nl;
+write @text.C( d1 ), @text.C( d2 ) nl;
+write @text.C:cylmd( d1 ), @text.C:cylmd( d2 ) nl;
+write @text.C:cylmd_s( d1 ), @text.C:cylmd_s( d2 ) nl;
+write @date( {s:C 78, 42, 0, 6, 15} ), @date( {s:C 78, 42, 1, 6, 15} ) nl;
+write @date( {s:C 78, 42,, 6, 15}@calc_to_def ), @date( {s:C 78, 42,, 6, 15, 1}@calc_to_def ) nl;
+write @date( {s:C 78,,, 6, 15,, 2, 6}@calc_to_def ), @date( {s:C 78,,, 6, 15, 1, 2, 6}@calc_to_def ) nl;
+write @date.C("78 42 6 f 15"), @date.C("78 42 6 s 15") nl;
+write @date.C:cylmd("78 42 6 15"), @date.C:cylmd("78 42 Leap 6 15") nl;
+write @date.C:cylmd_s("78 Yǐ-sì 6 15"), @date.C:cylmd_s("78 Yǐ-sì, Leap 6 15") nl;
+write @text.C:full( d1 ) nl @text.C:full( d2 ) nl;
+
+/*[OUTPUT]
+
+{s:C 78, 42, 0, 6, 15, null, 2, 6}, {s:C 78, 42, 1, 6, 15, 1, 2, 6}
+{s:C 78, 42, 0, 6, 15, null, 2, 6}, {s:C 78, 42, 1, 6, 15, 1, 2, 6}
+78 42 6 f 15, 78 42 6 s 15
+78 42 6 15, 78 42 Leap 6 15
+78 Yǐ-sì 6 15, 78 Yǐ-sì, Leap 6 15
+2460866, 2460896
+2460866, 2460896
+2460866, 2460896
+2460866, 2460896
+2460866, 2460896
+2460866, 2460896
+Cycle: 78, Year: Yǐ-sì (42), Month: 6, Day: 15
+Cycle: 78, Year: Yǐ-sì (42), Leap-month: 6, Day: 15
+
+[OUTPUT]*/
