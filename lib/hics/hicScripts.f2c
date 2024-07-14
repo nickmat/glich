@@ -42,6 +42,7 @@ glich::ScriptModule glich::hics_default_scripts[] = {
     { "hebrew", @(cp.cpp)"hebrew.glcs" },
     { "french_rep", @(cp.cpp)"french_rep.glcs" },
     { "islamic", @(cp.cpp)"islamic.glcs" },
+    { "chinese", @(cp.cpp)"chinese.glcs" },
 };
 
 size_t glich::hics_default_scripts_size =

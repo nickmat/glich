@@ -1,0 +1,163 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Name:        lib/hics/chinese.glcs
+ * Project:     Glich: Extendable Script Language.
+ * Purpose:     Default script for Chinese Calendar Schemes.
+ * Author:      Nick Matthews
+ * Website:     https://github.com/nickmat/glich
+ * Created:     14th July 2024
+ * Copyright:   Copyright (c) 2024, Nick Matthews.
+ * Licence:     GNU GPLv3
+ *
+ *  Glich is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Glich is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Glich.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*/
+
+
+lexicon cstem {
+    name "Chinese Year Stem";
+    fieldname stem;
+    lang en;
+    pseudo   Stem,   Stm;
+    tokens {
+        1,  "Jiǎ",  "Jia";
+        2,  "Yǐ",   "Yi";
+        3,  "Bǐng", "Bing";
+        4,  "Dīng", "Ding";
+        5,  "Wù",   "Wu";
+        6,  "Jǐ",   "Ji";
+        7,  "Gēng", "Geng";
+        8,  "Xīn",  "Xin";
+        9,  "Rén",  "Ren";
+        10, "Guì",  "Gui";
+    }
+}
+
+lexicon cbrch {
+    name "Chinese Year Branch";
+    fieldname branch;
+    lang en;
+    pseudo  branch,  brch;
+    tokens {
+        1,  "Zǐ",   "Zi";
+        2,  "Chǒu", "Chou";
+        3,  "Yín",  "Yin";
+        4,  "Mǎo",  "Mao";
+        5,  "Chén", "Chen";
+        6,  "Sì",   "Si";
+        7,  "Wǔ",   "Wu";
+        8,  "Wèi",  "Wei";
+        9,  "Shēn", "Shen";
+        10, "Yǒu",  "You";
+        11, "Xū",   "Xu";
+        12, "Hài",  "Hai";
+    }
+}
+
+lexicon animal {
+    name "Chinese Year Animals";
+    fieldname branch;
+    lang en;
+    pseudo  Animal;
+    tokens {
+        1,  "Rat";
+        2,  "Ox";
+        3,  "Tiger";
+        4,  "Rabbit";
+        5,  "Dragon";
+        6,  "Snake";
+        7,  "Horse";
+        8,  "Goat";
+        9,  "Monkey";
+        10, "Rooster";
+        11, "Dog";
+        12, "Pig";
+    }
+}
+
+lexicon lmon {
+    name "Leap month";
+    fieldname clmonth;
+    lang en;
+    pseudo     LeapMon,     LM;
+    tokens {
+        0,  "Month";
+        1,  "Leap-month", "Leap";
+    }
+}
+
+lexicon fs {
+    name "First and Second";
+    fieldname lmonth;
+    lang en;
+    pseudo     FirstSecond,     FS;
+    tokens {
+        0,  "First", "F";
+        1,  "Second", "S";
+    }
+}
+
+grammar c {
+    name "Chinese";
+    fields cycle cyear lmonth month day;
+    calculated clmonth stem branch;
+    // Record: cycle cyear lmonth month day clmonth stem branch
+    lexicons lmon fs cstem cbrch;
+    alias pseudo { dd day; mm month; lm lmonth; yy year; cc cycle; }
+    alias unit { d day; m month; lm lmonth; y cyear; c cycle; }
+
+    function calc_to_def {
+        lmonth = @if(clmonth=null, 0, 1);
+        if stem <> null and branch <> null
+            cyear = ((stem - branch) mod 12) * 5 + stem;
+        endif
+        result = this;
+    }
+    function def_to_calc {
+        clmonth = @if(lmonth=0, null, 1);
+        stem = (cyear - 1) mod 10 + 1;
+        branch = (cyear - 1) mod 12 + 1;
+        result = this;
+    }
+    use { calculate def_to_calc; from:text calc_to_def; }
+
+    // Note, format used in "Calendrical Calculations"
+    format cymld {
+        inout "{cycle}| {cyear}| {month}| {lmonth:fs:a:l}| {day}";
+        use:in def_to_calc;
+    }
+    format cylmd {
+        inout "{cycle}| {cyear}| {clmonth:lmon:a}| {month}| {day}";
+        rank cycle cyear month day;
+        use:in calc_to_def;
+    }
+    format cylmd_s {
+        inout "{cycle}| {stem:cstem}|-{branch:cbrch::l}|, {clmonth:lmon:a}| {month}| {day}";
+        rank cycle month day;
+        separators ",-";
+    }
+    format full {
+        output "Cycle: {cycle},| Year: {stem:cstem}-{branch:cbrch::l} ({cyear}),| {lmonth:lmon}:| {month},| Day: {day}";
+    }
+    format pop { output "({cycle}c)| {cyear} Year of the {branch:animal}| {month}| {lmonth:lmon}| {day}d"; }
+    preferred cymld;
+}
+
+scheme c {
+  name "Chinese";
+  base chinese;
+  grammar c;
+}
+
+// End of lib/hics/chinese.glcs file
