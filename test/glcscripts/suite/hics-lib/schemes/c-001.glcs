@@ -1,4 +1,4 @@
-// hics/schemes/c-03.glcs - Test Hics library Chinese Calendar scheme.
+// hics-lib/schemes/c-001.glcs - Test Hics library Chinese Calendar scheme.
 
 
 let d1 = 2460866;
