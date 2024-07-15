@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Name:        glc/glc/hicFormatText.cpp
+ * Name:        src/glc/hicFormatText.cpp
  * Project:     Glich: Extendable Script Language.
  * Purpose:     FormatText class to control formatting and parsing of dates.
  * Author:      Nick Matthews
@@ -587,4 +587,4 @@ bool FormatText::resolve_input( const Base& base, FieldVec& fields, InputFieldVe
     return true;
 }
 
-// End of src/cal/calformattext.cpp file
+// End of src/glc/hicFormatText.cpp file
