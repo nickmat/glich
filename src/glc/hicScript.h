@@ -51,6 +51,7 @@ namespace glich {
     SValue at_first( Script& script );
     SValue at_pseudo_in( Script& script );
     SValue at_pseudo_out( Script& script );
+    SValue at_has_shorthand( Script& script );
 }
 
 #endif // SRC_GLC_HICSCRIPT_H
