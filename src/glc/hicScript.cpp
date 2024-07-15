@@ -937,6 +937,9 @@ SValue glich::at_date( Script& script )
     split_code( &scode, &fcode, sig );
     Glich* glc = script.get_glich();
     Scheme* sch = glc->get_scheme( scode );
+    if( sch == nullptr && !scode.empty() ) {
+        return SValue::create_error( "Scheme \"" + scode + "\" not found." );
+    }
     if( args.empty() ) {
         return SValue::create_error( "One argument required." );
     }
