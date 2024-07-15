@@ -577,7 +577,11 @@ bool FormatText::resolve_input( const Base& base, FieldVec& fields, InputFieldVe
         for( size_t j = start; j < m_fmt_to_rank_index.size(); j++ ) {
             size_t default_index = m_fmt_to_rank_index[j];
             if( default_index < element_size ) {
-                fields[m_rank_to_def_index[default_index]] = element_list[i];
+                size_t ranked_index = m_rank_to_def_index[default_index];
+                if( ranked_index >= fields.size() ) {
+                    continue;
+                }
+                fields[ranked_index] = element_list[i];
                 start = j;
                 start++;
                 break;
