@@ -1,0 +1,76 @@
+// hics/schemes/c-04.glcs - Test Proposed Chinese Calendar scheme shorthand ranges
+
+lexicon FS {
+    name "First and Second";
+    fieldname lmonth;
+    lang en;
+    pseudo     FirstSecond,     FS;
+    tokens {
+        0,  "First", "F";
+        1,  "Second", "S";
+    }
+}
+
+grammar C {
+    fields cycle cyear month lmonth day;
+    calculated clmonth stem branch;
+    // cycle cyear lmonth month day clmonth stem branch
+    lexicons FS;
+    alias pseudo { dd day; mm month; lm lmonth; yy year; cc cycle; }
+    alias unit { d day; m month; lm lmonth; y cyear; c cycle; }
+
+    function calc_to_def {
+        lmonth = @if(clmonth=null, 0, 1);
+        if stem <> null and branch <> null
+            cyear = ((stem - branch) mod 12) * 5 + stem;
+        endif
+        result = this;
+    }
+    function def_to_calc {
+        clmonth = @if(lmonth=0, null, 1);
+        stem = (cyear - 1) mod 10 + 1;
+        branch = (cyear - 1) mod 12 + 1;
+        result = this;
+    }
+    use { calculate def_to_calc; from:text calc_to_def; }
+
+    // Note, format used in "Calendrical Calculations"
+    format cymld {
+        inout "{cycle}| {cyear}| {month}| {lmonth:FS:a:l}| {day}";
+        use:in def_to_calc;
+    }
+    preferred cymld;
+}
+
+scheme C {
+  name "Chinese";
+  base chinese;
+  grammar C;
+}
+
+
+write nl;
+write @has_shorthand.C:u, @has_shorthand.C:def, @has_shorthand.C:cymld nl;
+write @date.C( "78 42 6 f 15" ), @text.C( 2460866 ) nl;
+write @date.C( "78 42 6 f" ), @text.C( 2460852..2460881 ) nl;
+write @date.C( "78 42 6 s" ), @text.C( 2460882..2460910 ) nl;
+write @date.C( "78 42 7 f" ), @text.C( 2460911..2460940 ) nl;
+write @date.C( "78 42 6" ), @text.C( 2460852..2460910 ) nl;
+write @date.C( "78 42 7" ), @text.C( 2460911..2460940 ) nl;
+write @date.C( "78 42" ), @text.C( 2460705..2461088 ) nl;
+write @date.C( "78" ), @text.C( 2445733..2467644 ) nl;
+
+
+/*[OUTPUT]
+
+false, true, true
+2460866, 78 42 6 f 15
+2460852..2460881, 78 42 6 f
+2460882..2460910, 78 42 6 s
+2460911..2460940, 78 42 7
+2460852..2460910, 78 42 6
+2460911..2460940, 78 42 7
+2460705..2461088, 78 42
+2445733..2467644, 78
+
+[OUTPUT]*/

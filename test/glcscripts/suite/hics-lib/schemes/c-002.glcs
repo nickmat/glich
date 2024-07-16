@@ -1,0 +1,31 @@
+// c-002.glcs  Test c scheme shortcut ranges.
+
+
+write nl;
+write @has_shorthand.c:u, @has_shorthand.c:def,
+    @has_shorthand.c:cymld, @has_shorthand.c:cylmd,
+    @has_shorthand.c:cylmd_s, @has_shorthand.c:full,
+    @has_shorthand.c:pop  nl;
+write @date.c( "78 42 6 f 15" ), @text.c( 2460866 ) nl;
+write @date.c( "78 42 6 f" ), @text.c( 2460852..2460881 ) nl;
+write @date.c( "78 42 6 s" ), @text.c( 2460882..2460910 ) nl;
+write @date.c( "78 42 7 f" ), @text.c( 2460911..2460940 ) nl;
+write @date.c( "78 42 6" ), @text.c( 2460852..2460910 ) nl;
+write @date.c( "78 42 7" ), @text.c( 2460911..2460940 ) nl;
+write @date.c( "78 42" ), @text.c( 2460705..2461088 ) nl;
+write @date.c( "78" ), @text.c( 2445733..2467644 ) nl;
+
+
+/*[OUTPUT]
+
+false, true, true, false, false, false, false
+2460866, 78 42 6 f 15
+2460852..2460881, 78 42 6 f
+2460882..2460910, 78 42 6 s
+2460911..2460940, 78 42 7
+2460852..2460910, 78 42 6
+2460911..2460940, 78 42 7
+2460705..2461088, 78 42
+2445733..2467644, 78
+
+[OUTPUT]*/
