@@ -228,8 +228,7 @@ namespace {
                 c++;
             }
         }
-        Field day = chinese_last_day_of_month( c, y, m, 0 );
-        Field jdn2 = chinese_to_jdn( cycle, year, month, 0, day );
+        Field jdn2 = chinese_to_jdn( c, y, m, 0, 1 );
         return (jdn2 - jdn1) > 30;
     }
 
