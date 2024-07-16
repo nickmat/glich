@@ -195,8 +195,9 @@ BoolVec Base::mark_balanced_fields(
     size_t rank_index = size - 1;
     while( rank_index > 0 ) {
         size_t def_index = rank_to_def[rank_index];
-        if( fbeg[def_index] == get_beg_field_value( fbeg, def_index ) &&
-            fend[def_index] == get_end_field_value( fend, def_index ) )
+        Field beg = get_beg_field_value( fbeg, def_index );
+        Field end = get_end_field_value( fend, def_index );
+        if( fbeg[def_index] == beg && fend[def_index] == end )
         {
             mask[def_index] = false;
         }
