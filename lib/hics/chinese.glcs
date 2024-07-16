@@ -110,9 +110,9 @@ lexicon fs {
 
 grammar c {
     name "Chinese";
-    fields cycle cyear lmonth month day;
+    fields cycle cyear month lmonth day;
     calculated clmonth stem branch;
-    // Record: cycle cyear lmonth month day clmonth stem branch
+    // Record: cycle cyear month lmonth day clmonth stem branch
     lexicons lmon fs cstem cbrch;
     alias pseudo { dd day; mm month; lm lmonth; yy year; cc cycle; }
     alias unit { d day; m month; lm lmonth; y cyear; c cycle; }

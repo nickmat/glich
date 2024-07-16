@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     13th August 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -42,10 +42,10 @@ using std::string;
 namespace {
 
     enum ChineseField {
-        CHIN_cycle, CHIN_cyear, CHIN_lmonth, CHIN_month, CHIN_day
+        CHIN_cycle, CHIN_cyear, CHIN_month, CHIN_lmonth, CHIN_day
     };
 
-    enum class ChinFN { cycle, cyear, lmonth, month, day };
+    enum class ChinFN { cycle, cyear, month, lmonth, day };
 
     // CC3 p262
     const Field chinese_month_name_epoch = 57;
@@ -150,7 +150,7 @@ namespace {
 
     // CC3 p259 chinese-from-fixed
     bool chinese_from_jdn(
-        Field* cycle, Field* year, Field* lmonth, Field* month, Field* day, Field jdn )
+        Field* cycle, Field* year, Field* month, Field* lmonth, Field* day, Field jdn )
     {
         Field s1 = chinese_winter_solstice_on_or_before( jdn );
         Field s2 = chinese_winter_solstice_on_or_before( s1 + 370 );
@@ -184,7 +184,7 @@ namespace {
     }
 
     // CC3 p260 fixed-from-chinese
-    Field chinese_to_jdn( Field cycle, Field year, Field lmonth, Field month, Field day )
+    Field chinese_to_jdn( Field cycle, Field year, Field month, Field lmonth, Field day )
     {
         Field midyear = BASEDATE_Chinese + 
             floor_f( ( double( (cycle-1) * 60 + year ) - 0.5 ) * mean_tropical_year );
@@ -209,14 +209,14 @@ namespace {
 
     Field chinese_last_day_of_month( Field cycle, Field year, Field month, Field leap )
     {
-        Field jdn1 = chinese_to_jdn( cycle, year, leap, month, 1 );
+        Field jdn1 = chinese_to_jdn( cycle, year, month, leap, 1 );
         Field jdn2 = chinese_new_moon_on_or_after( jdn1 + 1 );
         return jdn2 - jdn1;
     }
 
     bool chinese_is_leap_month( Field cycle, Field year, Field month )
     {
-        Field jdn1 = chinese_to_jdn( cycle, year, 0, month, 1 );
+        Field jdn1 = chinese_to_jdn( cycle, year, month, 0, 1 );
         Field m = month + 1;
         Field y = year;
         Field c = cycle;
@@ -229,7 +229,7 @@ namespace {
             }
         }
         Field day = chinese_last_day_of_month( c, y, m, 0 );
-        Field jdn2 = chinese_to_jdn( cycle, year, 0, month, day );
+        Field jdn2 = chinese_to_jdn( cycle, year, month, 0, day );
         return (jdn2 - jdn1) > 30;
     }
 
@@ -239,7 +239,7 @@ namespace {
 Chinese::Chinese( const string& data )
     : Base( data, 5 )
 {
-    m_fieldnames = { "cycle", "cyear", "lmonth", "month", "day" };
+    m_fieldnames = { "cycle", "cyear", "month", "lmonth", "day" };
 }
 
 Field Chinese::get_jdn( const FieldVec& fields ) const

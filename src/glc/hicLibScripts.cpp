@@ -711,7 +711,7 @@ glich::ScriptModule glich::hics_default_scripts[] = {
  "}\n"
  "grammar c {\n"
  "name \"Chinese\";\n"
- "fields cycle cyear lmonth month day;\n"
+ "fields cycle cyear month lmonth day;\n"
  "calculated clmonth stem branch;\n"
  "lexicons lmon fs cstem cbrch;\n"
  "alias pseudo { dd day; mm month; lm lmonth; yy year; cc cycle; }\n"
