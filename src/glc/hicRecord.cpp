@@ -227,10 +227,9 @@ SValue Record::get_object( const string& ocode ) const
 BoolVec Record::mark_balanced_fields( Record& rec, const XIndexVec& rank_to_def, size_t size )
 {
     assert( size > 0 && rank_to_def.size() >= size );
-    BoolVec mask( m_f.size(), true );
     // Both must have the same Base and not be identical.
     if( &m_base != &rec.m_base || m_jdn == rec.get_jdn() ) {
-        return mask;
+        return BoolVec( m_f.size(), true );
     }
     return m_base.mark_balanced_fields( get_field_vec(), rec.get_field_vec(), rank_to_def, size );
 }
