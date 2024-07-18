@@ -60,7 +60,7 @@ namespace glich {
     class Format
     {
     public:
-        Format( const std::string& code, Grammar& gmr );
+        Format( const std::string& code, Grammar& gmr, FmtRules rules );
         virtual ~Format();
         Format( const Format& ) = delete;
         Format& operator=( const Format& ) = delete;
@@ -86,6 +86,7 @@ namespace glich {
         bool has_use_function() const { return !m_input_function.empty(); }
         std::string get_from_text_funcode() const { return m_input_function; }
         FormatStyle get_style() const { return m_style; }
+        FmtRules get_rules() const { return m_rules; }
         void get_info( Format_info* info ) const;
 
         SValue string_to_object( const std::string& ocode, const Base& base, const std::string& input ) const;
@@ -110,6 +111,7 @@ namespace glich {
     protected:
         std::string m_code;
         Grammar& m_owner;
+        FmtRules m_rules;
         bool m_ok;
         FormatStyle m_style;
         // The priority value is used when the format in/out descriptor string

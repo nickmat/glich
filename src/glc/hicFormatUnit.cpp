@@ -36,7 +36,7 @@ using std::string;
 
 
 FormatUnit::FormatUnit( const std::string& code, Grammar& gmr )
-    : Format( code, gmr )
+    : Format( code, gmr, FmtRules::Unit )
 {
     StdStrVec fieldnames = gmr.get_base_fieldnames();
     fieldnames = vec_append( fieldnames, gmr.get_calc_fieldnames() );

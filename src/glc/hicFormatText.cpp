@@ -42,7 +42,7 @@ using std::string;
 
 
 FormatText::FormatText( const string& code, Grammar& gmr )
-    : Format( code, gmr ), m_separators(":,"), m_sig_rank_size(0)
+    : Format( code, gmr, FmtRules::Text ), m_separators(":,"), m_sig_rank_size(0)
 {
     m_shorthand = true;
 }

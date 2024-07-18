@@ -41,7 +41,7 @@ using std::string;
 
 
 FormatIso::FormatIso( const string& code, Grammar& gmr, const StdStrVec& rules )
-    : Format( code, gmr ), m_daterep(DateRep::gregorian), m_extended(true),
+    : Format( code, gmr, FmtRules::Iso8601 ), m_daterep(DateRep::gregorian), m_extended(true),
     m_yplusminus(false), m_yminus(false), m_dateset(false), m_ydigits(4)
 {
     m_shorthand = true;

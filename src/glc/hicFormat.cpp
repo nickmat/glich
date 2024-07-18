@@ -35,9 +35,9 @@
 using namespace glich;
 using std::string;
 
-Format::Format( const std::string& code, Grammar& gmr )
-    : m_code( code ), m_owner( gmr ), m_ok( false ), m_style( FormatStyle::Default ),
-    m_priority( 0 ), m_shorthand( false )
+Format::Format( const std::string& code, Grammar& gmr, FmtRules rules )
+    : m_code( code ), m_owner( gmr ), m_rules( rules ), m_ok(false),
+    m_style(FormatStyle::Default), m_priority( 0 ), m_shorthand( false )
 {
 }
 
