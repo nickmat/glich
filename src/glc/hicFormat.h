@@ -86,6 +86,7 @@ namespace glich {
         bool has_use_function() const { return !m_input_function.empty(); }
         std::string get_from_text_funcode() const { return m_input_function; }
         FormatStyle get_style() const { return m_style; }
+        FmtVisibility get_visibility() const { return static_cast<FmtVisibility>( m_style ); }
         FmtRules get_rules() const { return m_rules; }
         void get_info( Format_info* info ) const;
 

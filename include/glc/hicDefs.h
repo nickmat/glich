@@ -79,6 +79,7 @@ namespace glich {
     };
 
     enum class FmtRules { None, Text, Unit, Iso8601 };
+    enum class FmtVisibility { Always, Selected, Hidden };
     enum class FormatStyle { Selected, Default, Hidden };
 
     struct PCode {
