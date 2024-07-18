@@ -113,9 +113,9 @@ grammar c {
     fields cycle cyear month lmonth day;
     calculated clmonth stem branch;
     // Record: cycle cyear month lmonth day clmonth stem branch
-    lexicons lmon fs cstem cbrch;
-    alias pseudo { dd day; mm month; lm lmonth; yy year; cc cycle; }
-    alias unit { d day; m month; lm lmonth; y cyear; c cycle; }
+    lexicons lmon fs cstem cbrch animal;
+    alias pseudo { dd day; mm month; lm lmonth; yy cyear; cc cycle; }
+    alias unit { d day; m month; lm lmonth; y cyear; c cycle; cm clmonth; s stem; b branch; }
 
     function calc_to_def {
         lmonth = @if(clmonth=null, 0, 1);
@@ -150,7 +150,7 @@ grammar c {
     format full {
         output "Cycle: {cycle},| Year: {stem:cstem}-{branch:cbrch::l} ({cyear}),| {lmonth:lmon}:| {month},| Day: {day}";
     }
-    format pop { output "({cycle}c)| {cyear} Year of the {branch:animal}| {month}| {lmonth:lmon}| {day}d"; }
+    format animal { output "({cycle}c)| {cyear} Year of the {branch:animal}| {month}| {lmonth:lmon}| {day}d"; }
     preferred cymld;
 }
 

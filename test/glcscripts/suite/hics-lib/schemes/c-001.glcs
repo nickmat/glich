@@ -18,7 +18,7 @@ write @date.c("78 42 6 f 15"), @date.c("78 42 6 s 15") nl;
 write @date.c:cylmd("78 42 6 15"), @date.c:cylmd("78 42 Leap 6 15") nl;
 write @date.c:cylmd_s("78 Yǐ-sì 6 15"), @date.c:cylmd_s("78 Yǐ-sì, Leap 6 15") nl;
 write @text.c:full( d1 ) nl @text.c:full( d2 ) nl;
-write @text.c:pop( d1 ) nl @text.c:pop( d2 ) nl;
+write @text.c:animal( d1 ) nl @text.c:animal( d2 ) nl;
 
 
 /*[OUTPUT]
