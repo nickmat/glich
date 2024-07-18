@@ -1277,4 +1277,42 @@ SValue glich::at_has_shorthand( Script& script )
     return SValue( fmt->allow_shorthand() );
 }
 
+SValue glich::at_fmt_rules( Script& script )
+{
+    StdStrVec quals = script.get_qualifiers( GetToken::next );
+    SValueVec args = script.get_args( GetToken::current );
+    string sig, scode, fcode;
+    if( quals.empty() ) {
+        return SValue::create_error( "@has_shorthand requires format signiture." );
+    }
+    sig = quals[0];
+    split_code( &scode, &fcode, sig );
+    Scheme* sch = glc().get_scheme( scode );
+    if( sch == nullptr ) {
+        return SValue::create_error( "@has_shorthand scheme not found." );
+    }
+    Format* fmt = sch->get_grammar()->get_format( fcode );
+    if( fmt == nullptr ) {
+        return SValue::create_error( "@has_shorthand format not found." );
+    }
+    FmtRules rules = fmt->get_rules();
+    string rulestr;
+    switch( rules )
+    {
+    case FmtRules::Text:
+        rulestr = "text";
+        break;
+    case FmtRules::Unit:
+        rulestr = "unit";
+        break;
+    case FmtRules::Iso8601:
+        rulestr = "iso8601";
+        break;
+    default:
+        rulestr = "uknown";
+        break;
+    }
+    return SValue( rulestr );
+}
+
 // End of src/glc/hicCreateSch.cpp file

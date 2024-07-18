@@ -99,6 +99,7 @@ Glich::Glich( InOut* inout )
         { "date", fptr },
         { "element", fptr },
         { "first", fptr },
+        { "fmt_rules", fptr },
         { "has_shorthand", fptr },
         { "last", fptr },
         { "leapyear", fptr },
