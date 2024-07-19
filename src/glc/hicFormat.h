@@ -72,7 +72,7 @@ namespace glich {
         void set_user_output_str( const std::string str ) { m_output_str = str; }
         void set_from_text_function( const std::string& ufcode ) { m_input_function = ufcode; }
         void set_style( FormatStyle style ) { m_style = style; }
-        void set_visiblity( bool vis ) { m_visible = vis; }
+        void set_visible( bool vis ) { m_visible = vis; }
         void set_ok( bool ok ) { m_ok = ok; }
 
         std::string get_code() const { return m_code; }
@@ -89,7 +89,7 @@ namespace glich {
         FormatStyle get_style() const { return m_style; }
         FmtVisibility get_visibility() const { return static_cast<FmtVisibility>(m_style); }
         FmtRules get_rules() const { return m_rules; }
-        bool has_visibily() const { return m_visible; }
+        bool is_visible() const { return m_visible; }
         void get_info( Format_info* info ) const;
 
         SValue string_to_object( const std::string& ocode, const Base& base, const std::string& input ) const;

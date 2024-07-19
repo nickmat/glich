@@ -723,7 +723,7 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
         return false;
     }
     assert( fmt != nullptr );
-    fmt->set_visiblity( visible );
+    fmt->set_visible( visible );
     fmt->set_style( style );
     fmt->construct();
     
