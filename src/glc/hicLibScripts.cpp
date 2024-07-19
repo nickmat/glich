@@ -35,7 +35,7 @@
 glich::ScriptModule glich::hics_builtin_scripts[] = {
     { "hicBuiltin",  /* hicBuiltin.glcs */
  "object fmt: {\n"
- "values code grammar rules visibility pseudo_in pseudo_out shorthand;\n"
+ "values code grammar rules visible pseudo:in pseudo:out shorthand;\n"
  "}\n" },
 };
 
@@ -197,7 +197,7 @@ glich::ScriptModule glich::hics_default_scripts[] = {
  "format \"wmdy+\" \"{wday:w}, |{month:m} |{day}, |{cyear/year}\";\n"
  "format cdef {\n"
  "inout \"{cyear}| {month}| {day}\";\n"
- "style hidden;\n"
+ "visible yes;\n"
  "}\n"
  "preferred dmy;\n"
  "}\n"

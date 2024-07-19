@@ -71,7 +71,6 @@ namespace glich {
         void set_user_input_str( const std::string str ) { m_input_str = str; }
         void set_user_output_str( const std::string str ) { m_output_str = str; }
         void set_from_text_function( const std::string& ufcode ) { m_input_function = ufcode; }
-        void set_style( FormatStyle style ) { m_style = style; }
         void set_visible( bool vis ) { m_visible = vis; }
         void set_ok( bool ok ) { m_ok = ok; }
 
@@ -86,8 +85,6 @@ namespace glich {
         const Glich& get_glich() const { return get_grammar().get_glich(); }
         bool has_use_function() const { return !m_input_function.empty(); }
         std::string get_from_text_funcode() const { return m_input_function; }
-        FormatStyle get_style() const { return m_style; }
-        FmtVisibility get_visibility() const { return static_cast<FmtVisibility>(m_style); }
         FmtRules get_rules() const { return m_rules; }
         bool is_visible() const { return m_visible; }
         void get_info( Format_info* info ) const;
@@ -117,7 +114,6 @@ namespace glich {
         FmtRules m_rules;
         bool m_ok;
         bool m_visible;
-        FormatStyle m_style;
         // The priority value is used when the format in/out descriptor string
         // is the same for more than one format.
         // If this string is used to select a format (ie from a pick list)

@@ -1211,7 +1211,7 @@ SValue Script::function_call()
         f_if, f_error, f_string, f_quote, f_field, f_range, f_rlist, f_number, f_float, f_read, f_filesys,
         f_version, f_low, f_high, f_span, f_size, f_envelope, f_type, f_object,
         f_date, f_text, f_record, f_scheme, f_element, f_phrase, f_leapyear, f_first, f_last,
-        f_pseudo_in, f_pseudo_out, f_has_shorthand, f_fmt_rules, f_fmt_visibility
+        f_pseudo_in, f_pseudo_out, f_has_shorthand, f_fmt_rules
     };
     const static std::map<string, f> fmap = {
         { "if", f_if }, { "error", f_error }, { "string", f_string }, { "quote", f_quote }, { "field", f_field },
@@ -1223,7 +1223,7 @@ SValue Script::function_call()
         { "date", f_date }, { "text", f_text }, { "record", f_record }, { "scheme", f_scheme }, { "element", f_element },
         { "phrase", f_phrase }, { "leapyear", f_leapyear }, { "first", f_first }, { "last", f_last },
         { "pseudo:in", f_pseudo_in }, { "pseudo:out", f_pseudo_out }, { "has_shorthand", f_has_shorthand },
-        { "fmt_rules", f_fmt_rules }, { "fmt_visibility", f_fmt_visibility }
+        { "fmt_rules", f_fmt_rules }
     };
 
     SToken token = next_token();
@@ -1268,7 +1268,6 @@ SValue Script::function_call()
         case f_pseudo_out: return at_pseudo_out( *this );
         case f_has_shorthand: return at_has_shorthand( *this );
         case f_fmt_rules: return at_fmt_rules( *this );
-        case f_fmt_visibility: return at_fmt_visibility( *this );
         }
         return SValue::create_error( "Built-in funtion whoopsy." );
     }

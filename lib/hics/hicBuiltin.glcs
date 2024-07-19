@@ -28,7 +28,7 @@
 // Add before any mark so it cannot be removed.
 
 object fmt: {
-    values code grammar rules visibility pseudo_in pseudo_out shorthand;
+    values code grammar rules visible pseudo:in pseudo:out shorthand;
 }
 
 // End of lib/glich/glcBuiltin.glcs file

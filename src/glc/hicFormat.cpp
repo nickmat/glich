@@ -37,7 +37,7 @@ using std::string;
 
 Format::Format( const std::string& code, Grammar& gmr, FmtRules rules )
     : m_code( code ), m_owner( gmr ), m_rules( rules ), m_ok(false),
-    m_style(FormatStyle::Default), m_priority( 0 ), m_shorthand( false )
+    m_visible(true), m_priority(0), m_shorthand(false)
 {
 }
 
@@ -53,7 +53,6 @@ void Format::get_info( Format_info* info ) const
     info->output_str = m_output_str;
     info->priority = m_priority;
     info->type = get_format_type();
-    info->style = m_style;
 }
 
 SValue Format::string_to_object( const string& ocode, const Base& base, const string& input ) const

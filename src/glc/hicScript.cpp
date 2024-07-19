@@ -573,7 +573,6 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
     string format_in, format_out, instring, outstring, separators, infun;
     StdStrVec rankfields, rankoutfields, rules;
     bool visible = true;
-    FormatStyle style = FormatStyle::Default;
     if( script.current_token().type() == SToken::Type::LCbracket ) {
         for( ;;) {
             SToken token = script.next_token();
@@ -618,16 +617,6 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
                     }
                     else if( str != "yes" ) {
                         script.error( "Visiblity yes or no expected." );
-                    }
-                    continue;
-                }
-                if( name == "style" ) {
-                    string str = script.get_name_or_primary( GetToken::next );
-                    if( str == "hidden" ) {
-                        style = FormatStyle::Hidden;
-                    }
-                    else if( str != "default" ) {
-                        script.error( "Style name expected." );
                     }
                     continue;
                 }
@@ -724,7 +713,6 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
     }
     assert( fmt != nullptr );
     fmt->set_visible( visible );
-    fmt->set_style( style );
     fmt->construct();
     
     if( !gmr->add_format( fmt ) ) {
@@ -1325,44 +1313,6 @@ SValue glich::at_fmt_rules( Script& script )
         break;
     }
     return SValue( rulestr );
-}
-
-SValue glich::at_fmt_visibility( Script& script )
-{
-    StdStrVec quals = script.get_qualifiers( GetToken::next );
-    SValueVec args = script.get_args( GetToken::current );
-    string sig, scode, fcode;
-    if( quals.empty() ) {
-        return SValue::create_error( "@has_shorthand requires format signiture." );
-    }
-    sig = quals[0];
-    split_code( &scode, &fcode, sig );
-    Scheme* sch = glc().get_scheme( scode );
-    if( sch == nullptr ) {
-        return SValue::create_error( "@has_shorthand scheme not found." );
-    }
-    Format* fmt = sch->get_grammar()->get_format( fcode );
-    if( fmt == nullptr ) {
-        return SValue::create_error( "@has_shorthand format not found." );
-    }
-    FmtVisibility vis = fmt->get_visibility();
-    string visstr;
-    switch( vis )
-    {
-    case FmtVisibility::Always:
-        visstr = "always";
-        break;
-    case FmtVisibility::Select:
-        visstr = "select";
-        break;
-    case FmtVisibility::Hidden:
-        visstr = "hidden";
-        break;
-    default:
-        visstr = "uknown";
-        break;
-    }
-    return SValue( visstr );
 }
 
 // End of src/glc/hicCreateSch.cpp file
