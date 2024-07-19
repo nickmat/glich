@@ -28,6 +28,7 @@
 #ifndef SRC_GLC_HICHELPER_H_GUARD
 #define SRC_GLC_HICHELPER_H_GUARD
 
+#include <glc/hicDefs.h>
 #include "glcHelper.h"
 
 namespace glich {
@@ -72,6 +73,16 @@ namespace glich {
         }
         return -1;
     }
+
+    inline const char* get_fmt_rules_text( FmtRules rules ) {
+        static const char* names[] = { "", "text", "unit", "iso8601" };
+        size_t index = static_cast<size_t>(rules);
+        if( index >= sizeof( names ) / sizeof( const char* ) ) {
+            index = 0;
+        }
+        return names[index];
+    }
+
 }
 
 #endif // SRC_GLC_HICHELPER_H_GUARD
