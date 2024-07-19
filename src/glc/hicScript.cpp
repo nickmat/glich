@@ -572,6 +572,7 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
 
     string format_in, format_out, instring, outstring, separators, infun;
     StdStrVec rankfields, rankoutfields, rules;
+    bool visible = true;
     FormatStyle style = FormatStyle::Default;
     if( script.current_token().type() == SToken::Type::LCbracket ) {
         for( ;;) {
@@ -608,6 +609,16 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
                 }
                 if( name == "rankout" ) {
                     rankoutfields = script.get_string_list( GetToken::next );
+                    continue;
+                }
+                if( name == "visible" ) {
+                    string str = script.get_name_or_primary( GetToken::next );
+                    if( str == "no" ) {
+                        visible = false;
+                    }
+                    else if( str != "yes" ) {
+                        script.error( "Visiblity yes or no expected." );
+                    }
                     continue;
                 }
                 if( name == "style" ) {
@@ -712,6 +723,7 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
         return false;
     }
     assert( fmt != nullptr );
+    fmt->set_visiblity( visible );
     fmt->set_style( style );
     fmt->construct();
     
