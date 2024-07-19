@@ -1,11 +1,12 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Name:        src/glc/hicLibScripts.h
+ * Name:        lib/hics/hicBuiltin.glcs
+ * Name:        lib/hics/hebrew.glcs
  * Project:     Glich: Extendable Script Language.
- * Purpose:     Header for completed file2cpp template file.
+ * Purpose:     Built-in always available script for hics extension.
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
- * Created:     1st April 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Created:     19th July 2024
+ * Copyright:   Copyright (c) 2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -22,24 +23,12 @@
  *  along with Glich.  If not, see <http://www.gnu.org/licenses/>.
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
 */
 
-#ifndef SRC_GLC_HICLIBSCRIPTS_H_GUARD
-#define SRC_GLC_HICLIBSCRIPTS_H_GUARD
+// Add before any mark so it cannot be removed.
 
-#include "glcLibScripts.h"
-
-#include <cstddef>
-
-namespace glich {
-
-    extern ScriptModule hics_builtin_scripts[];
-    extern std::size_t hics_builtin_scripts_size;
-
-    extern ScriptModule hics_default_scripts[];
-    extern std::size_t hics_default_scripts_size;
-
+object fmt: {
+    values code grammar rules visibility pseudo_in pseudo_out shorthand;
 }
 
-#endif // SRC_GLC_HICLIBSCRIPTS_H_GUARD
+// End of lib/glich/glcBuiltin.glcs file

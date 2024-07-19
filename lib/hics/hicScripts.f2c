@@ -29,6 +29,16 @@
 
 #include "hicLibScripts.h"
 
+// Built-in section.
+glich::ScriptModule glich::hics_builtin_scripts[] = {
+    { "hicBuiltin", @(cp.cpp)"hicBuiltin.glcs" },
+};
+
+size_t glich::hics_builtin_scripts_size =
+    sizeof(glich::hics_builtin_scripts) / sizeof(glich::ScriptModule);
+
+
+// Default library section.
 glich::ScriptModule glich::hics_default_scripts[] = {
     { "hicLib", @(cp.cpp)"hicLib.glcs" },
     { "jdn", @(cp.cpp)"jdn.glcs" },
@@ -47,5 +57,6 @@ glich::ScriptModule glich::hics_default_scripts[] = {
 
 size_t glich::hics_default_scripts_size =
     sizeof(glich::hics_default_scripts) / sizeof(glich::ScriptModule);
+
 
 // End of lib/hics/hicScripts.f2c file

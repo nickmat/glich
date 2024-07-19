@@ -31,6 +31,19 @@
 
 #include "hicLibScripts.h"
 
+// Built-in section.
+glich::ScriptModule glich::hics_builtin_scripts[] = {
+    { "hicBuiltin",  /* hicBuiltin.glcs */
+ "object fmt: {\n"
+ "values code grammar rules visibility pseudo_in pseudo_out shorthand;\n"
+ "}\n" },
+};
+
+size_t glich::hics_builtin_scripts_size =
+    sizeof(glich::hics_builtin_scripts) / sizeof(glich::ScriptModule);
+
+
+// Default library section.
 glich::ScriptModule glich::hics_default_scripts[] = {
     { "hicLib",  /* hicLib.glcs */
  "mark \"__hics_lib\";\n"
@@ -759,5 +772,6 @@ glich::ScriptModule glich::hics_default_scripts[] = {
 
 size_t glich::hics_default_scripts_size =
     sizeof(glich::hics_default_scripts) / sizeof(glich::ScriptModule);
+
 
 // End of lib/hics/hicScripts.f2c file
