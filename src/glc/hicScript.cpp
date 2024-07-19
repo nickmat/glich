@@ -1315,4 +1315,42 @@ SValue glich::at_fmt_rules( Script& script )
     return SValue( rulestr );
 }
 
+SValue glich::at_fmt_visibility( Script& script )
+{
+    StdStrVec quals = script.get_qualifiers( GetToken::next );
+    SValueVec args = script.get_args( GetToken::current );
+    string sig, scode, fcode;
+    if( quals.empty() ) {
+        return SValue::create_error( "@has_shorthand requires format signiture." );
+    }
+    sig = quals[0];
+    split_code( &scode, &fcode, sig );
+    Scheme* sch = glc().get_scheme( scode );
+    if( sch == nullptr ) {
+        return SValue::create_error( "@has_shorthand scheme not found." );
+    }
+    Format* fmt = sch->get_grammar()->get_format( fcode );
+    if( fmt == nullptr ) {
+        return SValue::create_error( "@has_shorthand format not found." );
+    }
+    FmtVisibility vis = fmt->get_visibility();
+    string visstr;
+    switch( vis )
+    {
+    case FmtVisibility::Always:
+        visstr = "always";
+        break;
+    case FmtVisibility::Select:
+        visstr = "select";
+        break;
+    case FmtVisibility::Hidden:
+        visstr = "hidden";
+        break;
+    default:
+        visstr = "uknown";
+        break;
+    }
+    return SValue( visstr );
+}
+
 // End of src/glc/hicCreateSch.cpp file
