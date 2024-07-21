@@ -1345,4 +1345,36 @@ SValue glich::at_fmt_object( Script& script )
     return SValue( obj );
 }
 
+SValue glich::at_sch_object( Script& script )
+{
+    StdStrVec quals = script.get_qualifiers( GetToken::next );
+    SValueVec args = script.get_args( GetToken::current );
+    if( quals.empty() ) {
+        return SValue::create_error( "@sch:object requires scheme code." );
+    }
+    string scode = quals[0];
+    Scheme* sch = glc().get_scheme( scode );
+    if( sch == nullptr ) {
+        return SValue::create_error( "@sch:object scheme not found." );
+    }
+    SValueVec obj;
+    obj.push_back( "sch:" );
+    obj.push_back( scode );
+    obj.push_back( sch->get_name() );
+    obj.push_back( sch->get_grammar()->get_code() );
+
+    SValueVec fobj;
+    fobj.push_back( ":" );
+    StdStrVec fcodes = sch->get_format_list();
+    for( const auto& fcode : fcodes ) {
+        fobj.push_back( fcode );
+    }
+    obj.push_back( fobj );
+
+    obj.push_back( sch->get_grammar()->get_pref_input_fcode() );
+    obj.push_back( sch->get_grammar()->get_pref_output_fcode() );
+    obj.push_back( !(sch->get_style() == SchemeStyle::Hidden) );
+    return SValue( obj );
+}
+
 // End of src/glc/hicCreateSch.cpp file

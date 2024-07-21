@@ -54,6 +54,7 @@ namespace glich {
     SValue at_has_shorthand( Script& script );
     SValue at_fmt_rules( Script& script );
     SValue at_fmt_object( Script& script );
+    SValue at_sch_object( Script& script );
 }
 
 #endif // SRC_GLC_HICSCRIPT_H
