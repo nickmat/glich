@@ -31,4 +31,8 @@ object fmt: {
     values code grammar rules visible pseudo:in pseudo:out shorthand;
 }
 
+object sch: {
+    values code name grammar formats default:in default:out visible;
+}
+
 // End of lib/glich/glcBuiltin.glcs file

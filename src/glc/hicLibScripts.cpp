@@ -36,6 +36,9 @@ glich::ScriptModule glich::hics_builtin_scripts[] = {
     { "hicBuiltin",  /* hicBuiltin.glcs */
  "object fmt: {\n"
  "values code grammar rules visible pseudo:in pseudo:out shorthand;\n"
+ "}\n"
+ "object sch: {\n"
+ "values code name grammar formats default:in default:out visible;\n"
  "}\n" },
 };
 
