@@ -63,6 +63,7 @@ namespace glich {
         SchemeStyle get_style() const { return m_style; }
         const Base& get_base() const { return m_base; }
         const Grammar* get_grammar() const { return m_base.get_grammar(); }
+        StdStrVec get_format_list() const;
         std::string get_input_format_code() const { return m_input_fcode; }
         std::string get_output_format_code() const { return m_output_fcode; }
         Format* get_output_format( const std::string& fcode ) const;

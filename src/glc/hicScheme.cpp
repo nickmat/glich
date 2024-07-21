@@ -123,6 +123,13 @@ string Scheme::get_scode() const
     return scode.substr( 2 );
 }
 
+StdStrVec glich::Scheme::get_format_list() const
+{
+    Grammar* gmr = m_base.get_grammar();
+    StdStrVec fcodes = gmr->get_format_code_list();
+    return fcodes;
+}
+
 Format* Scheme::get_output_format( const string& fcode ) const
 {
     if( fcode.empty() ) {
