@@ -274,6 +274,18 @@ void Grammar::get_output_formats( SchemeFormatInfo* info, const string& cur_code
     get_format_info( info, cur_code, InOut::output );
 }
 
+StdStrVec glich::Grammar::get_format_code_list() const
+{
+    StdStrVec fcodes;
+    if( m_inherit ) {
+        fcodes = m_inherit->get_format_code_list();
+    }
+    for( const auto& pair : m_formats ) {
+        fcodes.push_back( pair.first );
+    }
+    return fcodes;
+}
+
 Format* Grammar::get_format( const string& code ) const
 {
     auto it = m_formats.find( code );

@@ -77,6 +77,7 @@ namespace glich {
         void get_input_formats( SchemeFormatInfo* info, const std::string& cur_code ) const;
         bool has_output_format() const { return has_format( InOut::output ); }
         void get_output_formats( SchemeFormatInfo* info, const std::string& cur_code ) const;
+        StdStrVec get_format_code_list() const;
 
         Format* get_format( const std::string& code ) const;
         std::string get_pref_input_fcode() const { return m_pref_input_fcode; }
