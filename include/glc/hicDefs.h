@@ -33,6 +33,8 @@
 
 namespace glich {
 
+    enum class DefaultVis { Always, Select, Hidden };
+
     class Scheme;
     using SchemeMap = std::map<std::string, Scheme*>;
     using SchemeVec = std::vector<Scheme*>;
@@ -79,7 +81,6 @@ namespace glich {
     };
 
     enum class FmtRules { None, Text, Unit, Iso8601 };
-    enum class FmtVisibility { Always, Select, Hidden };
     enum class FormatStyle { Selected, Default, Hidden };
 
     struct PCode {
