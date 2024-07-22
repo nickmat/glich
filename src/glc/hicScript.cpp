@@ -1214,48 +1214,6 @@ SValue glich::at_first( Script& script )
     return f_invalid;
 }
 
-SValue glich::at_pseudo_in( Script& script )
-{
-    StdStrVec quals = script.get_qualifiers( GetToken::next );
-    SValueVec args = script.get_args( GetToken::current );
-    string sig, scode, fcode;
-    if( quals.empty() ) {
-        return SValue::create_error( "@pseudo_in requires format signiture." );
-    }
-    sig = quals[0];
-    split_code( &scode, &fcode, sig );
-    Scheme* sch = glc().get_scheme( scode );
-    if( sch == nullptr ) {
-        return SValue::create_error( "@pseudo_in scheme not found." );
-    }
-    Format* fmt = sch->get_grammar()->get_format( fcode );
-    if( fmt == nullptr ) {
-        return SValue::create_error( "@pseudo_in format not found." );
-    }
-    return SValue( fmt->get_input_str() );
-}
-
-SValue glich::at_pseudo_out( Script& script )
-{
-    StdStrVec quals = script.get_qualifiers( GetToken::next );
-    SValueVec args = script.get_args( GetToken::current );
-    string sig, scode, fcode;
-    if( quals.empty() ) {
-        return SValue::create_error( "@pseudo_out requires format signiture." );
-    }
-    sig = quals[0];
-    split_code( &scode, &fcode, sig );
-    Scheme* sch = glc().get_scheme( scode );
-    if( sch == nullptr ) {
-        return SValue::create_error( "@pseudo_out scheme not found." );
-    }
-    Format* fmt = sch->get_grammar()->get_format( fcode );
-    if( fmt == nullptr ) {
-        return SValue::create_error( "@pseudo_out format not found." );
-    }
-    return SValue( fmt->get_output_str() );
-}
-
 SValue glich::at_has_shorthand( Script& script )
 {
     StdStrVec quals = script.get_qualifiers( GetToken::next );

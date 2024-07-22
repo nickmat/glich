@@ -49,8 +49,6 @@ namespace glich {
     SValue at_leapyear( Script& script );
     SValue at_last( Script& script );
     SValue at_first( Script& script );
-    SValue at_pseudo_in( Script& script );
-    SValue at_pseudo_out( Script& script );
     SValue at_has_shorthand( Script& script );
     SValue at_fmt_rules( Script& script );
     SValue at_fmt_object( Script& script );

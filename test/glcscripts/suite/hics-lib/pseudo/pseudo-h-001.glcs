@@ -1,15 +1,19 @@
 // pseudo-h-001.glcs - Test Hebrew format pseudo text.
 
+let fo = @fmt:object.h:u;
 
 write nl;
-write @pseudo:in.h:u nl;
-write @pseudo:out.h:u nl;
+write fo[pseudo:in] nl;
+write fo[pseudo:out] nl;
 
-write @pseudo:in.h:dmy_a nl;
-write @pseudo:out.h:dmy_a nl;
+fo = @fmt:object.h:dmy_a;
+write fo[pseudo:in] nl;
+write fo[pseudo:out] nl;
 
-write @pseudo:in.h:gedcom nl;
-write @pseudo:out.h:gedcom nl;
+fo = @fmt:object.h:gedcom;
+write fo[pseudo:in] nl;
+write fo[pseudo:out] nl;
+
 
 /*[OUTPUT]
 

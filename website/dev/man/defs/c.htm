@@ -31,7 +31,278 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Page Under Construction</h2>
+<h2>Calendar Description</h2>
+<p>
+ The Chinese calendar is a lunisolar calendar with 12 lunar months in a common year and 13 in a leap year.
+ The start of the year occurs just before the Northward/Spring equinox and is tied to the Southern/Winter solstice.
+ Months start on the day of the new moon and have 39 or 30 days.
+</p>
+
+<h3>Use Case</h3>
+<p>
+</p>
+<ul>
+ <li>China. This version of the calendar has been in use since 1645.</li>
+</ul>
+
+<h3>Definition</h3>
+
+<table class='record'>
+<tr><th colspan='8'>Record - Default Order</th></tr>
+<tr><td>cycle</td><td>cyear</td><td>month</td><td>lmonth</td><td>day</td>
+<td class='rec-calc'>clmonth</td>
+<td class='rec-calc'>stem</td>
+<td class='rec-calc'>branch</td>
+</tr>
+</table>
+
+<p>
+ The <b>Record</b> consists of five <b>Fields</b> named <code>cycle,</code> <code>cyear,</code>
+ <code>lmonth,</code> <code>month,</code> and <code>day.</code>
+ There are twelve common months in a year numbered 1 to 12.
+ The lmonth field is set to 0 for these months.
+ In a leap year, one of the months will be repeated with the lmonth field set to 1.
+ Each month starts on day 1, the day of the new moon, and will be 29 or 30 days long.
+</p>
+
+<table class='basic data rfloat'>
+<tr><th colspan='4'>Branch</th></tr>
+<tr><th>Value</th><th>Name</th><th>Abbrev.</th><th>Animal</th></tr>
+<tr><td>1</td><td>zǐ</td><td>Zi</td><td>Rat</td></tr>
+<tr><td>2</td><td>Chǒu</td><td>Chou</td><td>Ox</td></tr>
+<tr><td>3</td><td>Yín</td><td>Yin</td><td>Tiger</td></tr>
+<tr><td>4</td><td>Mǎo</td><td>Mao</td><td>Rabbit</td></tr>
+<tr><td>5</td><td>Chén</td><td>Chen</td><td>Dragon</td></tr>
+<tr><td>6</td><td>Sì</td><td>Si</td><td>Snake</td></tr>
+<tr><td>7</td><td>Wǔ</td><td>Wu</td><td>Horse</td></tr>
+<tr><td>8</td><td>Wèi</td><td>Wei</td><td>Goat</td></tr>
+<tr><td>9</td><td>Shēn</td><td>Shen</td><td>Monkey</td></tr>
+<tr><td>10</td><td>Yǒu</td><td>You</td><td>Rooster</td></tr>
+<tr><td>11</td><td>Xū</td><td>Xu</td><td>Dog</td></tr>
+<tr><td>12</td><td>Hài</td><td>Hai</td><td>Pig</td></tr>
+</table>
+
+<table class='basic data rfloat'>
+<tr><th colspan='3'>Stem</th></tr>
+<tr><th>Value</th><th>Name</th><th>Abbrev.</th></tr>
+<tr><td>1</td><td>Jiǎ</td><td>Jia</td></tr>
+<tr><td>2</td><td>Yǐ</td><td>Yi</td></tr>
+<tr><td>3</td><td>Bǐng</td><td>Bing</td></tr>
+<tr><td>4</td><td>Dīng</td><td>Ding</td></tr>
+<tr><td>5</td><td>Wù</td><td>Wu</td></tr>
+<tr><td>6</td><td>Jǐ</td><td>Ji</td></tr>
+<tr><td>7</td><td>Gēng</td><td>Geng</td></tr>
+<tr><td>8</td><td>Xīn</td><td>Xin</td></tr>
+<tr><td>9</td><td>Rén</td><td>Ren</td></tr>
+<tr><td>10</td><td>Guì</td><td>Gui</td></tr>
+</table>
+
+<table class='basic data rfloat'>
+<tr><th colspan='3'>Field clmonth</th></tr>
+<tr><th>Value</th><th>Name</th><th>Abbrev.</th></tr>
+<tr><td>0</td><td>Month</td><td>Month</td></tr>
+<tr><td>1</td><td>Leap-month</td><td>Leap</td></tr>
+</table>
+
+<table class='basic data rfloat'>
+<tr><th colspan='3'>Field lmonth</th></tr>
+<tr><th>Value</th><th>Name</th><th>Abbrev.</th></tr>
+<tr><td>0</td><td>First</td><td>F</td></tr>
+<tr><td>1</td><td>Second</td><td>S</td></tr>
+</table>
+
+<div class="clear">
+ The <b>Epoch</b> is set at
+ <table class='rec-value'>
+   <tr><td rowspan='2' class='sig'>c</td><th>cycle</th><th>cyear</th><th>month</th><th>lmonth</th><th>day</th></tr>
+   <tr class='value'><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+ </table>
+ =
+ <table class='rec-value'>
+   <tr><td rowspan='2' class='sig'>g</td><th>year</th><th>month</th><th>day</th></tr>
+   <tr class='value'><td>-2636</td><td>2</td><td>15</td></tr>
+ </table>
+  =
+ <table class='rec-value'>
+  <tr><td rowspan='2' class='sig'>jdn</td><th>day</th></tr>
+  <tr class='value'><td>758326</td></tr>
+ </table>.
+</div>
+
+<h3>Formats</h3>
+<p>
+ The lmonth field only needs to be displayed when there are a leap month pair,
+ for other months it is redundant.
+ The calculated <code>clmonth</code> field
+ is a copy of the <code>lmonth</code> when one of a leap month pair
+ and a null value otherwise.
+</p>
+<p>
+ The formats supplied with this scheme.
+</p>
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>u</b></td><td>unit</td><td>99c 9y 9m 9lm 9d 9cm 9s 9b</td><td>9c 9y 9m 9lm 9d 9cm 9s 9b</td><td class='example'>78c 42y 6m 0lm 15d 2s 6b</td><td>H</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>cycle cyear month lmonth day</td><td>cc yy mm lm dd</td><td class='example'>78 42 6 0 15</td><td>H</td></tr>
+<tr><td><b>cymld</b></td><td>text</td><td>cycle cyear month lmonth day</td><td>cc yy mm fs dd</td><td class='example'>78 42 6 f 15</td><td>S</td></tr>
+
+
+<tr><td><b>cylmd</b></td><td>text</td><td>day cmonth year</td><td>dd Month yyyy</td><td class='example'>17 Shevat 5783</td><td>D, S</td></tr>
+<tr><td><b>dmy-</b></td><td>text</td><td>day month year</td><td>dd mm yyyy</td><td class='example'>17 11 5783</td><td>S</td></tr>
+<tr><td><b>wdmy</b></td><td>text</td><td>wsday day cmonth year</td><td>Weekday dd Month yyyy</td><td class='example'>Yom Revi'i 17 Shevat 5783</td><td></td></tr>
+<tr><td><b>ymd</b></td><td>text</td><td>year cmonth day</td><td>yyyy Month dd</td><td class='example'>5783 Shevat 17</td><td>S</td></tr>
+<tr><td><b>ymd-</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>5783 11 17</td><td>S</td></tr>
+<tr><td><b>gedcom</b></td><td>text</td><td>day month year</td><td>dd MON yyyy</td><td class='example'>17 SHV 5783</td><td>S</td></tr>
+<tr><td colspan='6'>Notes: H = Hidden, D = Default, S = Range shortcut supported.</td></tr>
+</table>
+
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>animal</b></td><td>text</td><td></td><td>(ccc) yy Year of the Animal mm LeapMon ddd</td><td class='example'>(78c) 42 Year of the Snake 6 Month 15d</td><td></td></tr>
+<tr><td><b>cylmd</b></td><td>text</td><td>cycle cyear clmonth month day</td><td>cc yy LM mm dd</td><td class='example'>78 42 6 15</td><td></td></tr>
+<tr><td><b>cylmd_s</b></td><td>text</td><td>cycle stem branch clmonth month day</td><td>cc Stem-branch, LM mm dd</td><td class='example'>78 Yǐ-sì 6 15</td><td></td></tr>
+<tr><td><b>cymld</b></td><td>text</td><td>cycle cyear month lmonth day</td><td>cc yy mm fs dd</td><td class='example'>78 42 6 f 15</td><td>D, S</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>cycle cyear month lmonth day</td><td>cc yy mm lm dd</td><td class='example'>78 42 6 0 15</td><td>H, S</td></tr>
+<tr><td><b>full</b></td><td>text</td><td></td><td>Cycle: cc, Year: Stem-branch (yy), LeapMon: mm, Day: dd</td><td class='example'>Cycle: 78, Year: Yǐ-sì (42), Month: 6, Day: 15</td><td></td></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9c 9y 9m 9lm 9d 9cm 9s 9b</td><td>9c 9y 9m 9lm 9d 9cm 9s 9b</td><td class='example'>78c 42y 6m 0lm 15d 2s 6b</td><td>H</td></tr>
+</table>
+
+<h3 class='clear'>Script</h3>
+<table class='code lfloat'>
+<tr><th>Default Script</th></tr>
+<tr><td
+>lexicon cstem {
+    name "Chinese Year Stem";
+    fieldname stem;
+    lang en;
+    pseudo   Stem,   Stm;
+    tokens {
+        1,  "Jiǎ",  "Jia";
+        2,  "Yǐ",   "Yi";
+        3,  "Bǐng", "Bing";
+        4,  "Dīng", "Ding";
+        5,  "Wù",   "Wu";
+        6,  "Jǐ",   "Ji";
+        7,  "Gēng", "Geng";
+        8,  "Xīn",  "Xin";
+        9,  "Rén",  "Ren";
+        10, "Guì",  "Gui";
+    }
+}
+lexicon cbrch {
+    name "Chinese Year Branch";
+    fieldname branch;
+    lang en;
+    pseudo  branch,  brch;
+    tokens {
+        1,  "Zǐ",   "Zi";
+        2,  "Chǒu", "Chou";
+        3,  "Yín",  "Yin";
+        4,  "Mǎo",  "Mao";
+        5,  "Chén", "Chen";
+        6,  "Sì",   "Si";
+        7,  "Wǔ",   "Wu";
+        8,  "Wèi",  "Wei";
+        9,  "Shēn", "Shen";
+        10, "Yǒu",  "You";
+        11, "Xū",   "Xu";
+        12, "Hài",  "Hai";
+    }
+}
+lexicon animal {
+    name "Chinese Year Animals";
+    fieldname branch;
+    lang en;
+    pseudo  Animal;
+    tokens {
+        1,  "Rat";
+        2,  "Ox";
+        3,  "Tiger";
+        4,  "Rabbit";
+        5,  "Dragon";
+        6,  "Snake";
+        7,  "Horse";
+        8,  "Goat";
+        9,  "Monkey";
+        10, "Rooster";
+        11, "Dog";
+        12, "Pig";
+    }
+}
+lexicon lmon {
+    name "Leap month";
+    fieldname clmonth;
+    lang en;
+    pseudo     LeapMon,     LM;
+    tokens {
+        0,  "Month";
+        1,  "Leap-month", "Leap";
+    }
+}
+lexicon fs {
+    name "First and Second";
+    fieldname lmonth;
+    lang en;
+    pseudo     FirstSecond,     FS;
+    tokens {
+        0,  "First", "F";
+        1,  "Second", "S";
+    }
+}
+grammar c {
+    name "Chinese";
+    fields cycle cyear month lmonth day;
+    calculated clmonth stem branch;
+    // Record: cycle cyear month lmonth day clmonth stem branch
+    lexicons lmon fs cstem cbrch;
+    alias pseudo { dd day; mm month; lm lmonth; yy year; cc cycle; }
+    alias unit { d day; m month; lm lmonth; y cyear; c cycle; }
+    function calc_to_def {
+        lmonth = @if(clmonth=null, 0, 1);
+        if stem <> null and branch <> null
+            cyear = ((stem - branch) mod 12) * 5 + stem;
+        endif
+        result = this;
+    }
+    function def_to_calc {
+        clmonth = @if(lmonth=0, null, 1);
+        stem = (cyear - 1) mod 10 + 1;
+        branch = (cyear - 1) mod 12 + 1;
+        result = this;
+    }
+    use { calculate def_to_calc; from:text calc_to_def; }
+    // Note, format used in "Calendrical Calculations"
+    format cymld {
+        inout "{cycle}| {cyear}| {month}| {lmonth:fs:a:l}| {day}";
+        use:in def_to_calc;
+    }
+    format cylmd {
+        inout "{cycle}| {cyear}| {clmonth:lmon:a}| {month}| {day}";
+        rank cycle cyear month day;
+        use:in calc_to_def;
+    }
+    format cylmd_s {
+        inout "{cycle}| {stem:cstem}|-{branch:cbrch::l}|, {clmonth:lmon:a}| {month}| {day}";
+        rank cycle month day;
+        separators ",-";
+    }
+    format full {
+        output "Cycle: {cycle},| Year: {stem:cstem}-{branch:cbrch::l} ({cyear}),| {lmonth:lmon}:| {month},| Day: {day}";
+    }
+    format pop { output "({cycle}c)| {cyear} Year of the {branch:animal}| {month}| {lmonth:lmon}| {day}d"; }
+    preferred cymld;
+}
+scheme c {
+  name "Chinese";
+  base chinese;
+  grammar c;
+}
+</td></tr>
+</table>
+<p class="clear"> 
+ The script is not dependent on any other script at this time
+</p>
+
 
 </div><!--id=content-->
 

@@ -1,9 +1,10 @@
 // record001.hcs - 
 
 write nl;
-write @pseudo:in.g:dmy, @pseudo:in.g:def nl;
-write @pseudo:in.g:iso, @pseudo:in.g:iso_set nl;
-write @pseudo:in.g:u nl;
+write @fmt:object.g:dmy[pseudo:in], @fmt:object.g:def[pseudo:in] nl;
+write @fmt:object.g:iso[pseudo:in], @fmt:object.g:iso_set[pseudo:in] nl;
+write @fmt:object.g:u[pseudo:in] nl;
+
 
 /*[OUTPUT]
 

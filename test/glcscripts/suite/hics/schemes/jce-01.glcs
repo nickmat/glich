@@ -95,7 +95,8 @@ write @date.JCE:dmye( "31 dec 1 bce" ), @date.JCE:dmye( "1 jan 1 ce" ) nl;
 write @date.JCE( {s:JCE 0,12,31} ), @date.JCE( {s:JCE 1,1,1} ) nl;
 write @date.JCE( {s:JCE ,12,31,0,1}@calc_year ), @date.JCE( {s:JCE ,1,1,1,1}@calc_year ) nl;
 write @text.JCE:out( 2432814 ) nl;
-write @pseudo:in.JCE:u, @pseudo:out.JCE:u nl;
+let fo = @fmt:object.JCE:u;
+write fo[pseudo:in], fo[pseudo:out] nl;
 
 /*[OUTPUT]
 
