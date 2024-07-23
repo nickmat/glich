@@ -2,10 +2,10 @@
 
 
 write nl;
-write @has_shorthand.c:u, @has_shorthand.c:def,
-    @has_shorthand.c:cymld, @has_shorthand.c:cylmd,
-    @has_shorthand.c:cylmd_s, @has_shorthand.c:full,
-    @has_shorthand.c:animal  nl;
+write @fmt:object.c:u[shorthand], @fmt:object.c:def[shorthand],
+    @fmt:object.c:cymld[shorthand], @fmt:object.c:cylmd[shorthand],
+    @fmt:object.c:cylmd_s[shorthand], @fmt:object.c:full[shorthand],
+    @fmt:object.c:animal[shorthand] nl;
 write @date.c( "78 42 6 f 15" ), @text.c( 2460866 ) nl;
 write @date.c( "78 42 6 f" ), @text.c( 2460852..2460881 ) nl;
 write @date.c( "78 42 6 s" ), @text.c( 2460882..2460910 ) nl;

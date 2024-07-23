@@ -50,7 +50,7 @@ scheme C {
 
 
 write nl;
-write @has_shorthand.C:u, @has_shorthand.C:def, @has_shorthand.C:cymld nl;
+write @fmt:object.C:u[shorthand], @fmt:object.C:def[shorthand], @fmt:object.C:cymld[shorthand] nl;
 write @date.C( "78 42 6 f 15" ), @text.C( 2460866 ) nl;
 write @date.C( "78 42 6 f" ), @text.C( 2460852..2460881 ) nl;
 write @date.C( "78 42 6 s" ), @text.C( 2460882..2460910 ) nl;

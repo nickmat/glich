@@ -101,7 +101,6 @@ Glich::Glich( InOut* inout )
         { "first", fptr },
         { "fmt:object", fptr },
         { "fmt_rules", fptr },
-        { "has_shorthand", fptr },
         { "last", fptr },
         { "leapyear", fptr },
         { "phrase", fptr },
