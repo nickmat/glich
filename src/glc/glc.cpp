@@ -100,7 +100,6 @@ Glich::Glich( InOut* inout )
         { "element", fptr },
         { "first", fptr },
         { "fmt:object", fptr },
-        { "fmt_rules", fptr },
         { "last", fptr },
         { "leapyear", fptr },
         { "phrase", fptr },
