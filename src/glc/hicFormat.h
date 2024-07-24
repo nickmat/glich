@@ -68,6 +68,7 @@ namespace glich {
         virtual bool construct() { m_ok = true; return m_ok; }
         bool is_ok() const { return m_ok; }
 
+        void set_order( size_t order ) { m_order = order; }
         void set_user_input_str( const std::string str ) { m_input_str = str; }
         void set_user_output_str( const std::string str ) { m_output_str = str; }
         void set_from_text_function( const std::string& ufcode ) { m_input_function = ufcode; }
@@ -75,6 +76,7 @@ namespace glich {
         void set_ok( bool ok ) { m_ok = ok; }
 
         std::string get_code() const { return m_code; }
+        size_t get_order() const { return m_order; }
         int get_priority() const { return m_priority; }
         std::string get_input_str() const { return m_input_str; }
         std::string get_output_str() const { return m_output_str; }
@@ -111,6 +113,7 @@ namespace glich {
         std::string m_code;
         Grammar& m_owner;
         FmtRules m_rules;
+        size_t m_order;
         bool m_ok;
         bool m_visible;
         // The priority value is used when the format in/out descriptor string

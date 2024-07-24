@@ -569,6 +569,7 @@ bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
             return false;
         }
     }
+    assert( gmr != nullptr );
 
     string format_in, format_out, instring, outstring, separators, infun;
     StdStrVec rankfields, rankoutfields, rules;

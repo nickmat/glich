@@ -134,6 +134,7 @@ bool Grammar::add_format( Format* fmt )
         // Already there
         return false;
     }
+    fmt->set_order( m_formats.size() );
     m_formats[code] = fmt;
     return true;
 }
@@ -276,12 +277,21 @@ void Grammar::get_output_formats( SchemeFormatInfo* info, const string& cur_code
 
 StdStrVec glich::Grammar::get_format_code_list() const
 {
-    StdStrVec fcodes;
-    if( m_inherit ) {
-        fcodes = m_inherit->get_format_code_list();
-    }
+    size_t size = m_formats.size();
+    StdStrVec fcodes( size );
     for( const auto& pair : m_formats ) {
-        fcodes.push_back( pair.first );
+        size_t order = pair.second->get_order();
+        if( order >= size ) {
+            assert( false ); // Shouldn't be here.
+            continue;
+        }
+        fcodes[order] = pair.first;
+    }
+    if( m_inherit ) {
+        StdStrVec ifcodes;
+        ifcodes = m_inherit->get_format_code_list();
+        vec_append( ifcodes, fcodes );
+        return ifcodes;
     }
     return fcodes;
 }
