@@ -82,7 +82,6 @@ namespace glich {
         bool has_output() const { return !m_output_str.empty(); }
         Grammar* get_owner() const { return &m_owner; }
         const Grammar& get_grammar() const { return m_owner; }
-        const Glich& get_glich() const { return get_grammar().get_glich(); }
         bool has_use_function() const { return !m_input_function.empty(); }
         std::string get_from_text_funcode() const { return m_input_function; }
         FmtRules get_rules() const { return m_rules; }

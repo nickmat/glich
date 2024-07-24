@@ -281,7 +281,7 @@ string FormatText::get_revealed_output( const Record& record, const BoolVec* rev
                     value = dual_fields_to_str( f, d );
                 }
                 else {
-                    value = ele.get_formatted_element( get_glich(), f );
+                    value = ele.get_formatted_element( glc(), f );
                 }
                 if( value.empty() ) {
                     fieldout.clear();
