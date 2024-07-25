@@ -290,8 +290,7 @@ StdStrVec glich::Grammar::get_format_code_list() const
     if( m_inherit ) {
         StdStrVec ifcodes;
         ifcodes = m_inherit->get_format_code_list();
-        vec_append( ifcodes, fcodes );
-        return ifcodes;
+        vec_append( fcodes, ifcodes );
     }
     return fcodes;
 }
