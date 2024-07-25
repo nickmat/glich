@@ -33,6 +33,7 @@
           { "name": "format", "label": "Define format" },
           { "name": "scheme", "label": "Define scheme" },
           { "name": "set", "label": "set Extensions" },
+          { "name": "bi-objects", "label": "Built-in Objects" },
           { "name": "bi-functions", "label": "Built-in Functions" },
           { "name": "phrase", "label": "Date Phrase", "subtitle": "Date Phrase Meta Language" },
           { "name": "ebnf", "label": "EBNF Definitions" }
