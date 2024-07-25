@@ -107,21 +107,22 @@
 
 <table class='basic data'>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
-<tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>2023y 2m 8d</td><td>Hidden</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2023 2 8</td><td>Hidden</td></tr>
-<tr><td><b>dmy</b></td><td>text</td><td>day month year</td><td>dd Mon yyyy</td><td class='example'>8 Feb 2023</td><td>Default</td></tr>
-<tr><td><b>dmy+</b></td><td>text</td><td>day month year</td><td>dd Month yyyy</td><td class='example'>8 February 2023</td><td></td></tr>
+<tr><td><b>iso</b></td><td>iso8601</td><td>ISO:8601 Date -YYYY</td><td>-YYYY-MM-DD</td><td class='example'>2023-02-08</td><td>S</td></tr>
+<tr><td><b>iso_set</b></td><td>iso8601</td><td>ISO:8601 Date -YYYY</td><td>[-YYYY-MM-DD]</td><td class='example'>[2023-02-08]</td><td>S</td></tr>
+<tr><td><b>dmy</b></td><td>text</td><td>day month year</td><td>dd Mon yyyy</td><td class='example'>8 Feb 2023</td><td>D, S</td></tr>
+<tr><td><b>dmy+</b></td><td>text</td><td>day month year</td><td>dd Month yyyy</td><td class='example'>8 February 2023</td><td>S</td></tr>
 <tr><td><b>wdmy</b></td><td>text</td><td>wday day month year</td><td>Wday dd Mon yyyy</td><td class='example'>Wed 8 Feb 2023</td><td></td></tr>
 <tr><td><b>wdmy+</b></td><td>text</td><td>wday day month year</td><td>Weekday dd Month yyyy</td><td class='example'>Wednesday 8 February 2023</td><td></td></tr>
-<tr><td><b>out</b></td><td>text</td><td></td><td>ddth Month yyyy</td><td class='example'>8th February 2023</td><td></td></tr>
+<tr><td><b>out</b></td><td>text</td><td></td><td>ddth Month yyyy</td><td class='example'>8th February 2023</td><td>S</td></tr>
 <tr><td><b>full</b></td><td>text</td><td></td><td>Weekday ddth Month yyyy</td><td class='example'>Wednesday 8th February 2023</td><td></td></tr>
-<tr><td><b>mdy</b></td><td>text</td><td>month day year</td><td>Mon dd, yyyy</td><td class='example'>Feb 8, 2023</td><td></td></tr>
-<tr><td><b>mdy+</b></td><td>text</td><td>month day year</td><td>Month dd, yyyy</td><td class='example'>February 8, 2023</td><td></td></tr>
+<tr><td><b>mdy</b></td><td>text</td><td>month day year</td><td>Mon dd, yyyy</td><td class='example'>Feb 8, 2023</td><td>S</td></tr>
+<tr><td><b>mdy+</b></td><td>text</td><td>month day year</td><td>Month dd, yyyy</td><td class='example'>February 8, 2023</td><td>S</td></tr>
 <tr><td><b>wmdy</b></td><td>text</td><td>wday month day year</td><td>Wday, Mon dd, yyyy</td><td class='example'>Wed, Feb 8, 2023</td><td></td></tr>
 <tr><td><b>wmdy+</b></td><td>text</td><td>wday month day year</td><td>Weekday, Month dd, yyyy</td><td class='example'>Wednesday, February 8, 2023</td><td></td></tr>
-<tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>yyyy:Mon:dd</td><td class='example'>2023:Feb:8</td><td></td></tr>
-<tr><td><b>iso</b></td><td>iso8601</td><td>ISO:8601 Date -YYYY</td><td>-YYYY-MM-DD</td><td class='example'>2023-02-08</td><td></td></tr>
-<tr><td><b>iso_set</b></td><td>iso8601</td><td>ISO:8601 Date -YYYY</td><td>[-YYYY-MM-DD]</td><td class='example'>[2023-02-08]</td><td></td></tr>
+<tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>yyyy:Mon:dd</td><td class='example'>2023:Feb:8</td><td>S</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2023 2 8</td><td>H, S</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>2023y 2m 8d</td><td>H</td></tr>
+<tr><td colspan='6'>Notes: H = Hidden, D = Default, S = Range shortcut supported.</td></tr>
 </table>
 
 <h3>Script</h3>
