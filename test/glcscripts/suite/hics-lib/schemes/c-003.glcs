@@ -1,0 +1,74 @@
+// c-003.glcs  Create c scheme format table.
+/*[SKIP]*/
+
+let sch = "c";
+
+let d1 = 2460866;
+let d2 = 2460896;
+let d3 = 2460925;
+
+let so = @sch:object.(sch);
+let sfl = so[formats];
+let size = @size( sfl );
+let index = 0;
+
+write nl;
+write "<table class='basic data'>" nl;
+write "<tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>" nl;
+
+do
+    let fmt = sfl[(index)];
+    let sig = sch + ":" + fmt;
+    let fo = @fmt:object.(sig);
+    let note = @if(fo[visible], "", "H");
+    if so[default:in] = fmt or so[default:out] = fmt
+        if @size( note ) > 0
+            note += ", ";
+        endif
+        note += "D";
+    endif
+    if fo[shorthand]
+        if @size( note ) > 0
+            note += ", ";
+        endif
+        note += "S";
+    endif
+    
+    let p = fo[pseudo:in];
+    if @size(p) > 0
+        p = "<b>Input:</b> " + p + "<br />";
+    endif
+    p = "<td>" + p + "<b>Output:</b> " + fo[pseudo:out] + "</td>";
+
+    let row = "<tr><td><b>" + fo[code] + "</b></td>"
+      + "<td>" +fo[rules] + "</td>"
+      + p
+      + "<td class='example'>" + @text.(sig)(d1) + "<br />"
+      + @text.(sig)(d2) + "<br />"
+      + @text.(sig)(d3) + "</td>"
+      + "<td>" + note + "</td></tr>";
+
+    write row nl;
+
+    index += 1;
+    until index = size;
+loop
+
+write "<tr><td colspan='5'>Notes: H = Hidden, D = Default, S = Range shortcut supported." + 
+    " Example days = " + d1 ", " d2 + " and " d3 + " jdn</td></tr>" nl;
+write "</table>" nl;
+
+
+/*[OUTPUT]
+
+false, true, true, false, false, false, false
+2460866, 78 42 6 f 15
+2460852..2460881, 78 42 6 f
+2460882..2460910, 78 42 6 s
+2460911..2460940, 78 42 7
+2460852..2460910, 78 42 6
+2460911..2460940, 78 42 7
+2460705..2461088, 78 42
+2445733..2467644, 78
+
+[OUTPUT]*/
