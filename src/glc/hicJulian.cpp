@@ -81,15 +81,6 @@ static void julian_from_jdn( Field* year, Field* month, Field* day, Field jdn )
     return;
 }
 
-/*! Return the jdn for Easter Sunday in the given year.
-*/
-static Field julian_easter( Field year )
-{
-    Field shifted_epact = ( 14 + 11 * ( year % 19 ) ) % 30;
-    Field paschal_moon = julian_to_jdn( year, 4, 19 ) - shifted_epact;
-    return kday_after( WDAY_Sunday, paschal_moon );
-}
-
 Julian::Julian( const std::string& data )
     : m_year_offset(0), Base( string(), 3 )
 {
@@ -154,6 +145,15 @@ static */
 bool Julian::leap_year( Field year )
 {
     return mod_e( year, 4 ) == 0;
+}
+
+/*! Return the jdn for Easter Sunday in the given year.
+static */
+Field Julian::easter( Field year )
+{
+    Field shifted_epact = (14 + 11 * (year % 19)) % 30;
+    Field paschal_moon = julian_to_jdn( year, 4, 19 ) - shifted_epact;
+    return kday_after( WDAY_Sunday, paschal_moon );
 }
 
 /*! Returns the last day of the month for the given month and year.

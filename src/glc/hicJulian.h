@@ -49,6 +49,7 @@ namespace glich {
 
         static bool leap_year( Field year );
         bool is_leap_year( Field year ) const override { return leap_year( year ); }
+        static Field easter( Field year );
 
     protected:
         Field last_day_in_month( Field year, Field month ) const;
