@@ -97,6 +97,7 @@ Glich::Glich( InOut* inout )
         { "object", fptr },
         // Hics functions
         { "date", fptr },
+        { "easter", fptr },
         { "element", fptr },
         { "first", fptr },
         { "fmt:object", fptr },

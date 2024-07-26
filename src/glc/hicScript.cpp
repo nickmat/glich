@@ -1137,6 +1137,33 @@ SValue glich::at_leapyear( Script& script )
     return false;
 }
 
+SValue glich::at_easter( Script& script )
+{
+    StdStrVec quals = script.get_qualifiers( GetToken::next );
+    SValueVec args = script.get_args( GetToken::current );
+    if( quals.empty() ) {
+        return SValue::create_error( "@easter requires a qualifier." );
+    }
+    string mess = "@easter requires integer argument.";
+    if( args.empty() ) {
+        return SValue::create_error( mess );
+    }
+    bool success = false;
+    Field year = args[0].get_field( success );
+    if( !success ) {
+        return SValue::create_error( mess );
+    }
+
+    string calendar = quals[0];
+    if( calendar == "julian" ) {
+        return Julian::easter( year );
+    }
+    if( calendar == "gregorian" ) {
+        return Gregorian::easter( year );
+    }
+    return f_invalid;
+}
+
 SValue glich::at_last( Script& script )
 {
     StdStrVec quals = script.get_qualifiers( GetToken::next );
