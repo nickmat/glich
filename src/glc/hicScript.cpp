@@ -1155,13 +1155,14 @@ SValue glich::at_easter( Script& script )
     }
 
     string calendar = quals[0];
+    Field result = f_invalid;
     if( calendar == "julian" ) {
-        return Julian::easter( year );
+        result = Julian::easter( year );
     }
     if( calendar == "gregorian" ) {
-        return Gregorian::easter( year );
+        result = Gregorian::easter( year );
     }
-    return f_invalid;
+    return SValue( result, SValue::Type::field );
 }
 
 SValue glich::at_last( Script& script )
