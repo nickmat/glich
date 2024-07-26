@@ -1,0 +1,18 @@
+// easter001.glcs  Test scheme functions
+
+let je = @easter.julian( 2024 );
+let ge = @easter.gregorian( 2024 );
+let xe = @easter.jdn( 2024 );
+
+write nl;
+write @text.j(je) nl;
+write @text.g(ge) nl;
+write xe nl;
+
+/*[OUTPUT]
+
+22 Apr 2024
+31 Mar 2024
+?
+
+[OUTPUT]*/
