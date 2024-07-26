@@ -158,6 +158,21 @@ bool Gregorian::leap_year( Field year )
     return ( year%4 == 0 && year%100 != 0 ) || year%400 == 0;
 }
 
+/*! Return the jdn for Easter Sunday in the given year.
+static */
+Field Gregorian::easter( Field year )
+{
+    Field century = year / 100 + 1;
+    Field epact =
+        (14 + 11 * (year % 19) - (3 * century) / 4 + (5 + 8 * century) / 25) % 30;
+    if( epact == 0 || (epact == 1 && 10 < (year % 19)) ) {
+        epact++;
+    }
+    Field paschal_moon = gregorian_to_jdn( year, 4, 19 ) - epact;
+    return kday_after( WDAY_Sunday, paschal_moon );
+}
+
+
 /*static*/
 Field Gregorian::today()
 {
