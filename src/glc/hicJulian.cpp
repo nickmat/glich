@@ -38,7 +38,7 @@ using std::string;
 
 #define BASEDATE_Julian    1721058L
 
-static Field julian_to_jdn( Field year, Field month, Field day )
+Field glich::julian_to_jdn( Field year, Field month, Field day )
 {
     Field jdn =
         div_f( year, 4 ) * 1461 + mod_f( year, 4 ) * 365
@@ -53,7 +53,7 @@ static Field julian_to_jdn( Field year, Field month, Field day )
 /*! Splits the given Julian Day Number date into the day, month and year
 *  for the Julian Calendar.
 */
-static void julian_from_jdn( Field* year, Field* month, Field* day, Field jdn )
+void glich::julian_from_jdn( Field* year, Field* month, Field* day, Field jdn )
 {
     jdn -= BASEDATE_Julian;
 

@@ -58,6 +58,10 @@ namespace glich {
         Field m_year_offset;
     };
 
+    Field julian_to_jdn( Field year, Field month, Field day );
+    void julian_from_jdn( Field* year, Field* month, Field* day, Field jdn );
+
+
 }
 
 #endif // GLC_HICJULIAN_H_GUARD
