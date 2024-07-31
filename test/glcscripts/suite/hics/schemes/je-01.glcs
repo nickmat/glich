@@ -1,0 +1,74 @@
+// hics/schemes/je-01.glcs - Test Easter Calendar scheme.
+
+scheme JE {
+    name "Julian Easter";
+    base easter;
+}
+
+
+write nl;
+write @sch:object.JE nl;
+// 11 Apr 2022, 3 Apr 2023, 22 Apr 2024, 7 Apr 2025
+write @easter.julian(2022), @easter.julian(2023), @easter.julian(2024), @easter.julian(2025) nl;
+write @date( {s:JE 2021, 0, 1, 1} ), @scheme.JE( 2459594 ) nl;  // j#  1 Jan 2022
+write @date( {s:JE 2022, 0, 4, 11} ), @scheme.JE( 2459694 ) nl; // j# 11 Apr 2022
+write @date( {s:JE 2022, 0, 7, 27} ), @scheme.JE( 2459801 ) nl; // j# 27 Jul 2022
+write @date( {s:JE 2022, 0, 1, 1} ), @scheme.JE( 2459959 ) nl;  // j#  1 Jan 2023
+write @date( {s:JE 2022, 0, 2, 27} ), @scheme.JE( 2460016 ) nl; // j# 27 Feb 2023
+write @date( {s:JE 2023, 0, 4, 3} ), @scheme.JE( 2460051 ) nl;  // j#  3 Apr 2023
+write @date( {s:JE 2023, 0, 4, 10} ), @scheme.JE( 2460058 ) nl; // j# 10 Apr 2023
+write @date( {s:JE 2023, 0, 12, 1} ), @scheme.JE( 2460293 ) nl; // j#  1 Dec 2023
+write @date( {s:JE 2023, 0, 1, 1} ), @scheme.JE( 2460324 ) nl;  // j#  1 Jan 2024
+write @date( {s:JE 2023, 0, 4, 2} ), @scheme.JE( 2460416 ) nl;  // j#  2 Apr 2024
+write @date( {s:JE 2023, 1, 4, 10} ), @scheme.JE( 2460424 ) nl; // j# 10 Apr 2024
+write @date( {s:JE 2024, 0, 4, 22} ), @scheme.JE( 2460436 ) nl; // j# 10 Apr 2024
+write @date( {s:JE 2024, 0, 1, 1} ), @scheme.JE( 2460690 ) nl;  // j#  1 Jan 2025
+write nl;
+write @date.JE( "2021 0 1 1" ), @text.JE( 2459594 ) nl;  // j#  1 Jan 2022
+write @date.JE( "2022 0 4 11" ), @text.JE( 2459694 ) nl; // j# 11 Apr 2022
+write @date.JE( "2022 0 7 27" ), @text.JE( 2459801 ) nl; // j# 27 Jul 2022
+write @date.JE( "2022 0 1 1" ), @text.JE( 2459959 ) nl;  // j#  1 Jan 2023
+write @date.JE( "2022 0 2 27" ), @text.JE( 2460016 ) nl; // j# 27 Feb 2023
+write @date.JE( "2023 0 4 3" ), @text.JE( 2460051 ) nl;  // j#  3 Apr 2023
+write @date.JE( "2023 0 4 10" ), @text.JE( 2460058 ) nl; // j# 10 Apr 2023
+write @date.JE( "2023 0 12 1" ), @text.JE( 2460293 ) nl; // j#  1 Dec 2023
+write @date.JE( "2023 0 1 1" ), @text.JE( 2460324 ) nl;  // j#  1 Jan 2024
+write @date.JE( "2023 0 4 2" ), @text.JE( 2460416 ) nl;  // j#  2 Apr 2024
+write @date.JE( "2023 1 4 10" ), @text.JE( 2460424 ) nl; // j# 10 Apr 2024
+write @date.JE( "2024 0 4 22" ), @text.JE( 2460436 ) nl; // j# 10 Apr 2024
+write @date.JE( "2024 0 1 1" ), @text.JE( 2460690 ) nl;  // j#  1 Jan 2025
+
+
+/*[OUTPUT]
+
+{sch: "JE", "Julian Easter", "", {: "def", "u"}, "def", "def", true}
+2459694, 2460051, 2460436, 2460786
+2459594, {s:JE 2021, 0, 1, 1}
+2459694, {s:JE 2022, 0, 4, 11}
+2459801, {s:JE 2022, 0, 7, 27}
+2459959, {s:JE 2022, 0, 1, 1}
+2460016, {s:JE 2022, 0, 2, 27}
+2460051, {s:JE 2023, 0, 4, 3}
+2460058, {s:JE 2023, 0, 4, 10}
+2460293, {s:JE 2023, 0, 12, 1}
+2460324, {s:JE 2023, 0, 1, 1}
+2460416, {s:JE 2023, 0, 4, 2}
+2460424, {s:JE 2023, 1, 4, 10}
+2460436, {s:JE 2024, 0, 4, 22}
+2460690, {s:JE 2024, 0, 1, 1}
+
+2459594, 2021 0 1 1
+2459694, 2022 0 4 11
+2459801, 2022 0 7 27
+2459959, 2022 0 1 1
+2460016, 2022 0 2 27
+2460051, 2023 0 4 3
+2460058, 2023 0 4 10
+2460293, 2023 0 12 1
+2460324, 2023 0 1 1
+2460416, 2023 0 4 2
+2460424, 2023 1 4 10
+2460436, 2024 0 4 22
+2460690, 2024 0 1 1
+
+[OUTPUT]*/
