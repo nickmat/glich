@@ -44,7 +44,7 @@ namespace glich {
     public:
         enum class BaseName {
             null, jdn, jwn, julian, gregorian, isoweek, ordinal,
-            hebrew, french, islamic, chinese
+            hebrew, french, islamic, chinese, easter
         };
 
         Scheme( const std::string& code, const Base& base );

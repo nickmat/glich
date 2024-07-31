@@ -27,6 +27,7 @@ set( GLC_SOURCES
     hicBase.cpp
     hicChinese.cpp
     hicDatePhrase.cpp
+    hicEaster.cpp
     hicElement.cpp
     hicFormat.cpp
     hicFormatIso.cpp
@@ -75,6 +76,7 @@ set( GLC_HEADERS
     hicCalendars.h
     hicChinese.h
     hicDatePhrase.h
+    hicEaster.h
     hicElement.h
     hicFormat.h
     hicFormatIso.h

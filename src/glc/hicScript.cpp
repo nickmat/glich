@@ -143,6 +143,9 @@ namespace {
             else if( name == "chinese" ) {
                 bs = Scheme::BaseName::chinese;
             }
+            else if( name == "easter" ) {
+                bs = Scheme::BaseName::easter;
+            }
             else if( name == "jwn" ) {
                 bs = Scheme::BaseName::jwn;
             }

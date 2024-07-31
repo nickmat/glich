@@ -31,6 +31,7 @@
 #include "glcScript.h"
 #include "glcStore.h"
 #include "hicChinese.h"
+#include "hicEaster.h"
 #include "hicFormatText.h"
 #include "hicFrench.h"
 #include "hicGrammar.h"
@@ -312,6 +313,8 @@ Base* Scheme::create_base( BaseName bs, const std::string& data )
         return new Islamic( data );
     case BaseName::chinese:
         return new Chinese( data );
+    case BaseName::easter:
+        return new Easter( data );
     case BaseName::jdn:
         return new Jdn( data );
     case BaseName::jwn:
