@@ -1,0 +1,20 @@
+// hics/schemes/je-01.glcs - Test Easter Calendar scheme.
+
+scheme JEAP {
+    name "Julian Easter Ascension";
+    base easter;
+    epoch 2159139; // j#  27 May 1199
+}
+
+
+write nl;
+write @date( {s:JEAP 0, 1, 5, 26} ), @scheme.JEAP( 2159138 ) nl;  // j#  26 May 1199
+write @date( {s:JEAP 1, 0, 5, 27} ), @scheme.JEAP( 2159139 ) nl;  // j#  27 May 1199
+
+
+/*[OUTPUT]
+
+2159138, {s:JEAP 0, 1, 5, 26}
+2159139, {s:JEAP 1, 0, 5, 27}
+
+[OUTPUT]*/
