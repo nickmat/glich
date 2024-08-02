@@ -108,7 +108,7 @@ namespace {
 } // namespace
 
 
-French::French( const string& data )
+French::French( const StdStrVec& data )
     : Base( data, 3 )
 {
     m_fieldnames = { "year", "month", "day" };

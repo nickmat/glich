@@ -86,7 +86,7 @@ namespace glich {
 
         bool create_epoch_functions( Field epoch, int line );
 
-        static Base* create_base( BaseName bs, const std::string& data );
+        static Base* create_base( BaseName bs, const StdStrVec& data );
         static Base* create_base_hybrid(
             const StdStrVec& fieldnames,
             const std::vector<HybridData>& data );

@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     13th August 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -235,7 +235,7 @@ namespace {
 } // namespace
 
 
-Chinese::Chinese( const string& data )
+Chinese::Chinese( const StdStrVec& data )
     : Base( data, 5 )
 {
     m_fieldnames = { "cycle", "cyear", "month", "lmonth", "day" };

@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     27th July 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -34,18 +34,16 @@ using namespace glich;
 using std::string;
 
 
-Jwn::Jwn( const std::string& data )
-    : m_offset( 0 ), Base( string(), 2 )
+Jwn::Jwn( const StdStrVec& data )
+    : m_offset( 0 ), Base( StdStrVec(), 2 )
 {
     m_fieldnames = { "week", "day" };
-    string tail, word = get_first_word( data, &tail );
-    while( !word.empty() ) {
-        set_data( word );
-        word = get_first_word( tail, &tail );
+    for( const string& word : data ) {
+        cal_data( word );
     }
 }
 
-void Jwn::set_data( const string& data )
+void Jwn::cal_data( const string& data )
 {
     if( data == "monday" ) {
         m_offset = 0;

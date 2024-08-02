@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -35,7 +35,7 @@ namespace glich {
     class Jdn : public Base
     {
     public:
-        Jdn( const std::string& data = std::string() ) : Base( data, 1 ) {
+        Jdn( StdStrVec data = StdStrVec() ) : Base( data, 1 ) {
             m_fieldnames = { "day" };
         }
 

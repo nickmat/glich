@@ -38,14 +38,12 @@ using namespace glich;
 using std::string;
 
 
-Easter::Easter( const string& data )
-    : m_day_offset(0), m_year_offset(0), Base( string(), 4 )
+Easter::Easter( const StdStrVec& data )
+    : m_day_offset(0), m_year_offset(0), Base( StdStrVec(), 4 )
 {
     m_fieldnames = { "eyear", "repeat", "month", "day" };
-    string tail, word = get_first_word( data, &tail );
-    while( !word.empty() ) {
+    for( const string& word : data ) {
         cal_data( word );
-        word = get_first_word( tail, &tail );
     }
 }
 

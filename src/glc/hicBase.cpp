@@ -36,12 +36,10 @@
 using namespace glich;
 using std::string;
 
-Base::Base( const string& data, size_t size ) : m_record_size(size), m_grammar( nullptr )
+Base::Base( const StdStrVec& data, size_t size ) : m_record_size(size), m_grammar( nullptr )
 {
-    string tail, word = get_first_word( data, &tail );
-    while( !word.empty() ) {
+    for( const string& word : data ) {
         set_data( word );
-        word = get_first_word( tail, &tail );
     }
 }
 

@@ -2,13 +2,13 @@
 
 scheme JEAP {
     name "Julian Easter Ascension";
-    base easter "day:39 year:1199";
+    base easter day:39 year:1199;
 }
 
 
 write nl;
-write @date( {s:JEAP 0, 1, 5, 26} ), @scheme.JEAP( 2159138 ) nl;  // j#  19 May 2022
-write @date( {s:JEAP 1, 0, 5, 27} ), @scheme.JEAP( 2159139 ) nl;  // j#  20 May 2022
+write @date( {s:JEAP 0, 1, 5, 26} ), @scheme.JEAP( 2159138 ) nl;  // j#  26 May 1199
+write @date( {s:JEAP 1, 0, 5, 27} ), @scheme.JEAP( 2159139 ) nl;  // j#  27 May 1199
 
 
 /*[OUTPUT]

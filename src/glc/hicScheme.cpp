@@ -293,7 +293,7 @@ bool Scheme::create_epoch_functions( Field epoch, int line )
 }
 
 /* static */
-Base* Scheme::create_base( BaseName bs, const std::string& data )
+Base* Scheme::create_base( BaseName bs, const StdStrVec& data )
 {
     switch( bs )
     {

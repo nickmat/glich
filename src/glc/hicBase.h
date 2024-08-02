@@ -37,7 +37,7 @@ namespace glich {
     class Base
     {
     public:
-        Base( const std::string& data, size_t size );
+        Base( const StdStrVec& data, size_t size );
         virtual ~Base();
 
         // Set initial data from string.

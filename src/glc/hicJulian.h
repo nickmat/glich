@@ -35,10 +35,10 @@ namespace glich {
     class Julian : public Base
     {
     public:
-        Julian( const std::string& data );
+        Julian( const StdStrVec& data );
         ~Julian() {}
 
-        void set_data( const std::string& data );
+        void cal_data( const std::string& word );
 
         size_t required_size() const override { return 3; }
     

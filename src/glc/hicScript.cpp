@@ -115,7 +115,7 @@ namespace {
     Base* do_base( Script& script, const string& code )
     {
         Scheme::BaseName bs = Scheme::BaseName::null;
-        string data;
+        StdStrVec data;
         SToken token = script.next_token();
         if( token.type() == SToken::Type::Name ) {
             string name = token.get_str();
@@ -161,7 +161,7 @@ namespace {
             }
             token = script.next_token();
             if( token.type() != SToken::Type::Semicolon ) {
-                data = script.get_name_or_primary( GetToken::current );
+                data = script.get_string_list( GetToken::current );
             }
         }
         else {

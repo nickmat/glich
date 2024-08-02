@@ -35,7 +35,7 @@ namespace glich {
     class Easter : public Base
     {
     public:
-        Easter( const std::string& data );
+        Easter( const StdStrVec& data );
         ~Easter() {}
 
         void cal_data( const std::string& data );

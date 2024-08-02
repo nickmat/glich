@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     13th August 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -35,18 +35,16 @@ using std::string;
 
 #define BASEDATE_Islamic    1948440
 
-Islamic::Islamic( const string& data )
-    : m_delta(14), m_basedate(BASEDATE_Islamic), Base(data, 3)
+Islamic::Islamic( const StdStrVec& data )
+    : m_delta(14), m_basedate(BASEDATE_Islamic), Base( StdStrVec(), 3)
 {
     m_fieldnames = { "year", "month", "day" };
-    string tail, word = get_first_word( data, &tail );
-    while( !word.empty() ) {
-        set_data( word );
-        word = get_first_word( tail, &tail );
+    for( const string& word : data ) {
+        cal_data( word );
     }
 }
 
-void Islamic::set_data( const string& data )
+void Islamic::cal_data( const string& data )
 {
     if ( data == "Ia" ) {
         m_delta = 15;
@@ -73,7 +71,7 @@ void Islamic::set_data( const string& data )
         m_delta = 9;
         m_basedate = BASEDATE_Islamic;
     } else {
-        Base::set_data( data );
+        set_data( data );
     }
 }
 

@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     11th July 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -35,7 +35,7 @@ namespace glich {
     class IsoOrdinal : public Base
     {
     public:
-        IsoOrdinal( const std::string& data = std::string() ) : Base( data, 2 ) {
+        IsoOrdinal( const StdStrVec& data ) : Base( data, 2 ) {
             m_fieldnames = { "year", "day" };
         }
 

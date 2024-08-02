@@ -81,26 +81,24 @@ void glich::julian_from_jdn( Field* year, Field* month, Field* day, Field jdn )
     return;
 }
 
-Julian::Julian( const std::string& data )
-    : m_year_offset(0), Base( string(), 3 )
+Julian::Julian( const StdStrVec& data )
+    : m_year_offset(0), Base( StdStrVec(), 3 )
 {
     m_fieldnames = { "year", "month", "day" };
-    string tail, word = get_first_word( data, &tail );
-    while( !word.empty() ) {
-        set_data( word );
-        word = get_first_word( tail, &tail );
+    for( const string& word : data ) {
+        cal_data( word );
     }
 }
 
-void Julian::set_data( const std::string& data )
+void Julian::cal_data( const string& word )
 {
     string code, tail;
-    split_code( &code, &tail, data );
+    split_code( &code, &tail, word );
     if( code == "year" ) {
         m_year_offset = str_to_field( tail );
     }
     else {
-        Base::set_data( data );
+        set_data( word );
     }
 }
 

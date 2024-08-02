@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     13th August 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -35,7 +35,7 @@ namespace glich {
     class French : public Base
     {
     public:
-        French( const std::string& data = std::string() );
+        French( const StdStrVec& data = StdStrVec() );
 
         size_t required_size() const override { return 3; }
 

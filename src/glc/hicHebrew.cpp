@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     12th August 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -205,7 +205,7 @@ namespace {
 
 //===================================
 
-Hebrew::Hebrew( const string& data ) 
+Hebrew::Hebrew( const StdStrVec& data )
     : Base( data, 3 )
 {
     m_fieldnames = { s_fields[0], s_fields[1], s_fields[2] };
