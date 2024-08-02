@@ -38,23 +38,38 @@ using namespace glich;
 using std::string;
 
 
-Easter::Easter( const std::string& data )
-    : Base( string(), 4 )
+Easter::Easter( const string& data )
+    : m_day_offset(0), m_year_offset(0), Base( string(), 4 )
 {
     m_fieldnames = { "eyear", "repeat", "month", "day" };
     string tail, word = get_first_word( data, &tail );
     while( !word.empty() ) {
-        set_data( word );
+        cal_data( word );
         word = get_first_word( tail, &tail );
     }
 }
 
-Field glich::Easter::get_jdn( const FieldVec& fields ) const
+void Easter::cal_data( const string& data )
+{
+    string code, tail;
+    split_code( &code, &tail, data );
+    if( code == "day" ) {
+        m_day_offset = str_to_field( tail );
+    }
+    if( code == "year" ) {
+        m_year_offset = str_to_field( tail ) - 1;
+    }
+    else {
+        set_data( data );
+    }
+}
+
+Field Easter::get_jdn( const FieldVec& fields ) const
 {
     assert( fields.size() >= 4 );
     Field eyear = fields[0];
-    Field j1 = julian_to_jdn( eyear, fields[2], fields[3] );
-    Field e1 = Julian::easter( eyear );
+    Field j1 = get_julian_to_jdn( eyear, fields[2], fields[3] );
+    Field e1 = year_start( eyear );
     Field year;
     if( j1 < e1 ) {
         year = eyear + 1;
@@ -65,7 +80,7 @@ Field glich::Easter::get_jdn( const FieldVec& fields ) const
     if( fields[1] == 1 ) {
         year++;
     }
-    return julian_to_jdn( year, fields[2], fields[3] );
+    return get_julian_to_jdn( year, fields[2], fields[3] );
 }
 
 Field glich::Easter::get_end_field_value( const FieldVec& fields, size_t index ) const
@@ -76,19 +91,36 @@ Field glich::Easter::get_end_field_value( const FieldVec& fields, size_t index )
 FieldVec glich::Easter::get_fields( Field jdn ) const
 {
     Field year, repeat = 0, month, day;
-    julian_from_jdn( &year, &month, &day, jdn );
-    Field e1 = Julian::easter( year );
+    get_julian_from_jdn( &year, &month, &day, jdn );
+    Field e1 = year_start( year );
     if( e1 > jdn ) {
         --year;
-        Field e0 = Julian::easter( year );
+        Field e0 = year_start( year );
         Field y1, m1, d1;
-        julian_from_jdn( &y1, &m1, &d1, e0 );
-        Field eplus = julian_to_jdn( y1 + 1, m1, d1 );
+        get_julian_from_jdn( &y1, &m1, &d1, e0 );
+        Field eplus = get_julian_to_jdn( y1 + 1, m1, d1 );
         if( jdn >= eplus ) {
             repeat = 1;
         }
     }
     return { year, repeat, month, day };
+}
+
+Field glich::Easter::get_julian_to_jdn( Field year, Field month, Field day ) const
+{
+    return julian_to_jdn( year + m_year_offset, month, day );
+}
+
+void glich::Easter::get_julian_from_jdn( Field* year, Field* month, Field* day, Field jdn ) const
+{
+    julian_from_jdn( year, month, day, jdn );
+    Field y = *year - m_year_offset;
+    *year = y;
+}
+
+Field glich::Easter::year_start( Field year ) const
+{
+    return Julian::easter( year + m_year_offset ) + m_day_offset;
 }
 
 

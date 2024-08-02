@@ -1,0 +1,17 @@
+// hics/schemes/je-01.glcs - Test Easter Calendar scheme.
+
+scheme JEA {
+    name "Julian Easter Ascension";
+    base easter day:39;
+}
+
+write nl;
+write @date( {s:JEA 2021, 0, 5, 19} ), @scheme.JEA( 2459732 ) nl;  // j#  19 May 2022
+write @date( {s:JEA 2022, 0, 5, 20} ), @scheme.JEA( 2459733 ) nl;  // j#  20 May 2022
+
+/*[OUTPUT]
+
+2459732, {s:JEA 2021, 0, 5, 19}
+2459733, {s:JEA 2022, 0, 5, 20}
+
+[OUTPUT]*/

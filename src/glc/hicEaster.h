@@ -38,6 +38,8 @@ namespace glich {
         Easter( const std::string& data );
         ~Easter() {}
 
+        void cal_data( const std::string& data );
+
         size_t required_size() const override { return 4; }
     
         Field get_jdn( const FieldVec& fields ) const override;
@@ -45,6 +47,13 @@ namespace glich {
 
         FieldVec get_fields( Field jdn ) const override;
 
+    private:
+        Field get_julian_to_jdn( Field year, Field month, Field day ) const;
+        void get_julian_from_jdn( Field* year, Field* month, Field* day, Field jdn ) const;
+        Field year_start( Field year ) const;
+
+        Field m_day_offset;
+        Field m_year_offset;
     };
 
 }
