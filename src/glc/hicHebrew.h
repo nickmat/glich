@@ -41,6 +41,7 @@ namespace glich {
         Hebrew( const StdStrVec& data );
         ~Hebrew() {};
 
+        const char* basename() const override { return "hebrew"; }
         size_t required_size() const override { return 3; }
 
         Field get_jdn( const FieldVec& fields ) const override;

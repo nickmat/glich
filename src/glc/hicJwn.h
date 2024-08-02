@@ -38,6 +38,8 @@ namespace glich {
         Jwn( const StdStrVec& data );
 
         void cal_data( const std::string& data );
+
+        const char* basename() const override { return "jwn"; }
         size_t required_size() const override { return 2; }
 
         Field get_jdn( const FieldVec& fields ) const override;

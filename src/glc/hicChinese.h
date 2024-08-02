@@ -37,6 +37,7 @@ namespace glich {
     public:
         Chinese( const StdStrVec& data );
 
+        const char* basename() const override { return "chinese"; }
         size_t required_size() const override { return 5; }
 
         Field get_jdn( const FieldVec& fields ) const override;

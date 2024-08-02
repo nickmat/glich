@@ -47,6 +47,8 @@ namespace glich {
         // Return true if in a usable state.
         virtual bool is_ok() const { return true; }
 
+        // Return the base calendar name.
+        virtual const char* basename() const = 0;
         // Return the number of Required Fields.
         virtual size_t required_size() const = 0;
         // Return the number of of all Fields including optional and calculated.

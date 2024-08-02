@@ -39,6 +39,7 @@ namespace glich {
             m_fieldnames = { "year", "day" };
         }
 
+        const char* basename() const override { return "ordinal"; }
         size_t required_size() const override { return 2; }
 
         Field get_jdn( const FieldVec& fields ) const override;

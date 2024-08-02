@@ -39,6 +39,7 @@ namespace glich {
             m_fieldnames = { "year", "week", "day" };
         }
 
+        const char* basename() const override { return "isoweek"; }
         size_t required_size() const override { return 3; }
 
         Field get_jdn( const FieldVec& fields ) const override;

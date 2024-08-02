@@ -40,6 +40,8 @@ namespace glich {
     public:
         Gregorian( const StdStrVec& data = StdStrVec() ) : Julian( data ) {}
 
+        const char* basename() const override { return "gregorian"; }
+
         Field get_jdn( const FieldVec& fields ) const override;
 
         FieldVec get_fields( Field jdn ) const override;

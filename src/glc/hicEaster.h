@@ -40,6 +40,7 @@ namespace glich {
 
         void cal_data( const std::string& data );
 
+        const char* basename() const override { return "easter"; }
         size_t required_size() const override { return 4; }
     
         Field get_jdn( const FieldVec& fields ) const override;

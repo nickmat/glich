@@ -39,6 +39,7 @@ namespace glich {
             m_fieldnames = { "day" };
         }
 
+        const char* basename() const override { return "jdn"; }
         size_t required_size() const override { return 1; }
 
         Field get_jdn( const FieldVec& fields ) const override { return fields[0]; }

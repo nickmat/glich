@@ -52,6 +52,8 @@ namespace glich {
         ~Hybrid();
 
         bool is_ok() const override;
+
+        const char* basename() const override { return "hybrid"; }
         size_t required_size() const override { return m_rec_size; }
 
         Field get_jdn( const FieldVec& fields ) const override;

@@ -38,6 +38,8 @@ namespace glich {
         Islamic( const StdStrVec& data );
 
         void cal_data( const std::string& data );
+
+        const char* basename() const override { return "islamic"; }
         size_t required_size() const override { return 3; }
 
         Field get_jdn( const FieldVec& fields ) const override;
