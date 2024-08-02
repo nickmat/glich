@@ -48,6 +48,8 @@ namespace glich {
 
         FieldVec get_fields( Field jdn ) const override;
 
+        bool set_epoch( Field epoch );
+
     private:
         Field get_julian_to_jdn( Field year, Field month, Field day ) const;
         void get_julian_from_jdn( Field* year, Field* month, Field* day, Field jdn ) const;

@@ -240,6 +240,56 @@ SValue Scheme::object_to_demoted_rlist( const SValue& ovalue ) const
     return SValue( record.get_jdn(), SValue::Type::field );
 }
 
+bool glich::Scheme::set_epoch( Base* base, Field epoch, int line )
+{
+    Easter* ebase = dynamic_cast<Easter*>(base);
+    if( ebase != nullptr ) {
+        return ebase->set_epoch( epoch );
+    }
+    return create_epoch_functions( epoch, line );
+}
+
+/* static */
+Base* Scheme::create_base( BaseName bs, const StdStrVec& data )
+{
+    switch( bs )
+    {
+    case BaseName::gregorian:
+        return new Gregorian( data );
+    case BaseName::julian:
+        return new Julian( data );
+    case BaseName::isoweek:
+        return new IsoWeek( data );
+    case BaseName::ordinal:
+        return new IsoOrdinal( data );
+    case BaseName::hebrew:
+        return new Hebrew( data );
+    case BaseName::french:
+        return new French( data );
+    case BaseName::islamic:
+        return new Islamic( data );
+    case BaseName::chinese:
+        return new Chinese( data );
+    case BaseName::easter:
+        return new Easter( data );
+    case BaseName::jdn:
+        return new Jdn( data );
+    case BaseName::jwn:
+        return new Jwn( data );
+    }
+    return nullptr;
+}
+
+Base* Scheme::create_base_hybrid( const StdStrVec& fieldnames, const std::vector<HybridData>& data )
+{
+    Base* base = new Hybrid( fieldnames, data );
+    if( base->is_ok() ) {
+        return base;
+    }
+    delete base;
+    return nullptr;
+}
+
 bool Scheme::create_epoch_functions( Field epoch, int line )
 {
     int index = m_base.get_fieldname_index( "cyear" );
@@ -290,47 +340,6 @@ bool Scheme::create_epoch_functions( Field epoch, int line )
     add_function( fun );
 
     return true;
-}
-
-/* static */
-Base* Scheme::create_base( BaseName bs, const StdStrVec& data )
-{
-    switch( bs )
-    {
-    case BaseName::gregorian:
-        return new Gregorian( data );
-    case BaseName::julian:
-        return new Julian( data );
-    case BaseName::isoweek:
-        return new IsoWeek( data );
-    case BaseName::ordinal:
-        return new IsoOrdinal( data );
-    case BaseName::hebrew:
-        return new Hebrew( data );
-    case BaseName::french:
-        return new French( data );
-    case BaseName::islamic:
-        return new Islamic( data );
-    case BaseName::chinese:
-        return new Chinese( data );
-    case BaseName::easter:
-        return new Easter( data );
-    case BaseName::jdn:
-        return new Jdn( data );
-    case BaseName::jwn:
-        return new Jwn( data );
-    }
-    return nullptr;
-}
-
-Base* Scheme::create_base_hybrid( const StdStrVec& fieldnames, const std::vector<HybridData>& data )
-{
-    Base* base = new Hybrid( fieldnames, data );
-    if( base->is_ok() ) {
-        return base;
-    }
-    delete base;
-    return nullptr;
 }
 
 // End of src/glc/hicScheme.cpp file

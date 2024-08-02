@@ -258,7 +258,7 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
     sch->set_name( name );
     sch->set_style( style );
     if( epoch != f_invalid ) {
-        if( !sch->create_epoch_functions( epoch, epoch_line ) ) {
+        if( !sch->set_epoch( base, epoch, epoch_line ) ) {
             script.error( "Unable to set epoch." );
         }
     }

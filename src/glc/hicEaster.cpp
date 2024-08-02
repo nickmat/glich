@@ -29,8 +29,6 @@
 
 #include "glcHelper.h"
 #include "hicJulian.h"
-#include "hicMath.h"
-#include "hicRecord.h"
 
 #include <cassert>
 
@@ -81,7 +79,7 @@ Field Easter::get_jdn( const FieldVec& fields ) const
     return get_julian_to_jdn( year, fields[2], fields[3] );
 }
 
-Field glich::Easter::get_end_field_value( const FieldVec& fields, size_t index ) const
+Field Easter::get_end_field_value( const FieldVec& fields, size_t index ) const
 {
     return Field();
 }
@@ -104,22 +102,32 @@ FieldVec glich::Easter::get_fields( Field jdn ) const
     return { year, repeat, month, day };
 }
 
-Field glich::Easter::get_julian_to_jdn( Field year, Field month, Field day ) const
+bool Easter::set_epoch( Field epoch )
+{
+    Field year, month, day;
+    julian_from_jdn( &year, &month, &day, epoch );
+    Field e = Julian::easter( year );
+    m_day_offset = epoch - e;
+    m_year_offset = year - 1;
+    return true;
+}
+
+Field Easter::get_julian_to_jdn( Field year, Field month, Field day ) const
 {
     return julian_to_jdn( year + m_year_offset, month, day );
 }
 
-void glich::Easter::get_julian_from_jdn( Field* year, Field* month, Field* day, Field jdn ) const
+void Easter::get_julian_from_jdn( Field* year, Field* month, Field* day, Field jdn ) const
 {
     julian_from_jdn( year, month, day, jdn );
     Field y = *year - m_year_offset;
     *year = y;
 }
 
-Field glich::Easter::year_start( Field year ) const
+Field Easter::year_start( Field year ) const
 {
     return Julian::easter( year + m_year_offset ) + m_day_offset;
 }
 
 
-// End of src/glc/hicJulian.cpp file
+// End of src/glc/hicEaster.cpp file

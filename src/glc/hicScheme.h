@@ -84,7 +84,7 @@ namespace glich {
         std::string object_to_str( const SValue& ovalue, const std::string& fcode ) const;
         SValue object_to_demoted_rlist( const SValue& ovalue ) const;
 
-        bool create_epoch_functions( Field epoch, int line );
+        bool set_epoch( Base* base, Field epoch, int line );
 
         static Base* create_base( BaseName bs, const StdStrVec& data );
         static Base* create_base_hybrid(
@@ -92,6 +92,8 @@ namespace glich {
             const std::vector<HybridData>& data );
 
     private:
+        bool create_epoch_functions( Field epoch, int line );
+
         std::string  m_name;
         SchemeStyle  m_style;
         const Base&  m_base;
