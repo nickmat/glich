@@ -1293,6 +1293,7 @@ SValue glich::at_sch_object( Script& script )
     obj.push_back( "sch:" );
     obj.push_back( scode );
     obj.push_back( sch->get_name() );
+    obj.push_back( sch->get_base().basename() );
     obj.push_back( sch->get_grammar()->get_code() );
 
     SValueVec fobj;

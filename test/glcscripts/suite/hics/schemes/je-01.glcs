@@ -41,7 +41,7 @@ write @date.JE( "2024 0 1 1" ), @text.JE( 2460690 ) nl;  // j#  1 Jan 2025
 
 /*[OUTPUT]
 
-{sch: "JE", "Julian Easter", "", {: "def", "u"}, "def", "def", true}
+{sch: "JE", "Julian Easter", "easter", "", {: "def", "u"}, "def", "def", true}
 2459694, 2460051, 2460436, 2460786
 2459594, {s:JE 2021, 0, 1, 1}
 2459694, {s:JE 2022, 0, 4, 11}
