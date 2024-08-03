@@ -36,7 +36,8 @@
 using namespace glich;
 using std::string;
 
-Base::Base( const StdStrVec& data, size_t size ) : m_record_size(size), m_grammar( nullptr )
+Base::Base( const StdStrVec& data, size_t size )
+    : m_record_size( size ), m_grammar( nullptr ), m_allow_shorthand( true )
 {
     for( const string& word : data ) {
         set_data( word );

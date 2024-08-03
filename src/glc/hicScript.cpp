@@ -799,7 +799,7 @@ namespace {
             return string();
         }
         string str1, str2;
-        if( fmt->allow_shorthand() ) {
+        if( fmt->allow_shorthand() && sch->allow_shorthand() ) {
             BoolVec reveal = fmt->get_reveal( rec1, rec2 );
             str1 = fmt->get_revealed_text( rec1, reveal );
             str2 = fmt->get_revealed_text( rec2, reveal );

@@ -61,6 +61,7 @@ namespace glich {
         int get_fieldname_index( const std::string& fieldname ) const;
         int get_fieldname_record_index( const std::string& fieldname ) const;
         int get_alias_fieldname_index( const std::string& alias ) const;
+        bool allow_shorthand() const { return m_allow_shorthand; }
 
         Format* get_format( const std::string& fcode ) const;
         std::string get_input_fcode() const;
@@ -92,6 +93,7 @@ namespace glich {
         size_t m_record_size;
         LocaleData m_locale;
         Grammar* m_grammar;
+        bool m_allow_shorthand;
     };
 
 }

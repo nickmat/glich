@@ -40,6 +40,7 @@ Easter::Easter( const StdStrVec& data )
     : m_day_offset(0), m_year_offset(0), Base( StdStrVec(), 4 )
 {
     m_fieldnames = { "eyear", "repeat", "month", "day" };
+    m_allow_shorthand = false;
     for( const string& word : data ) {
         cal_data( word );
     }
