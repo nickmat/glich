@@ -168,7 +168,7 @@ void Record::set_object( const SValue& ovalue )
     if( values == nullptr || values->size() <= 1 ) {
         return;
     }
-    size_t size = std::min( m_base.record_size(), values->size() - 1 );
+    size_t size = std::min( m_f.size(), values->size() - 1);
     for( size_t i = 0; i < size; i++ ) {
         Field fld = values->at( i + 1 ).get_as_field();
         m_f[i] = fld;
