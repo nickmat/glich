@@ -47,6 +47,7 @@
           { "name": "jn", "subtitle": "jn - Julian Nativity", "map-label": false },
           { "name": "ja", "subtitle": "ja - Julian Annunciation Florence", "map-label": false },
           { "name": "jap", "subtitle": "jap - Julian Annunciation Pisa", "map-label": false },
+          { "name": "je", "subtitle": "je - Julian Easter", "map-label": false },
           { "name": "eh", "subtitle": "eh - Julian Era Hispanica", "map-label": false },
           { "name": "g", "subtitle": "g - Gregorian", "map-label": false },
           { "name": "gw", "subtitle": "gw - Gregorian ISO Week", "map-label": false },
