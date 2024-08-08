@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     14th April 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -27,6 +27,7 @@
 
 #include "hicOptional.h"
 
+#include "hicJulian.h"
 #include "hicMath.h"
 
 using namespace glich;
@@ -43,6 +44,11 @@ SValue glich::GetOptional( const string& name, Field jdn )
     }
     if( name == "wsday" ) {  // Sun=1, Sat=7
         return SValue( day_of_week( jdn + 1 ) + 1, SValue::Type::field );
+    }
+    if( name == "hyear" ) { // Julian historical year.
+        Field y, m, d;
+        julian_from_jdn( &y, &m, &d, jdn );
+        return SValue( y, SValue::Type::field );
     }
     return SValue();
 }
