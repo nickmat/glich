@@ -47,24 +47,26 @@ Record::Record( const Base& base )
 }
 
 Record::Record( const Base& base, Field jdn )
-    : m_base(base), m_jdn(jdn)
+    : m_base(base), m_jdn(jdn), m_f( base.record_size(), f_invalid )
 {
     if( jdn == f_minimum || jdn == f_maximum || jdn == f_invalid ) {
-        m_f = FieldVec( base.record_size(), f_invalid );
         m_f[0] = jdn;
         return;
     }
-    m_f = m_base.get_fields( jdn );
+    FieldVec fields = m_base.get_fields( jdn );
+    for( size_t i = 0; i < fields.size(); i++ ) {
+        m_f[i] = fields[i];
+    }
 }
 
 Record::Record( const Base& base, const string& str, const Format& fmt )
-    : m_base( base ), m_jdn( f_invalid ), m_f( base.record_size() )
+    : m_base( base ), m_jdn( f_invalid ), m_f( base.record_size(), f_invalid )
 {
     set_str( str, fmt );
 }
 
 Record::Record( const Base& base, const string& str, const Format& fmt, Boundary rb )
-    : m_base( base ), m_jdn( f_invalid ), m_f( base.record_size() )
+    : m_base( base ), m_jdn( f_invalid ), m_f( base.record_size(), f_invalid )
 {
     set_str( str, fmt, rb );
 }
@@ -76,7 +78,7 @@ Record::Record( const Base& base, const FieldVec& fields )
 }
 
 Record::Record( const Base& base, const SValue& ovalue )
-    : m_base( base ), m_jdn( f_invalid ), m_f( base.record_size() )
+    : m_base( base ), m_jdn( f_invalid ), m_f( base.record_size(), f_invalid )
 {
     set_object( ovalue );
 }
