@@ -31,7 +31,30 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Page Under Construction</h2>
+<h2>Introduction</h2>
+
+<p>
+The hics extension adds two built-in objects, the scheme and format data objects.
+</p>
+
+<table class='code lfloat'>
+<tr><th>Hics Built-in Script</th></tr>
+<tr><td
+>object sch: {
+    values code name grammar formats default:in default:out visible;
+}
+object fmt: {
+    values code grammar rules visible pseudo:in pseudo:out shorthand;
+}
+</td></tr>
+</table>
+
+<p class="clear">
+These objects are effectively read-only as, even if the values are changed,
+the underlying definitions do not.
+</p>
+
+<h3></h3>
 
 </div><!--id=content-->
 

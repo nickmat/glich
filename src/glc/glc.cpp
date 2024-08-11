@@ -640,6 +640,18 @@ Scheme* Glich::get_scheme( const string& scode ) const
     return dynamic_cast<Scheme*>(get_object( "s:" + scode ));
 }
 
+StdStrVec Glich::get_scheme_list() const
+{
+    StdStrVec list;
+    for( auto& pair : m_objects ) {
+        Scheme* sch = dynamic_cast<Scheme*>(pair.second);
+        if( sch != nullptr ) {
+            list.push_back( sch->get_scode() );
+        }
+    }
+    return list;
+}
+
 void Glich::add_or_replace_mark( const string& name )
 {
     clear_mark( name );
