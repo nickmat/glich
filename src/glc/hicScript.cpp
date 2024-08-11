@@ -1310,4 +1310,18 @@ SValue glich::at_sch_object( Script& script )
     return SValue( obj );
 }
 
+SValue glich::at_sch_list( Script& script )
+{
+    StdStrVec quals = script.get_qualifiers( GetToken::next );
+    SValueVec args = script.get_args( GetToken::current );
+
+    SValueVec obj;
+    obj.push_back( ":" );
+    StdStrVec scodes = glc().get_scheme_list();
+    for( const auto& scode : scodes ) {
+        obj.push_back( scode );
+    }
+    return SValue( obj );
+}
+
 // End of src/glc/hicCreateSch.cpp file

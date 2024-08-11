@@ -52,6 +52,8 @@ namespace glich {
     SValue at_first( Script& script );
     SValue at_fmt_object( Script& script );
     SValue at_sch_object( Script& script );
+    SValue at_sch_list( Script& script );
+
 }
 
 #endif // SRC_GLC_HICSCRIPT_H
