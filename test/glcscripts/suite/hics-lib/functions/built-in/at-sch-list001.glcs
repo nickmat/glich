@@ -1,0 +1,14 @@
+// at-sch-list001.glcs  Test scheme list function.
+
+let list = @sch:list;
+
+write nl;
+write list@size nl;
+write list nl;
+
+/*[OUTPUT]
+
+19
+{: "ay", "c", "eh", "fr", "g", "go", "gw", "h", "i", "if", "ims", "j", "ja", "jap", "jce", "jdn", "jn", "jwn", "jwsn"}
+
+[OUTPUT]*/
