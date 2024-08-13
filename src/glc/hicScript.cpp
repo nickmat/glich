@@ -1294,6 +1294,15 @@ SValue glich::at_sch_object( Script& script )
     obj.push_back( scode );
     obj.push_back( sch->get_name() );
     obj.push_back( sch->get_base().basename() );
+
+    SValueVec fnobj;
+    fnobj.push_back( ":" );
+    StdStrVec fnames = sch->get_base().get_fieldnames();
+    for( const auto& fname : fnames ) {
+        fnobj.push_back( fname );
+    }
+    obj.push_back( fnobj );
+
     obj.push_back( sch->get_grammar()->get_code() );
 
     SValueVec fobj;

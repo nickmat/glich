@@ -32,7 +32,7 @@ object fmt: {
 }
 
 object sch: {
-    values code name basename grammar formats default:in default:out visible;
+    values code name basename fieldnames grammar formats default:in default:out visible;
 }
 
 // End of lib/glich/glcBuiltin.glcs file

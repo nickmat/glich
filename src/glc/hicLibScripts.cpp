@@ -38,7 +38,7 @@ glich::ScriptModule glich::hics_builtin_scripts[] = {
  "values code grammar rules visible pseudo:in pseudo:out shorthand;\n"
  "}\n"
  "object sch: {\n"
- "values code name basename grammar formats default:in default:out visible;\n"
+ "values code name basename fieldnames grammar formats default:in default:out visible;\n"
  "}\n" },
 };
 
