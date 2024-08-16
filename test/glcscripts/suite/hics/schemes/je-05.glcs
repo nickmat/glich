@@ -1,0 +1,150 @@
+// je-05.glcs  - Test version of Julian Easter with dual dates.
+
+lexicon W {
+    name "Weekday names";
+    fieldname wday;
+    lang en;
+    pseudo    Weekday,  WDay;
+    tokens {
+        1, "Monday",    "Mon";
+        2, "Tuesday",   "Tue";
+        3, "Wednesday", "Wed";
+        4, "Thursday",  "Thur";
+        5, "Friday",    "Fri";
+        6, "Saturday",  "Sat";
+        7, "Sunday",    "Sun";
+    }
+}
+
+lexicon REP {
+    name "Repeated days";
+    fieldname repeat;
+    lang en;
+    pseudo    Repeat,         Rep;
+    tokens {
+        0, "First",  "F";
+        1, "Second", "S";
+    }
+}
+
+lexicon REPD {
+    inherit REP;
+    fieldname repeated;
+}
+
+lexicon M {
+    name "Month names";
+    fieldname month;
+    lang en;
+    pseudo     Month,     Mon;
+    tokens {
+        1,  "January",   "Jan";
+        2,  "February",  "Feb";
+        3,  "March",     "Mar";
+        4,  "April",     "Apr";
+        5,  "May";
+        6,  "June",      "Jun";
+        7,  "July",      "Jul";
+        8,  "August",    "Aug";
+        9,  "September", "Sep";
+        10, "October",   "Oct";
+        11, "November",  "Nov";
+        12, "December",  "Dec";
+    }
+}
+
+grammar JE {
+    fields eyear repeat month day;
+    calculated repeated; 
+    optional hyear wsday;
+    rank eyear month day;
+    lexicons M W;
+    alias pseudo { w wday; rpt repeat; dd day; mm month; yyyy eyear; h hyear; }
+    alias unit { d day; r repeat; m month; y cyear; }
+
+    function def_to_calc {
+        repeated = @if( repeat=1, 1, null );
+        result = this;
+    }
+    function calc_to_def {
+        repeat = @if( repeated=1, 1, 0 );
+        result = this;
+    }
+    use { calculate def_to_calc; from:text calc_to_def; }
+
+    format  dmeh {
+        inout "{repeated:REPD} |{day} |{month:M:a} |{eyear/hyear}";
+    }
+    format  dme {
+        inout "{repeat:REP} |{day} |{month:M:a} |{eyear}";
+        use:in def_to_calc;
+    }
+    preferred dmeh;
+}
+
+scheme JE {
+    name "Julian Easter";
+    base easter;
+    grammar JE;
+}
+
+
+write nl; // j# 2 Apr 2023
+write @text.JE(2460050), @date.JE("2 Apr 2022/3"), @scheme.JE(2460050) nl;
+write @text( {s:JE 2022, 0, 4, 2} ), @date( {s:JE 2022, 0, 4, 2} ), @scheme.JE("2 Apr 2022/3") nl;
+
+write nl; // j# 3 Apr 2023
+write @text.JE(2460051), @date.JE("3 Apr 2023"), @scheme.JE(2460051) nl;
+write @text( {s:JE 2023, 0, 4, 3} ), @date( {s:JE 2023, 0, 4, 3} ), @scheme.JE("3 Apr 2023") nl;
+
+write nl; // j# 31 Dec 2023
+write @text.JE(2460323), @date.JE( "31 Dec 2023" ), @scheme.JE(2460323) nl;
+write @text( {s:JE 2023, 0, 12, 31} ), @date( {s:JE 2023, 0, 12, 31} ), @scheme.JE("31 Dec 2023") nl;
+
+write nl; // j# 1 Jan 2024
+write @text.JE(2460324), @date.JE( "1 Jan 2023/4" ), @scheme.JE(2460324) nl;
+write @text( {s:JE 2023, 0, 1, 1} ), @date( {s:JE 2023, 0, 1, 1} ), @scheme.JE("1 Jan 2023/4") nl;
+
+write nl; // j# 2 Apr 2024
+write @text.JE(2460416), @date.JE( "2 Apr 2023/4" ), @scheme.JE(2460416) nl;
+write @text( {s:JE 2023, 0, 4, 2} ), @date( {s:JE 2023, 0, 4, 2} ), @scheme.JE("2 Apr 2023/4") nl;
+
+write nl; // j# 3 Apr 2024
+write @text.JE(2460417), @date.JE( "S 3 Apr 2023/4" ), @scheme.JE(2460417) nl;
+write @text( {s:JE 2023, 1, 4, 3} ), @date( {s:JE 2023, 1, 4, 3} ), @scheme.JE("S 3 Apr 2023/4") nl;
+
+write nl;
+write @text.JE(2460435), @date.JE( "S 21 Apr 2023/4" ), @scheme.JE(2460435) nl;
+write @text( {s:JE 2023, 1, 4, 21} ), @date( {s:JE 2023, 1, 4, 21} ), @scheme.JE("S 21 Apr 2023/4") nl;
+
+write nl;
+write @text.JE(2460436), @date.JE( "22 Apr 2024" ), @scheme.JE(2460436) nl;
+write @text( {s:JE 2024, 0, 4, 22} ), @date( {s:JE 2024, 0, 4, 22} ), @scheme.JE("22 Apr 2024") nl;
+
+/*[OUTPUT]
+
+2 Apr 2022/3, 2460050, {s:JE 2022, 0, 4, 2, null, 2023, 7}
+2 Apr 2022/3, 2460050, {s:JE 2022, 0, 4, 2, null, 2023, 7}
+
+3 Apr 2023, 2460051, {s:JE 2023, 0, 4, 3, null, 2023, 1}
+3 Apr 2023, 2460051, {s:JE 2023, 0, 4, 3, null, 2023, 1}
+
+31 Dec 2023, 2460323, {s:JE 2023, 0, 12, 31, null, 2023, 7}
+31 Dec 2023, 2460323, {s:JE 2023, 0, 12, 31, null, 2023, 7}
+
+1 Jan 2023/4, 2460324, {s:JE 2023, 0, 1, 1, null, 2024, 1}
+1 Jan 2023/4, 2460324, {s:JE 2023, 0, 1, 1, null, 2024, 1}
+
+2 Apr 2023/4, 2460416, {s:JE 2023, 0, 4, 2, null, 2024, 2}
+2 Apr 2023/4, 2460416, {s:JE 2023, 0, 4, 2, null, 2024, 2}
+
+Second 3 Apr 2023/4, 2460417, {s:JE 2023, 1, 4, 3, 1, 2024, 3}
+Second 3 Apr 2023/4, 2460417, {s:JE 2023, 1, 4, 3, 1, 2024, 3}
+
+Second 21 Apr 2023/4, 2460435, {s:JE 2023, 1, 4, 21, 1, 2024, 7}
+Second 21 Apr 2023/4, 2460435, {s:JE 2023, 1, 4, 21, 1, 2024, 7}
+
+22 Apr 2024, 2460436, {s:JE 2024, 0, 4, 22, null, 2024, 1}
+22 Apr 2024, 2460436, {s:JE 2024, 0, 4, 22, null, 2024, 1}
+
+[OUTPUT]*/
