@@ -1,0 +1,67 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Name:        lib/hics/easter.glcs
+ * Project:     Glich: Extendable Script Language.
+ * Purpose:     Julian Easter scheme for hics library.
+ * Author:      Nick Matthews
+ * Website:     https://github.com/nickmat/glich
+ * Created:     16th August 2024
+ * Copyright:   Copyright (c) 2024, Nick Matthews.
+ * Licence:     GNU GPLv3
+ *
+ *  Glich is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Glich is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Glich.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*/
+
+lexicon rpt {
+  name "Repeated Date";
+  fieldname repeat;
+  lang en;
+  pseudo  Repeated,   Rpt;
+  tokens {
+      0, "First",    "F";
+      1, "Repeated", "Rpt";
+  }
+}
+
+lexicon rptd {
+  inherit rpt;
+  fieldname repeated;
+}
+
+grammar je {
+    fields eyear repeat month day;
+    calculated repeated; 
+    optional hyear wsday;
+    rank eyear month day;
+    lexicons m ws rptd;
+    alias pseudo { w wsday; rpt repeat; dd day; mm month; yyyy eyear; h hyear; }
+    alias unit { d day; r repeat; m month; y eyear; }
+
+    format dmy    "{day} |{month:m} |{eyear/hyear}| {repeated:rptd}";
+    format dmy_a  "{day} |{month:m:a} |{eyear/hyear}| {repeated:rptd:a}";
+    format wdmy   "{wsday:ws} |{day} |{month:m} |{eyear/hyear}| {repeated:rptd}";
+    format wdmy_a "{wsday:ws:a} |{day} |{month:m:a} |{eyear/hyear}| {repeated:rptd:a}";
+    format mdy   "{month:m} |{day}, |{eyear/hyear}| {repeated:rptd}";
+    format mdy_a "{month:m:a} |{day}, |{eyear/hyear}| {repeated:rptd:a}";
+    preferred dmy;
+}
+
+scheme je {
+  name "Julian Easter";
+  base easter;
+  grammar je;
+}
+
+// End of lib/hics/easter.glcs file
