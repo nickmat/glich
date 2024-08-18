@@ -62,14 +62,15 @@ write "</table>" nl;
 
 <table class='basic data'>
 <tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>
-<tr><td><b>cymld</b></td><td>text</td><td><b>Input:</b> cycle cyear month lmonth day<br /><b>Output:</b> cc yy mm fs dd</td><td class='example'>78 42 6 f 15<br />78 42 6 s 15<br />78 42 7 f 15</td><td>D, S</td></tr>
-<tr><td><b>cylmd</b></td><td>text</td><td><b>Input:</b> cycle cyear clmonth month day<br /><b>Output:</b> cc yy LM mm dd</td><td class='example'>78 42 6 15<br />78 42 Leap 6 15<br />78 42 7 15</td><td></td></tr>
-<tr><td><b>cylmd_s</b></td><td>text</td><td><b>Input:</b> cycle stem branch clmonth month day<br /><b>Output:</b> cc Stem-branch, LM mm dd</td><td class='example'>78 Yǐ-sì 6 15<br />78 Yǐ-sì, Leap 6 15<br />78 Yǐ-sì 7 15</td><td></td></tr>
-<tr><td><b>full</b></td><td>text</td><td><b>Output:</b> Cycle: cc, Year: Stem-branch (yy), LeapMon: mm, Day: dd</td><td class='example'>Cycle: 78, Year: Yǐ-sì (42), Month: 6, Day: 15<br />Cycle: 78, Year: Yǐ-sì (42), Leap-month: 6, Day: 15<br />Cycle: 78, Year: Yǐ-sì (42), Month: 7, Day: 15</td><td></td></tr>
-<tr><td><b>animal</b></td><td>text</td><td><b>Output:</b> (ccc) yy Year of the Animal mm LeapMon ddd</td><td class='example'>(78c) 42 Year of the Snake 6 Month 15d<br />(78c) 42 Year of the Snake 6 Leap-month 15d<br />(78c) 42 Year of the Snake 7 Month 15d</td><td></td></tr>
-<tr><td><b>def</b></td><td>text</td><td><b>Input:</b> cycle cyear month lmonth day<br /><b>Output:</b> cc yy mm lm dd</td><td class='example'>78 42 6 0 15<br />78 42 6 1 15<br />78 42 7 0 15</td><td>H, S</td></tr>
-<tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9c 9y 9m 9lm 9d 9cm 9s 9b<br /><b>Output:</b> 9c 9y 9m 9lm 9d 9cm 9s 9b</td><td class='example'>78c 42y 6m 0lm 15d 2s 6b<br />78c 42y 6m 1lm 15d 1cm 2s 6b<br />78c 42y 7m 0lm 15d 2s 6b</td><td>H</td></tr>
-<tr><td colspan='5'>Notes: H = Hidden, D = Default, S = Range shortcut supported. Example days = 2460866, 2460896 and 2460925 jdn</td></tr>
+<tr><td><b>dmy</b></td><td>text</td><td><b>Input:</b> day month eyear repeated<br /><b>Output:</b> dd Month yyyy/h Repeated</td><td class='example'>2 April 2022/3<br />3 April 2023<br />3 April 2023/4 Repeated</td><td>D</td></tr>
+<tr><td><b>dmy_a</b></td><td>text</td><td><b>Input:</b> day month eyear repeated<br /><b>Output:</b> dd Mon yyyy/h Rpt</td><td class='example'>2 Apr 2022/3<br />3 Apr 2023<br />3 Apr 2023/4 Rpt</td><td></td></tr>
+<tr><td><b>wdmy</b></td><td>text</td><td><b>Input:</b> wsday day month eyear repeated<br /><b>Output:</b> Weekday dd Month yyyy/h Repeated</td><td class='example'>Saturday 2 April 2022/3<br />Sunday 3 April 2023<br />Tuesday 3 April 2023/4 Repeated</td><td></td></tr>
+<tr><td><b>wdmy_a</b></td><td>text</td><td><b>Input:</b> wsday day month eyear repeated<br /><b>Output:</b> Wday dd Mon yyyy/h Rpt</td><td class='example'>Sat 2 Apr 2022/3<br />Sun 3 Apr 2023<br />Tue 3 Apr 2023/4 Rpt</td><td></td></tr>
+<tr><td><b>mdy</b></td><td>text</td><td><b>Input:</b> month day eyear repeated<br /><b>Output:</b> Month dd, yyyy/h Repeated</td><td class='example'>April 2, 2022/3<br />April 3, 2023<br />April 3, 2023/4 Repeated</td><td></td></tr>
+<tr><td><b>mdy_a</b></td><td>text</td><td><b>Input:</b> month day eyear repeated<br /><b>Output:</b> Mon dd, yyyy/h Rpt</td><td class='example'>Apr 2, 2022/3<br />Apr 3, 2023<br />Apr 3, 2023/4 Rpt</td><td></td></tr>
+<tr><td><b>def</b></td><td>text</td><td><b>Input:</b> eyear repeat month day<br /><b>Output:</b> yyyy rpt mm dd</td><td class='example'>2022 0 4 2<br />2023 0 4 3<br />2023 1 4 3</td><td>H</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9y 9r 9m 9d 9rptd<br /><b>Output:</b> 9y 9r 9m 9d 9rptd</td><td class='example'>2022y 0r 4m 2d<br />2023y 0r 4m 3d<br />2023y 1r 4m 3d 1rptd</td><td>H</td></tr>
+<tr><td colspan='5'>Notes: H = Hidden, D = Default, S = Range shortcut supported. Example days = 2460050, 2460051 and 2460417 jdn</td></tr>
 </table>
 
 [OUTPUT]*/
