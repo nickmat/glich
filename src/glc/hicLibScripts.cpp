@@ -244,7 +244,7 @@ glich::ScriptModule glich::hics_default_scripts[] = {
  "rank eyear month day;\n"
  "lexicons m ws rptd;\n"
  "alias pseudo { w wsday; rpt repeat; dd day; mm month; yyyy eyear; h hyear; }\n"
- "alias unit { d day; r repeat; m month; y eyear; }\n"
+ "alias unit { d day; r repeat; m month; y eyear; rptd repeated; }\n"
  "function def_to_calc {\n"
  "repeated = @if( repeat=1, 1, null );\n"
  "result = this;\n"
