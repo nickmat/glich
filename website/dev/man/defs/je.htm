@@ -33,6 +33,146 @@
 
 <h2>Page Under Construction</h2>
 
+<h2>Calendar Description</h2>
+<p>
+ The Julian Easter scheme is a variant of the <a href='j.htm'>Julian</a> calendar obtained
+ by shifting the year change forward from the 1st January to Easter Sunday for the year in question.
+ Because Easter varies from 22nd March to 25th April, the length of the year varies.
+ Some years a few days will occur twice in an Easter year
+ and sometimes a few days will be invalid for that year.
+</p>
+
+<h3>Use Case</h3>
+<p>
+ Used in some French provinces around the 13th century.
+</p>
+<p>
+ A variant of this calendar was used in the English Regnal calendar
+ as King John used the year from Ascension Day (40 days following Easter Sunday).
+</p>
+
+<h3>Definition</h3>
+<table class='record'>
+<tr><th colspan='7'>Record - Default order</th></tr>
+<tr><td>eyear</td><td>repeat</td><td>month</td><td>day</td><td class='rec-calc'>repeated</td><td class='rec-opt'>hyear</td><td class='rec-opt'>wsday</td></tr>
+</table>
+<table class='record'>
+<tr><th colspan='7'>Record - Ranking order</th></tr>
+<tr><td>eyear</td><td>month</td><td>day</td><td>repeat</td><td class='rec-calc'>repeated</td><td class='rec-opt'>hyear</td><td class='rec-opt'>wsday</td></tr>
+</table>
+<p class='lclear'>
+ The Julian Easter calendar is based on <a href='j.htm'>Julian</a> calendar
+ and the same days of the year the <a href='j.htm'>Julian</a> calendar except the year change occurs on Easter Sunday.
+ The calendar is given the nominal epoch of 27th March 1, the calculated day of Easter in the Julian year 1.
+</p>
+<p style='display:inline;'>
+ The <b>Epoch</b> is set at
+ <table class='rec-value'>
+   <tr><td rowspan='2' class='sig'>je</td><th>year</th><th>month</th><th>day</th><th>hist</th></tr>
+   <tr class='value'><td>1</td><td>3</td><td>27</td><td>1</td></tr>
+ </table>
+ =
+ <table class='rec-value'>
+   <tr><td rowspan='2' class='sig'>j</td><th>year</th><th>month</th><th>day</th></tr>
+   <tr class='value'><td>1</td><td>3</td><td>27</td></tr>
+ </table>
+ =
+ <table class='rec-value'>
+  <tr><td rowspan='2' class='sig'>jdn</td><th>day</th></tr>
+  <tr class='value'><td>1721509</td></tr>
+ </table>.
+</p>
+
+<h3>Formats</h3>
+<p>
+ Formatting a date for schemes where the New Year date (Historical Year)
+ and Year number increment date (Civil Year) is different
+ can lead to confusion if it is not made clear which year is displayed.
+ It is proposed that the dual dating system is used for this scheme.
+</p>
+<h4>Dual Dates</h4>
+<p>
+ The Civil year is always shown in full.
+ If this is the same as the Historical year then this is the only year shown.
+ If the years differ, then the last digit (or as many as are different)
+ is shown. This is separated from the Civil year with a '/' slash character. 
+</p>
+<h4>Repeated Days</h4>
+<p>
+ The calendar scheme has a field to indicate the first or repeated use
+ of the month and day in the Easter year.
+ The formats only display this field when the day is repeated for the second time.
+</p>
+
+<h4>Formats Provided</h4>
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>dmy</b></td><td>text</td><td><b>Input:</b> day month eyear repeated<br /><b>Output:</b> dd Month yyyy/h Repeated</td><td class='example'>2 April 2022/3<br />3 April 2023<br />3 April 2023/4 Repeated</td><td>D</td></tr>
+<tr><td><b>dmy_a</b></td><td>text</td><td><b>Input:</b> day month eyear repeated<br /><b>Output:</b> dd Mon yyyy/h Rpt</td><td class='example'>2 Apr 2022/3<br />3 Apr 2023<br />3 Apr 2023/4 Rpt</td><td></td></tr>
+<tr><td><b>wdmy</b></td><td>text</td><td><b>Input:</b> wsday day month eyear repeated<br /><b>Output:</b> Weekday dd Month yyyy/h Repeated</td><td class='example'>Saturday 2 April 2022/3<br />Sunday 3 April 2023<br />Tuesday 3 April 2023/4 Repeated</td><td></td></tr>
+<tr><td><b>wdmy_a</b></td><td>text</td><td><b>Input:</b> wsday day month eyear repeated<br /><b>Output:</b> Wday dd Mon yyyy/h Rpt</td><td class='example'>Sat 2 Apr 2022/3<br />Sun 3 Apr 2023<br />Tue 3 Apr 2023/4 Rpt</td><td></td></tr>
+<tr><td><b>mdy</b></td><td>text</td><td><b>Input:</b> month day eyear repeated<br /><b>Output:</b> Month dd, yyyy/h Repeated</td><td class='example'>April 2, 2022/3<br />April 3, 2023<br />April 3, 2023/4 Repeated</td><td></td></tr>
+<tr><td><b>mdy_a</b></td><td>text</td><td><b>Input:</b> month day eyear repeated<br /><b>Output:</b> Mon dd, yyyy/h Rpt</td><td class='example'>Apr 2, 2022/3<br />Apr 3, 2023<br />Apr 3, 2023/4 Rpt</td><td></td></tr>
+<tr><td><b>def</b></td><td>text</td><td><b>Input:</b> eyear repeat month day<br /><b>Output:</b> yyyy rpt mm dd</td><td class='example'>2022 0 4 2<br />2023 0 4 3<br />2023 1 4 3</td><td>H</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9y 9r 9m 9d 9rptd<br /><b>Output:</b> 9y 9r 9m 9d 9rptd</td><td class='example'>2022y 0r 4m 2d<br />2023y 0r 4m 3d<br />2023y 1r 4m 3d 1rptd</td><td>H</td></tr>
+<tr><td colspan='5'>Notes: H = Hidden, D = Default, S = Range shortcut supported. Example days = 2460050, 2460051 and 2460417 jdn</td></tr>
+</table>
+
+<h3>Script</h3>
+<table class='code lfloat'>
+<tr><th>Default Script</th></tr>
+<tr><td
+>lexicon rpt {
+  name "Repeated Date";
+  fieldname repeat;
+  lang en;
+  pseudo  Repeated,   Rpt;
+  tokens {
+      0, "First",    "F";
+      1, "Repeated", "Rpt";
+  }
+}
+lexicon rptd {
+  inherit rpt;
+  fieldname repeated;
+}
+grammar je {
+    fields eyear repeat month day;
+    calculated repeated; 
+    optional hyear wsday;
+    rank eyear month day;
+    lexicons m ws rptd;
+    alias pseudo { w wsday; rpt repeat; dd day; mm month; yyyy eyear; h hyear; }
+    alias unit { d day; r repeat; m month; y eyear; rptd repeated; }
+    function def_to_calc {
+        repeated = @if( repeat=1, 1, null );
+        result = this;
+    }
+    function calc_to_def {
+        repeat = @if( repeated=1, 1, 0 );
+        result = this;
+    }
+    use { calculate def_to_calc; from:text calc_to_def; }
+    format dmy    "{day} |{month:m} |{eyear/hyear}| {repeated:rptd}";
+    format dmy_a  "{day} |{month:m:a} |{eyear/hyear}| {repeated:rptd:a}";
+    format wdmy   "{wsday:ws} |{day} |{month:m} |{eyear/hyear}| {repeated:rptd}";
+    format wdmy_a "{wsday:ws:a} |{day} |{month:m:a} |{eyear/hyear}| {repeated:rptd:a}";
+    format mdy    "{month:m} |{day}, |{eyear/hyear}| {repeated:rptd}";
+    format mdy_a  "{month:m:a} |{day}, |{eyear/hyear}| {repeated:rptd:a}";
+    preferred dmy;
+}
+scheme je {
+  name "Julian Easter";
+  base easter;
+  grammar je;
+}
+</td></tr>
+</table>
+<p class='clear'>
+  The script makes use of the optional field <code>wsday</code>
+  to output weekdays and is thus requires the <a href='jwsn.htm'>jwsn - Julian Week (Sunday) Number</a> lexicon "w".
+ </p>
+
 </div><!--id=content-->
 
  <div class="crumbs">
