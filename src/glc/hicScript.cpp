@@ -146,6 +146,9 @@ namespace {
             else if( name == "easter" ) {
                 bs = Scheme::BaseName::easter;
             }
+            else if( name == "liturgical" ) {
+                bs = Scheme::BaseName::liturgical;
+            }
             else if( name == "jwn" ) {
                 bs = Scheme::BaseName::jwn;
             }

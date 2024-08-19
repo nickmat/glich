@@ -43,6 +43,7 @@
 #include "hicJdn.h"
 #include "hicJulian.h"
 #include "hicJwn.h"
+#include "hicLiturgical.h"
 #include "hicOptional.h"
 #include "hicRecord.h"
 
@@ -272,6 +273,8 @@ Base* Scheme::create_base( BaseName bs, const StdStrVec& data )
         return new Chinese( data );
     case BaseName::easter:
         return new Easter( data );
+    case BaseName::liturgical:
+        return new Liturgical( data );
     case BaseName::jdn:
         return new Jdn( data );
     case BaseName::jwn:

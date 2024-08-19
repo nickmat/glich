@@ -46,6 +46,7 @@ set( GLC_SOURCES
     hicJwn.cpp
     hicLexicon.cpp
     hicLibScripts.cpp
+    hicLiturgical.cpp
     hicMath.cpp
     hicOptional.cpp
     hicRecord.cpp
@@ -96,6 +97,7 @@ set( GLC_HEADERS
     hicJwn.h
     hicLexicon.h
     hicLibScripts.h
+    hicLiturgical.h
     hicMath.h
     hicOptional.h
     hicRecord.h
