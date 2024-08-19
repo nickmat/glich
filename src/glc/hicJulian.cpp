@@ -154,6 +154,14 @@ Field Julian::easter( Field year )
     return kday_after( WDAY_Sunday, paschal_moon );
 }
 
+/*static*/
+Field glich::Julian::year_from_jdn( Field jdn )
+{
+    Field year, month, day;
+    julian_from_jdn( &year, &month, &day, jdn );
+    return year;
+}
+
 /*! Returns the last day of the month for the given month and year.
  */
 Field Julian::last_day_in_month( Field year, Field month ) const
