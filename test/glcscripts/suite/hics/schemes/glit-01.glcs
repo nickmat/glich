@@ -1,0 +1,28 @@
+// hics/schemes/glit-01.glcs - Test Easter Calendar scheme.
+
+scheme GLIT {
+    name "Gregorian liturgical";
+    base liturgical;
+}
+
+
+write nl;
+write @sch:object.GLIT nl;
+write nl;
+write @text.GLIT(2460540), @date.GLIT("2024 37 7"), @scheme.GLIT(2460540) nl;
+write @text({s:GLIT 2024, 37, 7}), @date({s:GLIT 2024, 37, 7}), @scheme.GLIT("2024 37 7") nl;
+write nl;
+write @text.GLIT(2460541), @date.GLIT("2024 38 1"), @scheme.GLIT(2460541) nl;
+write @text({s:GLIT 2024, 38, 1}), @date({s:GLIT 2024, 38, 1 }), @scheme.GLIT("2024 38 1") nl;
+
+/*[OUTPUT]
+
+{sch: "GLIT", "Gregorian liturgical", "liturgical", {: "year", "lweek", "day"}, "", {: "def", "u"}, "def", "def", true}
+
+2024 37 7, 2460540, {s:GLIT 2024, 37, 7}
+2024 37 7, 2460540, {s:GLIT 2024, 37, 7}
+
+2024 38 1, 2460541, {s:GLIT 2024, 38, 1}
+2024 38 1, 2460541, {s:GLIT 2024, 38, 1}
+
+[OUTPUT]*/
