@@ -154,7 +154,7 @@ void Record::set_str( const string& str, const Format& fmt, Boundary rb )
     }
 }
 
-void glich::Record::set_fields( const FieldVec fields )
+void Record::set_fields( const FieldVec fields )
 {
     size_t size = std::min( fields.size(), m_f.size() );
     for( size_t i = 0; i < size; i++ ) {
@@ -248,7 +248,7 @@ Field Record::get_field( size_t index ) const
     return f_invalid;
 }
 
-Field glich::Record::get_field( size_t index, const BoolVec* mask ) const
+Field Record::get_field( size_t index, const BoolVec* mask ) const
 {
     if( index >= 0 && (!mask || (*mask)[index]) &&
         index < (int) m_base.record_size() ) {
@@ -257,7 +257,7 @@ Field glich::Record::get_field( size_t index, const BoolVec* mask ) const
     return f_invalid;
 }
 
-Field glich::Record::get_revealed_field( size_t index, const BoolVec& reveal ) const
+Field Record::get_revealed_field( size_t index, const BoolVec& reveal ) const
 {
     assert( m_f.size() == reveal.size() );
     if( index < m_f.size() && reveal[index] ) {
