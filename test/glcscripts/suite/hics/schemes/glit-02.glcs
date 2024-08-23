@@ -124,12 +124,18 @@ write @text.:ywd_a({s:GLIT 2024, 38, 1}), @date({s:GLIT 2024, 38, 1 }), @scheme.
 
 /*[OUTPUT]
 
-{sch: "GLIT", "Gregorian liturgical", "liturgical", {: "year", "lweek", "day"}, "", {: "def", "u"}, "def", "def", true}
+{sch: "GLIT", "Gregorian liturgical", "liturgical", {: "year", "lweek", "day"}, "LIT", {: "ywd", "ywd_a", "def", "u"}, "ywd", "ywd", true}
 
-2024 37 7, 2460540, {s:GLIT 2024, 37, 7}
-2024 37 7, 2460540, {s:GLIT 2024, 37, 7}
+2024 Saturday, Eleventh Week after Trinity, 2460540, {s:GLIT 2024, 37, 7}
+2024 Saturday, Eleventh Week after Trinity, 2460540, {s:GLIT 2024, 37, 7}
 
-2024 38 1, 2460541, {s:GLIT 2024, 38, 1}
-2024 38 1, 2460541, {s:GLIT 2024, 38, 1}
+2024 Sunday, Twelfth Week after Trinity, 2460541, {s:GLIT 2024, 38, 1}
+2024 Sunday, Twelfth Week after Trinity, 2460541, {s:GLIT 2024, 38, 1}
+
+2024 Sat, Trinity XI, 2460540, {s:GLIT 2024, 37, 7}
+2024 Sat, Trinity XI, 2460540, {s:GLIT 2024, 37, 7}
+
+2024 Sun, Trinity XII, 2460541, {s:GLIT 2024, 38, 1}
+2024 Sun, Trinity XII, 2460541, {s:GLIT 2024, 38, 1}
 
 [OUTPUT]*/
