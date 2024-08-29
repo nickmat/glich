@@ -104,7 +104,7 @@ void Function::create_locals( StdStrVec& qual, SValueVec& args ) const
     }
     for( size_t i = 0; i < m_args.size(); i++ ) {
         glc().create_local( m_args[i] );
-        if( i < args.size() ) {
+        if( i < args.size() && args[i].type() != SValue::Type::Null ) {
             value = args[i];
         }
         else if( i < m_defs.size() ) {
