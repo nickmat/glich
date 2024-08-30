@@ -1188,7 +1188,11 @@ SValueVec Script::get_args( GetToken get )
     SValueVec args;
     if( token.type() == SToken::Type::Lbracket ) {
         for( ;; ) {
-            SValue arg = expr( GetToken::next );
+            token = m_ts.next();
+            SValue arg;
+            if( token.type() != SToken::Type::Comma && token.type() != SToken::Type::Rbracket ) {
+                arg = expr( GetToken::current );
+            }
             args.push_back( arg );
             token = current_token();
             if( token.type() == SToken::Type::Rbracket ||
