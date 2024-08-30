@@ -1,0 +1,20 @@
+// function011.glcs - Test function in a expression with arguments and defaults.
+
+function mult(m1=50, m2=2) {
+    result = m1 * m2;
+}
+
+write nl;
+write @mult(null,null), @mult(20,null), @mult(null,3), @mult(4,5) nl;
+write @mult(,),         @mult(20,),     @mult(,3) nl;
+write @mult(),          @mult(20) nl;
+write @mult nl;
+
+/*[OUTPUT]
+
+100, 40, 150, 20
+100, 40, 150
+100, 40
+100
+
+[OUTPUT]*/
