@@ -1,0 +1,21 @@
+// type001.glcs - @type( value ) // return type values.
+
+let a = 123n;
+let b = 456f;
+let c = 10.5;
+let d = "text";
+let e = 5..10;
+let f = 4..8 | 10..18;
+let g = {: 10, 20, 30};
+let h = true;
+let i = null;
+let j = @error( "Whoops" );
+
+write nl;
+write @type( a ), @type( b ), @type( c ), @type( d ), @type( e ), @type( f ), @type( g ), @type( h ), @type( i ), @type( j ) nl;
+
+/*[OUTPUT]
+
+number, field, float, string, range, rlist, object, bool, null, error
+
+[OUTPUT]*/
