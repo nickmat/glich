@@ -173,7 +173,7 @@
  This can be used to signal an unusable value in a calculation or function.
 </p>
 <p>
- The prefix "Error (" + <i>line</i> + "): " is added to message,
+ The prefix "Error ("<i>line</i>"): " is added to message,
  where <i>line</i> is the line number of the the error function.
 </p>
 <table class='basic'>
@@ -322,6 +322,7 @@
 <tr><td>@<b>span</b>( <i>value</i> )</td><td>Return the inclusive count between upper and lower bounds of a range or rlist.</td></tr>
 <tr><td>@<b>size</b>( <i>value</i> )</td><td>Return the number of elements in a rlist, object or string</td></tr>
 <tr><td>@<b>envelope</b>( <i>value</i> )</td><td>Return the enclosing range af an rlist.</td></tr>
+<tr><td>@<b>object</b>( <i>value</i> )</td><td>Return the object code name.</td></tr>
 </table>
 
 <h4>Function: @type( value )</h4>
@@ -463,6 +464,30 @@
  <tr><td class='example'>@envelope( true )</td><td class='example'>?</td></tr>
  <tr><td class='example'>@envelope( null )</td><td class='example'>?</td></tr>
  <tr><td class='example'>@envelope( @error( "Whoops" ) )</td><td class='example'>Error (12): Whoops</td></tr>
+</table>
+
+<h4>Function: @object( value )</h4>
+
+<p>
+ The @object function is only intended to be used with an <b>object</b> value,
+ when it returns the objects <b>code</b> name string value.
+</p>
+<p>
+ An <b>error</b> value will be returned unchanged.
+ All other <i>values</i> will return an empty string value <b>""</b>.
+</p>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+ <tr><td class='example'>@object( 123n )</td><td class='example'>""</td></tr>
+ <tr><td class='example'>@object( 456f )</td><td class='example'>""</td></tr>
+ <tr><td class='example'>@object( 10.5 )</td><td class='example'>""</td></tr>
+ <tr><td class='example'>@object( "text" )</td><td class='example'>""</td></tr>
+ <tr><td class='example'>@object( 5..10 )</td><td class='example'>""</td></tr>
+ <tr><td class='example'>@object( 4..8 | 10..18 )</td><td class='example'>""</td></tr>
+ <tr><td class='example'>@object( {: 10, 20, 30} )</td><td class='example'>":"</td></tr>
+ <tr><td class='example'>@object( true )</td><td class='example'>""</td></tr>
+ <tr><td class='example'>@object( null )</td><td class='example'>""</td></tr>
+ <tr><td class='example'>@object( @error( "Whoops" ) )</td><td class='example'>Error (12): Whoops</td></tr>
 </table>
 
 </div><!--id=content-->
