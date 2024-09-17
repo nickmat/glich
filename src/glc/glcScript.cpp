@@ -110,7 +110,8 @@ bool Script::statement()
         if( name == "if" ) return do_if();
         if( name == "do" ) return do_do();
         if( name == "set" ) return do_set();
-        if( name == "let" ) return do_let( VarType::local );
+        if( name == "let" ) return do_let( VariableType::local );
+        if( name == "global" ) return do_let( VariableType::global );
         if( name == "write" ) return do_write();
         if( name == "writeln" ) return do_writeln();
         if( name == "call" ) return do_call();
@@ -342,7 +343,7 @@ bool Script::do_set()
     return true;
 }
 
-bool Script::do_let( VarType vartype )
+bool Script::do_let( VariableType vartype )
 {
     SToken token = next_token();
     if( token.type() != SToken::Type::Name ) {
