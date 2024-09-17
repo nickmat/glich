@@ -37,6 +37,8 @@ namespace glich {
     class Object;
 
     class Script {
+        enum class VarType { local, global, constant };
+
     public:
         Script( Glich* db, std::istream& in, std::ostream& out );
 
@@ -64,7 +66,7 @@ namespace glich {
         bool do_if();
         bool do_do();
         bool do_set();
-        bool do_let();
+        bool do_let( VarType vartype );
         bool do_assign( const std::string& name );
         bool do_write( const std::string& term = "" );
         bool do_writeln() { return do_write( "\n" ); }
