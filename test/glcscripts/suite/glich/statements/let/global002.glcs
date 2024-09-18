@@ -1,0 +1,16 @@
+// global002.glcs Test local masking global variable
+
+global a = 5;
+write a,;
+
+mark test;
+let a = 9;
+write a,;
+mark test;
+
+write a;
+
+
+/*[OUTPUT]
+5, 9, 5
+[OUTPUT]*/
