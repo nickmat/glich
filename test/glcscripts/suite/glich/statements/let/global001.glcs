@@ -1,0 +1,12 @@
+// global001.glcs Test global let statement
+
+global a = 5;
+write a,;
+global a = 9;
+write a,;
+a = 11;
+write a;
+
+/*[OUTPUT]
+5, 9, 11
+[OUTPUT]*/
