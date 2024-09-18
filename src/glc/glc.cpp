@@ -418,7 +418,13 @@ bool Glich::is_named( const string& name ) const
     if( m_constants.count( name ) == 1 ) {
         return true;
     }
-    return m_store->exists( name );
+    if( m_store->exists( name ) ) {
+        return true;
+    }
+    if( m_globals.count( name ) == 1 ) {
+        return true;
+    }
+    return false;
 }
 
 SValue Glich::get_named( const string& name ) const
@@ -426,7 +432,47 @@ SValue Glich::get_named( const string& name ) const
     if( m_constants.count( name ) == 1 ) {
         return m_constants.find( name )->second;
     }
-    return m_store->get_local( name );
+    if( m_store->exists( name ) ) {
+        return m_store->get_local( name );
+    }
+    if( m_globals.count( name ) == 1 ) {
+        return m_globals.find( name )->second;
+    }
+    return SValue();
+}
+
+bool Glich::is_variable( const string& name ) const
+{
+    if( m_store->exists( name ) ) {
+        return true;
+    }
+    if( m_globals.count( name ) == 1 ) {
+        return true;
+    }
+    return false;
+}
+
+bool Glich::create_variable( const string& name, VariableType type )
+{
+    switch( type )
+    {
+    case VariableType::local:
+        create_local( name );
+        break;
+    case VariableType::global:
+        create_global( name );
+        break;
+    }
+    return true;
+}
+
+SValue* Glich::get_variable_ptr( const string& name )
+{
+    SValue* var = m_store->get_local_ptr( name );
+    if( var == nullptr ) {
+        var = get_global_ptr( name );
+    }
+    return var;
 }
 
 bool Glich::create_local( const string& name )
@@ -456,6 +502,27 @@ SValue* Glich::get_local_ptr( const string& name )
 bool Glich::is_local( const string& name ) const
 {
     return m_store->exists( name );
+}
+
+bool Glich::create_global( const string& name )
+{
+    assert( m_marks.size() > 0 );
+    m_marks[m_marks.size() - 1]->add_global( name );
+    m_globals[name] = SValue();
+    return true;
+}
+
+SValue* Glich::get_global_ptr( const string& name )
+{
+    if( m_globals.count( name ) > 0 ) {
+        return &m_globals.find( name )->second;
+    }
+    return nullptr;
+}
+
+void Glich::remove_global( const string& name )
+{
+    m_globals.erase( name );
 }
 
 bool Glich::is_constant( const string& name ) const

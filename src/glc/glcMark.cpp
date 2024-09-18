@@ -59,6 +59,9 @@ Mark::~Mark()
     for( auto& var : m_locals ) {
         s_zero_store->remove( var );
     }
+    for( auto& name : m_globals ) {
+        glc().remove_global( name );
+    }
     for( auto& code : m_functions ) {
         glc().remove_function( code );
     }

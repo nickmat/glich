@@ -123,7 +123,7 @@ bool Script::statement()
         if( name == "lexicon" ) return do_lexicon();
         if( name == "grammar" ) return do_grammar();
         if( name == "format" ) return do_format();
-        if( m_glc->is_local( name ) ) return do_assign( name );
+        if( m_glc->is_variable( name ) ) return do_assign( name );
     }
     else if( token.type() == SToken::Type::Semicolon ) {
         return true; // Empty statement
@@ -355,14 +355,29 @@ bool Script::do_let( VariableType vartype )
         error( "\"" + name + "\" is a constant." );
         return false;
     }
-    m_glc->create_local( name ); // Creates variable if it doesn't exist.
-    return do_assign( name );
+    bool create = m_glc->create_variable( name, vartype ); // Creates variable if it doesn't exist.
+    if( !create ) {
+        error( "Unable to create variable " + name );
+        return false;
+    }
+    return do_assign( name, vartype );
 }
 
-bool Script::do_assign( const string& name )
+bool Script::do_assign( const string& name, VariableType vartype )
 {
     SToken token = next_token();
-    SValue* vp = m_glc->get_local_ptr( name );
+    SValue* vp = nullptr;
+    switch( vartype )
+    {
+    case VariableType::local:
+        vp = m_glc->get_local_ptr( name );
+        break;
+    case VariableType::global:
+        vp = m_glc->get_global_ptr( name );
+        break;
+    default:
+        vp = m_glc->get_variable_ptr( name );
+    }
     assert( vp != nullptr );
 
     while( token.type() == SToken::Type::LSbracket ) {

@@ -91,11 +91,17 @@ namespace glich {
 
         bool is_named( const std::string& name ) const;
         SValue get_named( const std::string& name ) const;
+        bool is_variable( const std::string& name ) const;
+        bool create_variable( const std::string& name, VariableType type );
+        SValue* get_variable_ptr( const std::string& name );
         bool create_local( const std::string& name );
         bool update_local( const std::string& name, SValue& value );
         SValue get_local( const std::string& name ) const;
         SValue* get_local_ptr( const std::string& name );
         bool is_local( const std::string& name ) const;
+        bool create_global( const std::string& name );
+        SValue* get_global_ptr( const std::string& name );
+        void remove_global( const std::string& name );
         bool is_constant( const std::string& name ) const;
 
         bool add_function( SpFunction fun );
@@ -148,6 +154,7 @@ namespace glich {
         GrammarMap m_grammars;
         MarkVec m_marks;
         Store* m_store;
+        SValueMap m_globals;
         SValueMap m_constants;
         std::string m_init_error;
         InOut* m_inout;

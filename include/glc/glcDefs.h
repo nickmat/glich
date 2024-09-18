@@ -112,7 +112,7 @@ namespace glich {
     class SValue;
     using SValueMap = std::map<std::string, SValue>;
 
-    enum class VariableType { local, global, constant };
+    enum class VariableType { unknown, local, global, constant };
     enum class Integer { number, field };
     enum class Context { glich, hics };
 

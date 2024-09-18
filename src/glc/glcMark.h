@@ -54,6 +54,7 @@ namespace glich {
 
         bool create_local( const std::string& name, Store* store );
 
+        void add_global( const std::string& code ) { m_globals.push_back( code ); }
         void add_function( const std::string& code ) { m_functions.push_back( code ); }
         void add_command( const std::string& code ) { m_commands.push_back( code ); }
         void add_object( const std::string& code ) { m_objects.push_back( code ); }
@@ -79,6 +80,7 @@ namespace glich {
 
         std::string m_name;
         StdStrVec m_locals;
+        StdStrVec m_globals;
         StdStrVec m_functions;
         StdStrVec m_commands;
         StdStrVec m_objects;

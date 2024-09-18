@@ -65,7 +65,7 @@ namespace glich {
         bool do_do();
         bool do_set();
         bool do_let( VariableType vartype );
-        bool do_assign( const std::string& name );
+        bool do_assign( const std::string& name, VariableType vartype = VariableType::unknown );
         bool do_write( const std::string& term = "" );
         bool do_writeln() { return do_write( "\n" ); }
         SpFunction create_function( const std::string& code );
