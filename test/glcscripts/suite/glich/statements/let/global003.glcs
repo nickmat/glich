@@ -1,0 +1,17 @@
+// global003.glcs Test global variable in a function.
+
+let x = 5;
+
+function test.type( y ) {
+    if type = "g" result = x;
+    else result = y;
+    endif
+}
+
+global x = 10;
+write x, @test.l(99), @test.g(99);
+
+
+/*[OUTPUT]
+5, 99, 10
+[OUTPUT]*/
