@@ -415,8 +415,8 @@ bool Script::do_assign( const string& name, VariableType vartype )
     if( token.type() == SToken::Type::Equal ) {
         value = expr( GetToken::next );
     }
-    else if( m_glc->is_local( name ) ) {
-        value = m_glc->get_local( name );
+    else if( m_glc->is_variable( name ) ) {
+        value = *vp;
         switch( token.type() )
         {
         case SToken::Type::PlusEq:
