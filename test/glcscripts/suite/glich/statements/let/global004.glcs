@@ -1,0 +1,14 @@
+// global004.glcs Test updating global in a function.
+
+global x = 5;
+
+function test {
+    result = x;
+    x += 10;
+}
+
+write @test, @test, x;
+
+/*[OUTPUT]
+5, 15, 25
+[OUTPUT]*/
