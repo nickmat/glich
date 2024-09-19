@@ -1,0 +1,13 @@
+// constant003.glcs Test constant in a function.
+
+function test {
+    result = c;
+}
+
+constant c = 5;
+write c, @test;
+
+
+/*[OUTPUT]
+5, 5
+[OUTPUT]*/

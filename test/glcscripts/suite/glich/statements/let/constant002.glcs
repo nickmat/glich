@@ -1,0 +1,16 @@
+// constant002.glcs Test constant let statement with mark
+
+mark test;
+constant a = 5;
+write nl a nl;
+
+mark test;
+write a;
+
+
+/*[OUTPUT]
+
+5
+Error (8): Variable "a" not found.
+
+[OUTPUT]*/

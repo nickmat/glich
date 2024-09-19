@@ -1,0 +1,12 @@
+// constant001.glcs Test constant let statement
+
+constant a = 5;
+write nl a nl;
+constant a = 9;
+
+/*[OUTPUT]
+
+5
+Error (5): "a" is a constant.
+
+[OUTPUT]*/
