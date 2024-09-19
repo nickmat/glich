@@ -112,6 +112,7 @@ namespace glich {
         SValue at_float();
         SValue at_version();
         SValue do_at_property( const std::string& property );
+        SValue at_global();
 
         SValue get_value_var( const std::string& name );
         SValue get_cur_object();

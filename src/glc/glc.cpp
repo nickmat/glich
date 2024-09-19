@@ -95,6 +95,7 @@ Glich::Glich( InOut* inout )
         { "envelope", fptr },
         { "type", fptr },
         { "object", fptr },
+        { "global", fptr },
         // Hics functions
         { "date", fptr },
         { "easter", fptr },
