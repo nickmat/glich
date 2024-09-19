@@ -1,0 +1,10 @@
+// global001.glcs Test global function.
+
+global x = 5;
+write x,;
+let x = 10;
+write x, @global.x;
+
+/*[OUTPUT]
+5, 10, 5
+[OUTPUT]*/
