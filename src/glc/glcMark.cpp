@@ -62,6 +62,9 @@ Mark::~Mark()
     for( auto& name : m_globals ) {
         glc().remove_global( name );
     }
+    for( auto& name : m_constants ) {
+        glc().remove_constant( name );
+    }
     for( auto& code : m_functions ) {
         glc().remove_function( code );
     }

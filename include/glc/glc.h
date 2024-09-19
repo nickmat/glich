@@ -102,7 +102,10 @@ namespace glich {
         bool create_global( const std::string& name );
         SValue* get_global_ptr( const std::string& name );
         void remove_global( const std::string& name );
+        bool create_constant( const std::string& name );
+        SValue* get_constant_ptr( const std::string& name );
         bool is_constant( const std::string& name ) const;
+        void remove_constant( const std::string& name );
 
         bool add_function( SpFunction fun );
         void remove_function( const std::string& code );

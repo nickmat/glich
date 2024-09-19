@@ -112,6 +112,7 @@ bool Script::statement()
         if( name == "set" ) return do_set();
         if( name == "let" ) return do_let( VariableType::local );
         if( name == "global" ) return do_let( VariableType::global );
+        if( name == "constant" ) return do_let( VariableType::constant );
         if( name == "write" ) return do_write();
         if( name == "writeln" ) return do_writeln();
         if( name == "call" ) return do_call();
@@ -374,6 +375,15 @@ bool Script::do_assign( const string& name, VariableType vartype )
         break;
     case VariableType::global:
         vp = m_glc->get_global_ptr( name );
+        break;
+    case VariableType::constant:
+        if( m_glc->create_constant( name ) ) {
+            vp = m_glc->get_constant_ptr( name );
+        }
+        else {
+            assert( false ); // This should already be checked for.
+            return false;
+        }
         break;
     default:
         vp = m_glc->get_variable_ptr( name );

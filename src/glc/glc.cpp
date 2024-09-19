@@ -525,9 +525,33 @@ void Glich::remove_global( const string& name )
     m_globals.erase( name );
 }
 
+bool Glich::create_constant( const string& name )
+{
+    if( is_named( name ) ) {
+        return false;
+    }
+    assert( m_marks.size() > 0 );
+    m_marks[m_marks.size() - 1]->add_constant( name );
+    m_constants[name] = SValue();
+    return true;
+}
+
+SValue* Glich::get_constant_ptr( const string& name )
+{
+    if( m_constants.count( name ) > 0 ) {
+        return &m_constants.find( name )->second;
+    }
+    return nullptr;
+}
+
 bool Glich::is_constant( const string& name ) const
 {
     return m_constants.count( name ) == 1;
+}
+
+void glich::Glich::remove_constant( const std::string& name )
+{
+    m_constants.erase( name );
 }
 
 bool Glich::add_function( SpFunction fun )
