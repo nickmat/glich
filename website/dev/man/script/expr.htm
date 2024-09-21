@@ -194,34 +194,20 @@
  Null values can be used as place-holder values within an object value.
 </p>
 
-<h2>Names</h2>
-<p>
- Any text in the script which is not an operator, literal or keyword is termed a 'name'.
- How a name is treated depends upon the context.
-</p>
-<p>
- Names are constructed from alphanumeric, '_' underline and ':' colon characters.
- They cannot start with a numeric character.
-</p>
-<p>
- In some cases the script may accept either a name,
- a literal string or a string expression in '( )' parentheses.
- It is often called a <b>code</b> or a <b>signature</b> when used like this.
-</p>
+<h2>Summary of Types</h2>
 
-<h3>Variables</h3>
-<p>
- Variables are created using the 'let' statement.
- They link a name to a value.
- Once created, the 'let' statement name is optional
- as any known variable name (other than a statement name) is treated as a let statement.
-</p>
-<p>
- The life of a variable is controlled by the 'mark' and 'clear' statements.
- It should be noted that unless directed otherwise, the variable names and values
- are remembered after a script has finished running.
- So subsequent scripts can use values calculated by previous ones.
-</p>
+<table class='basic'>
+<tr><td><b>string</b></td><td class="code">string_type</td><td colspan="4"></td></tr>
+<tr><td><b>float</b></td><td class="code">float_type</td><td rowspan="2"></td><td></td><td class="code" rowspan="3">numeric_type</td><td class="code" rowspan="5">any_numeric_type</td></tr>
+<tr><td><b>number</b></td><td class="code">number_type</td><td rowspan="2" class="code">integer_type</td></tr>
+<tr><td><b>field</b></td><td class="code">field_type</td><td  class="code"rowspan="3">set_type</td></tr>
+<tr><td><b>range</b></td><td class="code">range_type</td><td class="code" rowspan="2">combined_type</td><td rowspan="2"></td></tr>
+<tr><td><b>rlist</b></td><td class="code">rlist_type</td></tr>
+<tr><td><b>boolean</b></td><td class="code">bool_type</td><td colspan="4"></td></tr>
+<tr><td><b>object</b></td><td class="code">object_type</td><td class="code" colspan="4">named_object_type</td></tr>
+<tr><td><b>error</b></td><td class="code">error_type</td><td colspan="4"></td></tr>
+<tr><td><b>null</b></td><td class="code">null_type</td><td colspan="4"></td></tr>
+</table>
 
 <h2>Automatic Type Conversions</h2>
 <p>
@@ -230,7 +216,7 @@
  If the types differ, one of the types will attempt to be converted as follows.
 </p>
 <p>
- If either type is a float, the other type will be converted to a float.
+ If either type is a <b>float</b>, the other type will be converted to a float.
 </p>
 <p>
  If the types are a <b>number</b> and a <b>field</b>, in either order,
@@ -242,21 +228,6 @@
  If a demotion is not possible the script stops with an error.
  Promotions are always possible.
 </p>
-
-<h2>Summary of Types</h2>
-
-<table class='basic'>
-<tr><td><b>float</b></td><td class="code">float_type</td><td rowspan="2"></td><td></td><td class="code" rowspan="3">numeric_type</td><td class="code" rowspan="5">any_numeric_type</td></tr>
-<tr><td><b>number</b></td><td class="code">number_type</td><td rowspan="2" class="code">integer_type</td></tr>
-<tr><td><b>field</b></td><td class="code">field_type</td><td  class="code"rowspan="3">set_type</td></tr>
-<tr><td><b>range</b></td><td class="code">range_type</td><td class="code" rowspan="2">combined_type</td><td rowspan="2"></td></tr>
-<tr><td><b>rlist</b></td><td class="code">rlist_type</td></tr>
-<tr><td><b>boolean</b></td><td class="code">bool_type</td><td colspan="4"></td></tr>
-<tr><td><b>string</b></td><td class="code">string_type</td><td colspan="4"></td></tr>
-<tr><td><b>object</b></td><td class="code">object_type</td><td class="code" colspan="4">named_object_type</td></tr>
-<tr><td><b>error</b></td><td class="code">error_type</td><td colspan="4"></td></tr>
-<tr><td><b>null</b></td><td class="code">null_type</td><td colspan="4"></td></tr>
-</table>
 
 <h2>Operators</h2>
 
@@ -570,6 +541,70 @@ object_value<b>@</b>name<b>.</b>qualifier<b>(</b>expr, ...<b>)</b>
  scheme, set, until, while, write, writeln</b>
  are not strictly keyword, but are best avoided.
  If they are used as variable names then all assignments must start with 'let'.
+</p>
+
+<h2>Names</h2>
+<p>
+ Any text in the script which is not an operator, literal or keyword is termed a 'name'.
+ How a name is treated depends upon the context.
+</p>
+<p>
+ Names are constructed from alphanumeric, '_' underline and ':' colon characters.
+ They cannot start with a numeric character.
+</p>
+<p>
+ In some cases the script may accept either a name,
+ a literal string or a string expression in '( )' parentheses.
+ It is often called a <b>code</b> or a <b>signature</b> when used like this.
+</p>
+
+<h3>Constants</h3>
+<p>
+ Constants are created using the 'constant' statement.
+ It allows a name to a be use in place of value.
+ Once created it cannot be changed.
+ A constant cannot use the same name as a variable.
+</p>
+<p>
+ The lifetime of a constant is controlled with the 'mark' statement.
+</p>
+
+<h3>Variables</h3>
+<p>
+ Variables are created using the 'let' or 'global' statements.
+ They both link a name to a value
+ and can be changed using additional statements.
+ They cannot use the same name as a constant.
+</p>
+<p>
+ The 'let' statement creates a local variable which has limited visibility,
+ it cannot be seen inside a function or command unless declared there.
+</p>
+<p>
+ The 'global' statement creates a variable which has global visibility.
+ It can be used or modified inside a function or command
+ even if it was declared outside of them.
+</p>
+<p>
+ Once created, the 'let' or 'global' statement names are optional.
+ When a variable name is used to start a statement,
+ it is first checked for a local variable name
+ and if found then the 'let' is assumed.
+ If not found, it is checked against the global variables.
+ If found there, then the 'global' statement is assumed.
+</p>
+<p>
+ When a variable is used in an expression
+ and the name has been used to define  both a local and global variable,
+ the local value will take precedent.
+ Use of the global value may be forced using the <b>@global.</b><i>name</i> function.
+</p>
+<p>
+ The life of a variable is controlled by the 'mark' statement.
+ It should be noted that variable names and values
+ are remembered after a script has finished running.
+ So subsequent scripts can use values calculated by previous ones.
+ The 'mark' statement can be used to control this behavior.
 </p>
 
 </div><!--id=content-->
