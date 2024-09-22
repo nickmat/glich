@@ -12,19 +12,21 @@
       { "folder": "man", "name": "index", "label": "v0.3.0 Manual", "title": "v0.3.0 Manual", "subtitle": "Introduction", "content": [
         { "folder": "script", "name": "index", "label": "Glich Script", "subtitle": "Glich Script Language", "content": [
           { "name": "expr", "label": "Expressions", "subtitle": "Script Expressions" },
-          { "name": "file", "label": "Define file" },
-          { "name": "write", "label": "write Statement" },
-          { "name": "let", "label": "let Statement" },
-          { "name": "end", "label": "end Statement" },
-          { "name": "if", "label": "if Statement" },
-          { "name": "do", "label": "do ... loop", "subtitle": "do ... loop Statement" },
-          { "name": "function", "label": "Define function" },
+          { "folder": "stmts", "name": "index", "label": "Statements", "subtitle": "Introduction", "content": [
+            { "name": "file", "label": "Define file" },
+            { "name": "write", "label": "write Statement" },
+            { "name": "let", "label": "let Statement" },
+            { "name": "end", "label": "end Statement" },
+            { "name": "if", "label": "if Statement" },
+            { "name": "do", "label": "do ... loop", "subtitle": "do ... loop Statement" },
+            { "name": "function", "label": "Define function" },
+            { "name": "command", "label": "command & call", "subtitle": "Define command & call Statement" },
+            { "name": "object", "label": "Define object" },
+            { "name": "mark", "label": "mark Statement" },
+            { "name": "set", "label": "set Statement" }
+          ] },
           { "name": "bi-functions", "label": "Built-in Functions" },
-          { "name": "command", "label": "command & call", "subtitle": "Define command & call Statement" },
-          { "name": "object", "label": "Define object" },
           { "name": "bi-objects", "label": "Built-in Objects" },
-          { "name": "mark", "label": "mark Statement" },
-          { "name": "set", "label": "set Statement" },
           { "name": "ebnf", "label": "EBNF Definition" }
         ]},
         { "folder": "hics", "name": "index", "label": "Hics Extension", "subtitle": "Hics Language Extension", "content": [
