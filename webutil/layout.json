@@ -27,8 +27,7 @@
             { "name": "set", "label": "set Statement" }
           ] },
           { "name": "bi-functions", "label": "Built-in Functions" },
-          { "name": "bi-objects", "label": "Built-in Objects" },
-          { "name": "ebnf", "label": "EBNF Definition" }
+          { "name": "bi-objects", "label": "Built-in Objects" }
         ]},
         { "folder": "hics", "name": "index", "label": "Hics Extension", "subtitle": "Hics Language Extension", "content": [
           { "name": "lexicon", "label": "Define lexicon" },
@@ -38,8 +37,7 @@
           { "name": "set", "label": "set Extensions" },
           { "name": "bi-objects", "label": "Built-in Objects" },
           { "name": "bi-functions", "label": "Built-in Functions" },
-          { "name": "phrase", "label": "Date Phrase", "subtitle": "Date Phrase Meta Language" },
-          { "name": "ebnf", "label": "EBNF Definitions" }
+          { "name": "phrase", "label": "Date Phrase", "subtitle": "Date Phrase Meta Language" }
         ]},
         { "folder": "defs", "name": "index", "label": "Hics Library", "subtitle": "Hics Library Calendar Index", "menu": false, "css": "big-list", "content": [
           { "name": "jdn", "subtitle": "jdn - Julian Day Number", "map-label": false },
