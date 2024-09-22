@@ -38,7 +38,7 @@ namespace glich {
 
     class Script {
     public:
-        Script( Glich* db, std::istream& in, std::ostream& out );
+        Script( std::istream& in, std::ostream& out);
 
         bool run();
         SValue evaluate() { return expr( GetToken::next ); }
@@ -118,7 +118,6 @@ namespace glich {
 
         static STokenStream* s_current_ts;
 
-        Glich* m_glc;
         STokenStream m_ts;
         std::ostream* m_out;
         std::ostream* m_err;

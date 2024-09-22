@@ -53,8 +53,8 @@ using std::vector;
 
 STokenStream* Script::s_current_ts = nullptr;
 
-Script::Script( Glich* glc, std::istream& in, std::ostream& out )
-    : m_glc( glc ), m_ts( in, out ), m_out( &out ), m_err( &out )
+Script::Script( std::istream& in, std::ostream& out)
+    : m_ts( in, out ), m_out( &out ), m_err( &out )
 {
     assert( glc != nullptr );
 }
@@ -124,7 +124,7 @@ bool Script::statement()
         if( name == "lexicon" ) return do_lexicon();
         if( name == "grammar" ) return do_grammar();
         if( name == "format" ) return do_format();
-        if( m_glc->is_variable( name ) ) return do_assign( name );
+        if( glc().is_variable( name ) ) return do_assign( name );
     }
     else if( token.type() == SToken::Type::Semicolon ) {
         return true; // Empty statement
@@ -144,11 +144,11 @@ bool Script::do_mark()
         error( "Mark name string expected." );
         return false;
     }
-    if( !m_glc->is_level_zero() ) {
+    if( !glc().is_level_zero() ) {
         error( "Mark is only available in level zero." );
         return false;
     }
-    m_glc->add_or_replace_mark( mark );
+    glc().add_or_replace_mark( mark );
     return true;
 }
 
@@ -337,7 +337,7 @@ bool Script::do_set()
         error( "set statement is \"set propery value;\"." );
         return false;
     }
-    if( !m_glc->set_property( prop, value ) ) {
+    if( !glc().set_property( prop, value ) ) {
         error( "Set property \"" + prop + "\" value \"" + value + "\" not recognised." );
         return false;
     }
@@ -352,11 +352,11 @@ bool Script::do_let( VariableType vartype )
         return false;
     }
     string name = token.get_str();
-    if( m_glc->is_constant( name ) ) {
+    if( glc().is_constant( name ) ) {
         error( "\"" + name + "\" is a constant." );
         return false;
     }
-    bool create = m_glc->create_variable( name, vartype ); // Creates variable if it doesn't exist.
+    bool create = glc().create_variable( name, vartype ); // Creates variable if it doesn't exist.
     if( !create ) {
         error( "Unable to create variable " + name );
         return false;
@@ -371,14 +371,14 @@ bool Script::do_assign( const string& name, VariableType vartype )
     switch( vartype )
     {
     case VariableType::local:
-        vp = m_glc->get_local_ptr( name );
+        vp = glc().get_local_ptr( name );
         break;
     case VariableType::global:
-        vp = m_glc->get_global_ptr( name );
+        vp = glc().get_global_ptr( name );
         break;
     case VariableType::constant:
-        if( m_glc->create_constant( name ) ) {
-            vp = m_glc->get_constant_ptr( name );
+        if( glc().create_constant( name ) ) {
+            vp = glc().get_constant_ptr( name );
         }
         else {
             assert( false ); // This should already be checked for.
@@ -386,7 +386,7 @@ bool Script::do_assign( const string& name, VariableType vartype )
         }
         break;
     default:
-        vp = m_glc->get_variable_ptr( name );
+        vp = glc().get_variable_ptr( name );
     }
     assert( vp != nullptr );
 
@@ -425,7 +425,7 @@ bool Script::do_assign( const string& name, VariableType vartype )
     if( token.type() == SToken::Type::Equal ) {
         value = expr( GetToken::next );
     }
-    else if( m_glc->is_variable( name ) ) {
+    else if( glc().is_variable( name ) ) {
         value = *vp;
         switch( token.type() )
         {
@@ -470,7 +470,7 @@ bool Script::do_write( const string& term )
     }
     std::ostream* out = nullptr;
     if( !filecode.empty() ) {
-        File* file = m_glc->get_file( filecode );
+        File* file = glc().get_file( filecode );
         if( file == nullptr ) {
             error( "File \"" + filecode + "\" not found." );
             return false;
@@ -578,7 +578,7 @@ bool Script::do_function()
         error( "Function name missing." );
         return false;
     }
-    if( m_glc->get_function( code ) != nullptr ) {
+    if( glc().get_function( code ) != nullptr ) {
         error( "The function \"" + code + "\" already exists." );
         return false;
     }
@@ -586,7 +586,7 @@ bool Script::do_function()
     if( fun == nullptr ) {
         return false;
     }
-    return m_glc->add_function( fun );
+    return glc().add_function( fun );
 }
 
 bool Script::do_command()
@@ -596,7 +596,7 @@ bool Script::do_command()
         error( "Command name missing." );
         return false;
     }
-    if( m_glc->get_command( code ) != nullptr ) {
+    if( glc().get_command( code ) != nullptr ) {
         error( "command \"" + code + "\" already exists." );
         return false;
     }
@@ -605,7 +605,7 @@ bool Script::do_command()
     if( com == nullptr ) {
         return false;
     }
-    return m_glc->add_command( com );
+    return glc().add_command( com );
 }
 
 bool Script::do_call()
@@ -629,7 +629,7 @@ bool Script::do_object()
         error( "Object name missing." );
         return false;
     }
-    if( m_glc->get_object( code ) != nullptr ) {
+    if( glc().get_object( code ) != nullptr ) {
         error( "object \"" + code + "\" already exists." );
         return false;
     }
@@ -754,12 +754,12 @@ bool Script::do_scheme()
         error( "Scheme code missing." );
         return false;
     }
-    if( m_glc->get_scheme( code ) != nullptr ) {
+    if( glc().get_scheme( code ) != nullptr ) {
         error( "Scheme \"" + code + "\" already exists." );
         return false;
     }
     Scheme* sch = do_create_scheme( *this, code );
-    return m_glc->add_scheme( sch, code );
+    return glc().add_scheme( sch, code );
 }
 
 bool Script::do_lexicon()
@@ -769,12 +769,12 @@ bool Script::do_lexicon()
         error( "Lexicon code missing." );
         return false;
     }
-    if( m_glc->get_lexicon( code ) != nullptr ) {
+    if( glc().get_lexicon( code ) != nullptr ) {
         error( "Lexicon \"" + code + "\" already exists." );
         return false;
     }
     Lexicon* lex = do_create_lexicon( *this, code );
-    return m_glc->add_lexicon( lex, code );
+    return glc().add_lexicon( lex, code );
 }
 
 bool Script::do_grammar()
@@ -784,12 +784,12 @@ bool Script::do_grammar()
         error( "Grammar code missing." );
         return false;
     }
-    if( m_glc->get_grammar( code ) != nullptr ) {
+    if( glc().get_grammar( code ) != nullptr ) {
         error( "Grammar \"" + code + "\" already exists." );
         return false;
     }
     Grammar* gmr = do_create_grammar( *this, code, nullptr );
-    return m_glc->add_grammar( gmr, code );
+    return glc().add_grammar( gmr, code );
 }
 
 // If parsing the format in the global space then gmr is a nullptr and
@@ -1082,7 +1082,7 @@ StdStrVec Script::get_string_list( GetToken get )
 SValue Script::get_object( GetToken get )
 {
     string ocode = get_name_or_primary( get );
-    Object* obj = m_glc->get_object( ocode );
+    Object* obj = glc().get_object( ocode );
     SValue value;
     if( obj == nullptr ) {
         value.set_error( "Object name not recognised." );
@@ -1142,7 +1142,7 @@ SValue Script::do_subscript( const SValue& left, const SValue& right )
             return value;
         }
         string code = values[0].get_str();
-        Object* obj = m_glc->get_object( code );
+        Object* obj = glc().get_object( code );
         if( right.type() == SValue::Type::String ) {
             size_t index = obj->get_vindex( right.get_str() );
             if( index < values.size() ) {
@@ -1166,7 +1166,7 @@ SValue Script::do_at( const SValue& left, const SValue& right )
     if( ocode.empty() ) {
         return SValue::create_error( "Object expected." );
     }
-    Object* obj = m_glc->get_object( ocode );
+    Object* obj = glc().get_object( ocode );
     if( obj == nullptr ) {
         return SValue::create_error( "Object not found." );
     }
@@ -1303,7 +1303,7 @@ SValue Script::function_call()
         return SValue::create_error( "Built-in funtion whoopsy." );
     }
 
-    Function* fun = m_glc->get_function( name );
+    Function* fun = glc().get_function( name );
     if( fun == nullptr ) {
         return SValue::create_error( "Function \"" + name + "\" not found." );
     }
@@ -1363,7 +1363,7 @@ SValue Script::command_call()
     }
     string name = token.get_str();
     Function* com = nullptr;
-    com = m_glc->get_command( name );
+    com = glc().get_command( name );
     if( com == nullptr ) {
         value.set_error( "Command \"" + name + "\" not found." );
         return value;
@@ -1406,10 +1406,10 @@ SValue Script::at_read()
         prompt = args[0].get_str();
     }
     if( quals.empty() ) {
-        return m_glc->read_input( prompt );
+        return glc().read_input( prompt );
     }
     string filecode = quals[0];
-    File* file = m_glc->get_file( filecode );
+    File* file = glc().get_file( filecode );
     if( file == nullptr ) {
         return SValue::create_error( "File \"" + filecode + "\" not found." );
     }
@@ -1463,7 +1463,7 @@ SValue Script::at_field()
 
     Field field = f_invalid;
     bool success = false;
-    SValue value = ( args[0].type() == SValue::Type::String ) ? m_glc->evaluate( args[0].get_str() ) : args[0];
+    SValue value = ( args[0].type() == SValue::Type::String ) ? glc().evaluate( args[0].get_str() ) : args[0];
     switch( value.type() )
     {
     case SValue::Type::field:
@@ -1503,7 +1503,7 @@ SValue Script::at_range()
     Field fld = f_invalid;
     bool success = false;
     if( args[0].type() == SValue::Type::String ) {
-        value = m_glc->evaluate( args[0].get_str() );
+        value = glc().evaluate( args[0].get_str() );
     }
     else {
         value = args[0];
@@ -1548,7 +1548,7 @@ SValue Script::at_rlist()
     Field fld = 0;
     bool success = false;
     if( args[0].type() == SValue::Type::String ) {
-        value = m_glc->evaluate( args[0].get_str() );
+        value = glc().evaluate( args[0].get_str() );
     }
     else {
         value = args[0];
@@ -1592,7 +1592,7 @@ SValue Script::at_number()
 
     Num number = 0;
     bool success = false;
-    SValue value = (args[0].type() == SValue::Type::String) ? m_glc->evaluate( args[0].get_str() ) : args[0];
+    SValue value = (args[0].type() == SValue::Type::String) ? glc().evaluate( args[0].get_str() ) : args[0];
     switch( value.type() )
     {
     case SValue::Type::field:
@@ -1634,7 +1634,7 @@ SValue Script::at_float()
 
     double dbl = std::numeric_limits<double>::quiet_NaN();
     bool success = false;
-    SValue value = (args[0].type() == SValue::Type::String) ? m_glc->evaluate( args[0].get_str() ) : args[0];
+    SValue value = (args[0].type() == SValue::Type::String) ? glc().evaluate( args[0].get_str() ) : args[0];
     switch( value.type() )
 
     {
@@ -1696,7 +1696,7 @@ SValue glich::Script::at_global()
     if( quals.empty() ) {
         return SValue::create_error( "Global name required." );
     }
-    SValue* vptr = m_glc->get_global_ptr( quals[0] );
+    SValue* vptr = glc().get_global_ptr( quals[0] );
     if( vptr == nullptr ) {
         return SValue::create_error( "Global name not found." );
     }
@@ -1711,8 +1711,8 @@ SValue Script::get_value_var( const string& name )
     if( name == "this" ) {
         return get_cur_object();
     }
-    if( m_glc->is_named( name ) ) {
-        return m_glc->get_named( name );
+    if( glc().is_named( name ) ) {
+        return glc().get_named( name );
     }
     return SValue::create_error( "Variable \"" + name + "\" not found." );
 }
@@ -1728,7 +1728,7 @@ SValue Script::get_cur_object()
     SValueVec values( vnames_map.size() + 1 );
     values[0].set_str( cur_obj->get_code() );
     for( const auto& v : vnames_map ) {
-        values[v.second] = m_glc->get_local( v.first );
+        values[v.second] = glc().get_local( v.first );
     }
     return SValue( values );
 }

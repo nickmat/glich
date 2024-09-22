@@ -392,7 +392,7 @@ string Glich::run_script( const string& script )
 {
     std::istringstream iss( script );
     std::ostringstream oss;
-    Script scr( this, iss, oss );
+    Script scr( iss, oss );
     scr.run();
     return oss.str();
 }
@@ -401,7 +401,7 @@ std::string glich::Glich::run_script_file( const std::string& filename )
 {
     std::ifstream ifs( filename.c_str() );
     std::ostringstream oss;
-    Script scr( this, ifs, oss );
+    Script scr( ifs, oss );
     scr.run();
     return oss.str();
 }
@@ -410,7 +410,7 @@ SValue Glich::evaluate( const string& expression )
 {
     std::istringstream iss( expression );
     std::ostringstream oss;
-    Script scr( this, iss, oss );
+    Script scr( iss, oss );
     return scr.evaluate();
 }
 

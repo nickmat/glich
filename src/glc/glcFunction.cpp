@@ -45,7 +45,7 @@ SValue Function::run( StdStrVec& qual, SValueVec& args, std::ostream& out ) cons
     glc().push_store();
     glc().create_local( "result" );
     create_locals( qual, args );
-    Script scr( &glc(), iss, out );
+    Script scr( iss, out );
     scr.set_line( m_line );
     scr.run();
     SValue value = glc().get_local( "result" );
@@ -80,7 +80,7 @@ SValue Function::run( const SValue* left, StdStrVec& qual, SValueVec& args, std:
         }
     }
     create_locals( qual, args );
-    Script scr( &glc(), iss, out );
+    Script scr( iss, out );
     scr.set_line( m_line );
     scr.run();
     value = glc().get_local( "result" );
