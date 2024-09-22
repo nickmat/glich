@@ -11,6 +11,7 @@
     { "folder": "dev", "name": "index", "label": "Development", "title": "Development", "subtitle": "Introduction", "content": [
       { "folder": "man", "name": "index", "label": "v0.3.0 Manual", "title": "v0.3.0 Manual", "subtitle": "Introduction", "content": [
         { "folder": "script", "name": "index", "label": "Glich Script", "subtitle": "Glich Script Language", "content": [
+          { "name": "types", "label": "Value Types", "subtitle": "Script Value Types" },
           { "name": "expr", "label": "Expressions", "subtitle": "Script Expressions" },
           { "folder": "stmts", "name": "index", "label": "Statements", "subtitle": "Introduction", "content": [
             { "name": "file", "label": "Define file" },
