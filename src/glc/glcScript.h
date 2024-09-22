@@ -51,7 +51,6 @@ namespace glich {
         SToken& next_token() { return m_ts.next(); }
         std::string read_until( const std::string& name, const std::string& esc = std::string() )
             { return m_ts.read_until( name, esc ); }
-        Glich* get_glich() { return m_glc; }
 
         std::ostream& get_out_stream() { return *m_out; }
         int get_line() const { return m_ts.get_line(); }

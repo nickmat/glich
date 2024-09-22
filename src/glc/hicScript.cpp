@@ -218,7 +218,7 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
                 }
                 else {
                     gmr_code = script.get_name_or_primary( GetToken::current );
-                    gmr = script.get_glich()->get_grammar( gmr_code );
+                    gmr = glc().get_grammar( gmr_code );
                 }
             }
             else if( token.get_str() == "style" ) {
@@ -246,7 +246,7 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
         return nullptr;
     }
     if( gmr == nullptr ) {
-        gmr = Grammar::create_default_grammar( base, script.get_glich() );
+        gmr = Grammar::create_default_grammar( base, &glc() );
     }
     if( !base->attach_grammar( gmr ) ) {
         if( gmr_code.empty() ) {
@@ -307,7 +307,7 @@ namespace {
     {
         StdStrVec lexicons = script.get_string_list( GetToken::next );
         for( size_t i = 0; i < lexicons.size(); i++ ) {
-            Lexicon* lex = script.get_glich()->get_lexicon( lexicons[i] );
+            Lexicon* lex = glc().get_lexicon( lexicons[i] );
             if( lex == nullptr ) {
                 gmr->create_error( "lexicon " + lexicons[i] + " not found." );
             }
@@ -476,7 +476,7 @@ Grammar* glich::do_create_grammar( Script& script, const std::string& code, cons
         script.error( "'{' expected." );
         return nullptr;
     }
-    Grammar* gmr = new Grammar( code, script.get_glich() );
+    Grammar* gmr = new Grammar( code, &glc() );
     StdStrVec basefields;
     if( base != nullptr ) {
         for( size_t i = 0; i < base->required_size(); i++ ) {
@@ -828,8 +828,7 @@ SValue glich::at_text( Script& script )
         sig = quals[0];
     }
     split_code( &scode, &fcode, sig );
-    Glich* glc = script.get_glich();
-    Scheme* sch = glc->get_scheme( scode );
+    Scheme* sch = glc().get_scheme( scode );
     Scheme* rec_sch = nullptr;
     if( args.empty() ) {
         return SValue( "One argument required.", SValue::Type::Error );
@@ -852,7 +851,7 @@ SValue glich::at_text( Script& script )
             sch = rec_sch;
         }
         else {
-            sch = glc->get_oscheme();
+            sch = glc().get_oscheme();
         }
         if( sch == nullptr ) {
             return SValue( "No default scheme set.", SValue::Type::Error );
@@ -942,8 +941,7 @@ SValue glich::at_date( Script& script )
         sig = quals[0];
     }
     split_code( &scode, &fcode, sig );
-    Glich* glc = script.get_glich();
-    Scheme* sch = glc->get_scheme( scode );
+    Scheme* sch = glc().get_scheme( scode );
     if( sch == nullptr && !scode.empty() ) {
         return SValue::create_error( "Scheme \"" + scode + "\" not found." );
     }
@@ -965,7 +963,7 @@ SValue glich::at_date( Script& script )
     }
     if( value.type() == SValue::Type::String ) {
         if( sch == nullptr ) {
-            sch = glc->get_ischeme();
+            sch = glc().get_ischeme();
             if( sch == nullptr ) {
                 return SValue::create_error( "No default scheme set." );
             }
@@ -1033,13 +1031,12 @@ SValue glich::at_scheme( Script& script )
         sig = quals[0];
     }
     split_code( &scode, &fcode, sig );
-    Glich* glc = script.get_glich();
-    Scheme* sch = glc->get_scheme( scode );
+    Scheme* sch = glc().get_scheme( scode );
     bool success = false;
     Field jdn = value.get_field( success );
     if( success ) {
         if( sch == nullptr ) {
-            sch = glc->get_oscheme();
+            sch = glc().get_oscheme();
             if( sch == nullptr ) {
                 return SValue::create_error( no_default_mess );
             }
@@ -1048,7 +1045,7 @@ SValue glich::at_scheme( Script& script )
     }
     if( value.type() == SValue::Type::String ) {
         if( sch == nullptr ) {
-            sch = glc->get_ischeme();
+            sch = glc().get_ischeme();
             if( sch == nullptr ) {
                 return SValue::create_error( no_default_mess );
             }
@@ -1072,15 +1069,14 @@ SValue glich::at_element( Script& script )
         ele.add_char( ':' );
         ele.add_string( sig );
     }
-    Glich* glc = script.get_glich();
     SValue value( args[0] );
     bool success = false;
     Field fld = value.get_field( success );
     if( success ) {
-        value.set_str( ele.get_formatted_element( *glc, fld ) );
+        value.set_str( ele.get_formatted_element( glc(), fld));
     }
     else if( value.type() == SValue::Type::String ) {
-        value.set_field( ele.get_converted_field( glc, value.get_str() ) );
+        value.set_field( ele.get_converted_field( &glc(), value.get_str()));
     }
     else {
         value.set_error( "Element requires field like or string type." );
@@ -1100,8 +1096,7 @@ SValue glich::at_phrase( Script& script )
     if( !quals.empty() ) {
         sig = quals[0];
     }
-    Glich* glc = script.get_glich();
-    RList rlist = glc->date_phrase_to_rlist( args[0].get_str(), sig );
+    RList rlist = glc().date_phrase_to_rlist( args[0].get_str(), sig );
     SValue value;
     value.set_rlist_demote( rlist );
     return value;
