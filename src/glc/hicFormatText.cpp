@@ -533,7 +533,7 @@ Field glich::FormatText::find_token( Lexicon** lex, const std::string& word ) co
 {
     Field field = f_invalid;
     for( size_t i = 0; i < m_lexicons.size(); i++ ) {
-        Lexicon* lex_ptr = get_glc()->get_lexicon( m_lexicons[i] );
+        Lexicon* lex_ptr = glc().get_lexicon( m_lexicons[i] );
         field = lex_ptr->find( word );
         if( field != f_invalid ) {
             if( lex ) {

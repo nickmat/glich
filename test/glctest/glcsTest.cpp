@@ -220,7 +220,6 @@ int main( int argc, char* argv[] )
     std::cout << g_title << "\n";
     clock_t t = clock();
     init_glc( InitLibrary::None );
-    Glich& glc = *get_glc();
     string result;
     TestResults totals;
     for ( int i = 1; i < argc; i++ ) {
@@ -235,10 +234,10 @@ int main( int argc, char* argv[] )
         }
         CheckFile cf = check_file( arg );
         if ( cf == CheckFile::file ) {
-            result += run_test_script( &totals, glc, arg );
+            result += run_test_script( &totals, glc(), arg );
             continue;
         } else if ( cf == CheckFile::dir ) {
-            result += run_full_test( &totals, glc, arg );
+            result += run_full_test( &totals, glc(), arg );
             continue;
         }
         result += "Unknown command line switch " + arg + "\n\n";

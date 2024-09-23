@@ -40,7 +40,7 @@ Lexicon::Lexicon( const std::string& code ) : m_code( code ), m_inherit( nullptr
 
 void Lexicon::set_inherit( const std::string& inherit )
 {
-    m_inherit = get_glc()->get_lexicon( inherit );
+    m_inherit = glc().get_lexicon( inherit );
 }
 
 void Lexicon::set_pseudo_names( const StdStrVec & pseudos )

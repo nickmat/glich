@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     4th September 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -52,7 +52,7 @@ Glich* g_glc = nullptr;
 int main( int argc, char* argv[] )
 {
     init_glc( InitLibrary::Hics );
-    g_glc = get_glc();
+    g_glc = &glc();
 
     std::cout << GLCTEST_TYPE;
 
