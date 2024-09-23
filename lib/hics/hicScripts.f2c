@@ -46,7 +46,7 @@ glich::ScriptModule glich::hics_default_scripts[] = {
     { "julian", @(cp.cpp)"julian.glcs" },
     { "julian_shift", @(cp.cpp)"julian_shift.glcs" },
     { "easter", @(cp.cpp)"easter.glcs" },
-    { "liturgical", @(cp.cpp)"liturgical.glcs" },
+ //   { "liturgical", @(cp.cpp)"liturgical.glcs" },
     { "eh", @(cp.cpp)"eh.glcs" },
     { "gregorian", @(cp.cpp)"gregorian.glcs" },
     { "jce", @(cp.cpp)"jce.glcs" },
