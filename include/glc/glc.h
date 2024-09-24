@@ -166,7 +166,6 @@ namespace glich {
 
     void init_glc( InitLibrary lib, InOut* inout = nullptr );
     void exit_glc();
-    Glich* get_glc();
     Glich& glc();
 
 } // namespace glich

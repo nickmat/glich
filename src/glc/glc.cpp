@@ -953,12 +953,6 @@ void glich::exit_glc()
     delete s_glc;
 }
 
-Glich* glich::get_glc()
-{
-    assert( s_glc != nullptr );
-    return s_glc;
-}
-
 Glich& glich::glc()
 {
     assert( s_glc != nullptr );
