@@ -73,6 +73,7 @@ namespace glich {
         bool do_call();
         bool do_object();
         bool do_file();
+        bool do_module();
         bool do_scheme();
         bool do_lexicon();
         bool do_grammar();

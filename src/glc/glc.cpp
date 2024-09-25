@@ -164,7 +164,7 @@ SchemeList Glich::get_scheme_list( SchemeStyle style ) const
     return slist;
 }
 
-void Glich::get_scheme_info( Scheme_info* info, const string& scode ) const
+void Glich::get_scheme_info( Scheme_info* info, const string& scode )
 {
     Scheme* sch = get_scheme( scode );
     if( sch != nullptr ) {
@@ -172,7 +172,7 @@ void Glich::get_scheme_info( Scheme_info* info, const string& scode ) const
     }
 }
 
-void Glich::get_input_info( SchemeFormatInfo* info, const string& scode ) const
+void Glich::get_input_info( SchemeFormatInfo* info, const string& scode )
 {
     Scheme* sch = get_scheme( scode );
     if( sch != nullptr ) {
@@ -182,7 +182,7 @@ void Glich::get_input_info( SchemeFormatInfo* info, const string& scode ) const
     }
 }
 
-void Glich::get_output_info( SchemeFormatInfo* info, const string& scode ) const
+void Glich::get_output_info( SchemeFormatInfo* info, const string& scode )
 {
     Scheme* sch = get_scheme( scode );
     if( sch != nullptr ) {
@@ -192,7 +192,7 @@ void Glich::get_output_info( SchemeFormatInfo* info, const string& scode ) const
     }
 }
 
-void Glich::get_format_text_info( FormatText_info* info, const string& scode, const string& fcode ) const
+void Glich::get_format_text_info( FormatText_info* info, const string& scode, const string& fcode )
 {
     Scheme* sch = get_scheme( scode );
     if( sch != nullptr ) {
@@ -350,7 +350,7 @@ GlcMarkVec Glich::get_glc_data() const
 {
     GlcMarkVec glcmarks;
     for( auto& mark : m_marks ) {
-        GlcMark glcmark = mark->get_mark_data( this );
+        GlcMark glcmark = mark->get_mark_data();
         glcmarks.push_back( glcmark );
     }
     return glcmarks;
@@ -397,13 +397,29 @@ string Glich::run_script( const string& script )
     return oss.str();
 }
 
-std::string glich::Glich::run_script_file( const std::string& filename )
+string Glich::run_script_file( const string& filename )
 {
     std::ifstream ifs( filename.c_str() );
     std::ostringstream oss;
     Script scr( ifs, oss );
     scr.run();
     return oss.str();
+}
+
+string Glich::run_module( const string& mod )
+{
+    string location, module;
+    split_string( location, module, mod );
+    if( location == "file" ) {
+        return run_script_file( module + ".glcs" );
+    }
+    else if( location == "hics" ) {
+        return string(); // Need to rearrange the library files.
+    }
+    else if( location == "glich" ) {
+        return string(); // There are no glich modules yet!
+    }
+    return std::string();
 }
 
 SValue Glich::evaluate( const string& expression )
@@ -601,7 +617,7 @@ Function* Glich::get_command( const string& code ) const
 
 bool Glich::add_object( Object* obj, const string& code )
 {
-    if( obj == nullptr || m_objects.count( code ) ) {
+    if( m_objects.count( code ) ) {
         delete obj;
         return false;
     }
@@ -619,10 +635,15 @@ void Glich::remove_object( const string& code )
     m_objects.erase( code );
 }
 
-Object* Glich::get_object( const string& code ) const
+Object* Glich::get_object( const string& code )
 {
     if( m_objects.count( code ) > 0 ) {
-        return m_objects.find( code )->second;
+        Object* obj = m_objects.find( code )->second;
+        if( obj == nullptr && m_object_mods.count( code ) == 1 ) {
+            string mess = run_module( m_object_mods.find( code )->second );
+            obj = m_objects.find( code )->second;
+        }
+        return obj;
     }
     return nullptr;
 }
@@ -653,6 +674,51 @@ File* Glich::get_file( const string& code ) const
         return m_files.find( code )->second;
     }
     return nullptr;
+}
+
+bool Glich::add_module( const Module& mod )
+{
+    if( m_modules.count( mod.m_code ) == 1 ) {
+        return false;
+    }
+    m_marks[m_marks.size() - 1]->add_module( mod.m_code );
+    m_modules[mod.m_code] = mod.m_find;
+
+    for( auto& def : mod.m_defs ) {
+        if( def.m_definition == "objects" ) {
+            for( auto& obj : def.m_codes ) {
+                if( !add_object( nullptr, obj ) ) {
+                    return false;
+                }
+                m_object_mods[obj] = mod.m_code;
+            }
+        }
+    }
+    return true;
+}
+
+bool Glich::module_exists( const string& code ) const
+{
+    if( m_modules.count( code ) == 1 ) {
+        return true;
+    }
+    return false;
+}
+
+void Glich::remove_module( const string& code )
+{
+    if( m_modules.count( code ) == 0 ) {
+        return;
+    }
+    // Don't need to remove definitions, mark will look after that.
+    for( auto it = m_object_mods.begin(); it != m_object_mods.end(); ) {
+        if( it->second == code ) {
+            m_object_mods.erase( it );
+            continue;
+        }
+        it++;
+    }
+    m_modules.erase( code );
 }
 
 bool Glich::add_lexicon( Lexicon* lex, const string& code )
@@ -727,7 +793,7 @@ bool Glich::add_scheme( Scheme* sch, const string& scode )
     return add_object( sch, "s:" + scode );
 }
 
-Scheme* Glich::get_scheme( const string& scode ) const
+Scheme* Glich::get_scheme( const string& scode )
 {
     return dynamic_cast<Scheme*>(get_object( "s:" + scode ));
 }

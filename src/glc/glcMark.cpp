@@ -74,6 +74,9 @@ Mark::~Mark()
     for( auto code : m_objects ) {
         glc().remove_object( code );
     }
+    for( auto code : m_modules ) {
+        glc().remove_module( code );
+    }
     for( auto code : m_files ) {
         glc().remove_file( code );
     }
@@ -102,7 +105,7 @@ bool Mark::create_local( const string& name, Store* store )
     return true;
 }
 
-GlcMark Mark::get_mark_data( const Glich* glc ) const
+GlcMark Mark::get_mark_data()
 {
     GlcMark mark;
     mark.name = m_name;
@@ -123,7 +126,7 @@ GlcMark Mark::get_mark_data( const Glich* glc ) const
         mark.file.push_back( data );
     }
     for( auto object : m_objects ) {
-        Object* obj = glc->get_object( object );
+        Object* obj = glc().get_object( object );
         Scheme* sch = dynamic_cast<Scheme*>(obj);
         if( sch == nullptr ) {
             data.name = object;
@@ -140,13 +143,13 @@ GlcMark Mark::get_mark_data( const Glich* glc ) const
     }
     for( auto code : m_lexicons ) {
         data.name = code;
-        Lexicon* lex = glc->get_lexicon( code );
+        Lexicon* lex = glc().get_lexicon( code );
         data.value = lex->get_name();
         mark.lex.push_back( data );
     }
     for( auto code : m_grammars ) {
         data.name = code;
-        Grammar* gmr = glc->get_grammar( code );
+        Grammar* gmr = glc().get_grammar( code );
         data.value = gmr->get_name();
         mark.gmr.push_back( data );
     }
@@ -156,7 +159,7 @@ GlcMark Mark::get_mark_data( const Glich* glc ) const
         mark.fmt.push_back( data );
     }
     for( auto& local : m_locals ) {
-        SValue value = glc->get_local( local );
+        SValue value = glc().get_local( local );
         data.type = value.type_str();
         data.name = local;
         data.value = value.as_string();

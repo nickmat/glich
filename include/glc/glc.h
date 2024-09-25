@@ -62,10 +62,10 @@ namespace glich {
         static const char* version();
 
         SchemeList get_scheme_list( SchemeStyle style ) const;
-        void get_scheme_info( Scheme_info* info, const std::string& scode ) const;
-        void get_input_info( SchemeFormatInfo* info, const std::string& scode ) const;
-        void get_output_info( SchemeFormatInfo* info, const std::string& scode ) const;
-        void get_format_text_info( FormatText_info* info, const std::string& scode, const std::string& fcode ) const;
+        void get_scheme_info( Scheme_info* info, const std::string& scode );
+        void get_input_info( SchemeFormatInfo* info, const std::string& scode );
+        void get_output_info( SchemeFormatInfo* info, const std::string& scode );
+        void get_format_text_info( FormatText_info* info, const std::string& scode, const std::string& fcode );
         bool get_lexicon_info( Lexicon_info* info, const std::string& code ) const;
 
         RList date_phrase_to_rlist( const std::string& phrase, const std::string& sig = std::string() );
@@ -85,6 +85,7 @@ namespace glich {
 
         std::string run_script( const std::string& script );
         std::string run_script_file( const std::string& filename );
+        std::string run_module( const std::string& mod );
         SValue evaluate( const std::string& expression );
 
         std::string get_init_error() const { return m_init_error; }
@@ -115,10 +116,13 @@ namespace glich {
         Function* get_command( const std::string& code ) const;
         bool add_object( Object* obj, const std::string& code );
         void remove_object( const std::string& code );
-        Object* get_object( const std::string& code ) const;
+        Object* get_object( const std::string& code );
         bool add_file( File* file, const std::string& code );
         void remove_file( const std::string& code );
         File* get_file( const std::string& code ) const;
+        bool add_module( const Module& mod );
+        bool module_exists( const std::string& code ) const;
+        void remove_module( const std::string& code );
         bool add_lexicon( Lexicon* lex, const std::string& code );
         void remove_lexicon( const std::string& code );
         Lexicon* get_lexicon( const std::string& code ) const;
@@ -127,7 +131,7 @@ namespace glich {
         Grammar* get_grammar( const std::string& code ) const;
         bool add_format( const std::string& code );
         bool add_scheme( Scheme* sch, const std::string& scode );
-        Scheme* get_scheme( const std::string& scode ) const;
+        Scheme* get_scheme( const std::string& scode );
         StdStrVec get_scheme_list() const;
 
         void add_or_replace_mark( const std::string& name );
@@ -152,7 +156,9 @@ namespace glich {
         SpFunctionMap m_functions;
         SpFunctionMap m_commands;
         ObjectMap m_objects;
+        StdStrMap m_object_mods;
         FileMap m_files;
+        StdStrMap m_modules;
         LexiconMap m_lexicons;
         GrammarMap m_grammars;
         MarkVec m_marks;

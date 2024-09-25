@@ -59,6 +59,7 @@ namespace glich {
         void add_function( const std::string& code ) { m_functions.push_back( code ); }
         void add_command( const std::string& code ) { m_commands.push_back( code ); }
         void add_object( const std::string& code ) { m_objects.push_back( code ); }
+        void add_module( const std::string& code ) { m_modules.push_back( code ); }
         void add_file( const std::string& code ) { m_files.push_back( code ); }
         void add_lexicon( const std::string& code ) { m_lexicons.push_back( code ); }
         void add_grammar( const std::string& code ) { m_grammars.push_back( code ); }
@@ -74,7 +75,7 @@ namespace glich {
         Scheme* get_ischeme() const { return m_ischeme; }
         Scheme* get_oscheme() const { return m_oscheme; }
 
-        GlcMark get_mark_data( const Glich* glc ) const;
+        GlcMark get_mark_data();
 
     private:
         static inline Store*   s_zero_store = nullptr;
@@ -86,6 +87,7 @@ namespace glich {
         StdStrVec m_functions;
         StdStrVec m_commands;
         StdStrVec m_objects;
+        StdStrVec m_modules;
         StdStrVec m_files;
         StdStrVec m_lexicons;
         StdStrVec m_grammars;

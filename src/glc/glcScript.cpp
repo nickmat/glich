@@ -120,6 +120,7 @@ bool Script::statement()
         if( name == "command" ) return do_command();
         if( name == "object" ) return do_object();
         if( name == "file" ) return do_file();
+        if( name == "module" ) return do_module();
         if( name == "scheme" ) return do_scheme();
         if( name == "lexicon" ) return do_lexicon();
         if( name == "grammar" ) return do_grammar();
@@ -742,6 +743,53 @@ bool Script::do_file()
     bool ok = file->open();
     if( !ok ) {
         error( "Unable to open file: " + filename );
+        return false;
+    }
+    return true;
+}
+
+bool Script::do_module()
+{
+    string code = get_name_or_primary( GetToken::next );
+    if( code.empty() ) {
+        error( "Module name missing." );
+        return false;
+    }
+    if( glc().module_exists( code ) ) {
+        error( "Module \"" + code + "\" already exists." );
+        return false;
+    }
+    if( current_token().type() != SToken::Type::LCbracket ) {
+        error( "'{' expected." );
+        return false;
+    }
+    Module mod;
+    mod.m_code = code;
+    ModuleDef def;
+    for( ;;) {
+        SToken token = next_token();
+        if( token.type() == SToken::Type::RCbracket ||
+            token.type() == SToken::Type::End ) {
+            break; // All done.
+        }
+        else if( token.type() == SToken::Type::Name ) {
+            string name = token.get_str();
+            def.m_definition = name;
+            if( name == "find" ) {
+                mod.m_find = get_name_or_primary( GetToken::next );
+            }
+            else if( name == "object" ) {
+                def.m_codes = get_string_list( GetToken::next );
+                mod.m_defs.push_back( def );
+            }
+            else {
+                error( "Unknown module subcommand." );
+                break;
+            }
+        }
+    }
+    if( !glc().add_module( mod ) ) {
+        error( "Unable to add module." );
         return false;
     }
     return true;
