@@ -133,6 +133,10 @@ namespace glich {
         return false;
     }
 
+    bool split_string(
+        std::string& first, std::string& tail, const std::string& input,
+        char separator = ':' );
+    
 }
 
 #endif // SRC_GLC_GLCHELPER_H

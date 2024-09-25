@@ -465,5 +465,20 @@ string glich::get_first_word( const string& str, string* tail, char sep )
     return result;
 }
 
+bool glich::split_string( string& first, string& tail, const string& input, char separator )
+{
+    size_t pos = input.find( separator );
+    if( pos != string::npos ) {
+        first = input.substr( 0, pos );
+        tail = input.substr( pos + 1 );
+    }
+    else {
+        first = input;
+        tail = string();
+        return false;
+    }
+    return true;
+}
+
 
 // End of src/glc/glcHelper.cpp
