@@ -144,6 +144,18 @@ namespace glich {
 
     using GlcMarkVec = std::vector<GlcMark>;
 
+    struct ModuleDef {
+        std::string m_definition;
+        StdStrVec m_codes;
+    };
+    using ModuleDefVec = std::vector<ModuleDef>;
+
+    struct Module {
+        std::string m_code;
+        std::string m_find;
+        ModuleDefVec m_defs;
+    };
+
 }
 
 #endif // INCLUDE_GLC_GLCDEFS_H
