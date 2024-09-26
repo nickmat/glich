@@ -117,6 +117,7 @@ namespace glich {
         bool add_object( Object* obj, const std::string& code );
         void remove_object( const std::string& code );
         Object* get_object( const std::string& code );
+        DefinedStatus get_object_status( const std::string& code ) const;
         bool add_file( File* file, const std::string& code );
         void remove_file( const std::string& code );
         File* get_file( const std::string& code ) const;
@@ -158,7 +159,7 @@ namespace glich {
         ObjectMap m_objects;
         StdStrMap m_object_mods;
         FileMap m_files;
-        StdStrMap m_modules;
+        StdStrSet m_modules;
         LexiconMap m_lexicons;
         GrammarMap m_grammars;
         MarkVec m_marks;

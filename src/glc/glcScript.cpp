@@ -630,7 +630,8 @@ bool Script::do_object()
         error( "Object name missing." );
         return false;
     }
-    if( glc().get_object( code ) != nullptr ) {
+    DefinedStatus status = glc().get_object_status( code );
+    if( status == DefinedStatus::defined ) {
         error( "object \"" + code + "\" already exists." );
         return false;
     }
@@ -775,10 +776,7 @@ bool Script::do_module()
         else if( token.type() == SToken::Type::Name ) {
             string name = token.get_str();
             def.m_definition = name;
-            if( name == "find" ) {
-                mod.m_find = get_name_or_primary( GetToken::next );
-            }
-            else if( name == "object" ) {
+            if( name == "object" ) {
                 def.m_codes = get_string_list( GetToken::next );
                 mod.m_defs.push_back( def );
             }

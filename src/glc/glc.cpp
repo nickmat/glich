@@ -408,8 +408,9 @@ string Glich::run_script_file( const string& filename )
 
 string Glich::run_module( const string& mod )
 {
+    string run = mod;
     string location, module;
-    split_string( location, module, mod );
+    split_string( location, module, run );
     if( location == "file" ) {
         return run_script_file( module + ".glcs" );
     }
@@ -617,11 +618,14 @@ Function* Glich::get_command( const string& code ) const
 
 bool Glich::add_object( Object* obj, const string& code )
 {
-    if( m_objects.count( code ) ) {
+    DefinedStatus status = get_object_status( code );
+    if( status == DefinedStatus::defined ) {
         delete obj;
         return false;
     }
-    m_marks[m_marks.size() - 1]->add_object( code );
+    if( status == DefinedStatus::none ) {
+        m_marks[m_marks.size() - 1]->add_object( code );
+    }
     m_objects[code] = obj;
     return true;
 }
@@ -646,6 +650,18 @@ Object* Glich::get_object( const string& code )
         return obj;
     }
     return nullptr;
+}
+
+DefinedStatus glich::Glich::get_object_status( const std::string& code ) const
+{
+    if( m_objects.count( code ) == 0 ) {
+        return DefinedStatus::none;
+    }
+    Object* obj = m_objects.find( code )->second;
+    if( obj == nullptr ) {
+        return DefinedStatus::module;
+    }
+    return DefinedStatus::defined;
 }
 
 bool Glich::add_file( File* file, const string& code )
@@ -678,14 +694,11 @@ File* Glich::get_file( const string& code ) const
 
 bool Glich::add_module( const Module& mod )
 {
-    if( m_modules.count( mod.m_code ) == 1 ) {
-        return false;
-    }
+    m_modules.insert( mod.m_code );
     m_marks[m_marks.size() - 1]->add_module( mod.m_code );
-    m_modules[mod.m_code] = mod.m_find;
 
     for( auto& def : mod.m_defs ) {
-        if( def.m_definition == "objects" ) {
+        if( def.m_definition == "object" ) {
             for( auto& obj : def.m_codes ) {
                 if( !add_object( nullptr, obj ) ) {
                     return false;
@@ -699,24 +712,20 @@ bool Glich::add_module( const Module& mod )
 
 bool Glich::module_exists( const string& code ) const
 {
-    if( m_modules.count( code ) == 1 ) {
-        return true;
-    }
-    return false;
+    return m_modules.find(code) != m_modules.end();
 }
 
 void Glich::remove_module( const string& code )
 {
-    if( m_modules.count( code ) == 0 ) {
-        return;
-    }
     // Don't need to remove definitions, mark will look after that.
-    for( auto it = m_object_mods.begin(); it != m_object_mods.end(); ) {
-        if( it->second == code ) {
-            m_object_mods.erase( it );
-            continue;
+    StdStrVec items;
+    for( auto& item : m_object_mods ) {
+        if( item.second == code ) {
+            items.push_back( item.first );
         }
-        it++;
+    }
+    for( string& item : items ) {
+        m_object_mods.erase( item );
     }
     m_modules.erase( code );
 }

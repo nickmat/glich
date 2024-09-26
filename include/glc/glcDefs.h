@@ -154,7 +154,6 @@ namespace glich {
 
     struct Module {
         std::string m_code;
-        std::string m_find;
         ModuleDefVec m_defs;
     };
 
