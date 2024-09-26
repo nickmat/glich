@@ -1,0 +1,22 @@
+// module001.glcs Test module statement
+
+mark test_module;
+
+module file:test_module001 {
+    object test_sum;
+}
+
+let o = {test_sum 1, 2, 3};
+write nl o, o@sum nl;
+
+mark test_module;
+
+let o = {test_sum 1, 2, 3};
+write o;
+
+/*[OUTPUT]
+
+{test_sum 1, 2, 3}, 6
+Error (14): Object name not recognised.
+
+[OUTPUT]*/
