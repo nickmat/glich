@@ -1,4 +1,6 @@
 @echo off
-..\..\build\msvc\Debug\glctest.exe suite
+
+cd suite
+..\..\..\build\msvc\Debug\glctest.exe .\
 
 pause
