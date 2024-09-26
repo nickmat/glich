@@ -33,6 +33,7 @@
 #include <cinttypes>
 #include <map>
 #include <memory>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -44,6 +45,7 @@ namespace glich {
 
     using  StdStrVec = std::vector< std::string >;
     using  StdStrMap = std::map< std::string, std::string >;
+    using  StdStrSet = std::set< std::string >;
     using  IntVec = std::vector< int >;
     using  DoubleVec = std::vector< double >;
     using  BoolVec = std::vector< bool >;
