@@ -156,6 +156,8 @@ namespace glich {
         ModuleDefVec m_defs;
     };
 
+    enum class DefinedStatus { none, module, defined };
+
 }
 
 #endif // INCLUDE_GLC_GLCDEFS_H
