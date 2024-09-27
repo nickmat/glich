@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
 <head>
- <title>Glich - mark Statement</title>
+ <title>Glich - Define module</title>
  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
  <link rel='icon' type='image/png' href='../../../../sys/logo32x32.png' />
  <link rel='stylesheet' type='text/css' href='../../../../sys/livery.css' />
@@ -15,7 +15,7 @@
     <img class='logo' src='../../../../sys/logo266x100.png' alt='Logo' />
    </a>
   </div>
-  Glich - v0.3.0 Manual<br />mark Statement
+  Glich - v0.3.0 Manual<br />Define module
   <div class='clear'></div>
  </div>
 
@@ -30,45 +30,14 @@
   <a href='../../../../dev/man/index.htm' class='m-item'>v0.3.0 Manual</a>
   <a href='../../../../dev/man/script/index.htm' class='m-item'>Glich Script</a>
   <a href='../../../../dev/man/script/stmts/index.htm' class='m-item'>Statements</a>
-  <a href='mark.htm' class='m-item thispage'>mark Statement</a>
-  <a href='../../../../dev/man/script/stmts/set.htm' class='m-item nav'>►</a>
-  <a href='../../../../dev/man/script/stmts/module.htm' class='m-item nav'>◄</a>
+  <a href='module.htm' class='m-item thispage'>Define module</a>
+  <a href='../../../../dev/man/script/stmts/mark.htm' class='m-item nav'>►</a>
+  <a href='../../../../dev/man/script/stmts/object.htm' class='m-item nav'>◄</a>
  </div>
 
 <div id='content' class='nomenu'>
 
-<h2>Statement: mark</h2>
-<p>
- Unless directed otherwise, the program will remember all variables and defined entities,
- even after the script has finished running.
- The statement <b>mark</b> is used to control this behaviour.
-</p>
-<p>
- Entity definitions (function, command and object) are added to the library
- as they are encountered in the script.
- This can be particularly problematic when testing a new script.
- We may want to make small change and re-run the script.
- Without using 'mark', it would try to add another copy of the entity which would result in an error.
-</p>
-
-<table class='basic'>
- <tr><th>Format</th><th>Example</th></tr>
- <tr>
-  <td class='code'><b>mark</b> <i>tag</i><b>;</b></td>
-  <td class='example'><b>mark</b> start_test;</td>
- </tr>
-</table>
-
-<p>
- When processing the <b>mark</b> statement, if the tag is already in use
- then all entity definitions (and variables) added after that tag are removed.
- The mark tag itself is not remove but any mark tags added afterwards are.
-</p>
-<p>
- Values that are changed with the <b>set</b> statement 
- and that have been set after the <b>mark</b> statement
- are reset to their previous values.
-</p>
+<h2>Page Under Construction</h2>
 
 </div><!--id=content-->
 
@@ -83,9 +52,9 @@
   <a href='../../../../dev/man/index.htm' class='m-item'>v0.3.0 Manual</a>
   <a href='../../../../dev/man/script/index.htm' class='m-item'>Glich Script</a>
   <a href='../../../../dev/man/script/stmts/index.htm' class='m-item'>Statements</a>
-  <a href='mark.htm' class='m-item thispage'>mark Statement</a>
-  <a href='../../../../dev/man/script/stmts/set.htm' class='m-item nav'>►</a>
-  <a href='../../../../dev/man/script/stmts/module.htm' class='m-item nav'>◄</a>
+  <a href='module.htm' class='m-item thispage'>Define module</a>
+  <a href='../../../../dev/man/script/stmts/mark.htm' class='m-item nav'>►</a>
+  <a href='../../../../dev/man/script/stmts/object.htm' class='m-item nav'>◄</a>
  </div>
 
  <div class='tail'></div>
@@ -97,7 +66,7 @@
   </p>
  </div>
 
- <div id='create-date'><p>9<sup>th</sup> March 2023</p></div>
+ <div id='create-date'><p>27<sup>th</sup> September 2024</p></div>
 
 
 </body>

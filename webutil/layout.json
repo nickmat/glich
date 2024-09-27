@@ -23,6 +23,7 @@
             { "name": "function", "label": "Define function" },
             { "name": "command", "label": "command & call", "subtitle": "Define command & call Statement" },
             { "name": "object", "label": "Define object" },
+            { "name": "module", "label": "Define module" },
             { "name": "mark", "label": "mark Statement" },
             { "name": "set", "label": "set Statement" }
           ] },
