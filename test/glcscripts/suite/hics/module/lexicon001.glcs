@@ -1,0 +1,23 @@
+// lexicon001.glcs Test module statement
+// Uses test_module002.glcs
+
+mark test_module;
+
+module file:test_module002 {
+    lexicon RPT;
+}
+
+let e = @element.RPT( 1 );
+write nl e nl;
+
+mark test_module;
+
+let e = @element.RPT( 1 );
+write e;
+
+/*[OUTPUT]
+
+Repeated
+Error (15): Element not found.
+
+[OUTPUT]*/

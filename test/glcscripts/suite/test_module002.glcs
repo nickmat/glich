@@ -1,0 +1,13 @@
+// test_module002 - Test module, do not run separately.
+
+lexicon RPT {
+  name "Repeated Date";
+  fieldname repeat;
+  lang en;
+  pseudo  Repeated,   Rpt;
+  tokens {
+      0, "First",    "F";
+      1, "Repeated", "Rpt";
+  }
+}
+
