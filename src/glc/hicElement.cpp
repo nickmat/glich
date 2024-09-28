@@ -101,7 +101,7 @@ void Element::add_string( const string & str )
     }
 }
 
-string Element::get_formatted_element( const Glich& glc, Field field ) const
+string Element::get_formatted_element( Field field )
 {
     if( field == f_invalid ) {
         return string();
@@ -128,7 +128,7 @@ string Element::get_formatted_element( const Glich& glc, Field field ) const
             result = get_left_padded( field, m_qualifier );
         }
     } else {
-        Lexicon* lex = glc.get_lexicon( m_lcode );
+        Lexicon* lex = glc().get_lexicon(m_lcode);
         if ( lex ) {
             Lexicon::Pseudo abbrev = (m_spec == "a") ?
                 Lexicon::Pseudo::abbrev : Lexicon::Pseudo::full;
