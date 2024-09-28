@@ -1073,7 +1073,11 @@ SValue glich::at_element( Script& script )
     bool success = false;
     Field fld = value.get_field( success );
     if( success ) {
-        value.set_str( ele.get_formatted_element( glc(), fld));
+        string element = ele.get_formatted_element( fld );
+        if( element.empty() ) {
+            return SValue::create_error( "Element not found." );
+        }
+        value.set_str( element );
     }
     else if( value.type() == SValue::Type::String ) {
         value.set_field( ele.get_converted_field( &glc(), value.get_str()));
