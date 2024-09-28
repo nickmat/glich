@@ -200,7 +200,7 @@ void Glich::get_format_text_info( FormatText_info* info, const string& scode, co
     }
 }
 
-bool Glich::get_lexicon_info( Lexicon_info* info, const string& code ) const
+bool Glich::get_lexicon_info( Lexicon_info* info, const string& code )
 {
     Lexicon* lex = get_lexicon( code );
     if( lex == nullptr ) {
@@ -706,6 +706,14 @@ bool Glich::add_module( const Module& mod )
                 m_object_mods[obj] = mod.m_code;
             }
         }
+        if( def.m_definition == "lexicon" ) {
+            for( auto& lex : def.m_codes ) {
+                if( !add_lexicon( nullptr, lex ) ) {
+                    return false;
+                }
+                m_lexicon_mods[lex] = mod.m_code;
+            }
+        }
     }
     return true;
 }
@@ -732,13 +740,14 @@ void Glich::remove_module( const string& code )
 
 bool Glich::add_lexicon( Lexicon* lex, const string& code )
 {
-    // Only add lexicons and that are not already there.
-    if( lex == nullptr || m_lexicons.count( code ) ) {
+    DefinedStatus status = get_lexicon_status( code );
+    if( status == DefinedStatus::defined ) {
         delete lex;
         return false;
     }
-    assert( m_marks.size() > 0 );
-    m_marks[m_marks.size() - 1]->add_lexicon( code );
+    if( status == DefinedStatus::none ) {
+        m_marks[m_marks.size() - 1]->add_lexicon( code );
+    }
     m_lexicons[code] = lex;
     return true;
 }
@@ -752,12 +761,27 @@ void Glich::remove_lexicon( const string& code )
     m_lexicons.erase( code );
 }
 
-Lexicon* Glich::get_lexicon( const string& code ) const
+Lexicon* Glich::get_lexicon( const string& code )
 {
     if( m_lexicons.count( code ) > 0 ) {
-        return m_lexicons.find( code )->second;
+        Lexicon* lex = m_lexicons.find( code )->second;
+        if( lex == nullptr && m_lexicon_mods.count( code ) == 1 ) {
+            string mod = m_lexicon_mods.find( code )->second;
+            string mess = run_module( mod );
+            lex = m_lexicons.find( code )->second;
+        }
+        return lex;
     }
     return nullptr;
+}
+
+DefinedStatus Glich::get_lexicon_status( const string& code ) const
+{
+    if( m_lexicons.count( code ) == 0 ) {
+        return DefinedStatus::none;
+    }
+    Lexicon* lex = m_lexicons.find( code )->second;
+    return lex ? DefinedStatus::defined : DefinedStatus::module;
 }
 
 bool Glich::add_grammar( Grammar* gmr, const string& code )

@@ -66,7 +66,7 @@ namespace glich {
         void get_input_info( SchemeFormatInfo* info, const std::string& scode );
         void get_output_info( SchemeFormatInfo* info, const std::string& scode );
         void get_format_text_info( FormatText_info* info, const std::string& scode, const std::string& fcode );
-        bool get_lexicon_info( Lexicon_info* info, const std::string& code ) const;
+        bool get_lexicon_info( Lexicon_info* info, const std::string& code );
 
         RList date_phrase_to_rlist( const std::string& phrase, const std::string& sig = std::string() );
         std::string date_phrase_to_text( const std::string& phrase, const std::string& sig_in = std::string(),
@@ -126,7 +126,8 @@ namespace glich {
         void remove_module( const std::string& code );
         bool add_lexicon( Lexicon* lex, const std::string& code );
         void remove_lexicon( const std::string& code );
-        Lexicon* get_lexicon( const std::string& code ) const;
+        Lexicon* get_lexicon( const std::string& code );
+        DefinedStatus get_lexicon_status( const std::string& code ) const;
         bool add_grammar( Grammar* gmr, const std::string& code );
         void remove_grammar( const std::string& code );
         Grammar* get_grammar( const std::string& code ) const;
@@ -161,6 +162,7 @@ namespace glich {
         FileMap m_files;
         StdStrSet m_modules;
         LexiconMap m_lexicons;
+        StdStrMap m_lexicon_mods;
         GrammarMap m_grammars;
         MarkVec m_marks;
         Store* m_store;
