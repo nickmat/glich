@@ -784,6 +784,10 @@ bool Script::do_module()
                 def.m_codes = get_string_list( GetToken::next );
                 mod.m_defs.push_back( def );
             }
+            else if( name == "grammar" ) {
+                def.m_codes = get_string_list( GetToken::next );
+                mod.m_defs.push_back( def );
+            }
             else {
                 error( "Unknown module subcommand." );
                 break;
@@ -835,7 +839,8 @@ bool Script::do_grammar()
         error( "Grammar code missing." );
         return false;
     }
-    if( glc().get_grammar( code ) != nullptr ) {
+    DefinedStatus status = glc().get_grammar_status( code );
+    if( status == DefinedStatus::defined ) {
         error( "Grammar \"" + code + "\" already exists." );
         return false;
     }

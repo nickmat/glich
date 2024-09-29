@@ -705,6 +705,7 @@ bool Glich::add_module( const Module& mod )
                 }
                 m_object_mods[obj] = mod.m_code;
             }
+            continue;
         }
         if( def.m_definition == "lexicon" ) {
             for( auto& lex : def.m_codes ) {
@@ -713,6 +714,16 @@ bool Glich::add_module( const Module& mod )
                 }
                 m_lexicon_mods[lex] = mod.m_code;
             }
+            continue;
+        }
+        if( def.m_definition == "grammar" ) {
+            for( auto& gmr : def.m_codes ) {
+                if( !add_grammar( nullptr, gmr ) ) {
+                    return false;
+                }
+                m_grammar_mods[gmr] = mod.m_code;
+            }
+            continue;
         }
     }
     return true;
@@ -786,13 +797,14 @@ DefinedStatus Glich::get_lexicon_status( const string& code ) const
 
 bool Glich::add_grammar( Grammar* gmr, const string& code )
 {
-    // Only add grammars and that are not already there.
-    if( gmr == nullptr || m_grammars.count( code ) ) {
+    DefinedStatus status = get_grammar_status( code );
+    if( status == DefinedStatus::defined ) {
         delete gmr;
         return false;
     }
-    assert( m_marks.size() > 0 );
-    m_marks[m_marks.size() - 1]->add_grammar( code );
+    if( status == DefinedStatus::none ) {
+        m_marks[m_marks.size() - 1]->add_grammar( code );
+    }
     m_grammars[code] = gmr;
     return true;
 }
@@ -806,12 +818,27 @@ void Glich::remove_grammar( const string& code )
     m_grammars.erase( code );
 }
 
-Grammar* Glich::get_grammar( const string& code ) const
+Grammar* Glich::get_grammar( const string& code )
 {
     if( m_grammars.count( code ) > 0 ) {
-        return m_grammars.find( code )->second;
+        Grammar* gmr = m_grammars.find( code )->second;
+        if( gmr == nullptr && m_grammar_mods.count( code ) == 1 ) {
+            string mod = m_grammar_mods.find( code )->second;
+            string mess = run_module( mod );
+            gmr = m_grammars.find( code )->second;
+        }
+        return gmr;
     }
     return nullptr;
+}
+
+DefinedStatus Glich::get_grammar_status( const string& code ) const
+{
+    if( m_grammars.count( code ) == 0 ) {
+        return DefinedStatus::none;
+    }
+    Grammar* gmr = m_grammars.find( code )->second;
+    return gmr ? DefinedStatus::defined : DefinedStatus::module;
 }
 
 bool Glich::add_format( const string& code )

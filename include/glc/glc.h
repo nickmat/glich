@@ -130,7 +130,8 @@ namespace glich {
         DefinedStatus get_lexicon_status( const std::string& code ) const;
         bool add_grammar( Grammar* gmr, const std::string& code );
         void remove_grammar( const std::string& code );
-        Grammar* get_grammar( const std::string& code ) const;
+        Grammar* get_grammar( const std::string& code );
+        DefinedStatus get_grammar_status( const std::string& code ) const;
         bool add_format( const std::string& code );
         bool add_scheme( Scheme* sch, const std::string& scode );
         Scheme* get_scheme( const std::string& scode );
@@ -164,6 +165,7 @@ namespace glich {
         LexiconMap m_lexicons;
         StdStrMap m_lexicon_mods;
         GrammarMap m_grammars;
+        StdStrMap m_grammar_mods;
         MarkVec m_marks;
         Store* m_store;
         SValueMap m_globals;
