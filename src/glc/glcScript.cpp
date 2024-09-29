@@ -819,7 +819,7 @@ bool Script::do_lexicon()
         error( "Lexicon code missing." );
         return false;
     }
-    DefinedStatus status = glc().get_object_status( code );
+    DefinedStatus status = glc().get_lexicon_status( code );
     if( status == DefinedStatus::defined ) {
         error( "Lexicon \"" + code + "\" already exists." );
         return false;
