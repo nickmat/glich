@@ -1,0 +1,14 @@
+// jdn_02.glcs  -  Error if grammar not found
+
+scheme JDN {
+    name "Julian Day Number";
+    base jdn;
+    grammar D;
+}
+
+
+*/
+/*[OUTPUT]
+Error (6): Grammar "D" not found.
+
+[OUTPUT]*/
