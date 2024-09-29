@@ -182,6 +182,7 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
         script.error( "'{' expected." );
         return nullptr;
     }
+    bool error_ret = false;
     Base* base = nullptr;
     string name, gmr_code;
     Field epoch = f_invalid;
@@ -214,11 +215,16 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
                     gmr = do_create_grammar( script, "", base );
                     if( gmr == nullptr ) {
                         script.error( "Unable to create grammar." );
+                        error_ret = true;
                     }
                 }
                 else {
                     gmr_code = script.get_name_or_primary( GetToken::current );
                     gmr = glc().get_grammar( gmr_code );
+                    if( gmr == nullptr && !gmr_code.empty() ) {
+                        script.error( "Grammar \"" + gmr_code + "\" not found." );
+                        error_ret = true;
+                    }
                 }
             }
             else if( token.get_str() == "style" ) {
@@ -231,10 +237,12 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
                 }
                 else if( str != "default" ) {
                     script.error( "Style name expected." );
+                    error_ret = true;
                 }
             }
             else {
                 script.error( "Scheme sub-statement expected." );
+                error_ret = true;
             }
         }
     }
@@ -263,7 +271,12 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
     if( epoch != f_invalid ) {
         if( !sch->set_epoch( base, epoch, epoch_line ) ) {
             script.error( "Unable to set epoch." );
+            error_ret = true;
         }
+    }
+    if( error_ret ) {
+        delete sch;
+        return nullptr;
     }
     return sch;
 }

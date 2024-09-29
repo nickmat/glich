@@ -850,6 +850,9 @@ bool Glich::add_format( const string& code )
 
 bool Glich::add_scheme( Scheme* sch, const string& scode )
 {
+    if( sch == nullptr ) {
+        return false;
+    }
     return add_object( sch, "s:" + scode );
 }
 
