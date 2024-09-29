@@ -831,18 +831,18 @@ SValue glich::at_text( Script& script )
     Scheme* sch = glc().get_scheme( scode );
     Scheme* rec_sch = nullptr;
     if( args.empty() ) {
-        return SValue( "One argument required.", SValue::Type::Error );
+        return SValue::create_error( "One argument required." );
     }
     SValue value( args[0] );
     if( value.type() == SValue::Type::Object ) {
         Object* obj = value.get_object_ptr();
         if( obj == nullptr ) {
-            return SValue( "Object type not recognised.", SValue::Type::Error );
+            return SValue::create_error( "Object type not recognised." );
         }
         // We ignore any suffix scheme setting
         rec_sch = dynamic_cast<Scheme*>(obj);
         if( rec_sch == nullptr ) {
-            return SValue( "Object is not a scheme.", SValue::Type::Error );
+            return SValue::create_error( "Object is not a scheme." );
         }
         value = rec_sch->object_to_demoted_rlist( value );
     }
@@ -854,7 +854,10 @@ SValue glich::at_text( Script& script )
             sch = glc().get_oscheme();
         }
         if( sch == nullptr ) {
-            return SValue( "No default scheme set.", SValue::Type::Error );
+            if( !scode.empty() ) {
+                return SValue::create_error( "Scheme \"" + scode + "\" not found." );
+            }
+            return SValue::create_error( "No default scheme set." );
         }
     }
     bool success = false;
@@ -870,7 +873,7 @@ SValue glich::at_text( Script& script )
     }
     RList rlist = value.get_rlist( success );
     if( !success ) {
-        return SValue( "Expected field, range, rlist or record type.", SValue::Type::Error );
+        return SValue::create_error( "Expected field, range, rlist or record type." );
     }
     value.set_str( sch->rlist_to_str( rlist, fcode ) );
     return value;
