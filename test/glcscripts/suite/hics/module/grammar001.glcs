@@ -1,0 +1,35 @@
+// grammar001.glcs Test module statement
+// Uses test_module003.glcs
+
+mark test_module;
+
+module file:test_module003 {
+    grammar D;
+}
+
+scheme JDN {
+    name "Julian Day Number";
+    base jdn;
+    grammar D;
+}
+
+let d = @text.JDN:u( 2460583 );
+write nl d nl;
+
+mark test_module;
+
+scheme JDN {
+    name "Julian Day Number";
+    base jdn;
+    grammar D;
+}
+
+let d = @text.JDN:u( 2460583 );
+write d;
+
+/*[OUTPUT]
+
+2460583d
+Error (24): Grammar "D" not found.
+
+[OUTPUT]*/

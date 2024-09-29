@@ -1,0 +1,10 @@
+// test_module003 - Test module, do not run separately.
+
+grammar D {
+    name "Day Number";
+    fields day;
+    alias pseudo { ddddd day; }
+    alias unit { d day; }
+    format d "{day}";
+    preferred d;
+}
