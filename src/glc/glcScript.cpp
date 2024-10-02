@@ -780,6 +780,10 @@ bool Script::do_module()
                 def.m_codes = get_string_list( GetToken::next );
                 mod.m_defs.push_back( def );
             }
+            else if( name == "scheme" ) {
+                def.m_codes = get_string_list( GetToken::next );
+                mod.m_defs.push_back( def );
+            }
             else if( name == "lexicon" ) {
                 def.m_codes = get_string_list( GetToken::next );
                 mod.m_defs.push_back( def );
@@ -808,7 +812,8 @@ bool Script::do_scheme()
         error( "Scheme code missing." );
         return false;
     }
-    if( glc().get_scheme( code ) != nullptr ) {
+    DefinedStatus status = glc().get_scheme_status( code );
+    if( status == DefinedStatus::defined ) {
         error( "Scheme \"" + code + "\" already exists." );
         return false;
     }

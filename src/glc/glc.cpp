@@ -707,6 +707,16 @@ bool Glich::add_module( const Module& mod )
             }
             continue;
         }
+        if( def.m_definition == "scheme" ) {
+            for( auto& sch : def.m_codes ) {
+                string code = "s:" + sch;
+                if( !add_object( nullptr, code ) ) {
+                    return false;
+                }
+                m_object_mods[code] = mod.m_code;
+            }
+            continue;
+        }
         if( def.m_definition == "lexicon" ) {
             for( auto& lex : def.m_codes ) {
                 if( !add_lexicon( nullptr, lex ) ) {
@@ -859,6 +869,11 @@ bool Glich::add_scheme( Scheme* sch, const string& scode )
 Scheme* Glich::get_scheme( const string& scode )
 {
     return dynamic_cast<Scheme*>(get_object( "s:" + scode ));
+}
+
+DefinedStatus glich::Glich::get_scheme_status( const std::string& code ) const
+{
+    return get_object_status( "s:" + code );
 }
 
 StdStrVec Glich::get_scheme_list() const

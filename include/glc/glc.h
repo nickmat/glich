@@ -135,6 +135,7 @@ namespace glich {
         bool add_format( const std::string& code );
         bool add_scheme( Scheme* sch, const std::string& scode );
         Scheme* get_scheme( const std::string& scode );
+        DefinedStatus get_scheme_status( const std::string& code ) const;
         StdStrVec get_scheme_list() const;
 
         void add_or_replace_mark( const std::string& name );
