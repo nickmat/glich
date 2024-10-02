@@ -1,0 +1,24 @@
+// scheme001.glcs Test module statement
+// Uses test_module004.glcs
+
+mark test_module;
+
+module file:test_module004 {
+    scheme G;
+}
+
+let d = @text.G:def( 2460586 );
+write nl d nl;
+
+mark test_module;
+
+let d = @text.G:def( 2460586 );
+write d;
+
+
+/*[OUTPUT]
+
+2024 10 2
+Error (15): Scheme "G" not found.
+
+[OUTPUT]*/
