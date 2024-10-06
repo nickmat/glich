@@ -31,7 +31,7 @@
 
 // Built-in section.
 glich::ScriptModule glich::hics_builtin_scripts[] = {
-    { "hicBuiltin", @(cp.cpp)"hicBuiltin.glcs" },
+    { "hic_builtin", @(cp.cpp)"hic_builtin.glcs" },
 };
 
 size_t glich::hics_builtin_scripts_size =
@@ -40,7 +40,7 @@ size_t glich::hics_builtin_scripts_size =
 
 // Default library section.
 glich::ScriptModule glich::hics_default_scripts[] = {
-    { "hicLib", @(cp.cpp)"hicLib.glcs" },
+    { "hic_lib", @(cp.cpp)"hic_lib.glcs" },
     { "jdn", @(cp.cpp)"jdn.glcs" },
     { "week", @(cp.cpp)"week.glcs" },
     { "julian", @(cp.cpp)"julian.glcs" },

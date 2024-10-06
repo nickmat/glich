@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Name:        lib/glich/glcBuiltin.glcs
+ * Name:        lib/glich/glc_builtin.glcs
  * Project:     Glich: Extendable Script Language.
  * Purpose:     Built-in always available script.
  * Author:      Nick Matthews
@@ -28,4 +28,4 @@
 
 object : {}
 
-// End of lib/glich/glcBuiltin.glcs file
+// End of lib/glich/glc_builtin.glcs file

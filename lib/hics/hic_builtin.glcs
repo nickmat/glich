@@ -1,6 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Name:        lib/hics/hicBuiltin.glcs
- * Name:        lib/hics/hebrew.glcs
+ * Name:        lib/hics/hic_builtin.glcs
  * Project:     Glich: Extendable Script Language.
  * Purpose:     Built-in always available script for hics extension.
  * Author:      Nick Matthews
@@ -35,4 +34,4 @@ object sch: {
     values code name basename fieldnames grammar formats default:in default:out visible;
 }
 
-// End of lib/glich/glcBuiltin.glcs file
+// End of lib/glich/glc_builtin.glcs file

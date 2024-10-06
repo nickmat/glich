@@ -33,7 +33,7 @@
 
 // Built-in section.
 glich::ScriptModule glich::hics_builtin_scripts[] = {
-    { "hicBuiltin",  /* hicBuiltin.glcs */
+    { "hic_builtin",  /* hic_builtin.glcs */
  "object fmt: {\n"
  "values code grammar rules visible pseudo:in pseudo:out shorthand;\n"
  "}\n"
@@ -48,7 +48,7 @@ size_t glich::hics_builtin_scripts_size =
 
 // Default library section.
 glich::ScriptModule glich::hics_default_scripts[] = {
-    { "hicLib",  /* hicLib.glcs */
+    { "hic_lib",  /* hic_lib.glcs */
  "mark \"__hics_lib\";\n"
  "set context hics;\n" },
     { "jdn",  /* jdn.glcs */

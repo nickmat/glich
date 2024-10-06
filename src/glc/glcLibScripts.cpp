@@ -32,7 +32,7 @@
 #include "glcLibScripts.h"
 
 glich::ScriptModule glich::glc_builtin_scripts[] = {
-    { "glcBuiltin",  /* glcBuiltin.glcs */
+    { "glc_builtin",  /* glc_builtin.glcs */
  "object : {}\n" },
 };
 

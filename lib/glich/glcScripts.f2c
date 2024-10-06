@@ -30,7 +30,7 @@
 #include "glcLibScripts.h"
 
 glich::ScriptModule glich::glc_builtin_scripts[] = {
-    { "glcBuiltin", @(cp.cpp)"glcBuiltin.glcs" },
+    { "glc_builtin", @(cp.cpp)"glc_builtin.glcs" },
 };
 
 size_t glich::glc_builtin_scripts_size =
