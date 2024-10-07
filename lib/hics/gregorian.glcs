@@ -38,8 +38,6 @@ scheme g {
     grammar g;
 }
 
-set inout g; // Set Gregorian as the default input and output scheme.
-
 grammar gw {
     name "Year Week Day";
     fields year week day;

@@ -378,14 +378,7 @@ void Glich::load_builtin_library()
 
 void Glich::load_hics_library()
 {
-    for( size_t i = 0; i < hics_default_scripts_size; i++ ) {
-        string error = run_script( hics_default_scripts[i].script );
-        if( !error.empty() ) {
-            m_init_error += "Module: \"" +
-                string( hics_default_scripts[i].module ) + "\"\n" + error;
-            break;
-        }
-    }
+    run_module( "hics:hic_lib" );
 }
 
 string Glich::run_script( const string& script )
@@ -415,7 +408,10 @@ string Glich::run_module( const string& mod )
         return run_script_file( module + ".glcs" );
     }
     else if( location == "hics" ) {
-        return string(); // Need to rearrange the library files.
+        if( hics_default_scripts.count( module ) == 1 ) {
+            return run_script( hics_default_scripts[module] );
+        }
+        return string(); // Module not found.
     }
     else if( location == "glich" ) {
         return string(); // There are no glich modules yet!

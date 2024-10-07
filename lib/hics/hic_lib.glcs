@@ -29,4 +29,67 @@ mark "__hics_lib";
 
 set context hics;
 
+module hics:jdn {
+    grammar d;
+    scheme jdn;
+}
+module hics:week {
+    lexicon w ws;
+    grammar jwn jwsn;
+    scheme jwn jwsn;
+}
+module hics:julian {
+    lexicon m;
+    grammar j;
+    scheme j;
+}
+module hics:julian_shift {
+    grammar j_sh;
+    scheme jn ja jap;
+}
+module hics:easter {
+    lexicon rpt rptd;
+    grammar je;
+    scheme je;
+}
+module hics:eh {
+    scheme eh;
+}
+module hics:gregorian {
+    grammar g;
+    scheme g;
+}
+module hics:ce {
+    lexicon ce;
+    grammar jce;
+    scheme jce;
+}
+module hics:ay {
+    lexicon jg;
+    grammar jg;
+    scheme ay;
+}
+module hics:hm {
+    lexicon hm hcm hw;
+    grammar h;
+    scheme h;
+}
+module hics:french_rep {
+    lexicon frnm frm frcomp frdd;
+    grammar fr;
+    scheme fr;
+}
+module hics:islamic {
+    lexicon im iw;
+    grammar i;
+    scheme i ims if;
+}
+module hics:chinese {
+    lexicon cstem cbrch animal lmon fs;
+    grammar c;
+    scheme c;
+}
+
+set inout g; // Set Gregorian as the default input and output scheme.
+
 // End of lib/hics/hicLib.glcs file

@@ -47,10 +47,71 @@ size_t glich::hics_builtin_scripts_size =
 
 
 // Default library section.
-glich::ScriptModule glich::hics_default_scripts[] = {
+glich::StdStrMap glich::hics_default_scripts = {
     { "hic_lib",  /* hic_lib.glcs */
  "mark \"__hics_lib\";\n"
- "set context hics;\n" },
+ "set context hics;\n"
+ "module hics:jdn {\n"
+ "grammar d;\n"
+ "scheme jdn;\n"
+ "}\n"
+ "module hics:week {\n"
+ "lexicon w ws;\n"
+ "grammar jwn jwsn;\n"
+ "scheme jwn jwsn;\n"
+ "}\n"
+ "module hics:julian {\n"
+ "lexicon m;\n"
+ "grammar j;\n"
+ "scheme j;\n"
+ "}\n"
+ "module hics:julian_shift {\n"
+ "grammar j_sh;\n"
+ "scheme jn ja jap;\n"
+ "}\n"
+ "module hics:easter {\n"
+ "lexicon rpt rptd;\n"
+ "grammar je;\n"
+ "scheme je;\n"
+ "}\n"
+ "module hics:eh {\n"
+ "scheme eh;\n"
+ "}\n"
+ "module hics:gregorian {\n"
+ "grammar g;\n"
+ "scheme g;\n"
+ "}\n"
+ "module hics:ce {\n"
+ "lexicon ce;\n"
+ "grammar jce;\n"
+ "scheme jce;\n"
+ "}\n"
+ "module hics:ay {\n"
+ "lexicon jg;\n"
+ "grammar jg;\n"
+ "scheme ay;\n"
+ "}\n"
+ "module hics:hm {\n"
+ "lexicon hm hcm hw;\n"
+ "grammar h;\n"
+ "scheme h;\n"
+ "}\n"
+ "module hics:french_rep {\n"
+ "lexicon frnm frm frcomp frdd;\n"
+ "grammar fr;\n"
+ "scheme fr;\n"
+ "}\n"
+ "module hics:islamic {\n"
+ "lexicon im iw;\n"
+ "grammar i;\n"
+ "scheme i ims if;\n"
+ "}\n"
+ "module hics:chinese {\n"
+ "lexicon cstem cbrch animal lmon fs;\n"
+ "grammar c;\n"
+ "scheme c;\n"
+ "}\n"
+ "set inout g;\n" },
     { "jdn",  /* jdn.glcs */
  "grammar d {\n"
  "name \"Day Number\";\n"
@@ -287,7 +348,6 @@ glich::ScriptModule glich::hics_default_scripts[] = {
  "base gregorian;\n"
  "grammar g;\n"
  "}\n"
- "set inout g;\n"
  "grammar gw {\n"
  "name \"Year Week Day\";\n"
  "fields year week day;\n"
@@ -818,9 +878,6 @@ glich::ScriptModule glich::hics_default_scripts[] = {
  "grammar c;\n"
  "}\n" },
 };
-
-size_t glich::hics_default_scripts_size =
-    sizeof(glich::hics_default_scripts) / sizeof(glich::ScriptModule);
 
 
 // End of lib/hics/hicScripts.f2c file

@@ -28,6 +28,8 @@
 #ifndef SRC_GLC_HICLIBSCRIPTS_H_GUARD
 #define SRC_GLC_HICLIBSCRIPTS_H_GUARD
 
+
+#include <glc/glcDefs.h>
 #include "glcLibScripts.h"
 
 #include <cstddef>
@@ -37,8 +39,7 @@ namespace glich {
     extern ScriptModule hics_builtin_scripts[];
     extern std::size_t hics_builtin_scripts_size;
 
-    extern ScriptModule hics_default_scripts[];
-    extern std::size_t hics_default_scripts_size;
+    extern StdStrMap hics_default_scripts;
 
 }
 

@@ -39,7 +39,7 @@ size_t glich::hics_builtin_scripts_size =
 
 
 // Default library section.
-glich::ScriptModule glich::hics_default_scripts[] = {
+glich::StdStrMap glich::hics_default_scripts = {
     { "hic_lib", @(cp.cpp)"hic_lib.glcs" },
     { "jdn", @(cp.cpp)"jdn.glcs" },
     { "week", @(cp.cpp)"week.glcs" },
@@ -56,9 +56,6 @@ glich::ScriptModule glich::hics_default_scripts[] = {
     { "islamic", @(cp.cpp)"islamic.glcs" },
     { "chinese", @(cp.cpp)"chinese.glcs" },
 };
-
-size_t glich::hics_default_scripts_size =
-    sizeof(glich::hics_default_scripts) / sizeof(glich::ScriptModule);
 
 
 // End of lib/hics/hicScripts.f2c file
