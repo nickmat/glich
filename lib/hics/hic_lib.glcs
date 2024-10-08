@@ -59,7 +59,7 @@ module hics:gregorian {
     grammar g;
     scheme g;
 }
-module hics:ce {
+module hics:jce {
     lexicon ce;
     grammar jce;
     scheme jce;
@@ -69,7 +69,7 @@ module hics:ay {
     grammar jg;
     scheme ay;
 }
-module hics:hm {
+module hics:hebrew {
     lexicon hm hcm hw;
     grammar h;
     scheme h;
