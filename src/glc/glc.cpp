@@ -864,7 +864,12 @@ bool Glich::add_scheme( Scheme* sch, const string& scode )
 
 Scheme* Glich::get_scheme( const string& scode )
 {
-    return dynamic_cast<Scheme*>(get_object( "s:" + scode ));
+    string ocode = "s:" + scode;
+    DefinedStatus status = get_object_status( ocode );
+    if( status == DefinedStatus::module ) {
+        run_module( m_object_mods[ocode] );
+    }
+    return dynamic_cast<Scheme*>(get_object( ocode ));
 }
 
 DefinedStatus glich::Glich::get_scheme_status( const std::string& code ) const
@@ -876,9 +881,10 @@ StdStrVec Glich::get_scheme_list() const
 {
     StdStrVec list;
     for( auto& pair : m_objects ) {
-        Scheme* sch = dynamic_cast<Scheme*>(pair.second);
-        if( sch != nullptr ) {
-            list.push_back( sch->get_scode() );
+        string prefix, code;
+        split_string( prefix, code, pair.first );
+        if( prefix == "s" ) {
+            list.push_back( code );
         }
     }
     return list;
