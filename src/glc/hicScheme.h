@@ -61,6 +61,8 @@ namespace glich {
         std::string get_scode() const;
         std::string get_name() const { return m_name; }
         SchemeStyle get_style() const { return m_style; }
+        bool get_def_visible( bool vis ) const { return m_def_visible; }
+        bool get_cur_visible( bool vis ) const { return m_cur_visible; }
         const Base& get_base() const { return m_base; }
         const Grammar* get_grammar() const { return m_base.get_grammar(); }
         StdStrVec get_format_list() const;
@@ -77,6 +79,8 @@ namespace glich {
 
         void set_name( const std::string& name ) { m_name = name; }
         void set_style( SchemeStyle style ) { m_style = style; }
+        void set_def_visible( bool vis ) { m_def_visible = vis; }
+        void set_cur_visible( bool vis ) { m_cur_visible = vis; }
 
         std::string jdn_to_str( Field jdn, const std::string& fcode ) const;
         std::string range_to_str( const Range& rng, const std::string& fcode ) const;
@@ -97,6 +101,8 @@ namespace glich {
 
         std::string  m_name;
         SchemeStyle  m_style;
+        bool         m_def_visible; // Default visiblity.
+        bool         m_cur_visible; // Currently set visiblity.
         const Base&  m_base;
         std::string  m_input_fcode;
         std::string  m_output_fcode;

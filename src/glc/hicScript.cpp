@@ -189,6 +189,7 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
     int epoch_line = 0;
     Grammar* gmr = nullptr;
     SchemeStyle style = SchemeStyle::Default;
+    bool visible = true;
     for( ;;) {
         token = script.next_token();
         if( token.type() == SToken::Type::RCbracket ||
@@ -240,6 +241,16 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
                     error_ret = true;
                 }
             }
+            else if( token.get_str() == "visible" ) {
+                string str = script.get_name_or_primary( GetToken::next );
+                if( str == "no" ) {
+                    visible = false;
+                }
+                else if( str != "yes" ) {
+                    script.error( "Visible yes or no expected." );
+                    error_ret = true;
+                }
+            }
             else {
                 script.error( "Scheme sub-statement expected." );
                 error_ret = true;
@@ -268,6 +279,8 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
     sch->reset();
     sch->set_name( name );
     sch->set_style( style );
+    sch->set_def_visible( visible );
+    sch->set_cur_visible( visible );
     if( epoch != f_invalid ) {
         if( !sch->set_epoch( base, epoch, epoch_line ) ) {
             script.error( "Unable to set epoch." );
