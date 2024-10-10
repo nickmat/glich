@@ -37,8 +37,6 @@ namespace glich {
     using SchemeMap = std::map<std::string, Scheme*>;
     using SchemeVec = std::vector<Scheme*>;
 
-    enum class SchemeStyle { Selected, Default, Hidden };
-
     struct SchemeData
     {
         std::string code;
