@@ -43,13 +43,8 @@ namespace glich {
 
     struct SchemeData
     {
-        SchemeData() : style(SchemeStyle::Default), has_in_format(false), has_out_format(false) {}
-
         std::string code;
         std::string name;
-        SchemeStyle style;
-        bool        has_in_format;
-        bool        has_out_format;
     };
     typedef std::vector<SchemeData> SchemeList;
 

@@ -162,7 +162,7 @@ SchemeList Glich::get_scheme_list( Visibility vis )
         if( vis == Visibility::hidden && sch->get_cur_visible() ) {
             continue;
         }
-        sdata.code = sch->get_scode();
+        sdata.code = code;
         sdata.name = sch->get_name();
         slist.push_back( sdata );
     }
