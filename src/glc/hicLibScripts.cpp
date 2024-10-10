@@ -157,7 +157,7 @@ glich::StdStrMap glich::hics_default_scripts = {
  "name \"Julian Week Number\";\n"
  "base jwn;\n"
  "grammar jwn;\n"
- "style hidden;\n"
+ "visible no;\n"
  "}\n"
  "lexicon ws {\n"
  "name \"Weekday names Sunday start\";\n"
@@ -190,7 +190,7 @@ glich::StdStrMap glich::hics_default_scripts = {
  "name \"Julian Week (Sunday) Number\";\n"
  "base jwn sunday;\n"
  "grammar jwsn;\n"
- "style hidden;\n"
+ "visible no;\n"
  "}\n" },
     { "julian",  /* julian.glcs */
  "lexicon m {\n"
