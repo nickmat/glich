@@ -54,7 +54,7 @@ using namespace glich;
 using std::string;
 
 glich::Scheme::Scheme( const std::string& code, const Base& base )
-    : m_style( SchemeStyle::Default ), m_base( base ), Object( code )
+    : m_def_visible(false), m_cur_visible(false), m_base(base), Object(code)
 {
     set_value_names( base.get_fieldnames() );
 }

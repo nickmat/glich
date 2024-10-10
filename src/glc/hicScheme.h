@@ -60,7 +60,6 @@ namespace glich {
 
         std::string get_scode() const;
         std::string get_name() const { return m_name; }
-        SchemeStyle get_style() const { return m_style; }
         bool get_def_visible() const { return m_def_visible; }
         bool get_cur_visible() const { return m_cur_visible; }
         const Base& get_base() const { return m_base; }
@@ -78,7 +77,6 @@ namespace glich {
         FieldVec get_object_fields( const SValueVec& values ) const;
 
         void set_name( const std::string& name ) { m_name = name; }
-        void set_style( SchemeStyle style ) { m_style = style; }
         void set_def_visible( bool vis ) { m_def_visible = vis; }
         void set_cur_visible( bool vis ) { m_cur_visible = vis; }
 
@@ -100,7 +98,6 @@ namespace glich {
         bool create_epoch_functions( Field epoch, int line );
 
         std::string  m_name;
-        SchemeStyle  m_style;
         bool         m_def_visible; // Default visiblity.
         bool         m_cur_visible; // Currently set visiblity.
         const Base&  m_base;
