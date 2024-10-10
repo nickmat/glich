@@ -188,7 +188,6 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
     Field epoch = f_invalid;
     int epoch_line = 0;
     Grammar* gmr = nullptr;
-    SchemeStyle style = SchemeStyle::Default;
     bool visible = true;
     for( ;;) {
         token = script.next_token();
@@ -228,19 +227,6 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
                     }
                 }
             }
-            else if( token.get_str() == "style" ) {
-                string str = script.get_name_or_primary( GetToken::next );
-                if( str == "hidden" ) {
-                    style = SchemeStyle::Hidden;
-                }
-                else if( str == "selected" ) {
-                    style = SchemeStyle::Selected;
-                }
-                else if( str != "default" ) {
-                    script.error( "Style name expected." );
-                    error_ret = true;
-                }
-            }
             else if( token.get_str() == "visible" ) {
                 string str = script.get_name_or_primary( GetToken::next );
                 if( str == "no" ) {
@@ -278,7 +264,6 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
     Scheme* sch = new Scheme( "s:" + code, *base);
     sch->reset();
     sch->set_name( name );
-    sch->set_style( style );
     sch->set_def_visible( visible );
     sch->set_cur_visible( visible );
     if( epoch != f_invalid ) {
