@@ -158,6 +158,7 @@ namespace glich {
     };
 
     enum class DefinedStatus { none, module, defined };
+    enum class Visibility { hidden, visible };
 
 }
 
