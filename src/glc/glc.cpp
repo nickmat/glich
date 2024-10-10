@@ -141,20 +141,25 @@ const char* Glich::version()
     return glc_version;
 }
 
-SchemeList Glich::get_scheme_list( SchemeStyle style ) const
+SchemeList Glich::get_scheme_list( Visibility vis )
 {
     SchemeList slist;
     SchemeData sdata;
 
     for( const auto& object : m_objects ) {
-        Scheme* sch = dynamic_cast<Scheme*>(object.second);
+        string prefix, code;
+        split_string( prefix, code, object.first );
+        if( prefix != "s" ) {
+            continue;
+        }
+        Scheme* sch = get_scheme( code );
         if( sch == nullptr ) {
             continue;
         }
-        if( style == SchemeStyle::Selected && sch->get_style() != SchemeStyle::Selected ) {
+        if( vis == Visibility::visible && !sch->get_cur_visible() ) {
             continue;
         }
-        if( style == SchemeStyle::Default && sch->get_style() == SchemeStyle::Hidden ) {
+        if( vis == Visibility::hidden && sch->get_cur_visible() ) {
             continue;
         }
         sdata.code = sch->get_scode();

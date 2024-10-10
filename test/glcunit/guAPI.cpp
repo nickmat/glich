@@ -41,7 +41,7 @@ TEST_CASE( "Test Version", "[Version]" )
 
 TEST_CASE( "Test get_scheme_list", "[get_scheme_list]" )
 {
-    SchemeList schemes = g_glc->get_scheme_list( SchemeStyle::Hidden );
+    SchemeList schemes = g_glc->get_scheme_list( Visibility::all );
     size_t hidden_size = schemes.size();
     size_t index = 0;
     while( index < hidden_size && schemes[index].code != "g" ) index++;
@@ -61,7 +61,7 @@ TEST_CASE( "Test get_scheme_list", "[get_scheme_list]" )
     data = schemes[index];
     REQUIRE( data.name == "Julian Week Number" );
 
-    schemes = g_glc->get_scheme_list( SchemeStyle::Default );
+    schemes = g_glc->get_scheme_list( Visibility::visible );
     size_t default_size = schemes.size();
     REQUIRE( default_size < hidden_size );
     index = 0;
@@ -73,10 +73,6 @@ TEST_CASE( "Test get_scheme_list", "[get_scheme_list]" )
     index = 0;
     while( index < default_size && schemes[index].code != "jwn" ) index++;
     REQUIRE( index == default_size );
-
-    // The SchemeStyle::Selected filter is not currently being used
-    schemes = g_glc->get_scheme_list( SchemeStyle::Selected );
-    REQUIRE( schemes.size() == 0 );
 }
 
 TEST_CASE( "Test date_phrase_to_rlist", "[date_phrase_to_rlist]" )
