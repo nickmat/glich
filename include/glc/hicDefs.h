@@ -33,8 +33,6 @@
 
 namespace glich {
 
-    enum class DefaultVis { Always, Select, Hidden };
-
     class Scheme;
     using SchemeMap = std::map<std::string, Scheme*>;
     using SchemeVec = std::vector<Scheme*>;

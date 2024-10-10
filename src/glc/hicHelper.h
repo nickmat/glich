@@ -83,15 +83,6 @@ namespace glich {
         return names[index];
     }
 
-    inline const char* get_default_vis_text( DefaultVis vis ) {
-        static const char* names[] = { "always", "select", "hidden" };
-        size_t index = static_cast<size_t>(vis);
-        if( index >= sizeof( names ) / sizeof( const char* ) ) {
-            index = 0;
-        }
-        return names[index];
-    }
-
 }
 
 #endif // SRC_GLC_HICHELPER_H_GUARD
