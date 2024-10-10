@@ -1346,7 +1346,7 @@ SValue glich::at_sch_object( Script& script )
 
     obj.push_back( sch->get_grammar()->get_pref_input_fcode() );
     obj.push_back( sch->get_grammar()->get_pref_output_fcode() );
-    obj.push_back( !(sch->get_style() == SchemeStyle::Hidden) );
+    obj.push_back( sch->get_cur_visible() );
     return SValue( obj );
 }
 
