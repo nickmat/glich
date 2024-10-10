@@ -61,8 +61,8 @@ namespace glich {
         std::string get_scode() const;
         std::string get_name() const { return m_name; }
         SchemeStyle get_style() const { return m_style; }
-        bool get_def_visible( bool vis ) const { return m_def_visible; }
-        bool get_cur_visible( bool vis ) const { return m_cur_visible; }
+        bool get_def_visible() const { return m_def_visible; }
+        bool get_cur_visible() const { return m_cur_visible; }
         const Base& get_base() const { return m_base; }
         const Grammar* get_grammar() const { return m_base.get_grammar(); }
         StdStrVec get_format_list() const;
