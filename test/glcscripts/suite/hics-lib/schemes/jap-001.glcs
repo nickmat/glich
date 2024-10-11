@@ -1,0 +1,14 @@
+// jap-001.hcs - Test @date function  within scheme statement.
+
+scheme JAP {
+    base julian;
+    epoch @date.j:dmy("25 Mar 0");
+    grammar { calculated cyear; use epoch; }
+}
+
+write @scheme.JAP( 2460595 );
+
+
+/*[OUTPUT]
+{s:JAP 2024, 9, 28, 2025}
+[OUTPUT]*/

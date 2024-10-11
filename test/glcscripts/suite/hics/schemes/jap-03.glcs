@@ -1,0 +1,13 @@
+// jap-03.glcs  Test minimal epoch sub-statement.
+
+scheme JAP {
+    base julian;
+    epoch 1721142; // j:dmy# 25 Mar 0
+    grammar { calculated cyear; use epoch; }
+}
+
+write @scheme.JAP:def( 2460595 );
+
+/*[OUTPUT]
+{s:JAP 2024, 9, 28, 2025}
+[OUTPUT]*/
