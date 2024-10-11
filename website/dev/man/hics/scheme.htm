@@ -52,10 +52,10 @@
 <tr><th>Sub-Statement</th><th>Use</th><th>Example</th></tr>
 <tr><td class='code'>name</td><td>A descriptive name for the scheme.</td><td class='example'>name "Julian Annunciation";</td></tr>
 <tr><td class='code'>base</td><td>The base calendar used by the scheme.</td><td class='example'>base julian;</td></tr>
-<tr><td class='code'>epoch</td><td>Scheme uses one of the base calendars with the epoch shifted.</td><td class='example'>epoch 1721507 julian;</td></tr>
+<tr><td class='code'>epoch</td><td>Scheme uses a different epoch to the base calendar.</td><td class='example'>epoch 1721507;</td></tr>
 <tr><td class='code' rowspan='2'>grammar</td><td>Predefined grammar to be used.</td><td class='example'>grammar jce;</td></tr>
 <tr><td>Anonymous grammar definition.</td><td class='example'>grammar { optional wday; }</td></tr>
-<tr><td class='code'>style</td><td>The scheme style used.</td><td class='example'>style hide;</td></tr>
+<tr><td class='code'>visible</td><td>The default visibility in scheme lists.</td><td class='example'>visible no;</td></tr>
 </table>
 
 <h3>Sub-Statement: name</h3>
@@ -414,16 +414,17 @@ epoch 2400001 jdn; // Modified Julian Day</td>
  One or zero grammar sub-statements can be defined.
 </p>
 
-<h3>style Sub-Statement</h3>
+<h3>visible Sub-Statement</h3>
 <p>
- Set style attributes for the Scheme.
- The default is style none.
+ When a scheme list is requested,
+ this attribute determines if the scheme is to be included.
+ The default is visible yes.
 </p>
 <table class='basic'>
- <tr><th colspan='2'>style Sub-Statement</th></tr>
+ <tr><th colspan='2'>visible Sub-Statement</th></tr>
  <tr><th>Description</th><th>Switch</th></tr>
- <tr><td>No style settings.</td><td class='code'>style none;</td></tr>
- <tr><td>Do not show the scheme in the scheme list.</td><td class='code'>style hide;</td></tr>
+ <tr><td>Show scheme is scheme list.</td><td class='code'>visible yes;</td></tr>
+ <tr><td>Do not show in the scheme list.</td><td class='code'>visible no;</td></tr>
 </table>
     
 
