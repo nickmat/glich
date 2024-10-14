@@ -28,15 +28,18 @@
 #include "hicRecord.h"
 
 #include <glc/glc.h>
+#include "glcFunction.h"
 #include "glcHelper.h"
 #include "glcStore.h"
 #include "hicBase.h"
 #include "hicFormat.h"
 #include "hicGregorian.h"
 #include "hicOptional.h"
+#include "hicScheme.h"
 
 #include <algorithm>
 #include <cassert>
+#include <sstream>
 
 using namespace glich;
 using std::string;
@@ -56,6 +59,27 @@ Record::Record( const Base& base, Field jdn )
     FieldVec fields = m_base.get_fields( jdn );
     for( size_t i = 0; i < fields.size(); i++ ) {
         m_f[i] = fields[i];
+    }
+}
+
+Record::Record( const Scheme& sch, Field jdn )
+    : m_base( sch.get_base() ), m_jdn( jdn ), m_f( m_base.record_size(), f_invalid )
+{
+    if( jdn == f_minimum || jdn == f_maximum || jdn == f_invalid ) {
+        m_f[0] = jdn;
+        return;
+    }
+    FieldVec fields = m_base.get_fields( jdn );
+    for( size_t i = 0; i < fields.size(); i++ ) {
+        m_f[i] = fields[i];
+    }
+    const Grammar* gmr = sch.get_grammar();
+    Function* fun = sch.get_function( gmr->get_calculate() );
+    if( fun != nullptr ) {
+        SValue value = get_object( sch.get_code() );
+        std::ostringstream outstm;
+        value = fun->run( &value, StdStrVec(), SValueVec(), outstm );
+        set_object( value );
     }
 }
 
