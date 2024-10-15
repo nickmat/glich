@@ -60,9 +60,6 @@ namespace glich {
         bool set_input( Record& record, const std::string& input, Boundary rb ) const override;
         bool set_input( Record& record, const std::string& input ) const override;
 
-        std::string range_to_string( const Base& base, const Range& range ) const override;
-
-
     private:
         enum class CP_Group { Hyphen, Digit, Quest, Dual, Sep, Other };
 

@@ -194,31 +194,31 @@ FieldVec Scheme::get_object_fields( const SValueVec& values ) const
     return fields;
 }
 
-std::string Scheme::jdn_to_str( Field jdn, const string& fcode ) const
+string Scheme::jdn_to_str( Field jdn, const string& fcode ) const
 {
     Format* fmt = get_output_format( fcode );
     if( fmt == nullptr ) {
         return string();
     }
-    return fmt->jdn_to_string( m_base, jdn );
+    return fmt->jdn_to_string( *this, jdn );
 }
 
-std::string Scheme::range_to_str( const Range& rng, const std::string& fcode ) const
+string Scheme::range_to_str( const Range& rng, const string& fcode ) const
 {
     Format* fmt = get_output_format( fcode );
     if( fmt == nullptr ) {
         return string();
     }
-    return fmt->range_to_string( m_base, rng );
+    return fmt->range_to_string( *this, rng );
 }
 
-std::string Scheme::rlist_to_str( const RList& rlist, const std::string& fcode ) const
+string Scheme::rlist_to_str( const RList& rlist, const string& fcode ) const
 {
     Format* fmt = get_output_format( fcode );
     if( fmt == nullptr ) {
         return string();
     }
-    return fmt->rlist_to_string( m_base, rlist );
+    return fmt->rlist_to_string( *this, rlist );
 }
 
 string Scheme::object_to_str( const SValue& ovalue, const string& fcode ) const

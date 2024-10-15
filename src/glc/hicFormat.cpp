@@ -76,7 +76,7 @@ bool Format::set_input( Record& record, const string& input ) const
     return set_input( record, input, Boundary::None );
 }
 
-string Format::jdn_to_string( const Base& base, Field jdn ) const
+string Format::jdn_to_string( const Scheme& sch, Field jdn ) const
 {
     if( jdn == f_minimum ) {
         return "past";
@@ -84,26 +84,39 @@ string Format::jdn_to_string( const Base& base, Field jdn ) const
     if( jdn == f_maximum ) {
         return "future";
     }
-    Record rec( base, jdn );
+    Record rec( sch, jdn );
     return get_text_output( rec );
 }
 
-string Format::range_to_string( const Base& base, const Range& rng ) const
+string Format::range_to_string( const Scheme& sch, const Range& rng ) const
 {
-    string output = jdn_to_string( base, rng.m_beg );
-    output += "..";
-    output += jdn_to_string( base, rng.m_end );
-    return output;
+    Record rec1( sch, rng.m_beg );
+    Record rec2( sch, rng.m_end );
+
+    string str1, str2;
+    if( allow_shorthand() ) {
+        BoolVec reveal = get_reveal( rec1, rec2 );
+        str1 = get_revealed_text( rec1, reveal );
+        str2 = get_revealed_text( rec2, reveal );
+    }
+    else {
+        str1 = get_text_output( rec1 );
+        str2 = get_text_output( rec2 );
+    }
+    if( str1 == str2 ) {
+        return get_date_text( str1 );
+    }
+    return get_range_text( str1, str2 );
 }
 
-string Format::rlist_to_string( const Base& base, const RList& rlist ) const
+string Format::rlist_to_string( const Scheme& sch, const RList& rlist ) const
 {
     string output;
     for( const Range& rng : rlist ) {
         if( !output.empty() ) {
             output += " | ";
         }
-        output += range_to_string( base, rng );
+        output += range_to_string( sch, rng );
     }
     return output;
 }

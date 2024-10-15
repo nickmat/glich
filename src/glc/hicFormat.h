@@ -103,9 +103,9 @@ namespace glich {
         virtual bool set_input( Record& record, const std::string& input, Boundary rb ) const = 0;
         virtual bool set_input( Record& record, const std::string& input ) const;
 
-        virtual std::string jdn_to_string( const Base& base, Field jdn ) const;
-        virtual std::string range_to_string( const Base& base, const Range& rng ) const;
-        virtual std::string rlist_to_string( const Base& base, const RList& rlist ) const;
+        virtual std::string jdn_to_string( const Scheme& sch, Field jdn ) const;
+        virtual std::string range_to_string( const Scheme& sch, const Range& rng ) const;
+        virtual std::string rlist_to_string( const Scheme& sch, const RList& rlist ) const;
 
         virtual StringPairVec string_to_stringpair( std::string& text ) const;
 

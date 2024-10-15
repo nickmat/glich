@@ -47,9 +47,8 @@ namespace glich {
         Range string_to_range( const Base& base, const std::string& input, FunctionData* fdata = nullptr ) const override;
         bool set_input( Record& record, const std::string& input, Boundary rb ) const override;
 
-        std::string jdn_to_string( const Base& base, Field jdn ) const override;
-        std::string range_to_string( const Base& base, const Range& range ) const override;
-        std::string rlist_to_string( const Base& base, const RList& rlist ) const override;
+        std::string range_to_string( const Scheme& sch, const Range& range ) const override;
+        std::string rlist_to_string( const Scheme& sch, const RList& rlist ) const override;
 
     private:
         std::string jdn_to_str( const Base& base, Field jdn ) const;

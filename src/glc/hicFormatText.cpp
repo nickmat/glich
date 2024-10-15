@@ -350,32 +350,6 @@ bool FormatText::set_input( Record& record, const string& input ) const
     return ret;
 }
 
-string FormatText::range_to_string( const Base& base, const Range& range ) const
-{
-    if( range.m_beg == range.m_end ) {
-        return jdn_to_string( base, range.m_beg );
-    }
-    string str1, str2;
-    Record rec1( base, range.m_beg );
-    rec1.update_output();
-    Record rec2( base, range.m_end );
-    rec2.update_output();
-
-    if( m_shorthand ) {
-        BoolVec reveal = rec1.mark_balanced_fields( rec2, m_rank_to_def_index, m_sig_rank_size );
-        str1 = get_revealed_output( rec1, &reveal );
-        str2 = get_revealed_output( rec2, &reveal );
-    }
-    else {
-        str1 = get_text_output( rec1 );
-        str2 = get_text_output( rec2 );
-    }
-    if( str1 == str2 ) {
-        return str1;
-    }
-    return str1 + ".." + str2;
-}
-
 bool FormatText::is_significant_rank_name( const string& fieldname ) const
 {
     for( size_t i = 0; i < m_sig_rank_size; i++ ) {

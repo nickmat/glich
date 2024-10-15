@@ -33,6 +33,7 @@
 #include "hicIsoOrdinal.h"
 #include "hicIsoWeek.h"
 #include "hicRecord.h"
+#include "hicScheme.h"
 
 #include <cassert>
 
@@ -336,35 +337,23 @@ bool FormatIso::set_input( Record& record, const string& input, Boundary rb ) co
     return true;
 }
 
-string FormatIso::jdn_to_string( const Base& base, Field jdn ) const
+string FormatIso::range_to_string( const Scheme& sch, const Range& range ) const
 {
-    if( jdn == f_minimum || jdn == f_maximum ) {
-        return "";
-    }
-    string str = jdn_to_str( base, jdn );
+    string str = range_to_str( sch.get_base(), range);
     if( m_dateset ) {
         return "[" + str + "]";
     }
     return str;
 }
 
-string FormatIso::range_to_string( const Base& base, const Range& range ) const
-{
-    string str = range_to_str( base, range );
-    if( m_dateset ) {
-        return "[" + str + "]";
-    }
-    return str;
-}
-
-string FormatIso::rlist_to_string( const Base& base, const RList& ranges ) const
+string FormatIso::rlist_to_string( const Scheme& sch, const RList& rlist ) const
 {
     string str;
-    for( size_t i = 0 ; i < ranges.size() ; i++ ) {
+    for( size_t i = 0; i < rlist.size(); i++ ) {
         if( i > 0 ) {
-            str += ( m_dateset ? "," : " | " );
+            str += (m_dateset ? "," : " | ");
         }
-        str += range_to_str( base, ranges[i] );
+        str += range_to_str( sch.get_base(), rlist[i]);
     }
     if( m_dateset ) {
         return "[" + str + "]";
