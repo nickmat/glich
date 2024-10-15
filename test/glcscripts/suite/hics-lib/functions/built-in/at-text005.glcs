@@ -1,0 +1,21 @@
+// at-text005.glcs - Test jdn, range and rlist conversion to text.
+
+
+write nl;
+write @text.g:iso_set( 2460166 ) nl;
+write @text.g:iso_set( 2460166 .. 2460176 ) nl;
+write @text.g:iso_set( 2460166 .. 2460176 | 2460186 ) nl;
+write @text.jap:dmy( 2460166 ) nl;
+write @text.jap:dmy( 2460166 .. 2460176 ) nl;
+write @text.jap:dmy( 2460166 .. 2460176 | 2460186 ) nl;
+
+/*[OUTPUT]
+
+[2023-08-09]
+[2023-08-09..2023-08-19]
+[2023-08-09..2023-08-19,2023-08-29]
+27 Jul 2024/3
+27 Jul 2024/3..6 Aug 2024/3
+27 Jul 2024/3..6 Aug 2024/3 | 16 Aug 2024/3
+
+[OUTPUT]*/
