@@ -37,16 +37,11 @@ namespace glich {
     class Function;
     class Object;
     class File;
-    class Lexicon;
-    class Grammar;
-    class Format;
-    class Scheme;
-
     class Mark
     {
     public:
         Mark( const std::string& name, Mark* prev );
-        ~Mark();
+        virtual ~Mark();
 
         static void set_zero_store( Store* store ) { s_zero_store = store; }
 
@@ -61,19 +56,12 @@ namespace glich {
         void add_object( const std::string& code ) { m_objects.push_back( code ); }
         void add_module( const std::string& code ) { m_modules.push_back( code ); }
         void add_file( const std::string& code ) { m_files.push_back( code ); }
-        void add_lexicon( const std::string& code ) { m_lexicons.push_back( code ); }
-        void add_grammar( const std::string& code ) { m_grammars.push_back( code ); }
-        void add_format( const std::string& code ) { m_formats.push_back( code ); }
 
         void set_integer( Integer intgr ) { m_integer = intgr; }
         void set_context( Context ct ) { m_context = ct; }
-        void set_ischeme( Scheme* sch ) { m_ischeme = sch; }
-        void set_oscheme( Scheme* sch ) { m_oscheme = sch; }
 
         Integer get_integer() const { return m_integer; }
         Context get_context() const { return m_context; }
-        Scheme* get_ischeme() const { return m_ischeme; }
-        Scheme* get_oscheme() const { return m_oscheme; }
 
         GlcMark get_mark_data();
 
@@ -89,11 +77,34 @@ namespace glich {
         StdStrVec m_objects;
         StdStrVec m_modules;
         StdStrVec m_files;
+        Integer m_integer;
+        Context m_context;
+    };
+
+    class Lexicon;
+    class Grammar;
+    class Format;
+    class Scheme;
+
+    class HicMark : public Mark {
+    public:
+        HicMark( const std::string& name, HicMark* prev );
+        ~HicMark();
+   
+        void add_lexicon( const std::string& code ) { m_lexicons.push_back( code ); }
+        void add_grammar( const std::string& code ) { m_grammars.push_back( code ); }
+        void add_format( const std::string& code ) { m_formats.push_back( code ); }
+
+        void set_ischeme( Scheme* sch ) { m_ischeme = sch; }
+        void set_oscheme( Scheme* sch ) { m_oscheme = sch; }
+
+        Scheme* get_ischeme() const { return m_ischeme; }
+        Scheme* get_oscheme() const { return m_oscheme; }
+
+    private:
         StdStrVec m_lexicons;
         StdStrVec m_grammars;
         StdStrVec m_formats;
-        Integer m_integer;
-        Context m_context;
         Scheme* m_ischeme;
         Scheme* m_oscheme;
     };

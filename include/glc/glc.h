@@ -40,8 +40,8 @@ namespace glich {
     using ObjectMap = std::map<std::string, Object*>;
     class File;
     using FileMap = std::map<std::string, File*>;
-    class Mark;
-    using MarkVec = std::vector<Mark*>;
+    class HicMark;
+    using MarkVec = std::vector<HicMark*>;
     class Store;
 
     class InOut {

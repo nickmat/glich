@@ -43,14 +43,11 @@ using std::vector;
 
 
 Mark::Mark( const string& name, Mark* prev )
-    : m_name( name ), m_integer( Integer::number ), m_context( Context::glich ),
-    m_ischeme( nullptr ), m_oscheme( nullptr )
+    : m_name( name ), m_integer( Integer::number ), m_context( Context::glich )
 {
     if( prev != nullptr ) {
         m_integer = prev->get_integer();
         m_context = prev->get_context();
-        m_ischeme = prev->get_ischeme();
-        m_oscheme = prev->get_oscheme();
     }
 }
 
@@ -79,19 +76,6 @@ Mark::~Mark()
     }
     for( auto code : m_files ) {
         glc().remove_file( code );
-    }
-    for( auto code : m_lexicons ) {
-        glc().remove_lexicon( code );
-    }
-    for( auto code : m_formats ) {
-        string gcode, fcode;
-        split_code( &gcode, &fcode, code );
-        Grammar* gmr = glc().get_grammar( gcode );
-        assert( gmr != nullptr );
-        gmr->remove_format( fcode );
-    }
-    for( auto code : m_grammars ) {
-        glc().remove_grammar( code );
     }
 }
 
@@ -141,23 +125,6 @@ GlcMark Mark::get_mark_data()
             mark.sch.push_back( data );
         }
     }
-    for( auto code : m_lexicons ) {
-        data.name = code;
-        Lexicon* lex = glc().get_lexicon( code );
-        data.value = lex->get_name();
-        mark.lex.push_back( data );
-    }
-    for( auto code : m_grammars ) {
-        data.name = code;
-        Grammar* gmr = glc().get_grammar( code );
-        data.value = gmr->get_name();
-        mark.gmr.push_back( data );
-    }
-    for( auto code : m_formats ) {
-        data.name = code;
-        data.value = string();
-        mark.fmt.push_back( data );
-    }
     for( auto& local : m_locals ) {
         SValue value = glc().get_local( local );
         data.type = value.type_str();
@@ -166,6 +133,33 @@ GlcMark Mark::get_mark_data()
         mark.var.push_back( data );
     }
     return mark;
+}
+
+HicMark::HicMark( const string& name, HicMark* prev )
+    : m_ischeme( nullptr ), m_oscheme( nullptr ), Mark( name, prev )
+{
+    if( prev != nullptr ) {
+        m_ischeme = prev->get_ischeme();
+        m_oscheme = prev->get_oscheme();
+    }
+}
+
+HicMark::~HicMark()
+{
+    for( auto code : m_lexicons ) {
+        glc().remove_lexicon( code );
+    }
+    for( auto code : m_formats ) {
+        string gcode, fcode;
+        split_code( &gcode, &fcode, code );
+        Grammar* gmr = glc().get_grammar( gcode );
+        assert( gmr != nullptr );
+        gmr->remove_format( fcode );
+    }
+    for( auto code : m_grammars ) {
+        glc().remove_grammar( code );
+    }
+
 }
 
 // End of src/glc/glcMark.cpp

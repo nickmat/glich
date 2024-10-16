@@ -67,7 +67,7 @@ Glich::Glich( InOut* inout )
     : m_store( new Store ), m_inout( inout ), m_cur_object( nullptr )
 {
     Mark::set_zero_store( m_store );
-    m_marks.push_back( new Mark( "", nullptr ) );
+    m_marks.push_back( new HicMark( "", nullptr ) );
     if( !m_inout ) {
         m_inout = new InOut;
     }
@@ -898,12 +898,12 @@ StdStrVec Glich::get_scheme_list() const
 void Glich::add_or_replace_mark( const string& name )
 {
     clear_mark( name );
-    Mark* prev = nullptr;
+    HicMark* prev = nullptr;
     int i = int( m_marks.size() ) - 1;
     if( i >= 0 ) {
         prev = m_marks[i];
     }
-    Mark* mark = new Mark( name, prev );
+    HicMark* mark = new HicMark( name, prev );
     m_marks.push_back( mark );
 }
 
