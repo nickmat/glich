@@ -41,7 +41,8 @@ namespace glich {
     class File;
     using FileMap = std::map<std::string, File*>;
     class HicMark;
-    using MarkVec = std::vector<HicMark*>;
+    class Mark;
+    using MarkVec = std::vector<Mark*>;
     class Store;
 
     class InOut {

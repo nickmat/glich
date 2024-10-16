@@ -768,7 +768,9 @@ bool Glich::add_lexicon( Lexicon* lex, const string& code )
         return false;
     }
     if( status == DefinedStatus::none ) {
-        m_marks[m_marks.size() - 1]->add_lexicon( code );
+        HicMark* mark = dynamic_cast<HicMark*>(m_marks[m_marks.size() - 1]);
+        assert( mark != nullptr );
+        mark->add_lexicon( code );
     }
     m_lexicons[code] = lex;
     return true;
@@ -814,7 +816,9 @@ bool Glich::add_grammar( Grammar* gmr, const string& code )
         return false;
     }
     if( status == DefinedStatus::none ) {
-        m_marks[m_marks.size() - 1]->add_grammar( code );
+        HicMark* mark = dynamic_cast<HicMark*>(m_marks[m_marks.size() - 1]);
+        assert( mark != nullptr );
+        mark->add_grammar( code );
     }
     m_grammars[code] = gmr;
     return true;
@@ -855,7 +859,9 @@ DefinedStatus Glich::get_grammar_status( const string& code ) const
 bool Glich::add_format( const string& code )
 {
     assert( m_marks.size() > 0 );
-    m_marks[m_marks.size() - 1]->add_format( code );
+    HicMark* mark = dynamic_cast<HicMark*>(m_marks[m_marks.size() - 1]);
+    assert( mark != nullptr );
+    mark->add_format( code );
     return true;
 }
 
@@ -898,12 +904,12 @@ StdStrVec Glich::get_scheme_list() const
 void Glich::add_or_replace_mark( const string& name )
 {
     clear_mark( name );
-    HicMark* prev = nullptr;
+    Mark* prev = nullptr;
     int i = int( m_marks.size() ) - 1;
     if( i >= 0 ) {
         prev = m_marks[i];
     }
-    HicMark* mark = new HicMark( name, prev );
+    Mark* mark = new HicMark( name, dynamic_cast<HicMark*>( prev ) );
     m_marks.push_back( mark );
 }
 
@@ -990,20 +996,21 @@ bool Glich::set_property( const string& property, const string& value )
     split_code( &scode, &fcode, value );
     Scheme* sch = get_scheme( scode );
     if( sch != nullptr ) {
+        HicMark* mark = dynamic_cast<HicMark*>(m_marks[i]);
         if( property == "input" ) {
-            m_marks[i]->set_ischeme( sch );
+            mark->set_ischeme( sch );
             sch->set_input_format( fcode );
             return true;
         }
         if( property == "output" ) {
-            m_marks[i]->set_oscheme( sch );
+            mark->set_oscheme( sch );
             sch->set_output_format( fcode );
             return true;
         }
         if( property == "inout" ) {
-            m_marks[i]->set_ischeme( sch );
+            mark->set_ischeme( sch );
             sch->set_input_format( fcode );
-            m_marks[i]->set_oscheme( sch );
+            mark->set_oscheme( sch );
             sch->set_output_format( fcode );
             return true;
         }
@@ -1015,7 +1022,7 @@ void Glich::set_ischeme( Scheme* sch )
 {
     int i = int( m_marks.size() ) - 1;
     if( i >= 0 ) {
-        m_marks[i]->set_ischeme( sch );
+        dynamic_cast<HicMark*>( m_marks[i] )->set_ischeme( sch );
     }
 }
 
@@ -1023,7 +1030,7 @@ void Glich::set_oscheme( Scheme* sch )
 {
     int i = int( m_marks.size() ) - 1;
     if( i >= 0 ) {
-        m_marks[i]->set_oscheme( sch );
+        dynamic_cast<HicMark*>(m_marks[i])->set_oscheme( sch );
     }
 }
 
@@ -1049,7 +1056,7 @@ Scheme* Glich::get_ischeme() const
 {
     int i = int( m_marks.size() ) - 1;
     if( i >= 0 ) {
-        return m_marks[i]->get_ischeme();
+        return dynamic_cast<HicMark*>(m_marks[i])->get_ischeme();
     }
     return nullptr;
 }
@@ -1058,7 +1065,7 @@ Scheme* Glich::get_oscheme() const
 {
     int i = int( m_marks.size() ) - 1;
     if( i >= 0 ) {
-        return m_marks[i]->get_oscheme();
+        return dynamic_cast<HicMark*>(m_marks[i])->get_oscheme();
     }
     return nullptr;
 }
