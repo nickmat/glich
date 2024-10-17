@@ -28,7 +28,7 @@
 #ifndef SRC_GLC_GLCMARK_H_GUARD
 #define SRC_GLC_GLCMARK_H_GUARD
 
-#include "glc/glcDefs.h"
+#include <glc/glcDefs.h>
 #include "glcStore.h"
 
 
@@ -37,6 +37,7 @@ namespace glich {
     class Function;
     class Object;
     class File;
+
     class Mark
     {
     public:
@@ -63,7 +64,7 @@ namespace glich {
         Integer get_integer() const { return m_integer; }
         Context get_context() const { return m_context; }
 
-        GlcMark get_mark_data();
+        void get_mark_glc_data( GlcMarkData& glcdata ) const;
 
     private:
         static inline Store*   s_zero_store = nullptr;
@@ -79,34 +80,6 @@ namespace glich {
         StdStrVec m_files;
         Integer m_integer;
         Context m_context;
-    };
-
-    class Lexicon;
-    class Grammar;
-    class Format;
-    class Scheme;
-
-    class HicMark : public Mark {
-    public:
-        HicMark( const std::string& name, HicMark* prev );
-        ~HicMark();
-   
-        void add_lexicon( const std::string& code ) { m_lexicons.push_back( code ); }
-        void add_grammar( const std::string& code ) { m_grammars.push_back( code ); }
-        void add_format( const std::string& code ) { m_formats.push_back( code ); }
-
-        void set_ischeme( Scheme* sch ) { m_ischeme = sch; }
-        void set_oscheme( Scheme* sch ) { m_oscheme = sch; }
-
-        Scheme* get_ischeme() const { return m_ischeme; }
-        Scheme* get_oscheme() const { return m_oscheme; }
-
-    private:
-        StdStrVec m_lexicons;
-        StdStrVec m_grammars;
-        StdStrVec m_formats;
-        Scheme* m_ischeme;
-        Scheme* m_oscheme;
     };
 
 }

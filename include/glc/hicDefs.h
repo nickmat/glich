@@ -154,6 +154,16 @@ namespace glich {
         Norm  norm;
     };
 
+    struct HicMarkData {
+        GlcMarkData glc;
+        GlcDataVec  lex;
+        GlcDataVec  gmr;
+        GlcDataVec  fmt;
+        GlcDataVec  sch;
+    };
+
+    using HicMarkDataVec = std::vector<HicMarkData>;
+
 }
 
 #endif // INCLUDE_GLC_HICDEFS_H_GUARD

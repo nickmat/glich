@@ -131,20 +131,16 @@ namespace glich {
 
     using GlcDataVec = std::vector<GlcData>;
 
-    struct GlcMark {
+    struct GlcMarkData {
         std::string name;
         GlcDataVec  var;
         GlcDataVec  obj;
         GlcDataVec  fun;
         GlcDataVec  com;
         GlcDataVec  file;
-        GlcDataVec  lex;
-        GlcDataVec  gmr;
-        GlcDataVec  fmt;
-        GlcDataVec  sch;
     };
 
-    using GlcMarkVec = std::vector<GlcMark>;
+    using GlcMarkDataVec = std::vector<GlcMarkData>;
 
     struct ModuleDef {
         std::string m_definition;

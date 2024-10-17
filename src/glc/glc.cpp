@@ -41,6 +41,7 @@
 #include "hicGrammar.h"
 #include "hicLexicon.h"
 #include "hicLibScripts.h"
+#include "hicMark.h"
 #include "hicScheme.h"
 
 #include <cassert>
@@ -351,14 +352,29 @@ Field Glich::text_to_field( const string& text, const string& sig )
     return value.get_field( success );
 }
 
-GlcMarkVec Glich::get_glc_data() const
+GlcMarkDataVec Glich::get_glc_data() const
 {
-    GlcMarkVec glcmarks;
+    GlcMarkDataVec glcdata;
     for( auto& mark : m_marks ) {
-        GlcMark glcmark = mark->get_mark_data();
-        glcmarks.push_back( glcmark );
+        GlcMarkData data;
+        mark->get_mark_glc_data( data );
+        glcdata.push_back( data );
     }
-    return glcmarks;
+    return glcdata;
+}
+
+HicMarkDataVec Glich::get_hic_data() const
+{
+    HicMarkDataVec hicdata;
+    for( auto& mark : m_marks ) {
+        HicMark* hicmark = dynamic_cast<HicMark*>(mark);
+        if( hicmark ) {
+            HicMarkData data;
+            hicmark->get_mark_hic_data( data );
+            hicdata.push_back( data );
+        }
+    }
+    return hicdata;
 }
 
 void Glich::load_builtin_library()

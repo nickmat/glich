@@ -27,13 +27,13 @@
 
 #include "glcMark.h"
 
+#include <glc/glc.h>
+
 #include "glcFile.h"
 #include "glcFunction.h"
 #include "glcObject.h"
-#include "hicFormat.h"
-#include "hicGrammar.h"
-#include "hicLexicon.h"
-#include "hicScheme.h"
+
+#include "hicScheme.h" // <<======<<<< REMOVE!!
 
 #include <cassert>
 
@@ -89,9 +89,8 @@ bool Mark::create_local( const string& name, Store* store )
     return true;
 }
 
-GlcMark Mark::get_mark_data()
+void Mark::get_mark_glc_data( GlcMarkData& mark ) const
 {
-    GlcMark mark;
     mark.name = m_name;
     GlcData data;
     for( auto code : m_functions ) {
@@ -111,19 +110,9 @@ GlcMark Mark::get_mark_data()
     }
     for( auto object : m_objects ) {
         Object* obj = glc().get_object( object );
-        Scheme* sch = dynamic_cast<Scheme*>(obj);
-        if( sch == nullptr ) {
-            data.name = object;
-            data.value = string();
-            mark.obj.push_back( data );
-        }
-        else {
-            string code = sch->get_code();
-            assert( code.substr( 0, 2 ) == "s:" );
-            data.name = code.substr( 2 );
-            data.value = sch->get_name();
-            mark.sch.push_back( data );
-        }
+        data.name = object;
+        data.value = string();
+        mark.obj.push_back( data );
     }
     for( auto& local : m_locals ) {
         SValue value = glc().get_local( local );
@@ -132,34 +121,7 @@ GlcMark Mark::get_mark_data()
         data.value = value.as_string();
         mark.var.push_back( data );
     }
-    return mark;
 }
 
-HicMark::HicMark( const string& name, HicMark* prev )
-    : m_ischeme( nullptr ), m_oscheme( nullptr ), Mark( name, prev )
-{
-    if( prev != nullptr ) {
-        m_ischeme = prev->get_ischeme();
-        m_oscheme = prev->get_oscheme();
-    }
-}
-
-HicMark::~HicMark()
-{
-    for( auto code : m_lexicons ) {
-        glc().remove_lexicon( code );
-    }
-    for( auto code : m_formats ) {
-        string gcode, fcode;
-        split_code( &gcode, &fcode, code );
-        Grammar* gmr = glc().get_grammar( gcode );
-        assert( gmr != nullptr );
-        gmr->remove_format( fcode );
-    }
-    for( auto code : m_grammars ) {
-        glc().remove_grammar( code );
-    }
-
-}
 
 // End of src/glc/glcMark.cpp

@@ -175,7 +175,7 @@ TEST_CASE( "Test get_glc_data", "[get_glc_data]" )
         "let vstring = \"text\";\n"
         ;
     g_glc->run_script( script );
-    GlcMarkVec marks = g_glc->get_glc_data();
+    GlcMarkDataVec marks = g_glc->get_glc_data();
     int cnt = 0;
     for( auto& mark : marks ) {
         if( mark.name == "test" ) {
