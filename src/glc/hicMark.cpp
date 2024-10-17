@@ -63,6 +63,9 @@ HicMark::~HicMark()
     for( auto code : m_grammars ) {
         glc().remove_grammar( code );
     }
+    for( auto code : m_schemes ) {
+        glc().remove_object( "s:" + code );
+    }
 
 }
 
@@ -86,6 +89,12 @@ void glich::HicMark::get_mark_hic_data( HicMarkData& mark ) const
         data.name = code;
         data.value = string();
         mark.fmt.push_back( data );
+    }
+    for( auto code : m_schemes ) {
+        data.name = code;
+        Scheme* sch = glc().get_scheme( code );
+        data.value = sch->get_name();
+        mark.sch.push_back( data );
     }
 }
 

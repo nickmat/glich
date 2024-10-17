@@ -886,7 +886,19 @@ bool Glich::add_scheme( Scheme* sch, const string& scode )
     if( sch == nullptr ) {
         return false;
     }
-    return add_object( sch, "s:" + scode );
+    string code = "s:" + scode;
+    DefinedStatus status = get_object_status( code );
+    if( status == DefinedStatus::defined ) {
+        delete sch;
+        return false;
+    }
+    if( status == DefinedStatus::none ) {
+        HicMark* mark = dynamic_cast<HicMark*>(m_marks[m_marks.size() - 1]);
+        assert( mark != nullptr );
+        mark->add_scheme( scode );
+    }
+    m_objects[code] = sch;
+    return true;
 }
 
 Scheme* Glich::get_scheme( const string& scode )
