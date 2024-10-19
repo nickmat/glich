@@ -79,7 +79,7 @@ glich::StdStrMap glich::hics_default_scripts = {
  "}\n"
  "module hics:gregorian {\n"
  "grammar g;\n"
- "scheme g;\n"
+ "scheme g go gw;\n"
  "}\n"
  "module hics:jce {\n"
  "lexicon ce;\n"

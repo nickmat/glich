@@ -57,7 +57,7 @@ module hics:eh {
 }
 module hics:gregorian {
     grammar g;
-    scheme g;
+    scheme g go gw;
 }
 module hics:jce {
     lexicon ce;
