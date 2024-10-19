@@ -727,7 +727,7 @@ bool Glich::add_module( const Module& mod )
         if( def.m_definition == "scheme" ) {
             for( auto& sch : def.m_codes ) {
                 string code = "s:" + sch;
-                if( !add_object( nullptr, code ) ) {
+                if( !add_scheme( nullptr, sch ) ) {
                     return false;
                 }
                 m_object_mods[code] = mod.m_code;
@@ -883,9 +883,6 @@ bool Glich::add_format( const string& code )
 
 bool Glich::add_scheme( Scheme* sch, const string& scode )
 {
-    if( sch == nullptr ) {
-        return false;
-    }
     string code = "s:" + scode;
     DefinedStatus status = get_object_status( code );
     if( status == DefinedStatus::defined ) {
