@@ -31,5 +31,6 @@ write d;
 
 2460583d
 Error (24): Grammar "D" not found.
+Error (27): Scheme "JDN" not found.
 
 [OUTPUT]*/
