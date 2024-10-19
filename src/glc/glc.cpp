@@ -1117,6 +1117,10 @@ void glich::init_glc( InitLibrary lib, InOut* inout )
         delete s_glc;
     }
     s_glc = new Glich( inout );
+#if !defined(NDEBUG) || defined(_DEBUG)
+    g_glc_test = s_glc;
+#endif
+
     s_glc->load_builtin_library();
     switch( lib )
     {
@@ -1129,9 +1133,6 @@ void glich::init_glc( InitLibrary lib, InOut* inout )
     // Mark the start of user definitions.
     s_glc->run_script( "mark __user;" );
 
-#if !defined(NDEBUG) || defined(_DEBUG)
-    g_glc_test = s_glc;
-#endif
 }
 
 void glich::exit_glc()
