@@ -23,6 +23,7 @@ set( GLC_SOURCES
     glcTokenStream.cpp
     glcValue.cpp
     glcVersion.cpp
+    glich.cpp
     hicAstro.cpp
     hicBase.cpp
     hicChinese.cpp
@@ -60,6 +61,7 @@ set( GLC_HEADERS
     ../../include/glc/glc.h
     ../../include/glc/glcDefs.h
     ../../include/glc/hicDefs.h
+    ../../include/glc/glich.h
     glcFile.h
     glcFilesys.h
     glcFunction.h
