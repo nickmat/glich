@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Name:        src/glc/glc.cpp
+ * Name:        src/glc/glich.cpp
  * Project:     Glich: Extendable Script Language.
  * Purpose:     Glich language class
  * Author:      Nick Matthews
@@ -1103,4 +1103,4 @@ const Object* Glich::set_cur_object( const Object* obj )
 }
 
 
-// End of src/hg/historygen.cpp
+// End of src/glc/glich.cpp
