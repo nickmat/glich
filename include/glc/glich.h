@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Name:        include/glc/glc.h
+ * Name:        include/glc/glich.h
  * Project:     Glich: Extendable Script Language.
  * Purpose:     Glich language class header
  * Author:      Nick Matthews
@@ -58,7 +58,7 @@ namespace glich {
     class Glich {
     public:
         Glich( InOut* inout = nullptr );
-        ~Glich();
+        virtual ~Glich();
 
         static const char* version();
 
