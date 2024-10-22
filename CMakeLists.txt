@@ -21,6 +21,7 @@ include_directories( include )
 
 add_subdirectory( 3rdparty/utf8proc)
 add_subdirectory( src/glc )
+add_subdirectory( src/hic )
 add_subdirectory( src/glcs )
 add_subdirectory( src/utf8 )
 add_subdirectory( test/glctest )
