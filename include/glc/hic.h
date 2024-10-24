@@ -30,11 +30,11 @@
 
 #include <glc/hicGlich.h>
 
-namespace glich {
+namespace glich{
 
-    void init_glc( InitLibrary lib, InOut* inout = nullptr );
-    void exit_glc();
-    HicGlich& glc();
+    void init_hic( InitLibrary lib, InOut* inout = nullptr );
+    void exit_hic();
+    HicGlich& hic();
 
 } // namespace glich
 

@@ -32,45 +32,45 @@
 using namespace glich;
 
 
-static HicGlich* s_glc = nullptr;
+static HicGlich* s_hic = nullptr;
 
 #if !defined(NDEBUG) || defined(_DEBUG)
-Glich* g_glc_test = nullptr; // To allow Visual Studio watch to see it
+Glich* g_hic_test = nullptr; // To allow Visual Studio watch to see it
 #endif
 
-void glich::init_glc( InitLibrary lib, InOut* inout )
+void glich::init_hic( InitLibrary lib, InOut* inout )
 {
-    if( s_glc ) {
-        delete s_glc;
+    if( s_hic ) {
+        delete s_hic;
     }
-    s_glc = new HicGlich( inout );
+    s_hic = new HicGlich( inout );
 #if !defined(NDEBUG) || defined(_DEBUG)
-    g_glc_test = s_glc;
+    g_hic_test = s_hic;
 #endif
 
-    s_glc->load_builtin_library();
+    s_hic->load_builtin_library();
     switch( lib )
     {
     case InitLibrary::None:
         break;
     case InitLibrary::Hics:
-        s_glc->load_hics_library();
+        s_hic->load_hics_library();
         break;
     }
     // Mark the start of user definitions.
-    s_glc->run_script( "mark __user;" );
+    s_hic->run_script( "mark __user;" );
 
 }
 
-void glich::exit_glc()
+void glich::exit_hic()
 {
-    delete s_glc;
+    delete s_hic;
 }
 
-HicGlich& glich::glc()
+HicGlich& glich::hic()
 {
-    assert( s_glc != nullptr );
-    return *s_glc;
+    assert( s_hic != nullptr );
+    return *s_hic;
 }
 
 // End of src/hic/hic.cpp
