@@ -28,11 +28,11 @@
 #ifndef TEST_GLCSOAK_GSMAIN_H
 #define TEST_GLCSOAK_GSMAIN_H
 
-#include "glc/glc.h"
+#include <glc/hic.h>
 
 #include <sstream>
 
-extern glich::Glich* g_glc;
+extern glich::HicGlich* g_glc;
 
 // Only one of these should defined at any one time.
 //#define GLCTEST_SHORT

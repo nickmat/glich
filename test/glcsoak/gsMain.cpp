@@ -35,7 +35,7 @@
 using namespace glich;
 using std::string;
 
-Glich* g_glc = nullptr;
+HicGlich* g_glc = nullptr;
 
 #ifdef GLCTEST_SHORT
 #define GLCTEST_TYPE  "Short "
@@ -51,8 +51,8 @@ Glich* g_glc = nullptr;
 
 int main( int argc, char* argv[] )
 {
-    init_glc( InitLibrary::Hics );
-    g_glc = &glc();
+    init_hic( InitLibrary::Hics );
+    g_glc = &hic();
 
     std::cout << GLCTEST_TYPE;
 
@@ -64,7 +64,7 @@ int main( int argc, char* argv[] )
     int m = (int) s / 60;
     std::cout << "Timed: " << m << "m " << s - (m * 60) << "s" << std::endl;
 
-    exit_glc();
+    exit_hic();
     return result;
 }
 

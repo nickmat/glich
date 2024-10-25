@@ -22,4 +22,4 @@ set( TEST_GLCSOAK_HEADERS
 
 add_executable( glcsoak ${TEST_GLCSOAK_FILES} ${TEST_GLCSOAK_HEADERS} )
 
-target_link_libraries( glcsoak PRIVATE glc )
+target_link_libraries( glcsoak PRIVATE hic )
