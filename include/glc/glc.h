@@ -33,6 +33,7 @@
 namespace glich {
 
     void init_glc( InitLibrary lib, InOut* inout = nullptr );
+    void init_glc( Glich* glc );
     void exit_glc();
     Glich& glc();
 

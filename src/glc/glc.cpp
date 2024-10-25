@@ -68,6 +68,14 @@ void glich::init_glc( InitLibrary lib, InOut* inout )
 
 }
 
+void glich::init_glc( Glich* glc )
+{
+    s_glc = glc;
+#if !defined(NDEBUG) || defined(_DEBUG)
+    g_glc_test = s_glc;
+#endif
+}
+
 void glich::exit_glc()
 {
     delete s_glc;
