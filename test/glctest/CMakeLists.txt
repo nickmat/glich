@@ -20,4 +20,4 @@ set( HGTEST_HEADERS
 
 add_executable( glctest ${HGTEST_SOURCES} ${HGTEST_HEADERS} )
 
-target_link_libraries( glctest PRIVATE glc )
+target_link_libraries( glctest PRIVATE hic )

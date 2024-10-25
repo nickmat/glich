@@ -27,7 +27,7 @@
 
 #include "glcsTestmain.h"
 
-#include <glc/glc.h>
+#include <glc/hic.h>
 
 #include <cstdlib>
 #include <ctime>
@@ -219,7 +219,7 @@ int main( int argc, char* argv[] )
 
     std::cout << g_title << "\n";
     clock_t t = clock();
-    init_glc( InitLibrary::None );
+    init_hic( InitLibrary::None );
     string result;
     TestResults totals;
     for ( int i = 1; i < argc; i++ ) {
@@ -234,10 +234,10 @@ int main( int argc, char* argv[] )
         }
         CheckFile cf = check_file( arg );
         if ( cf == CheckFile::file ) {
-            result += run_test_script( &totals, glc(), arg );
+            result += run_test_script( &totals, hic(), arg );
             continue;
         } else if ( cf == CheckFile::dir ) {
-            result += run_full_test( &totals, glc(), arg );
+            result += run_full_test( &totals, hic(), arg );
             continue;
         }
         result += "Unknown command line switch " + arg + "\n\n";
@@ -253,7 +253,7 @@ int main( int argc, char* argv[] )
         "  skip (" + std::to_string( totals.skips ) + ")"
         "  Timed: " + std::to_string( dt ) + "s\n\n";
 
-    exit_glc();
+    exit_hic();
     return 0;
 }
 
