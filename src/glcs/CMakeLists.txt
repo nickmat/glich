@@ -22,4 +22,4 @@ set( GLCS_RCS
 
 add_executable( glcs ${GLCS_SOURCES} ${GLCS_HEADERS} ${GLCS_RCS} )
 
-target_link_libraries( glcs PRIVATE glc )
+target_link_libraries( glcs PRIVATE hic )

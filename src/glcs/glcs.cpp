@@ -25,7 +25,7 @@
 
 */
 
-#include <glc/glc.h>
+#include <glc/hic.h>
 
 #include "glcsresource.h"
 
@@ -370,7 +370,7 @@ int main( int argc, char* argv[] )
     SetConsoleOutputCP( CP_UTF8 );
     setvbuf( stdout, nullptr, _IOFBF, 1000 );
 #endif
-    hg::init_glc( hg::InitLibrary::Hics );
+    hg::init_hic( hg::InitLibrary::Hics );
     vector<string> filenames;
     bool run_default = true;
 
@@ -392,7 +392,7 @@ int main( int argc, char* argv[] )
             {
             case 'h': // Help
                 do_usage( glich_prog );
-                hg::exit_glc();
+                hg::exit_hic();
                 return 0;
             case 'n': // No default script.
                 run_default = false;
@@ -424,7 +424,7 @@ int main( int argc, char* argv[] )
     // Run script files if given.
     for( size_t i = 0; i < filenames.size(); i++ ) {
         string script = read_file( filenames[i] );
-        string response = hg::glc().run_script( script );
+        string response = hg::hic().run_script( script );
         if( response.size() ) {
             std::cout << response << "\n";
         }
@@ -475,7 +475,7 @@ int main( int argc, char* argv[] )
                     cmnd = "let answer = " + cmnd + "; write answer//*/\n;";
                 }
             }
-            string output = hg::glc().run_script( cmnd );
+            string output = hg::hic().run_script( cmnd );
             if( output.size() ) {
                 std::cout << output << "\n";
             }
@@ -484,7 +484,7 @@ int main( int argc, char* argv[] )
     else if( filenames.empty() ) {
         do_usage( glich_prog );
     }
-    hg::exit_glc();
+    hg::exit_hic();
     return 0;
 }
 
