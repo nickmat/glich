@@ -25,4 +25,4 @@ set( TEST_GLCUNIT_HEADERS
 
 add_executable( glcunit ${TEST_GLCUNIT_FILES} ${TEST_GLCUNIT_HEADERS} )
 
-target_link_libraries( glcunit PRIVATE glc )
+target_link_libraries( glcunit PRIVATE hic )

@@ -33,16 +33,16 @@
 using namespace glich;
 using std::string;
 
-Glich* g_glc = nullptr;
+HicGlich* g_glc = nullptr;
 
 int main( int argc, char* argv[] )
 {
-    init_glc( InitLibrary::Hics );
-    g_glc = &glc();
+    init_hic( InitLibrary::Hics );
+    g_glc = &hic();
 
     int result = Catch::Session().run( argc, argv );
 
-    exit_glc();
+    exit_hic();
 
     return result;
 }

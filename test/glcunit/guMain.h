@@ -28,9 +28,9 @@
 #ifndef TEST_GLCUNIT_GUMAIN_H
 #define TEST_GLCUNIT_GUMAIN_H
 
-#include "glc/glc.h"
+#include <glc/hic.h>
 
-extern glich::Glich* g_glc;
+extern glich::HicGlich* g_glc;
 
 constexpr size_t guTT_size = 34;
 

@@ -105,7 +105,7 @@ TEST_CASE( "Test rlist_to_text", "[rlist_to_text]" )
     REQUIRE( text == "Aug 19, 2023" );
     text = g_glc->rlist_to_text( rlist );
     REQUIRE( text == "19 Aug 2023" );
-    text = glc().rlist_to_text( rlist, "jap:dmy" );
+    text = g_glc->rlist_to_text( rlist, "jap:dmy" );
     REQUIRE( text == "6 Aug 2024/3" );
 }
 
