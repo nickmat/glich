@@ -406,8 +406,7 @@ string Glich::run_script( const string& script )
 {
     std::istringstream iss( script );
     std::ostringstream oss;
-    Script scr( iss, oss );
-    scr.run();
+    run( iss, oss );
     return oss.str();
 }
 
@@ -415,8 +414,7 @@ string Glich::run_script_file( const string& filename )
 {
     std::ifstream ifs( filename.c_str() );
     std::ostringstream oss;
-    Script scr( ifs, oss );
-    scr.run();
+    run( ifs, oss );
     return oss.str();
 }
 
