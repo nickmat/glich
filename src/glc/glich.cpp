@@ -448,6 +448,13 @@ SValue Glich::evaluate( const string& expression )
     return scr.evaluate();
 }
 
+bool Glich::run( std::istream& in, std::ostream& out, int line )
+{
+    Script scr( in, out );
+    scr.set_line( line );
+    return scr.run();
+}
+
 bool Glich::is_named( const string& name ) const
 {
     if( m_constants.count( name ) == 1 ) {
