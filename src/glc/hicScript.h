@@ -32,6 +32,12 @@
 
 namespace glich {
     
+    class HicScript : public Script
+    {
+        HicScript( std::istream& in, std::ostream& out ) : Script( in, out ) {}
+        ~HicScript() {}
+    };
+
     class Base;
 
     Scheme* do_create_scheme( Script& script, const std::string& code );

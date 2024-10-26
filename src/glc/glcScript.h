@@ -38,7 +38,8 @@ namespace glich {
 
     class Script {
     public:
-        Script( std::istream& in, std::ostream& out);
+        Script( std::istream& in, std::ostream& out );
+        virtual ~Script() {}
 
         bool run();
         SValue evaluate() { return expr( GetToken::next ); }
