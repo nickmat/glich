@@ -27,9 +27,31 @@
 
 #include <glc/hicGlich.h>
 
+#include "glcValue.h"
+#include "hicScript.h"
+
+#include <iostream>
+#include <sstream>
+
 using namespace glich;
 using std::string;
 using std::vector;
 
 
-// End of src/hg/historygen.cpp
+SValue HicGlich::evaluate( const string& expression )
+{
+    std::istringstream iss( expression );
+    std::ostringstream oss;
+    HicScript scr( iss, oss );
+    return scr.evaluate();
+}
+
+bool glich::HicGlich::run( std::istream& in, std::ostream& out, int line )
+{
+    HicScript scr( in, out );
+    scr.set_line( line );
+    return scr.run();
+}
+
+
+// End of src/hic/hicGlich.cpp

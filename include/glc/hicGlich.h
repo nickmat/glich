@@ -39,6 +39,9 @@ namespace glich {
     public:
         HicGlich( InOut* inout = nullptr ) : Glich( inout ) {}
         ~HicGlich() {}
+
+        SValue evaluate( const std::string& expression ) override;
+        bool run( std::istream& in, std::ostream& out, int line = 1 ) override;
     };
 
 } // namespace glich

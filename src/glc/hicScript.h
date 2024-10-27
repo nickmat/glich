@@ -34,6 +34,7 @@ namespace glich {
     
     class HicScript : public Script
     {
+    public:
         HicScript( std::istream& in, std::ostream& out ) : Script( in, out ) {}
         ~HicScript() {}
     };
