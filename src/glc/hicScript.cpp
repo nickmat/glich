@@ -57,6 +57,7 @@ bool HicScript::statement()
         string name = token.get_str();
         if( name == "scheme" ) return do_scheme();
         if( name == "lexicon" ) return do_lexicon();
+        if( name == "grammar" ) return do_grammar();
     }
     return Script::statement();
 }
@@ -91,6 +92,22 @@ bool HicScript::do_lexicon()
     }
     Lexicon* lex = do_create_lexicon( code );
     return glc().add_lexicon( lex, code );
+}
+
+bool HicScript::do_grammar()
+{
+    string code = get_name_or_primary( GetToken::next );
+    if( code.empty() ) {
+        error( "Grammar code missing." );
+        return false;
+    }
+    DefinedStatus status = glc().get_grammar_status( code );
+    if( status == DefinedStatus::defined ) {
+        error( "Grammar \"" + code + "\" already exists." );
+        return false;
+    }
+    Grammar* gmr = do_create_grammar( code, nullptr );
+    return glc().add_grammar( gmr, code );
 }
 
 Scheme* HicScript::do_create_scheme( const string& code )
@@ -130,7 +147,7 @@ Scheme* HicScript::do_create_scheme( const string& code )
             else if( token.get_str() == "grammar" ) {
                 token = next_token();
                 if( token.type() == SToken::Type::LCbracket ) {
-                    gmr = do_create_grammar( *this, "", base );
+                    gmr = do_create_grammar( "", base );
                     if( gmr == nullptr ) {
                         error( "Unable to create grammar." );
                         error_ret = true;
@@ -243,6 +260,94 @@ Lexicon* HicScript::do_create_lexicon( const string& code )
         }
     }
     return lex;
+}
+
+Grammar* HicScript::do_create_grammar( const string& code, const Base* base )
+{
+    SToken token = current_token();
+    if( token.type() != SToken::Type::LCbracket ) {
+        error( "'{' expected." );
+        return nullptr;
+    }
+    Grammar* gmr = new Grammar( code, &glc() );
+    StdStrVec basefields;
+    if( base != nullptr ) {
+        for( size_t i = 0; i < base->required_size(); i++ ) {
+            basefields.push_back( base->get_fieldname( i ) );
+        }
+        gmr->set_base_fieldnames( basefields );
+    }
+    string str;
+    for( ;;) {
+        token = next_token();
+        if( token.type() == SToken::Type::LCbracket ) {
+            continue;
+        }
+        else if( token.type() == SToken::Type::RCbracket ||
+            token.type() == SToken::Type::End ) {
+            break; // All done.
+        }
+        else if( token.type() == SToken::Type::Name ) {
+            string name = token.get_str();
+            if( name == "name" ) {
+                str = expr( GetToken::next ).as_string();
+                gmr->set_name( str );
+            }
+            else if( name == "lexicons" ) {
+                do_grammar_lexicons( gmr );
+            }
+            else if( name == "format" ) {
+                do_format( gmr );
+            }
+            else if( name == "preferred" ) {
+                str = get_name_or_primary( GetToken::next );
+                gmr->set_preferred( str );
+            }
+            else if( name == "alias" ) {
+                do_grammar_alias( gmr );
+            }
+            else if( name == "inherit" ) {
+                StdStrVec inherit = get_string_list( GetToken::next );
+                gmr->set_inherit( inherit );
+            }
+            else if( name == "fields" ) {
+                basefields = get_string_list( GetToken::next );
+                gmr->set_base_fieldnames( basefields );
+            }
+            else if( name == "optional" ) {
+                StdStrVec optfields = get_string_list( GetToken::next );
+                gmr->set_opt_fieldnames( optfields );
+            }
+            else if( name == "calculated" ) {
+                StdStrVec calcfields = get_string_list( GetToken::next );
+                gmr->set_calc_fieldnames( calcfields );
+            }
+            else if( name == "rank" ) {
+                StdStrVec rankfields = get_string_list( GetToken::next );
+                gmr->set_rank_fieldnames( rankfields );
+            }
+            else if( name == "function" ) {
+                do_grammar_function( gmr );
+            }
+            else if( name == "use" ) {
+                do_grammar_use( gmr );
+            }
+        }
+        else {
+            error( "Grammar sub-statement expected." );
+        }
+    }
+    gmr->constuct();
+    if( !gmr->is_ok() ) {
+        string gmr_error = gmr->get_error_string();
+        delete gmr;
+        gmr = nullptr;
+        if( gmr_error.empty() ) {
+            gmr_error = "Unable to construct grammar \"" + code + "\".";
+        }
+        error( gmr_error );
+    }
+    return gmr;
 }
 
 Base* HicScript::do_base( const string& code )
@@ -400,212 +505,120 @@ bool HicScript::do_lexicon_tokens( Lexicon* lex )
     return true;
 }
 
-
-namespace {
-
-    void do_grammar_lexicons( Script& script, Grammar* gmr )
-    {
-        StdStrVec lexicons = script.get_string_list( GetToken::next );
-        for( size_t i = 0; i < lexicons.size(); i++ ) {
-            Lexicon* lex = glc().get_lexicon( lexicons[i] );
-            if( lex == nullptr ) {
-                gmr->create_error( "lexicon " + lexicons[i] + " not found." );
-            }
-            else {
-                gmr->add_lexicon( lex );
-            }
-        }
-    }
-
-    bool do_grammar_alias( Script& script, Grammar* gmr )
-    {
-        string alias = script.get_name_or_primary( GetToken::next );
-        if( script.current_token().type() != SToken::Type::LCbracket ) {
-            script.error( "'{' expected." );
-            return false;
-        }
-        StdStrVec pairs;
-        for( ;;) {
-            // Look ahead for '}'
-            script.next_token();
-            if( script.current_token().type() == SToken::Type::RCbracket ||
-                script.current_token().type() == SToken::Type::End )
-            {
-                break; // All done.
-            }
-            StdStrVec pair = script.get_string_list( GetToken::current );
-            if( pair.size() != 2 ) {
-                script.error( "Name or String pair expected." );
-                return false;
-            }
-            if( script.current_token().type() != SToken::Type::Semicolon ) {
-                script.error( "';' expected." );
-                return false;
-            }
-            pairs.push_back( pair[0] );
-            pairs.push_back( pair[1] );
-        }
-        gmr->add_alias( alias, pairs );
-        return true;
-    }
-    bool do_grammar_function( Script& script, Grammar* gmr )
-    {
-        string code = script.get_name_or_primary( GetToken::next );
-        if( code.empty() ) {
-            script.error( "Function name missing." );
-            return false;
-        }
-        if( gmr->get_function( code ) != nullptr ) {
-            script.error( "The function \"" + code + "\" already exists." );
-            return false;
-        }
-        SpFunction fun = script.create_function( code );
-        if( fun == nullptr ) {
-            return false;
-        }
-        return gmr->add_function( fun );
-    }
-
-    bool do_grammar_use( Script& script, Grammar* gmr )
-    {
-        StdStrMap usemap;
-        SToken token = script.next_token();
-        if( script.current_token().type() == SToken::Type::Name ) {
-            string sub = token.get_str();
-            if( sub == "epoch" ) {
-                usemap = {
-                    { "calculate", "calc_cyear" },
-                    { "to:text", "calc_cyear" },
-                    { "from:text", "calc_year" }
-                };
-                token = script.next_token();
-                if( token.type() != SToken::Type::Semicolon ) {
-                    script.error( "';' expected." );
-                    return false;
-                }
-                gmr->set_use_function( usemap );
-                return true;
-            }
-            else {
-                script.error( "'{' expected." );
-                return false;
-            }
-        }
-        if( script.current_token().type() != SToken::Type::LCbracket ) {
-            script.error( "'{' expected." );
-            return false;
-        }
-        for( ;;) {
-            // Look ahead for '}'
-            script.next_token();
-            if( script.current_token().type() == SToken::Type::RCbracket ||
-                script.current_token().type() == SToken::Type::End )
-            {
-                break; // All done.
-            }
-            StdStrVec pair = script.get_string_list( GetToken::current );
-            if( pair.size() != 2 ) {
-                script.error( "Name or String pair expected." );
-                return false;
-            }
-            if( script.current_token().type() != SToken::Type::Semicolon ) {
-                script.error( "';' expected." );
-                return false;
-            }
-            usemap[pair[0]] = pair[1];
-        }
-        gmr->set_use_function( usemap );
-        return true;
-    }
-
-} // namespace
-
-Grammar* glich::do_create_grammar( Script& script, const std::string& code, const Base* base )
+void HicScript::do_grammar_lexicons( Grammar* gmr )
 {
-    SToken token = script.current_token();
-    if( token.type() != SToken::Type::LCbracket ) {
-        script.error( "'{' expected." );
-        return nullptr;
-    }
-    Grammar* gmr = new Grammar( code, &glc() );
-    StdStrVec basefields;
-    if( base != nullptr ) {
-        for( size_t i = 0; i < base->required_size(); i++ ) {
-            basefields.push_back( base->get_fieldname( i ) );
-        }
-        gmr->set_base_fieldnames( basefields );
-    }
-    string str;
-    for( ;;) {
-        token = script.next_token();
-        if( token.type() == SToken::Type::LCbracket ) {
-            continue;
-        }
-        else if( token.type() == SToken::Type::RCbracket ||
-            token.type() == SToken::Type::End ) {
-            break; // All done.
-        }
-        else if( token.type() == SToken::Type::Name ) {
-            string name = token.get_str();
-            if( name == "name" ) {
-                str = script.expr( GetToken::next ).as_string();
-                gmr->set_name( str );
-            }
-            else if( name == "lexicons" ) {
-                do_grammar_lexicons( script, gmr );
-            }
-            else if( name == "format" ) {
-                script.do_format( gmr );
-            }
-            else if( name == "preferred" ) {
-                str = script.get_name_or_primary( GetToken::next );
-                gmr->set_preferred( str );
-            }
-            else if( name == "alias" ) {
-                do_grammar_alias( script, gmr );
-            }
-            else if( name == "inherit" ) {
-                StdStrVec inherit = script.get_string_list( GetToken::next );
-                gmr->set_inherit( inherit );
-            }
-            else if( name == "fields" ) {
-                basefields = script.get_string_list( GetToken::next );
-                gmr->set_base_fieldnames( basefields );
-            }
-            else if( name == "optional" ) {
-                StdStrVec optfields = script.get_string_list( GetToken::next );
-                gmr->set_opt_fieldnames( optfields );
-            }
-            else if( name == "calculated" ) {
-                StdStrVec calcfields = script.get_string_list( GetToken::next );
-                gmr->set_calc_fieldnames( calcfields );
-            }
-            else if( name == "rank" ) {
-                StdStrVec rankfields = script.get_string_list( GetToken::next );
-                gmr->set_rank_fieldnames( rankfields );
-            }
-            else if( name == "function" ) {
-                do_grammar_function( script, gmr );
-            }
-            else if( name == "use" ) {
-                do_grammar_use( script, gmr );
-            }
+    StdStrVec lexicons = get_string_list( GetToken::next );
+    for( size_t i = 0; i < lexicons.size(); i++ ) {
+        Lexicon* lex = glc().get_lexicon( lexicons[i] );
+        if( lex == nullptr ) {
+            gmr->create_error( "lexicon " + lexicons[i] + " not found." );
         }
         else {
-            script.error( "Grammar sub-statement expected." );
+            gmr->add_lexicon( lex );
         }
     }
-    gmr->constuct();
-    if( !gmr->is_ok() ) {
-        string gmr_error = gmr->get_error_string();
-        delete gmr;
-        gmr = nullptr;
-        if( gmr_error.empty() ) {
-            gmr_error = "Unable to construct grammar \"" + code + "\".";
-        }
-        script.error( gmr_error );
+}
+
+bool HicScript::do_grammar_alias( Grammar* gmr )
+{
+    string alias = get_name_or_primary( GetToken::next );
+    if( current_token().type() != SToken::Type::LCbracket ) {
+        error( "'{' expected." );
+        return false;
     }
-    return gmr;
+    StdStrVec pairs;
+    for( ;;) {
+        // Look ahead for '}'
+        next_token();
+        if( current_token().type() == SToken::Type::RCbracket ||
+            current_token().type() == SToken::Type::End )
+        {
+            break; // All done.
+        }
+        StdStrVec pair = get_string_list( GetToken::current );
+        if( pair.size() != 2 ) {
+            error( "Name or String pair expected." );
+            return false;
+        }
+        if( current_token().type() != SToken::Type::Semicolon ) {
+            error( "';' expected." );
+            return false;
+        }
+        pairs.push_back( pair[0] );
+        pairs.push_back( pair[1] );
+    }
+    gmr->add_alias( alias, pairs );
+    return true;
+}
+
+bool HicScript::do_grammar_function( Grammar* gmr )
+{
+    string code = get_name_or_primary( GetToken::next );
+    if( code.empty() ) {
+        error( "Function name missing." );
+        return false;
+    }
+    if( gmr->get_function( code ) != nullptr ) {
+        error( "The function \"" + code + "\" already exists." );
+        return false;
+    }
+    SpFunction fun =create_function( code );
+    if( fun == nullptr ) {
+        return false;
+    }
+    return gmr->add_function( fun );
+}
+
+bool HicScript::do_grammar_use( Grammar* gmr )
+{
+    StdStrMap usemap;
+    SToken token = next_token();
+    if( current_token().type() == SToken::Type::Name ) {
+        string sub = token.get_str();
+        if( sub == "epoch" ) {
+            usemap = {
+                { "calculate", "calc_cyear" },
+                { "to:text", "calc_cyear" },
+                { "from:text", "calc_year" }
+            };
+            token = next_token();
+            if( token.type() != SToken::Type::Semicolon ) {
+                error( "';' expected." );
+                return false;
+            }
+            gmr->set_use_function( usemap );
+            return true;
+        }
+        else {
+            error( "'{' expected." );
+            return false;
+        }
+    }
+    if( current_token().type() != SToken::Type::LCbracket ) {
+        error( "'{' expected." );
+        return false;
+    }
+    for( ;;) {
+        // Look ahead for '}'
+        next_token();
+        if( current_token().type() == SToken::Type::RCbracket ||
+            current_token().type() == SToken::Type::End )
+        {
+            break; // All done.
+        }
+        StdStrVec pair = get_string_list( GetToken::current );
+        if( pair.size() != 2 ) {
+            error( "Name or String pair expected." );
+            return false;
+        }
+        if( current_token().type() != SToken::Type::Semicolon ) {
+            error( "';' expected." );
+            return false;
+        }
+        usemap[pair[0]] = pair[1];
+    }
+    gmr->set_use_function( usemap );
+    return true;
 }
 
 // If gmr == nullptr then this is a standalone format.

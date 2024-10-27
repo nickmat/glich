@@ -121,7 +121,6 @@ bool Script::statement()
         if( name == "object" ) return do_object();
         if( name == "file" ) return do_file();
         if( name == "module" ) return do_module();
-        if( name == "grammar" ) return do_grammar();
         if( name == "format" ) return do_format();
         if( glc().is_variable( name ) ) return do_assign( name );
     }
@@ -801,22 +800,6 @@ bool Script::do_module()
         return false;
     }
     return true;
-}
-
-bool Script::do_grammar()
-{
-    string code = get_name_or_primary( GetToken::next );
-    if( code.empty() ) {
-        error( "Grammar code missing." );
-        return false;
-    }
-    DefinedStatus status = glc().get_grammar_status( code );
-    if( status == DefinedStatus::defined ) {
-        error( "Grammar \"" + code + "\" already exists." );
-        return false;
-    }
-    Grammar* gmr = do_create_grammar( *this, code, nullptr );
-    return glc().add_grammar( gmr, code );
 }
 
 // If parsing the format in the global space then gmr is a nullptr and
