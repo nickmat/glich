@@ -90,6 +90,7 @@ namespace glich {
 
         SValue do_subscript( const SValue& left, const SValue& right );
         SValue do_at( const SValue& left, const SValue& right );
+        virtual SValue do_object_at( bool& success, Object* obj, const std::string& fcode, const SValue& left );
         StdStrVec get_qualifiers( GetToken get );
         SValueVec get_args( GetToken get );
         SValue function_call();

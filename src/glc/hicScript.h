@@ -46,12 +46,14 @@ namespace glich {
         bool do_grammar();
         bool do_format( Grammar* gmr = nullptr );
 
+        SValue do_object_at( bool& success, Object* obj, const std::string& fcode, const SValue& left ) override;
+
+    private:
         Scheme* do_create_scheme( const std::string& code );
         Lexicon* do_create_lexicon( const std::string& code );
         Grammar* do_create_grammar( const std::string& code, const Base* base );
         bool do_create_format( const std::string& code, Grammar* gmr );
 
-    private:
         Base* do_base( const std::string& code );
         Base* do_base_hybrid( const std::string& hscode );
         bool do_lexicon_tokens( Lexicon* voc );
@@ -61,8 +63,6 @@ namespace glich {
         bool do_grammar_use( Grammar* gmr );
     };
 
-
-    SValue hics_at( Script& script, bool& success, Object* obj, const std::string& fcode, const SValue& left );
 
     SValue at_text( Script& script );
     SValue at_date( Script& script );

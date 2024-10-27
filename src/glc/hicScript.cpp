@@ -126,6 +126,37 @@ bool HicScript::do_format( Grammar* gmr )
     return do_create_format( code, gmr );
 }
 
+SValue HicScript::do_object_at( bool& success, Object* obj, const string& fcode, const SValue& left )
+{
+    Scheme* sch = dynamic_cast<Scheme*>(obj);
+    if( sch == nullptr ) {
+       return Script::do_object_at( success, obj, fcode, left );
+    }
+    SValueVec args = get_args( GetToken::current );
+    SValue value;
+    if( !args.empty() ) {
+        value = args[0];
+    }
+    success = true;
+    if( fcode == "pseudo_in" && value.type() == SValue::Type::String ) {
+        Format* fmt = sch->get_input_format( value.get_str() );
+        if( fmt ) {
+            return SValue( fmt->get_input_str() );
+        }
+    }
+    if( fcode == "pseudo_out" && value.type() == SValue::Type::String ) {
+        Format* fmt = sch->get_output_format( value.get_str() );
+        if( fmt ) {
+            return SValue( fmt->get_output_str() );
+        }
+    }
+    if( fcode == "name" ) {
+        return SValue( sch->get_name() );
+    }
+    success = false;
+    return SValue();
+}
+
 Scheme* HicScript::do_create_scheme( const string& code )
 {
     SToken token = current_token();
@@ -812,36 +843,6 @@ bool HicScript::do_grammar_use( Grammar* gmr )
     return true;
 }
 
-SValue glich::hics_at( Script& script, bool& success, Object* obj, const std::string& fcode, const SValue& left )
-{
-    Scheme* sch = dynamic_cast<Scheme*>(obj);
-    if( sch == nullptr ) {
-        return SValue();
-    }
-    SValueVec args = script.get_args( GetToken::current );
-    SValue value;
-    if( !args.empty() ) {
-        value = args[0];
-    }
-    success = true;
-    if( fcode == "pseudo_in" && value.type() == SValue::Type::String ) {
-        Format* fmt = sch->get_input_format( value.get_str() );
-        if( fmt ) {
-            return SValue( fmt->get_input_str() );
-        }
-    }
-    if( fcode == "pseudo_out" && value.type() == SValue::Type::String ) {
-        Format* fmt = sch->get_output_format( value.get_str() );
-        if( fmt ) {
-            return SValue( fmt->get_output_str() );
-        }
-    }
-    if( fcode == "name" ) {
-        return SValue( sch->get_name() );
-    }
-    success = false;
-    return SValue();
-}
 
 SValue glich::at_text( Script& script )
 {

@@ -1170,24 +1170,31 @@ SValue Script::do_at( const SValue& left, const SValue& right )
     }
     Function* fun = obj->get_function( fcode );
     if( fun == nullptr ) {
-        if( fcode == "mask" ) {
-            return dot_mask( obj, &left );
-        }
-        else if( fcode == "size" ) {
-            const SValueVec* elements = left.get_object_values();
-            return SValue( elements->size() - 1, SValue::Type::Number );
-        }
-        else if( fcode == "object_name" ) {
-            return obj->get_code();
-        }
         bool success = false;
-        SValue value = hics_at( *this, success, obj, fcode, left );
+        SValue value = do_object_at( success, obj, fcode, left );
         if( success ) {
             return value;
         }
-        return SValue::create_error( "Function not found." );
+        return value.create_error( "Function not found." );
     }
     return run_function( fun, &left );
+}
+
+SValue Script::do_object_at( bool& success, Object* obj, const string& fcode, const SValue& left )
+{
+    success = true;
+    if( fcode == "mask" ) {
+        return dot_mask( obj, &left );
+    }
+    else if( fcode == "size" ) {
+        const SValueVec* elements = left.get_object_values();
+        return SValue( elements->size() - 1, SValue::Type::Number );
+    }
+    else if( fcode == "object_name" ) {
+        return obj->get_code();
+    }
+    success = false;
+    return SValue();
 }
 
 StdStrVec Script::get_qualifiers( GetToken get )
