@@ -121,7 +121,6 @@ bool Script::statement()
         if( name == "object" ) return do_object();
         if( name == "file" ) return do_file();
         if( name == "module" ) return do_module();
-        if( name == "lexicon" ) return do_lexicon();
         if( name == "grammar" ) return do_grammar();
         if( name == "format" ) return do_format();
         if( glc().is_variable( name ) ) return do_assign( name );
@@ -802,22 +801,6 @@ bool Script::do_module()
         return false;
     }
     return true;
-}
-
-bool Script::do_lexicon()
-{
-    string code = get_name_or_primary( GetToken::next );
-    if( code.empty() ) {
-        error( "Lexicon code missing." );
-        return false;
-    }
-    DefinedStatus status = glc().get_lexicon_status( code );
-    if( status == DefinedStatus::defined ) {
-        error( "Lexicon \"" + code + "\" already exists." );
-        return false;
-    }
-    Lexicon* lex = do_create_lexicon( *this, code );
-    return glc().add_lexicon( lex, code );
 }
 
 bool Script::do_grammar()

@@ -75,7 +75,6 @@ namespace glich {
         bool do_object();
         bool do_file();
         bool do_module();
-        bool do_lexicon();
         bool do_grammar();
         bool do_format( Grammar* gmr = nullptr );
 

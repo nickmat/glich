@@ -56,6 +56,7 @@ bool HicScript::statement()
     if( token.type() == SToken::Type::Name ) {
         string name = token.get_str();
         if( name == "scheme" ) return do_scheme();
+        if( name == "lexicon" ) return do_lexicon();
     }
     return Script::statement();
 }
@@ -74,6 +75,22 @@ bool HicScript::do_scheme()
     }
     Scheme* sch = do_create_scheme( code );
     return glc().add_scheme( sch, code );
+}
+
+bool HicScript::do_lexicon()
+{
+    string code = get_name_or_primary( GetToken::next );
+    if( code.empty() ) {
+        error( "Lexicon code missing." );
+        return false;
+    }
+    DefinedStatus status = glc().get_lexicon_status( code );
+    if( status == DefinedStatus::defined ) {
+        error( "Lexicon \"" + code + "\" already exists." );
+        return false;
+    }
+    Lexicon* lex = do_create_lexicon( code );
+    return glc().add_lexicon( lex, code );
 }
 
 Scheme* HicScript::do_create_scheme( const string& code )
@@ -178,6 +195,54 @@ Scheme* HicScript::do_create_scheme( const string& code )
         return nullptr;
     }
     return sch;
+}
+
+Lexicon* HicScript::do_create_lexicon( const string& code )
+{
+    SToken token = current_token();
+    if( token.type() != SToken::Type::LCbracket ) {
+        error( "'{' expected." );
+        return nullptr;
+    }
+    Lexicon* lex = new Lexicon( code );
+    string str;
+    for( ;;) {
+        token = next_token();
+        if( token.type() == SToken::Type::RCbracket ||
+            token.type() == SToken::Type::End ) {
+            break; // All done.
+        }
+        else if( token.type() == SToken::Type::Name ) {
+            string name = token.get_str();
+            if( name == "name" ) {
+                str = expr( GetToken::next ).as_string();
+                lex->set_name( str );
+            }
+            else if( name == "inherit" ) {
+                str = get_name_or_primary( GetToken::next );
+                lex->set_inherit( str );
+            }
+            else if( name == "fieldname" ) {
+                str = get_name_or_primary( GetToken::next );
+                lex->set_fieldname( str );
+            }
+            else if( name == "lang" ) {
+                str = get_name_or_primary( GetToken::next );
+                lex->set_lang( str );
+            }
+            else if( name == "pseudo" ) {
+                StdStrVec pseudos = get_string_list( GetToken::next );
+                lex->set_pseudo_names( pseudos );
+            }
+            else if( name == "tokens" ) {
+                do_lexicon_tokens( lex );
+            }
+            else {
+                error( "Unknown lexicon subcommand." );
+            }
+        }
+    }
+    return lex;
 }
 
 Base* HicScript::do_base( const string& code )
@@ -302,41 +367,41 @@ Base* HicScript::do_base_hybrid( const string& hscode )
     return Scheme::create_base_hybrid( fieldnames, data_vec );
 }
 
-
-namespace {
-
-    bool do_lexicon_tokens( Script& script, Lexicon* voc )
+bool HicScript::do_lexicon_tokens( Lexicon* lex )
+{
+    SToken token = next_token();
+    if( token.type() != SToken::Type::LCbracket ) {
+        error( "'{' expected." );
+        return false;
+    }
+    while( next_token().type() != SToken::Type::RCbracket &&
+        current_token().type() != SToken::Type::End )
     {
-        SToken token = script.next_token();
-        if( token.type() != SToken::Type::LCbracket ) {
-            script.error( "'{' expected." );
+        bool success = false;
+        Field number = expr( GetToken::current ).get_field( success );
+        if( !success ) {
+            error( "Number expected." );
             return false;
         }
-        while( script.next_token().type() != SToken::Type::RCbracket &&
-            script.current_token().type() != SToken::Type::End )
-        {
-            bool success = false;
-            Field number = script.expr( GetToken::current ).get_field( success );
-            if( !success ) {
-                script.error( "Number expected." );
-                return false;
-            }
-            if( script.current_token().type() != SToken::Type::Comma ) {
-                script.error( "',' expected." );
-                return false;
-            }
-            StdStrVec names = script.get_string_list( GetToken::next );
-            string name, abbrev;
-            if( names.size() > 0 ) {
-                name = names[0];
-            }
-            if( names.size() > 1 ) {
-                abbrev = names[1];
-            }
-            voc->add_token( number, name, abbrev );
+        if( current_token().type() != SToken::Type::Comma ) {
+            error( "',' expected." );
+            return false;
         }
-        return true;
+        StdStrVec names = get_string_list( GetToken::next );
+        string name, abbrev;
+        if( names.size() > 0 ) {
+            name = names[0];
+        }
+        if( names.size() > 1 ) {
+            abbrev = names[1];
+        }
+        lex->add_token( number, name, abbrev );
     }
+    return true;
+}
+
+
+namespace {
 
     void do_grammar_lexicons( Script& script, Grammar* gmr )
     {
@@ -454,55 +519,6 @@ namespace {
     }
 
 } // namespace
-
-Lexicon* glich::do_create_lexicon( Script& script, const std::string& code )
-{
-    SToken token = script.current_token();
-    if( token.type() != SToken::Type::LCbracket ) {
-        script.error( "'{' expected." );
-        return nullptr;
-    }
-    Lexicon* lex = new Lexicon( code );
-    string str;
-    for( ;;) {
-        token = script.next_token();
-        if( token.type() == SToken::Type::RCbracket ||
-            token.type() == SToken::Type::End ) {
-            break; // All done.
-        }
-        else if( token.type() == SToken::Type::Name ) {
-            string name = token.get_str();
-            if( name == "name" ) {
-                str = script.expr( GetToken::next ).as_string();
-                lex->set_name( str );
-            }
-            else if( name == "inherit" ) {
-                str = script.get_name_or_primary( GetToken::next );
-                lex->set_inherit( str );
-            }
-            else if( name == "fieldname" ) {
-                str = script.get_name_or_primary( GetToken::next );
-                lex->set_fieldname( str );
-            }
-            else if( name == "lang" ) {
-                str = script.get_name_or_primary( GetToken::next );
-                lex->set_lang( str );
-            }
-            else if( name == "pseudo" ) {
-                StdStrVec pseudos = script.get_string_list( GetToken::next );
-                lex->set_pseudo_names( pseudos );
-            }
-            else if( name == "tokens" ) {
-                do_lexicon_tokens( script, lex );
-            }
-            else {
-                script.error( "Unknown lexicon subcommand." );
-            }
-        }
-    }
-    return lex;
-
-}
 
 Grammar* glich::do_create_grammar( Script& script, const std::string& code, const Base* base )
 {
