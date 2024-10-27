@@ -37,6 +37,9 @@ namespace glich {
     public:
         HicScript( std::istream& in, std::ostream& out ) : Script( in, out ) {}
         ~HicScript() {}
+
+        bool statement() override;
+        bool do_scheme();
     };
 
     class Base;

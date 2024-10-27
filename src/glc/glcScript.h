@@ -59,7 +59,7 @@ namespace glich {
         bool error( const std::string& mess ) { return m_ts.error( mess ); }
         bool error_value( const SValue& value );
 
-        bool statement();
+        virtual bool statement();
         bool do_mark();
         bool do_if();
         bool do_do();
@@ -75,7 +75,6 @@ namespace glich {
         bool do_object();
         bool do_file();
         bool do_module();
-        bool do_scheme();
         bool do_lexicon();
         bool do_grammar();
         bool do_format( Grammar* gmr = nullptr );

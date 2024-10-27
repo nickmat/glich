@@ -121,7 +121,6 @@ bool Script::statement()
         if( name == "object" ) return do_object();
         if( name == "file" ) return do_file();
         if( name == "module" ) return do_module();
-        if( name == "scheme" ) return do_scheme();
         if( name == "lexicon" ) return do_lexicon();
         if( name == "grammar" ) return do_grammar();
         if( name == "format" ) return do_format();
@@ -803,22 +802,6 @@ bool Script::do_module()
         return false;
     }
     return true;
-}
-
-bool Script::do_scheme()
-{
-    string code = get_name_or_primary( GetToken::next );
-    if( code.empty() ) {
-        error( "Scheme code missing." );
-        return false;
-    }
-    DefinedStatus status = glc().get_scheme_status( code );
-    if( status == DefinedStatus::defined ) {
-        error( "Scheme \"" + code + "\" already exists." );
-        return false;
-    }
-    Scheme* sch = do_create_scheme( *this, code );
-    return glc().add_scheme( sch, code );
 }
 
 bool Script::do_lexicon()

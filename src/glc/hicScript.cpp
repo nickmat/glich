@@ -49,6 +49,34 @@
 using namespace glich;
 using std::string;
 
+
+bool HicScript::statement()
+{
+    SToken token = current_token();
+    if( token.type() == SToken::Type::Name ) {
+        string name = token.get_str();
+        if( name == "scheme" ) return do_scheme();
+    }
+    return Script::statement();
+}
+
+bool HicScript::do_scheme()
+{
+    string code = get_name_or_primary( GetToken::next );
+    if( code.empty() ) {
+        error( "Scheme code missing." );
+        return false;
+    }
+    DefinedStatus status = glc().get_scheme_status( code );
+    if( status == DefinedStatus::defined ) {
+        error( "Scheme \"" + code + "\" already exists." );
+        return false;
+    }
+    Scheme* sch = do_create_scheme( *this, code );
+    return glc().add_scheme( sch, code );
+}
+
+
 namespace {
 
     Base* do_base_hybrid( Script& script, const string& hscode )
