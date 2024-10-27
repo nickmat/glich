@@ -121,7 +121,6 @@ bool Script::statement()
         if( name == "object" ) return do_object();
         if( name == "file" ) return do_file();
         if( name == "module" ) return do_module();
-        if( name == "format" ) return do_format();
         if( glc().is_variable( name ) ) return do_assign( name );
     }
     else if( token.type() == SToken::Type::Semicolon ) {
@@ -800,21 +799,6 @@ bool Script::do_module()
         return false;
     }
     return true;
-}
-
-// If parsing the format in the global space then gmr is a nullptr and
-// the Grammar to be used should be encoded into the Format code,
-// as in "gmr:fmt"
-// If parsing the format within a grammar then gmr is not a nullptr
-// and the Format code just contains just the Format code, as in "fmt".
-bool Script::do_format( Grammar* gmr )
-{
-    string code = get_name_or_primary( GetToken::next );
-    if( code.empty() ) {
-        error( "Format code missing." );
-        return false;
-    }
-    return do_create_format( *this, code, gmr );
 }
 
 SValue Script::expr( GetToken get )

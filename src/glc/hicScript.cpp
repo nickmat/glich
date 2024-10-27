@@ -58,6 +58,7 @@ bool HicScript::statement()
         if( name == "scheme" ) return do_scheme();
         if( name == "lexicon" ) return do_lexicon();
         if( name == "grammar" ) return do_grammar();
+        if( name == "format" ) return do_format();
     }
     return Script::statement();
 }
@@ -108,6 +109,21 @@ bool HicScript::do_grammar()
     }
     Grammar* gmr = do_create_grammar( code, nullptr );
     return glc().add_grammar( gmr, code );
+}
+
+// If parsing the format in the global space then gmr is a nullptr and
+// the Grammar to be used should be encoded into the Format code,
+// as in "gmr:fmt"
+// If parsing the format within a grammar then gmr is not a nullptr
+// and the Format code just contains just the Format code, as in "fmt".
+bool HicScript::do_format( Grammar* gmr )
+{
+    string code = get_name_or_primary( GetToken::next );
+    if( code.empty() ) {
+        error( "Format code missing." );
+        return false;
+    }
+    return do_create_format( code, gmr );
 }
 
 Scheme* HicScript::do_create_scheme( const string& code )
@@ -348,6 +364,181 @@ Grammar* HicScript::do_create_grammar( const string& code, const Base* base )
         error( gmr_error );
     }
     return gmr;
+}
+
+// If gmr == nullptr then this is a standalone format.
+bool HicScript::do_create_format( const string& code, Grammar* gmr )
+{
+    bool in_gmr = bool( gmr );
+    string gcode, fcode;
+    if( code.find( ':' ) == string::npos ) {
+        assert( in_gmr );
+        fcode = code;
+    }
+    else {
+        assert( !in_gmr );
+        split_code( &gcode, &fcode, code );
+        gmr = glc().get_grammar( gcode );
+        if( gmr == nullptr ) {
+            error( "Grammar not found." );
+            return false;
+        }
+    }
+    assert( gmr != nullptr );
+
+    string format_in, format_out, instring, outstring, separators, infun;
+    StdStrVec rankfields, rankoutfields, rules;
+    bool visible = true;
+    if( current_token().type() == SToken::Type::LCbracket ) {
+        for( ;;) {
+            SToken token = next_token();
+            if( token.type() == SToken::Type::RCbracket ||
+                token.type() == SToken::Type::End ) {
+                break;
+            }
+            if( token.type() == SToken::Type::Semicolon ) {
+                continue;
+            }
+            if( token.type() == SToken::Type::Name ) {
+                string name = token.get_str();
+                if( name == "output" ) {
+                    format_out = expr( GetToken::next ).as_string();
+                    continue;
+                }
+                if( name == "inout" ) {
+                    format_out = expr( GetToken::next ).as_string();
+                    format_in = format_out;
+                    continue;
+                }
+                if( name == "input" ) {
+                    format_in = expr( GetToken::next ).as_string();
+                    continue;
+                }
+                if( name == "separators" ) {
+                    separators = expr( GetToken::next ).as_string();
+                    continue;
+                }
+                if( name == "rank" ) {
+                    rankfields = get_string_list( GetToken::next );
+                    continue;
+                }
+                if( name == "rankout" ) {
+                    rankoutfields = get_string_list( GetToken::next );
+                    continue;
+                }
+                if( name == "visible" ) {
+                    string str = get_name_or_primary( GetToken::next );
+                    if( str == "no" ) {
+                        visible = false;
+                    }
+                    else if( str != "yes" ) {
+                        error( "Visiblity yes or no expected." );
+                    }
+                    continue;
+                }
+                if( name == "pseudo:in" ) {
+                    instring = expr( GetToken::next ).as_string();
+                    continue;
+                }
+                if( name == "pseudo:out" ) {
+                    outstring = expr( GetToken::next ).as_string();
+                    continue;
+                }
+                if( name == "rules" ) {
+                    rules = get_string_list( GetToken::next );
+                    continue;
+                }
+                if( name == "use:in" ) {
+                    infun = get_name_or_primary( GetToken::next );
+                    continue;
+                }
+                error( "Expected format sub-statement." );
+            }
+        }
+    }
+    else {
+        if( current_token().type() == SToken::Type::Comma ) {
+            next_token();
+        }
+        format_out = expr( GetToken::current ).as_string();
+        if( format_out.empty() ) {
+            error( "Format missing." );
+            return false;
+        }
+        format_in = format_out;
+        if( current_token().type() != SToken::Type::Semicolon ) {
+            error( "';' expected." );
+            return false;
+        }
+    }
+
+    Format* fmt = nullptr;
+    if( rules.empty() || rules[0] == "text" ) {
+        if( format_in.empty() && format_out.empty() ) {
+            error( "Format string not found." );
+            return false;
+        }
+        FormatText* fmtt = new FormatText( fcode, *gmr ); // create_format_text( script.get_glich(), code, gmr );
+        if( fmtt == nullptr ) {
+            error( "Unable to create format." );
+            return false;
+        }
+        if( separators.size() ) {
+            fmtt->set_separators( separators );
+        }
+        if( rankfields.size() ) {
+            fmtt->set_rank_fieldnames( rankfields );
+        }
+        if( rankoutfields.size() ) {
+            fmtt->set_rankout_fieldnames( rankoutfields );
+        }
+        if( !format_out.empty() ) {
+            fmtt->set_control_out( format_out );
+        }
+        if( !format_in.empty() ) {
+            fmtt->set_control_in( format_in );
+        }
+        if( !instring.empty() ) {
+            fmtt->set_user_input_str( instring );
+        }
+        if( !outstring.empty() ) {
+            fmtt->set_user_output_str( outstring );
+        }
+        if( !infun.empty() ) {
+            fmtt->set_from_text_function( infun );
+        }
+        fmt = fmtt;
+    }
+    else if( rules[0] == "iso8601" ) {
+        fmt = new FormatIso( fcode, *gmr, rules ); // create_format_iso( script.get_glich(), code, gmr, rules );
+        if( fmt == nullptr ) {
+            error( "Unable to create ISO format." );
+            return false;
+        }
+    }
+    else if( rules[0] == "units" ) {
+        fmt = new FormatUnit( fcode, *gmr ); // create_format_unit( script.get_glich(), code, gmr );
+        if( fmt == nullptr ) {
+            error( "Unable to create Units format." );
+            return false;
+        }
+    }
+    else {
+        error( "Unknown rules statement." );
+        return false;
+    }
+    assert( fmt != nullptr );
+    fmt->set_visible( visible );
+    fmt->construct();
+
+    if( !gmr->add_format( fmt ) ) {
+        error( "Unable to add format to grammar." );
+        return false;
+    }
+    if( !in_gmr ) {
+        glc().add_format( code );
+    }
+    return true;
 }
 
 Base* HicScript::do_base( const string& code )
@@ -618,181 +809,6 @@ bool HicScript::do_grammar_use( Grammar* gmr )
         usemap[pair[0]] = pair[1];
     }
     gmr->set_use_function( usemap );
-    return true;
-}
-
-// If gmr == nullptr then this is a standalone format.
-bool glich::do_create_format( Script& script, const string& code, Grammar* gmr )
-{
-    bool in_gmr = bool( gmr );
-    string gcode, fcode;
-    if( code.find( ':' ) == string::npos ) {
-        assert( in_gmr );
-        fcode = code;
-    }
-    else {
-        assert( !in_gmr );
-        split_code( &gcode, &fcode, code );
-        gmr = glc().get_grammar( gcode );
-        if( gmr == nullptr ) {
-            script.error( "Grammar not found." );
-            return false;
-        }
-    }
-    assert( gmr != nullptr );
-
-    string format_in, format_out, instring, outstring, separators, infun;
-    StdStrVec rankfields, rankoutfields, rules;
-    bool visible = true;
-    if( script.current_token().type() == SToken::Type::LCbracket ) {
-        for( ;;) {
-            SToken token = script.next_token();
-            if( token.type() == SToken::Type::RCbracket ||
-                token.type() == SToken::Type::End ) {
-                break;
-            }
-            if( token.type() == SToken::Type::Semicolon ) {
-                continue;
-            }
-            if( token.type() == SToken::Type::Name ) {
-                string name = token.get_str();
-                if( name == "output" ) {
-                    format_out = script.expr( GetToken::next ).as_string();
-                    continue;
-                }
-                if( name == "inout" ) {
-                    format_out = script.expr( GetToken::next ).as_string();
-                    format_in = format_out;
-                    continue;
-                }
-                if( name == "input" ) {
-                    format_in = script.expr( GetToken::next ).as_string();
-                    continue;
-                }
-                if( name == "separators" ) {
-                    separators = script.expr( GetToken::next ).as_string();
-                    continue;
-                }
-                if( name == "rank" ) {
-                    rankfields = script.get_string_list( GetToken::next );
-                    continue;
-                }
-                if( name == "rankout" ) {
-                    rankoutfields = script.get_string_list( GetToken::next );
-                    continue;
-                }
-                if( name == "visible" ) {
-                    string str = script.get_name_or_primary( GetToken::next );
-                    if( str == "no" ) {
-                        visible = false;
-                    }
-                    else if( str != "yes" ) {
-                        script.error( "Visiblity yes or no expected." );
-                    }
-                    continue;
-                }
-                if( name == "pseudo:in" ) {
-                    instring = script.expr( GetToken::next ).as_string();
-                    continue;
-                }
-                if( name == "pseudo:out" ) {
-                    outstring = script.expr( GetToken::next ).as_string();
-                    continue;
-                }
-                if( name == "rules" ) {
-                    rules = script.get_string_list( GetToken::next );
-                    continue;
-                }
-                if( name == "use:in" ) {
-                    infun = script.get_name_or_primary( GetToken::next );
-                    continue;
-                }
-                script.error( "Expected format sub-statement." );
-            }
-        }
-    }
-    else {
-        if( script.current_token().type() == SToken::Type::Comma ) {
-            script.next_token();
-        }
-        format_out = script.expr( GetToken::current ).as_string();
-        if( format_out.empty() ) {
-            script.error( "Format missing." );
-            return false;
-        }
-        format_in = format_out;
-        if( script.current_token().type() != SToken::Type::Semicolon ) {
-            script.error( "';' expected." );
-            return false;
-        }
-    }
-
-    Format* fmt = nullptr;
-    if( rules.empty() || rules[0] == "text" ) {
-        if( format_in.empty() && format_out.empty() ) {
-            script.error( "Format string not found." );
-            return false;
-        }
-        FormatText* fmtt = new FormatText( fcode, *gmr ); // create_format_text( script.get_glich(), code, gmr );
-        if( fmtt == nullptr ) {
-            script.error( "Unable to create format." );
-            return false;
-        }
-        if( separators.size() ) {
-            fmtt->set_separators( separators );
-        }
-        if( rankfields.size() ) {
-            fmtt->set_rank_fieldnames( rankfields );
-        }
-        if( rankoutfields.size() ) {
-            fmtt->set_rankout_fieldnames( rankoutfields );
-        }
-        if( !format_out.empty() ) {
-            fmtt->set_control_out( format_out );
-        }
-        if( !format_in.empty() ) {
-            fmtt->set_control_in( format_in );
-        }
-        if( !instring.empty() ) {
-            fmtt->set_user_input_str( instring );
-        }
-        if( !outstring.empty() ) {
-            fmtt->set_user_output_str( outstring );
-        }
-        if( !infun.empty() ) {
-            fmtt->set_from_text_function( infun );
-        }
-        fmt = fmtt;
-    }
-    else if( rules[0] == "iso8601" ) {
-        fmt = new FormatIso( fcode, *gmr, rules ); // create_format_iso( script.get_glich(), code, gmr, rules );
-        if( fmt == nullptr ) {
-            script.error( "Unable to create ISO format." );
-            return false;
-        }
-    }
-    else if( rules[0] == "units" ) {
-        fmt = new FormatUnit( fcode, *gmr ); // create_format_unit( script.get_glich(), code, gmr );
-        if( fmt == nullptr ) {
-            script.error( "Unable to create Units format." );
-            return false;
-        }
-    }
-    else {
-        script.error( "Unknown rules statement." );
-        return false;
-    }
-    assert( fmt != nullptr );
-    fmt->set_visible( visible );
-    fmt->construct();
-    
-    if( !gmr->add_format( fmt ) ) {
-        script.error( "Unable to add format to grammar." );
-        return false;
-    }
-    if( !in_gmr ) {
-        glc().add_format( code );
-    }
     return true;
 }
 

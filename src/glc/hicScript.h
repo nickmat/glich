@@ -44,10 +44,12 @@ namespace glich {
         bool do_scheme();
         bool do_lexicon();
         bool do_grammar();
+        bool do_format( Grammar* gmr = nullptr );
 
         Scheme* do_create_scheme( const std::string& code );
         Lexicon* do_create_lexicon( const std::string& code );
         Grammar* do_create_grammar( const std::string& code, const Base* base );
+        bool do_create_format( const std::string& code, Grammar* gmr );
 
     private:
         Base* do_base( const std::string& code );
@@ -59,7 +61,6 @@ namespace glich {
         bool do_grammar_use( Grammar* gmr );
     };
 
-    bool do_create_format( Script& script, const std::string& code, Grammar* gmr );
 
     SValue hics_at( Script& script, bool& success, Object* obj, const std::string& fcode, const SValue& left );
 
