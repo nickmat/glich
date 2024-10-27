@@ -72,142 +72,15 @@ bool HicScript::do_scheme()
         error( "Scheme \"" + code + "\" already exists." );
         return false;
     }
-    Scheme* sch = do_create_scheme( *this, code );
+    Scheme* sch = do_create_scheme( code );
     return glc().add_scheme( sch, code );
 }
 
-
-namespace {
-
-    Base* do_base_hybrid( Script& script, const string& hscode )
-    {
-        SToken token = script.next_token();
-        if( token.type() != SToken::Type::LCbracket ) {
-            script.error( "'{' expected." );
-            return NULL;
-        }
-        StdStrVec fieldnames;
-        HybridData data;
-        data.start = f_minimum;
-        std::vector<HybridData> data_vec;
-        for( ;;) {
-            SToken token = script.next_token();
-            if( token.type() == SToken::Type::RCbracket ||
-                token.type() == SToken::Type::End ) {
-                break;
-            }
-            if( token.type() == SToken::Type::Semicolon ) {
-                continue;
-            }
-            SValue value;
-            if( token.type() == SToken::Type::Name ) {
-                if( token.get_str() == "fields" ) {
-                    fieldnames = script.get_string_list( GetToken::next );
-                }
-                else if( token.get_str() == "scheme" ) {
-                    string scode = hscode + ":" + script.get_name_or_primary( GetToken::next );
-                    Scheme* sch = do_create_scheme( script, scode );
-                    if( sch == nullptr ) {
-                        script.error( "Unable to create scheme " + scode );
-                        continue;
-                    }
-                    data.base = &sch->get_base();
-                    data.scheme = sch;
-                    if( data.ok() ) {
-                        data_vec.push_back( data );
-                        data = HybridData();
-                    }
-                    else {
-                        delete data.scheme;
-                        script.error( "Hybrid data not complete." );
-                    }
-                }
-                else if( token.get_str() == "change" ) {
-                    data.start = script.expr( GetToken::next ).get_as_field();
-                    if( data.start == f_invalid ) {
-                        script.error( "Change start must be Field." );
-                    }
-                    size_t datasize = data_vec.size();
-                    if( datasize > 0 ) {
-                        data_vec[datasize - 1].end = data.start;
-                    }
-                }
-                else {
-                    script.error( "Unrecognised statement." );
-                }
-            }
-        }
-        return Scheme::create_base_hybrid( fieldnames, data_vec );
-    }
-
-    Base* do_base( Script& script, const string& code )
-    {
-        Scheme::BaseName bs = Scheme::BaseName::null;
-        StdStrVec data;
-        SToken token = script.next_token();
-        if( token.type() == SToken::Type::Name ) {
-            string name = token.get_str();
-            if( name == "julian" ) {
-                bs = Scheme::BaseName::julian;
-            }
-            else if( name == "gregorian" ) {
-                bs = Scheme::BaseName::gregorian;
-            }
-            else if( name == "isoweek" ) {
-                bs = Scheme::BaseName::isoweek;
-            }
-            else if( name == "ordinal" ) {
-                bs = Scheme::BaseName::ordinal;
-            }
-            else if( name == "hebrew" ) {
-                bs = Scheme::BaseName::hebrew;
-            }
-            else if( name == "french" ) {
-                bs = Scheme::BaseName::french;
-            }
-            else if( name == "islamic" ) {
-                bs = Scheme::BaseName::islamic;
-            }
-            else if( name == "chinese" ) {
-                bs = Scheme::BaseName::chinese;
-            }
-            else if( name == "easter" ) {
-                bs = Scheme::BaseName::easter;
-            }
-            else if( name == "liturgical" ) {
-                bs = Scheme::BaseName::liturgical;
-            }
-            else if( name == "jwn" ) {
-                bs = Scheme::BaseName::jwn;
-            }
-            else if( name == "jdn" ) {
-                bs = Scheme::BaseName::jdn;
-            }
-            else if( name == "hybrid" ) {
-                return do_base_hybrid( script, code );
-            }
-            else {
-                script.error( "Base scheme not recognised." );
-                return nullptr;
-            }
-            token = script.next_token();
-            if( token.type() != SToken::Type::Semicolon ) {
-                data = script.get_string_list( GetToken::current );
-            }
-        }
-        else {
-            script.error( "Base name expected." );
-        }
-        return Scheme::create_base( bs, data );
-    }
-
-} // namespace
-
-Scheme* glich::do_create_scheme( Script& script, const std::string& code )
+Scheme* HicScript::do_create_scheme( const string& code )
 {
-    SToken token = script.current_token();
+    SToken token = current_token();
     if( token.type() != SToken::Type::LCbracket ) {
-        script.error( "'{' expected." );
+        error( "'{' expected." );
         return nullptr;
     }
     bool error_ret = false;
@@ -218,7 +91,7 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
     Grammar* gmr = nullptr;
     bool visible = true;
     for( ;;) {
-        token = script.next_token();
+        token = next_token();
         if( token.type() == SToken::Type::RCbracket ||
             token.type() == SToken::Type::End ) {
             break;
@@ -228,45 +101,45 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
         }
         if( token.type() == SToken::Type::Name ) {
             if( token.get_str() == "name" ) {
-                name = script.expr( GetToken::next ).as_string();
+                name = expr( GetToken::next ).as_string();
             }
             else if( token.get_str() == "base" ) {
-                base = do_base( script, code );
+                base = do_base( code );
             }
             else if( token.get_str() == "epoch" ) {
-                epoch = script.expr( GetToken::next ).get_as_field();
-                epoch_line = script.get_line();
+                epoch = expr( GetToken::next ).get_as_field();
+                epoch_line = get_line();
             }
             else if( token.get_str() == "grammar" ) {
-                token = script.next_token();
+                token = next_token();
                 if( token.type() == SToken::Type::LCbracket ) {
-                    gmr = do_create_grammar( script, "", base );
+                    gmr = do_create_grammar( *this, "", base );
                     if( gmr == nullptr ) {
-                        script.error( "Unable to create grammar." );
+                        error( "Unable to create grammar." );
                         error_ret = true;
                     }
                 }
                 else {
-                    gmr_code = script.get_name_or_primary( GetToken::current );
+                    gmr_code = get_name_or_primary( GetToken::current );
                     gmr = glc().get_grammar( gmr_code );
                     if( gmr == nullptr && !gmr_code.empty() ) {
-                        script.error( "Grammar \"" + gmr_code + "\" not found." );
+                        error( "Grammar \"" + gmr_code + "\" not found." );
                         error_ret = true;
                     }
                 }
             }
             else if( token.get_str() == "visible" ) {
-                string str = script.get_name_or_primary( GetToken::next );
+                string str = get_name_or_primary( GetToken::next );
                 if( str == "no" ) {
                     visible = false;
                 }
                 else if( str != "yes" ) {
-                    script.error( "Visible yes or no expected." );
+                    error( "Visible yes or no expected." );
                     error_ret = true;
                 }
             }
             else {
-                script.error( "Scheme sub-statement expected." );
+                error( "Scheme sub-statement expected." );
                 error_ret = true;
             }
         }
@@ -275,7 +148,7 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
         if( gmr_code.empty() ) {
             delete gmr;
         }
-        script.error( "Scheme \"" + code + "\" not created." );
+        error( "Scheme \"" + code + "\" not created." );
         return nullptr;
     }
     if( gmr == nullptr ) {
@@ -286,17 +159,17 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
             delete gmr;
         }
         delete base;
-        script.error( "Unable to attach grammar." );
+        error( "Unable to attach grammar." );
         return nullptr;
     }
-    Scheme* sch = new Scheme( "s:" + code, *base);
+    Scheme* sch = new Scheme( "s:" + code, *base );
     sch->reset();
     sch->set_name( name );
     sch->set_def_visible( visible );
     sch->set_cur_visible( visible );
     if( epoch != f_invalid ) {
         if( !sch->set_epoch( base, epoch, epoch_line ) ) {
-            script.error( "Unable to set epoch." );
+            error( "Unable to set epoch." );
             error_ret = true;
         }
     }
@@ -306,6 +179,129 @@ Scheme* glich::do_create_scheme( Script& script, const std::string& code )
     }
     return sch;
 }
+
+Base* HicScript::do_base( const string& code )
+{
+    Scheme::BaseName bs = Scheme::BaseName::null;
+    StdStrVec data;
+    SToken token =next_token();
+    if( token.type() == SToken::Type::Name ) {
+        string name = token.get_str();
+        if( name == "julian" ) {
+            bs = Scheme::BaseName::julian;
+        }
+        else if( name == "gregorian" ) {
+            bs = Scheme::BaseName::gregorian;
+        }
+        else if( name == "isoweek" ) {
+            bs = Scheme::BaseName::isoweek;
+        }
+        else if( name == "ordinal" ) {
+            bs = Scheme::BaseName::ordinal;
+        }
+        else if( name == "hebrew" ) {
+            bs = Scheme::BaseName::hebrew;
+        }
+        else if( name == "french" ) {
+            bs = Scheme::BaseName::french;
+        }
+        else if( name == "islamic" ) {
+            bs = Scheme::BaseName::islamic;
+        }
+        else if( name == "chinese" ) {
+            bs = Scheme::BaseName::chinese;
+        }
+        else if( name == "easter" ) {
+            bs = Scheme::BaseName::easter;
+        }
+        else if( name == "liturgical" ) {
+            bs = Scheme::BaseName::liturgical;
+        }
+        else if( name == "jwn" ) {
+            bs = Scheme::BaseName::jwn;
+        }
+        else if( name == "jdn" ) {
+            bs = Scheme::BaseName::jdn;
+        }
+        else if( name == "hybrid" ) {
+            return do_base_hybrid( code );
+        }
+        else {
+            error( "Base scheme not recognised." );
+            return nullptr;
+        }
+        token = next_token();
+        if( token.type() != SToken::Type::Semicolon ) {
+            data = get_string_list( GetToken::current );
+        }
+    }
+    else {
+        error( "Base name expected." );
+    }
+    return Scheme::create_base( bs, data );
+}
+
+Base* HicScript::do_base_hybrid( const string& hscode )
+{
+    SToken token = next_token();
+    if( token.type() != SToken::Type::LCbracket ) {
+        error( "'{' expected." );
+        return NULL;
+    }
+    StdStrVec fieldnames;
+    HybridData data;
+    data.start = f_minimum;
+    std::vector<HybridData> data_vec;
+    for( ;;) {
+        SToken token = next_token();
+        if( token.type() == SToken::Type::RCbracket ||
+            token.type() == SToken::Type::End ) {
+            break;
+        }
+        if( token.type() == SToken::Type::Semicolon ) {
+            continue;
+        }
+        SValue value;
+        if( token.type() == SToken::Type::Name ) {
+            if( token.get_str() == "fields" ) {
+                fieldnames = get_string_list( GetToken::next );
+            }
+            else if( token.get_str() == "scheme" ) {
+                string scode = hscode + ":" + get_name_or_primary( GetToken::next );
+                Scheme* sch = do_create_scheme( scode );
+                if( sch == nullptr ) {
+                    error( "Unable to create scheme " + scode );
+                    continue;
+                }
+                data.base = &sch->get_base();
+                data.scheme = sch;
+                if( data.ok() ) {
+                    data_vec.push_back( data );
+                    data = HybridData();
+                }
+                else {
+                    delete data.scheme;
+                    error( "Hybrid data not complete." );
+                }
+            }
+            else if( token.get_str() == "change" ) {
+                data.start = expr( GetToken::next ).get_as_field();
+                if( data.start == f_invalid ) {
+                    error( "Change start must be Field." );
+                }
+                size_t datasize = data_vec.size();
+                if( datasize > 0 ) {
+                    data_vec[datasize - 1].end = data.start;
+                }
+            }
+            else {
+                error( "Unrecognised statement." );
+            }
+        }
+    }
+    return Scheme::create_base_hybrid( fieldnames, data_vec );
+}
+
 
 namespace {
 

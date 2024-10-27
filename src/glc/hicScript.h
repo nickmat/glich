@@ -32,6 +32,8 @@
 
 namespace glich {
     
+    class Base;
+
     class HicScript : public Script
     {
     public:
@@ -40,11 +42,17 @@ namespace glich {
 
         bool statement() override;
         bool do_scheme();
+
+        Scheme* do_create_scheme( const std::string& code );
+
+    private:
+        Base* do_base( const std::string& code );
+        Base* do_base_hybrid( const std::string& hscode );
     };
 
     class Base;
 
-    Scheme* do_create_scheme( Script& script, const std::string& code );
+//    Scheme* do_create_scheme( Script& script, const std::string& code );
     Lexicon* do_create_lexicon( Script& script, const std::string& code );
     Grammar* do_create_grammar( Script& script, const std::string& code, const Base* base );
     bool do_create_format( Script& script, const std::string& code, Grammar* gmr );
