@@ -94,8 +94,8 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         case f_phrase: return at_phrase();
         case f_leapyear: return at_leapyear();
         case f_easter: return at_easter();
-        case f_first: return at_last( *this );
-        case f_last: return at_first( *this );
+        case f_first: return at_last();
+        case f_last: return at_first();
         case f_fmt_object: return at_fmt_object( *this );
         case f_sch_object: return at_sch_object( *this );
         case f_sch_list: return at_sch_list( *this );
@@ -1231,10 +1231,10 @@ SValue HicScript::at_easter()
     return SValue( result, SValue::Type::field );
 }
 
-SValue glich::at_last( Script& script )
+SValue HicScript::at_last()
 {
-    StdStrVec quals = script.get_qualifiers( GetToken::next );
-    SValueVec args = script.get_args( GetToken::current );
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current );
     if( quals.empty() ) {
         return SValue::create_error( "@last requires a qualifier." );
     }
@@ -1270,10 +1270,10 @@ SValue glich::at_last( Script& script )
     return f_invalid;
 }
 
-SValue glich::at_first( Script& script )
+SValue HicScript::at_first()
 {
-    StdStrVec quals = script.get_qualifiers( GetToken::next );
-    SValueVec args = script.get_args( GetToken::current );
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current );
     if( quals.empty() ) {
         return SValue::create_error( "@first requires a qualifier." );
     }

@@ -77,11 +77,11 @@ namespace glich {
         SValue at_phrase();
         SValue at_leapyear();
         SValue at_easter();
+        SValue at_last();
+        SValue at_first();
     };
 
 
-    SValue at_last( Script& script );
-    SValue at_first( Script& script );
     SValue at_fmt_object( Script& script );
     SValue at_sch_object( Script& script );
     SValue at_sch_list( Script& script );
