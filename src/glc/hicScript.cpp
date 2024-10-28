@@ -89,7 +89,7 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         case f_date: return at_date();
         case f_text: return at_text();
         case f_record: [[fallthrough]];
-        case f_scheme: return at_scheme( *this );
+        case f_scheme: return at_scheme();
         case f_element: return at_element( *this );
         case f_phrase: return at_phrase( *this );
         case f_leapyear: return at_leapyear( *this );
@@ -1039,55 +1039,50 @@ SValue HicScript::at_text()
     return SValue::create_error( "Expected field, range, rlist or record type." );
 }
 
+SValue HicScript::complete_object( Scheme* sch, Field jdn )
+{
+    assert( sch != nullptr );
+    const Base& base = sch->get_base();
+    Record record( base, jdn );
+    SValue value = record.get_object( sch->get_code() );
+    const Grammar* gmr = sch->get_grammar();
+    assert( gmr != nullptr );
+    string funcode = gmr->get_calculate();
+    Function* fun = sch->get_function( funcode );
+    if( fun != nullptr ) {
+        value = fun->run( &value, StdStrVec(), SValueVec(), get_out_stream() );
+    }
+    return value;
+}
 
-namespace {
-
-    SValue complete_object( Script& script, Scheme* sch, Field jdn )
-    {
-        assert( sch != nullptr );
-        const Base& base = sch->get_base();
-        Record record( base, jdn );
-        SValue value = record.get_object( sch->get_code() );
-        const Grammar* gmr = sch->get_grammar();
-        assert( gmr != nullptr );
-        string funcode = gmr->get_calculate();
-        Function* fun = sch->get_function( funcode );
+SValue HicScript::complete_object( Scheme* sch, const string& input, const string& fcode )
+{
+    assert( sch != nullptr );
+    Format* fmt = sch->get_input_format( fcode );
+    if( fmt == nullptr ) {
+        return SValue();
+    }
+    const Base& base = sch->get_base();
+    Record mask( base, input, *fmt );
+    string ocode = sch->get_code();
+    SValue value = mask.get_object( ocode );
+    if( fmt->has_use_function() ) {
+        string funcode = fmt->get_from_text_funcode();
+        Object* obj = glc().get_object( ocode );
+        Function* fun = obj->get_function( funcode );
         if( fun != nullptr ) {
-            value = fun->run( &value, StdStrVec(), SValueVec(), script.get_out_stream() );
+            value = fun->run( &value, StdStrVec(), SValueVec(), get_out_stream() );
         }
-        return value;
+        mask.set_object( value );
     }
+    return mask.get_object( ocode );
+}
 
-    SValue complete_object( Script& script, Scheme* sch, const string& input, const string& fcode )
-    {
-        assert( sch != nullptr );
-        Format* fmt = sch->get_input_format( fcode );
-        if( fmt == nullptr ) {
-            return SValue();
-        }
-        const Base& base = sch->get_base();
-        Record mask( base, input, *fmt );
-        string ocode = sch->get_code();
-        SValue value = mask.get_object( ocode );
-        if( fmt->has_use_function() ) {
-            string funcode = fmt->get_from_text_funcode();
-            Object* obj = glc().get_object( ocode );
-            Function* fun = obj->get_function( funcode );
-            if( fun != nullptr ) {
-                value = fun->run( &value, StdStrVec(), SValueVec(), script.get_out_stream() );
-            }
-            mask.set_object( value );
-        }
-        return mask.get_object( ocode );
-    }
-
-} // namespace
-
-SValue glich::at_scheme( Script& script )
+SValue HicScript::at_scheme()
 {
     const char* no_default_mess = "No default scheme set.";
-    StdStrVec quals = script.get_qualifiers( GetToken::next );
-    SValueVec args = script.get_args( GetToken::current );
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current );
     if( args.empty() ) {
         return SValue::create_error( "One argument required." );
     }
@@ -1107,7 +1102,7 @@ SValue glich::at_scheme( Script& script )
                 return SValue::create_error( no_default_mess );
             }
         }
-        return complete_object( script, sch, jdn );
+        return complete_object( sch, jdn );
     }
     if( value.type() == SValue::Type::String ) {
         if( sch == nullptr ) {
@@ -1117,7 +1112,7 @@ SValue glich::at_scheme( Script& script )
             }
         }
         string text = value.get_str();
-        return complete_object( script, sch, text, fcode );
+        return complete_object( sch, text, fcode );
     }
     return SValue::create_error( "Expected a field or string type." );
 }

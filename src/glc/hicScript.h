@@ -70,10 +70,12 @@ namespace glich {
         SValue str_to_date( Scheme* sch, std::string& text, const std::string& fcode );
         SValue at_date();
         SValue at_text();
+        SValue complete_object( Scheme* sch, Field jdn );
+        SValue complete_object( Scheme* sch, const std::string& input, const std::string& fcode );
+        SValue at_scheme();
     };
 
 
-    SValue at_scheme( Script& script );
     SValue at_element( Script& script );
     SValue at_phrase( Script& script );
     SValue at_leapyear( Script& script );
