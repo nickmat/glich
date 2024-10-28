@@ -1238,33 +1238,42 @@ SValueVec Script::get_args( GetToken get )
 
 SValue Script::function_call()
 {
-    enum f {
-        f_if, f_error, f_string, f_quote, f_field, f_range, f_rlist, f_number, f_float, f_read, f_filesys,
-        f_version, f_low, f_high, f_span, f_size, f_envelope, f_type, f_object, f_global,
-        f_date, f_text, f_record, f_scheme, f_element, f_phrase, f_leapyear, f_first, f_last,
-        f_fmt_object, f_sch_object, f_easter, f_sch_list
-    };
-    const static std::map<string, f> fmap = {
-        { "if", f_if }, { "error", f_error }, { "string", f_string }, { "quote", f_quote }, { "field", f_field },
-        { "range", f_range }, { "rlist", f_rlist }, { "number", f_number }, { "float", f_float },
-        { "read", f_read }, { "filesys", f_filesys }, { "version", f_version }, { "low", f_low },
-        { "high", f_high }, { "span", f_span }, { "size", f_size }, { "envelope", f_envelope },
-        { "type", f_type }, { "object", f_object }, { "global", f_global },
-        // Hics extension
-        { "date", f_date }, { "text", f_text }, { "record", f_record }, { "scheme", f_scheme }, { "element", f_element },
-        { "phrase", f_phrase }, { "leapyear", f_leapyear }, { "first", f_first }, { "last", f_last },
-        { "fmt:object", f_fmt_object }, { "sch:object", f_sch_object }, { "easter", f_easter },
-        { "sch:list", f_sch_list }
-    };
-
     SToken token = next_token();
     if( token.type() != SToken::Type::Name ) {
         return SValue::create_error( "Function name expected." );
     }
     string name = token.get_str();
 
+    bool success = false;
+    SValue value = builtin_function_call( success, name );
+    if( success ) {
+        return value;
+    }
+
+    Function* fun = glc().get_function( name );
+    if( fun == nullptr ) {
+        return SValue::create_error( "Function \"" + name + "\" not found." );
+    }
+    return run_function( fun );
+}
+
+SValue Script::builtin_function_call( bool& success, const string& name )
+{
+    enum f {
+        f_if, f_error, f_string, f_quote, f_field, f_range, f_rlist, f_number, f_float, f_read, f_filesys,
+        f_version, f_low, f_high, f_span, f_size, f_envelope, f_type, f_object, f_global
+    };
+    const static std::map<string, f> fmap = {
+        { "if", f_if }, { "error", f_error }, { "string", f_string }, { "quote", f_quote }, { "field", f_field },
+        { "range", f_range }, { "rlist", f_rlist }, { "number", f_number }, { "float", f_float },
+        { "read", f_read }, { "filesys", f_filesys }, { "version", f_version }, { "low", f_low },
+        { "high", f_high }, { "span", f_span }, { "size", f_size }, { "envelope", f_envelope },
+        { "type", f_type }, { "object", f_object }, { "global", f_global }
+    };
+
     auto fnum = fmap.find( name );
     if( fnum != fmap.end() ) {
+        success = true;
         switch( fnum->second )
         {
         case f_if: return at_if();
@@ -1287,28 +1296,11 @@ SValue Script::function_call()
         case f_type:
         case f_object: return do_at_property( name );
         case f_global: return at_global();
-        case f_date: return at_date( *this );
-        case f_text: return at_text( *this );
-        case f_record: [[fallthrough]];
-        case f_scheme: return at_scheme( *this );
-        case f_element: return at_element( *this );
-        case f_phrase: return at_phrase( *this );
-        case f_leapyear: return at_leapyear( *this );
-        case f_first: return at_last( *this );
-        case f_last: return at_first( *this );
-        case f_fmt_object: return at_fmt_object( *this );
-        case f_sch_object: return at_sch_object( *this );
-        case f_easter: return at_easter( *this );
-        case f_sch_list: return at_sch_list( *this );
         }
-        return SValue::create_error( "Built-in funtion whoopsy." );
+        return SValue::create_error( "Built-in hics function error." );
     }
-
-    Function* fun = glc().get_function( name );
-    if( fun == nullptr ) {
-        return SValue::create_error( "Function \"" + name + "\" not found." );
-    }
-    return run_function( fun );
+    success = false;
+    return SValue();
 }
 
 SValue Script::run_function( Function* fun, const SValue* left )

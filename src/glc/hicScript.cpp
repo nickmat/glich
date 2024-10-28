@@ -63,6 +63,49 @@ bool HicScript::statement()
     return Script::statement();
 }
 
+SValue HicScript::builtin_function_call( bool& success, const string& name )
+{
+    enum f {
+        f_date, f_text, f_record, f_scheme, f_element, f_phrase, f_leapyear, f_first, f_last,
+        f_fmt_object, f_sch_object, f_easter, f_sch_list
+    };
+    const static std::map<string, f> fmap = {
+        { "date", f_date }, { "text", f_text }, { "record", f_record }, { "scheme", f_scheme }, { "element", f_element },
+        { "phrase", f_phrase }, { "leapyear", f_leapyear }, { "first", f_first }, { "last", f_last },
+        { "fmt:object", f_fmt_object }, { "sch:object", f_sch_object }, { "easter", f_easter },
+        { "sch:list", f_sch_list }
+    };
+
+    SValue value = Script::builtin_function_call( success, name );
+    if( success ) {
+        return value;
+    }
+
+    auto fnum = fmap.find( name );
+    if( fnum != fmap.end() ) {
+        success = true;
+        switch( fnum->second )
+        {
+        case f_date: return at_date( *this );
+        case f_text: return at_text( *this );
+        case f_record: [[fallthrough]];
+        case f_scheme: return at_scheme( *this );
+        case f_element: return at_element( *this );
+        case f_phrase: return at_phrase( *this );
+        case f_leapyear: return at_leapyear( *this );
+        case f_first: return at_last( *this );
+        case f_last: return at_first( *this );
+        case f_fmt_object: return at_fmt_object( *this );
+        case f_sch_object: return at_sch_object( *this );
+        case f_easter: return at_easter( *this );
+        case f_sch_list: return at_sch_list( *this );
+        }
+        return SValue::create_error( "Built-in function error." );
+    }
+    success = false;
+    return SValue();
+}
+
 bool HicScript::do_scheme()
 {
     string code = get_name_or_primary( GetToken::next );

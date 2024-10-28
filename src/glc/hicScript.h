@@ -41,6 +41,8 @@ namespace glich {
         ~HicScript() {}
 
         bool statement() override;
+        SValue builtin_function_call( bool& success, const std::string& name ) override;
+
         bool do_scheme();
         bool do_lexicon();
         bool do_grammar();

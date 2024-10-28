@@ -94,6 +94,7 @@ namespace glich {
         StdStrVec get_qualifiers( GetToken get );
         SValueVec get_args( GetToken get );
         SValue function_call();
+        virtual SValue builtin_function_call( bool& success, const std::string& name );
         SValue run_function( Function* fun, const SValue* left = nullptr );
         SValue dot_mask( const Object* obj, const SValue* left );
         SValue command_call();
