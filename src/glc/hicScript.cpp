@@ -66,13 +66,13 @@ bool HicScript::statement()
 SValue HicScript::builtin_function_call( bool& success, const string& name )
 {
     enum f {
-        f_date, f_text, f_record, f_scheme, f_element, f_phrase, f_leapyear, f_first, f_last,
-        f_fmt_object, f_sch_object, f_easter, f_sch_list
+        f_date, f_text, f_record, f_scheme, f_element, f_phrase, f_leapyear, f_easter,
+        f_first, f_last, f_fmt_object, f_sch_object, f_sch_list
     };
     const static std::map<string, f> fmap = {
         { "date", f_date }, { "text", f_text }, { "record", f_record }, { "scheme", f_scheme }, { "element", f_element },
-        { "phrase", f_phrase }, { "leapyear", f_leapyear }, { "first", f_first }, { "last", f_last },
-        { "fmt:object", f_fmt_object }, { "sch:object", f_sch_object }, { "easter", f_easter },
+        { "phrase", f_phrase }, { "leapyear", f_leapyear }, { "easter", f_easter }, { "first", f_first }, { "last", f_last },
+        { "fmt:object", f_fmt_object }, { "sch:object", f_sch_object },
         { "sch:list", f_sch_list }
     };
 
@@ -93,11 +93,11 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         case f_element: return at_element();
         case f_phrase: return at_phrase();
         case f_leapyear: return at_leapyear();
+        case f_easter: return at_easter();
         case f_first: return at_last( *this );
         case f_last: return at_first( *this );
         case f_fmt_object: return at_fmt_object( *this );
         case f_sch_object: return at_sch_object( *this );
-        case f_easter: return at_easter( *this );
         case f_sch_list: return at_sch_list( *this );
         }
         return SValue::create_error( "Built-in function error." );
@@ -1203,10 +1203,10 @@ SValue HicScript::at_leapyear()
     return false;
 }
 
-SValue glich::at_easter( Script& script )
+SValue HicScript::at_easter()
 {
-    StdStrVec quals = script.get_qualifiers( GetToken::next );
-    SValueVec args = script.get_args( GetToken::current );
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current );
     if( quals.empty() ) {
         return SValue::create_error( "@easter requires a qualifier." );
     }
