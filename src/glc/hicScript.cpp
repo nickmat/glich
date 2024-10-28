@@ -96,9 +96,9 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         case f_easter: return at_easter();
         case f_first: return at_last();
         case f_last: return at_first();
-        case f_fmt_object: return at_fmt_object( *this );
-        case f_sch_object: return at_sch_object( *this );
-        case f_sch_list: return at_sch_list( *this );
+        case f_fmt_object: return at_fmt_object();
+        case f_sch_object: return at_sch_object();
+        case f_sch_list: return at_sch_list();
         }
         return SValue::create_error( "Built-in function error." );
     }
@@ -1309,11 +1309,10 @@ SValue HicScript::at_first()
     return f_invalid;
 }
 
-
-SValue glich::at_fmt_object( Script& script )
+SValue HicScript::at_fmt_object()
 {
-    StdStrVec quals = script.get_qualifiers( GetToken::next );
-    SValueVec args = script.get_args( GetToken::current );
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current );
     string sig, scode, fcode;
     if( quals.empty() ) {
         return SValue::create_error( "@fmt:object requires format signiture." );
@@ -1340,10 +1339,10 @@ SValue glich::at_fmt_object( Script& script )
     return SValue( obj );
 }
 
-SValue glich::at_sch_object( Script& script )
+SValue HicScript::at_sch_object()
 {
-    StdStrVec quals = script.get_qualifiers( GetToken::next );
-    SValueVec args = script.get_args( GetToken::current );
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current );
     if( quals.empty() ) {
         return SValue::create_error( "@sch:object requires scheme code." );
     }
@@ -1382,10 +1381,10 @@ SValue glich::at_sch_object( Script& script )
     return SValue( obj );
 }
 
-SValue glich::at_sch_list( Script& script )
+SValue HicScript::at_sch_list()
 {
-    StdStrVec quals = script.get_qualifiers( GetToken::next );
-    SValueVec args = script.get_args( GetToken::current );
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current );
 
     SValueVec obj;
     obj.push_back( ":" );
