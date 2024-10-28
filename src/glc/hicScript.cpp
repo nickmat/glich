@@ -90,7 +90,7 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         case f_text: return at_text();
         case f_record: [[fallthrough]];
         case f_scheme: return at_scheme();
-        case f_element: return at_element( *this );
+        case f_element: return at_element();
         case f_phrase: return at_phrase( *this );
         case f_leapyear: return at_leapyear( *this );
         case f_first: return at_last( *this );
@@ -1117,10 +1117,10 @@ SValue HicScript::at_scheme()
     return SValue::create_error( "Expected a field or string type." );
 }
 
-SValue glich::at_element( Script& script )
+SValue HicScript::at_element()
 {
-    StdStrVec quals = script.get_qualifiers( GetToken::next );
-    SValueVec args = script.get_args( GetToken::current );
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current );
     string sig;
     if( !quals.empty() ) {
         sig = quals[0];
