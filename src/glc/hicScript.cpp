@@ -92,7 +92,7 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         case f_scheme: return at_scheme();
         case f_element: return at_element();
         case f_phrase: return at_phrase();
-        case f_leapyear: return at_leapyear( *this );
+        case f_leapyear: return at_leapyear();
         case f_first: return at_last( *this );
         case f_last: return at_first( *this );
         case f_fmt_object: return at_fmt_object( *this );
@@ -1167,10 +1167,10 @@ SValue HicScript::at_phrase()
     return value;
 }
 
-SValue glich::at_leapyear( Script& script )
+SValue HicScript::at_leapyear()
 {
-    StdStrVec quals = script.get_qualifiers( GetToken::next );
-    SValueVec args = script.get_args( GetToken::current );
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current );
     if( quals.empty() ) {
         return SValue::create_error( "@leapyear requires a qualifier." );
     }
