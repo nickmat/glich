@@ -69,10 +69,10 @@ namespace glich {
         FunctionData* get_function_data( Scheme* sch, Format* fmt );
         SValue str_to_date( Scheme* sch, std::string& text, const std::string& fcode );
         SValue at_date();
+        SValue at_text();
     };
 
 
-    SValue at_text( Script& script );
     SValue at_scheme( Script& script );
     SValue at_element( Script& script );
     SValue at_phrase( Script& script );

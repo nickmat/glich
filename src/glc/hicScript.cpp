@@ -87,7 +87,7 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         switch( fnum->second )
         {
         case f_date: return at_date();
-        case f_text: return at_text( *this );
+        case f_text: return at_text();
         case f_record: [[fallthrough]];
         case f_scheme: return at_scheme( *this );
         case f_element: return at_element( *this );
@@ -979,10 +979,10 @@ SValue glich::HicScript::at_date()
     return SValue::create_error( "Expected an object or string type." );
 }
 
-SValue glich::at_text( Script& script )
+SValue HicScript::at_text()
 {
-    StdStrVec quals = script.get_qualifiers( GetToken::next );
-    SValueVec args = script.get_args( GetToken::current );
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current );
     string sig, scode, fcode;
     if( !quals.empty() ) {
         sig = quals[0];
