@@ -33,6 +33,7 @@
 namespace glich {
     
     class Base;
+    struct FunctionData;
 
     class HicScript : public Script
     {
@@ -63,11 +64,15 @@ namespace glich {
         bool do_grammar_alias( Grammar* gmr );
         bool do_grammar_function( Grammar* gmr );
         bool do_grammar_use( Grammar* gmr );
+
+        SValue object_to_date( Scheme* sch, SValue value );
+        FunctionData* get_function_data( Scheme* sch, Format* fmt );
+        SValue str_to_date( Scheme* sch, std::string& text, const std::string& fcode );
+        SValue at_date();
     };
 
 
     SValue at_text( Script& script );
-    SValue at_date( Script& script );
     SValue at_scheme( Script& script );
     SValue at_element( Script& script );
     SValue at_phrase( Script& script );

@@ -86,7 +86,7 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         success = true;
         switch( fnum->second )
         {
-        case f_date: return at_date( *this );
+        case f_date: return at_date();
         case f_text: return at_text( *this );
         case f_record: [[fallthrough]];
         case f_scheme: return at_scheme( *this );
@@ -886,6 +886,98 @@ bool HicScript::do_grammar_use( Grammar* gmr )
     return true;
 }
 
+SValue HicScript::object_to_date( Scheme* sch, SValue value )
+{
+    assert( sch != nullptr );
+    const Base& base = sch->get_base();
+    Record record( base, value );
+    record.calc_jdn();
+    return SValue( record.get_jdn(), SValue::Type::field );
+}
+
+FunctionData* HicScript::get_function_data( Scheme* sch, Format* fmt )
+{
+    if( fmt->has_use_function() ) {
+        string ocode = sch->get_code();
+        Object* obj = glc().get_object( ocode );
+        string funcode = fmt->get_from_text_funcode();
+        Function* fun = obj->get_function( funcode );
+        FunctionData* fundata = new FunctionData( *fun, get_out_stream() );
+        fundata->ocode = ocode;
+        return fundata;
+    }
+    return nullptr;
+}
+
+SValue HicScript::str_to_date( Scheme* sch, string& text, const string& fcode )
+{
+    assert( sch != nullptr );
+    Format* fmt = sch->get_input_format( fcode );
+    if( fmt == nullptr ) {
+        return SValue::create_error( "Unable to find \"" + fcode + "\" format." );
+    }
+    StringPairVec pairs = fmt->string_to_stringpair( text );
+    RList rlist;
+    Range range;
+    const Base& base = sch->get_base();
+    FunctionData* fundata = get_function_data( sch, fmt );
+    for( auto& pair : pairs ) {
+        range = fmt->string_to_range( base, pair.first, fundata );
+        if( !pair.second.empty() ) {
+            Range range2 = fmt->string_to_range( base, pair.second, fundata );
+            range.m_end = range2.m_end;
+        }
+        if( range.is_valid() ) {
+            rlist.push_back( range );
+        }
+    }
+    delete fundata;
+    SValue value;
+    value.set_rlist_demote( op_set_well_order( rlist ) );
+    return value;
+}
+
+SValue glich::HicScript::at_date()
+{
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current );
+    string sig, scode, fcode;
+    if( !quals.empty() ) {
+        sig = quals[0];
+    }
+    split_code( &scode, &fcode, sig );
+    Scheme* sch = glc().get_scheme( scode );
+    if( sch == nullptr && !scode.empty() ) {
+        return SValue::create_error( "Scheme \"" + scode + "\" not found." );
+    }
+    if( args.empty() ) {
+        return SValue::create_error( "One argument required." );
+    }
+    SValue value( args[0] );
+    if( value.type() == SValue::Type::Object ) {
+        Object* obj = value.get_object_ptr();
+        if( obj == nullptr ) {
+            return SValue::create_error( "Object type not recognised." );
+        }
+        // We ignore any suffix scheme setting
+        sch = dynamic_cast<Scheme*>(obj);
+        if( sch == nullptr ) {
+            return SValue::create_error( "Object is not a scheme." );
+        }
+        return object_to_date( sch, value );
+    }
+    if( value.type() == SValue::Type::String ) {
+        if( sch == nullptr ) {
+            sch = glc().get_ischeme();
+            if( sch == nullptr ) {
+                return SValue::create_error( "No default scheme set." );
+            }
+        }
+        string text = value.get_str();
+        return str_to_date( sch, text, fcode );
+    }
+    return SValue::create_error( "Expected an object or string type." );
+}
 
 SValue glich::at_text( Script& script )
 {
@@ -947,103 +1039,6 @@ SValue glich::at_text( Script& script )
     return SValue::create_error( "Expected field, range, rlist or record type." );
 }
 
-namespace {
-
-
-    SValue object_to_date( Script& script, Scheme* sch, SValue value )
-    {
-        assert( sch != nullptr );
-        const Base& base = sch->get_base();
-        Record record( base, value );
-        record.calc_jdn();
-        return SValue( record.get_jdn(), SValue::Type::field );
-    }
-
-    FunctionData* get_function_data( Script& script, Scheme* sch, Format* fmt )
-    {
-        if( fmt->has_use_function() ) {
-            string ocode = sch->get_code();
-            Object* obj = glc().get_object( ocode );
-            string funcode = fmt->get_from_text_funcode();
-            Function* fun = obj->get_function( funcode );
-            FunctionData* fundata = new FunctionData( *fun, script.get_out_stream() );
-            fundata->ocode = ocode;
-            return fundata;
-        }
-        return nullptr;
-    }
-
-    SValue str_to_date( Script& script, Scheme* sch, string& text, const string& fcode )
-    {
-        assert( sch != nullptr );
-        Format* fmt = sch->get_input_format( fcode );
-        if( fmt == nullptr ) {
-            return SValue::create_error( "Unable to find \"" + fcode + "\" format." );
-        }
-        StringPairVec pairs = fmt->string_to_stringpair( text );
-        RList rlist;
-        Range range;
-        const Base& base = sch->get_base();
-        FunctionData* fundata = get_function_data( script, sch, fmt );
-        for( auto& pair : pairs ) {
-            range = fmt->string_to_range( base, pair.first, fundata );
-            if( !pair.second.empty() ) {
-                Range range2 = fmt->string_to_range( base, pair.second, fundata );
-                range.m_end = range2.m_end;
-            }
-            if( range.is_valid() ) {
-                rlist.push_back( range );
-            }
-        }
-        delete fundata;
-        SValue value;
-        value.set_rlist_demote( op_set_well_order( rlist ) );
-        return value;
-    }
-
-} // namespace
-
-SValue glich::at_date( Script& script )
-{
-    StdStrVec quals = script.get_qualifiers( GetToken::next );
-    SValueVec args = script.get_args( GetToken::current );
-    string sig, scode, fcode;
-    if( !quals.empty() ) {
-        sig = quals[0];
-    }
-    split_code( &scode, &fcode, sig );
-    Scheme* sch = glc().get_scheme( scode );
-    if( sch == nullptr && !scode.empty() ) {
-        return SValue::create_error( "Scheme \"" + scode + "\" not found." );
-    }
-    if( args.empty() ) {
-        return SValue::create_error( "One argument required." );
-    }
-    SValue value( args[0] );
-    if( value.type() == SValue::Type::Object ) {
-        Object* obj = value.get_object_ptr();
-        if( obj == nullptr ) {
-            return SValue::create_error( "Object type not recognised." );
-        }
-        // We ignore any suffix scheme setting
-        sch = dynamic_cast<Scheme*>(obj);
-        if( sch == nullptr ) {
-            return SValue::create_error( "Object is not a scheme." );
-        }
-        return object_to_date( script, sch, value );
-    }
-    if( value.type() == SValue::Type::String ) {
-        if( sch == nullptr ) {
-            sch = glc().get_ischeme();
-            if( sch == nullptr ) {
-                return SValue::create_error( "No default scheme set." );
-            }
-        }
-        string text = value.get_str();
-        return str_to_date( script, sch, text, fcode );
-    }
-    return SValue::create_error( "Expected an object or string type." );
-}
 
 namespace {
 
