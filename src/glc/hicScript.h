@@ -74,10 +74,10 @@ namespace glich {
         SValue complete_object( Scheme* sch, const std::string& input, const std::string& fcode );
         SValue at_scheme();
         SValue at_element();
+        SValue at_phrase();
     };
 
 
-    SValue at_phrase( Script& script );
     SValue at_leapyear( Script& script );
     SValue at_easter( Script& script );
     SValue at_last( Script& script );

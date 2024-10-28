@@ -91,7 +91,7 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         case f_record: [[fallthrough]];
         case f_scheme: return at_scheme();
         case f_element: return at_element();
-        case f_phrase: return at_phrase( *this );
+        case f_phrase: return at_phrase();
         case f_leapyear: return at_leapyear( *this );
         case f_first: return at_last( *this );
         case f_last: return at_first( *this );
@@ -1149,11 +1149,11 @@ SValue HicScript::at_element()
     return value;
 }
 
-SValue glich::at_phrase( Script& script )
+SValue HicScript::at_phrase()
 {
     const char* no_default_mess = "No default scheme set.";
-    StdStrVec quals = script.get_qualifiers( GetToken::next );
-    SValueVec args = script.get_args( GetToken::current );
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current );
     if( args.size() != 1 || args[0].type() != SValue::Type::String ) {
         return SValue::create_error( "@phrase requires 1 string argument." );
     }
