@@ -36,6 +36,7 @@
 #include "hicDatePhrase.h"
 #include "hicElement.h"
 #include "hicGrammar.h"
+#include "hicGregorian.h"
 #include "hicFormatIso.h"
 #include "hicFormatText.h"
 #include "hicFormatUnit.h"
@@ -101,6 +102,20 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         case f_sch_list: return at_sch_list();
         }
         return SValue::create_error( "Built-in function error." );
+    }
+    success = false;
+    return SValue();
+}
+
+SValue HicScript::get_builtin_var( bool& success, const string& name )
+{
+    SValue value = Script::get_builtin_var( success, name );
+    if( success ) {
+        return value;
+    }
+    if( name == "today" ) {
+        success = true;
+        return SValue( Gregorian::today() );
     }
     success = false;
     return SValue();

@@ -114,6 +114,7 @@ namespace glich {
         SValue at_global();
 
         SValue get_value_var( const std::string& name );
+        virtual SValue get_builtin_var( bool& success, const std::string& name );
         SValue get_cur_object();
 
         static STokenStream* s_current_ts;

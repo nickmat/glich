@@ -43,6 +43,7 @@ namespace glich {
 
         bool statement() override;
         SValue builtin_function_call( bool& success, const std::string& name ) override;
+        SValue get_builtin_var( bool& success, const std::string& name ) override;
 
         bool do_scheme();
         bool do_lexicon();

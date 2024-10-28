@@ -33,12 +33,6 @@
 #include "glcHelper.h"
 #include "glcObject.h"
 #include "glcVersion.h"
-#include "hicBase.h"
-#include "hicElement.h"
-#include "hicGregorian.h"
-#include "hicHelper.h"
-#include "hicScheme.h"
-#include "hicScript.h"
 
 #include <cassert>
 #include <cmath>
@@ -1698,16 +1692,25 @@ SValue glich::Script::at_global()
 
 SValue Script::get_value_var( const string& name )
 {
-    if( name == "today" ) {
-        return SValue( Gregorian::today() );
-    }
-    if( name == "this" ) {
-        return get_cur_object();
+    bool success = false;
+    SValue value = get_builtin_var( success, name );
+    if( success ) {
+        return value;
     }
     if( glc().is_named( name ) ) {
         return glc().get_named( name );
     }
     return SValue::create_error( "Variable \"" + name + "\" not found." );
+}
+
+SValue glich::Script::get_builtin_var( bool& success, const std::string& name )
+{
+    if( name == "this" ) {
+        success = true;
+        return get_cur_object();
+    }
+    success = false;
+    return SValue();
 }
 
 SValue Script::get_cur_object()
