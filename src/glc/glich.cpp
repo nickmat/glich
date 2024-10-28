@@ -720,47 +720,54 @@ bool Glich::add_module( const Module& mod )
     m_marks[m_marks.size() - 1]->add_module( mod.m_code );
 
     for( auto& def : mod.m_defs ) {
-        if( def.m_definition == "object" ) {
-            for( auto& obj : def.m_codes ) {
-                if( !add_object( nullptr, obj ) ) {
-                    return false;
-                }
-                m_object_mods[obj] = mod.m_code;
-            }
-            continue;
-        }
-        if( def.m_definition == "scheme" ) {
-            for( auto& sch : def.m_codes ) {
-                string code = "s:" + sch;
-                if( !add_scheme( nullptr, sch ) ) {
-                    return false;
-                }
-                m_object_mods[code] = mod.m_code;
-            }
-            continue;
-        }
-        if( def.m_definition == "lexicon" ) {
-            for( auto& lex : def.m_codes ) {
-                if( !add_lexicon( nullptr, lex ) ) {
-                    return false;
-                }
-                m_lexicon_mods[lex] = mod.m_code;
-            }
-            continue;
-        }
-        if( def.m_definition == "grammar" ) {
-            for( auto& gmr : def.m_codes ) {
-                if( !add_grammar( nullptr, gmr ) ) {
-                    return false;
-                }
-                m_grammar_mods[gmr] = mod.m_code;
-            }
-            continue;
+        if( !add_module_def( def, mod.m_code ) ) {
+            return false;
         }
     }
     return true;
 }
 
+bool glich::Glich::add_module_def( const ModuleDef& def, const std::string& code )
+{
+    if( def.m_definition == "object" ) {
+        for( auto& obj : def.m_codes ) {
+            if( !add_object( nullptr, obj ) ) {
+                return false;
+            }
+            m_object_mods[obj] = code;
+        }
+        return true;
+    }
+    if( def.m_definition == "lexicon" ) {
+        for( auto& lex : def.m_codes ) {
+            if( !add_lexicon( nullptr, lex ) ) {
+                return false;
+            }
+            m_lexicon_mods[lex] = code;
+        }
+        return true;
+    }
+    if( def.m_definition == "scheme" ) {
+        for( auto& sch : def.m_codes ) {
+            if( !add_scheme( nullptr, sch ) ) {
+                return false;
+            }
+            string scode = "s:" + sch;
+            m_object_mods[scode] = code;
+        }
+        return true;
+    }
+    if( def.m_definition == "grammar" ) {
+        for( auto& gmr : def.m_codes ) {
+            if( !add_grammar( nullptr, gmr ) ) {
+                return false;
+            }
+            m_grammar_mods[gmr] = code;
+        }
+        return true;
+    }
+    return false;
+}
 bool Glich::module_exists( const string& code ) const
 {
     return m_modules.find(code) != m_modules.end();

@@ -125,6 +125,7 @@ namespace glich {
         void remove_file( const std::string& code );
         File* get_file( const std::string& code ) const;
         bool add_module( const Module& mod );
+        virtual bool add_module_def( const ModuleDef& def, const std::string& code );
         bool module_exists( const std::string& code ) const;
         void remove_module( const std::string& code );
         bool add_lexicon( Lexicon* lex, const std::string& code );
