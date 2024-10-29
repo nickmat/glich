@@ -1176,7 +1176,7 @@ SValue HicScript::at_phrase()
     if( !quals.empty() ) {
         sig = quals[0];
     }
-    RList rlist = glc().date_phrase_to_rlist( args[0].get_str(), sig );
+    RList rlist = hic().date_phrase_to_rlist( args[0].get_str(), sig );
     SValue value;
     value.set_rlist_demote( rlist );
     return value;

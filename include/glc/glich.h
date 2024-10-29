@@ -62,16 +62,6 @@ namespace glich {
 
         static const char* version();
 
-        RList date_phrase_to_rlist( const std::string& phrase, const std::string& sig = std::string() );
-        std::string date_phrase_to_text( const std::string& phrase, const std::string& sig_in = std::string(),
-            const std::string& sig_out = std::string() );
-        std::string rlist_to_text( RList rlist, const std::string& sig = std::string() );
-        std::string range_to_text( Range range, const std::string& sig = std::string() );
-        std::string field_to_text( Field field, const std::string& sig = std::string() );
-        RList text_to_rlist( const std::string& text, const std::string& sig = std::string() );
-        Range text_to_range( const std::string& text, const std::string& sig = std::string() );
-        Field text_to_field( const std::string& text, const std::string& sig = std::string() );
-
         GlcMarkDataVec get_glc_data() const;
         HicMarkDataVec get_hic_data() const;
 

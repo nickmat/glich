@@ -51,6 +51,16 @@ namespace glich {
         void get_output_info( SchemeFormatInfo* info, const std::string& scode );
         void get_format_text_info( FormatText_info* info, const std::string& scode, const std::string& fcode );
 
+        RList date_phrase_to_rlist( const std::string& phrase, const std::string& sig = std::string() );
+        std::string date_phrase_to_text( const std::string& phrase, const std::string& sig_in = std::string(),
+            const std::string& sig_out = std::string() );
+        std::string rlist_to_text( RList rlist, const std::string& sig = std::string() );
+        std::string range_to_text( Range range, const std::string& sig = std::string() );
+        std::string field_to_text( Field field, const std::string& sig = std::string() );
+        RList text_to_rlist( const std::string& text, const std::string& sig = std::string() );
+        Range text_to_range( const std::string& text, const std::string& sig = std::string() );
+        Field text_to_field( const std::string& text, const std::string& sig = std::string() );
+
         bool get_lexicon_info( Lexicon_info* info, const std::string& code );
         bool add_lexicon( Lexicon* lex, const std::string& code );
         void remove_lexicon( const std::string& code );

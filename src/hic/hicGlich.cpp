@@ -28,6 +28,7 @@
 #include <glc/hicGlich.h>
 
 #include "glcValue.h"
+#include "hicDatePhrase.h"
 #include "hicGrammar.h"
 #include "hicLexicon.h"
 #include "hicScheme.h"
@@ -143,6 +144,142 @@ void HicGlich::get_output_info( SchemeFormatInfo* info, const string& scode )
         const Grammar* gmr = sch->get_grammar();
         gmr->get_output_formats( info, outcode );
     }
+}
+
+RList HicGlich::date_phrase_to_rlist( const string& phrase, const string& sig )
+{
+    string scode, fcode;
+    Scheme* sch = nullptr;
+    Scheme* prev_sch = nullptr;
+    string prev_fcode;
+    if( !sig.empty() ) {
+        split_code( &scode, &fcode, sig );
+        prev_sch = get_ischeme();
+        if( !scode.empty() ) {
+            sch = get_scheme( scode );
+            set_ischeme( sch );
+        }
+        if( sch == nullptr ) {
+            sch = get_ischeme();
+            if( sch == nullptr ) {
+                return RList();
+            }
+        }
+        if( !fcode.empty() ) {
+            prev_fcode = sch->get_input_format_code();
+            if( prev_fcode == fcode ) { // No change.
+                prev_fcode.clear();
+            }
+            else {
+                sch->set_input_format( fcode );
+            }
+        }
+    }
+
+    string script = parse_date_phrase( phrase );
+    SValue value = evaluate( script );
+    bool success = false;
+    RList rlist = value.get_rlist( success );
+
+    if( !prev_fcode.empty() ) {
+        sch->set_input_format( prev_fcode );
+    }
+    if( prev_sch != nullptr ) {
+        set_ischeme( prev_sch );
+    }
+    return rlist;
+}
+
+string HicGlich::date_phrase_to_text( const string& phrase, const string& sig_in, const string& sig_out )
+{
+    RList rlist = date_phrase_to_rlist( phrase, sig_in );
+    return rlist_to_text( rlist, sig_out );
+}
+
+string HicGlich::rlist_to_text( RList rlist, const string& sig )
+{
+    string scode, fcode;
+    Scheme* sch = nullptr;
+    if( !sig.empty() ) {
+        split_code( &scode, &fcode, sig );
+        if( !scode.empty() ) {
+            sch = get_scheme( scode );
+        }
+    }
+    if( sch == nullptr ) {
+        sch = get_oscheme();
+        if( sch == nullptr ) {
+            return string();
+        }
+    }
+    return sch->rlist_to_str( rlist, fcode );
+}
+
+string HicGlich::range_to_text( Range range, const string& sig )
+{
+    string scode, fcode;
+    Scheme* sch = nullptr;
+    if( !sig.empty() ) {
+        split_code( &scode, &fcode, sig );
+        if( !scode.empty() ) {
+            sch = get_scheme( scode );
+        }
+    }
+    if( sch == nullptr ) {
+        sch = get_oscheme();
+        if( sch == nullptr ) {
+            return string();
+        }
+    }
+    return sch->range_to_str( range, fcode );
+}
+
+string HicGlich::field_to_text( Field field, const string& sig )
+{
+    string qual;
+    if( !sig.empty() ) {
+        qual = ".\"" + sig + "\"";
+    }
+    string function = "@text" + qual + "(" + field_to_string( field ) + ")";
+    SValue value = evaluate( function );
+    bool success;
+    return value.get_str( success );
+}
+
+RList HicGlich::text_to_rlist( const string& text, const string& sig )
+{
+    string qual;
+    if( !sig.empty() ) {
+        qual = ".\"" + sig + "\"";
+    }
+    string function = "@date" + qual + "(\"" + text + "\")";
+    SValue value = evaluate( function );
+    bool success;
+    return value.get_rlist( success );
+}
+
+Range HicGlich::text_to_range( const string& text, const string& sig )
+{
+    string qual;
+    if( !sig.empty() ) {
+        qual = ".\"" + sig + "\"";
+    }
+    string function = "@date" + qual + "(\"" + text + "\")";
+    SValue value = evaluate( function );
+    bool success;
+    return value.get_range( success );
+}
+
+Field HicGlich::text_to_field( const string& text, const string& sig )
+{
+    string qual;
+    if( !sig.empty() ) {
+        qual = ".\"" + sig + "\"";
+    }
+    string function = "@date" + qual + "(\"" + text + "\")";
+    SValue value = evaluate( function );
+    bool success;
+    return value.get_field( success );
 }
 
 void HicGlich::get_format_text_info( FormatText_info* info, const string& scode, const string& fcode )
