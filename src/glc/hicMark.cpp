@@ -51,7 +51,7 @@ HicMark::HicMark( const string& name, HicMark* prev )
 HicMark::~HicMark()
 {
     for( auto code : m_lexicons ) {
-        glc().remove_lexicon( code );
+        hic().remove_lexicon( code );
     }
     for( auto code : m_formats ) {
         string gcode, fcode;
@@ -75,7 +75,7 @@ void glich::HicMark::get_mark_hic_data( HicMarkData& mark ) const
     GlcData data;
     for( auto code : m_lexicons ) {
         data.name = code;
-        Lexicon* lex = glc().get_lexicon( code );
+        Lexicon* lex = hic().get_lexicon( code );
         data.value = lex->get_name();
         mark.lex.push_back( data );
     }

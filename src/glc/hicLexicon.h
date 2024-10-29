@@ -28,7 +28,7 @@
 #ifndef SRC_GLC_HICLEXICON_H_GUARD
 #define SRC_GLC_HICLEXICON_H_GUARD
 
-#include <glc/glc.h>
+#include <glc/hic.h>
 #include <glc/hicDefs.h>
 
 #include "glcHelper.h"

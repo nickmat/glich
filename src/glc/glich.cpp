@@ -129,9 +129,6 @@ Glich::Glich( InOut* inout )
 
 Glich::~Glich()
 {
-    for( size_t i = m_marks.size(); i > 0; --i ) {
-        delete m_marks[i - 1];
-    }
     while( pop_store() );
     delete m_store;
     delete m_inout;
@@ -204,16 +201,6 @@ void Glich::get_format_text_info( FormatText_info* info, const string& scode, co
     if( sch != nullptr ) {
         sch->get_format_text_info( info, fcode );
     }
-}
-
-bool Glich::get_lexicon_info( Lexicon_info* info, const string& code )
-{
-    Lexicon* lex = get_lexicon( code );
-    if( lex == nullptr ) {
-        return false;
-    }
-    lex->get_info( info );
-    return true;
 }
 
 RList Glich::date_phrase_to_rlist( const string& phrase, const string& sig )
@@ -738,6 +725,7 @@ bool glich::Glich::add_module_def( const ModuleDef& def, const std::string& code
         }
         return true;
     }
+#if 0
     if( def.m_definition == "lexicon" ) {
         for( auto& lex : def.m_codes ) {
             if( !add_lexicon( nullptr, lex ) ) {
@@ -747,6 +735,7 @@ bool glich::Glich::add_module_def( const ModuleDef& def, const std::string& code
         }
         return true;
     }
+#endif
     if( def.m_definition == "scheme" ) {
         for( auto& sch : def.m_codes ) {
             if( !add_scheme( nullptr, sch ) ) {
@@ -768,6 +757,7 @@ bool glich::Glich::add_module_def( const ModuleDef& def, const std::string& code
     }
     return false;
 }
+
 bool Glich::module_exists( const string& code ) const
 {
     return m_modules.find(code) != m_modules.end();
@@ -786,54 +776,6 @@ void Glich::remove_module( const string& code )
         m_object_mods.erase( item );
     }
     m_modules.erase( code );
-}
-
-bool Glich::add_lexicon( Lexicon* lex, const string& code )
-{
-    DefinedStatus status = get_lexicon_status( code );
-    if( status == DefinedStatus::defined ) {
-        delete lex;
-        return false;
-    }
-    if( status == DefinedStatus::none ) {
-        HicMark* mark = dynamic_cast<HicMark*>(m_marks[m_marks.size() - 1]);
-        assert( mark != nullptr );
-        mark->add_lexicon( code );
-    }
-    m_lexicons[code] = lex;
-    return true;
-}
-
-void Glich::remove_lexicon( const string& code )
-{
-    if( m_lexicons.count( code ) == 0 ) {
-        return;
-    }
-    delete m_lexicons.find( code )->second;
-    m_lexicons.erase( code );
-}
-
-Lexicon* Glich::get_lexicon( const string& code )
-{
-    if( m_lexicons.count( code ) > 0 ) {
-        Lexicon* lex = m_lexicons.find( code )->second;
-        if( lex == nullptr && m_lexicon_mods.count( code ) == 1 ) {
-            string mod = m_lexicon_mods.find( code )->second;
-            string mess = run_module( mod );
-            lex = m_lexicons.find( code )->second;
-        }
-        return lex;
-    }
-    return nullptr;
-}
-
-DefinedStatus Glich::get_lexicon_status( const string& code ) const
-{
-    if( m_lexicons.count( code ) == 0 ) {
-        return DefinedStatus::none;
-    }
-    Lexicon* lex = m_lexicons.find( code )->second;
-    return lex ? DefinedStatus::defined : DefinedStatus::module;
 }
 
 bool Glich::add_grammar( Grammar* gmr, const string& code )

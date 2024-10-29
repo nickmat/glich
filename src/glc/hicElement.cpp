@@ -27,7 +27,7 @@
 
 #include "hicElement.h"
 
-#include <glc/glc.h>
+#include <glc/hic.h>
 #include "glcHelper.h"
 #include "hicGrammar.h"
 #include "hicLexicon.h"
@@ -128,7 +128,7 @@ string Element::get_formatted_element( Field field )
             result = get_left_padded( field, m_qualifier );
         }
     } else {
-        Lexicon* lex = glc().get_lexicon(m_lcode);
+        Lexicon* lex = hic().get_lexicon(m_lcode);
         if ( lex ) {
             Lexicon::Pseudo abbrev = (m_spec == "a") ?
                 Lexicon::Pseudo::abbrev : Lexicon::Pseudo::full;
@@ -160,7 +160,7 @@ Field Element::get_converted_field( Glich* glc, const string& str ) const
         // Currently, can't use any other format.
         return f_invalid;
     }
-    Lexicon* lex = glc->get_lexicon( m_lcode );
+    Lexicon* lex = hic().get_lexicon( m_lcode );
     if ( lex ) {
         return lex->find( str );
     }

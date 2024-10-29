@@ -28,7 +28,7 @@
 #ifndef SRC_GLC_HICFORMAT_H_GUARD
 #define SRC_GLC_HICFORMAT_H_GUARD
 
-#include <glc/glc.h>
+#include <glc/hic.h>
 #include "glcFunction.h"
 #include "glcValue.h"
 #include "hicGrammar.h"

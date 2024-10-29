@@ -144,13 +144,13 @@ bool HicScript::do_lexicon()
         error( "Lexicon code missing." );
         return false;
     }
-    DefinedStatus status = glc().get_lexicon_status( code );
+    DefinedStatus status = hic().get_lexicon_status( code );
     if( status == DefinedStatus::defined ) {
         error( "Lexicon \"" + code + "\" already exists." );
         return false;
     }
     Lexicon* lex = do_create_lexicon( code );
-    return glc().add_lexicon( lex, code );
+    return hic().add_lexicon( lex, code );
 }
 
 bool HicScript::do_grammar()
@@ -789,7 +789,7 @@ void HicScript::do_grammar_lexicons( Grammar* gmr )
 {
     StdStrVec lexicons = get_string_list( GetToken::next );
     for( size_t i = 0; i < lexicons.size(); i++ ) {
-        Lexicon* lex = glc().get_lexicon( lexicons[i] );
+        Lexicon* lex = hic().get_lexicon( lexicons[i] );
         if( lex == nullptr ) {
             gmr->create_error( "lexicon " + lexicons[i] + " not found." );
         }

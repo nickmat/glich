@@ -49,6 +49,8 @@ namespace glich {
         void add_format( const std::string& code ) { m_formats.push_back( code ); }
         void add_scheme( const std::string& code ) { m_schemes.push_back( code ); }
 
+        void remove_lexicons() {}
+
         void set_ischeme( Scheme* sch ) { m_ischeme = sch; }
         void set_oscheme( Scheme* sch ) { m_oscheme = sch; }
 

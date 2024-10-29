@@ -67,7 +67,6 @@ namespace glich {
         void get_input_info( SchemeFormatInfo* info, const std::string& scode );
         void get_output_info( SchemeFormatInfo* info, const std::string& scode );
         void get_format_text_info( FormatText_info* info, const std::string& scode, const std::string& fcode );
-        bool get_lexicon_info( Lexicon_info* info, const std::string& code );
 
         RList date_phrase_to_rlist( const std::string& phrase, const std::string& sig = std::string() );
         std::string date_phrase_to_text( const std::string& phrase, const std::string& sig_in = std::string(),
@@ -128,10 +127,6 @@ namespace glich {
         virtual bool add_module_def( const ModuleDef& def, const std::string& code );
         bool module_exists( const std::string& code ) const;
         void remove_module( const std::string& code );
-        bool add_lexicon( Lexicon* lex, const std::string& code );
-        void remove_lexicon( const std::string& code );
-        Lexicon* get_lexicon( const std::string& code );
-        DefinedStatus get_lexicon_status( const std::string& code ) const;
         bool add_grammar( Grammar* gmr, const std::string& code );
         void remove_grammar( const std::string& code );
         Grammar* get_grammar( const std::string& code );
@@ -160,15 +155,13 @@ namespace glich {
         const Object* set_cur_object( const Object* obj );
         const Object* get_cur_object() const { return m_cur_object; }
 
-    private:
+    protected:
         SpFunctionMap m_functions;
         SpFunctionMap m_commands;
         ObjectMap m_objects;
         StdStrMap m_object_mods;
         FileMap m_files;
         StdStrSet m_modules;
-        LexiconMap m_lexicons;
-        StdStrMap m_lexicon_mods;
         GrammarMap m_grammars;
         StdStrMap m_grammar_mods;
         MarkVec m_marks;

@@ -38,10 +38,22 @@ namespace glich {
     {
     public:
         HicGlich( InOut* inout = nullptr ) : Glich( inout ) {}
-        ~HicGlich() {}
+        ~HicGlich();
 
         SValue evaluate( const std::string& expression ) override;
         bool run( std::istream& in, std::ostream& out, int line = 1 ) override;
+
+        bool add_module_def( const ModuleDef& def, const std::string& code ) override;
+
+        bool get_lexicon_info( Lexicon_info* info, const std::string& code );
+        bool add_lexicon( Lexicon* lex, const std::string& code );
+        void remove_lexicon( const std::string& code );
+        Lexicon* get_lexicon( const std::string& code );
+        DefinedStatus get_lexicon_status( const std::string& code ) const;
+
+    private:
+        LexiconMap m_lexicons;
+        StdStrMap m_lexicon_mods;
     };
 
 } // namespace glich
