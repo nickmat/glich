@@ -28,7 +28,9 @@
 #include <glc/hicGlich.h>
 
 #include "glcValue.h"
+#include "hicGrammar.h"
 #include "hicLexicon.h"
+#include "hicScheme.h"
 #include "hicScript.h"
 #include "hicMark.h"
 
@@ -64,7 +66,7 @@ bool HicGlich::run( std::istream& in, std::ostream& out, int line )
     return scr.run();
 }
 
-bool glich::HicGlich::add_module_def( const ModuleDef& def, const std::string& code )
+bool HicGlich::add_module_def( const ModuleDef& def, const std::string& code )
 {
     if( def.m_definition == "lexicon" ) {
         for( auto& lex : def.m_codes ) {
@@ -85,6 +87,70 @@ bool glich::HicGlich::add_module_def( const ModuleDef& def, const std::string& c
         return true;
     }
     return Glich::add_module_def( def, code );
+}
+
+SchemeList HicGlich::get_scheme_list( Visibility vis )
+{
+    SchemeList slist;
+    SchemeData sdata;
+
+    for( const auto& object : m_objects ) {
+        string prefix, code;
+        split_string( prefix, code, object.first );
+        if( prefix != "s" ) {
+            continue;
+        }
+        Scheme* sch = get_scheme( code );
+        if( sch == nullptr ) {
+            continue;
+        }
+        if( vis == Visibility::visible && !sch->get_cur_visible() ) {
+            continue;
+        }
+        if( vis == Visibility::hidden && sch->get_cur_visible() ) {
+            continue;
+        }
+        sdata.code = code;
+        sdata.name = sch->get_name();
+        slist.push_back( sdata );
+    }
+    return slist;
+}
+
+void HicGlich::get_scheme_info( Scheme_info* info, const string& scode )
+{
+    Scheme* sch = get_scheme( scode );
+    if( sch != nullptr ) {
+        sch->get_info( info );
+    }
+}
+
+void HicGlich::get_input_info( SchemeFormatInfo* info, const string& scode )
+{
+    Scheme* sch = get_scheme( scode );
+    if( sch != nullptr ) {
+        string incode = sch->get_input_format_code();
+        const Grammar* gmr = sch->get_grammar();
+        gmr->get_input_formats( info, incode );
+    }
+}
+
+void HicGlich::get_output_info( SchemeFormatInfo* info, const string& scode )
+{
+    Scheme* sch = get_scheme( scode );
+    if( sch != nullptr ) {
+        string outcode = sch->get_output_format_code();
+        const Grammar* gmr = sch->get_grammar();
+        gmr->get_output_formats( info, outcode );
+    }
+}
+
+void HicGlich::get_format_text_info( FormatText_info* info, const string& scode, const string& fcode )
+{
+    Scheme* sch = get_scheme( scode );
+    if( sch != nullptr ) {
+        sch->get_format_text_info( info, fcode );
+    }
 }
 
 bool HicGlich::get_lexicon_info( Lexicon_info* info, const string& code )

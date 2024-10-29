@@ -45,6 +45,12 @@ namespace glich {
 
         bool add_module_def( const ModuleDef& def, const std::string& code ) override;
 
+        SchemeList get_scheme_list( Visibility vis );
+        void get_scheme_info( Scheme_info* info, const std::string& scode );
+        void get_input_info( SchemeFormatInfo* info, const std::string& scode );
+        void get_output_info( SchemeFormatInfo* info, const std::string& scode );
+        void get_format_text_info( FormatText_info* info, const std::string& scode, const std::string& fcode );
+
         bool get_lexicon_info( Lexicon_info* info, const std::string& code );
         bool add_lexicon( Lexicon* lex, const std::string& code );
         void remove_lexicon( const std::string& code );
