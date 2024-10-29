@@ -139,6 +139,7 @@ string run_test( TestResults* totals, Glich& glc, const string& filename )
     } else {
         std::cout << ".";
     }
+    std::cout.flush();
     return result;
 }
 
@@ -252,6 +253,7 @@ int main( int argc, char* argv[] )
         "  fail (" + std::to_string( totals.fails ) + ")"
         "  skip (" + std::to_string( totals.skips ) + ")"
         "  Timed: " + std::to_string( dt ) + "s\n\n";
+    std::cout.flush();
 
     exit_hic();
     return 0;
