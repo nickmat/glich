@@ -63,7 +63,6 @@ namespace glich {
         static const char* version();
 
         GlcMarkDataVec get_glc_data() const;
-        HicMarkDataVec get_hic_data() const;
 
         void load_builtin_library();
         void load_hics_library();

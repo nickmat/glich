@@ -150,20 +150,6 @@ GlcMarkDataVec Glich::get_glc_data() const
     return glcdata;
 }
 
-HicMarkDataVec Glich::get_hic_data() const
-{
-    HicMarkDataVec hicdata;
-    for( auto& mark : m_marks ) {
-        HicMark* hicmark = dynamic_cast<HicMark*>(mark);
-        if( hicmark ) {
-            HicMarkData data;
-            hicmark->get_mark_hic_data( data );
-            hicdata.push_back( data );
-        }
-    }
-    return hicdata;
-}
-
 void Glich::load_builtin_library()
 {
     for( size_t i = 0; i < glc_builtin_scripts_size; i++ ) {

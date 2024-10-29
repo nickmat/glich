@@ -282,6 +282,20 @@ Field HicGlich::text_to_field( const string& text, const string& sig )
     return value.get_field( success );
 }
 
+HicMarkDataVec HicGlich::get_hic_data() const
+{
+    HicMarkDataVec hicdata;
+    for( auto& mark : m_marks ) {
+        HicMark* hicmark = dynamic_cast<HicMark*>(mark);
+        if( hicmark ) {
+            HicMarkData data;
+            hicmark->get_mark_hic_data( data );
+            hicdata.push_back( data );
+        }
+    }
+    return hicdata;
+}
+
 void HicGlich::get_format_text_info( FormatText_info* info, const string& scode, const string& fcode )
 {
     Scheme* sch = get_scheme( scode );

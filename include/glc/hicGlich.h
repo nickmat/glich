@@ -61,6 +61,8 @@ namespace glich {
         Range text_to_range( const std::string& text, const std::string& sig = std::string() );
         Field text_to_field( const std::string& text, const std::string& sig = std::string() );
 
+        HicMarkDataVec get_hic_data() const;
+
         bool get_lexicon_info( Lexicon_info* info, const std::string& code );
         bool add_lexicon( Lexicon* lex, const std::string& code );
         void remove_lexicon( const std::string& code );
