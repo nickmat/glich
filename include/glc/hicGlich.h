@@ -50,10 +50,16 @@ namespace glich {
         void remove_lexicon( const std::string& code );
         Lexicon* get_lexicon( const std::string& code );
         DefinedStatus get_lexicon_status( const std::string& code ) const;
+        bool add_grammar( Grammar* gmr, const std::string& code );
+        void remove_grammar( const std::string& code );
+        Grammar* get_grammar( const std::string& code );
+        DefinedStatus get_grammar_status( const std::string& code ) const;
 
     private:
         LexiconMap m_lexicons;
         StdStrMap m_lexicon_mods;
+        GrammarMap m_grammars;
+        StdStrMap m_grammar_mods;
     };
 
 } // namespace glich

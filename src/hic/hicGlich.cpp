@@ -75,6 +75,15 @@ bool glich::HicGlich::add_module_def( const ModuleDef& def, const std::string& c
         }
         return true;
     }
+    if( def.m_definition == "grammar" ) {
+        for( auto& gmr : def.m_codes ) {
+            if( !add_grammar( nullptr, gmr ) ) {
+                return false;
+            }
+            m_grammar_mods[gmr] = code;
+        }
+        return true;
+    }
     return Glich::add_module_def( def, code );
 }
 
@@ -136,6 +145,52 @@ DefinedStatus HicGlich::get_lexicon_status( const string& code ) const
     return lex ? DefinedStatus::defined : DefinedStatus::module;
 }
 
+bool HicGlich::add_grammar( Grammar* gmr, const string& code )
+{
+    DefinedStatus status = get_grammar_status( code );
+    if( status == DefinedStatus::defined ) {
+        delete gmr;
+        return false;
+    }
+    if( status == DefinedStatus::none ) {
+        HicMark* mark = dynamic_cast<HicMark*>(m_marks[m_marks.size() - 1]);
+        assert( mark != nullptr );
+        mark->add_grammar( code );
+    }
+    m_grammars[code] = gmr;
+    return true;
+}
 
+void HicGlich::remove_grammar( const string& code )
+{
+    if( m_grammars.count( code ) == 0 ) {
+        return;
+    }
+    delete m_grammars.find( code )->second;
+    m_grammars.erase( code );
+}
+
+Grammar* HicGlich::get_grammar( const string& code )
+{
+    if( m_grammars.count( code ) > 0 ) {
+        Grammar* gmr = m_grammars.find( code )->second;
+        if( gmr == nullptr && m_grammar_mods.count( code ) == 1 ) {
+            string mod = m_grammar_mods.find( code )->second;
+            string mess = run_module( mod );
+            gmr = m_grammars.find( code )->second;
+        }
+        return gmr;
+    }
+    return nullptr;
+}
+
+DefinedStatus HicGlich::get_grammar_status( const string& code ) const
+{
+    if( m_grammars.count( code ) == 0 ) {
+        return DefinedStatus::none;
+    }
+    Grammar* gmr = m_grammars.find( code )->second;
+    return gmr ? DefinedStatus::defined : DefinedStatus::module;
+}
 
 // End of src/hic/hicGlich.cpp

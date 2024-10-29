@@ -56,12 +56,12 @@ HicMark::~HicMark()
     for( auto code : m_formats ) {
         string gcode, fcode;
         split_code( &gcode, &fcode, code );
-        Grammar* gmr = glc().get_grammar( gcode );
+        Grammar* gmr = hic().get_grammar( gcode );
         assert( gmr != nullptr );
         gmr->remove_format( fcode );
     }
     for( auto code : m_grammars ) {
-        glc().remove_grammar( code );
+        hic().remove_grammar( code );
     }
     for( auto code : m_schemes ) {
         glc().remove_object( "s:" + code );
@@ -81,7 +81,7 @@ void glich::HicMark::get_mark_hic_data( HicMarkData& mark ) const
     }
     for( auto code : m_grammars ) {
         data.name = code;
-        Grammar* gmr = glc().get_grammar( code );
+        Grammar* gmr = hic().get_grammar( code );
         data.value = gmr->get_name();
         mark.gmr.push_back( data );
     }

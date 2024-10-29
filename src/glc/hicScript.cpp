@@ -160,13 +160,13 @@ bool HicScript::do_grammar()
         error( "Grammar code missing." );
         return false;
     }
-    DefinedStatus status = glc().get_grammar_status( code );
+    DefinedStatus status = hic().get_grammar_status( code );
     if( status == DefinedStatus::defined ) {
         error( "Grammar \"" + code + "\" already exists." );
         return false;
     }
     Grammar* gmr = do_create_grammar( code, nullptr );
-    return glc().add_grammar( gmr, code );
+    return hic().add_grammar( gmr, code );
 }
 
 // If parsing the format in the global space then gmr is a nullptr and
@@ -260,7 +260,7 @@ Scheme* HicScript::do_create_scheme( const string& code )
                 }
                 else {
                     gmr_code = get_name_or_primary( GetToken::current );
-                    gmr = glc().get_grammar( gmr_code );
+                    gmr = hic().get_grammar( gmr_code );
                     if( gmr == nullptr && !gmr_code.empty() ) {
                         error( "Grammar \"" + gmr_code + "\" not found." );
                         error_ret = true;
@@ -467,7 +467,7 @@ bool HicScript::do_create_format( const string& code, Grammar* gmr )
     else {
         assert( !in_gmr );
         split_code( &gcode, &fcode, code );
-        gmr = glc().get_grammar( gcode );
+        gmr = hic().get_grammar( gcode );
         if( gmr == nullptr ) {
             error( "Grammar not found." );
             return false;

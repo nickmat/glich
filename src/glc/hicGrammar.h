@@ -28,7 +28,7 @@
 #ifndef GLC_HICGRAMMAR_H_GUARD
 #define GLC_HICGRAMMAR_H_GUARD
 
-#include <glc/glc.h>
+#include <glc/hic.h>
 #include "hicHelper.h"
 
 namespace glich {

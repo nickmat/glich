@@ -27,7 +27,7 @@
 
 #include "hicGrammar.h"
 
-#include <glc/glc.h>
+#include <glc/hic.h>
 #include "glcFunction.h"
 #include "hicBase.h"
 #include "hicFormatIso.h"
@@ -102,21 +102,17 @@ bool Grammar::constuct()
 
 void Grammar::set_inherit( const string& gcode )
 {
-    if( m_glc ) {
-        m_inherit = m_glc->get_grammar( gcode );
-    }
+    m_inherit = hic().get_grammar( gcode );
 }
 
 void glich::Grammar::set_inherit( StdStrVec inherit )
 {
-    if( m_glc ) {
-        for( const auto& str : inherit ) {
-            if( str == "not:lexicon" ) {
-                m_inherit_lexicons = false;
-                continue;
-            }
-            m_inherit = m_glc->get_grammar( str );
+    for( const auto& str : inherit ) {
+        if( str == "not:lexicon" ) {
+            m_inherit_lexicons = false;
+            continue;
         }
+        m_inherit = hic().get_grammar( str );
     }
 }
 
