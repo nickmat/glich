@@ -44,7 +44,7 @@ static Glich* s_glc = nullptr;
 Glich* g_glc_test = nullptr; // To allow Visual Studio watch to see it
 #endif
 
-void glich::init_glc( InitLibrary lib, InOut* inout )
+void glich::init_glc( InOut* inout )
 {
     if( s_glc ) {
         delete s_glc;
@@ -55,14 +55,6 @@ void glich::init_glc( InitLibrary lib, InOut* inout )
 #endif
 
     s_glc->load_builtin_library();
-    switch( lib )
-    {
-    case InitLibrary::None:
-        break;
-    case InitLibrary::Hics:
-        s_glc->load_hics_library();
-        break;
-    }
     // Mark the start of user definitions.
     s_glc->run_script( "mark __user;" );
 
