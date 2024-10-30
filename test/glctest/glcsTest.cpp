@@ -161,7 +161,7 @@ string run_full_test( TestResults* totals, Glich& glc, const string& path )
         glc.run_script( "mark __user;" ); // Start directory clean;
         string dir = dir_entry.path().string();
         if( ends_with( dir, "hics-lib" ) ) {
-            glc.load_hics_library();
+            hic().load_hics_library();
         }
         vector<string> filenames;
         get_filenames( filenames, dir );
@@ -181,7 +181,7 @@ string run_test_script( TestResults* totals, Glich& glc, const string& filename 
     string script = read_file( filename );
     glc.run_script( "mark __user;" ); // Start clean;
     if( filename.find( "hics-lib" ) != string::npos ) {
-        glc.load_hics_library();
+        hic().load_hics_library();
     }
     string output = glc.run_script( script );
     string expected;

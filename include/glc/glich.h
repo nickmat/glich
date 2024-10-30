@@ -53,8 +53,6 @@ namespace glich {
         virtual std::string get_input( const std::string& prompt );
     };
 
-    enum class InitLibrary { None, Hics };
-
     class Glich {
     public:
         Glich( InOut* inout = nullptr );
@@ -65,7 +63,6 @@ namespace glich {
         GlcMarkDataVec get_glc_data() const;
 
         void load_builtin_library();
-        void load_hics_library();
 
         std::string run_script( const std::string& script );
         std::string run_script_file( const std::string& filename );

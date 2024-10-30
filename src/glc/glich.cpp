@@ -170,11 +170,6 @@ void Glich::load_builtin_library()
     }
 }
 
-void Glich::load_hics_library()
-{
-    run_module( "hics:hic_lib" );
-}
-
 string Glich::run_script( const string& script )
 {
     std::istringstream iss( script );

@@ -33,12 +33,15 @@
 
 namespace glich {
 
+    enum class InitLibrary { None, Hics };
 
     class HicGlich : public Glich
     {
     public:
         HicGlich( InOut* inout = nullptr ) : Glich( inout ) {}
         ~HicGlich();
+
+        void load_hics_library();
 
         SValue evaluate( const std::string& expression ) override;
         bool run( std::istream& in, std::ostream& out, int line = 1 ) override;

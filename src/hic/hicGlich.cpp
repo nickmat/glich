@@ -52,6 +52,11 @@ HicGlich::~HicGlich()
     m_lexicons.clear();
 }
 
+void HicGlich::load_hics_library()
+{
+    run_module( "hics:hic_lib" );
+}
+
 SValue HicGlich::evaluate( const string& expression )
 {
     std::istringstream iss( expression );
