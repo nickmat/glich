@@ -41,6 +41,8 @@ namespace glich {
         HicGlich( InOut* inout = nullptr ) : Glich( inout ) {}
         ~HicGlich();
 
+        void init() override;
+
         void load_hics_library();
 
         SValue evaluate( const std::string& expression ) override;
@@ -81,6 +83,7 @@ namespace glich {
         DefinedStatus get_scheme_status( const std::string& code ) const;
         StdStrVec get_scheme_list() const;
 
+        Mark* create_mark( const std::string& name, Mark* prev ) override;
         bool set_property( const std::string& property, const std::string& value ) override;
         void set_ischeme( Scheme* sch );
         void set_oscheme( Scheme* sch );

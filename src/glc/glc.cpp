@@ -53,6 +53,7 @@ void glich::init_glc( InOut* inout )
 #if !defined(NDEBUG) || defined(_DEBUG)
     g_glc_test = s_glc;
 #endif
+    s_glc->init();
 
     s_glc->load_builtin_library();
     // Mark the start of user definitions.

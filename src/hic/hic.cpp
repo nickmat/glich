@@ -49,6 +49,7 @@ void glich::init_hic( InitLibrary lib, InOut* inout )
 #if !defined(NDEBUG) || defined(_DEBUG)
     g_hic_test = s_hic;
 #endif
+    s_hic->init();
     init_glc( s_hic );
 
     s_hic->load_builtin_library();

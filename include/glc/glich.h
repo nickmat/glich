@@ -58,6 +58,8 @@ namespace glich {
         Glich( InOut* inout = nullptr );
         virtual ~Glich();
 
+        virtual void init();
+
         static const char* version();
 
         GlcMarkDataVec get_glc_data() const;
@@ -108,6 +110,7 @@ namespace glich {
         bool module_exists( const std::string& code ) const;
         void remove_module( const std::string& code );
 
+        virtual Mark* create_mark( const std::string& name, Mark* prev );
         void add_or_replace_mark( const std::string& name );
         bool clear_mark( const std::string& name );
         void push_store();

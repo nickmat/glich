@@ -52,6 +52,11 @@ HicGlich::~HicGlich()
     m_lexicons.clear();
 }
 
+void HicGlich::init()
+{
+    m_marks.push_back( new HicMark( "", nullptr ) );
+}
+
 void HicGlich::load_hics_library()
 {
     run_module( "hics:hic_lib" );
@@ -477,6 +482,11 @@ StdStrVec HicGlich::get_scheme_list() const
         }
     }
     return list;
+}
+
+Mark* HicGlich::create_mark( const string& name, Mark* prev )
+{
+    return new HicMark( name, dynamic_cast<HicMark*>(prev) );
 }
 
 bool HicGlich::set_property( const string& property, const string& value )

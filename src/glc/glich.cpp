@@ -41,7 +41,6 @@
 #include "hicGrammar.h"
 #include "hicLexicon.h"
 #include "hicLibScripts.h"
-#include "hicMark.h"
 #include "hicScheme.h"
 
 #include <cassert>
@@ -68,7 +67,6 @@ Glich::Glich( InOut* inout )
     : m_store( new Store ), m_inout( inout ), m_cur_object( nullptr )
 {
     Mark::set_zero_store( m_store );
-    m_marks.push_back( new HicMark( "", nullptr ) );
     if( !m_inout ) {
         m_inout = new InOut;
     }
@@ -132,6 +130,11 @@ Glich::~Glich()
     while( pop_store() );
     delete m_store;
     delete m_inout;
+}
+
+void Glich::init()
+{
+    m_marks.push_back( new Mark( "", nullptr ) );
 }
 
 const char* Glich::version()
@@ -529,6 +532,11 @@ void Glich::remove_module( const string& code )
     m_modules.erase( code );
 }
 
+Mark* Glich::create_mark( const string& name, Mark* prev )
+{
+    return new Mark( name, prev );
+}
+
 void Glich::add_or_replace_mark( const string& name )
 {
     clear_mark( name );
@@ -537,7 +545,7 @@ void Glich::add_or_replace_mark( const string& name )
     if( i >= 0 ) {
         prev = m_marks[i];
     }
-    Mark* mark = new HicMark( name, dynamic_cast<HicMark*>( prev ) );
+    Mark* mark = create_mark( name, prev );
     m_marks.push_back( mark );
 }
 
