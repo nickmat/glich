@@ -983,7 +983,7 @@ SValue glich::HicScript::at_date()
     }
     if( value.type() == SValue::Type::String ) {
         if( sch == nullptr ) {
-            sch = glc().get_ischeme();
+            sch = hic().get_ischeme();
             if( sch == nullptr ) {
                 return SValue::create_error( "No default scheme set." );
             }
@@ -1026,7 +1026,7 @@ SValue HicScript::at_text()
             sch = rec_sch;
         }
         else {
-            sch = glc().get_oscheme();
+            sch = hic().get_oscheme();
         }
         if( sch == nullptr ) {
             if( !scode.empty() ) {
@@ -1112,7 +1112,7 @@ SValue HicScript::at_scheme()
     Field jdn = value.get_field( success );
     if( success ) {
         if( sch == nullptr ) {
-            sch = glc().get_oscheme();
+            sch = hic().get_oscheme();
             if( sch == nullptr ) {
                 return SValue::create_error( no_default_mess );
             }
@@ -1121,7 +1121,7 @@ SValue HicScript::at_scheme()
     }
     if( value.type() == SValue::Type::String ) {
         if( sch == nullptr ) {
-            sch = glc().get_ischeme();
+            sch = hic().get_ischeme();
             if( sch == nullptr ) {
                 return SValue::create_error( no_default_mess );
             }

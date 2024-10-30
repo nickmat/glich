@@ -120,8 +120,6 @@ namespace glich {
         void set_oscheme( Scheme* sch );
         Integer get_integer() const;
         Context get_context() const;
-        Scheme* get_ischeme() const;
-        Scheme* get_oscheme() const;
 
         const Object* set_cur_object( const Object* obj );
         const Object* get_cur_object() const { return m_cur_object; }

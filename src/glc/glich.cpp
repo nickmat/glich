@@ -657,24 +657,6 @@ Context Glich::get_context() const
     return Context::glich;
 }
 
-Scheme* Glich::get_ischeme() const
-{
-    int i = int( m_marks.size() ) - 1;
-    if( i >= 0 ) {
-        return dynamic_cast<HicMark*>(m_marks[i])->get_ischeme();
-    }
-    return nullptr;
-}
-
-Scheme* Glich::get_oscheme() const
-{
-    int i = int( m_marks.size() ) - 1;
-    if( i >= 0 ) {
-        return dynamic_cast<HicMark*>(m_marks[i])->get_oscheme();
-    }
-    return nullptr;
-}
-
 const Object* Glich::set_cur_object( const Object* obj )
 {
     const Object* prev_obj = m_cur_object;

@@ -511,4 +511,22 @@ bool HicGlich::set_property( const string& property, const string& value )
     return Glich::set_property( property, value );
 }
 
+Scheme* HicGlich::get_ischeme() const
+{
+    int i = int( m_marks.size() ) - 1;
+    if( i >= 0 ) {
+        return dynamic_cast<HicMark*>(m_marks[i])->get_ischeme();
+    }
+    return nullptr;
+}
+
+Scheme* HicGlich::get_oscheme() const
+{
+    int i = int( m_marks.size() ) - 1;
+    if( i >= 0 ) {
+        return dynamic_cast<HicMark*>(m_marks[i])->get_oscheme();
+    }
+    return nullptr;
+}
+
 // End of src/hic/hicGlich.cpp
