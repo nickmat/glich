@@ -623,22 +623,6 @@ bool Glich::set_property( const string& property, const string& value )
     return false;
 }
 
-void Glich::set_ischeme( Scheme* sch )
-{
-    int i = int( m_marks.size() ) - 1;
-    if( i >= 0 ) {
-        dynamic_cast<HicMark*>( m_marks[i] )->set_ischeme( sch );
-    }
-}
-
-void Glich::set_oscheme( Scheme* sch )
-{
-    int i = int( m_marks.size() ) - 1;
-    if( i >= 0 ) {
-        dynamic_cast<HicMark*>(m_marks[i])->set_oscheme( sch );
-    }
-}
-
 Integer Glich::get_integer() const
 {
     int i = int( m_marks.size() ) - 1;

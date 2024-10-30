@@ -82,6 +82,8 @@ namespace glich {
         StdStrVec get_scheme_list() const;
 
         bool set_property( const std::string& property, const std::string& value ) override;
+        void set_ischeme( Scheme* sch );
+        void set_oscheme( Scheme* sch );
         Scheme* get_ischeme() const;
         Scheme* get_oscheme() const;
 
