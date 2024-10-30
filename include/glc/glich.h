@@ -107,7 +107,6 @@ namespace glich {
         virtual bool add_module_def( const ModuleDef& def, const std::string& code );
         bool module_exists( const std::string& code ) const;
         void remove_module( const std::string& code );
-        bool add_format( const std::string& code );
         bool add_scheme( Scheme* sch, const std::string& scode );
         Scheme* get_scheme( const std::string& scode );
         DefinedStatus get_scheme_status( const std::string& code ) const;

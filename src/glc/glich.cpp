@@ -539,15 +539,6 @@ void Glich::remove_module( const string& code )
     m_modules.erase( code );
 }
 
-bool Glich::add_format( const string& code )
-{
-    assert( m_marks.size() > 0 );
-    HicMark* mark = dynamic_cast<HicMark*>(m_marks[m_marks.size() - 1]);
-    assert( mark != nullptr );
-    mark->add_format( code );
-    return true;
-}
-
 bool Glich::add_scheme( Scheme* sch, const string& scode )
 {
     string code = "s:" + scode;

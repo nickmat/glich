@@ -415,4 +415,13 @@ DefinedStatus HicGlich::get_grammar_status( const string& code ) const
     return gmr ? DefinedStatus::defined : DefinedStatus::module;
 }
 
+bool HicGlich::add_format( const string& code )
+{
+    assert( m_marks.size() > 0 );
+    HicMark* mark = dynamic_cast<HicMark*>(m_marks[m_marks.size() - 1]);
+    assert( mark != nullptr );
+    mark->add_format( code );
+    return true;
+}
+
 // End of src/hic/hicGlich.cpp

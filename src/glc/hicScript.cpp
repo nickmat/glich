@@ -625,7 +625,7 @@ bool HicScript::do_create_format( const string& code, Grammar* gmr )
         return false;
     }
     if( !in_gmr ) {
-        glc().add_format( code );
+        hic().add_format( code );
     }
     return true;
 }

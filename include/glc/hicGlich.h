@@ -75,6 +75,7 @@ namespace glich {
         void remove_grammar( const std::string& code );
         Grammar* get_grammar( const std::string& code );
         DefinedStatus get_grammar_status( const std::string& code ) const;
+        bool add_format( const std::string& code );
 
     private:
         LexiconMap m_lexicons;
