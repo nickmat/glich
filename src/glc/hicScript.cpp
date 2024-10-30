@@ -128,13 +128,13 @@ bool HicScript::do_scheme()
         error( "Scheme code missing." );
         return false;
     }
-    DefinedStatus status = glc().get_scheme_status( code );
+    DefinedStatus status = hic().get_scheme_status( code );
     if( status == DefinedStatus::defined ) {
         error( "Scheme \"" + code + "\" already exists." );
         return false;
     }
     Scheme* sch = do_create_scheme( code );
-    return glc().add_scheme( sch, code );
+    return hic().add_scheme( sch, code );
 }
 
 bool HicScript::do_lexicon()
@@ -961,7 +961,7 @@ SValue glich::HicScript::at_date()
         sig = quals[0];
     }
     split_code( &scode, &fcode, sig );
-    Scheme* sch = glc().get_scheme( scode );
+    Scheme* sch = hic().get_scheme( scode );
     if( sch == nullptr && !scode.empty() ) {
         return SValue::create_error( "Scheme \"" + scode + "\" not found." );
     }
@@ -1003,7 +1003,7 @@ SValue HicScript::at_text()
         sig = quals[0];
     }
     split_code( &scode, &fcode, sig );
-    Scheme* sch = glc().get_scheme( scode );
+    Scheme* sch = hic().get_scheme( scode );
     Scheme* rec_sch = nullptr;
     if( args.empty() ) {
         return SValue::create_error( "One argument required." );
@@ -1107,7 +1107,7 @@ SValue HicScript::at_scheme()
         sig = quals[0];
     }
     split_code( &scode, &fcode, sig );
-    Scheme* sch = glc().get_scheme( scode );
+    Scheme* sch = hic().get_scheme( scode );
     bool success = false;
     Field jdn = value.get_field( success );
     if( success ) {
@@ -1334,7 +1334,7 @@ SValue HicScript::at_fmt_object()
     }
     sig = quals[0];
     split_code( &scode, &fcode, sig );
-    Scheme* sch = glc().get_scheme( scode );
+    Scheme* sch = hic().get_scheme( scode );
     if( sch == nullptr ) {
         return SValue::create_error( "@fmt:object scheme not found." );
     }
@@ -1362,7 +1362,7 @@ SValue HicScript::at_sch_object()
         return SValue::create_error( "@sch:object requires scheme code." );
     }
     string scode = quals[0];
-    Scheme* sch = glc().get_scheme( scode );
+    Scheme* sch = hic().get_scheme( scode );
     if( sch == nullptr ) {
         return SValue::create_error( "@sch:object scheme not found." );
     }
@@ -1403,7 +1403,7 @@ SValue HicScript::at_sch_list()
 
     SValueVec obj;
     obj.push_back( ":" );
-    StdStrVec scodes = glc().get_scheme_list();
+    StdStrVec scodes = hic().get_scheme_list();
     for( const auto& scode : scodes ) {
         obj.push_back( scode );
     }

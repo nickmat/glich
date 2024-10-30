@@ -107,10 +107,6 @@ namespace glich {
         virtual bool add_module_def( const ModuleDef& def, const std::string& code );
         bool module_exists( const std::string& code ) const;
         void remove_module( const std::string& code );
-        bool add_scheme( Scheme* sch, const std::string& scode );
-        Scheme* get_scheme( const std::string& scode );
-        DefinedStatus get_scheme_status( const std::string& code ) const;
-        StdStrVec get_scheme_list() const;
 
         void add_or_replace_mark( const std::string& name );
         bool clear_mark( const std::string& name );
@@ -119,7 +115,7 @@ namespace glich {
         bool is_level_zero() const;
         std::string read_input( const std::string& prompt ) const;
 
-        bool set_property( const std::string& property, const std::string& value );
+        virtual bool set_property( const std::string& property, const std::string& value );
         void set_ischeme( Scheme* sch );
         void set_oscheme( Scheme* sch );
         Integer get_integer() const;

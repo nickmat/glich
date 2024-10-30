@@ -506,16 +506,6 @@ bool glich::Glich::add_module_def( const ModuleDef& def, const std::string& code
         }
         return true;
     }
-    if( def.m_definition == "scheme" ) {
-        for( auto& sch : def.m_codes ) {
-            if( !add_scheme( nullptr, sch ) ) {
-                return false;
-            }
-            string scode = "s:" + sch;
-            m_object_mods[scode] = code;
-        }
-        return true;
-    }
     return false;
 }
 
@@ -537,51 +527,6 @@ void Glich::remove_module( const string& code )
         m_object_mods.erase( item );
     }
     m_modules.erase( code );
-}
-
-bool Glich::add_scheme( Scheme* sch, const string& scode )
-{
-    string code = "s:" + scode;
-    DefinedStatus status = get_object_status( code );
-    if( status == DefinedStatus::defined ) {
-        delete sch;
-        return false;
-    }
-    if( status == DefinedStatus::none ) {
-        HicMark* mark = dynamic_cast<HicMark*>(m_marks[m_marks.size() - 1]);
-        assert( mark != nullptr );
-        mark->add_scheme( scode );
-    }
-    m_objects[code] = sch;
-    return true;
-}
-
-Scheme* Glich::get_scheme( const string& scode )
-{
-    string ocode = "s:" + scode;
-    DefinedStatus status = get_object_status( ocode );
-    if( status == DefinedStatus::module ) {
-        run_module( m_object_mods[ocode] );
-    }
-    return dynamic_cast<Scheme*>(get_object( ocode ));
-}
-
-DefinedStatus glich::Glich::get_scheme_status( const std::string& code ) const
-{
-    return get_object_status( "s:" + code );
-}
-
-StdStrVec Glich::get_scheme_list() const
-{
-    StdStrVec list;
-    for( auto& pair : m_objects ) {
-        string prefix, code;
-        split_string( prefix, code, pair.first );
-        if( prefix == "s" ) {
-            list.push_back( code );
-        }
-    }
-    return list;
 }
 
 void Glich::add_or_replace_mark( const string& name )
@@ -674,29 +619,6 @@ bool Glich::set_property( const string& property, const string& value )
         }
         m_marks[i]->set_context( ct );
         return true;
-    }
-    string scode, fcode;
-    split_code( &scode, &fcode, value );
-    Scheme* sch = get_scheme( scode );
-    if( sch != nullptr ) {
-        HicMark* mark = dynamic_cast<HicMark*>(m_marks[i]);
-        if( property == "input" ) {
-            mark->set_ischeme( sch );
-            sch->set_input_format( fcode );
-            return true;
-        }
-        if( property == "output" ) {
-            mark->set_oscheme( sch );
-            sch->set_output_format( fcode );
-            return true;
-        }
-        if( property == "inout" ) {
-            mark->set_ischeme( sch );
-            sch->set_input_format( fcode );
-            mark->set_oscheme( sch );
-            sch->set_output_format( fcode );
-            return true;
-        }
     }
     return false;
 }

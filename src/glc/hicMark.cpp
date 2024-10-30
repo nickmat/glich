@@ -92,7 +92,7 @@ void glich::HicMark::get_mark_hic_data( HicMarkData& mark ) const
     }
     for( auto code : m_schemes ) {
         data.name = code;
-        Scheme* sch = glc().get_scheme( code );
+        Scheme* sch = hic().get_scheme( code );
         data.value = sch->get_name();
         mark.sch.push_back( data );
     }

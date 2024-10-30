@@ -76,6 +76,12 @@ namespace glich {
         Grammar* get_grammar( const std::string& code );
         DefinedStatus get_grammar_status( const std::string& code ) const;
         bool add_format( const std::string& code );
+        bool add_scheme( Scheme* sch, const std::string& scode );
+        Scheme* get_scheme( const std::string& scode );
+        DefinedStatus get_scheme_status( const std::string& code ) const;
+        StdStrVec get_scheme_list() const;
+
+        bool set_property( const std::string& property, const std::string& value ) override;
 
     private:
         LexiconMap m_lexicons;
