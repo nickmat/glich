@@ -90,6 +90,8 @@ namespace glich {
         Scheme* get_ischeme() const;
         Scheme* get_oscheme() const;
 
+        std::string get_special_value_string( SpecialValue val ) override;
+
     private:
         LexiconMap m_lexicons;
         StdStrMap m_lexicon_mods;

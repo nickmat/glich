@@ -555,4 +555,19 @@ Scheme* HicGlich::get_oscheme() const
     return nullptr;
 }
 
+string HicGlich::get_special_value_string( SpecialValue val )
+{
+    Context ctx = hic().get_context();
+    switch( val )
+    {
+    case SpecialValue::plus_inf:
+        return (ctx == Context::glich) ? "+infinity" : "future";
+    case SpecialValue::minus_inf:
+        return (ctx == Context::glich) ? "-infinity" : "past";
+    case SpecialValue::unnown:
+        return "?";
+    }
+    return std::string();
+}
+
 // End of src/hic/hicGlich.cpp

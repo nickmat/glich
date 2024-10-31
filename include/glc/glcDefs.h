@@ -117,6 +117,7 @@ namespace glich {
     enum class VariableType { unknown, local, global, constant };
     enum class Integer { number, field };
     enum class Context { glich, hics };
+    enum class SpecialValue { plus_inf, minus_inf, unnown };
 
     enum class GetToken { current, next }; // Was a bool, next=true : current=false
 

@@ -122,6 +122,8 @@ namespace glich {
         Integer get_integer() const;
         Context get_context() const;
 
+        virtual std::string get_special_value_string( SpecialValue val );
+
         const Object* set_cur_object( const Object* obj );
         const Object* get_cur_object() const { return m_cur_object; }
 

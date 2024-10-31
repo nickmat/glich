@@ -649,6 +649,20 @@ Context Glich::get_context() const
     return Context::glich;
 }
 
+string Glich::get_special_value_string( SpecialValue val )
+{
+    switch( val )
+    {
+    case SpecialValue::plus_inf:
+        return "+infinity";
+    case SpecialValue::minus_inf:
+        return "-infinity";
+    case SpecialValue::unnown:
+        return "?";
+    }
+    return std::string();
+}
+
 const Object* Glich::set_cur_object( const Object* obj )
 {
     const Object* prev_obj = m_cur_object;
