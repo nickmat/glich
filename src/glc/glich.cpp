@@ -657,7 +657,7 @@ string Glich::get_special_value_string( SpecialValue val )
         return "+infinity";
     case SpecialValue::minus_inf:
         return "-infinity";
-    case SpecialValue::unnown:
+    case SpecialValue::unknown:
         return "?";
     }
     return std::string();

@@ -564,7 +564,7 @@ string HicGlich::get_special_value_string( SpecialValue val )
         return (ctx == Context::glich) ? "+infinity" : "future";
     case SpecialValue::minus_inf:
         return (ctx == Context::glich) ? "-infinity" : "past";
-    case SpecialValue::unnown:
+    case SpecialValue::unknown:
         return "?";
     }
     return std::string();
