@@ -147,6 +147,10 @@ namespace glich {
         bool is_integer() const { return (m_type == Type::Number || m_type == Type::field); }
 
     private:
+        static std::string get_special_field_string( Field fld );
+        static std::string get_special_range_string( Range rng );
+        static std::string get_special_rlist_string( RList rlist );
+
         Type m_type;
         std::variant<bool, Num, std::string, Range, RList, double, SValueVec> m_data;
     };

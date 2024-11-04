@@ -62,11 +62,11 @@ string SValue::as_string() const
     case Type::Number:
         return std::to_string( std::get<Num>( m_data ) );
     case Type::field:
-        return field_to_string( std::get<Num>( m_data ), context );
+        return get_special_field_string( std::get<Num>( m_data ) );
     case Type::range:
-        return range_to_string( std::get<Range>( m_data ), context );
+        return get_special_range_string( std::get<Range>( m_data ) );
     case Type::rlist:
-        return rlist_to_string( std::get<RList>( m_data ), context );
+        return get_special_rlist_string( std::get<RList>( m_data ) );
     case Type::Float:
         return float_to_string( std::get<double>( m_data ) );
     case Type::Object:
@@ -1531,6 +1531,47 @@ void SValue::compliment()
         return;
     }
     set_error( "Cannot convert to RList." );
+}
+
+string SValue::get_special_field_string( Field fld )
+{
+    switch( fld )
+    {
+    case f_maximum:
+        return glc().get_special_value_string( SpecialValue::plus_inf );
+    case f_minimum:
+        return glc().get_special_value_string( SpecialValue::minus_inf );
+    case f_invalid:
+        return glc().get_special_value_string( SpecialValue::unknown );
+    }
+    return std::to_string( fld );
+}
+
+string SValue::get_special_range_string( Range rng )
+{
+    if( rng.m_beg == rng.m_end ) {
+        return get_special_field_string( rng.m_beg );
+    }
+    return
+        get_special_field_string( rng.m_beg ) + ".." +
+        get_special_field_string( rng.m_end );
+}
+
+string SValue::get_special_rlist_string( RList rlist )
+{
+    if( rlist.empty() ) {
+        return "empty";
+    }
+    std::string str;
+    bool first = true;
+    for( Range rng : rlist ) {
+        if( !first ) {
+            str += " | ";
+        }
+        str += get_special_range_string( rng );
+        first = false;
+    }
+    return str;
 }
 
 
