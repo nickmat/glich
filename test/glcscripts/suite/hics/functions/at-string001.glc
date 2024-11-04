@@ -1,0 +1,7 @@
+// at-string001.glcs  Test string function
+
+write @string( infinity ) nl;
+
+/*[OUTPUT]
+future
+[OUTPUT]*/
