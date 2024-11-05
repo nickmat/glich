@@ -49,9 +49,11 @@ namespace glich {
         void add_format( const std::string& code ) { m_formats.push_back( code ); }
         void add_scheme( const std::string& code ) { m_schemes.push_back( code ); }
 
+        void set_context( Context ct ) { m_context = ct; }
         void set_ischeme( Scheme* sch ) { m_ischeme = sch; }
         void set_oscheme( Scheme* sch ) { m_oscheme = sch; }
 
+        Context get_context() const { return m_context; }
         Scheme* get_ischeme() const { return m_ischeme; }
         Scheme* get_oscheme() const { return m_oscheme; }
 
@@ -62,6 +64,7 @@ namespace glich {
         StdStrVec m_grammars;
         StdStrVec m_formats;
         StdStrVec m_schemes;
+        Context m_context;
         Scheme* m_ischeme;
         Scheme* m_oscheme;
     };

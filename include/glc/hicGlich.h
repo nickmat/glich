@@ -87,6 +87,7 @@ namespace glich {
         bool set_property( const std::string& property, const std::string& value ) override;
         void set_ischeme( Scheme* sch );
         void set_oscheme( Scheme* sch );
+        Context get_context() const;
         Scheme* get_ischeme() const;
         Scheme* get_oscheme() const;
 

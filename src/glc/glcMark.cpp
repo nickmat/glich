@@ -43,11 +43,9 @@ using std::vector;
 
 
 Mark::Mark( const string& name, Mark* prev )
-    : m_name( name ), m_integer( Integer::number ), m_context( Context::glich )
-{
+    : m_name( name ), m_integer( Integer::number ){
     if( prev != nullptr ) {
         m_integer = prev->get_integer();
-        m_context = prev->get_context();
     }
 }
 

@@ -495,11 +495,25 @@ bool HicGlich::set_property( const string& property, const string& value )
     if( i < 0 ) {
         return false;
     }
+    HicMark* mark = dynamic_cast<HicMark*>(m_marks[i]);
+    if( property == "context" ) {
+        Context ct;
+        if( value == "glich" ) {
+            ct = Context::glich;
+        }
+        else if( value == "hics" ) {
+            ct = Context::hics;
+        }
+        else {
+            return false;
+        }
+        mark->set_context( ct );
+        return true;
+    }
     string scode, fcode;
     split_code( &scode, &fcode, value );
     Scheme* sch = get_scheme( scode );
     if( sch != nullptr ) {
-        HicMark* mark = dynamic_cast<HicMark*>(m_marks[i]);
         if( property == "input" ) {
             mark->set_ischeme( sch );
             sch->set_input_format( fcode );
@@ -535,6 +549,15 @@ void HicGlich::set_oscheme( Scheme* sch )
     if( i >= 0 ) {
         dynamic_cast<HicMark*>(m_marks[i])->set_oscheme( sch );
     }
+}
+
+Context HicGlich::get_context() const
+{
+    int i = int( m_marks.size() ) - 1;
+    if( i >= 0 ) {
+        return dynamic_cast<HicMark*>(m_marks[i])->get_context();
+    }
+    return Context::glich;
 }
 
 Scheme* HicGlich::get_ischeme() const

@@ -614,20 +614,6 @@ bool Glich::set_property( const string& property, const string& value )
         m_marks[i]->set_integer( intgr );
         return true;
     }
-    if( property == "context" ) {
-        Context ct;
-        if( value == "glich" ) {
-            ct = Context::glich;
-        }
-        else if( value == "hics" ) {
-            ct = Context::hics;
-        }
-        else {
-            return false;
-        }
-        m_marks[i]->set_context( ct );
-        return true;
-    }
     return false;
 }
 
@@ -638,15 +624,6 @@ Integer Glich::get_integer() const
         return m_marks[i]->get_integer();
     }
     return Integer::number;
-}
-
-Context Glich::get_context() const
-{
-    int i = int( m_marks.size() ) - 1;
-    if( i >= 0 ) {
-        return m_marks[i]->get_context();
-    }
-    return Context::glich;
 }
 
 string Glich::get_special_value_string( SpecialValue val )

@@ -40,9 +40,11 @@ using std::vector;
 
 
 HicMark::HicMark( const string& name, HicMark* prev )
-    : m_ischeme( nullptr ), m_oscheme( nullptr ), Mark( name, prev )
+    : m_ischeme( nullptr ), m_oscheme( nullptr ), m_context( Context::glich )
+    , Mark( name, prev )
 {
     if( prev != nullptr ) {
+        m_context = prev->get_context();
         m_ischeme = prev->get_ischeme();
         m_oscheme = prev->get_oscheme();
     }
