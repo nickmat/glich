@@ -48,7 +48,6 @@ SValue::SValue( const SValue& value )
 
 string SValue::as_string() const
 {
-    Context context = glc().get_context();
     switch( m_type )
     {
     case Type::Null:
