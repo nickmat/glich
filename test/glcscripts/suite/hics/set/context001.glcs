@@ -1,0 +1,11 @@
+// context001.glcs  Test set context statements
+
+set context hics;
+write infinity,;
+set context glich;
+write infinity;
+
+
+/*[OUTPUT]
+future, +infinity
+[OUTPUT]*/
