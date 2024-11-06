@@ -90,19 +90,6 @@ Glich::Glich( InOut* inout )
         { "type", fptr },
         { "object", fptr },
         { "global", fptr },
-        // Hics functions
-        { "date", fptr },
-        { "easter", fptr },
-        { "element", fptr },
-        { "first", fptr },
-        { "fmt:object", fptr },
-        { "last", fptr },
-        { "leapyear", fptr },
-        { "phrase", fptr },
-        { "record", fptr },
-        { "sch:object", fptr },
-        { "scheme", fptr },
-        { "text", fptr }
     };
     
     m_constants = {

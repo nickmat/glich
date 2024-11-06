@@ -27,6 +27,7 @@
 
 #include <glc/hicGlich.h>
 
+#include "glcFunction.h"
 #include "glcValue.h"
 #include "hicDatePhrase.h"
 #include "hicGrammar.h"
@@ -44,6 +45,27 @@ using namespace glich;
 using std::string;
 using std::vector;
 
+
+HicGlich::HicGlich( InOut* inout ) : Glich( inout )
+{
+    // Add dummy built-in functions to avoid redefinition.
+    SpFunction fptr = std::shared_ptr<Function>( new Function( string() ) );
+    SpFunctionMap bi_functions = {  // Hics functions
+        { "date", fptr },
+        { "easter", fptr },
+        { "element", fptr },
+        { "first", fptr },
+        { "fmt:object", fptr },
+        { "last", fptr },
+        { "leapyear", fptr },
+        { "phrase", fptr },
+        { "record", fptr },
+        { "sch:object", fptr },
+        { "scheme", fptr },
+        { "text", fptr }
+    };
+    m_functions.insert( bi_functions.begin(), bi_functions.end() );
+}
 
 HicGlich::~HicGlich()
 {

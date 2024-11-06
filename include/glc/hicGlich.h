@@ -38,7 +38,7 @@ namespace glich {
     class HicGlich : public Glich
     {
     public:
-        HicGlich( InOut* inout = nullptr ) : Glich( inout ) {}
+        HicGlich( InOut* inout = nullptr );
         ~HicGlich();
 
         void init() override;
