@@ -68,7 +68,7 @@ namespace glich {
 
         std::string run_script( const std::string& script );
         std::string run_script_file( const std::string& filename );
-        std::string run_module( const std::string& mod );
+        virtual std::string run_module( const std::string& mod );
         virtual SValue evaluate( const std::string& expression );
         virtual bool run( std::istream& in, std::ostream& out, int line = 1 );
 

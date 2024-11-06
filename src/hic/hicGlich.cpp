@@ -76,6 +76,19 @@ void HicGlich::load_hics_library()
     run_module( "hics:hic_lib" );
 }
 
+string HicGlich::run_module( const string& mod )
+{
+    string run = mod;
+    string location, module;
+    split_string( location, module, run );
+    if( location == "hics" ) {
+        if( hics_default_scripts.count( module ) == 1 ) {
+            return run_script( hics_default_scripts[module] );
+        }
+    }
+    return Glich::run_module( mod );
+}
+
 SValue HicGlich::evaluate( const string& expression )
 {
     std::istringstream iss( expression );

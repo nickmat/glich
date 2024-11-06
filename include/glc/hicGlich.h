@@ -45,6 +45,7 @@ namespace glich {
 
         void load_builtin_library() override;
         void load_hics_library();
+        std::string run_module( const std::string& mod ) override;
 
         SValue evaluate( const std::string& expression ) override;
         bool run( std::istream& in, std::ostream& out, int line = 1 ) override;

@@ -40,7 +40,6 @@
 #include "hicDatePhrase.h"
 #include "hicGrammar.h"
 #include "hicLexicon.h"
-#include "hicLibScripts.h"
 #include "hicScheme.h"
 
 #include <cassert>
@@ -188,12 +187,6 @@ string Glich::run_module( const string& mod )
     split_string( location, module, run );
     if( location == "file" ) {
         return run_script_file( module + ".glcs" );
-    }
-    else if( location == "hics" ) {
-        if( hics_default_scripts.count( module ) == 1 ) {
-            return run_script( hics_default_scripts[module] );
-        }
-        return string(); // Module not found.
     }
     else if( location == "glich" ) {
         return string(); // There are no glich modules yet!
