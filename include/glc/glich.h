@@ -29,7 +29,6 @@
 #define INCLUDE_GLC_GLICH_H_GUARD
 
 #include "glcDefs.h"
-#include "hicDefs.h"
 
 namespace glich {
 

@@ -29,6 +29,7 @@
 #define SRC_GLC_HICSCRIPT_H
 
 #include "glcScript.h"
+#include <glc/hicDefs.h>
 
 namespace glich {
     
