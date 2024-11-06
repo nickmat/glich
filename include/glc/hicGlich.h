@@ -43,6 +43,7 @@ namespace glich {
 
         void init() override;
 
+        void load_builtin_library() override;
         void load_hics_library();
 
         SValue evaluate( const std::string& expression ) override;

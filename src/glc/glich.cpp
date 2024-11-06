@@ -163,14 +163,6 @@ void Glich::load_builtin_library()
             break;
         }
     }
-    for( size_t i = 0; i < hics_builtin_scripts_size; i++ ) {
-        string error = run_script( hics_builtin_scripts[i].script );
-        if( !error.empty() ) {
-            m_init_error += "Module: \"" +
-                string( hics_builtin_scripts[i].module ) + "\"\n" + error;
-            break;
-        }
-    }
 }
 
 string Glich::run_script( const string& script )

@@ -31,6 +31,7 @@
 #include "hicDatePhrase.h"
 #include "hicGrammar.h"
 #include "hicLexicon.h"
+#include "hicLibScripts.h"
 #include "hicScheme.h"
 #include "hicScript.h"
 #include "hicMark.h"
@@ -55,6 +56,19 @@ HicGlich::~HicGlich()
 void HicGlich::init()
 {
     m_marks.push_back( new HicMark( "", nullptr ) );
+}
+
+void HicGlich::load_builtin_library()
+{
+    Glich::load_builtin_library();
+    for( size_t i = 0; i < hics_builtin_scripts_size; i++ ) {
+        string error = run_script( hics_builtin_scripts[i].script );
+        if( !error.empty() ) {
+            m_init_error += "Module: \"" +
+                string( hics_builtin_scripts[i].module ) + "\"\n" + error;
+            break;
+        }
+    }
 }
 
 void HicGlich::load_hics_library()

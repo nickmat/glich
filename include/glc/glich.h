@@ -64,7 +64,7 @@ namespace glich {
 
         GlcMarkDataVec get_glc_data() const;
 
-        void load_builtin_library();
+        virtual void load_builtin_library();
 
         std::string run_script( const std::string& script );
         std::string run_script_file( const std::string& filename );
