@@ -37,10 +37,6 @@
 #include "glcScript.h"
 #include "glcValue.h"
 #include "glcVersion.h"
-#include "hicDatePhrase.h"
-#include "hicGrammar.h"
-#include "hicLexicon.h"
-#include "hicScheme.h"
 
 #include <cassert>
 #include <fstream>
