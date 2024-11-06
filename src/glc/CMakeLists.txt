@@ -53,7 +53,6 @@ set( GLC_SOURCES
     hicRecord.cpp
     hicRomanNum.cpp
     hicScheme.cpp
-    hicScript.cpp
 )
 
 set( GLC_HEADERS
@@ -105,7 +104,6 @@ set( GLC_HEADERS
     hicRecord.h
     hicRomanNum.h
     hicScheme.h
-    hicScript.h
 )
 
 add_library( glc ${GLC_SOURCES} ${GLC_HEADERS} )

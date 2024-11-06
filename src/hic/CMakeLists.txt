@@ -12,12 +12,14 @@ set( HIC_SOURCES
     hic.cpp
     hicGlich.cpp
     hicMark.cpp
+    hicScript.cpp
 )
 
 set( HIC_HEADERS
     ../../include/glc/hic.h
     ../../include/glc/hicGlich.h
     hicMark.h
+    hicScript.h
 )
 
 include_directories( ../glc )
