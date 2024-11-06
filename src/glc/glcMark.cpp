@@ -33,8 +33,6 @@
 #include "glcFunction.h"
 #include "glcObject.h"
 
-#include "hicScheme.h" // <<======<<<< REMOVE!!
-
 #include <cassert>
 
 using namespace glich;
