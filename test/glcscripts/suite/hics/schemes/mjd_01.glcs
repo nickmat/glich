@@ -1,0 +1,30 @@
+// mjd_01.glcs  -  Test mjd scheme
+
+grammar D {
+    fields day;
+    format d "{day}";
+    preferred d;
+}
+
+scheme MJD {
+    name "Modified Julian Day";
+    base jdn day:2400001;
+    grammar D;
+}
+
+let d = 2460622;
+let t = "60621";
+let s = {s:MJD 60621};
+
+write nl;
+write @text.MJD(d), @scheme.MJD(d) nl;
+write @date.MJD(t), @scheme.MJD(t) nl;
+write @text.MJD(s), @date.MJD(s) nl;
+
+/*[OUTPUT]
+
+60621, {s:MJD 60621}
+2460622, {s:MJD 60621}
+60621, 2460622
+
+[OUTPUT]*/
