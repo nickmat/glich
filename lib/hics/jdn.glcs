@@ -38,4 +38,18 @@ scheme jdn {
     grammar d;
 }
 
+scheme mjd {
+    name "Modified Julian Day";
+    base jdn day:2400001;
+    grammar d;
+    visible no;
+}
+
+scheme rd {
+    name "Rata Die";
+    base jdn day:1721425;
+    grammar d;
+    visible no;
+}
+
 // End of scripts/jdn.hcs file

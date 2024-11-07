@@ -1,4 +1,4 @@
-/* ../../src/glc/hicLibScripts.cpp - File created by file2cpp 1.0.0 */
+/* ../../src/hic/hicLibScripts.cpp - File created by file2cpp 1.0.0 */
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Name:        lib/hics/hicScripts.f2c
@@ -53,7 +53,7 @@ glich::StdStrMap glich::hics_default_scripts = {
  "set context hics;\n"
  "module hics:jdn {\n"
  "grammar d;\n"
- "scheme jdn;\n"
+ "scheme jdn mjd rd;\n"
  "}\n"
  "module hics:week {\n"
  "lexicon w ws;\n"
@@ -124,6 +124,18 @@ glich::StdStrMap glich::hics_default_scripts = {
  "name \"Julian Day Number\";\n"
  "base jdn;\n"
  "grammar d;\n"
+ "}\n"
+ "scheme mjd {\n"
+ "name \"Modified Julian Day\";\n"
+ "base jdn day:2400001;\n"
+ "grammar d;\n"
+ "visible no;\n"
+ "}\n"
+ "scheme rd {\n"
+ "name \"Rata Die\";\n"
+ "base jdn day:1721425;\n"
+ "grammar d;\n"
+ "visible no;\n"
  "}\n" },
     { "week",  /* week.glcs */
  "lexicon w {\n"
