@@ -30,6 +30,7 @@ set( HIC_SOURCES
     hicIslamic.cpp
     hicIsoOrdinal.cpp
     hicIsoWeek.cpp
+    hicJdn.cpp
     hicJulian.cpp
     hicJwn.cpp
     hicLexicon.cpp
