@@ -1,0 +1,18 @@
+// rd-001.glcs  -  Test rd scheme
+
+let d = 2460622;
+let t = "739197";
+let s = {s:rd 739197};
+
+write nl;
+write @text.rd(d), @scheme.rd(d) nl;
+write @date.rd(t), @scheme.rd(t) nl;
+write @text.rd(s), @date.rd(s) nl;
+
+/*[OUTPUT]
+
+739197, {s:rd 739197}
+2460622, {s:rd 739197}
+739197, 2460622
+
+[OUTPUT]*/
