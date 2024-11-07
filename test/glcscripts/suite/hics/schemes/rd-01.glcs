@@ -1,0 +1,30 @@
+// rd_01.glcs  -  Test rd scheme
+
+grammar D {
+    fields day;
+    format d "{day}";
+    preferred d;
+}
+
+scheme RD {
+    name "Rata Die";
+    base jdn day:1721425;
+    grammar D;
+}
+
+let d = 2460622;
+let t = "739197";
+let s = {s:RD 739197};
+
+write nl;
+write @text.RD(d), @scheme.RD(d) nl;
+write @date.RD(t), @scheme.RD(t) nl;
+write @text.RD(s), @date.RD(s) nl;
+
+/*[OUTPUT]
+
+739197, {s:RD 739197}
+2460622, {s:RD 739197}
+739197, 2460622
+
+[OUTPUT]*/
