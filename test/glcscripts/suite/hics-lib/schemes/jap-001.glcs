@@ -1,14 +1,14 @@
-// jap-001.hcs - Test @date function  within scheme statement.
+// jap-002.hcs - Test jap scheme.
 
-scheme JAP {
-    base julian;
-    epoch @date.j:dmy("25 Mar 0");
-    grammar { calculated cyear; use epoch; }
-}
-
-write @scheme.JAP( 2460595 );
-
+write nl;
+write @text.jap:dmy( 2460176 ) nl;
+write @text.jap:dmy( 2460176 .. 2460186 ) nl;
+write @text.jap:dmy( 2460176 | 2460186 ) nl;
 
 /*[OUTPUT]
-{s:JAP 2024, 9, 28, 2025}
+
+6 Aug 2024/3
+6 Aug 2024/3..16 Aug 2024/3
+6 Aug 2024/3 | 16 Aug 2024/3
+
 [OUTPUT]*/
