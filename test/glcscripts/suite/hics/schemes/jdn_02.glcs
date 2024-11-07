@@ -7,7 +7,6 @@ scheme JDN {
 }
 
 
-*/
 /*[OUTPUT]
 Error (6): Grammar "D" not found.
 
