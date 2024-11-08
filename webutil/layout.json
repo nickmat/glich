@@ -42,6 +42,8 @@
         ]},
         { "folder": "defs", "name": "index", "label": "Hics Library", "subtitle": "Hics Library Calendar Index", "menu": false, "css": "big-list", "content": [
           { "name": "jdn", "subtitle": "jdn - Julian Day Number", "map-label": false },
+          { "name": "mjd", "subtitle": "mjd - Modified Julian Day", "map-label": false },
+          { "name": "rd", "subtitle": "rd - Rata Die", "map-label": false },
           { "name": "jwn", "subtitle": "jwn - Julian Week Number", "map-label": false },
           { "name": "jwsn", "subtitle": "jwsn - Julian Week (Sunday) Number", "map-label": false },
           { "name": "j", "subtitle": "j - Julian", "map-label": false },
