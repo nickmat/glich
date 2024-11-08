@@ -1,0 +1,63 @@
+// jdn-001.glcs  Create jdn scheme format table.
+
+let sch = "jdn";
+
+let d1 = 2459984;
+
+let so = @sch:object.(sch);
+let sfl = so[formats];
+let size = @size( sfl );
+
+write nl;
+write "<table class='basic data'>" nl;
+write "<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>" nl;
+
+let index = 0;
+do
+    let fmt = sfl[(index)];
+    let sig = sch + ":" + fmt;
+    let fo = @fmt:object.(sig);
+    let note = @if(fo[visible], "", "H");
+    if so[default:in] = fmt or so[default:out] = fmt
+        if @size( note ) > 0
+            note += ", ";
+        endif
+        note += "D";
+    endif
+    /* // shorthand input not relevant for day count. 
+    if fo[shorthand]
+        if @size( note ) > 0
+            note += ", ";
+        endif
+        note += "S";
+    endif
+    */
+        
+    let row = "<tr><td><b>" + fo[code] + "</b></td>"
+      + "<td>" +fo[rules] + "</td>"
+      + "<td>" + fo[pseudo:in] + "</td>"
+      + "<td>" + fo[pseudo:out] + "</td>"
+      + "<td class='example'>" + @text.(sig)(d1) + "</td>"
+      + "<td>" + note + "</td></tr>";
+
+    write row nl;
+
+    index += 1;
+    until index = size;
+loop
+
+write "<tr><td colspan='6'>Notes: D = Default, H = Hidden</td></tr>" nl;
+write "</table>" nl;
+
+
+/*[OUTPUT]
+
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>d</b></td><td>text</td><td>day</td><td>ddddddd</td><td class='example'>2459984</td><td>D</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>day</td><td>ddddddd</td><td class='example'>2459984</td><td>H</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9d</td><td>9d</td><td class='example'>2459984d</td><td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden</td></tr>
+</table>
+
+[OUTPUT]*/
