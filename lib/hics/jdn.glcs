@@ -25,9 +25,10 @@
 */
 
 grammar d {
-    name "Day Number";
+    name "Day Count";
     fields day;
-    alias pseudo { ddddd day; }
+    alias pseudo { ddddddd day; }
+    alias unit { d day; }
     format d "{day}";
     preferred d;
 }

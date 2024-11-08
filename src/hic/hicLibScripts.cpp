@@ -114,9 +114,10 @@ glich::StdStrMap glich::hics_default_scripts = {
  "set inout g;\n" },
     { "jdn",  /* jdn.glcs */
  "grammar d {\n"
- "name \"Day Number\";\n"
+ "name \"Day Count\";\n"
  "fields day;\n"
- "alias pseudo { ddddd day; }\n"
+ "alias pseudo { ddddddd day; }\n"
+ "alias unit { d day; }\n"
  "format d \"{day}\";\n"
  "preferred d;\n"
  "}\n"
