@@ -38,33 +38,26 @@
  Julian Astronomical Days) but the time element is missing and the day is
  considered to start at midnight.
 </p>
-<div class='p'>
+<p>
  Note that the terms "Julian Day Number", "Julian Day" and "Julian Astronomical
  Day" are often used interchangeably in the academic world. However, this
- project will use the term "Julian Day Number" (signature <b>jdn</b>) to
+ project will use the term "Julian Day Number" (code <b>jdn</b>) to
  describe the above definition of the calendar and the term "Julian Day"
- (signature <b>jd</b>) to describe the more common academic definition, where
- the day begins at midday.
- Thus:-
- <table class='rec-value'>
-   <tr><td rowspan='2' class='sig'>jdn</td><th>day</th></tr>
-   <tr class='value'><td><span class='var'>x</span></td></tr>
- </table>
- =
- <table class='rec-value'>
-   <tr><td rowspan='2' class='sig'>jd</td><th>day</th></tr>
-   <tr class='value'><td><span class='var'>x</span> - 0.5</td></tr>
- </table>.
-</div>
+ to describe the more common academic definition,
+ where the day begins at midday.
+</p>
 
 <h3>Use Case</h3>
 <p>
  There is no known historical use of calendar, although the Julian Day scheme,
  on which it is based, has been in use by the scientific community,
- particularly astronomers, for many years. Its main purpose is as the
- intermediate and standard date value used internally by the Glich hics extension.
- It may also be used as the base for other day count calendar types.
- It is also used to input date values in a Glich script.
+ particularly astronomers, for many years.
+</p>
+<p>
+ It is used as the intermediate date value internally by the Glich hics extension.
+</p>
+<p>
+ It is also be used as the base for other day count calendar types.
 </p>
 
 <h3>Definition</h3>
@@ -82,8 +75,8 @@
  The Julian Day Number calendar is the same as that used by the internal hics library,
  so its definition in terms of itself is not helpful.
  Instead, it is defined by a day in history.
- The date chosen is the day the "Convention du Mètre" was signed, the 20th May 1875 Gregorian
- This is also selected as the reference date by the ISO-8601 standard.
+ The date chosen is the same as that referenced by the ISO-8601 standard,
+ namely the day the "Convention du Mètre" was signed, the 20th May 1875 Gregorian.
 </p>
 <div class='p'>
  By definition,
@@ -102,25 +95,27 @@
 <p>
  The formats supplied with this scheme.
 </p>
+
 <table class='basic data'>
-<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></Note></tr>
-<tr><td><b>u</b></td><td>unit</td><td>9day</td><td>9day</td><td class='example'>2459984</td><td>Hidden</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>day</td><td>ddddd</td><td class='example'>2459984</td><td>Hidden</td></tr>
-<tr><td><b>d</b></td><td>text</td><td>day</td><td>ddddd</td><td class='example'>2459984</td><td></td></tr>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>d</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>2459984</td><td>D</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>2459984</td><td>H</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9d</td><td>9d</td><td class='example'>2459984d</td><td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden</td></tr>
 </table>
 
 <h3>Script</h3>
 <table class='code lfloat'>
-<tr><th>Default Script</th></tr>
+<tr><th>Default Script - Module hics:jdn</th></tr>
 <tr><td
 >grammar d {
-    name "Day Number";
+    name "Day Count";
     fields day;
-    alias pseudo { ddddd day; }
+    alias pseudo { dddd day; }
+    alias unit { d day; }
     format d "{day}";
     preferred d;
 }
-
 scheme jdn {
     name "Julian Day Number";
     base jdn;
@@ -128,12 +123,6 @@ scheme jdn {
 }
 </td></tr>
 </table>
-<p>
- Although this calendar has no historical uses,
- it is included in the hics library because it is used as the intermediate form
- when converting between other calendars.
- It may also be used to derive other day count calendars.
-</p>
 <p>
  The script has no dependencies.
 </p>
