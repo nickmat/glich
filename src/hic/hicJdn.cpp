@@ -44,7 +44,7 @@ void glich::Jdn::cal_data( const std::string& word )
 {
     string code, tail;
     split_code( &code, &tail, word );
-    if( code == "day" ) {
+    if( code == "epoch" ) {
         m_day_offset = str_to_field( tail );
     }
     else {
