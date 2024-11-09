@@ -27,7 +27,7 @@
 grammar d {
     name "Day Count";
     fields day;
-    alias pseudo { ddddddd day; }
+    alias pseudo { dddd day; }
     alias unit { d day; }
     format d "{day}";
     preferred d;
@@ -41,14 +41,14 @@ scheme jdn {
 
 scheme mjd {
     name "Modified Julian Day";
-    base jdn day:2400001;
+    base jdn epoch:2400001;
     grammar d;
     visible no;
 }
 
 scheme rd {
     name "Rata Die";
-    base jdn day:1721425;
+    base jdn epoch:1721425;
     grammar d;
     visible no;
 }
