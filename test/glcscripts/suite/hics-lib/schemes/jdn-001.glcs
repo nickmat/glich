@@ -54,8 +54,8 @@ write "</table>" nl;
 
 <table class='basic data'>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
-<tr><td><b>d</b></td><td>text</td><td>day</td><td>ddddddd</td><td class='example'>2459984</td><td>D</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>day</td><td>ddddddd</td><td class='example'>2459984</td><td>H</td></tr>
+<tr><td><b>d</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>2459984</td><td>D</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>2459984</td><td>H</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9d</td><td>9d</td><td class='example'>2459984d</td><td>H</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden</td></tr>
 </table>
