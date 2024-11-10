@@ -8,7 +8,7 @@ grammar D {
 
 scheme MJD {
     name "Modified Julian Day";
-    base jdn epoch:2400001;
+    base jdn epoch:2400002;
     grammar D;
 }
 

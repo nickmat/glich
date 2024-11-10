@@ -8,7 +8,7 @@ grammar D {
 
 scheme RD {
     name "Rata Die";
-    base jdn epoch:1721425;
+    base jdn epoch:1721426;
     grammar D;
 }
 
