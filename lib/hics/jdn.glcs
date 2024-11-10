@@ -41,14 +41,14 @@ scheme jdn {
 
 scheme mjd {
     name "Modified Julian Day";
-    base jdn epoch:2400001;
+    base jdn epoch:2400002;
     grammar d;
     visible no;
 }
 
 scheme rd {
     name "Rata Die";
-    base jdn epoch:1721425;
+    base jdn epoch:1721426; // g:dmy# 1 Jan 1J
     grammar d;
     visible no;
 }
