@@ -31,7 +31,84 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Page Under Construction</h2>
+<h2>Calendar Description</h2>
+<p>
+ The Modified Julian Day Number calendar is a variation of the Julian Astronomical Day.
+ It is more convenient when referencing recent dates as it requires fewer digits.
+ The day starts at midnight, in contrast to the Julian Astronomical Day where it starts at midday.
+</p>
+<p>
+ Because this calendar scheme has limited historical value,
+ its visibility is set at hidden.
+</p>
+
+<h3>Use Case</h3>
+<p>
+ There is no known historical use of calendar, although the Julian Day scheme,
+ on which it is based, has been in use by the scientific community,
+ particularly astronomers, for many years.
+</p>
+
+<h3>Definition</h3>
+<p>
+ Days start at midnight.
+</p>
+<p>
+ The <b>Record</b> consists of a single <b>Field</b> named <code>day.</code>
+</p>
+<table class='record'>
+<tr><th>Record</th></tr>
+<tr><td>day</td></tr>
+</table>
+<p class='lclear'>
+ The Julian Day Number calendar is the same as that used by the internal hics library,
+ so its definition in terms of itself is not helpful.
+ Instead, it is defined by a day in history.
+ The date chosen is the same as that referenced by the ISO-8601 standard,
+ namely the day the "Convention du Mètre" was signed, the 20th May 1875 Gregorian.
+</p>
+<div class='p'>
+The Epoch is set at
+ <table class='rec-value'>
+   <tr><td rowspan='2' class='sig'>mjd</td><th>day</th></tr>
+   <tr class='value'><td>1</td></tr>
+ </table>
+ =
+ <table class='rec-value'>
+   <tr><td rowspan='2' class='sig'>jdn</td><th>day</th></tr>
+   <tr class='value'><td>2400002</td></tr>
+ </table>
+</div>
+
+<h3>Formats</h3>
+<p>
+ The formats supplied with this scheme.
+</p>
+
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>d</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>50138</td><td>D</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>50138</td><td>H</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9d</td><td>9d</td><td class='example'>50138d</td><td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden</td></tr>
+</table>
+
+<h3>Script</h3>
+<table class='code lfloat'>
+<tr><th>Default Script - Module hics:jdn</th></tr>
+<tr><td
+>scheme mjd {
+    name "Modified Julian Day";
+    base jdn epoch:2400002;
+    grammar d;
+    visible no;
+}
+</td></tr>
+</table>
+<p>
+ It uses the <b>grammar</b> "d" day count definition from
+ <a href='jdn.htm'><b>jdn</b> Julian</a> also in the module hics:jdn.
+</p>
 
 </div><!--id=content-->
 
