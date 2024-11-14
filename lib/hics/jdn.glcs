@@ -48,7 +48,7 @@ scheme mjd {
 
 scheme rd {
     name "Rata Die";
-    base jdn epoch:1721426; // g:dmy# 1 Jan 1J
+    base jdn epoch:1721426; // g:dmy# 1 Jan 1
     grammar d;
     visible no;
 }
