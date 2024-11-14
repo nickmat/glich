@@ -33,7 +33,7 @@
 
 <h2>Calendar Description</h2>
 <p>
- The Modified Julian Day Number calendar is a variation of the Julian Astronomical Day.
+ The Modified Julian Day calendar is a variation of the Julian Astronomical Day.
  It is more convenient when referencing recent dates as it requires fewer digits.
  The day starts at midnight, in contrast to the Julian Astronomical Day where it starts at midday.
 </p>
@@ -61,12 +61,8 @@
 <tr><td>day</td></tr>
 </table>
 <p class='lclear'>
- The Julian Day Number calendar is the same as that used by the internal hics library,
- so its definition in terms of itself is not helpful.
- Instead, it is defined by a day in history.
- The date chosen is the same as that referenced by the ISO-8601 standard,
- namely the day the "Convention du Mètre" was signed, the 20th May 1875 Gregorian.
-</p>
+ The Modified Julian Day calendar is equal to the Julian Day Number <b>jdn</b> - 2400001.
+ </p>
 <div class='p'>
 The Epoch is set at
  <table class='rec-value'>
@@ -90,7 +86,8 @@ The Epoch is set at
 <tr><td><b>d</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>50138</td><td>D</td></tr>
 <tr><td><b>def</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>50138</td><td>H</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9d</td><td>9d</td><td class='example'>50138d</td><td>H</td></tr>
-<tr><td colspan='6'>Notes: D = Default, H = Hidden</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden
+Example based on jdn# 2450139</td></tr>
 </table>
 
 <h3>Script</h3>
