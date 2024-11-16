@@ -31,14 +31,12 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Calendar Description</h2>
+<h2>Calendar Description - Scheme jwn</h2>
 <p>
- The Julian Week Number calendar scheme does not have any known historical value.
- The week field number has some value when considering week differences and ranges.
- It is included for completeness and its visibility is set at hidden.
+ The <b>Julian Week Number</b> is a count of weeks,
+ just as the <a href='jdn.htm'><b>Julian Day Number</b></a> is a count of days.
+ It is based on the first day of the week being a Monday.
 </p>
-
-<h3>Use Case</h3>
 <p>
  The seven day week is thought to have originated in ancient Babylonia around 600 BCE.
  The day of the week is used with the Julian, Gregorian, Hebrew, Islamic and other calendars.
@@ -58,10 +56,25 @@
  It is commonly used with the Julian, Gregorian calendars and variants.
  They use the optional field <code>wday</code>.
 </p>
+<p>
+ Because this calendar scheme has limited historical value,
+ its visibility is set at hidden.
+</p>
+
+<h3>Use Case</h3>
+<p>
+ It is commonly used with the Julian and Gregorian calendars and variants.
+ They use the optional field <code>wday</code>.
+</p>
+<p>
+ The week field number has some value when considering week differences and ranges.
+ It can also be used with modular arithmetic to create regular weekly intervals.
+</p>
 
 <h3>Definition</h3>
+
 <table class='basic data rfloat'>
-<tr><th colspan='3'>Week Names</th></tr>
+<tr><th colspan='3'>Week Names - Lexicon w</th></tr>
 <tr><th rowspan='2'>Number</th><th colspan='2'>Name</th></tr>
 <tr><th>Full</th><th>Abrev.</th></tr>
 <tr><td>1</td><td>Monday</td><td>Mon</td></tr>
@@ -106,7 +119,9 @@
 <p>
  The formats supplied with this scheme.
 </p>
+
 <table class='basic data'>
+<tr><th colspan='6'>Formats - Grammar jwn</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
 <tr><td><b>wd</b></td><td>text</td><td>week day</td><td>wwwww d</td><td class='example'>351518 6</td><td>S</td></tr>
 <tr><td><b>wday</b></td><td>text</td><td>week day</td><td>wwwww Wday</td><td class='example'>351518 Sat</td><td>D, S</td></tr>
@@ -119,7 +134,7 @@ Example based on jdn# 2460631</td></tr>
 
 <h3>Script</h3>
 <table class='code lfloat'>
-<tr><th>Default Script - Module hics:week</th></tr>
+<tr><th>Script - Module hics:week</th></tr>
 <tr><td
 >lexicon w {
     name "Weekday names Monday start";
