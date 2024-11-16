@@ -1,0 +1,65 @@
+// jwn-003.glcs  Create jwn scheme format table.
+
+let sch = "jwn";
+
+let d1 = 2460631;
+
+let so = @sch:object.(sch);
+let sfl = so[formats];
+let size = @size( sfl );
+
+write nl;
+write "<table class='basic data'>" nl;
+write "<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>" nl;
+
+let index = 0;
+do
+    let fmt = sfl[(index)];
+    let sig = sch + ":" + fmt;
+    let fo = @fmt:object.(sig);
+    let note = @if(fo[visible], "", "H");
+    if so[default:in] = fmt or so[default:out] = fmt
+        if @size( note ) > 0
+            note += ", ";
+        endif
+        note += "D";
+    endif
+    if fo[shorthand]
+        if @size( note ) > 0
+            note += ", ";
+        endif
+        note += "S";
+    endif
+        
+    let row = "<tr><td><b>" + fo[code] + "</b></td>"
+      + "<td>" +fo[rules] + "</td>"
+      + "<td>" + fo[pseudo:in] + "</td>"
+      + "<td>" + fo[pseudo:out] + "</td>"
+      + "<td class='example'>" + @text.(sig)(d1) + "</td>"
+      + "<td>" + note + "</td></tr>";
+
+    write row nl;
+
+    index += 1;
+    until index = size;
+loop
+
+write "<tr><td colspan='6'>Notes: D = Default, H = Hidden" nl;
+write "Example based on jdn# " + d1 + "</td></tr>" nl;
+write "</table>" nl;
+
+
+/*[OUTPUT]
+
+<table class='basic data'>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>wd</b></td><td>text</td><td>week day</td><td>wwwww d</td><td class='example'>351518 6</td><td>S</td></tr>
+<tr><td><b>wday</b></td><td>text</td><td>week day</td><td>wwwww Wday</td><td class='example'>351518 Sat</td><td>D, S</td></tr>
+<tr><td><b>wday+</b></td><td>text</td><td>week day</td><td>wwwww Weekday</td><td class='example'>351518 Saturday</td><td>S</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>week day</td><td>wwwww d</td><td class='example'>351518 6</td><td>H, S</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9w 9d</td><td>9w 9d</td><td class='example'>351518w 6d</td><td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden
+Example based on jdn# 2460631</td></tr>
+</table>
+
+[OUTPUT]*/
