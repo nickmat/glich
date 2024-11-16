@@ -10,6 +10,7 @@ let size = @size( sfl );
 
 write nl;
 write "<table class='basic data'>" nl;
+write "<tr><th colspan='6'>Formats - Grammar jwn</th></tr>" nl;
 write "<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>" nl;
 
 let index = 0;
@@ -44,7 +45,7 @@ do
     until index = size;
 loop
 
-write "<tr><td colspan='6'>Notes: D = Default, H = Hidden" nl;
+write "<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported." nl;
 write "Example based on jdn# " + d1 + "</td></tr>" nl;
 write "</table>" nl;
 
