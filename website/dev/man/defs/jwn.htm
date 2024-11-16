@@ -35,7 +35,7 @@
 <p>
  The Julian Week Number calendar scheme does not have any known historical value.
  The week field number has some value when considering week differences and ranges.
- It is included for completeness and has the style value set at 'hidden'.
+ It is included for completeness and its visibility is set at hidden.
 </p>
 
 <h3>Use Case</h3>
@@ -46,8 +46,9 @@
 <p>
  There are more than one way of numbering the week days.
  If the scheme only uses text names for the week days,
- any numbering system can be used since they are not normally visible.
- However, some calendars routinely use the weekday number
+ any numbering system can be used since the numbers are not normally visible.
+ However, some calendars put significance on the first day of the week
+ or routinely use the weekday number
  (i.e. ISO, Hebrew and Islamic calendars)
  and so the numbering system can be selected depending on how the scheme is specified.
 </p>
@@ -60,14 +61,16 @@
 
 <h3>Definition</h3>
 <table class='basic data rfloat'>
-<tr><th>day</th><th>Name</th></tr>
-<tr><td>1</td><td>Monday</td></tr>
-<tr><td>2</td><td>Tuesday</td></tr>
-<tr><td>3</td><td>Wednesday</td></tr>
-<tr><td>4</td><td>Thursday</td></tr>
-<tr><td>5</td><td>Friday</td></tr>
-<tr><td>6</td><td>Saturday</td></tr>
-<tr><td>7</td><td>Sunday</td></tr>
+<tr><th colspan='3'>Week Names</th></tr>
+<tr><th rowspan='2'>Number</th><th colspan='2'>Name</th></tr>
+<tr><th>Full</th><th>Abrev.</th></tr>
+<tr><td>1</td><td>Monday</td><td>Mon</td></tr>
+<tr><td>2</td><td>Tuesday</td><td>Tue</td></tr>
+<tr><td>3</td><td>Wednesday</td><td>Wed</td></tr>
+<tr><td>4</td><td>Thursday</td><td>Thur</td></tr>
+<tr><td>5</td><td>Friday</td><td>Fri</td></tr>
+<tr><td>6</td><td>Saturday</td><td>Sat</td></tr>
+<tr><td>7</td><td>Sunday</td><td>Sun</td></tr>
 </table>
 
 <p>
@@ -105,16 +108,18 @@
 </p>
 <table class='basic data'>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
-<tr><td><b>u</b></td><td>unit</td><td>9w 9d</td><td>9w 9d</td><td class='example'>351426w 3d</td><td>Hidden</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>week day</td><td>wwwww d</td><td class='example'>351426 3</td><td>Hidden</td></tr>
-<tr><td><b>wd</b></td><td>text</td><td>week day</td><td>wwwww d</td><td class='example'>351426 3</td><td></td></tr>
-<tr><td><b>wday</b></td><td>text</td><td>week day</td><td>wwwww Wday</td><td class='example'>351426 Wed</td><td></td></tr>
-<tr><td><b>wday+</b></td><td>text</td><td>week day</td><td>wwwww Weekday</td><td class='example'>351426 Wednesday</td><td></td></tr>
+<tr><td><b>wd</b></td><td>text</td><td>week day</td><td>wwwww d</td><td class='example'>351518 6</td><td>S</td></tr>
+<tr><td><b>wday</b></td><td>text</td><td>week day</td><td>wwwww Wday</td><td class='example'>351518 Sat</td><td>D, S</td></tr>
+<tr><td><b>wday+</b></td><td>text</td><td>week day</td><td>wwwww Weekday</td><td class='example'>351518 Saturday</td><td>S</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>week day</td><td>wwwww d</td><td class='example'>351518 6</td><td>H, S</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9w 9d</td><td>9w 9d</td><td class='example'>351518w 6d</td><td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
+Example based on jdn# 2460631</td></tr>
 </table>
 
 <h3>Script</h3>
 <table class='code lfloat'>
-<tr><th>Default Script</th></tr>
+<tr><th>Default Script - Module hics:week</th></tr>
 <tr><td
 >lexicon w {
     name "Weekday names Monday start";
@@ -131,7 +136,6 @@
         7, "Sunday",    "Sun";
     }
 }
-
 grammar jwn {
     name "Julian Week Number (Monday)";
     fields week day;
@@ -144,13 +148,13 @@ grammar jwn {
     format "wday+", "{week}| {day:w}";
     preferred wday;
 }
-
 scheme jwn {
     name "Julian Week Number";
     base jwn;
     grammar jwn;
-    style hidden;
-}</td></tr>
+    visible no;
+}
+</td></tr>
 </table>
 <p>
  The script has no dependencies.
