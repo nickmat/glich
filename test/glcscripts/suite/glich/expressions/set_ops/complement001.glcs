@@ -1,6 +1,6 @@
 // complement001.glcs
 
-write !!infinity, !!-infinity;
+write !infinity, !-infinity;
 
 
 /*[OUTPUT]

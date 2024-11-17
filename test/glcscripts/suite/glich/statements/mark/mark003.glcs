@@ -2,7 +2,7 @@
 
 let a = 1;
 let b = infinity;
-let c = !!empty;
+let c = !empty;
 write nl;
 write b, c, @type(a) nl;
 

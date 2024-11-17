@@ -4,9 +4,9 @@ let a = 25..20 | 16..11;
 
 let b = 25..+infinity | -infinity..11;
 
-let c = !!empty;
+let c = !empty;
 
-let d = !!(-infinity..+infinity);
+let d = !(-infinity..+infinity);
 
 write a +", "+ b +", "+ c +", "+ d;
 
