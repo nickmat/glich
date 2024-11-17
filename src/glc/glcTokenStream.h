@@ -61,7 +61,7 @@ namespace glich {
             INTERSECTION = DblAmpersand,
             REL_COMPLEMENT = DblBackslash,
             SYM_DIFFERENCE = DblCarrot,
-            COMPLEMENT = DblExclamation
+            COMPLEMENT = Exclamation
         };
 
         SToken() : m_type(Type::End) {}
