@@ -53,13 +53,14 @@ write "</table>" nl;
 /*[OUTPUT]
 
 <table class='basic data'>
+<tr><th colspan='6'>Formats - Grammar jwn</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
 <tr><td><b>wd</b></td><td>text</td><td>week day</td><td>wwwww d</td><td class='example'>351518 6</td><td>S</td></tr>
 <tr><td><b>wday</b></td><td>text</td><td>week day</td><td>wwwww Wday</td><td class='example'>351518 Sat</td><td>D, S</td></tr>
 <tr><td><b>wday+</b></td><td>text</td><td>week day</td><td>wwwww Weekday</td><td class='example'>351518 Saturday</td><td>S</td></tr>
 <tr><td><b>def</b></td><td>text</td><td>week day</td><td>wwwww d</td><td class='example'>351518 6</td><td>H, S</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9w 9d</td><td>9w 9d</td><td class='example'>351518w 6d</td><td>H</td></tr>
-<tr><td colspan='6'>Notes: D = Default, H = Hidden
+<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
 Example based on jdn# 2460631</td></tr>
 </table>
 
