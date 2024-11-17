@@ -10,6 +10,7 @@ let size = @size( sfl );
 
 write nl;
 write "<table class='basic data'>" nl;
+write "<tr><th colspan='6'>Formats - Grammar d</th></tr>" nl;
 write "<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>" nl;
 
 let index = 0;
@@ -24,14 +25,6 @@ do
         endif
         note += "D";
     endif
-    /* // shorthand input not relevant for day count. 
-    if fo[shorthand]
-        if @size( note ) > 0
-            note += ", ";
-        endif
-        note += "S";
-    endif
-    */
         
     let row = "<tr><td><b>" + fo[code] + "</b></td>"
       + "<td>" +fo[rules] + "</td>"
@@ -46,7 +39,7 @@ do
     until index = size;
 loop
 
-write "<tr><td colspan='6'>Notes: D = Default, H = Hidden" nl;
+write "<tr><td colspan='6'>Notes: D = Default, H = Hidden." nl;
 write "Example based on jdn# " + d1 + "</td></tr>" nl;
 write "</table>" nl;
 
@@ -54,11 +47,12 @@ write "</table>" nl;
 /*[OUTPUT]
 
 <table class='basic data'>
+<tr><th colspan='6'>Formats - Grammar d</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
 <tr><td><b>d</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>728714</td><td>D</td></tr>
 <tr><td><b>def</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>728714</td><td>H</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9d</td><td>9d</td><td class='example'>728714d</td><td>H</td></tr>
-<tr><td colspan='6'>Notes: D = Default, H = Hidden
+<tr><td colspan='6'>Notes: D = Default, H = Hidden.
 Example based on jdn# 2450139</td></tr>
 </table>
 
