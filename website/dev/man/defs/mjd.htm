@@ -31,7 +31,7 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Calendar Description</h2>
+<h2>Calendar Description - Scheme mjd</h2>
 <p>
  The Modified Julian Day calendar is a variation of the Julian Astronomical Day.
  It is more convenient when referencing recent dates as it requires fewer digits.
@@ -82,17 +82,18 @@ The Epoch is set at
 </p>
 
 <table class='basic data'>
+<tr><th colspan='6'>Formats - Grammar d</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
 <tr><td><b>d</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>50138</td><td>D</td></tr>
 <tr><td><b>def</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>50138</td><td>H</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9d</td><td>9d</td><td class='example'>50138d</td><td>H</td></tr>
-<tr><td colspan='6'>Notes: D = Default, H = Hidden
+<tr><td colspan='6'>Notes: D = Default, H = Hidden.
 Example based on jdn# 2450139</td></tr>
 </table>
 
 <h3>Script</h3>
 <table class='code lfloat'>
-<tr><th>Default Script - Module hics:jdn</th></tr>
+<tr><th>Script - Module hics:jdn</th></tr>
 <tr><td
 >scheme mjd {
     name "Modified Julian Day";
