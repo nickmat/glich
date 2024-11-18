@@ -31,7 +31,7 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Calendar Description</h2>
+<h2>Calendar Description - Scheme j</h2>
 <p>
  This Julian calendar is the simplest possible interpretation of the
  calendar introduced by Julius Caesar, amended by Augustus Caesar and using the
@@ -58,20 +58,23 @@
 
 <h3>Definition</h3>
 <table class='basic data rfloat'>
-<tr><th rowspan='2'>Number</th><th rowspan='2'>Name</th><th colspan='2'>Number of Days</th></tr>
-<tr><th>Common</th><th>Leap</th></tr>
-<tr><td>1</td><td>January</td><td>31</td><td>31</td></tr>
-<tr><td>2</td><td>February</td><td>28</td><td>29</td></tr>
-<tr><td>3</td><td>March</td><td>31</td><td>31</td></tr>
-<tr><td>4</td><td>April</td><td>30</td><td>30</td></tr>
-<tr><td>5</td><td>May</td><td>31</td><td>31</td></tr>
-<tr><td>6</td><td>June</td><td>30</td><td>30</td></tr>
-<tr><td>7</td><td>July</td><td>31</td><td>31</td></tr>
-<tr><td>8</td><td>August</td><td>31</td><td>31</td></tr>
-<tr><td>9</td><td>September</td><td>30</td><td>30</td></tr>
-<tr><td>10</td><td>October</td><td>31</td><td>31</td></tr>
-<tr><td>11</td><td>November</td><td>30</td><td>30</td></tr>
-<tr><td>12</td><td>December</td><td>31</td><td>31</td></tr>
+
+<tr><th colspan='5'>Month Names - Lexicon m</th></tr>
+<tr><th rowspan='2'>Number</th><th colspan='2'>Name</th><th colspan='2'>Number of Days</th></tr>
+<tr><th>Full</th><th>Abrev.</th><th>Common</th><th>Leap</th></tr>
+
+<tr><td>1</td><td>January</td><td>Jan</td><td>31</td><td>31</td></tr>
+<tr><td>2</td><td>February</td><td>Feb</td><td>28</td><td>29</td></tr>
+<tr><td>3</td><td>March</td><td>Mar</td><td>31</td><td>31</td></tr>
+<tr><td>4</td><td>April</td><td>Apr</td><td>30</td><td>30</td></tr>
+<tr><td>5</td><td>May</td><td>May</td><td>31</td><td>31</td></tr>
+<tr><td>6</td><td>June</td><td>Jun</td><td>30</td><td>30</td></tr>
+<tr><td>7</td><td>July</td><td>Jul</td><td>31</td><td>31</td></tr>
+<tr><td>8</td><td>August</td><td>Aug</td><td>31</td><td>31</td></tr>
+<tr><td>9</td><td>September</td><td>Sep</td><td>30</td><td>30</td></tr>
+<tr><td>10</td><td>October</td><td>Oct</td><td>31</td><td>31</td></tr>
+<tr><td>11</td><td>November</td><td>Nov</td><td>30</td><td>30</td></tr>
+<tr><td>12</td><td>December</td><td>Dec</td><td>31</td><td>31</td></tr>
 </table>
 <p>
  The Julian calendar is based on a solar year of 365.25 days.
@@ -110,26 +113,30 @@
 <p>
  The formats supplied with this scheme.
 </p>
+
 <table class='basic data'>
+<tr><th colspan='6'>Formats - Grammar j</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
-<tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>2023y 1m 26d</td><td>Hidden</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2023 1 26</td><td>Hidden</td></tr>
-<tr><td><b>dmy</b></td><td>text</td><td>day month year</td><td>dd Mon yyyy</td><td class='example'>26 Jan 2023</td><td></td></tr>
-<tr><td><b>dmy+</b></td><td>text</td><td>day month year</td><td>dd Month yyyy</td><td class='example'>26 January 2023</td><td></td></tr>
+<tr><td><b>dmy</b></td><td>text</td><td>day month year</td><td>dd Mon yyyy</td><td class='example'>26 Jan 2023</td><td>D, S</td></tr>
+<tr><td><b>dmy+</b></td><td>text</td><td>day month year</td><td>dd Month yyyy</td><td class='example'>26 January 2023</td><td>S</td></tr>
 <tr><td><b>wdmy</b></td><td>text</td><td>wday day month year</td><td>Wday dd Mon yyyy</td><td class='example'>Wed 26 Jan 2023</td><td></td></tr>
 <tr><td><b>wdmy+</b></td><td>text</td><td>wday day month year</td><td>Weekday dd Month yyyy</td><td class='example'>Wednesday 26 January 2023</td><td></td></tr>
-<tr><td><b>out</b></td><td>text</td><td></td><td>ddth Month yyyy</td><td class='example'>26th January 2023</td><td></td></tr>
+<tr><td><b>out</b></td><td>text</td><td></td><td>ddth Month yyyy</td><td class='example'>26th January 2023</td><td>S</td></tr>
 <tr><td><b>full</b></td><td>text</td><td></td><td>Weekday ddth Month yyyy</td><td class='example'>Wednesday 26th January 2023</td><td></td></tr>
-<tr><td><b>mdy</b></td><td>text</td><td>month day year</td><td>Mon dd, yyyy</td><td class='example'>Jan 26, 2023</td><td></td></tr>
-<tr><td><b>mdy+</b></td><td>text</td><td>month day year</td><td>Month dd, yyyy</td><td class='example'>January 26, 2023</td><td></td></tr>
+<tr><td><b>mdy</b></td><td>text</td><td>month day year</td><td>Mon dd, yyyy</td><td class='example'>Jan 26, 2023</td><td>S</td></tr>
+<tr><td><b>mdy+</b></td><td>text</td><td>month day year</td><td>Month dd, yyyy</td><td class='example'>January 26, 2023</td><td>S</td></tr>
 <tr><td><b>wmdy</b></td><td>text</td><td>wday month day year</td><td>Wday, Mon dd, yyyy</td><td class='example'>Wed, Jan 26, 2023</td><td></td></tr>
 <tr><td><b>wmdy+</b></td><td>text</td><td>wday month day year</td><td>Weekday, Month dd, yyyy</td><td class='example'>Wednesday, January 26, 2023</td><td></td></tr>
-<tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>yyyy:Mon:dd</td><td class='example'>2023:Jan:26</td><td></td></tr>
+<tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>yyyy:Mon:dd</td><td class='example'>2023:Jan:26</td><td>S</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2023 1 26</td><td>H, S</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>2023y 1m 26d</td><td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
+Example based on jdn# 2459984</td></tr>
 </table>
 
 <h3>Script</h3>
 <table class='code lfloat'>
-<tr><th>Default Script</th></tr>
+<tr><th>Script - Module hics:julian</th></tr>
 <tr><td
 >lexicon m {
     name "Month names";
@@ -151,7 +158,6 @@
         12, "December",  "Dec";
     }
 }
-
 grammar j {
     name "Julian";
     fields year month day;
@@ -172,7 +178,6 @@ grammar j {
     format ymd "{year}|:{month:m:a}|:{day}";
     preferred dmy;
 }
-
 scheme j {
     name "Julian";
     base julian;
