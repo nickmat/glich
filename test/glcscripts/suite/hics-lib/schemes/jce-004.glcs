@@ -1,0 +1,78 @@
+// jce-004.glcs  Create jce scheme format table.
+
+let sch = "jce";
+
+let d1 = 1705426;
+let d2 = 1732577;
+
+let so = @sch:object.(sch);
+let sfl = so[formats];
+let size = @size( sfl );
+let index = 0;
+
+write nl;
+write "<table class='basic data'>" nl;
+write "<tr><th colspan='5'>Formats - Grammar " + so[grammar] + "</th></tr>" nl;
+write "<tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>" nl;
+
+do
+    let fmt = sfl[(index)];
+    let sig = sch + ":" + fmt;
+    let fo = @fmt:object.(sig);
+    let note = @if(fo[visible], "", "H");
+    if so[default:in] = fmt or so[default:out] = fmt
+        if @size( note ) > 0
+            note += ", ";
+        endif
+        note += "D";
+    endif
+    if fo[shorthand]
+        if @size( note ) > 0
+            note += ", ";
+        endif
+        note += "S";
+    endif
+    
+    let p = fo[pseudo:in];
+    if @size(p) > 0
+        p = "<b>Input:</b> " + p + "<br />";
+    endif
+    p = "<td>" + p + "<b>Output:</b> " + fo[pseudo:out] + "</td>";
+
+    let row = "<tr><td><b>" + fo[code] + "</b></td>"
+      + "<td>" +fo[rules] + "</td>"
+      + p
+      + "<td class='example'>" + @text.(sig)(d1) + "<br />" + @text.(sig)(d2)
+      + "<td>" + note + "</td></tr>";
+
+    write row nl;
+
+    index += 1;
+    until index = size;
+loop
+
+write "<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported." nl;
+write "Example based on jdn# " + d1 + " and " + d2 + "</td></tr>" nl;
+write "</table>" nl;
+
+
+/*[OUTPUT]
+
+<table class='basic data'>
+<tr><th colspan='5'>Formats - Grammar jce</th></tr>
+<tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>dmye</b></td><td>text</td><td><b>Input:</b> day month ceyear ce<br /><b>Output:</b> dd Mon yyyy CE</td><td class='example'>15 Mar 44 BCE<br />16 Jul 31 CE<td>D, S</td></tr>
+<tr><td><b>wdmye</b></td><td>text</td><td><b>Input:</b> wday day month ceyear ce<br /><b>Output:</b> Wday dd Mon yyyy CE</td><td class='example'>Wed 15 Mar 44 BCE<br />Mon 16 Jul 31 CE<td></td></tr>
+<tr><td><b>mdye</b></td><td>text</td><td><b>Input:</b> month day ceyear ce<br /><b>Output:</b> Mon dd, yyyy CE</td><td class='example'>Mar 15, 44 BCE<br />Jul 16, 31 CE<td>S</td></tr>
+<tr><td><b>wmdye</b></td><td>text</td><td><b>Input:</b> wday month day ceyear ce<br /><b>Output:</b> Wday Mon dd, yyyy CE</td><td class='example'>Wed Mar 15, 44 BCE<br />Mon Jul 16, 31 CE<td></td></tr>
+<tr><td><b>dmye+</b></td><td>text</td><td><b>Input:</b> day month ceyear ce<br /><b>Output:</b> dd Month yyyy CommonEra</td><td class='example'>15 March 44 Before Common Era<br />16 July 31 Common Era<td>S</td></tr>
+<tr><td><b>wdmye+</b></td><td>text</td><td><b>Input:</b> wday day month ceyear ce<br /><b>Output:</b> Weekday dd Month yyyy CommonEra</td><td class='example'>Wednesday 15 March 44 Before Common Era<br />Monday 16 July 31 Common Era<td></td></tr>
+<tr><td><b>out</b></td><td>text</td><td><b>Output:</b> ddth Month yyyy CommonEra</td><td class='example'>15th March 44 Before Common Era<br />16th July 31 Common Era<td>S</td></tr>
+<tr><td><b>full</b></td><td>text</td><td><b>Output:</b> Weekday ddth Month yyyy CommonEra</td><td class='example'>Wednesday 15th March 44 Before Common Era<br />Monday 16th July 31 Common Era<td></td></tr>
+<tr><td><b>def</b></td><td>text</td><td><b>Input:</b> year month day<br /><b>Output:</b> year mm dd</td><td class='example'>-43 3 15<br />31 7 16<td>H</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9y 9m 9d 9ce 9cy<br /><b>Output:</b> 9y 9m 9d 9ce 9cy</td><td class='example'>-43y 3m 15d 0ce 44cy<br />31y 7m 16d 1ce 31cy<td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
+Example based on jdn# 1705426 and 1732577</td></tr>
+</table>
+
+[OUTPUT]*/
