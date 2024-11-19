@@ -31,7 +31,7 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Calendar Description</h2>
+<h2>Calendar Description - Scheme jce</h2>
 <p>
  This version of the Julian calendar is commonly used by historians when referring
  to dates in the first millennium and earlier.
@@ -58,6 +58,13 @@
 </p>
 
 <h3>Definition</h3>
+<table class='basic data rfloat'>
+<tr><th colspan='4'>Historic Era Names - Lexicon ce</th></tr>
+<tr><th>Number</th><th>Era Name</th><th>Abbrev.</th><th>Range</th></tr>
+<tr><td>0</td><td>Before Common Era</td><td>BCE</td><td>past .. j:dmy# 31 Dec 0</td></tr>
+<tr><td>1</td><td>Common Era</td><td>CE</td><td>j:dmy# 1 Jan 1 .. future</td></tr>
+</table>
+
 <p>
  The Julian Common Era calendar is a variation of the <a href='j.htm'>Julian calendar</a>.
  Two additional calculated fields are added to hold the ce era
@@ -78,13 +85,8 @@
 <tr><th colspan='6'>Record - Ranking order</th></tr>
 <tr><td class='rec-calc'>ce</td><td class='rec-calc'>ceyear</td><td>month</td><td>day</td><td class='rec-opt'>wday</td><td>year</td></tr>
 </table>
-<table class='basic data rfloat'>
-<tr><th colspan='4'>Historic Era</th></tr>
-<tr><th>Number</th><th>Era</th><th>Abbrev.</th><th>Range</th></tr>
-<tr><td>0</td><td>Before Common Era</td><td>BCE</td><td>past .. j:dmy# 31 Dec 0</td></tr>
-<tr><td>1</td><td>Common Era</td><td>CE</td><td>j:dmy# 1 Jan 1 .. future</td></tr>
-</table>
-<p class='lclear'>
+
+<p class='clear'>
  The <code>ceyear</code> field has the value <code>-year + 1</code>
  for all values of <code>year</code> less than one,
  and the value <code>year</code> for all other values.
@@ -97,6 +99,11 @@
  </table>
  =
  <table class='rec-value'>
+   <tr><td rowspan='2' class='sig'>j</td><th>year</th><th>month</th><th>day</th></tr>
+   <tr class='value'><td>1</td><td>1</td><td>1</td></tr>
+ </table>
+ =
+ <table class='rec-value'>
   <tr><td rowspan='2' class='sig'>jdn</td><th>day</th></tr>
   <tr class='value'><td>1721424</td></tr>
  </table>.
@@ -106,23 +113,27 @@
 <p>
  The formats supplied with this scheme.
 </p>
+
 <table class='basic data'>
-<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
-<tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d 9ce 9cy</td><td>9y 9m 9d 9ce 9cy</td><td class='example'>2023y 1m 26d 1ce 2023cy</td><td>Hidden</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2023 1 26</td><td>Hidden</td></tr>
-<tr><td><b>dmye</b></td><td>text</td><td>day month ceyear ce</td><td>dd Mon yyyy CE</td><td class='example'>26 Jan 2023 CE</td><td></td></tr>
-<tr><td><b>wdmye</b></td><td>text</td><td>wday day month ceyear ce</td><td>Wday dd Mon yyyy CE</td><td class='example'>Wed 26 Jan 2023 CE</td><td></td></tr>
-<tr><td><b>mdye</b></td><td>text</td><td>month day ceyear ce</td><td>Mon dd, yyyy CE</td><td class='example'>Jan 26, 2023 CE</td><td></td></tr>
-<tr><td><b>wmdye</b></td><td>text</td><td>wday month day ceyear ce</td><td>Wday Mon dd, yyyy CE</td><td class='example'>Wed Jan 26, 2023 CE</td><td></td></tr>
-<tr><td><b>dmye+</b></td><td>text</td><td>day month ceyear ce</td><td>dd Month yyyy CommonEra</td><td class='example'>26 Jan 2023 Common Era</td><td></td></tr>
-<tr><td><b>wdmye+</b></td><td>text</td><td>wday day month ceyear ce</td><td>Weekday dd Month yyyy CommonEra</td><td class='example'>Wednesday 26 January 2023 Common Era</td><td></td></tr>
-<tr><td><b>out</b></td><td>text</td><td></td><td>ddth Month yyyy CommonEra</td><td class='example'>26th January 2023 Common Era</td><td></td></tr>
-<tr><td><b>full</b></td><td>text</td><td></td><td>Weekday ddth Month yyyy CommonEra</td><td class='example'>Wednesday 26th January 2023 Common Era</td><td></td></tr>
+<tr><th colspan='5'>Formats - Grammar jce</th></tr>
+<tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>dmye</b></td><td>text</td><td><b>Input:</b> day month ceyear ce<br /><b>Output:</b> dd Mon yyyy CE</td><td class='example'>15 Mar 44 BCE<br />16 Jul 31 CE<td>D, S</td></tr>
+<tr><td><b>wdmye</b></td><td>text</td><td><b>Input:</b> wday day month ceyear ce<br /><b>Output:</b> Wday dd Mon yyyy CE</td><td class='example'>Wed 15 Mar 44 BCE<br />Mon 16 Jul 31 CE<td></td></tr>
+<tr><td><b>mdye</b></td><td>text</td><td><b>Input:</b> month day ceyear ce<br /><b>Output:</b> Mon dd, yyyy CE</td><td class='example'>Mar 15, 44 BCE<br />Jul 16, 31 CE<td>S</td></tr>
+<tr><td><b>wmdye</b></td><td>text</td><td><b>Input:</b> wday month day ceyear ce<br /><b>Output:</b> Wday Mon dd, yyyy CE</td><td class='example'>Wed Mar 15, 44 BCE<br />Mon Jul 16, 31 CE<td></td></tr>
+<tr><td><b>dmye+</b></td><td>text</td><td><b>Input:</b> day month ceyear ce<br /><b>Output:</b> dd Month yyyy CommonEra</td><td class='example'>15 March 44 Before Common Era<br />16 July 31 Common Era<td>S</td></tr>
+<tr><td><b>wdmye+</b></td><td>text</td><td><b>Input:</b> wday day month ceyear ce<br /><b>Output:</b> Weekday dd Month yyyy CommonEra</td><td class='example'>Wednesday 15 March 44 Before Common Era<br />Monday 16 July 31 Common Era<td></td></tr>
+<tr><td><b>out</b></td><td>text</td><td><b>Output:</b> ddth Month yyyy CommonEra</td><td class='example'>15th March 44 Before Common Era<br />16th July 31 Common Era<td>S</td></tr>
+<tr><td><b>full</b></td><td>text</td><td><b>Output:</b> Weekday ddth Month yyyy CommonEra</td><td class='example'>Wednesday 15th March 44 Before Common Era<br />Monday 16th July 31 Common Era<td></td></tr>
+<tr><td><b>def</b></td><td>text</td><td><b>Input:</b> year month day<br /><b>Output:</b> year mm dd</td><td class='example'>-43 3 15<br />31 7 16<td>H</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9y 9m 9d 9ce 9cy<br /><b>Output:</b> 9y 9m 9d 9ce 9cy</td><td class='example'>-43y 3m 15d 0ce 44cy<br />31y 7m 16d 1ce 31cy<td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
+Example based on jdn# 1705426 and 1732577</td></tr>
 </table>
 
 <h3>Script</h3>
 <table class='code lfloat'>
-<tr><th>Default Script</th></tr>
+<tr><th>Script - Module hics:jce</th></tr>
 <tr><td
 >lexicon ce {
     name "Historic Era";
@@ -134,7 +145,6 @@
         1, "Common Era",        "CE";
     }
 }
-
 grammar jce {
     name "Julian Common Era";
     fields year month day;
@@ -164,7 +174,6 @@ grammar jce {
     format full { output "{wday:w} |{day::os} |{month:m} |{ceyear} |{ce:ce}"; }
     preferred dmye;
 }
-
 scheme jce {
     name "Julian Common Era";
     base julian;
