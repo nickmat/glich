@@ -274,7 +274,7 @@ glich::StdStrMap glich::hics_default_scripts = {
  "format \"wmdy+\" \"{wday:w}, |{month:m} |{day}, |{cyear/year}\";\n"
  "format cdef {\n"
  "inout \"{cyear}| {month}| {day}\";\n"
- "visible yes;\n"
+ "visible no;\n"
  "}\n"
  "preferred dmy;\n"
  "}\n"
