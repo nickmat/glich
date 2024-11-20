@@ -501,6 +501,9 @@ void Grammar::create_def_format()
         }
         control += "{" + fieldname + "}";
     }
+    for( string fieldname : m_calc_fieldnames ) {
+        control += "| {" + fieldname + "}";
+    }
     fmt->set_control_in( control );
     fmt->set_control_out( control );
     fmt->set_visible( false );
