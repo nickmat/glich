@@ -18,7 +18,7 @@ write @date.c( "78" ), @text.c( 2445733..2467644 ) nl;
 
 /*[OUTPUT]
 
-false, true, true, false, false, false, false
+false, false, true, false, false, false, false
 2460866, 78 42 6 f 15
 2460852..2460881, 78 42 6 f
 2460882..2460910, 78 42 6 s
