@@ -1,0 +1,81 @@
+// ja-001.glcs  Create ja scheme format table.
+
+let sch = "ja";
+
+let d1 = 2171859;
+let d2 = 2171860;
+
+let so = @sch:object.(sch);
+let sfl = so[formats];
+let size = @size( sfl );
+let index = 0;
+
+write nl;
+write "<table class='basic data'>" nl;
+write "<tr><th colspan='5'>Formats - Grammar " + so[grammar] + "</th></tr>" nl;
+write "<tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>" nl;
+
+do
+    let fmt = sfl[(index)];
+    let sig = sch + ":" + fmt;
+    let fo = @fmt:object.(sig);
+    let note = @if(fo[visible], "", "H");
+    if so[default:in] = fmt or so[default:out] = fmt
+        if @size( note ) > 0
+            note += ", ";
+        endif
+        note += "D";
+    endif
+    if fo[shorthand]
+        if @size( note ) > 0
+            note += ", ";
+        endif
+        note += "S";
+    endif
+    
+    let p = fo[pseudo:in];
+    if @size(p) > 0
+        p = "<b>Input:</b> " + p + "<br />";
+    endif
+    p = "<td>" + p + "<b>Output:</b> " + fo[pseudo:out] + "</td>";
+
+    let row = "<tr><td><b>" + fo[code] + "</b></td>"
+      + "<td>" +fo[rules] + "</td>"
+      + p
+      + "<td class='example'>" + @text.(sig)(d1) + "<br />" + @text.(sig)(d2)
+      + "<td>" + note + "</td></tr>";
+
+    write row nl;
+
+    index += 1;
+    until index = size;
+loop
+
+write "<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported." nl;
+write "Example based on jdn# " + d1 + " and " + d2 + "</td></tr>" nl;
+write "</table>" nl;
+
+
+/*[OUTPUT]
+
+<table class='basic data'>
+<tr><th colspan='5'>Formats - Grammar j_sh</th></tr>
+<tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>dmy</b></td><td>text</td><td><b>Input:</b> day month cyear<br /><b>Output:</b> dd Mon yyyy/h</td><td class='example'>24 Mar 1233/4<br />25 Mar 1234<td>D, S</td></tr>
+<tr><td><b>dmy+</b></td><td>text</td><td><b>Input:</b> day month cyear<br /><b>Output:</b> dd Month yyyy/h</td><td class='example'>24 March 1233/4<br />25 March 1234<td>S</td></tr>
+<tr><td><b>wdmy</b></td><td>text</td><td><b>Input:</b> wday day month cyear<br /><b>Output:</b> Wday dd Mon yyyy/h</td><td class='example'>Fri 24 Mar 1233/4<br />Sat 25 Mar 1234<td></td></tr>
+<tr><td><b>wdmy+</b></td><td>text</td><td><b>Input:</b> wday day month cyear<br /><b>Output:</b> Weekday dd Month yyyy/h</td><td class='example'>Friday 24 March 1233/4<br />Saturday 25 March 1234<td></td></tr>
+<tr><td><b>out</b></td><td>text</td><td><b>Output:</b> ddth Month yyyy/h</td><td class='example'>24th March 1233/4<br />25th March 1234<td>S</td></tr>
+<tr><td><b>full</b></td><td>text</td><td><b>Output:</b> Weekday ddth Month yyyy/h</td><td class='example'>Friday 24th March 1233/4<br />Saturday 25th March 1234<td></td></tr>
+<tr><td><b>mdy</b></td><td>text</td><td><b>Input:</b> month day cyear<br /><b>Output:</b> Mon dd, yyyy/h</td><td class='example'>Mar 24, 1233/4<br />Mar 25, 1234<td>S</td></tr>
+<tr><td><b>mdy+</b></td><td>text</td><td><b>Input:</b> month day cyear<br /><b>Output:</b> Month dd, yyyy/h</td><td class='example'>March 24, 1233/4<br />March 25, 1234<td>S</td></tr>
+<tr><td><b>wmdy</b></td><td>text</td><td><b>Input:</b> wday month day cyear<br /><b>Output:</b> Wday, Mon dd, yyyy/h</td><td class='example'>Fri, Mar 24, 1233/4<br />Sat, Mar 25, 1234<td></td></tr>
+<tr><td><b>wmdy+</b></td><td>text</td><td><b>Input:</b> wday month day cyear<br /><b>Output:</b> Weekday, Month dd, yyyy/h</td><td class='example'>Friday, March 24, 1233/4<br />Saturday, March 25, 1234<td></td></tr>
+<tr><td><b>cdef</b></td><td>text</td><td><b>Input:</b> cyear month day<br /><b>Output:</b> yyyy mm dd</td><td class='example'>1233 3 24<br />1234 3 25<td>H, S</td></tr>
+<tr><td><b>def</b></td><td>text</td><td><b>Input:</b> year month day cyear<br /><b>Output:</b> h mm dd yyyy</td><td class='example'>1234 3 24 1233<br />1234 3 25 1234<td>H</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9hy 9m 9d 9cy<br /><b>Output:</b> 9hy 9m 9d 9cy</td><td class='example'>1234hy 3m 24d 1233cy<br />1234hy 3m 25d 1234cy<td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
+Example based on jdn# 2171859 and 2171860</td></tr>
+</table>
+
+[OUTPUT]*/
