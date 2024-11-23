@@ -31,7 +31,7 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Calendar Description</h2>
+<h2>Calendar Description - Scheme gw</h2>
 <p>
  The ISO Week calendar scheme is a system of numbering the weeks of the year
  and is based on the Gregorian calendar.
@@ -98,17 +98,20 @@
 </p>
 
 <table class='basic data'>
+<tr><th colspan='6'>Formats - Grammar gw</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
-<tr><td><b>u</b></td><td>unit</td><td>9y 9w 9d</td><td>9y 9w 9d</td><td class='example'>2023y 6w 3d</td><td>Hidden</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>year week day</td><td>yyyy ww d</td><td class='example'>2023 6 3</td><td>Hidden</td></tr>
-<tr><td><b>ywd</b></td><td>text</td><td>year week day</td><td>yyyy ww Wday</td><td class='example'>2023 6 Wed</td><td>Default</td></tr>
-<tr><td><b>ywd+</b></td><td>text</td><td>year week day</td><td>yyyy ww Weekday</td><td class='example'>2023 6 Wednesday</td><td></td></tr>
-<tr><td><b>iso</b></td><td>iso8601</td><td>ISO:8601 Week -YYYY</td><td>-YYYY-Www-D</td><td class='example'>2023-W06-3</td><td></td></tr>
+<tr><td><b>ywd</b></td><td>text</td><td>year week day</td><td>yyyy ww Wday</td><td class='example'>2023 6 Wed</td><td>D, S</td></tr>
+<tr><td><b>ywd+</b></td><td>text</td><td>year week day</td><td>yyyy ww Weekday</td><td class='example'>2023 6 Wednesday</td><td>S</td></tr>
+<tr><td><b>iso</b></td><td>iso8601</td><td>ISO:8601 Week -YYYY</td><td>-YYYY-Www-D</td><td class='example'>2023-W06-3</td><td>S</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>year week day</td><td>yyyy ww d</td><td class='example'>2023 6 3</td><td>H, S</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9y 9w 9d</td><td>9y 9w 9d</td><td class='example'>2023y 6w 3d</td><td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
+Example based on jdn# 2459984</td></tr>
 </table>
 
 <h3>Script</h3>
 <table class='code lfloat'>
-<tr><th>Default Library Script</th></tr>
+<tr><th>Script - Module hics:gregorian</th></tr>
 <tr><td
 >grammar gw {
     name "Year Week Day";
