@@ -45,7 +45,7 @@ grammar je {
     calculated repeated; 
     optional hyear wsday;
     rank eyear month day;
-    lexicons m ws rptd;
+    lexicons m ws rpt rptd;
     alias pseudo { w wsday; rpt repeat; dd day; mm month; yyyy eyear; h hyear; }
     alias unit { d day; r repeat; m month; y eyear; rptd repeated; }
     function def_to_calc {
@@ -64,6 +64,8 @@ grammar je {
     format wdmy_a "{wsday:ws:a} |{day} |{month:m:a} |{eyear/hyear}| {repeated:rptd:a}";
     format mdy    "{month:m} |{day}, |{eyear/hyear}| {repeated:rptd}";
     format mdy_a  "{month:m:a} |{day}, |{eyear/hyear}| {repeated:rptd:a}";
+    format all    "{wsday:ws} |{day} |{month:m} |{eyear/hyear}| {repeat:rpt}";
+    format all_a  "{wsday:ws:a} |{day} |{month:m:a} |{eyear/hyear}| {repeat:rpt:a}";
     preferred dmy;
 }
 
