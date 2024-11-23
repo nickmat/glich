@@ -31,7 +31,7 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Calendar Description</h2>
+<h2>Calendar Description - Scheme g</h2>
 <p>
  This Gregorian calendar implements the changes made to the <a href='j.htm'>Julian</a> calendar by
  Pope Gregory XIII. There were three changes made, a change to the way leap
@@ -106,6 +106,7 @@
 </p>
 
 <table class='basic data'>
+<tr><th colspan='6'>Formats - Grammar g</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
 <tr><td><b>iso</b></td><td>iso8601</td><td>ISO:8601 Date -YYYY</td><td>-YYYY-MM-DD</td><td class='example'>2023-02-08</td><td>S</td></tr>
 <tr><td><b>iso_set</b></td><td>iso8601</td><td>ISO:8601 Date -YYYY</td><td>[-YYYY-MM-DD]</td><td class='example'>[2023-02-08]</td><td>S</td></tr>
@@ -122,12 +123,13 @@
 <tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>yyyy:Mon:dd</td><td class='example'>2023:Feb:8</td><td>S</td></tr>
 <tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2023 2 8</td><td>H, S</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>2023y 2m 8d</td><td>H</td></tr>
-<tr><td colspan='6'>Notes: H = Hidden, D = Default, S = Range shortcut supported.</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
+Example based on jdn# 2459984</td></tr>
 </table>
 
 <h3>Script</h3>
 <table class='code lfloat'>
-<tr><th>Default Script</th></tr>
+<tr><th>Script - Module hics:gregorian</th></tr>
 <tr><td
 >grammar g {
     name "Gregorian";
@@ -141,11 +143,14 @@ scheme g {
     base gregorian;
     grammar g;
 }
-set inout g; // Set Gregorian as the default input and output scheme.
 </td></tr>
 </table>
 <p class='lclear'>
- The grammar "g" inherits from the grammar "j" used by the <a href='j.htm'>Julian</a> scheme.
+ The <b>grammar</b> "g" inherits from the <b>grammar</b> "j" definition from
+ <a href='j.htm'><b>j</b> Julian</a>.
+</p>
+<p>
+ This scheme is set as the system default in the <b>hics:hic_lib</b> module.
 </p>
 
 </div><!--id=content-->
