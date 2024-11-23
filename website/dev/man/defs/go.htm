@@ -31,7 +31,7 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Calendar Description</h2>
+<h2>Calendar Description - Scheme go</h2>
 <p>
  The Ordinal calendar is defined in terms of the <a href='g.htm'>Gregorian</a> calendar.
  It consists of a count of years and days.
@@ -101,16 +101,19 @@
 </p>
 
 <table class='basic data'>
+<tr><th colspan='6'>Formats - Grammar go</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
-<tr><td><b>u</b></td><td>unit</td><td>9y 9d</td><td>9y 9d</td><td class='example'>2023y 39d</td><td>Hidden</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>year day</td><td>yyyy ddd</td><td class='example'>2023 39</td><td>Hidden</td></tr>
-<tr><td><b>yd</b></td><td>text</td><td>year day</td><td>yyyy ddd</td><td class='example'>2023 39</td><td>Default</td></tr>
-<tr><td><b>iso</b></td><td>iso8601</td><td>ISO:8601 Ordinal -YYYY</td><td>-YYYY-DDD</td><td class='example'>2023-039</td><td></td></tr>
+<tr><td><b>yd</b></td><td>text</td><td>year day</td><td>yyyy ddd</td><td class='example'>2023 39</td><td>D, S</td></tr>
+<tr><td><b>iso</b></td><td>iso8601</td><td>ISO:8601 Ordinal -YYYY</td><td>-YYYY-DDD</td><td class='example'>2023-039</td><td>S</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>year day</td><td>yyyy ddd</td><td class='example'>2023 39</td><td>H, S</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9y 9d</td><td>9y 9d</td><td class='example'>2023y 39d</td><td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
+Example based on jdn# 2459984</td></tr>
 </table>
 
 <h3>Script</h3>
 <table class='code lfloat'>
-<tr><th>Default Library Script</th></tr>
+<tr><th>Script - Module hics:gregorian</th></tr>
 <tr><td
 >grammar go {
     name "Year Day";
