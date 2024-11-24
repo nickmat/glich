@@ -1,0 +1,78 @@
+// ay-003.glcs  Create ay scheme format table.
+
+let sch = "ay";
+
+let d1 = 2299160;
+let d2 = 2299161;
+
+let so = @sch:object.(sch);
+let sfl = so[formats];
+let size = @size( sfl );
+let index = 0;
+
+write nl;
+write "<table class='basic data'>" nl;
+write "<tr><th colspan='5'>Formats - Grammar " + so[grammar] + "</th></tr>" nl;
+write "<tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>" nl;
+
+do
+    let fmt = sfl[(index)];
+    let sig = sch + ":" + fmt;
+    let fo = @fmt:object.(sig);
+    let note = @if(fo[visible], "", "H");
+    if so[default:in] = fmt or so[default:out] = fmt
+        if @size( note ) > 0
+            note += ", ";
+        endif
+        note += "D";
+    endif
+    if fo[shorthand]
+        if @size( note ) > 0
+            note += ", ";
+        endif
+        note += "S";
+    endif
+    
+    let p = fo[pseudo:in];
+    if @size(p) > 0
+        p = "<b>Input:</b> " + p + "<br />";
+    endif
+    p = "<td>" + p + "<b>Output:</b> " + fo[pseudo:out] + "</td>";
+
+    let row = "<tr><td><b>" + fo[code] + "</b></td>"
+      + "<td>" +fo[rules] + "</td>"
+      + p
+      + "<td class='example'>" + @text.(sig)(d1) + "<br />" + @text.(sig)(d2)
+      + "<td>" + note + "</td></tr>";
+
+    write row nl;
+
+    index += 1;
+    until index = size;
+loop
+
+write "<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported." nl;
+write "Example based on jdn# " + d1 + " and " + d2 + "</td></tr>" nl;
+write "</table>" nl;
+
+
+/*[OUTPUT]
+
+<table class='basic data'>
+<tr><th colspan='5'>Formats - Grammar jg</th></tr>
+<tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>dmy</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd Mon yyyy</td><td class='example'>4 Oct 1582<br />15 Oct 1582<td>D, S</td></tr>
+<tr><td><b>dmy+</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd Month yyyy</td><td class='example'>4 October 1582<br />15 October 1582<td>S</td></tr>
+<tr><td><b>mdy</b></td><td>text</td><td><b>Input:</b> month day year<br /><b>Output:</b> Mon dd, yyyy</td><td class='example'>Oct 4, 1582<br />Oct 15, 1582<td>S</td></tr>
+<tr><td><b>mdy+</b></td><td>text</td><td><b>Input:</b> month day year<br /><b>Output:</b> Month dd, yyyy</td><td class='example'>October 4, 1582<br />October 15, 1582<td>S</td></tr>
+<tr><td><b>dmys</b></td><td>text</td><td><b>Input:</b> day month year scheme<br /><b>Output:</b> dd Mon yyyy sch</td><td class='example'>4 Oct 1582 j<br />15 Oct 1582 g<td></td></tr>
+<tr><td><b>dmys+</b></td><td>text</td><td><b>Input:</b> day month year scheme<br /><b>Output:</b> dd Month yyyy Scheme</td><td class='example'>4 October 1582 Julian<br />15 October 1582 Gregorian<td></td></tr>
+<tr><td><b>mdys</b></td><td>text</td><td><b>Input:</b> month day year scheme<br /><b>Output:</b> Mon dd, yyyy sch</td><td class='example'>Oct 4, 1582 j<br />Oct 15, 1582 g<td></td></tr>
+<tr><td><b>mdys+</b></td><td>text</td><td><b>Input:</b> month day year scheme<br /><b>Output:</b> Month dd, yyyy Scheme</td><td class='example'>October 4, 1582 Julian<br />October 15, 1582 Gregorian<td></td></tr>
+<tr><td><b>def</b></td><td>text</td><td><b>Input:</b> scheme year month day<br /><b>Output:</b> s yyyy mm dd</td><td class='example'>0 1582 10 4<br />1 1582 10 15<td>H</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9s 9y 9m 9d<br /><b>Output:</b> 9s 9y 9m 9d</td><td class='example'>0s 1582y 10m 4d<br />1s 1582y 10m 15d<td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
+Example based on jdn# 2299160 and 2299161</td></tr>
+</table>
+
+[OUTPUT]*/
