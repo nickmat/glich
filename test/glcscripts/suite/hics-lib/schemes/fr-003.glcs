@@ -1,0 +1,81 @@
+// fr-003.glcs  Create fr scheme format table.
+
+let sch = "fr";
+
+let d1 = 2460430;
+let d2 = 2460575;
+
+let so = @sch:object.(sch);
+let sfl = so[formats];
+let size = @size( sfl );
+let index = 0;
+
+write nl;
+write "<table class='basic data'>" nl;
+write "<tr><th colspan='5'>Formats - Grammar " + so[grammar] + "</th></tr>" nl;
+write "<tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>" nl;
+
+do
+    let fmt = sfl[(index)];
+    let sig = sch + ":" + fmt;
+    let fo = @fmt:object.(sig);
+    let note = @if(fo[visible], "", "H");
+    if so[default:in] = fmt or so[default:out] = fmt
+        if @size( note ) > 0
+            note += ", ";
+        endif
+        note += "D";
+    endif
+    if fo[shorthand]
+        if @size( note ) > 0
+            note += ", ";
+        endif
+        note += "S";
+    endif
+    
+    let p = fo[pseudo:in];
+    if @size(p) > 0
+        p = "<b>Input:</b> " + p + "<br />";
+    endif
+    p = "<td>" + p + "<b>Output:</b> " + fo[pseudo:out] + "</td>";
+
+    let row = "<tr><td><b>" + fo[code] + "</b></td>"
+      + "<td>" +fo[rules] + "</td>"
+      + p
+      + "<td class='example'>" + @text.(sig)(d1) + "<br />" + @text.(sig)(d2)
+      + "<td>" + note + "</td></tr>";
+
+    write row nl;
+
+    index += 1;
+    until index = size;
+loop
+
+write "<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported." nl;
+write "Example based on jdn# " + d1 + " and " + d2 + "</td></tr>" nl;
+write "</table>" nl;
+
+
+/*[OUTPUT]
+
+<table class='basic data'>
+<tr><th colspan='5'>Formats - Grammar fr</th></tr>
+<tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>dmy_a</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd Mon yyyy</td><td class='example'>10 Flor 232<br />5 Comp 232<td>S</td></tr>
+<tr><td><b>dmy</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd Month yyyy</td><td class='example'>10 Floréal 232<br />5 Complémentaires 232<td>D, S</td></tr>
+<tr><td><b>ymd</b></td><td>text</td><td><b>Input:</b> year month day<br /><b>Output:</b> yyyy Month dd</td><td class='example'>232 Floréal 10<br />232 Complémentaires 5<td>S</td></tr>
+<tr><td><b>cdmy</b></td><td>text</td><td><b>Input:</b> cday nmday nmonth year<br /><b>Output:</b> CompDay dd Month yyyy</td><td class='example'>10 Floréal 232<br />Fête des Récompenses 232<td></td></tr>
+<tr><td><b>cdmy-</b></td><td>text</td><td><b>Input:</b> cday nmday nmonth year<br /><b>Output:</b> CDay dd Mon yyyy</td><td class='example'>10 Flor 232<br />Rec 232<td></td></tr>
+<tr><td><b>out</b></td><td>text</td><td><b>Output:</b> CompDay dd Month an yyyy[X]</td><td class='example'>10 Floréal an CCXXXII<br />Fête des Récompenses an CCXXXII<td></td></tr>
+<tr><td><b>dcdmy</b></td><td>text</td><td><b>Input:</b> dday cday nmday nmonth year<br /><b>Output:</b> DecDay CompDay dd Month yyyy</td><td class='example'>Décadi 10 Floréal 232<br />Fête des Récompenses 232<td></td></tr>
+<tr><td><b>dcdmy-</b></td><td>text</td><td><b>Input:</b> dday cday nmday nmonth year<br /><b>Output:</b> DDay CDay dd Mon yyyy</td><td class='example'>Dec 10 Flor 232<br />Rec 232<td></td></tr>
+<tr><td><b>wcdmy</b></td><td>text</td><td><b>Input:</b> wday cday nmday nmonth year<br /><b>Output:</b> Weekday, CompDay dd Month yyyy</td><td class='example'>Monday, 10 Floréal 232<br />Saturday, Fête des Récompenses 232<td></td></tr>
+<tr><td><b>wcdmy-</b></td><td>text</td><td><b>Input:</b> wday cday nmday nmonth year<br /><b>Output:</b> Wday, CDay dd Mon yyyy</td><td class='example'>Mon, 10 Flor 232<br />Sat, Rec 232<td></td></tr>
+<tr><td><b>gedcom</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd MON yyyy</td><td class='example'>10 FLOR 232<br />5 COMP 232<td>S</td></tr>
+<tr><td><b>def</b></td><td>text</td><td><b>Input:</b> year month day nmonth nmday cday dday<br /><b>Output:</b> yyyy mm dd mm dd c d</td><td class='example'>232 8 10 8 10 10<br />232 13 5 5<td>H</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9y 9m 9d 9nm 9nd 9cd 9dd<br /><b>Output:</b> 9y 9m 9d 9nm 9nd 9cd 9dd</td><td class='example'>232y 8m 10d 8nm 10nd 10dd<br />232y 13m 5d 5cd<td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
+Example based on jdn# 2460430 and 2460575</td></tr>
+</table>
+
+[OUTPUT]*/
