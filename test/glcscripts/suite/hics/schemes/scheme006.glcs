@@ -1,0 +1,13 @@
+// scheme006.glcs // Error if base sub-statement fails
+
+scheme test {
+    base xxxx;
+}
+
+write "Ok";
+
+/*[OUTPUT]
+Error (4): Base scheme not recognised.
+Error (5): Scheme "test" not created.
+Ok
+[OUTPUT]*/
