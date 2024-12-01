@@ -31,7 +31,7 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Calendar Description</h2>
+<h2>Calendar Description - Scheme h</h2>
 <p>
  The Hebrew calendar, also known as the Jewish calendar,
  is a lunisolar arithmetical calendar based on the 19 year Metonic cycle.
@@ -196,18 +196,21 @@ falls and thus, the length of the year.
 <p>
  The formats supplied with this scheme.
 </p>
+
 <table class='basic data'>
-<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
-<tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d 9cm</td><td>9y 9m 9d 9cm</td><td class='example'>5783y 11m 17d 11cm</td><td>H</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>5783 11 17</td><td>H</td></tr>
-<tr><td><b>dmy_a</b></td><td>text</td><td>day cmonth year</td><td>dd Mon yyyy</td><td class='example'>17 Shv 5783</td><td>S</td></tr>
-<tr><td><b>dmy</b></td><td>text</td><td>day cmonth year</td><td>dd Month yyyy</td><td class='example'>17 Shevat 5783</td><td>D, S</td></tr>
-<tr><td><b>dmy-</b></td><td>text</td><td>day month year</td><td>dd mm yyyy</td><td class='example'>17 11 5783</td><td>S</td></tr>
-<tr><td><b>wdmy</b></td><td>text</td><td>wsday day cmonth year</td><td>Weekday dd Month yyyy</td><td class='example'>Yom Revi'i 17 Shevat 5783</td><td></td></tr>
-<tr><td><b>ymd</b></td><td>text</td><td>year cmonth day</td><td>yyyy Month dd</td><td class='example'>5783 Shevat 17</td><td>S</td></tr>
-<tr><td><b>ymd-</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>5783 11 17</td><td>S</td></tr>
-<tr><td><b>gedcom</b></td><td>text</td><td>day month year</td><td>dd MON yyyy</td><td class='example'>17 SHV 5783</td><td>S</td></tr>
-<tr><td colspan='6'>Notes: H = Hidden, D = Default, S = Range shortcut supported.</td></tr>
+<tr><th colspan='5'>Formats - Grammar h</th></tr>
+<tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>dmy_a</b></td><td>text</td><td><b>Input:</b> day cmonth year<br /><b>Output:</b> dd Mon yyyy</td><td class='example'>30 Adf 5784<br />29 Ads 5784<br />29 Adr 5785</td><td>S</td></tr>
+<tr><td><b>dmy</b></td><td>text</td><td><b>Input:</b> day cmonth year<br /><b>Output:</b> dd Month yyyy</td><td class='example'>30 Adar I 5784<br />29 Adar II 5784<br />29 Adar 5785</td><td>D, S</td></tr>
+<tr><td><b>dmy-</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd mm yyyy</td><td class='example'>30 12 5784<br />29 13 5784<br />29 12 5785</td><td>S</td></tr>
+<tr><td><b>wdmy</b></td><td>text</td><td><b>Input:</b> wsday day cmonth year<br /><b>Output:</b> Weekday dd Month yyyy</td><td class='example'>Yom Rishon 30 Adar I 5784<br />Yom Sheni 29 Adar II 5784<br />Yom Shabbat 29 Adar 5785</td><td></td></tr>
+<tr><td><b>ymd</b></td><td>text</td><td><b>Input:</b> year cmonth day<br /><b>Output:</b> yyyy Month dd</td><td class='example'>5784 Adar I 30<br />5784 Adar II 29<br />5785 Adar 29</td><td>S</td></tr>
+<tr><td><b>ymd-</b></td><td>text</td><td><b>Input:</b> year month day<br /><b>Output:</b> yyyy mm dd</td><td class='example'>5784 12 30<br />5784 13 29<br />5785 12 29</td><td>S</td></tr>
+<tr><td><b>gedcom</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd MON yyyy</td><td class='example'>30 ADR 5784<br />29 ADS 5784<br />29 ADR 5785</td><td>S</td></tr>
+<tr><td><b>def</b></td><td>text</td><td><b>Input:</b> year month day cmonth<br /><b>Output:</b> yyyy mm dd mm</td><td class='example'>5784 12 30 14<br />5784 13 29 13<br />5785 12 29 12</td><td>H</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9y 9m 9d 9cm<br /><b>Output:</b> 9y 9m 9d 9cm</td><td class='example'>5784y 12m 30d 14cm<br />5784y 13m 29d 13cm<br />5785y 12m 29d 12cm</td><td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden.
+Example based on jdn# 2460380, 2460409 and 2460764</td></tr>
 </table>
 
 <h3>Script</h3>
