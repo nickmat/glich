@@ -122,7 +122,7 @@ using std::string;
 Liturgical::Liturgical( const StdStrVec& data )
     : m_basetype( BaseType::gregorian ), m_base( nullptr ), Base( StdStrVec(), 4 )
 {
-    m_fieldnames = { "year", "lweek", "day" };
+    m_fieldnames = { "year", "lweek", "wsday", "month", "day" };
     m_allow_shorthand = false;
     for( const string& word : data ) {
         cal_data( word );
@@ -188,17 +188,37 @@ Field Liturgical::get_end_field_value( const FieldVec& fields, size_t index ) co
     return Field();
 }
 
+void Liturgical::update_input( FieldVec& fields ) const
+{
+    Field jdn = get_jdn( fields );
+    if( ( fields[3] == f_invalid || fields[4] == f_invalid ) && jdn != f_invalid ) {
+        Field year = f_invalid, month = f_invalid, day = f_invalid;
+        if( m_basetype == BaseType::julian ) {
+            julian_from_jdn( &year, &month, &day, jdn );
+        }
+        else {
+            gregorian_from_jdn( &year, &month, &day, jdn );
+        }
+        fields[3] = month;
+        fields[4] = day;
+    }
+}
+
 FieldVec Liturgical::get_fields( Field jdn ) const
 {
-    FieldVec fields( record_size(), f_invalid );
+    Field year = f_invalid, month = f_invalid, day = f_invalid;
     if( m_basetype == BaseType::julian ) {
-        fields[0] = Julian::year_from_jdn( jdn );
+        julian_from_jdn( &year, &month, &day, jdn );
     }
     else {
-        fields[0] = Gregorian::year_from_jdn( jdn );
+        gregorian_from_jdn( &year, &month, &day, jdn );
     }
+    FieldVec fields( record_size(), f_invalid );
+    fields[0] = year;
     fields[1] = get_litweek( jdn );
     fields[2] = GetOptionalField( "wsday", jdn );
+    fields[3] = month;
+    fields[4] = day;
     return fields;
 }
 

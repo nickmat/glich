@@ -41,11 +41,13 @@ namespace glich {
         void cal_data( const std::string& data );
 
         const char* basename() const override { return "liturgical"; }
-        size_t required_size() const override { return 3; }
+        size_t required_size() const override { return 5; }
 
         Field get_jdn( const FieldVec& fields ) const override;
         Field get_end_field_value( const FieldVec& fields, size_t index ) const override;
 
+        // Complete any redundant fields.
+        void update_input( FieldVec& fields ) const override;
         FieldVec get_fields( Field jdn ) const override;
 
     private:
