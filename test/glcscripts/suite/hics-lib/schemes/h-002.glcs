@@ -62,23 +62,19 @@ write "</table>" nl;
 /*[OUTPUT]
 
 <table class='basic data'>
-<tr><th colspan='5'>Formats - Grammar fr</th></tr>
+<tr><th colspan='5'>Formats - Grammar h</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>
-<tr><td><b>dmy_a</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd Mon yyyy</td><td class='example'>5 Comp 232<br />1 Vend 233<td>S</td></tr>
-<tr><td><b>dmy</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd Month yyyy</td><td class='example'>5 Complémentaires 232<br />1 Vendémiaire 233<td>D, S</td></tr>
-<tr><td><b>ymd</b></td><td>text</td><td><b>Input:</b> year month day<br /><b>Output:</b> yyyy Month dd</td><td class='example'>232 Complémentaires 5<br />233 Vendémiaire 1<td>S</td></tr>
-<tr><td><b>cdmy</b></td><td>text</td><td><b>Input:</b> cday nmday nmonth year<br /><b>Output:</b> CompDay dd Month yyyy</td><td class='example'>Fête des Récompenses 232<br />1 Vendémiaire 233<td></td></tr>
-<tr><td><b>cdmy-</b></td><td>text</td><td><b>Input:</b> cday nmday nmonth year<br /><b>Output:</b> CDay dd Mon yyyy</td><td class='example'>Rec 232<br />1 Vend 233<td></td></tr>
-<tr><td><b>out</b></td><td>text</td><td><b>Output:</b> CompDay dd Month an yyyy[X]</td><td class='example'>Fête des Récompenses an CCXXXII<br />1 Vendémiaire an CCXXXIII<td></td></tr>
-<tr><td><b>dcdmy</b></td><td>text</td><td><b>Input:</b> dday cday nmday nmonth year<br /><b>Output:</b> DecDay CompDay dd Month yyyy</td><td class='example'>Fête des Récompenses 232<br />Primidi 1 Vendémiaire 233<td></td></tr>
-<tr><td><b>dcdmy-</b></td><td>text</td><td><b>Input:</b> dday cday nmday nmonth year<br /><b>Output:</b> DDay CDay dd Mon yyyy</td><td class='example'>Rec 232<br />Prim 1 Vend 233<td></td></tr>
-<tr><td><b>wcdmy</b></td><td>text</td><td><b>Input:</b> wday cday nmday nmonth year<br /><b>Output:</b> Weekday, CompDay dd Month yyyy</td><td class='example'>Saturday, Fête des Récompenses 232<br />Sunday, 1 Vendémiaire 233<td></td></tr>
-<tr><td><b>wcdmy-</b></td><td>text</td><td><b>Input:</b> wday cday nmday nmonth year<br /><b>Output:</b> Wday, CDay dd Mon yyyy</td><td class='example'>Sat, Rec 232<br />Sun, 1 Vend 233<td></td></tr>
-<tr><td><b>gedcom</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd MON yyyy</td><td class='example'>5 COMP 232<br />1 VEND 233<td>S</td></tr>
-<tr><td><b>def</b></td><td>text</td><td><b>Input:</b> year month day nmonth nmday cday dday<br /><b>Output:</b> yyyy mm dd mm dd c d</td><td class='example'>232 13 5 5<br />233 1 1 1 1 1<td>H</td></tr>
-<tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9y 9m 9d 9nm 9nd 9cd 9dd<br /><b>Output:</b> 9y 9m 9d 9nm 9nd 9cd 9dd</td><td class='example'>232y 13m 5d 5cd<br />233y 1m 1d 1nm 1nd 1dd<td>H</td></tr>
-<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
-Example based on jdn# 2460575 and 2460576</td></tr>
+<tr><td><b>dmy_a</b></td><td>text</td><td><b>Input:</b> day cmonth year<br /><b>Output:</b> dd Mon yyyy</td><td class='example'>30 Adf 5784<br />29 Ads 5784<br />29 Adr 5785</td><td>S</td></tr>
+<tr><td><b>dmy</b></td><td>text</td><td><b>Input:</b> day cmonth year<br /><b>Output:</b> dd Month yyyy</td><td class='example'>30 Adar I 5784<br />29 Adar II 5784<br />29 Adar 5785</td><td>D, S</td></tr>
+<tr><td><b>dmy-</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd mm yyyy</td><td class='example'>30 12 5784<br />29 13 5784<br />29 12 5785</td><td>S</td></tr>
+<tr><td><b>wdmy</b></td><td>text</td><td><b>Input:</b> wsday day cmonth year<br /><b>Output:</b> Weekday dd Month yyyy</td><td class='example'>Yom Rishon 30 Adar I 5784<br />Yom Sheni 29 Adar II 5784<br />Yom Shabbat 29 Adar 5785</td><td></td></tr>
+<tr><td><b>ymd</b></td><td>text</td><td><b>Input:</b> year cmonth day<br /><b>Output:</b> yyyy Month dd</td><td class='example'>5784 Adar I 30<br />5784 Adar II 29<br />5785 Adar 29</td><td>S</td></tr>
+<tr><td><b>ymd-</b></td><td>text</td><td><b>Input:</b> year month day<br /><b>Output:</b> yyyy mm dd</td><td class='example'>5784 12 30<br />5784 13 29<br />5785 12 29</td><td>S</td></tr>
+<tr><td><b>gedcom</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd MON yyyy</td><td class='example'>30 ADR 5784<br />29 ADS 5784<br />29 ADR 5785</td><td>S</td></tr>
+<tr><td><b>def</b></td><td>text</td><td><b>Input:</b> year month day cmonth<br /><b>Output:</b> yyyy mm dd mm</td><td class='example'>5784 12 30 14<br />5784 13 29 13<br />5785 12 29 12</td><td>H</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9y 9m 9d 9cm<br /><b>Output:</b> 9y 9m 9d 9cm</td><td class='example'>5784y 12m 30d 14cm<br />5784y 13m 29d 13cm<br />5785y 12m 29d 12cm</td><td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden.
+Example based on jdn# 2460380, 2460409 and 2460764</td></tr>
 </table>
 
 [OUTPUT]*/
