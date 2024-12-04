@@ -138,10 +138,10 @@ Liturgical::Liturgical( const StdStrVec& data )
 void Liturgical::cal_data( const string& data )
 {
     if( data == "julian" ) {
-        m_basetype = BaseType::gregorian;
+        m_basetype = BaseType::julian;
     }
     else if( data == "gregorian" ) {
-        m_basetype = BaseType::julian;
+        m_basetype = BaseType::gregorian;
     }
     else {
         set_data( data );
