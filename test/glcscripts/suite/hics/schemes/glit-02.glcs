@@ -88,13 +88,13 @@ lexicon LIT {
 }
 
 grammar LIT {
-    fields year lweek day;
+    fields year lweek wsday month day;
+    rank year lweek wsday;
     lexicons LIT WS;
-    alias lexicon { wsday day; }
-    alias pseudo { d day; ww lweek; yyyy year; }
-    alias unit { d day; w lweek; y year; }
-    format ywd   "{year}| {day:WS},| {lweek:LIT}";
-    format ywd_a "{year}| {day:WS:a},| {lweek:LIT:a}";
+    alias pseudo { d wsday; ww lweek; yyyy year; }
+    alias unit { d wsday; w lweek; y year; }
+    format ywd   "{year}| {wsday:WS},| {lweek:LIT}";
+    format ywd_a "{year}| {wsday:WS:a},| {lweek:LIT:a}";
     preferred ywd;
 }
 
@@ -124,18 +124,18 @@ write @text.:ywd_a({s:GLIT 2024, 38, 1}), @date({s:GLIT 2024, 38, 1 }), @scheme.
 
 /*[OUTPUT]
 
-{sch: "GLIT", "Gregorian liturgical", "liturgical", {: "year", "lweek", "day"}, "LIT", {: "ywd", "ywd_a", "def", "u"}, "ywd", "ywd", true}
+{sch: "GLIT", "Gregorian liturgical", "liturgical", {: "year", "lweek", "wsday", "month", "day"}, "LIT", {: "ywd", "ywd_a", "def", "u"}, "ywd", "ywd", true}
 
-2024 Saturday, Eleventh Week after Trinity, 2460540, {s:GLIT 2024, 37, 7}
-2024 Saturday, Eleventh Week after Trinity, 2460540, {s:GLIT 2024, 37, 7}
+2024 Saturday, Eleventh Week after Trinity, 2460540, {s:GLIT 2024, 37, 7, 8, 17}
+2024 Saturday, Eleventh Week after Trinity, 2460540, {s:GLIT 2024, 37, 7, 8, 17}
 
-2024 Sunday, Twelfth Week after Trinity, 2460541, {s:GLIT 2024, 38, 1}
-2024 Sunday, Twelfth Week after Trinity, 2460541, {s:GLIT 2024, 38, 1}
+2024 Sunday, Twelfth Week after Trinity, 2460541, {s:GLIT 2024, 38, 1, 8, 18}
+2024 Sunday, Twelfth Week after Trinity, 2460541, {s:GLIT 2024, 38, 1, 8, 18}
 
-2024 Sat, Trinity XI, 2460540, {s:GLIT 2024, 37, 7}
-2024 Sat, Trinity XI, 2460540, {s:GLIT 2024, 37, 7}
+2024 Sat, Trinity XI, 2460540, {s:GLIT 2024, 37, 7, 8, 17}
+2024 Sat, Trinity XI, 2460540, {s:GLIT 2024, 37, 7, 8, 17}
 
-2024 Sun, Trinity XII, 2460541, {s:GLIT 2024, 38, 1}
-2024 Sun, Trinity XII, 2460541, {s:GLIT 2024, 38, 1}
+2024 Sun, Trinity XII, 2460541, {s:GLIT 2024, 38, 1, 8, 18}
+2024 Sun, Trinity XII, 2460541, {s:GLIT 2024, 38, 1, 8, 18}
 
 [OUTPUT]*/
