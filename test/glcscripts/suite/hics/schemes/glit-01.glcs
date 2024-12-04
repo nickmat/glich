@@ -5,7 +5,6 @@ scheme GLIT {
     base liturgical;
 }
 
-
 write nl;
 write @sch:object.GLIT nl;
 write nl;
@@ -17,12 +16,12 @@ write @text({s:GLIT 2024, 38, 1}), @date({s:GLIT 2024, 38, 1 }), @scheme.GLIT("2
 
 /*[OUTPUT]
 
-{sch: "GLIT", "Gregorian liturgical", "liturgical", {: "year", "lweek", "day"}, "", {: "def", "u"}, "def", "def", true}
+{sch: "GLIT", "Gregorian liturgical", "liturgical", {: "year", "lweek", "wsday", "month", "day"}, "", {: "def", "u"}, "def", "def", true}
 
-2024 37 7, 2460540, {s:GLIT 2024, 37, 7}
-2024 37 7, 2460540, {s:GLIT 2024, 37, 7}
+2024 37 7 8 17, 2460540, {s:GLIT 2024, 37, 7, 8, 17}
+2024 37 7 8 17, 2460540, {s:GLIT 2024, 37, 7, 8, 17}
 
-2024 38 1, 2460541, {s:GLIT 2024, 38, 1}
-2024 38 1, 2460541, {s:GLIT 2024, 38, 1}
+2024 38 1 8 18, 2460541, {s:GLIT 2024, 38, 1, 8, 18}
+2024 38 1 8 18, 2460541, {s:GLIT 2024, 38, 1, 8, 18}
 
 [OUTPUT]*/
