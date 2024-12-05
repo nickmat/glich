@@ -52,17 +52,17 @@ module hics:easter {
     grammar je;
     scheme je;
 }
-module hics:liturgical {
-    lexicon lit;
-    grammar lit;
-    scheme jlit glit;
-}
 module hics:eh {
     scheme eh;
 }
 module hics:gregorian {
     grammar g;
     scheme g go gw;
+}
+module hics:liturgical {
+    lexicon lit;
+    grammar lit;
+    scheme jlit glit;
 }
 module hics:jce {
     lexicon ce;

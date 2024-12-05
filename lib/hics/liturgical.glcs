@@ -97,16 +97,23 @@ lexicon lit {
 }
 
 grammar lit {
-    fields year lweek day;
-    lexicons lit ws;
-    alias lexicon { wsday day; }
-    alias pseudo { d day; ww lweek; yyyy year; }
-    alias unit { d day; w lweek; y year; }
-    format dwy   "{day:ws}, |{lweek:lit} |{year}";
-    format dwy_a "{day:ws:a}, |{lweek:lit:a} |{year}";
-    format ydw   "{year}| {day:ws},| {lweek:lit}";
-    format ydw_a "{year}| {day:ws:a},| {lweek:lit:a}";
-    preferred dwy;
+    name "Christian Liturgical";
+    fields year lweek wsday month day;
+    rank year lweek wsday;
+    lexicons ws m lit;
+    alias pseudo { dw wsday; ww lweek; yyyy year; mm month; dm day; }
+    alias unit { wd wsday; w lweek; y year; m month; md day; }
+
+    format wdmyl   "{wsday:ws} |{day} |{month:m} |{year}| {lweek:lit}";
+    format wdmyl_a "{wsday:ws:a} |{day} |{month:m:a} |{year}| {lweek:lit:a}";
+    format wly     "{wsday:ws}, |{lweek:lit} |{year}";
+    format wly_a   "{wsday:ws:a}, |{lweek:lit:a} |{year}";
+    format dwy     "{wsday:ws}, |{lweek:lit} |{year}";
+    format dwy_a   "{wsday:ws:a}, |{lweek:lit:a} |{year}";
+    format ydw     "{year}| {wsday:ws},| {lweek:lit}";
+    format ydw_a   "{year}| {wsday:ws:a},| {lweek:lit:a}";
+
+    preferred wdmyl;
 }
 
 scheme jlit {
