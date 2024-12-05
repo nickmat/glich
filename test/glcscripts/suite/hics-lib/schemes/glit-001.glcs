@@ -1,0 +1,24 @@
+// hics-lib\schemes\glit-001.glcs - Test Gregorian Liturgy calendar scheme.
+
+write nl;
+write @sch:object.glit nl;
+
+write nl;
+write @text.glit(2460540), @date.glit:ydw_a("2024 Sat, Trinity XI"), @scheme.glit(2460540) nl;
+write @text({s:glit 2024, 37, 7}), @date({s:glit 2024, 37, 7}), @scheme.glit("Sat 17 Aug 2024 Trinity XI") nl;
+write nl;
+write @text.glit(2460541), @date.glit:ydw_a("2024 Sun, Trinity XII"), @scheme.glit(2460541) nl;
+write @text({s:glit 2024, 38, 1}), @date({s:glit 2024, 38, 1 }), @scheme.glit("Sun 18 Aug 2024 Trinity XII") nl;
+
+
+/*[OUTPUT]
+
+{sch: "glit", "Gregorian Liturgical", "liturgical", {: "year", "lweek", "wsday", "month", "day"}, "lit", {: "wdmyl", "wdmyl_a", "wly", "wly_a", "dwy", "dwy_a", "ydw", "ydw_a", "def", "u"}, "wdmyl", "wdmyl", true}
+
+Saturday 17 August 2024 Eleventh Week after Trinity, 2460540, {s:glit 2024, 37, 7, 8, 17}
+Saturday 17 August 2024 Eleventh Week after Trinity, 2460540, {s:glit 2024, 37, 7, 8, 17}
+
+Sunday 18 August 2024 Twelfth Week after Trinity, 2460541, {s:glit 2024, 38, 1, 8, 18}
+Sunday 18 August 2024 Twelfth Week after Trinity, 2460541, {s:glit 2024, 38, 1, 8, 18}
+
+[OUTPUT]*/
