@@ -16,6 +16,7 @@ set( TEST_GLCUNIT_FILES
     guSch_h.cpp
     guSch_j.cpp
     guSch_ja.cpp
+    guSch_jlit.cpp
 )
 
 set( TEST_GLCUNIT_HEADERS
