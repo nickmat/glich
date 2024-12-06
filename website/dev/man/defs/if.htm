@@ -31,7 +31,7 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Calendar Description</h2>
+<h2>Calendar Description - Scheme if</h2>
 <p>
  The Islamic calendar is a lunar calendar used throughout the Arabic and Muslim areas.
 </p>
@@ -78,22 +78,26 @@
 <p>
  The formats supplied with this scheme.
 </p>
+
 <table class='basic data'>
+<tr><th colspan='6'>Formats - Grammar i</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
-<tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>1445y 12m 23d</td><td>H</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>1445 12 23</td><td>H</td></tr>
 <tr><td><b>dmy</b></td><td>text</td><td>day month year</td><td>dd Month yyyy</td><td class='example'>23 Dhū al-Ḥijjah 1445</td><td>D, S</td></tr>
 <tr><td><b>dmy_a</b></td><td>text</td><td>day month year</td><td>dd Mon yyyy</td><td class='example'>23 Dhu al-Hijjah 1445</td><td>S</td></tr>
 <tr><td><b>dmy_d</b></td><td>text</td><td>day month year</td><td>dd mm yyyy</td><td class='example'>23 12 1445</td><td>S</td></tr>
 <tr><td><b>wdmy</b></td><td>text</td><td>wsday day month year</td><td>Weekday dd Month yyyy</td><td class='example'>Yawm as-Sabt 23 Dhū al-Ḥijjah 1445</td><td></td></tr>
 <tr><td><b>wdmy_a</b></td><td>text</td><td>wsday day month year</td><td>WDay dd Mon yyyy</td><td class='example'>Sabt 23 Dhu al-Hijjah 1445</td><td></td></tr>
 <tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>yyyy Mon dd</td><td class='example'>1445 Dhu al-Hijjah 23</td><td>S</td></tr>
-<tr><td colspan='6'>Notes: H = Hidden, D = Default, S = Range shortcut supported.</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>1445 12 23</td><td>H, S</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>1445y 12m 23d</td><td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
+Example based on jdn# 2460491</td></tr>
 </table>
+
 
 <h3>Script</h3>
 <table class='code lfloat'>
-<tr><th>Default Script</th></tr>
+<tr><th>Script - Module hics:islamic</th></tr>
 <tr><td
 >scheme if {
     name "Islamic Fātimid";
@@ -104,7 +108,8 @@
 </table>
 
 <p>
- The scheme uses the i grammar as defined for the <a href='i.htm'>Islamic Tabular</a> calendar.
+ The scheme uses the "i" grammar and lexicons "im" and "iw"
+ as defined for the <a href='i.htm'>Islamic Tabular</a> calendar.
 </p>
 
 </div><!--id=content-->
