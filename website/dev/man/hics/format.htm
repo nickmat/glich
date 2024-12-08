@@ -142,7 +142,7 @@ writeln text.XS:html 2460127;</td>
 <tr><td class='code'><b>separators</b> <i>string-expr</i>;</td><td class='example'><b>separators</b> "-";</td><td>Characters to be used to separate date elements. Default is ":,".</td></tr>
 <tr><td class='code'><b>rank</b> <i>string-list</i>;</td><td class='example'><b>rank</b> "ce", "ceyear", "month", "day";</td><td>Set the significance order for input and output fields.</td></tr>
 <tr><td class='code'><b>rankout</b> <i>string-list</i>;</td><td class='example'><b>rankout</b> year, nmonth, nmday, cday;</td><td>Set the significance order for output fields only.</td></tr>
-<tr><td class='code'><b>style</b> <i>switch</i>;</td><td class='example'><b>style</b> hide;</td><td>Set the style for the format.</td></tr>
+<tr><td class='code'><b>visible</b> <i>switch</i>;</td><td class='example'><b>visible</b> yes;</td><td>Set the visibility for the format when listed.</td></tr>
 <tr><td class='code'><b>pseudo:in</b> <i>string</i>;</td><td class='example'><b>pseudo:in</b> "Day Month Year";</td><td>Set the string that shows the input format.</td></tr>
 <tr><td class='code'><b>pseudo:out</b> <i>string</i>;</td><td class='example'><b>pseudo:out</b> "d-Mmm-yyyy";</td><td>Set the string that shows the output format.</td></tr>
 <tr><td class='code'><b>use:in</b> <i>string</i>;</td><td class='example'><b>use:in</b> calc_month;</td><td>Function code used to complete default fields.</td></tr>
@@ -159,7 +159,7 @@ writeln text.XS:html 2460127;</td>
 
 <p>
  For input text, the format describes the expected order of the elements.
- The exact form of those elements (digits or text) is not important.
+ The exact form of those elements (digits or text) is not normally important.
  If the number of elements is less than the format's,
  then the lest significant field or fields are removed from the format.
  A fields significance is determined by its ranking order. 
@@ -184,8 +184,13 @@ writeln text.XS:html 2460127;</td>
  An element can be removed from from the ranking system
  by including a lexicon Name followed by an '*' asterisk.
  This means the lexicon name must be used
- and the element is positioned using the lexicon fieldname entry.
+ and the element is positioned using the lexicon field name entry.
  It has the effect of making the element optional.
+</p>
+<p>
+ Elements which are not part of the ranking fields may be included
+ as a non-ranking element, but the lexicon text (rather than a number) must be used
+ so the field name can be determined.
 </p>
 <p>
  The value inside the curly brackets describes the field to be output.
