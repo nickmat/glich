@@ -216,7 +216,7 @@ writeln text.XS:html 2460127;</td>
 <tr><td class='code'>{<i>Name</i>:<i>Lexicon<b>*</b>:a</i>}</td><td class='example'>{month:jg*:a}</td><td></td></tr>
 <tr><td colspan='4'>Note, Has the effect of making the element optional.</td></tr>
 <tr><th colspan='4'>Output Only Specifiers</th></tr>
-<tr><td>Number and ordinal suffix</td><td class='code'>{<i>Name</i>::os}<br />{<i>Name</i>::os.u}</td><td class='example'>{month::os}<br />{month::os:u}</td><td>9th<br />9TH</td></tr>
+<tr><td>Number and ordinal suffix</td><td class='code'>{<i>Name</i>::os}<br />{<i>Name</i>::os:u}</td><td class='example'>{month::os}<br />{month::os:u}</td><td>9th<br />9TH</td></tr>
   <tr><td>Just ordinal suffix</td><td class='code'>{<i>Name</i>::oa}<br />{<i>Name</i>::oa:u}</td><td class='example'>{month}_{month::oa}<br />{month}_{month::oa:u}</td><td>9_th<br />9_TH</td></tr>
 <tr><td>Number, Roman numerals</td><td class='code'>{<i>Name</i>::rn}<br />{<i>Name</i>::rn:l}</td><td class='example'>{month::rn}<br />{month::rn:l}</td><td>IX<br />ix</td></tr>
 </table>
@@ -244,17 +244,13 @@ writeln text.XS:html 2460127;</td>
  It is used when separate <b>input</b> and <b>output</b> sub-statements are used.
 </p>
 
-<h4>Format Sub-Statement: style</h4>
+<h4>Format Sub-Statement: visible</h4>
 <p>
- Set style attributes for the Format when listed with other formats.
- The default is style none.
+ Set the visibility attribute for the Format to <code>yes</code> or <code>no</code>.
+ When a list of formats is requested, this format will only be included if the attribute is set to <code>yes</code>.
+ It is possible to override this by requesting a complete list of formats.
+ The default visibility is <code>yes</code>.
 </p>
-<table class='basic'>
- <tr><th colspan='2'>style Sub-Statement</th></tr>
- <tr><th>Description</th><th>Switch</th></tr>
- <tr><td>No style settings.</td><td class='code'>style none;</td></tr>
- <tr><td>Do not show the format in the format list.</td><td class='code'>style hide;</td></tr>
-</table>
 
 <h4>Format Sub-Statements: pseudo:in and pseudo:out</h4>
 <p>
@@ -290,24 +286,29 @@ writeln text.XS:html 2460127;</td>
  these are the names that will be used.
 </p>
 <p>
- A units format may is created automatically using the "u" fcode (format code).
- This can be used as follows.
+ A units format may is created automatically using the "u" format code.
+ It can be used as follows.
 </p>
 
 <table class='basic'>
 <tr><th>Example</th><th>Result</th></tr>
-<tr><td class='example'>date.g:u "9month1948year19day"</td><td>2432814</td></tr> <!-- see suite/expressions/date004.hcs -->
-<tr><td class='example'>date.g:u "1948y 19d 9m"</td><td>2432814</td></tr> <!-- see suite/expressions/date013.hcs -->
-<tr><td class='example'>record.g:u "9 Month"</td><td>{"g", ?, 9, ?, ?}</td></tr> <!-- see suite/expressions/record008.hcs -->
-<tr><td class='example'>string.g:u 2432814</td><td>"1948y 9m 19d"</td></tr> <!-- see suite/expressions/string010.hcs -->
+<tr><td class='example'>@date.g:u( "9month1948year19day" )</td><td>2432814</td></tr> <!-- see suite/hics-lib/functions/built-in/at-date005.glcs -->
+<tr><td class='example'>@date.g:u( "2023y 4d 13m" )</td><td>2460314</td></tr> <!-- see as above -->
+<tr><td class='example'>@scheme.g:u( "9 month" )</td><td>{s:g null, 9, null, null}</td></tr> <!-- see suite/hics-lib/functions/built-in/at-scheme002.glcs -->
+<tr><td class='example'>@scheme.g:u( "2023y 9m 21d" )</td><td>{s:g 2023, 9, 21, 4}</td></tr> <!-- see as above -->
+<tr><td class='example'>@text.g:u( 2460048 )</td><td>"2023y 4m 13d"</td></tr> <!-- see suite/hics-lib/functions/built-in/at-text003.glcs -->
 </table>
-<p>
- Note, this aspect of the language is still being actively developed.
- The units format has no options (at present)
- and is automatically created, using the "u" format code.
- Hence, there is no need to explicitly use it.
- It is included for completeness and future development only.
-</p>
+
+<div class='note'><div class='inner'>
+  <p>
+   Note, this aspect of the language is still being developed.
+   The units format has no options (at present)
+   and is automatically created, using the "u" format code.
+   Hence, there is no need to explicitly use it.
+   It is included for completeness and future development only.
+  </p>
+ </div>
+</div>
 
 <h3 id='rules-iso8601'>Format Sub-Statement: rules iso8601</h3>
 <p>
