@@ -1,9 +1,11 @@
-// date002.hcs Test file to test date cast expressions
+// at-date005.glcs - Test file to test date function with unit format.
+
+write @date.g:u( "1948year19day9month" ),;
 
 write @date.g:u( "1948year 19day 9month" ),;
 
 write @date.g:u( "2023y 4d 13m" );
 
 /*[OUTPUT]
-2432814, 2460314
+2432814, 2432814, 2460314
 [OUTPUT]*/
