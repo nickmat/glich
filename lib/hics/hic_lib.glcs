@@ -59,11 +59,11 @@ module hics:gregorian {
     grammar g;
     scheme g go gw;
 }
-module hics:liturgical {
+/* module hics:liturgical {
     lexicon lit;
     grammar lit;
     scheme jlit glit;
-}
+} */
 module hics:jce {
     lexicon ce;
     grammar jce;
