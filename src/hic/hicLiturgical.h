@@ -41,7 +41,7 @@ namespace glich {
         void cal_data( const std::string& data );
 
         const char* basename() const override { return "liturgical"; }
-        size_t required_size() const override { return 5; }
+        size_t required_size() const override { return 6; }
 
         Field get_jdn( const FieldVec& fields ) const override;
         Field get_end_field_value( const FieldVec& fields, size_t index ) const override;
@@ -52,11 +52,7 @@ namespace glich {
 
     private:
         enum class BaseType { julian, gregorian };
-        enum WeekBlockNumber {
-            WEEK_Blk1 = 2, WEEK_Blk2 = 3, WEEK_Blk3 = 9,
-            WEEK_Blk4 = 58, WEEK_Blk5 = 62
-        };
-
+        enum Block { B1 = 1, B2 = 5, B3 = 7, B4 = 8, B5 = 14 };
 
         Field base_jdn( Field year, Field month, Field day ) const;
         Field xmas1( Field year ) const;
@@ -65,7 +61,6 @@ namespace glich {
         Field epiph1( Field year ) const;
         Field septuag( Field year ) const;
         Field advent( Field year ) const;
-        Field get_litweek( Field jdn ) const;
 
         BaseType m_basetype;
         Base* m_base;
