@@ -1,0 +1,14 @@
+// at-scheme002.hcs - Test file to test @scheme function
+
+write nl;
+write @scheme.g:u( "9 month" ), @scheme.g:u( "2023y 9m 21d" ) nl;
+write @scheme( 2460209 ), @scheme( "21sep2023" ) nl;
+write @scheme.j( 2460209 ), @scheme.j( "8sep2023" ), @scheme.j:mdy( "sep8,2023" ) nl;
+
+/*[OUTPUT]
+
+{s:g null, 9, null, null}, {s:g 2023, 9, 21, 4}
+{s:g 2023, 9, 21, 4}, {s:g 2023, 9, 21, 4}
+{s:j 2023, 9, 8, 4}, {s:j 2023, 9, 8, 4}, {s:j 2023, 9, 8, 4}
+
+[OUTPUT]*/
