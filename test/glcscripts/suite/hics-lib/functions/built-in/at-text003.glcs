@@ -1,4 +1,4 @@
-// date003.glcs Test file to test date cast expressions
+// at-text003.glcs Test file to test @text function with unit format.
 
 write @text.g:u( 2460048 );
 
