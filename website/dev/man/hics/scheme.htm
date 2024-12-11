@@ -127,6 +127,15 @@
  If a field is used to represent a date in the script,
  then by default it is a jdn (Julian Day Number).
 </p>
+<p>
+ An additional keyword <code>epoch:<i>date</i></code> may be used
+ to create any day count calendar scheme by changing the scheme's epoch.
+</p>
+<table class='basic'>
+<tr><th colspan='4'>Base jdn Keyword</th></tr>
+<tr><th>Keyword</th><th>Description</th><th>Example</th><th>Reference Scheme</th></tr>
+<tr><td class='code'>epoch:<i>date</i></td><td>Change the day count epoch.</td><td class="example">base jdn epoch:2400002</td><td><a href='../defs/mjd.htm'>mjd</a></td></tr>
+</table>
 
 <h4>Sub-Statement: base jwn</h4>
 <p>
