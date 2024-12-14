@@ -4,7 +4,7 @@ let sch = "c";
 
 let d1 = 2460866;
 let d2 = 2460896;
-let d3 = 2460896;
+let d3 = 2460925;
 
 let so = @sch:object.(sch);
 let sfl = so[formats];
@@ -13,8 +13,8 @@ let index = 0;
 
 write nl;
 write "<table class='basic data'>" nl;
-write "<tr><th colspan='5'>Formats - Grammar " + so[grammar] + "</th></tr>" nl;
-write "<tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>" nl;
+write "<tr><th colspan='4'>Formats - Grammar " + so[grammar] + "</th></tr>" nl;
+write "<tr><th>Code</th><th>Rule</th><th>Pseudo / Example</th><th>Note</th></tr>" nl;
 
 do
     let fmt = sfl[(index)];
@@ -40,15 +40,21 @@ do
     endif
     p = "<td>" + p + "<b>Output:</b> " + fo[pseudo:out] + "</td>";
 
-    let row = "<tr><td><b>" + fo[code] + "</b></td>"
-      + "<td>" +fo[rules] + "</td>"
+    let row = "<tr><td rowspan='2'><b>" + fo[code] + "</b></td>"
+      + "<td rowspan='2'>" +fo[rules] + "</td>"
       + p
-      + "<td class='example'>" + @text.(sig)(d1) + "<br />"
-      + @text.(sig)(d2) + "<br />"
-      + @text.(sig)(d3) + "</td>"
-      + "<td>" + note + "</td></tr>";
+      + "<td rowspan='2'>" + note + "</td>"
+      + "</tr>";
 
     write row nl;
+  
+    let row2 = "<tr><td class='example'>"
+      + @text.(sig)(d1) + "<br />"
+      + @text.(sig)(d2) + "<br />"
+      + @text.(sig)(d3)
+      + "</td></tr>";
+    write row2 nl;
+
 
     index += 1;
     until index = size;
