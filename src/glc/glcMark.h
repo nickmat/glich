@@ -59,8 +59,10 @@ namespace glich {
         void add_file( const std::string& code ) { m_files.push_back( code ); }
 
         void set_integer( Integer intgr ) { m_integer = intgr; }
+        void set_write_text( WriteText wt ) { m_write_text = wt; }
 
         Integer get_integer() const { return m_integer; }
+        WriteText get_write_text() const { return m_write_text; }
 
         void get_mark_glc_data( GlcMarkData& glcdata ) const;
 
@@ -77,6 +79,7 @@ namespace glich {
         StdStrVec m_modules;
         StdStrVec m_files;
         Integer m_integer;
+        WriteText m_write_text;
     };
 
 }

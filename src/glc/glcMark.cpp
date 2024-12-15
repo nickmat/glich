@@ -41,9 +41,11 @@ using std::vector;
 
 
 Mark::Mark( const string& name, Mark* prev )
-    : m_name( name ), m_integer( Integer::number ){
+    : m_name( name ), m_integer( Integer::number ), m_write_text( WriteText::plain )
+{
     if( prev != nullptr ) {
         m_integer = prev->get_integer();
+        m_write_text = prev->get_write_text();
     }
 }
 
