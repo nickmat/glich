@@ -1,0 +1,32 @@
+// set003.glcs Test write:text setting
+
+let s = "Author says " + @quote( "Hi" );
+
+write nl;
+write s nl;
+
+mark test;
+set write:text quoted;
+write s nl;
+mark test2;
+write s nl;
+
+set write:text plain;
+write s nl;
+
+set write:text quoted;
+write s nl;
+mark test;
+write s nl;
+
+
+/*[OUTPUT]
+
+Author says "Hi"
+"Author says ""Hi"""
+"Author says ""Hi"""
+Author says "Hi"
+"Author says ""Hi"""
+Author says "Hi"
+
+[OUTPUT]*/
