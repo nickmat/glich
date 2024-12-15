@@ -488,7 +488,12 @@ bool Script::do_write( const string& term )
         }
 
         SValue value = expr( GetToken::current );
-        *out << value.as_string();
+        if( value.type() == SValue::Type::String && glc().get_write_text() == WriteText::quoted ) {
+            *out << string_to_quote( value.get_str() );
+        }
+        else {
+            *out << value.as_string();
+        }
 
         if( value.type() == SValue::Type::Error ) {
             m_ts.skip_to( SToken::Type::Semicolon );
