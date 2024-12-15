@@ -119,6 +119,7 @@ namespace glich {
 
         virtual bool set_property( const std::string& property, const std::string& value );
         Integer get_integer() const;
+        WriteText get_write_text() const;
 
         virtual std::string get_special_value_string( SpecialValue val );
 

@@ -582,6 +582,20 @@ bool Glich::set_property( const string& property, const string& value )
         m_marks[i]->set_integer( intgr );
         return true;
     }
+    if( property == "write:text" ) {
+        WriteText wt;
+        if( value == "plain" ) {
+            wt = WriteText::plain;
+        }
+        else if( value == "quoted" ) {
+            wt = WriteText::quoted;
+        }
+        else {
+            return false;
+        }
+        m_marks[i]->set_write_text( wt );
+        return true;
+    }
     return false;
 }
 
@@ -592,6 +606,15 @@ Integer Glich::get_integer() const
         return m_marks[i]->get_integer();
     }
     return Integer::number;
+}
+
+WriteText glich::Glich::get_write_text() const
+{
+    int i = int( m_marks.size() ) - 1;
+    if( i >= 0 ) {
+        return m_marks[i]->get_write_text();
+    }
+    return WriteText::plain;
 }
 
 string Glich::get_special_value_string( SpecialValue val )
