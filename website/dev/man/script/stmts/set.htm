@@ -60,7 +60,6 @@
 <tr><th>Property</th><th>Use</th></tr>
 <tr><td class='code'><b>integer</b></td><td>Default type integer input values.</td></tr>
 <tr><td class='code'><b>write:text</b></td><td>Write text with or without quotes.</td></tr>
-<tr><td class='code'><b>context</b></td><td>Set the output text of certain values.</td></tr>
 </table>
 
 <h3>Setting Property: integer</h3>
@@ -124,31 +123,6 @@ She said "hi"<br />
 "She said ""hi"""<br />
 She said "hi"</td>
  </tr>
-</table>
-
-
-<h3>Setting Property: context</h3>
-<p>
- The <b>context</b> property changes some defaults values
- to suit different contexts.
- There are currently two possible values: <b>glich</b>, the default
- and <b>hics</b> for use with the hics extensions.
-</p>
-
-<table class='basic'>
- <tr><th>Format</th></tr>
- <tr><td class='code'><b>set</b> context glich; // Default for no library.</td></tr>
- <tr><td class='code'><b>set</b> context hics;  // Default for Hics library.</td></tr>
-</table>
-
-<p>
- The settings make the following changes to the input and output.
-</p>
-
-<table class='basic'>
- <tr><th></th><th>glich</th><th>hics</th></tr>
- <tr><td>Field maximum output:</td><td>"+infinity"</td><td>"future"</td></tr>
- <tr><td>Field minimum output:</td><td>"-infinity"</td><td>"past"</td></tr>
 </table>
 
 </div><!--id=content-->
