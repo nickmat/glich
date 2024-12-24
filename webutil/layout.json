@@ -13,9 +13,9 @@
         { "folder": "script", "name": "index", "label": "Glich Script", "subtitle": "Glich Script Language", "content": [
           { "name": "types", "label": "Value Types", "subtitle": "Script Value Types" },
           { "name": "expr", "label": "Expressions", "subtitle": "Script Expressions" },
-          { "folder": "stmts", "name": "index", "label": "Statements", "subtitle": "Introduction", "content": [
-            { "name": "file", "label": "Define file" },
+          { "folder": "stmts", "name": "index", "label": "Statements", "content": [
             { "name": "write", "label": "write Statement" },
+            { "name": "file", "label": "Define file" },
             { "name": "let", "label": "let Statement" },
             { "name": "end", "label": "end Statement" },
             { "name": "if", "label": "if Statement" },

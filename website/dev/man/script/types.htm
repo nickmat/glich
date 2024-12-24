@@ -35,6 +35,18 @@
 <p>
  Expressions use the following value types.
 </p>
+<ul>
+ <li><b>String</b> - A sequence of unicode (UTF-8) characters.</li>
+ <li><b>Float</b> - A floating point number, includes <b>±inf</b> (infinity) and <b>nan</b> (not a number).</li>
+ <li><b>Number</b> - An integer number, can hold a value in the approximately range of ±10<sup>19</sup>.</li>
+ <li><b>Field</b> - An integer number in the range of ±2147483644, <b>±infinity</b> and an undefined value '<b>?</b>'.</li>
+ <li><b>Range</b> - One or more consecutive fields.</li>
+ <li><b>RList</b> - A well-ordered set (list) of ranges. Includes the <b>empty</b> set.</li>
+ <li><b>Boolean</b> - The boolean value <b>true</b> or <b>false</b>.</li>
+ <li><b>Object</b> - A named object and a collection of values and functions.</li>
+ <li><b>Error</b> - If an error occurs during an expression, an error value is created.</li>
+ <li><b>Null</b> - A value which has no defined content.</li>
+</ul>
 
 <h3>String</h3>
 <p>
