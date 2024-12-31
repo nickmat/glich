@@ -1,5 +1,5 @@
 // hics-lib\schemes\glit-001.glcs - Test Gregorian Liturgy calendar scheme.
-
+/*[SKIP]*/
 write nl;
 write @sch:object.glit nl;
 

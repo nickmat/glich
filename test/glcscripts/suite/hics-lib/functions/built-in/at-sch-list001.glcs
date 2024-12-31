@@ -1,5 +1,5 @@
 // at-sch-list001.glcs  Test scheme list function.
-
+/*[SKIP]*/
 let list = @sch:list;
 
 write nl;

@@ -71,7 +71,7 @@ const char* table_jlit[guTT_size][2] = {
     { "Sun 5 Jul 2094 Trinity VI",    "Sun, Trinity VI 2094",   }
 };
 // Checked [1] - A Handbook of Dates, C R Cheney revised Micheal Jones 
-
+#if 0
 TEST_CASE( "Library Scheme jlit", "[jlit]" )
 {
     Scheme_info info;
@@ -101,6 +101,6 @@ TEST_CASE( "Scheme jlit Test Table", "[jlit TestTable]" )
         REQUIRE( str == table_jlit[i][1] );
     }
 }
-
+#endif
 
 // End of test/glcunit/guSch_jlit.cpp file

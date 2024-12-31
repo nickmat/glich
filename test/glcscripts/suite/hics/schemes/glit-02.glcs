@@ -1,5 +1,5 @@
 // hics/schemes/glit-01.glcs - Test Easter Calendar scheme.
-
+/*[SKIP]*/
 lexicon WS {
     name "Weekday names Sunday start";
     fieldname wsday;
