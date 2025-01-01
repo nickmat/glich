@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     5th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -38,7 +38,7 @@ namespace glich {
 
         Store* get_prev() const { return m_prev; }
 
-        bool exists( const std::string& name ) const { return m_variables.count( name ) == 1; }
+        bool exists( const std::string& name ) const;
         bool create_local( const std::string& name );
         SValue get_local( const std::string& name );
         SValue* get_local_ptr( const std::string& name );

@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     29th April 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -27,10 +27,29 @@
 
 #include "glcStore.h"
 
+#include "glcObject.h"
+
 #include <cassert>
 
 using namespace glich;
 using std::string;
+
+
+bool Store::exists( const std::string& name ) const
+{
+    if( m_variables.count( name ) == 1 ) {
+        return true;
+    }
+    if( m_variables.count( "this" ) == 1 ) {
+        SValue value = m_variables.find( "this" )->second;
+        Object* obj = value.get_object_ptr();
+        size_t index = obj->get_vindex( name );
+        if( index > 0 ) {
+            return true;
+        }
+    }
+    return false;
+}
 
 bool Store::create_local( const string& name )
 {
@@ -43,16 +62,36 @@ bool Store::create_local( const string& name )
 
 SValue Store::get_local( const string& name )
 {
-    if( exists( name ) ) {
+    if( m_variables.count( name ) == 1 ) {
         return m_variables[name];
+    }
+    if( m_variables.count( "this") == 1 ) {
+        SValue* value = &m_variables["this"];
+        Object* obj = value->get_object_ptr();
+        if( obj != nullptr ) {
+            size_t index = obj->get_vindex( name );
+            if( index > 0 ) {
+                return *value->get_object_element( index - 1 );
+            }
+        }
     }
     return SValue();
 }
 
 SValue* glich::Store::get_local_ptr( const std::string& name )
 {
-    if( exists( name ) ) {
+    if( m_variables.count( name ) == 1 ) {
         return &m_variables.at( name );
+    }
+    if( m_variables.count( "this") == 1 ) {
+        SValue* value = &m_variables["this"];
+        Object* obj = value->get_object_ptr();
+        if( obj != nullptr ) {
+            size_t index = obj->get_vindex( name );
+            if( index > 0 ) {
+                return value->get_object_element( index - 1 );
+            }
+        }
     }
     return nullptr;
 }

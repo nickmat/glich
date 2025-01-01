@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     5th February 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -1710,10 +1710,6 @@ SValue Script::get_value_var( const string& name )
 
 SValue glich::Script::get_builtin_var( bool& success, const std::string& name )
 {
-    if( name == "this" ) {
-        success = true;
-        return get_cur_object();
-    }
     success = false;
     return SValue();
 }

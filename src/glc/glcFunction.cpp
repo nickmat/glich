@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     11th April 2024
- * Copyright:   Copyright (c) 2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2024..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -68,15 +68,6 @@ SValue Function::run( const SValue* left, StdStrVec& qual, SValueVec& args, std:
     assert( obj != nullptr );
 
     const Object* prev_obj = glc().set_cur_object( obj );
-    SValueVec left_values = left->get_object();
-    const NameIndexMap& vnames = obj->get_vnames_map();
-    for( const auto& vname : vnames ) {
-        size_t index = vname.second;
-        glc().create_local( vname.first );
-        if( index < left_values.size() ) {
-            glc().update_local( vname.first, left_values[vname.second] );
-        }
-    }
     create_locals( qual, args );
     glc().run( iss, out, m_line );
     value = glc().get_local( "result" );
