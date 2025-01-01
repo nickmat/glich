@@ -1660,7 +1660,7 @@ SValue Script::at_float()
     return value;
 }
 
-SValue glich::Script::at_version()
+SValue Script::at_version()
 {
     StdStrVec quals = get_qualifiers( GetToken::next );
     if( !quals.empty() ) {
@@ -1682,7 +1682,7 @@ SValue Script::do_at_property( const string& property )
     return value;
 }
 
-SValue glich::Script::at_global()
+SValue Script::at_global()
 {
     StdStrVec quals = get_qualifiers( GetToken::next );
     if( quals.empty() ) {
@@ -1708,26 +1708,10 @@ SValue Script::get_value_var( const string& name )
     return SValue::create_error( "Variable \"" + name + "\" not found." );
 }
 
-SValue glich::Script::get_builtin_var( bool& success, const std::string& name )
+SValue Script::get_builtin_var( bool& success, const std::string& name )
 {
     success = false;
     return SValue();
-}
-
-SValue Script::get_cur_object()
-{
-    SValue value;
-    const Object* cur_obj = glc().get_cur_object();
-    if( cur_obj == nullptr ) {
-        return SValue::create_error( "Object not currently running." );
-    }
-    const NameIndexMap& vnames_map = cur_obj->get_vnames_map();
-    SValueVec values( vnames_map.size() + 1 );
-    values[0].set_str( cur_obj->get_code() );
-    for( const auto& v : vnames_map ) {
-        values[v.second] = glc().get_local( v.first );
-    }
-    return SValue( values );
 }
 
 // End of src/glc/glcScript.cpp

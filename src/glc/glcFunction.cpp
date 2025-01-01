@@ -4,7 +4,7 @@
  * Purpose:     Function class to handle script functions.
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
- * Created:     11th April 2024
+ * Created:     11th April 2024..2025
  * Copyright:   Copyright (c) 2024..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
@@ -67,12 +67,10 @@ SValue Function::run( const SValue* left, StdStrVec& qual, SValueVec& args, std:
     const Object* obj = glc().get_object( ocode );
     assert( obj != nullptr );
 
-    const Object* prev_obj = glc().set_cur_object( obj );
     create_locals( qual, args );
     glc().run( iss, out, m_line );
     value = glc().get_local( "result" );
     glc().pop_store();
-    glc().set_cur_object( prev_obj );
     return value;
 }
 

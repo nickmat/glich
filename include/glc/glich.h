@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -123,9 +123,6 @@ namespace glich {
 
         virtual std::string get_special_value_string( SpecialValue val );
 
-        const Object* set_cur_object( const Object* obj );
-        const Object* get_cur_object() const { return m_cur_object; }
-
     protected:
         SpFunctionMap m_functions;
         SpFunctionMap m_commands;
@@ -139,7 +136,6 @@ namespace glich {
         SValueMap m_constants;
         std::string m_init_error;
         InOut* m_inout;
-        const Object* m_cur_object;
     };
 
 } // namespace glich

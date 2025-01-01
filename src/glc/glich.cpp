@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -59,7 +59,7 @@ string InOut::get_input( const string& prompt ) {
 }
 
 Glich::Glich( InOut* inout )
-    : m_store( new Store ), m_inout( inout ), m_cur_object( nullptr )
+    : m_store( new Store ), m_inout( inout )
 {
     Mark::set_zero_store( m_store );
     if( !m_inout ) {
@@ -629,13 +629,6 @@ string Glich::get_special_value_string( SpecialValue val )
         return "?";
     }
     return std::string();
-}
-
-const Object* Glich::set_cur_object( const Object* obj )
-{
-    const Object* prev_obj = m_cur_object;
-    m_cur_object = obj;
-    return prev_obj;
 }
 
 
