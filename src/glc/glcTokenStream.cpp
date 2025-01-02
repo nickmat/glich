@@ -251,7 +251,11 @@ SToken& STokenStream::next()
         default: set_type( SToken::Type::Backslash ); break;
         } break;
     case '?': set_type( SToken::Type::Qmark ); break;
-    case '@': set_type( SToken::Type::At ); break;
+    case '@':
+        switch( m_in->peek() ) {
+        case '=': m_in->get( ch ); set_type( SToken::Type::AtEq ); break;
+        default: set_type( SToken::Type::At ); break;
+        } break;
     default:
         error( "Unrecognised token." );
         set_type( SToken::Type::End );

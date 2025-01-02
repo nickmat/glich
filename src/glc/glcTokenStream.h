@@ -56,6 +56,7 @@ namespace glich {
             GtThanEq,    //  ">="
             LessThan,    //  "<"
             LessThanEq,  //  "<="
+            AtEq,        //  "@="
             // Alternative token names
             UNION = Vline,
             INTERSECTION = DblAmpersand,
