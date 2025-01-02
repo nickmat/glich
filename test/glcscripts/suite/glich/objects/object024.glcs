@@ -1,0 +1,18 @@
+// glich/objects/object024.glcs - Test using this object function
+
+object obj {
+    function test.a( b ) {
+        this[0] = {: a, b};
+        result = this;
+    }
+}
+
+let x = {obj};
+let y = x@test.hi( 5 );
+
+write x, y;
+
+
+/*[OUTPUT]
+{obj}, {obj {: "hi", 5}}
+[OUTPUT]*/
