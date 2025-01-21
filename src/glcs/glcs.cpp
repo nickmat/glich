@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023..2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -73,6 +73,15 @@ struct StmtStatus {
         : type( t ), in_quote( false ), in_mcomment( false ),
         brace_cnt( 0 ), word_cnt( 0 ) {}
 };
+
+hg::StdStrVec get_args( int argc, char* argv[] )
+{
+    hg::StdStrVec args;
+    for( int i = 0; i < argc; i++ ) {
+        args.push_back( argv[i] );
+    }
+    return args;
+}
 
 string left_trim( const string& str )
 {
@@ -370,7 +379,8 @@ int main( int argc, char* argv[] )
     SetConsoleOutputCP( CP_UTF8 );
     setvbuf( stdout, nullptr, _IOFBF, 1000 );
 #endif
-    hg::init_hic( hg::InitLibrary::Hics );
+    hg::StdStrVec args = get_args( argc, argv );
+    hg::init_hic( hg::InitLibrary::Hics, nullptr, args );
     vector<string> filenames;
     bool run_default = true;
 
