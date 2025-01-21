@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     22nd October 2024
- * Copyright:   Copyright (c) 2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2024..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -80,9 +80,9 @@ void HicGlich::init()
     m_marks.push_back( new HicMark( "", nullptr ) );
 }
 
-void HicGlich::load_builtin_library()
+void HicGlich::load_builtin_library( StdStrVec args )
 {
-    Glich::load_builtin_library();
+    Glich::load_builtin_library( args );
     for( size_t i = 0; i < hics_builtin_scripts_size; i++ ) {
         string error = run_script( hics_builtin_scripts[i].script );
         if( !error.empty() ) {

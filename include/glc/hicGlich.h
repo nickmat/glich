@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     22nd October 2024
- * Copyright:   Copyright (c) 2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2024..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -43,7 +43,7 @@ namespace glich {
 
         void init() override;
 
-        void load_builtin_library() override;
+        void load_builtin_library( StdStrVec args ) override;
         void load_hics_library();
         std::string run_module( const std::string& mod ) override;
 

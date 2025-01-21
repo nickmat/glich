@@ -135,15 +135,27 @@ GlcMarkDataVec Glich::get_glc_data() const
     return glcdata;
 }
 
-void Glich::load_builtin_library()
+void Glich::load_builtin_library( StdStrVec args )
 {
     for( size_t i = 0; i < glc_builtin_scripts_size; i++ ) {
         string error = run_script( glc_builtin_scripts[i].script );
         if( !error.empty() ) {
             m_init_error += "Module: \"" +
                 string( glc_builtin_scripts[i].module ) + "\"\n" + error;
-            break;
+            return;
         }
+    }
+    string args_var;
+    for( string arg : args ) {
+        if( !args_var.empty() ) {
+            args_var += ", ";
+        }
+        args_var += string_to_quote( arg );
+    }
+    args_var = "let args = {: " + args_var + "};";
+    string error = run_script( args_var );
+    if( !error.empty() ) {
+        m_init_error += "Create arg: \"" + args_var + "\"\n" + error;
     }
 }
 

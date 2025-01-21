@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -32,7 +32,7 @@
 
 namespace glich {
 
-    void init_glc( InOut* inout = nullptr );
+    void init_glc( InOut* inout = nullptr, StdStrVec args = StdStrVec() );
     void init_glc( Glich* glc );
     void exit_glc();
     Glich& glc();

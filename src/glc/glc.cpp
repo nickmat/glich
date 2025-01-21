@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -44,7 +44,7 @@ static Glich* s_glc = nullptr;
 Glich* g_glc_test = nullptr; // To allow Visual Studio watch to see it
 #endif
 
-void glich::init_glc( InOut* inout )
+void glich::init_glc( InOut* inout, StdStrVec args )
 {
     if( s_glc ) {
         delete s_glc;
@@ -55,10 +55,9 @@ void glich::init_glc( InOut* inout )
 #endif
     s_glc->init();
 
-    s_glc->load_builtin_library();
+    s_glc->load_builtin_library( args );
     // Mark the start of user definitions.
     s_glc->run_script( "mark __user;" );
-
 }
 
 void glich::init_glc( Glich* glc )

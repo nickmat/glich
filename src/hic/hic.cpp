@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     22nd October 2024
- * Copyright:   Copyright (c) 2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2024..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -40,7 +40,7 @@ static HicGlich* s_hic = nullptr;
 Glich* g_hic_test = nullptr; // To allow Visual Studio watch to see it
 #endif
 
-void glich::init_hic( InitLibrary lib, InOut* inout )
+void glich::init_hic( InitLibrary lib, InOut* inout, StdStrVec args )
 {
     if( s_hic ) {
         delete s_hic;
@@ -52,7 +52,7 @@ void glich::init_hic( InitLibrary lib, InOut* inout )
     s_hic->init();
     init_glc( s_hic );
 
-    s_hic->load_builtin_library();
+    s_hic->load_builtin_library( args );
     switch( lib )
     {
     case InitLibrary::None:
