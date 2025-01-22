@@ -220,7 +220,7 @@ int main( int argc, char* argv[] )
 
     std::cout << g_title << "\n";
     clock_t t = clock();
-    init_hic( InitLibrary::None );
+    init_hic( InitLibrary::None, nullptr, { "glctest", "arg1" } );
     string result;
     TestResults totals;
     for ( int i = 1; i < argc; i++ ) {
