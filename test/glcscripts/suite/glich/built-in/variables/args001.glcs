@@ -1,0 +1,7 @@
+// args001.glcs  Test built-in constant args.
+
+write args[0], args[1], args[2], args;
+
+/*[OUTPUT]
+glctest, arg1, null, {: "glctest", "arg1"}
+[OUTPUT]*/
