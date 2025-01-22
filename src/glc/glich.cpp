@@ -152,7 +152,7 @@ void Glich::load_builtin_library( StdStrVec args )
         }
         args_var += string_to_quote( arg );
     }
-    args_var = "let args = {: " + args_var + "};";
+    args_var = "constant args = {: " + args_var + "};";
     string error = run_script( args_var );
     if( !error.empty() ) {
         m_init_error += "Create arg: \"" + args_var + "\"\n" + error;
