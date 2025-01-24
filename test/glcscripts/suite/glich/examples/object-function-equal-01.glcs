@@ -1,0 +1,17 @@
+// object-function-equal-01.glcs  Example in dev\man\script\stmts\let.htm.
+
+let obj = {: 0,,2};
+
+write nl;
+write obj@mask({: 10,11,12}) nl;
+write obj nl;
+obj @= mask({: 10,11,12});
+write obj nl;
+
+/*[OUTPUT]
+
+{: 0, 11, 2}
+{: 0, null, 2}
+{: 0, 11, 2}
+
+[OUTPUT]*/
