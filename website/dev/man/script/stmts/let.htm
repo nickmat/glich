@@ -81,6 +81,12 @@
   <td>answer holds range value 30 .. 50</td>
  </tr>
  <tr>
+  <td class='code'><i>name</i> <b>@=</b> <i>obj_function</i><b>;</b></td>
+  <td class='example'>let obj = {: 0,,2};
+obj @= mask({: 10,11,12});</td> <!-- See test script glich\examples\object-function-equal-01.glcs -->
+  <td>obj holds object value {: 0, 11, 2}</td>
+ </tr>
+ <tr>
   <td class='code'><i>name</i><b>[</b><i>index</i><b>]</b> <b>=</b> <i>expr</i><b>;</b></td>
   <td class='example'>obj[1] = 99;</td>
   <td>obj holds object value {... ..., 99, ...}</td>
