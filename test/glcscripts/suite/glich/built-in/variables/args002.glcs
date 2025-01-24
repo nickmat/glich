@@ -1,0 +1,8 @@
+// args002.glcs  Test built-in constant args.
+
+args[1] = "test";
+
+/*[OUTPUT]
+Error (3): Unrecognised statement.
+
+[OUTPUT]*/
