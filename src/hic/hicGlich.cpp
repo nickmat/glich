@@ -65,6 +65,11 @@ HicGlich::HicGlich( InOut* inout ) : Glich( inout )
         { "text", fptr }
     };
     m_functions.insert( bi_functions.begin(), bi_functions.end() );
+    SValueMap bi_constants = {
+        { "past", SValue( f_minimum, SValue::Type::field ) },
+        { "future", SValue( f_maximum, SValue::Type::field ) },
+    };
+    m_constants.insert( bi_constants.begin(), bi_constants.end() );
 }
 
 HicGlich::~HicGlich()
