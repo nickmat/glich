@@ -27,6 +27,7 @@
             { "name": "mark", "label": "mark Statement" },
             { "name": "set", "label": "set Statement" }
           ] },
+          { "name": "bi-constants", "label": "Built-in Constants" },
           { "name": "bi-functions", "label": "Built-in Functions" },
           { "name": "bi-objects", "label": "Built-in Objects" }
         ]},
