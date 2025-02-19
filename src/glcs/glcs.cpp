@@ -381,12 +381,12 @@ int main( int argc, char* argv[] )
 #endif
     hg::StdStrVec args = get_args( argc, argv );
     hg::init_hic( hg::InitLibrary::Hics, nullptr, args );
-    vector<string> filenames;
+    hg::StdStrVec filenames;
     bool run_default = true;
 
     bool interactive = true;
     bool glich_prog = false;
-    std::string prog( argv[0] );
+    std::string prog = args[0];
     if( prog.size() >= 9 && prog.substr( prog.size() - 9 ) == "glich.exe" ) {
         interactive = false;
         glich_prog = true;
@@ -396,9 +396,9 @@ int main( int argc, char* argv[] )
         glich_prog = true;
     }
 
-    for( int i = 1; i < argc; i++ ) {
-        if( argv[i][0] == '-' ) {
-            switch( argv[i][1] )
+    for( int i = 1; i < args.size(); i++ ) {
+        if( args[i][0] == '-' ) {
+            switch( args[i][1] )
             {
             case 'h': // Help
                 do_usage( glich_prog );
@@ -417,8 +417,8 @@ int main( int argc, char* argv[] )
                 std::cout << "Command line flag not recognised.\n";
             }
         }
-        else {
-            filenames.push_back( string( argv[i] ) );
+        else if( args[i].substr( args[i].find_last_of( "." ) + 1 ) == "glcs" ) {
+            filenames.push_back( args[i] );
         }
     }
 
@@ -434,8 +434,11 @@ int main( int argc, char* argv[] )
     // Run script files if given.
     for( size_t i = 0; i < filenames.size(); i++ ) {
         string script = read_file( filenames[i] );
+        if( script.empty() ) {
+            continue;
+        }
         string response = hg::hic().run_script( script );
-        if( response.size() ) {
+        if( !response.empty() ) {
             std::cout << response << "\n";
         }
     }
