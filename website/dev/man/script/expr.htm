@@ -171,6 +171,10 @@
  The values -infinity and +infinity may be used.<br />
  Use of the ? value is an error.
 </p>
+<div class='note'><div class='inner'>
+    <p>Note, the size of a range is always greater than 0.
+</div></div>
+
 <table class='basic'>
 <tr><th>Example</th><th>Result</th></tr>
  <tr><td class='example'>5..10</td><td class='example'>5..10</td></tr>
@@ -183,17 +187,19 @@
 
 <h3 id='set'>Set Operators</h3>
 <p>
- The Complement <b>'!'</b> is a unary prefix operator which operates on a rlist.
- The Union <b>'|'</b>, Intersection <b>'&amp;'</b>,
- Symmetric difference <b>'^'</b> and Relative complement <b>'\'</b>
- operators are binary.
- These operate on an rlist on left hand side and a range on right hand side.
- Numbers will be converted to a field if possible
- and then range and field types are promoted to an rlist or range.
+ The set operators operate on set_types, any numerical_type will be promoted as necessary.
+ The output is always a demoted set_type.
 </p>
-<p>
- Details of the set operators are found <a href='../calculate.htm'>here</a>.
-</p>
+
+<table class='basic'>
+<tr><th>Operator</th><th>Name</th><th>Example</th><th>Result</th></tr>
+<tr><td class='code'>!</td><td>Complement</td><td class='example'><b>!</b>0<br><b>!</b>(-infinity..-1 | 1..+infinity)</td><td class='example'>-infinity..-1 | 1..+infinity<br>0</td></tr>
+<tr><td class='code'>|</td><td>Union</td><td class='example'>1..100 <b>|</b> 50..150</td><td class='example'>1..150</td></tr>
+<tr><td class='code'>&amp;&amp;</td><td>Intersection</td><td class='example'>1..100 <b>&amp;&amp;</b> 50..150</td><td class='example'>50..100</td></tr>
+<tr><td class='code'>^^</td><td>Symmetric difference</td><td class='example'>1..100 <b>^^</b> 50..150</td><td class='example'>1..49 | 101..150</td></tr>
+<tr><td class='code'>\\</td><td>Relative complement</td><td class='example'>1..100 <b>\\</b> 50..150</td><td class='example'>1..49</td></tr>
+</table>
+
 
 <h3>Comparison Operators</h3>
 <p>
@@ -312,9 +318,9 @@ object_value<b>@</b>name<b>.</b>qualifier<b>(</b>expr, ...<b>)</b>
 </tr>
 <tr><td class='code' colspan='4'></td></tr>
 <tr><td class='code'>|</td><td>Union</td><td class='example'>rlist_value <b>|</b> range_value</td><td class='example'>rlist_value</td></tr>
-<tr><td class='code'>&amp;</td><td>Intersection</td><td class='example'>rlist_value <b>&amp;</b> range_value</td><td class='example'>rlist_value</td></tr>
-<tr><td class='code'>^</td><td>Symmetric difference</td><td class='example'>rlist_value <b>^</b> range_value</td><td class='example'>rlist_value</td></tr>
-<tr><td class='code'>\</td><td>Relative complement</td><td class='example'>rlist_value <b>\</b> range_value</td><td class='example'>rlist_value</td></tr>
+<tr><td class='code'>&amp;&amp;</td><td>Intersection</td><td class='example'>rlist_value <b>&amp;&amp;</b> range_value</td><td class='example'>rlist_value</td></tr>
+<tr><td class='code'>^^</td><td>Symmetric difference</td><td class='example'>rlist_value <b>^^</b> range_value</td><td class='example'>rlist_value</td></tr>
+<tr><td class='code'>\\</td><td>Relative complement</td><td class='example'>rlist_value <b>\\</b> range_value</td><td class='example'>rlist_value</td></tr>
 <tr><td class='code' colspan='4'></td></tr>
 <tr><td class='code'>&lt;</td><td>Less than</td><td class='example'>value <b>&lt;</b> value</td><td class='example'>bool_value</td></tr>
 <tr><td class='code'>&lt;=</td><td>Less than or equal</td><td class='example'>value <b>&lt;=</b> value</td><td class='example'>bool_value</td></tr>
