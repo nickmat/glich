@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Name:        include/glc/glich.h
+ * Name:        include/glc/glcGlich.h
  * Project:     Glich: Extendable Script Language.
  * Purpose:     Glich language class header
  * Author:      Nick Matthews
@@ -25,8 +25,8 @@
 
 */
 
-#ifndef INCLUDE_GLC_GLICH_H_GUARD
-#define INCLUDE_GLC_GLICH_H_GUARD
+#ifndef INCLUDE_GLC_GLCGLICH_H_GUARD
+#define INCLUDE_GLC_GLCGLICH_H_GUARD
 
 #include "glcDefs.h"
 
@@ -140,4 +140,4 @@ namespace glich {
 
 } // namespace glich
 
-#endif // INCLUDE_GLC_GLICH_H_GUARD
+#endif // INCLUDE_GLC_GLCGLICH_H_GUARD

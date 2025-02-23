@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Name:        src/glc/glich.cpp
+ * Name:        src/glc/glcGlich.cpp
  * Project:     Glich: Extendable Script Language.
  * Purpose:     Glich language class
  * Author:      Nick Matthews
@@ -25,7 +25,7 @@
 
 */
 
-#include <glc/glich.h>
+#include <glc/glcGlich.h>
 
 #include "glcFile.h"
 #include "glcFunction.h"
@@ -642,4 +642,4 @@ string Glich::get_special_value_string( SpecialValue val )
 }
 
 
-// End of src/glc/glich.cpp
+// End of src/glc/glcGlich.cpp

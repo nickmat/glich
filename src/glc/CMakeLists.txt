@@ -13,6 +13,7 @@ set( GLC_SOURCES
     glcFile.cpp
     glcFilesys.cpp
     glcFunction.cpp
+    glcGlich.cpp
     glcHelper.cpp
     glcLibScripts.cpp
     glcMark.cpp
@@ -23,13 +24,12 @@ set( GLC_SOURCES
     glcTokenStream.cpp
     glcValue.cpp
     glcVersion.cpp
-    glich.cpp
 )
 
 set( GLC_HEADERS
     ../../include/glc/glc.h
     ../../include/glc/glcDefs.h
-    ../../include/glc/glich.h
+    ../../include/glc/glcGlich.h
     glcFile.h
     glcFilesys.h
     glcFunction.h
