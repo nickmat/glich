@@ -37,7 +37,58 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Page Under Construction</h2>
+<h2>Modules</h2>
+<p>
+ A common use case for Glich is to read in a library of statements
+ ready for for use by the host program.
+ The use of modules is intended to reduce the need to
+ read in all of the statements.
+ A module statement will introduce the object's code name
+ so that the ac it is only read if it is required.
+</p>
+<p>
+ A Glich module is a block of one or more statements.
+ It can be held in the form of a text file
+ or as part of a library internal to the host program.
+ The module name must use lower case characters.
+ (This is to ensure it works across operating systems.)
+</p>
+
+<h2>Statement: module</h2>
+<p>
+ The <b>module</b> statement is used to introduce objects
+ without the need to read the object's statement.
+ When any object in the module is first referenced
+ all of the module code is read in, allowing the object to be used.
+</p>
+
+<table class='basic'>
+<tr><th colspan='2'>module Statement</th></tr>
+<tr><th>Example</th><th>Output</th></tr>
+<tr> <!-- See test file - test\glcscripts\suite\glich\statements\module\module001.glcs -->
+<td class='example'>// Script file: test_mod.glcs
+object test_sum {
+    values one two three;
+    function sum {
+        result = one + two + three;
+    }
+}
+</td>
+<td></td>
+</tr><tr>
+<td class='example'>// Script file: test_run.glcs
+<b>module</b> file:test_mod {
+    object test_sum;
+}
+let ts = {test_sum 1, 2, 3};
+write ts nl ts@sum; 
+</td>
+<td>{test_sum 1, 2, 3}<br>
+6
+</td>
+</tr>
+</table>
+
 
 </div><!--id=content-->
 
