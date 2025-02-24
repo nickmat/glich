@@ -70,6 +70,9 @@ HicGlich::HicGlich( InOut* inout ) : Glich( inout )
         { "future", SValue( f_maximum, SValue::Type::field ) },
     };
     m_constants.insert( bi_constants.begin(), bi_constants.end() );
+    for( const string& name : { "scheme", "lexicon", "grammar" } ) {
+        m_module_names.insert( name );
+    }
 }
 
 HicGlich::~HicGlich()

@@ -103,6 +103,7 @@ Glich::Glich( InOut* inout )
         { "nl", "\n" },
         { "pi", cal_pi }
     };
+    m_module_names = { "object" };
 }
 
 Glich::~Glich()
@@ -639,6 +640,11 @@ string Glich::get_special_value_string( SpecialValue val )
         return "?";
     }
     return std::string();
+}
+
+bool Glich::is_module_name( const string& name ) const
+{
+    return m_module_names.find( name ) != m_module_names.end();
 }
 
 

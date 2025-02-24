@@ -773,27 +773,13 @@ bool Script::do_module()
         }
         else if( token.type() == SToken::Type::Name ) {
             string name = token.get_str();
-            def.m_definition = name;
-            if( name == "object" ) {
-                def.m_codes = get_string_list( GetToken::next );
-                mod.m_defs.push_back( def );
-            }
-            else if( name == "scheme" ) {
-                def.m_codes = get_string_list( GetToken::next );
-                mod.m_defs.push_back( def );
-            }
-            else if( name == "lexicon" ) {
-                def.m_codes = get_string_list( GetToken::next );
-                mod.m_defs.push_back( def );
-            }
-            else if( name == "grammar" ) {
-                def.m_codes = get_string_list( GetToken::next );
-                mod.m_defs.push_back( def );
-            }
-            else {
+            if( !glc().is_module_name( name ) ) {
                 error( "Unknown module subcommand." );
                 break;
             }
+            def.m_definition = name;
+            def.m_codes = get_string_list( GetToken::next );
+            mod.m_defs.push_back( def );
         }
     }
     if( !glc().add_module( mod ) ) {

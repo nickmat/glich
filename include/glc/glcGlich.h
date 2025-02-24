@@ -122,6 +122,7 @@ namespace glich {
         WriteText get_write_text() const;
 
         virtual std::string get_special_value_string( SpecialValue val );
+        bool is_module_name( const std::string& name ) const;
 
     protected:
         SpFunctionMap m_functions;
@@ -136,6 +137,7 @@ namespace glich {
         SValueMap m_constants;
         std::string m_init_error;
         InOut* m_inout;
+        StdStrSet m_module_names;
     };
 
 } // namespace glich
