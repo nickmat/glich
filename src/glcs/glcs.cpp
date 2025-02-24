@@ -29,16 +29,19 @@
 
 #include "glcsresource.h"
 
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
 
 #ifdef _WIN32
 #include <Windows.h>
 #include <Wincon.h>
 #endif
+
+namespace hg = glich;
+using std::string;
+using std::vector;
+
 
 #define VERSION   "0.1.0"
 #define PROGNAME  " (Glich Script)"
@@ -53,12 +56,6 @@ const char* g_title = PROGNAME " - Version " VERSION "\n";
 #else
 const char* g_title = PROGNAME " - Version " VERSION " Debug\n";
 #endif
-
-
-namespace hg = glich;
-using std::string;
-using std::vector;
-
 
 enum class StmtType { semicolon, curlybracket, both, if_endif, do_loop };
 
@@ -113,31 +110,25 @@ string read_file( const string& name )
     return ss.str();
 }
 
-void do_usage( bool glich_prog )
+void do_usage()
 {
-    char* prog = glich_prog ? "glich" : "glcs";
-    char* i_default = glich_prog ? " (Default)" : "";
-    char* e_default = glich_prog ? "" : " (Default)";
-    if( glich_prog )
-    std::cout << prog << g_title << g_copyright << "\n";
+    std::cout << "glcs" << g_title << g_copyright << "\n";
     std::cout << 
         "Usage:\n"
-        "  " << prog << " [options]\n"
+        "  " << "glcs" << " [options]\n"
         "\n"
         "Options:\n"
         "  -h    Show this help message and exit.\n"
-        "  -e    End after running scripts." << i_default << "\n"
-        "  -i    Enter interactive mode." << e_default << "\n"
         "  name  Run the file 'name' as a script.\n"
         "        Multiple files are run in the order that they appear.\n" 
         "\n"
     ;
 }
 
-void do_help( const string& option, bool glich_prog )
+void do_help( const string& option )
 {
     if ( option == "usage" ) {
-        do_usage( glich_prog );
+        do_usage();
         return;
     }
     std::cout <<
@@ -381,38 +372,16 @@ int main( int argc, char* argv[] )
 #endif
     hg::StdStrVec args = get_args( argc, argv );
     hg::init_hic( hg::InitLibrary::Hics, nullptr, args );
+
     hg::StdStrVec filenames;
-    bool run_default = true;
-
-    bool interactive = true;
-    bool glich_prog = false;
-    std::string prog = args[0];
-    if( prog.size() >= 9 && prog.substr( prog.size() - 9 ) == "glich.exe" ) {
-        interactive = false;
-        glich_prog = true;
-    }
-    else if( prog.size() >= 5 && prog.substr( prog.size() - 5 ) == "glich" ) {
-        interactive = false;
-        glich_prog = true;
-    }
-
     for( int i = 1; i < args.size(); i++ ) {
         if( args[i][0] == '-' ) {
             switch( args[i][1] )
             {
             case 'h': // Help
-                do_usage( glich_prog );
+                do_usage();
                 hg::exit_hic();
                 return 0;
-            case 'n': // No default script.
-                run_default = false;
-                break;
-            case 'e': // Exit without running command line.
-                interactive = false;
-                break;
-            case 'i': // Run command line.
-                interactive = true;
-                break;
             default:
                 std::cout << "Command line flag not recognised.\n";
             }
@@ -422,14 +391,11 @@ int main( int argc, char* argv[] )
         }
     }
 
-    if( interactive ) {
-        char* prog = glich_prog ? "glich" : "glcs";
-        std::cout << prog << g_title << g_copyright <<
-            "Enter 'help' for more information.\n"
-            "Enter 'end' to exit program.\n"
-            "\n"
-            ;
-    }
+    std::cout << "glcs" << g_title << g_copyright <<
+        "Enter 'help' for more information.\n"
+        "Enter 'end' to exit program.\n"
+        "\n";
+
 
     // Run script files if given.
     for( size_t i = 0; i < filenames.size(); i++ ) {
@@ -443,60 +409,56 @@ int main( int argc, char* argv[] )
         }
     }
 
-    if( interactive ) {
-        for( ;;) {
-            std::cout << "glcs: ";
-            string cmnd;
-            std::getline( std::cin, cmnd );
-            string word, tail;
-            word = get_first_word( cmnd, &tail, ' ' );
+    for( ;;) {
+        std::cout << "glcs: ";
+        string cmnd;
+        std::getline( std::cin, cmnd );
+        string word, tail;
+        word = get_first_word( cmnd, &tail, ' ' );
 
-            if( word == "end" ) {
-                break;
-            }
-            else if( word == "help" ) {
-                do_help( tail, glich_prog );
-                continue;
-            }
-            else if( word == "run" ) {
-                cmnd = read_file( tail );
-            }
-            else if(
-                word == "let" || word == "set" || word == "write"
-                || word == "writeln" || word == "mark" || word == "clear"
-                || word == "call" )
-            {
-                cmnd = get_statement( cmnd, StmtType::semicolon );
-            }
-            else if(
-                word == "function" || word == "command" || word == "object" ||
-                word == "scheme" || word == "grammar" || word == "lexicon" )
-            {
-                cmnd = get_statement( cmnd, StmtType::curlybracket );
-            }
-            else if( word == "format" ) {
-                cmnd = get_statement( cmnd, StmtType::both );
-            }
-            else if( word == "if" ) {
-                cmnd = get_statement( cmnd, StmtType::if_endif );
-            }
-            else if( word == "do" ) {
-                cmnd = get_statement( cmnd, StmtType::do_loop );
-            }
-            else {
-                if( !terminated_semicolon( cmnd ) && !cmnd.empty() ) {
-                    cmnd = "let answer = " + cmnd + "; write answer//*/\n;";
-                }
-            }
-            string output = hg::hic().run_script( cmnd );
-            if( output.size() ) {
-                std::cout << output << "\n";
+        if( word == "end" ) {
+            break;
+        }
+        else if( word == "help" ) {
+            do_help( tail );
+            continue;
+        }
+        else if( word == "run" ) {
+            cmnd = read_file( tail );
+        }
+        else if(
+            word == "let" || word == "set" || word == "write"
+            || word == "writeln" || word == "mark" || word == "clear"
+            || word == "call" )
+        {
+            cmnd = get_statement( cmnd, StmtType::semicolon );
+        }
+        else if(
+            word == "function" || word == "command" || word == "object" ||
+            word == "scheme" || word == "grammar" || word == "lexicon" )
+        {
+            cmnd = get_statement( cmnd, StmtType::curlybracket );
+        }
+        else if( word == "format" ) {
+            cmnd = get_statement( cmnd, StmtType::both );
+        }
+        else if( word == "if" ) {
+            cmnd = get_statement( cmnd, StmtType::if_endif );
+        }
+        else if( word == "do" ) {
+            cmnd = get_statement( cmnd, StmtType::do_loop );
+        }
+        else {
+            if( !terminated_semicolon( cmnd ) && !cmnd.empty() ) {
+                cmnd = "let answer = " + cmnd + "; write answer//*/\n;";
             }
         }
+        string output = hg::hic().run_script( cmnd );
+        if( output.size() ) {
+            std::cout << output << "\n";
+        }
     }
-    else if( filenames.empty() ) {
-        do_usage( glich_prog );
-    }
+    
     hg::exit_hic();
     return 0;
 }
