@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     4th March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -40,6 +40,7 @@ Object::~Object()
 
 void Object::set_value_names( const StdStrVec& vnames )
 {
+    m_values = vnames;
     size_t i = 1;
     for( auto& vname : vnames ) {
         m_vnames[vname] = i;
@@ -72,4 +73,34 @@ Function* Object::get_function( const std::string& fcode ) const
     return m_functions.find( fcode )->second.get();
 }
 
-// End of src/glc/glcValue.cpp
+string Object::get_list( const SValueVec& elements ) const
+{
+    string result;
+    size_t size = std::max( elements.size() - 1, m_values.size() );
+    for( size_t i = 0; i < size; i++ ) {
+        if( i > 0 ) {
+            result += "\n";
+        }
+        if( i < m_values.size() ) {
+            result += m_values[i];
+        }
+        else {
+            result += std::to_string( i );
+        }
+        if( i < elements.size() - 1 ) {
+            const SValue& value = elements[i + 1];
+            if( value.type() == SValue::Type::String ) {
+                result += " = \"" + value.as_string() + "\"";
+            }
+            else {
+                result += " = " + value.as_string();
+            }
+        }
+        else {
+            result += " = null";
+        }
+    }
+    return result;
+}
+
+// End of src/glc/glcObject.cpp

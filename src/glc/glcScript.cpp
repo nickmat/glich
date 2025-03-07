@@ -1181,6 +1181,9 @@ SValue Script::do_object_at( bool& success, Object* obj, const string& fcode, co
     else if( fcode == "object_name" ) {
         return obj->get_code();
     }
+    else if( fcode == "obj:list" ) {
+        return obj->get_list( *left.get_object_values() );
+    }
     success = false;
     return SValue();
 }
