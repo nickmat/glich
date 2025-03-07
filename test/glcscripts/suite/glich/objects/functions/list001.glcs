@@ -1,0 +1,33 @@
+// list001.glcs  Test function obj:list.
+
+object test {
+    values zero one two three;
+}
+
+let a = {test 0, 1, 2, 3, "four", "five"};
+let b = {test "zero", "one"};
+let c = {: 100, 101};
+
+write nl a@obj:list nl;
+write nl b@obj:list nl;
+write nl c@obj:list nl;
+
+
+/*[OUTPUT]
+
+zero = 0
+one = 1
+two = 2
+three = 3
+4 = "four"
+5 = "five"
+
+zero = "zero"
+one = "one"
+two = null
+three = null
+
+0 = 100
+1 = 101
+
+[OUTPUT]*/
