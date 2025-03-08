@@ -6,7 +6,7 @@ object test {
 
 let obj = {test 1, 2};
 
-write obj@object_name;
+write obj@obj:name;
 
 /*[OUTPUT]
 test
