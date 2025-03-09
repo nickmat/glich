@@ -59,7 +59,6 @@ HicGlich::HicGlich( InOut* inout ) : Glich( inout )
         { "last", fptr },
         { "leapyear", fptr },
         { "phrase", fptr },
-        { "record", fptr },
         { "sch:object", fptr },
         { "scheme", fptr },
         { "text", fptr }

@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -67,11 +67,11 @@ bool HicScript::statement()
 SValue HicScript::builtin_function_call( bool& success, const string& name )
 {
     enum f {
-        f_date, f_text, f_record, f_scheme, f_element, f_phrase, f_leapyear, f_easter,
+        f_date, f_text, f_scheme, f_element, f_phrase, f_leapyear, f_easter,
         f_first, f_last, f_fmt_object, f_sch_object, f_sch_list
     };
     const static std::map<string, f> fmap = {
-        { "date", f_date }, { "text", f_text }, { "record", f_record }, { "scheme", f_scheme }, { "element", f_element },
+        { "date", f_date }, { "text", f_text }, {"scheme", f_scheme}, {"element", f_element},
         { "phrase", f_phrase }, { "leapyear", f_leapyear }, { "easter", f_easter }, { "first", f_first }, { "last", f_last },
         { "fmt:object", f_fmt_object }, { "sch:object", f_sch_object },
         { "sch:list", f_sch_list }
@@ -89,7 +89,6 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         {
         case f_date: return at_date();
         case f_text: return at_text();
-        case f_record: [[fallthrough]];
         case f_scheme: return at_scheme();
         case f_element: return at_element();
         case f_phrase: return at_phrase();
