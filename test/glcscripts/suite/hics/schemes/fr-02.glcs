@@ -42,8 +42,8 @@ scheme FR {
 
 
 write nl;
-write @record.FR( 2460300 ) nl;
-write @record.FR:dmy( "30 Frim 232" ) nl;
+write @scheme.FR( 2460300 ) nl;
+write @scheme.FR:dmy( "30 Frim 232" ) nl;
 write @text.FR:ymd( 2460300 ) nl;
 write @text.FR:ymd( {s:FR 232, 3, 30} ) nl;
 write @date.FR:ymd( "232 Frim 30" ) nl;

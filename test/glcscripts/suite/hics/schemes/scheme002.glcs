@@ -1,8 +1,8 @@
-// scheme002.glcs  Test casting field to record
+// scheme002.glcs  Test casting field to scheme
 
 scheme J { base julian; }
 
-write @record.J( 2432814 ), @date( {s:J 2023, 3, 10} );
+write @scheme.J( 2432814 ), @date( {s:J 2023, 3, 10} );
 
 /*[OUTPUT]
 {s:J 1948, 9, 6}, 2460027

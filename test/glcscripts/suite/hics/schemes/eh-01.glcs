@@ -61,8 +61,8 @@ scheme SE {
 }
 
 write nl;
-write @record.SE( 2360610 ), @record.SE( 2360611 ) nl;
-write @record.SE:dmy( "31 dec 1788" ), @record.SE:dmy( "1 jan 1789" ) nl;
+write @scheme.SE( 2360610 ), @scheme.SE( 2360611 ) nl;
+write @scheme.SE:dmy( "31 dec 1788" ), @scheme.SE:dmy( "1 jan 1789" ) nl;
 write @text.SE:wdmy( 2360610 ), @text.SE:wdmy( 2360611 ) nl;
 write @text.SE:wdmy( {s:SE 1788,12,31} ), @text.SE:wdmy( {s:SE 1789,1,1} ) nl;
 write @date.SE:dmy( "31 dec 1788" ), @date.SE:dmy( "1 jan 1789" ) nl;

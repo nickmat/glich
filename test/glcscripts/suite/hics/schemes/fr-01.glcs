@@ -8,8 +8,8 @@ scheme FR {
 // Note, Autumn Equinox is 7.50am GMT on September 23, 2023 (jdn# 2460211)
 // Only a few minutes difference from Paris local time (the time used by French Rep. calendar).
 write nl;
-write @date.FR("232 1 1"), @quote(@text.FR(2460211)), @record.FR(2460211) nl;
-write @date({s:FR 232, 3, 30}), @quote(@text({s:FR 232, 3, 30})), @record.FR("232 3 30") nl;
+write @date.FR("232 1 1"), @quote(@text.FR(2460211)), @scheme.FR(2460211) nl;
+write @date({s:FR 232, 3, 30}), @quote(@text({s:FR 232, 3, 30})), @scheme.FR("232 3 30") nl;
 
 /*[OUTPUT]
 

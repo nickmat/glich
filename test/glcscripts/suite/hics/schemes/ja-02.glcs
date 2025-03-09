@@ -64,8 +64,8 @@ scheme JA {
 
 
 write nl;
-write @record.JA( 2360328 ), @record.JA( 2360329 ) nl;
-write @record.JA:dmc( "24 mar 1749" ), @record.JA:dmc( "25 Mar 1750" ) nl;
+write @scheme.JA( 2360328 ), @scheme.JA( 2360329 ) nl;
+write @scheme.JA:dmc( "24 mar 1749" ), @scheme.JA:dmc( "25 Mar 1750" ) nl;
 write @text.JA:wdmc( 2360328 ), @text.JA:wdmc( 2360329 ) nl;
 write @text.JA:wdmc( {s:JA 1750,3,24} ), @text.JA:wdmc( {s:JA 1750,3,25} ) nl;
 write @text.JA:wdmc ({s:JA ,3,24,1749}@calc_year), @text.JA:wdmc ({s:JA ,3,25,1750}@calc_year) nl;

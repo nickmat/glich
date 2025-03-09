@@ -119,9 +119,9 @@ scheme FR {
 
 
 write nl;
-write @record.FR( 2460300 ), @record.FR( 2460207 ) nl;
-write @record.FR:cdmy( "30 Frim 232" ), @record.FR:cdmy( "Fête du Génie 231" ) nl;
-write @record.FR:dmy( "30 Frim 232" ), @record.FR:dmy( "2 Comp 231" ) nl;
+write @scheme.FR( 2460300 ), @scheme.FR( 2460207 ) nl;
+write @scheme.FR:cdmy( "30 Frim 232" ), @scheme.FR:cdmy( "Fête du Génie 231" ) nl;
+write @scheme.FR:dmy( "30 Frim 232" ), @scheme.FR:dmy( "2 Comp 231" ) nl;
 write @text.FR:ymd( 2460300 ), @text.FR:ymd( 2460207 ) nl;
 write @text.FR:cdmy( 2460300 ), @text.FR:cdmy( 2460207 ) nl;
 write @text.FR:ymd( {s:FR 232, 3, 30} ), @text.FR:ymd( {s:FR 231, 13, 2} ) nl;

@@ -35,9 +35,9 @@ scheme ISOW {
 }
 
 write nl;
-write @record.ISOW( 2460137 ) nl;
-write @record.ISOW:ywd( "2023 28 Tue" ) nl;
-write @record.ISOW:iso( "2023W282" ) nl;
+write @scheme.ISOW( 2460137 ) nl;
+write @scheme.ISOW:ywd( "2023 28 Tue" ) nl;
+write @scheme.ISOW:iso( "2023W282" ) nl;
 write @text.ISOW:ywd( 2460137 ) nl;
 write @text.ISOW:ywd( {s:ISOW 2023, 28, 2} ) nl;
 write @text.ISOW:iso( 2460137 ) nl;

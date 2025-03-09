@@ -34,8 +34,8 @@ scheme JWSN {
 }
 
 write nl;
-write @record.JWSN( 2460154 ) nl;
-write @record.JWSN( "351450 fri" ) nl;
+write @scheme.JWSN( 2460154 ) nl;
+write @scheme.JWSN( "351450 fri" ) nl;
 write @text.JWSN( 2460154 ), @text.JWSN:wd( 2460154 ) nl;
 write @text( {s:JWSN 351450, 6} ), @text.:wd( {s:JWSN 351450, 6} ) nl;
 write @date.JWSN( "351450 fri" ) nl;

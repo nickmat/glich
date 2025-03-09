@@ -65,9 +65,9 @@ let t = "22feb1948";
 let r = {s:J 1948, 2, 22};
 
 let d_t = @text.J( d );
-let d_r = @record.J( d );
+let d_r = @scheme.J( d );
 let t_d = @date.J( t );
-let t_r = @record.J( t );
+let t_r = @scheme.J( t );
 let r_d = @date( r );
 let r_t = @text( r );
 

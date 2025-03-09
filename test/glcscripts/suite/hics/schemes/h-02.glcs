@@ -89,8 +89,8 @@ scheme H {
 
 
 write nl;
-write @record.H( 2459282 ), @record.H( 2459636 ), @record.H( 2459666 ) nl;
-write @record.H:ymd( "5781 Adar 24" ), @record.H:ymd( "5782 Adar I 24" ), @record.H:ymd( "5782 Adar II 24" ) nl;
+write @scheme.H( 2459282 ), @scheme.H( 2459636 ), @scheme.H( 2459666 ) nl;
+write @scheme.H:ymd( "5781 Adar 24" ), @scheme.H:ymd( "5782 Adar I 24" ), @scheme.H:ymd( "5782 Adar II 24" ) nl;
 write @text.H:ymd( 2459282 ), @text.H:ymd( 2459636 ), @text.H:ymd( 2459666 ) nl;
 write @text.H:ymd( {s:H 5781, 12, 24} ), @text.H:ymd( {s:H 5782, 12, 24} ), @text.H:ymd( {s:H 5782, 13, 24} ) nl;
 write @date.H:ymd( "5781 Adar 24" ), @date.H:ymd( "5782 Adar I 24" ), @date.H:ymd( "5782 Adar II 24" ) nl;

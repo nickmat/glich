@@ -16,8 +16,8 @@ scheme GO {
 }
 
 write nl;
-write @record.GO( 2460138 ) nl;
-write @record.GO:yd( "2023 193" ) nl;
+write @scheme.GO( 2460138 ) nl;
+write @scheme.GO:yd( "2023 193" ) nl;
 write @text.GO:yd( 2460138 ) nl;
 write @text.GO:yd( {s:GO 2023, 193} ) nl;
 write @date.GO:yd( "2023 193" ) nl;

@@ -2,8 +2,8 @@
 
 
 write nl;
-write @record.ja( 2360328 ), @record.ja( 2360329 ) nl;
-write @record.ja:dmy( "24 mar 1749" ), @record.ja:dmy( "25 Mar 1750" ) nl;
+write @scheme.ja( 2360328 ), @scheme.ja( 2360329 ) nl;
+write @scheme.ja:dmy( "24 mar 1749" ), @scheme.ja:dmy( "25 Mar 1750" ) nl;
 write @text.ja:dmy( 2360328 ), @text.ja:dmy( 2360329 ) nl;
 write @text.ja:wdmy( 2360328 ), @text.ja:wdmy( 2360329 ) nl;
 write @text.ja:dmy( {s:ja 1750,3,24} ), @text.ja:dmy( {s:ja 1750,3,25} ) nl;

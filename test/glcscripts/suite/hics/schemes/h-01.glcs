@@ -64,8 +64,8 @@ scheme H {
 }
 
 write nl;
-write @record.H( 2460049 ) nl;
-write @record.H:ymd( "5783 Nisan 23" ) nl;
+write @scheme.H( 2460049 ) nl;
+write @scheme.H:ymd( "5783 Nisan 23" ) nl;
 write @text.H:ymd( 2460049 ) nl;
 write @text.H:ymd( {s:H 5783, 1, 23} ) nl;
 write @date.H:ymd( "5783 nsn 23" ) nl;

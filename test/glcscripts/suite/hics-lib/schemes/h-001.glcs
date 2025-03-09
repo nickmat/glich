@@ -2,8 +2,8 @@
 
 
 write nl;
-write @record.h( 2460481 ) nl;
-write @record.h:dmy( "13 Sivan 5784" ) nl;
+write @scheme.h( 2460481 ) nl;
+write @scheme.h:dmy( "13 Sivan 5784" ) nl;
 write @text.h:dmy( 2460481 ) nl;
 write @text.h:dmy( {s:h 5784,3,13} ) nl;
 write @date.h:dmy( "13 Sivan 5784" ) nl;

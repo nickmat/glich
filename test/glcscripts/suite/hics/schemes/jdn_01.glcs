@@ -18,9 +18,9 @@ let t = "2432617";
 let r = {s:JDN 2432617};
 
 let d_t = @text.JDN:d( d );
-let d_r = @record.JDN( d );
+let d_r = @scheme.JDN( d );
 let t_d = @date.JDN:d( t );
-let t_r = @record.JDN:d( t );
+let t_r = @scheme.JDN:d( t );
 let r_d = @date( r );
 let r_t = @text.:d( r );
 

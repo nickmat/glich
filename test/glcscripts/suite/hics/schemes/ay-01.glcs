@@ -57,9 +57,9 @@ scheme AY {
 
 
 write nl;
-write @record.AY( 2299160 ), @record.AY( 2299161 ) nl;
-write @record.AY:dmys( "4 Oct 1582 j" ), @record.AY:dmys( "15 Oct 1582 g" ) nl;
-write @record.AY:dmys( "4 Oct 1582" ), @record.AY:dmys( "15 Oct 1582" ) nl;
+write @scheme.AY( 2299160 ), @scheme.AY( 2299161 ) nl;
+write @scheme.AY:dmys( "4 Oct 1582 j" ), @scheme.AY:dmys( "15 Oct 1582 g" ) nl;
+write @scheme.AY:dmys( "4 Oct 1582" ), @scheme.AY:dmys( "15 Oct 1582" ) nl;
 write @text.AY:dmys( 2299160 ), @text.AY:dmys( 2299161 ) nl;
 write @text.:dmys( {s:AY 0,1582,10,4} ), @text.:dmys( {s:AY 1,1582,10,15} ) nl;
 write @text.AY:dmy( 2299160 ), @text.AY:dmy( 2299161 ) nl;

@@ -86,8 +86,8 @@ scheme JCE {
 
 
 write nl;
-write @record.JCE( 1721423 ), @record.JCE( 1721424 ) nl;
-write @record.JCE:dmye( "31 dec 1 bce" ), @record.JCE:dmye( "1 jan 1 ce" ) nl;
+write @scheme.JCE( 1721423 ), @scheme.JCE( 1721424 ) nl;
+write @scheme.JCE:dmye( "31 dec 1 bce" ), @scheme.JCE:dmye( "1 jan 1 ce" ) nl;
 write @text.JCE:dmye( 1721423 ), @text.JCE:dmye( 1721424 ) nl;
 write @text.JCE:dmye( {s:JCE 0,12,31} ), @text.JCE:dmye( {s:JCE 1,1,1} ) nl;
 write @text.JCE:dmye ({s:JCE ,12,31,0,1}@calc_year), @text.JCE:dmye ({s:JCE ,1,1,1,1}@calc_year) nl;

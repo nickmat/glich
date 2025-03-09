@@ -1,8 +1,8 @@
 // jwsn-001.glc // Test jwsn Julian Week (Sunday) Number scheme
 
 write nl;
-write @record.jwsn( 2460154 ) nl;
-write @record.jwsn( "351450 fri" ) nl;
+write @scheme.jwsn( 2460154 ) nl;
+write @scheme.jwsn( "351450 fri" ) nl;
 write @text.jwsn( 2460154 ), @text.jwsn:wd( 2460154 ) nl;
 write @text( {s:jwsn 351450, 6} ), @text.:wd( {s:jwsn 351450, 6} ) nl;
 write @date.jwsn( "351450 fri" ) nl;

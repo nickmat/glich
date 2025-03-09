@@ -4,8 +4,8 @@ let _today = 2460255;
 
 write "Today is :-" nl;
 write "Gregorian: " + @text.g:full( _today ) nl;
-write "    ISO Week No: " + @record.gw( _today )[week] +
-        "    Ordinal Day No: " + @record.go( _today)[day] nl;
+write "    ISO Week No: " + @scheme.gw( _today )[week] +
+        "    Ordinal Day No: " + @scheme.go( _today)[day] nl;
 
 write "Julian Annunciation Florence: " + @text.ja:out( _today ) nl;
 
