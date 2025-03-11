@@ -29,11 +29,26 @@
 #define SRC_GLC_GLCBLOB_H_GUARD
 
 #include <glc/glcDefs.h>
-#include "glcValue.h"
 
 namespace glich {
 
-    
+    enum class BlobType { unknown, file, mp3, mp4, jpeg, png };
+
+    class Blob
+    {
+    public:
+        Blob() {}
+
+        bool load( const std::string& filename, BlobType type = BlobType::unknown );
+        bool save( const std::string& filename ) const;
+
+        std::string type() const;
+        size_t size() const { return m_data.size(); }
+
+    private:
+        BlobType m_type = BlobType::unknown;
+        std::vector<unsigned char> m_data;
+    };
 }
 
 #endif // SRC_GLC_GLCBLOB_H_GUARD

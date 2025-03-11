@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Name:        src/glc/glcBlob.h
+ * Name:        src/glc/glcBlob.cpp
  * Project:     Glich: Extendable Script Language.
  * Purpose:     Object class to handle script blobs.
  * Author:      Nick Matthews
@@ -27,10 +27,66 @@
 
 #include "glcBlob.h"
 
+#include <filesystem>
+#include <fstream>
+
 using namespace glich;
 using std::string;
 using std::vector;
 
+bool Blob::load( const string& filename, BlobType type )
+{
+    std::ifstream file( filename, std::ios::binary | std::ios::ate );
+    if( !file.is_open() ) {
+        return false;
+    }
 
+    std::streamsize size = file.tellg();
+    file.seekg( 0, std::ios::beg );
+
+    m_data.resize( size );
+    if( file.read( reinterpret_cast<char*>(m_data.data()), size ) ) {
+        return false;
+    }
+    if( type == BlobType::unknown ) {
+        string ext = std::filesystem::path( filename ).extension().string();
+        if( ext == ".mp3" ) {
+            type = BlobType::mp3;
+        }
+        else if( ext == ".mp4" ) {
+            type = BlobType::mp4;
+        }
+        else if( ext == ".jpeg" || ext == ".jpg" ) {
+            type = BlobType::jpeg;
+        }
+        else if( ext == ".png" ) {
+            type = BlobType::png;
+        }
+    }
+    m_type = type;
+    return true;
+}
+
+bool Blob::save( const string& filename ) const
+{
+    std::ofstream file( filename, std::ios::binary );
+    if( !file.is_open() ) {
+        return false;
+    }
+    file.write( reinterpret_cast<const char*>(m_data.data()), m_data.size() );
+    return true;
+}
+
+string Blob::type() const
+{
+    switch( m_type ) {
+    case BlobType::file: return "file";
+    case BlobType::mp3: return "mp3";
+    case BlobType::mp4: return "mp4";
+    case BlobType::jpeg: return "jpeg";
+    case BlobType::png: return "png";
+    default: return "unknown";
+    }
+}
 
 // End of src/glc/glcBlob.cpp

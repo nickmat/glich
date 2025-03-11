@@ -10,6 +10,7 @@
 
 set( GLC_SOURCES
     glc.cpp
+    glcBlob.cpp
     glcFile.cpp
     glcFilesys.cpp
     glcFunction.cpp
@@ -30,6 +31,7 @@ set( GLC_HEADERS
     ../../include/glc/glc.h
     ../../include/glc/glcDefs.h
     ../../include/glc/glcGlich.h
+    glcBlob.h
     glcFile.h
     glcFilesys.h
     glcFunction.h
