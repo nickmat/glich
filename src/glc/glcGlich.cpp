@@ -100,6 +100,7 @@ Glich::Glich( InOut* inout )
         { "nan", std::numeric_limits<double>::quiet_NaN() },
         { "null", SValue() },
         { "empty", SValue( RList() ) },
+        { "blob", SValue( Blob() ) },
         { "nl", "\n" },
         { "pi", cal_pi }
     };
