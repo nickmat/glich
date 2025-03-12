@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     5th February 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -70,6 +70,8 @@ string SValue::as_string() const
         return float_to_string( std::get<double>( m_data ) );
     case Type::Object:
         return object_to_string( std::get<SValueVec>( m_data ) );
+    case Type::blob:
+        return blob_to_string( std::get<Blob>( m_data ) );
     }
     return string();
 }
@@ -106,6 +108,11 @@ std::string glich::SValue::object_to_string( const SValueVec& values ) const
 
     }
     return result + "}";
+}
+
+string SValue::blob_to_string( const Blob& blob ) const
+{
+    return "blob:" + blob.type_str() + ":" + std::to_string( blob.size() );
 }
 
 /* static */
@@ -295,6 +302,15 @@ SValueVec SValue::get_object() const
     return SValueVec();
 }
 
+Blob SValue::get_blob() const
+{
+    if( std::holds_alternative<Blob>( m_data ) ) {
+        return std::get<Blob>( m_data );
+    }
+    assert( false ); // Should only be called for Blob type.
+    return Blob();
+}
+
 Field SValue::get_num_as_field() const
 {
     if( std::holds_alternative<Num>( m_data ) && m_type == Type::Number ) {
@@ -476,6 +492,16 @@ std::string glich::SValue::get_object_code() const
         }
     }
     return std::string();
+}
+
+Blob SValue::get_blob( bool& success ) const
+{
+    success = true;
+    if( std::holds_alternative<Blob>( m_data ) ) {
+        return std::get<Blob>( m_data );
+    }
+    success = false;
+    return Blob();
 }
 
 Field SValue::get_int_as_field( bool& success ) const

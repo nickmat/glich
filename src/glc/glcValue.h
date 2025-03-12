@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -30,6 +30,8 @@
 
 #include "glc/glcDefs.h"
 
+#include "glcBlob.h"
+
 #include <variant>
 
 namespace glich {
@@ -44,10 +46,11 @@ namespace glich {
     {
     public:
         enum class Type {
-            Null, Error, String, Bool, Number, field, range, rlist, Float, Object
+            Null, Error, String, Bool, Number, field, range, rlist, Float, Object, blob
         };
         static constexpr const char* s_typename[] = {
-            "null", "error", "string", "bool", "number", "field", "range", "rlist", "float", "object"
+            "null", "error", "string", "bool", "number", "field", "range", "rlist", "float",
+            "object", "blob"
         };
         SValue() : m_type( Type::Null ) {}
         SValue( const SValue& value );
@@ -60,6 +63,7 @@ namespace glich {
         SValue( const RList& rl ) : m_type( Type::rlist ), m_data( rl ) {}
         SValue( double real ) : m_type( Type::Float ), m_data( real) {}
         SValue( SValueVec obj ) : m_type( Type::Object ), m_data( obj ) {}
+        SValue( Blob& blob ) : m_type( Type::blob ), m_data( blob ) {}
 
         static SValue create_error( const std::string& mess );
 
@@ -71,6 +75,7 @@ namespace glich {
         void set_rlist( const RList& rlist ) { m_type = Type::rlist; m_data = rlist; }
         void set_float( double real ) { m_type = Type::Float; m_data = real; }
         void set_object( SValueVec obj ) { m_type = Type::Object; m_data = obj; }
+        void set_blob( Blob& blob ) { m_type = Type::blob; m_data = blob; }
 
         void set_range_demote( Range rng );
         void set_rlist_demote( const RList& rlist );
@@ -85,6 +90,7 @@ namespace glich {
 
         std::string as_string() const;
         std::string object_to_string( const SValueVec& values ) const;
+        std::string blob_to_string( const Blob& blob ) const;
 
         std::string get_str() const;
         Num get_number() const;
@@ -94,6 +100,7 @@ namespace glich {
         RList get_rlist() const;
         double get_float() const;
         SValueVec get_object() const;
+        Blob get_blob() const;
         Field get_num_as_field() const;
         double get_field_as_float() const;
 
@@ -108,6 +115,7 @@ namespace glich {
         double get_float( bool& success ) const;
         SValueVec get_object( bool& success ) const;
         std::string get_object_code() const;
+        Blob get_blob( bool& success ) const;
 
         Field get_int_as_field( bool& success ) const; // Num or Field as Field
         size_t get_int_as_size_t( bool& success ) const; // Num or Field as size_t
@@ -152,7 +160,7 @@ namespace glich {
         static std::string get_special_rlist_string( RList rlist );
 
         Type m_type;
-        std::variant<bool, Num, std::string, Range, RList, double, SValueVec> m_data;
+        std::variant<bool, Num, std::string, Range, RList, double, SValueVec, Blob> m_data;
     };
 
     using SValueVec = std::vector<SValue>;
