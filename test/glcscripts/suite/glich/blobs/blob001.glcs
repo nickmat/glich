@@ -1,0 +1,7 @@
+// blob001.glcs - default blob value.
+
+write blob;
+
+/*[OUTPUT]
+blob:unknown:0
+[OUTPUT]*/
