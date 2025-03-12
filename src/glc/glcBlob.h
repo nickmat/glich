@@ -42,7 +42,7 @@ namespace glich {
         bool load( const std::string& filename, BlobType type = BlobType::unknown );
         bool save( const std::string& filename ) const;
 
-        std::string type() const;
+        std::string type_str() const;
         size_t size() const { return m_data.size(); }
 
     private:

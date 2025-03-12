@@ -77,7 +77,7 @@ bool Blob::save( const string& filename ) const
     return true;
 }
 
-string Blob::type() const
+string Blob::type_str() const
 {
     switch( m_type ) {
     case BlobType::file: return "file";
