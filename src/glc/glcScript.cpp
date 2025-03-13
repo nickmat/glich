@@ -1252,14 +1252,14 @@ SValue Script::builtin_function_call( bool& success, const string& name )
 {
     enum f {
         f_if, f_error, f_string, f_quote, f_field, f_range, f_rlist, f_number, f_float, f_read, f_filesys,
-        f_version, f_low, f_high, f_span, f_size, f_envelope, f_type, f_object, f_global
+        f_version, f_low, f_high, f_span, f_size, f_envelope, f_type, f_object, f_global, f_load_blob
     };
     const static std::map<string, f> fmap = {
         { "if", f_if }, { "error", f_error }, { "string", f_string }, { "quote", f_quote }, { "field", f_field },
         { "range", f_range }, { "rlist", f_rlist }, { "number", f_number }, { "float", f_float },
         { "read", f_read }, { "filesys", f_filesys }, { "version", f_version }, { "low", f_low },
         { "high", f_high }, { "span", f_span }, { "size", f_size }, { "envelope", f_envelope },
-        { "type", f_type }, { "object", f_object }, { "global", f_global }
+        { "type", f_type }, { "object", f_object }, { "global", f_global }, { "load:blob", f_load_blob }
     };
 
     auto fnum = fmap.find( name );
@@ -1287,6 +1287,7 @@ SValue Script::builtin_function_call( bool& success, const string& name )
         case f_type:
         case f_object: return do_at_property( name );
         case f_global: return at_global();
+        case f_load_blob: return at_load_blob();
         }
         return SValue::create_error( "Built-in hics function error." );
     }
@@ -1402,6 +1403,24 @@ SValue Script::at_read()
     string line;
     std::getline( *input, line );
     return SValue( line );
+}
+
+SValue glich::Script::at_load_blob()
+{
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current );
+    string filename;
+    if( args.size() > 0 && args[0].type() == SValue::Type::String ) {
+        filename = args[0].get_str();
+    }
+    else {
+        return SValue::create_error( "Filename required." );
+    }
+    Blob blob;
+    if( !blob.load( filename ) ) {
+        return SValue::create_error( "Unable to load blob file." );
+    }
+    return SValue( blob );
 }
 
 SValue Script::at_filesys()

@@ -100,6 +100,7 @@ namespace glich {
         SValue command_call();
         SValue at_if();
         SValue at_read();
+        SValue at_load_blob();
         SValue at_filesys();
         SValue at_error();
         SValue at_string();

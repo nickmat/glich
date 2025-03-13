@@ -73,8 +73,9 @@ write x nl;
 <table class='basic'>
 <tr><th>Function</th><th>Description</th></tr>
 <tr><td><i>object_type</i> <b>@mask</b>( <i>object_type</i> )</td><td>Overlays one object value on another.</td></tr>
-<tr><td><i>object_type</i> <b>@object_name</b></td><td>Return the code name of the object as a string.</td></tr>
 <tr><td><i>object_type</i> <b>@size</b></td><td>Return the number of elements.</td></tr>
+<tr><td><i>object_type</i> <b>@obj:name</b></td><td>Return the code name of the object as a string.</td></tr>
+<tr><td><i>object_type</i> <b>@obj:list</b></td><td>Return object values as a string.</td></tr>
 </table>
 
 <h4>Object Function <code>ovalue @mask( value )</code></h4>
@@ -102,18 +103,7 @@ write x nl;
 </tr>
 </table>
 
-<h4>Object Function <cpde>ovalue @object_name</cpde></h4>
-<p>
- Return the code name of the object as a string.
-</p>
-
-<table class='basic'>
-<tr><th>Example</th><th>Output</th></tr>
-<tr>
-<td class='example'>{test 1, 2, 3}@object_name</td><td>"test"</tr>
-</table>
-
-<h4>Object Function <cpde>ovalue @size</cpde></h4>
+<h4>Object Function <code>ovalue @size</code></h4>
 <p>
  Return the number of elements.
 </p>
@@ -122,6 +112,31 @@ write x nl;
 <tr><th>Example</th><th>Output</th></tr>
 <tr>
 <td class='example'>{: 1, 2, 3}@size</td><td>3</tr>
+</table>
+
+<h4>Object Function <code>ovalue @obj:name</code></h4>
+<p>
+ Return the code name of the object as a string.
+</p>
+
+<table class='basic'>
+<tr><th>Example</th><th>Output</th></tr>
+<tr>
+<td class='example'>{test 1, 2, 3}@obj:name</td><td>"test"</tr>
+</table>
+
+<h4>Object Function <code>ovalue @obj:list</code></h4>
+<p>
+ Return an annotated list of an objects contents as a string, one line per value.
+</p>
+
+<table class='basic'>
+<tr><th>Example</th><th>Output</th></tr>
+<tr>
+<td class='example'>object test { values first second; }
+{test "One hundred", 101, 102}@obj:list</td><td>first = "One hundred"<br />
+second = 101<br />
+2 = 102</tr>
 </table>
 
 

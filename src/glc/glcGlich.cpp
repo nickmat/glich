@@ -90,6 +90,7 @@ Glich::Glich( InOut* inout )
         { "type", fptr },
         { "object", fptr },
         { "global", fptr },
+        { "load:blob", fptr }
     };
     
     m_constants = {
