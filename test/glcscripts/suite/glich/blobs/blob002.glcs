@@ -1,0 +1,9 @@
+// blob002.glcs - blob load file.
+
+let b = @load:blob( "glich32.png" );
+write b;
+call save:blob( b, "test_glich32.png" );
+
+/*[OUTPUT]
+blob:png:1999
+[OUTPUT]*/
