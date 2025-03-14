@@ -98,6 +98,7 @@ namespace glich {
         SValue run_function( Function* fun, const SValue* left = nullptr );
         SValue dot_mask( const Object* obj, const SValue* left );
         SValue command_call();
+        virtual SValue builtin_command_call( bool& success, const std::string& name );
         SValue at_if();
         SValue at_read();
         SValue at_load_blob();
@@ -113,6 +114,7 @@ namespace glich {
         SValue at_version();
         SValue do_at_property( const std::string& property );
         SValue at_global();
+        SValue com_save_blob();
 
         SValue get_value_var( const std::string& name );
         virtual SValue get_builtin_var( bool& success, const std::string& name );

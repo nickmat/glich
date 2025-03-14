@@ -1337,16 +1337,21 @@ SValue Script::dot_mask( const Object* obj, const SValue* left )
 
 SValue Script::command_call()
 {
-    SValue value;
     SToken token = next_token();
     if( token.type() == SToken::Type::At ) {
         return function_call();
     }
     if( token.type() != SToken::Type::Name ) {
-        value.set_error( "Command name expected." );
-        return value;
+        return SValue::create_error( "Command name expected." );
     }
     string name = token.get_str();
+
+    bool success = false;
+    SValue value = builtin_command_call( success, name );
+    if( success ) {
+        return value;
+    }
+
     Function* com = nullptr;
     com = glc().get_command( name );
     if( com == nullptr ) {
@@ -1354,6 +1359,28 @@ SValue Script::command_call()
         return value;
     }
     return run_function( com );
+}
+
+SValue glich::Script::builtin_command_call( bool& success, const std::string& name )
+{
+    enum c {
+        c_save_blob
+    };
+    const static std::map<string, c> cmap = {
+        { "save:blob", c_save_blob }
+    };
+
+    auto cnum = cmap.find( name );
+    if( cnum != cmap.end() ) {
+        success = true;
+        switch( cnum->second )
+        {
+        case c_save_blob: return com_save_blob();
+        }
+        return SValue::create_error( "Built-in glich command error." );
+    }
+    success = false;
+    return SValue();
 }
 
 // Evaluate the built-in @if function:
@@ -1704,6 +1731,30 @@ SValue Script::at_global()
         return SValue::create_error( "Global name not found." );
     }
     return *vptr;
+}
+
+SValue Script::com_save_blob()
+{
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current );
+    Blob blob;
+    if( args.size() > 0 && args[0].type() == SValue::Type::blob ) {
+        blob = args[0].get_blob();
+    }
+    else {
+        return SValue::create_error( "Blob required as 1st argument." );
+    }
+    string filename;
+    if( args.size() > 1 && args[1].type() == SValue::Type::String ) {
+        filename = args[1].get_str();
+    }
+    else {
+        return SValue::create_error( "Filename required as 2nd argument." );
+    }
+    if( !blob.save( filename ) ) {
+        return SValue::create_error( "Unable to save blob file." );
+    }
+    return SValue();
 }
 
 SValue Script::get_value_var( const string& name )
