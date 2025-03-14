@@ -45,7 +45,7 @@ bool Blob::load( const string& filename, BlobType type )
     file.seekg( 0, std::ios::beg );
 
     m_data.resize( size );
-    if( file.read( reinterpret_cast<char*>(m_data.data()), size ) ) {
+    if( !file.read( reinterpret_cast<char*>(m_data.data()), size ) ) {
         return false;
     }
     if( type == BlobType::unknown ) {
