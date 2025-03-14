@@ -92,6 +92,9 @@ Glich::Glich( InOut* inout )
         { "global", fptr },
         { "load:blob", fptr }
     };
+    m_commands = {
+        { "save:blob", fptr }
+    };
     
     m_constants = {
         { "true", true },
