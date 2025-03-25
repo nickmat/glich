@@ -1,5 +1,5 @@
 // c-004.glcs  Create c scheme format table.
-/*[SKIP]*/
+
 let sch = "c";
 
 let d1 = 2460866;
@@ -68,17 +68,24 @@ write "</table>" nl;
 /*[OUTPUT]
 
 <table class='basic data'>
-<tr><th colspan='5'>Formats - Grammar c</th></tr>
-<tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>
-<tr><td><b>cymld</b></td><td>text</td><td><b>Input:</b> cycle cyear month lmonth day<br /><b>Output:</b> cc yy mm fs dd</td><td class='example'>78 42 6 f 15<br />78 42 6 s 15<br />78 42 6 s 15</td><td>D, S</td></tr>
-<tr><td><b>cylmd</b></td><td>text</td><td><b>Input:</b> cycle cyear clmonth month day<br /><b>Output:</b> cc yy LM mm dd</td><td class='example'>78 42 6 15<br />78 42 Leap 6 15<br />78 42 Leap 6 15</td><td></td></tr>
-<tr><td><b>cylmd_s</b></td><td>text</td><td><b>Input:</b> cycle stem branch clmonth month day<br /><b>Output:</b> cc Stem-branch, LM mm dd</td><td class='example'>78 Yǐ-sì 6 15<br />78 Yǐ-sì, Leap 6 15<br />78 Yǐ-sì, Leap 6 15</td><td></td></tr>
-<tr><td><b>full</b></td><td>text</td><td><b>Output:</b> Cycle: cc, Year: Stem-branch (yy), LeapMon: mm, Day: dd</td><td class='example'>Cycle: 78, Year: Yǐ-sì (42), Month: 6, Day: 15<br />Cycle: 78, Year: Yǐ-sì (42), Leap-month: 6, Day: 15<br />Cycle: 78, Year: Yǐ-sì (42), Leap-month: 6, Day: 15</td><td></td></tr>
-<tr><td><b>animal</b></td><td>text</td><td><b>Output:</b> (ccc) yy Year of the Animal mm LeapMon ddd</td><td class='example'>(78c) 42 Year of the Snake 6 Month 15d<br />(78c) 42 Year of the Snake 6 Leap-month 15d<br />(78c) 42 Year of the Snake 6 Leap-month 15d</td><td></td></tr>
-<tr><td><b>def</b></td><td>text</td><td><b>Input:</b> cycle cyear month lmonth day clmonth stem branch<br /><b>Output:</b> cc yy mm lm dd clmonth stem branch</td><td class='example'>78 42 6 0 15 2 6<br />78 42 6 1 15 1 2 6<br />78 42 6 1 15 1 2 6</td><td>H</td></tr>
-<tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9c 9y 9m 9lm 9d 9cm 9s 9b<br /><b>Output:</b> 9c 9y 9m 9lm 9d 9cm 9s 9b</td><td class='example'>78c 42y 6m 0lm 15d 2s 6b<br />78c 42y 6m 1lm 15d 1cm 2s 6b<br />78c 42y 6m 1lm 15d 1cm 2s 6b</td><td>H</td></tr>
+<tr><th colspan='4'>Formats - Grammar c</th></tr>
+<tr><th>Code</th><th>Rule</th><th>Pseudo / Example</th><th>Note</th></tr>
+<tr><td rowspan='2'><b>cymld</b></td><td rowspan='2'>text</td><td><b>Input:</b> cycle cyear month lmonth day<br /><b>Output:</b> cc yy mm fs dd</td><td rowspan='2'>D, S</td></tr>
+<tr><td class='example'>78 42 6 f 15<br />78 42 6 s 15<br />78 42 7 f 15</td></tr>
+<tr><td rowspan='2'><b>cylmd</b></td><td rowspan='2'>text</td><td><b>Input:</b> cycle cyear clmonth month day<br /><b>Output:</b> cc yy LM mm dd</td><td rowspan='2'></td></tr>
+<tr><td class='example'>78 42 6 15<br />78 42 Leap 6 15<br />78 42 7 15</td></tr>
+<tr><td rowspan='2'><b>cylmd_s</b></td><td rowspan='2'>text</td><td><b>Input:</b> cycle stem branch clmonth month day<br /><b>Output:</b> cc Stem-branch, LM mm dd</td><td rowspan='2'></td></tr>
+<tr><td class='example'>78 Yǐ-sì 6 15<br />78 Yǐ-sì, Leap 6 15<br />78 Yǐ-sì 7 15</td></tr>
+<tr><td rowspan='2'><b>full</b></td><td rowspan='2'>text</td><td><b>Output:</b> Cycle: cc, Year: Stem-branch (yy), LeapMon: mm, Day: dd</td><td rowspan='2'></td></tr>
+<tr><td class='example'>Cycle: 78, Year: Yǐ-sì (42), Month: 6, Day: 15<br />Cycle: 78, Year: Yǐ-sì (42), Leap-month: 6, Day: 15<br />Cycle: 78, Year: Yǐ-sì (42), Month: 7, Day: 15</td></tr>
+<tr><td rowspan='2'><b>animal</b></td><td rowspan='2'>text</td><td><b>Output:</b> (ccc) yy Year of the Animal mm LeapMon ddd</td><td rowspan='2'></td></tr>
+<tr><td class='example'>(78c) 42 Year of the Snake 6 Month 15d<br />(78c) 42 Year of the Snake 6 Leap-month 15d<br />(78c) 42 Year of the Snake 7 Month 15d</td></tr>
+<tr><td rowspan='2'><b>def</b></td><td rowspan='2'>text</td><td><b>Input:</b> cycle cyear month lmonth day clmonth stem branch<br /><b>Output:</b> cc yy mm lm dd clmonth stem branch</td><td rowspan='2'>H</td></tr>
+<tr><td class='example'>78 42 6 0 15 2 6<br />78 42 6 1 15 1 2 6<br />78 42 7 0 15 2 6</td></tr>
+<tr><td rowspan='2'><b>u</b></td><td rowspan='2'>unit</td><td><b>Input:</b> 9c 9y 9m 9lm 9d 9cm 9s 9b<br /><b>Output:</b> 9c 9y 9m 9lm 9d 9cm 9s 9b</td><td rowspan='2'>H</td></tr>
+<tr><td class='example'>78c 42y 6m 0lm 15d 2s 6b<br />78c 42y 6m 1lm 15d 1cm 2s 6b<br />78c 42y 7m 0lm 15d 2s 6b</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden.
-Example based on jdn# 2460866, 2460896 and 2460896</td></tr>
+Example based on jdn# 2460866, 2460896 and 2460925</td></tr>
 </table>
 
 [OUTPUT]*/
