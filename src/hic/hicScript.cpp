@@ -663,9 +663,6 @@ Base* HicScript::do_base( const string& code )
         else if( name == "easter" ) {
             bs = Scheme::BaseName::easter;
         }
-        else if( name == "liturgical" ) {
-            bs = Scheme::BaseName::liturgical;
-        }
         else if( name == "jwn" ) {
             bs = Scheme::BaseName::jwn;
         }

@@ -35,7 +35,6 @@ set( HIC_SOURCES
     hicJwn.cpp
     hicLexicon.cpp
     hicLibScripts.cpp
-    hicLiturgical.cpp
     hicMark.cpp
     hicMath.cpp
     hicOptional.cpp
@@ -74,7 +73,6 @@ set( HIC_HEADERS
     hicJwn.h
     hicLexicon.h
     hicLibScripts.h
-    hicLiturgical.h
     hicMark.h
     hicMath.h
     hicOptional.h

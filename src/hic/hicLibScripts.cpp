@@ -343,7 +343,6 @@ glich::StdStrMap glich::hics_default_scripts = {
  "base easter;\n"
  "grammar je;\n"
  "}\n" },
-//    { "liturgical", @(cp.cpp)"liturgical.glcs" },
     { "eh",  /* eh.glcs */
  "scheme eh {\n"
  "name \"Julian Era Hispanica\";\n"

@@ -1,5 +1,5 @@
 // at-sch-list001.glcs  Test scheme list function.
-/*[SKIP]*/
+
 let list = @sch:list;
 
 write nl;
@@ -8,7 +8,7 @@ write list nl;
 
 /*[OUTPUT]
 
-24
-{: "ay", "c", "eh", "fr", "g", "glit", "go", "gw", "h", "i", "if", "ims", "j", "ja", "jap", "jce", "jdn", "je", "jlit", "jn", "jwn", "jwsn", "mjd", "rd"}
+22
+{: "ay", "c", "eh", "fr", "g", "go", "gw", "h", "i", "if", "ims", "j", "ja", "jap", "jce", "jdn", "je", "jn", "jwn", "jwsn", "mjd", "rd"}
 
 [OUTPUT]*/
