@@ -44,6 +44,7 @@
  <li><b>RList</b> - A well-ordered set (list) of ranges. Includes the <b>empty</b> set.</li>
  <li><b>Boolean</b> - The boolean value <b>true</b> or <b>false</b>.</li>
  <li><b>Object</b> - A named object and a collection of values and functions.</li>
+ <li><b>Blob</b> - A block of binary data. Can be used for binary files such as images.</li>
  <li><b>Error</b> - If an error occurs during an expression, an error value is created.</li>
  <li><b>Null</b> - A value which has no defined content.</li>
 </ul>
@@ -185,6 +186,29 @@
  This is documented <a href='bi-objects.htm'>here</a>.
 </p>
 
+<h3>Blob</h3>
+<p>
+ Can be used for binary data, as listed below.
+</p>
+
+<table class='basic'>
+<tr><th>Blob Type</th><th>Description</th></tr>
+<tr><td><b>unknown</b></td><td>Unknown binary data</td></tr>
+<tr><td><b>file</b></td><td>Represents any binary file</td></tr>
+<tr><td><b>jpeg, png</b></td><td>Image data.</td></tr>
+<tr><td><b>mp3</b></td><td>Audio data.</td></tr>
+<tr><td><b>mp4</b></td><td>Video data.</td></tr>
+</table>
+
+<p>
+ Currently, this type can only be used with the function <b>@load:blob</b> and command <b>save:blob</b>.
+</p>
+<p>
+ When a string description of a blob is required, it is given in the form
+ <code>blob:<i>type</i>:<i>size</i></code>. For example 
+ <span class='example'>blob:png:1999</span>.
+</p>
+
 <h3>Error</h3>
 <p>
  An error value is created whenever an operation is carried which has undefined results.
@@ -217,6 +241,7 @@
 <tr><td><b>rlist</b></td><td class="code">rlist_type</td></tr>
 <tr><td><b>boolean</b></td><td class="code">bool_type</td><td colspan="4"></td></tr>
 <tr><td><b>object</b></td><td class="code">object_type</td><td class="code" colspan="4">named_object_type</td></tr>
+<tr><td><b>blob</b></td><td class="code">blob_type</td><td colspan="4"></td></tr>
 <tr><td><b>error</b></td><td class="code">error_type</td><td colspan="4"></td></tr>
 <tr><td><b>null</b></td><td class="code">null_type</td><td colspan="4"></td></tr>
 </table>
