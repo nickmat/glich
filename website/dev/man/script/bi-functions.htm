@@ -31,11 +31,20 @@
 
 <div id='content' class='nomenu'>
 
-
 <h2>Introduction</h2>
 <p>
  The language has a number of functions built-in which are always available.
+ These are described below in the following groups:-
 </p>
+
+<table class='basic'>
+<tr><th>Group</th><th>Functions</th></tr>
+<tr><td>General purpose</td><td>@if, @quote, @read, @filesys, @version, @global</td></tr>
+<tr><td>Type conversion</td><td>@error, @string, @field, @range, @rlist, @number, @float</td></tr>
+<tr><td>Value properties</td><td>@type, @low, @high, @span, @size, @envelope, @object</td></tr>
+<tr><td>Manage blobs</td><td>@load:blob</td></tr>
+</table>
+
 <p>
  Additional mathematical functions will be added in the future.
 </p>
@@ -49,6 +58,7 @@
 <tr><td>@<b>read</b>.<i>input</i>( <i>prompt</i> )</td><td>Obtain text from file or console.</td></tr>
 <tr><td>@<b>filesys</b></td><td>Examine and control the file system.</td></tr>
 <tr><td>@<b>version</b></td><td>Return the current Glich version.</td></tr>
+<tr><td>@<b>global</b></td><td>Select the global variable if both global and local exist.</td></tr>
 </table>
 
 <h4>Function: @if( comp, t, f )</h4>
@@ -152,6 +162,19 @@
 <tr><th>Function</th><th>Description</th></tr>
 <tr><td>@<b>version</b></td><td>Return the version number and configuration.</td></tr>
 <tr><td>@<b>version.number</b></td><td>Return just the version number.</td></tr>
+</table>
+
+<h4 id='version'>Function: @global</h4>
+<p>
+ If a variable name is used for a local and a global variable,
+ just the name will give the local value.
+ The @global.name function will give the global value.
+</p>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+ <tr><td class='example'>let value = 100;
+global value = "hundred";
+write value, @global.value;</td><td class='example'>100, hundred</td></tr>
 </table>
 
 <h3>Type Conversion</h3>
@@ -488,6 +511,28 @@
  <tr><td class='example'>@object( true )</td><td class='example'>""</td></tr>
  <tr><td class='example'>@object( null )</td><td class='example'>""</td></tr>
  <tr><td class='example'>@object( @error( "Whoops" ) )</td><td class='example'>Error (12): Whoops</td></tr>
+</table>
+
+<h3>Manage Blobs</h3>
+<p>
+ Blob values are created using the @load:blob function.
+ They are saved using the save:blob command.
+</p>
+<table class='basic'>
+<tr><th>Function</th><th>Description</th></tr>
+<tr><td>@<b>load:blob</b>( <i>filename</i> )</td><td>Load a blob from a file.</td></tr>
+</table>
+
+<h4>Function: @load:blob( filename )</h4>
+<p>
+ If the file exists and can be opened,
+ the function returns a blob with the files binary data.
+ Otherwise, the function returns an error value.
+ The blob type is determined by the file extension where possible.
+</p>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+ <tr><td class='example'>@load:blob( "glich32.png" )</td><td class='example'>blob:png:1999</td></tr>
 </table>
 
 </div><!--id=content-->
