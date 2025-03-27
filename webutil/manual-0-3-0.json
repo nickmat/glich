@@ -18,6 +18,7 @@
     ] },
     { "name": "bi-constants", "label": "Built-in Constants" },
     { "name": "bi-functions", "label": "Built-in Functions" },
+    { "name": "bi-commands", "label": "Built-in Commands" },
     { "name": "bi-objects", "label": "Built-in Objects" }
   ]},
   { "folder": "hics", "name": "index", "label": "Hics Extension", "subtitle": "Hics Language Extension", "content": [
