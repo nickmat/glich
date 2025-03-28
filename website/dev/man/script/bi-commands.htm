@@ -31,7 +31,25 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Page Under Construction</h2>
+<h2>Introduction</h2>
+<p>
+ The language only has one built-in command.
+ The command to save a blob value to a file.
+</p>
+
+<h4>Command: save:blob( blob_value, filename )</h4>
+<p>
+ The <b>save:blob</b> command takes a binary data value
+ and saves it to the file system using the given filename.
+ If the command fails in any way, an error message will be output
+ to the current output stream.
+</p>
+<table class='basic'>
+<tr><th>Example</th></tr>
+ <tr><td class='example'>let b = @load:blob( "glich32.png" );
+call save:blob( b, "new_glich32.png" );
+</td></tr>
+</table>
 
 </div><!--id=content-->
 
