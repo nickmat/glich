@@ -249,15 +249,26 @@
  <tr><td class='example'>{complex 10, 25}[real]</td><td class='example'>10</td></tr>
 </table>
 
-<h3>Functions</h3>
+<h3>Function Operator</h3>
+<table class='basic'>
+<tr><th>Operator</th><th>Name</th><th>Use Type</th><th>Result Type</th></tr>
+<tr><td class='code'>@</td><td>Unary function.qualifier( arguments )</td><td class='example'><b>@</b> function_name</td><td class='example'>value</td></tr>
+<tr><td class='code'>@</td><td>Object function.qualifier( arguments )</td><td class='example'>object_type <b>@</b> object_function_name</td><td class='example'>value</td></tr>
+</table>
 <p>
- A function first has to be defined using the function statement.
- It can then be called in an expression using the at '@' operator.
+
+ The unitary function operator introduces either a built-in
+ or a user defined function.
+</p>
+
+<p>
+ User defined functions first have to be defined using the function statement.
+ They can then be called in an expression using the <b>at '@'</b> operator.
 </p>
 <p>
- Functions have an additional local variable: <b>result</b>.
+ When defining a function, it has an additional local variable: <b>result</b>.
  When the function is used in an expression,
- its value is the value of this result variable.
+ its value is that of the 'result' variable.
 </p>
 <table class='basic'>
 <tr><th>Example</th><th>Result</th></tr><!-- See function008.hcs test file -->
@@ -269,6 +280,22 @@
     loop
 }</td><td class='example'></td></tr>
  <tr><td class='example'>4 * @power(2,4) + 10</td><td class='example'>74</td></tr>
+</table>
+
+<p>
+ The object function operator is a function that uses the object on the left hand as input.
+ The function may be a general object function that acts on all object types
+ or a function defined as part of a named object.
+</p>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr><!-- See function008.hcs test file -->
+ <tr><td class='example'>object pair {
+    values first second;
+    function sum {
+        result = first + second;
+    }
+}</td><td class='example'></td></tr>
+ <tr><td class='example'>{pair 3, 4} @ sum</td><td class='example'>7</td></tr>
 </table>
 
 <h2>Operator Precedence</h2>
