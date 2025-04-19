@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     21st March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -305,7 +305,7 @@ string FormatText::get_revealed_output( const Record& record, const BoolVec* rev
 Range glich::FormatText::string_to_range( const Base& base, const std::string& input, FunctionData* fdata ) const
 {
     Record mask( base, input, *this, Boundary::None );
-    if( fdata ) {
+    if( fdata && !( input == "today" || input == "past" || input == "future" ) ) {
         SValue value = mask.get_object( fdata->ocode );
         value = fdata->run( &value );
         mask.set_object( value );

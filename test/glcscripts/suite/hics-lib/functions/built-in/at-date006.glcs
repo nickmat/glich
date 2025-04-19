@@ -1,0 +1,22 @@
+// suite/hics-lib/functions/built-in/at_date006.hcs
+// Test @date with default date values with formats using calculated fields.
+
+write 2460785 = @date.j( "6 Apr 2025" ),;
+write 2460785 = @date.jce( "6 Apr 2025 CE" ),;
+
+let today_ = today;
+let date_ = @date.j( "today" );
+write today_ = date_,;
+let date_ = @date.jce( "today" );
+write today_ = date_,;
+
+write past = @date.j( "past" ),;
+write past = @date.jce( "past" ),;
+
+write future = @date.j( "future" ),;
+write future = @date.jce( "future" );
+
+
+/*[OUTPUT]
+true, true, true, true, true, true, true, true
+[OUTPUT]*/
