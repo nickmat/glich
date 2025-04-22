@@ -102,7 +102,7 @@ string glich::parse_date_phrase( const string& str )
                 date += *it; // Treat & as part of date string.
             }
             break;
-        case '|': case '\\': case '&': case '^': // Is doubled up?.
+        case '\\': case '&': case '^': // Is doubled up?.
             nit = it + 1;
             if( nit != str.end() && (*nit == *it) ) {
                 script += create_date_str( sig, date, ct );
@@ -111,11 +111,11 @@ string glich::parse_date_phrase( const string& str )
                 it++;       // Step over second.
             }
             else {
-                date += *it; // Treat & as part of date string.
+                date += *it; // Treat as part of date string.
             }
             break;
         case '(': case ')': // Always recognised operators.
-        case '!': case '+': case '*':
+        case '|': case '!': case '+': case '*':
             script += create_date_str( sig, date, ct );
             script += *it;
             break;

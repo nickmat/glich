@@ -1,0 +1,13 @@
+// suite/hics-lib/functions/phrase/phrase006.hcs
+// Test @phrase with default date value.
+
+write nl;
+write @phrase( "j:dmy# 19 Aug 2023 | 30 Sep 2023" ) nl;
+write @phrase( "j:dmy# 19 Aug 2023 | g:dmy# 30 Sep 2023" ) nl;
+
+/*[OUTPUT]
+
+2460189 | 2460218
+2460189 | 2460218
+
+[OUTPUT]*/
