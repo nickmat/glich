@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -82,7 +82,8 @@ bool Mark::create_local( const string& name, Store* store )
     if( store->exists( name ) ) {
         return false;
     }
-    store->add_local( name, SValue() );
+    SValue value;
+    store->add_local( name, value );
     m_locals.push_back( name );
     return true;
 }
