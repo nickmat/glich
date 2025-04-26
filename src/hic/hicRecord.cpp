@@ -78,7 +78,9 @@ Record::Record( const Scheme& sch, Field jdn )
     if( fun != nullptr ) {
         SValue value = get_object( sch.get_code() );
         std::ostringstream outstm;
-        value = fun->run( &value, StdStrVec(), SValueVec(), outstm );
+        StdStrVec qual;
+        SValueVec args;
+        value = fun->run( &value, qual, args, outstm );
         set_object( value );
     }
 }
