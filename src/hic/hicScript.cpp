@@ -1061,7 +1061,9 @@ SValue HicScript::complete_object( Scheme* sch, Field jdn )
     string funcode = gmr->get_calculate();
     Function* fun = sch->get_function( funcode );
     if( fun != nullptr ) {
-        value = fun->run( &value, StdStrVec(), SValueVec(), get_out_stream() );
+        StdStrVec qual;
+        SValueVec args;
+        value = fun->run( &value, qual, args, get_out_stream() );
     }
     return value;
 }
@@ -1082,7 +1084,9 @@ SValue HicScript::complete_object( Scheme* sch, const string& input, const strin
         Object* obj = glc().get_object( ocode );
         Function* fun = obj->get_function( funcode );
         if( fun != nullptr ) {
-            value = fun->run( &value, StdStrVec(), SValueVec(), get_out_stream() );
+            StdStrVec qual;
+            SValueVec args;
+            value = fun->run( &value, qual, args, get_out_stream() );
         }
         mask.set_object( value );
     }
