@@ -320,7 +320,7 @@ bool Scheme::create_epoch_functions( Field epoch, int line )
 
     SpFunction fun = SpFunction( new Function( "calc_year" ) );
     if( fun == nullptr ) {
-        return nullptr;
+        return false;
     }
     fun->set_line( line );
     fun->set_script( script );
@@ -333,7 +333,7 @@ bool Scheme::create_epoch_functions( Field epoch, int line )
 
     fun = SpFunction( new Function( "calc_cyear" ) );
     if( fun == nullptr ) {
-        return nullptr;
+        return false;
     }
     fun->set_line( line );
     fun->set_script( script );
