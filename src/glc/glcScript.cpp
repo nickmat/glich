@@ -1318,8 +1318,8 @@ SValue Script::dot_mask( const Object* obj, const SValue* left )
     if( args.size() != 1 || args[0].type() != SValue::Type::Object ) {
         return SValue::create_error( "Function argument must be object type." );
     }
-    SValueVec& vleft = left->get_object();
-    SValueVec& vright = args[0].get_object();
+    const SValueVec& vleft = left->get_object();
+    const SValueVec& vright = args[0].get_object();
     size_t size = std::max( vleft.size(), vright.size() );
     SValueVec result = { name };
     for( size_t i = 1; i < size; i++ ) {
