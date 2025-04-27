@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     7th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  glctest is free software: you can redistribute it and/or modify
@@ -27,57 +27,40 @@
 
 #include "glcsTestmain.h"
 
-#include <stdio.h>
-#if defined(_MSC_VER)
-#include <win/dirent.h>
-#else
-#include <dirent.h>
-#endif
+#include <filesystem>
 
-#include <cstring>
-#include <iostream>
+namespace fs = std::filesystem;
 
 using std::vector;
 using std::string;
 
-CheckFile check_file( const std::string& name )
-{
-    DIR* dir = opendir( name.c_str() );
-    if ( dir != nullptr ) {
-        closedir( dir );
-        return CheckFile::dir;
-    }
 
-    FILE* file = nullptr;
-    fopen_s( &file, name.c_str(), "r" );
-    if ( file != nullptr ) {
-        fclose( file );
+CheckFile check_file( const string& name )
+{
+    fs::path path( name );
+    if( fs::is_directory( path ) ) {
+        return CheckFile::dir;  
+    }
+    if( fs::is_regular_file( path ) ) {
         return CheckFile::file;
     }
-    return CheckFile::none;
+    return CheckFile::none; 
 }
 
 void get_filenames( vector<string>& vec, const string& path )
 {
-    DIR* dir = opendir( path.c_str() );
-    dirent* pdir = readdir( dir );
-    while( pdir ) {
-        if( pdir->d_name[0] == '.' ) { // Ignore hidden files/directories
-            pdir = readdir( dir );
-            continue;
-        }
-        string fname( pdir->d_name );
-        if( pdir->d_type & DT_DIR ) {
-            get_filenames( vec, path + "/" + fname );
-        } else {
-            size_t len = std::strlen( pdir->d_name );
-            if( len > 4 && fname.substr( len - 5, 5 ) == ".glcs" ) {
-                vec.push_back( path + "/" + fname );
-            }
-        }
-        pdir = readdir( dir );
+    fs::path dir( path );
+    if( !fs::exists( dir ) || !fs::is_directory( dir ) ) {
+        return;
     }
-    closedir( dir );
+    for( const auto& entry : fs::directory_iterator( dir ) ) {
+        if( entry.is_directory() ) {
+            get_filenames( vec, entry.path().string() );
+        }
+        if( entry.is_regular_file() && entry.path().extension() == ".glcs" ) {
+            vec.push_back( entry.path().string() );
+        }
+    }
 }
 
 
