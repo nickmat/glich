@@ -63,7 +63,7 @@ namespace glich {
         SValue( const RList& rl ) : m_type( Type::rlist ), m_data( rl ) {}
         SValue( double real ) : m_type( Type::Float ), m_data( real) {}
         SValue( SValueVec obj ) : m_type( Type::Object ), m_data( obj ) {}
-        SValue( Blob& blob ) : m_type( Type::blob ), m_data( blob ) {}
+        SValue( const Blob& blob ) : m_type( Type::blob ), m_data( blob ) {}
 
         static SValue create_error( const std::string& mess );
 
