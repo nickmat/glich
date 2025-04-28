@@ -257,6 +257,11 @@ bool Glich::create_variable( const string& name, VariableType type )
     case VariableType::global:
         create_global( name );
         break;
+    case VariableType::constant:
+        break;
+    default:
+        assert( false );
+        return false;
     }
     return true;
 }
