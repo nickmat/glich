@@ -1553,6 +1553,8 @@ SValue Script::at_range()
     case SValue::Type::rlist:
         rng = value.get_range( success );
         break;
+    default:
+        break;
     }
     if( !success ) {
         if( args.size() > 1 ) {
