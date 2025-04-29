@@ -276,7 +276,10 @@ Base* Scheme::create_base( BaseName bs, const StdStrVec& data )
         return new Jdn( data );
     case BaseName::jwn:
         return new Jwn( data );
+    case BaseName::null:
+        return nullptr;
     }
+    assert( false ); // Should not reach here.
     return nullptr;
 }
 
