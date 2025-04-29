@@ -377,15 +377,17 @@ void STokenStream::set_current( SToken::Type type, const std::string& str )
     {
     case SToken::Type::Real:
         m_cur_token.set_value_real( str_to_float( str ) );
-        return;
+        break;
     case SToken::Type::Number:
         m_cur_token.set_value_num( str_to_num( str ) );
-        return;
+        break;
     case SToken::Type::Field:
         m_cur_token.set_value_field( str_to_field( str ) );
-        return;
+        break;
+    default:
+        m_cur_token.set_value_str( str );
+        break;
     }
-    m_cur_token.set_value_str( str );
 }
 
 
