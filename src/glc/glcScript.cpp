@@ -48,10 +48,7 @@ using std::vector;
 STokenStream* Script::s_current_ts = nullptr;
 
 Script::Script( std::istream& in, std::ostream& out)
-    : m_ts( in, out ), m_out( &out ), m_err( &out )
-{
-    assert( glc != nullptr );
-}
+    : m_ts( in, out ), m_out( &out ), m_err( &out ) {}
 
 bool Script::run()
 {
