@@ -1505,6 +1505,9 @@ SValue Script::at_field()
     case SValue::Type::Float:
         field = std::round( value.get_float( success ) );
         break;
+    default:
+        field = f_invalid;
+        break;
     }
     if( !success ) {
         if( args.size() > 1 ) {
