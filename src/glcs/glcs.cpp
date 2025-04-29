@@ -176,7 +176,7 @@ string compress_statement( const string& line, StmtStatus& status )
                 continue;
             }
             else {
-                compressed += "/" + ch;
+                compressed += string( "/" ) + ch;
             }
         }
         if( status.in_mcomment ) {
