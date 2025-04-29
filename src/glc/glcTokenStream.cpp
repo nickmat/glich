@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     5th February 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -80,9 +80,6 @@ SToken& STokenStream::next()
             lcomment = false;
         }
     } while( u8_isspace( ch ) || lcomment || mcomment );
-
-    // Cannot cope with utf8 outside quotes and comments
-    assert( ch >= -1 && ch <= 255 );
 
     if( isdigit( ch ) ) {
         string text;
