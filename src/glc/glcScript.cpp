@@ -1602,6 +1602,8 @@ SValue Script::at_rlist()
     case SValue::Type::rlist:
         rlist = value.get_rlist( success );
         break;
+    default:
+        break;
     }
     if( !success ) {
         if( args.size() > 1 ) {
@@ -1643,6 +1645,8 @@ SValue Script::at_number()
         break;
     case SValue::Type::Float:
         number = std::round( value.get_float( success ) );
+        break;
+    default:
         break;
     }
     if( !success ) {
