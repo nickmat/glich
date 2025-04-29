@@ -1672,7 +1672,6 @@ SValue Script::at_float()
     bool success = false;
     SValue value = (args[0].type() == SValue::Type::String) ? glc().evaluate( args[0].get_str() ) : args[0];
     switch( value.type() )
-
     {
     case SValue::Type::field:
         dbl = field_to_double( value.get_field(), success );
@@ -1691,6 +1690,8 @@ SValue Script::at_float()
         break;
     case SValue::Type::Float:
         return value;
+    default:
+        break;
     }
     if( !success ) {
         if( args.size() > 1 ) {
