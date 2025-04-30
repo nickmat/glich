@@ -40,14 +40,17 @@ using std::string;
 
 Field glich::julian_to_jdn( Field year, Field month, Field day )
 {
-    Field jdn =
+    LongField jdn =
         div_f( year, 4 ) * 1461 + mod_f( year, 4 ) * 365
         + latin_diy[month] + day + BASEDATE_Julian;
 
     // Adjust if in the 1st 2 months of 4 year cycle
     if ( month < 3 && ( year % 4 ) == 0 ) --( jdn );
 
-    return jdn;
+    if( jdn <= f_minimum || jdn >= f_maximum ) {
+        return f_invalid;
+    }
+    return Field( jdn );
 }
 
 /*! Splits the given Julian Day Number date into the day, month and year
