@@ -46,6 +46,19 @@ Num glich::div_f( Num a, Num b )
     return q - 1;
 }
 
+// Field integer function to return floor( a / b )
+Field glich::fdiv_f( Field a, Field b )
+{
+    assert( b != 0 );
+    assert( a > f_minimum && a < f_maximum );
+    assert( b > f_minimum && b < f_maximum );
+    Field q = a / b;
+    if( (a >= 0 && b > 0) || (a < 0 && b < 0) || a % b == 0 ) {
+        return q;
+    }
+    return q - 1;
+}
+
 // Integer function to return (a modulo b) that has the same sign as b.  
 // Function based on Floored division.
 Num glich::mod_f( Num a, Num b )
@@ -53,6 +66,20 @@ Num glich::mod_f( Num a, Num b )
     assert( b != 0 );
     Num r = a % b;
     if( ( r > 0 && b < 0 ) || ( r < 0 && b > 0 ) ) {
+        r += b;
+    }
+    return r;
+}
+
+// Field integer function to return (a modulo b) that has the same sign as b.
+// Function based on Floored division.
+Field glich::fmod_f( Field a, Field b )
+{
+    assert( b != 0 );
+    assert( a > f_minimum && a < f_maximum );
+    assert( b > f_minimum && b < f_maximum );
+    Field r = a % b;
+    if( (r > 0 && b < 0) || (r < 0 && b > 0) ) {
         r += b;
     }
     return r;
