@@ -78,8 +78,8 @@ Num glich::div_e( Num a, Num b )
 Field glich::fdiv_e( Field a, Field b )
 {
     assert( b != 0 );
-    assert( a >= f_minimum || a <= f_maximum );
-    assert( b >= f_minimum || b <= f_maximum );
+    assert( a > f_minimum || a < f_maximum );
+    assert( b > f_minimum || b < f_maximum );
     Field q = a / b;
     if( a % b < 0 ) {
         if( b > 0 ) {
@@ -114,8 +114,8 @@ Num glich::mod_e( Num a, Num b )
 Field glich::fmod_e( Field a, Field b )
 {
     assert( b != 0 );
-    assert( a >= f_minimum || a <= f_maximum );
-    assert( b >= f_minimum || b <= f_maximum );
+    assert( a > f_minimum || a < f_maximum );
+    assert( b > f_minimum || b < f_maximum );
     Field r = a % b;
     if( r < 0 ) {
         if( b > 0 ) {
@@ -160,7 +160,6 @@ double glich::dmod_r( double x, double y )
     }
     return r;
 }
-
 
 RList glich::set_operation( SetOp op, const RList& left, const RList& right )
 {
