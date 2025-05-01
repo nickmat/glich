@@ -146,12 +146,12 @@ int glich::cal_signum( double n )
     return 0;
 }
 
-double glich::fmod_f( double x, double y )
+double glich::dmod_f( double x, double y )
 {
     return x - y * floor( x / y ); 
 } 
 
-double glich::fmod_r( double x, double y )
+double glich::dmod_r( double x, double y )
 {
     double f = floor( x / y );
     double r = x - y * f;

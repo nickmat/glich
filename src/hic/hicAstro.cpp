@@ -247,7 +247,7 @@ double glich::solar_longitude( double moment )
     }
     double lambda = 282.7771834 + 36000.76953744 * c + 0.000005729577951308232 * sum;
 
-    return fmod_f( lambda + aberration_from_jc( c ) + nutation_from_jc( c ), 360 );
+    return dmod_f( lambda + aberration_from_jc( c ) + nutation_from_jc( c ), 360 );
 }
 
 // Based on CC p21
@@ -259,7 +259,7 @@ static double solar_longitude_inverted( double angle, double a, double b )
     for( int i = 0 ; i < maxSearch ; i++ ) {
         double x = ( a + b ) / 2;
         double y = solar_longitude( x );
-        double e = fmod_r( y - angle, 360 );
+        double e = dmod_r( y - angle, 360 );
         if( std::abs( e ) < epsilon ) {
             return x;
         }
@@ -277,7 +277,7 @@ static double solar_longitude_inverted( double angle, double a, double b )
 double glich::solar_longitude_after( double season, double moment )
 {
     double rate = mean_tropical_year / 360;
-    double tau = moment + rate * fmod_f( season - solar_longitude( moment ), 360 );
+    double tau = moment + rate * dmod_f( season - solar_longitude( moment ), 360 );
     double a = std::max( moment, tau - 5 );
     double b = tau + 5;
     return solar_longitude_inverted( season, a, b );
@@ -287,8 +287,8 @@ double glich::solar_longitude_after( double season, double moment )
 double glich::estimate_prior_solar_longitude( double lambda, double moment )
 {
     double rate = mean_tropical_year / 360;
-    double tau = moment - rate * fmod_f( solar_longitude( moment ) - lambda, 360 );
-    double delta = fmod_f( solar_longitude( tau ) - lambda + 180, 360 ) - 180;
+    double tau = moment - rate * dmod_f( solar_longitude( moment ) - lambda, 360 );
+    double delta = dmod_f( solar_longitude( tau ) - lambda + 180, 360 ) - 180;
     return std::min( moment, tau - rate * delta );
 }
 
@@ -537,7 +537,7 @@ double lunar_longitude( double moment )
     double flat_earth = 0.001962 * sin_d( Ld - F );
     double n = nutation_from_jc( c );
 
-    return fmod_f( Ld + correction + venus + jupiter + flat_earth + n, 360 );
+    return dmod_f( Ld + correction + venus + jupiter + flat_earth + n, 360 );
 }
 
 // CC3 p200
@@ -592,11 +592,11 @@ double moon_node( double c )
 // CC3 p201
 double lunar_phase( double moment )
 {
-    double phi = fmod_f( lunar_longitude( moment ) - solar_longitude( moment ), 360 );
+    double phi = dmod_f( lunar_longitude( moment ) - solar_longitude( moment ), 360 );
     double t0 = nth_new_moon_since_j2000( 0 ); // TODO: make constant
     Field n = round_f( ( moment - t0 ) / mean_synodic_month );
     double phi_dash = 360 *
-        fmod_f( ( moment - nth_new_moon_since_j2000( n ) ) / mean_synodic_month, 1 );
+        dmod_f( ( moment - nth_new_moon_since_j2000( n ) ) / mean_synodic_month, 1 );
 
     if( abs( phi - phi_dash ) > 180 ) {
         return phi_dash;

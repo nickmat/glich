@@ -58,9 +58,9 @@ namespace glich {
     extern int cal_signum( double n );
 
     //! Modulus with return the same sign as y (divisor).
-    extern double fmod_f( double x, double y );
+    extern double dmod_f( double x, double y );
     //! Modulus rounded towards zero.
-    extern double fmod_r( double x, double y );
+    extern double dmod_r( double x, double y );
 
     // Inline functions
     inline bool is_equal( double x, double y )
