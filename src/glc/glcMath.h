@@ -38,13 +38,10 @@ namespace glich {
 
     //! Integer function to return floor( a / b )
     extern Num div_f( Num a, Num b );
-    extern Field fdiv_f( Field a, Field b );
-    //! Integer function to return (a modulo b) that has the same sign as b. 
+    //! Integer function to return (a modulo b) that has the same sign as b.  
     extern Num mod_f( Num a, Num b );
-    extern Field fmod_f( Field a, Field b );
     //! Modulus of a multiple of divisor equals the divisor (not zero)
     inline Num amod_f( Num a, Num b ) { return mod_f( a - 1, b ) + 1; }
-    inline Field famod_f( Field a, Field b ) { return fmod_f( a - 1, b ) + 1; }
 
     //! Integer function to return Euclidean division
     extern Num div_e( Num a, Num b );
