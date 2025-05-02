@@ -60,8 +60,8 @@ void glich::julian_from_jdn( Field* year, Field* month, Field* day, Field jdn )
 {
     jdn -= BASEDATE_Julian;
 
-    *year = div_f( jdn, 1461 ) * 4;
-    jdn = mod_f( jdn, 1461 );
+    *year = fdiv_f( jdn, 1461 ) * 4;
+    jdn = fmod_f( jdn, 1461 );
 
     if ( jdn < 60 )
     {
