@@ -87,7 +87,7 @@ namespace glich {
     inline bool u8_isdigit( int ch ) { return (ch > 0 && isdigit( ch )); }
 
     inline Field get_if_field( RList& rlist ) {
-        if( rlist.size() == 1 && rlist[0].m_beg == rlist[0].m_beg ) {
+        if( rlist.size() == 1 && rlist[0].m_beg == rlist[0].m_end ) {
             return rlist[0].m_beg;
         }
         return f_invalid;
