@@ -94,7 +94,7 @@ namespace glich {
     }
 
     inline Field get_if_field( Range range ) {
-        if( range.m_beg == range.m_beg ) {
+        if( range.m_beg == range.m_end ) {
             return range.m_beg;
         }
         return f_invalid;
