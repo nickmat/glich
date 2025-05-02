@@ -61,7 +61,7 @@ string SValue::as_string() const
     case Type::Number:
         return std::to_string( std::get<Num>( m_data ) );
     case Type::field:
-        return get_special_field_string( std::get<Num>( m_data ) );
+        return get_special_field_string( Field( std::get<Num>( m_data ) ) );
     case Type::range:
         return get_special_range_string( std::get<Range>( m_data ) );
     case Type::rlist:
@@ -260,7 +260,7 @@ bool SValue::get_bool() const
 Field SValue::get_field() const
 {
     if( std::holds_alternative<Num>( m_data ) && m_type == Type::field ) {
-        return std::get<Num>( m_data );
+        return Field( std::get<Num>( m_data ) );
     }
     assert( false );
     return f_invalid;
@@ -318,7 +318,7 @@ Field SValue::get_num_as_field() const
         if( num >= f_maximum || num <= f_minimum ) {
             return f_invalid;
         }
-        return num;
+        return Field( num );
     }
     assert( false );
     return Field();
@@ -327,7 +327,7 @@ Field SValue::get_num_as_field() const
 double SValue::get_field_as_float() const
 {
     if( std::holds_alternative<Num>( m_data ) && m_type == Type::field ) {
-        Field fld = std::get<Num>( m_data );
+        Field fld = Field( std::get<Num>( m_data ) );
         switch( fld )
         {
         case f_invalid: return std::numeric_limits<double>::quiet_NaN();
@@ -343,14 +343,14 @@ double SValue::get_field_as_float() const
 Field SValue::get_as_field() const
 {
     if( std::holds_alternative<Num>( m_data ) && m_type == Type::field ) {
-        return std::get<Num>( m_data );
+        return Field( std::get<Num>( m_data ) );
     }
     if( std::holds_alternative<Num>( m_data ) && m_type == Type::Number ) {
         Num num = std::get<Num>( m_data );
         if( num >= f_maximum || num <= f_minimum ) {
             return f_invalid;
         }
-        return num;
+        return Field( num );
     }
     return f_invalid;
 }
@@ -392,7 +392,7 @@ Field SValue::get_field( bool& success ) const
 {
     success = true;
     if( std::holds_alternative<Num>( m_data ) && m_type == Type::field ) {
-        return std::get<Num>( m_data );
+        return Field( std::get<Num>( m_data ) );
     }
     if( std::holds_alternative<Range>( m_data ) ) {
         Range rng = std::get<Range>( m_data );
@@ -421,7 +421,7 @@ Range SValue::get_range( bool& success ) const
         return std::get<Range>( m_data );
     }
     if( std::holds_alternative<Num>( m_data ) && m_type == Type::field ) {
-        Field fld = std::get<Num>( m_data );
+        Field fld = Field( std::get<Num>( m_data ) );
         return { fld, fld };
     }
     if( std::holds_alternative<Num>( m_data ) && m_type == Type::Number ) {
@@ -429,7 +429,7 @@ Range SValue::get_range( bool& success ) const
         if( num >= f_maximum || num <= f_minimum ) {
             return f_invalid;
         }
-        Field fld = num;
+        Field fld = Field( num );
         return { fld, fld };
     }
     if( std::holds_alternative<RList>( m_data ) ) {
@@ -453,7 +453,7 @@ RList SValue::get_rlist( bool& success ) const
         return { rng };
     }
     if( std::holds_alternative<Num>( m_data ) ) {
-        Field fld = std::get<Num>( m_data );
+        Field fld = Field( std::get<Num>( m_data ) );
         if( m_type == Type::Number ) {
             fld = get_num_as_field();
         }
