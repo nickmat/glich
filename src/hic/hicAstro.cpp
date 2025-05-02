@@ -407,7 +407,7 @@ double glich::new_moon_before( double moment )
 {
     double t0 = nth_new_moon_since_j2000( 0 ); // TODO: make constant
     double phi = lunar_phase( moment );
-    Field n = round_f( ( ( moment - t0 ) / mean_synodic_month ) - ( phi / 360 ) );
+    Field n = Field( round_f( ( ( moment - t0 ) / mean_synodic_month ) - ( phi / 360 ) ) );
 
     return nth_new_moon_since_j2000( max_search( n - 1, new_moon_before_max_func, &moment ) );
 }
