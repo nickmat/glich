@@ -552,9 +552,10 @@ double glich::SValue::get_any_as_float( bool& success ) const
         return field_to_double( get_field(), success );
     case Type::Number:
         return num_to_double( get_number(), success );
+    default:
+        success = false;
+        return std::numeric_limits<double>::quiet_NaN();
     }
-    success = false;
-    return std::numeric_limits<double>::quiet_NaN();
 }
 
 bool SValue::propagate_error( const SValue& value )
@@ -762,34 +763,36 @@ void SValue::plus( const SValue& value )
     switch( type() )
     {
     case Type::Number:
+    {
+        Field fld = get_num_as_field();
+        switch( value.type() )
         {
-            Field fld = get_num_as_field();
-            switch( value.type() )
-            {
-            case Type::Number:
-                set_number( get_number() + value.get_number() );
-                return;
-            case Type::field:
-                set_field( add_field( fld, value.get_field() ) );
-                return;
-            case Type::Float:
-                set_float( static_cast<double>(get_number()) + value.get_float() );
-                return;
-            case Type::range:
-                set_range_demote( add_range( value.get_range(), fld, success ) );
-                if( !success ) {
-                    set_error( invalid_range_err );
-                }
-                return;
-            case Type::rlist:
-                set_rlist( add_rlist( value.get_rlist(), fld, success ) );
-                if( !success ) {
-                    set_error( invalid_rlist_err );
-                }
-                return;
+        case Type::Number:
+            set_number( get_number() + value.get_number() );
+            return;
+        case Type::field:
+            set_field( add_field( fld, value.get_field() ) );
+            return;
+        case Type::Float:
+            set_float( static_cast<double>(get_number()) + value.get_float() );
+            return;
+        case Type::range:
+            set_range_demote( add_range( value.get_range(), fld, success ) );
+            if( !success ) {
+                set_error( invalid_range_err );
             }
+            return;
+        case Type::rlist:
+            set_rlist( add_rlist( value.get_rlist(), fld, success ) );
+            if( !success ) {
+                set_error( invalid_rlist_err );
+            }
+            return;
+        default:
             break;
         }
+        break;
+    }
     case Type::field:
         switch( value.type() )
         {
@@ -814,6 +817,8 @@ void SValue::plus( const SValue& value )
                 set_error( invalid_rlist_err );
             }
             return;
+        default:
+            break;
         }
         break;
     case Type::Float:
@@ -828,6 +833,8 @@ void SValue::plus( const SValue& value )
         case Type::Float:
             set_float( get_float() + value.get_float() );
             return;
+        default:
+            break;
         }
         break;
     case Type::range:
@@ -845,6 +852,8 @@ void SValue::plus( const SValue& value )
                 set_error( invalid_range_err );
             }
             return;
+        default:
+            break;
         }
         break;
     case Type::rlist:
@@ -865,7 +874,11 @@ void SValue::plus( const SValue& value )
         case Type::rlist:
             set_error( "Unable to add or subtract rlists." );
             return;
+        default:
+            break;
         }
+        break;
+    default:
         break;
     }
     set_error( "Unable to add or subtract types." );
@@ -911,6 +924,8 @@ void SValue::multiply( const SValue& value )
         case Type::Float:
             set_float( static_cast<double>(get_number()) * value.get_float() );
             return;
+        default:
+            break;
         }
         break;
     case Type::field:
@@ -925,6 +940,8 @@ void SValue::multiply( const SValue& value )
         case Type::Float:
             set_float( mult_float_field( value.get_float(), get_field() ) );
             return;
+        default:
+            break;
         }
         break;
     case Type::Float:
@@ -939,7 +956,11 @@ void SValue::multiply( const SValue& value )
         case Type::Float:
             set_float( get_float() * value.get_float() );
             return;
+        default:
+            break;  
         }
+        break;
+    default:
         break;
     }
     if( type() == Type::field ) {
@@ -1360,6 +1381,8 @@ void SValue::property_op( const SValue& value )
             set_field( rlist[0].m_beg );
             return;
         }
+        default:
+            break;
         }
         set_field( f_invalid );
         return;
@@ -1382,6 +1405,8 @@ void SValue::property_op( const SValue& value )
             set_field( rlist[rlist.size() - 1].m_end );
             return;
         }
+        default:
+            break;
         }
         set_field( f_invalid );
         return;
@@ -1416,6 +1441,8 @@ void SValue::property_op( const SValue& value )
             set_field( fld2 - fld1 + 1 );
             return;
         }
+        default:
+            break;
         }
         set_field( f_invalid );
         return;
@@ -1432,9 +1459,10 @@ void SValue::property_op( const SValue& value )
         case Type::String:
             set_field( get_str().size() );
             return;
+        default:
+            set_number( 0 );
+            return;
         }
-        set_number( 0 );
-        return;
     }
     if( property == "envelope" ) {
         switch( m_type )
@@ -1450,6 +1478,8 @@ void SValue::property_op( const SValue& value )
             set_range( rng );
             return;
         }
+        default:
+            break;
         }
         set_field( f_invalid );
         return;
@@ -1527,8 +1557,10 @@ void SValue::negate()
         set_rlist( rlist );
         return;
     }
+    default:
+        set_error( "Can only negate number types." );
+        return;
     }
-    set_error( "Can only negate number types." );
 }
 
 void SValue::logical_not()
@@ -1540,8 +1572,10 @@ void SValue::logical_not()
     case Type::Bool:
         set_bool( !get_bool() );
         return;
+    default:
+        set_error( "Logical 'not' only operates on bools" );
+        return;
     }
-    set_error( "Logical 'not' only operates on bools" );
 }
 
 void SValue::compliment()
