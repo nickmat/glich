@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -102,7 +102,7 @@ int Base::get_fieldname_record_index( const std::string& fieldname ) const
 {
     for( size_t i = 0; i < m_record_size; i++ ) {
         if( fieldname == m_fieldnames[i] ) {
-            return i;
+            return int( i );
         }
     }
     return -1;
