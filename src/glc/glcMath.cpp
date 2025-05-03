@@ -160,11 +160,24 @@ Num glich::round_n( double r )
     return Num( r > 0.0 ? r + 0.5 : r - 0.5 );
 }
 
+Field glich::round_f( double r )
+{
+    Num n = round_n( r );
+    assert( n > f_minimum && n < f_maximum );
+    return Field( n );
+}
+
 Num glich::floor_n( double r )
 {
     return Num( floor( r ) );
 }
 
+Field glich::floor_f( double r )
+{
+    Num n = floor_n( r );
+    assert( n > f_minimum && n < f_maximum );
+    return Field( n );
+}
 
 int glich::cal_signum( double n )
 {

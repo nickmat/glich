@@ -55,8 +55,10 @@ namespace glich {
 
     //! Convert double to Number by rounding.
     extern Num round_n( double r );
+    extern Field round_f( double r );
     //! Convert double to Number with floor.
     extern Num floor_n( double r );
+    extern Field floor_f( double r );
 
     extern int cal_signum( double n );
 
