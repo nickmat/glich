@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     6th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -155,12 +155,12 @@ Field glich::fmod_e( Field a, Field b )
     return r;
 }
 
-Num glich::round_f( double r )
+Num glich::round_n( double r )
 {
     return Num( r > 0.0 ? r + 0.5 : r - 0.5 );
 }
 
-Num glich::floor_f( double r )
+Num glich::floor_n( double r )
 {
     return Num( floor( r ) );
 }

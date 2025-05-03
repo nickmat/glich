@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     13th August 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -64,7 +64,7 @@ namespace {
 double ephemeris_correction( double moment )
 {
     const double daypersec = 1.0 / 86400.0;
-    Field jdn = floor_f( moment );
+    Field jdn = floor_n( moment );
     Field year = Gregorian::year_from_jdn( jdn );
 
     if( year <= 2019 ) {
@@ -407,7 +407,7 @@ double glich::new_moon_before( double moment )
 {
     double t0 = nth_new_moon_since_j2000( 0 ); // TODO: make constant
     double phi = lunar_phase( moment );
-    Field n = Field( round_f( ( ( moment - t0 ) / mean_synodic_month ) - ( phi / 360 ) ) );
+    Field n = Field( round_n( ( ( moment - t0 ) / mean_synodic_month ) - ( phi / 360 ) ) );
 
     return nth_new_moon_since_j2000( max_search( n - 1, new_moon_before_max_func, &moment ) );
 }
@@ -425,7 +425,7 @@ double glich::new_moon_at_or_after( double moment )
 {
     double t0 = nth_new_moon_since_j2000( 0 ); // TODO: make constant
     double phi = lunar_phase( moment );
-    Field n = round_f( ( ( moment - t0 ) / mean_synodic_month ) - ( phi / 360 ) );
+    Field n = round_n( ( ( moment - t0 ) / mean_synodic_month ) - ( phi / 360 ) );
 
     return nth_new_moon_since_j2000(
         min_search( n, new_moon_at_or_after_min_func, &moment )
@@ -594,7 +594,7 @@ double lunar_phase( double moment )
 {
     double phi = dmod_f( lunar_longitude( moment ) - solar_longitude( moment ), 360 );
     double t0 = nth_new_moon_since_j2000( 0 ); // TODO: make constant
-    Field n = round_f( ( moment - t0 ) / mean_synodic_month );
+    Field n = round_n( ( moment - t0 ) / mean_synodic_month );
     double phi_dash = 360 *
         dmod_f( ( moment - nth_new_moon_since_j2000( n ) ) / mean_synodic_month, 1 );
 

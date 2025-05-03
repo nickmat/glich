@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     6th February 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -54,9 +54,9 @@ namespace glich {
     extern Field fmod_e( Field a, Field b );
 
     //! Convert double to Number by rounding.
-    extern Num round_f( double r );
+    extern Num round_n( double r );
     //! Convert double to Number with floor.
-    extern Num floor_f( double r );
+    extern Num floor_n( double r );
 
     extern int cal_signum( double n );
 

@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     13th August 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -66,7 +66,7 @@ namespace {
     {
         double s = 
             solar_longitude( universal_from_standard( jdn, chinese_zone( jdn ) ) );
-        return amod_f( 2 + floor_f( s / 30 ), 12 );
+        return amod_f( 2 + floor_n( s / 30 ), 12 );
     }
 
     // CC3 p251
@@ -86,21 +86,21 @@ namespace {
         double approx = estimate_prior_solar_longitude(
             winter, midnight_in_china( jdn + 1 ) );
         return min_search(
-            floor_f( approx ) - 1, chinese_winter_solstice_on_or_before_min_func, NULL );
+            floor_n( approx ) - 1, chinese_winter_solstice_on_or_before_min_func, NULL );
     }
 
     // CC3 p251
     Field chinese_new_moon_on_or_after( Field jdn )
     {
         double t = new_moon_at_or_after( midnight_in_china( jdn ) );
-        return floor_f( standard_from_universal( t, chinese_zone( t ) ) );
+        return floor_n( standard_from_universal( t, chinese_zone( t ) ) );
     }
 
     // CC3 p252
     Field chinese_new_moon_before( Field jdn )
     {
         double t = new_moon_before( midnight_in_china( jdn ) );
-        return floor_f( standard_from_universal( t, chinese_zone( t ) ) );
+        return floor_n( standard_from_universal( t, chinese_zone( t ) ) );
     }
     // CC3 p253 chinese-no-major-solar-term?
     bool chinese_is_no_major_solar_term( Field jdn )
@@ -127,7 +127,7 @@ namespace {
         Field m13 = chinese_new_moon_on_or_after( m12 + 1 );
         Field next_m11 = chinese_new_moon_before( s2 + 1 );
 
-        if( round_f( double( next_m11 - m12 ) / mean_synodic_month ) == 12 &&
+        if( round_n( double( next_m11 - m12 ) / mean_synodic_month ) == 12 &&
             ( 
                 chinese_is_no_major_solar_term( m12 ) || 
                 chinese_is_no_major_solar_term( m13 )
@@ -158,9 +158,9 @@ namespace {
         Field nextm11 = chinese_new_moon_before( s2 + 1 );
         Field m = chinese_new_moon_before( jdn + 1 );
         bool leapyear =
-            round_f( double( nextm11 - m12 ) / mean_synodic_month ) == 12;
+            round_n( double( nextm11 - m12 ) / mean_synodic_month ) == 12;
 
-        Field mon = round_f( double( m - m12 ) / mean_synodic_month );
+        Field mon = round_n( double( m - m12 ) / mean_synodic_month );
         Field addm = 0;
         if( leapyear && chinese_is_prior_leap_month( m12, m ) ) {
             addm = 1;
@@ -174,7 +174,7 @@ namespace {
         ) {
             *lmonth = 1;
         }
-        Field elapsed_years = floor_f( 1.5 - double( *month ) / 12.0
+        Field elapsed_years = floor_n( 1.5 - double( *month ) / 12.0
             + double( jdn - BASEDATE_Chinese ) / mean_tropical_year );
         *cycle = div_f( elapsed_years - 1, 60 ) + 1;
         *year = amod_f( elapsed_years, 60 );
@@ -187,7 +187,7 @@ namespace {
     Field chinese_to_jdn( Field cycle, Field year, Field month, Field lmonth, Field day )
     {
         Field midyear = BASEDATE_Chinese + 
-            floor_f( ( double( (cycle-1) * 60 + year ) - 0.5 ) * mean_tropical_year );
+            floor_n( ( double( (cycle-1) * 60 + year ) - 0.5 ) * mean_tropical_year );
 
         Field newyear = chinese_new_year_on_or_before( midyear );
         Field p = chinese_new_moon_on_or_after( newyear + ( month - 1 ) * 29 );
