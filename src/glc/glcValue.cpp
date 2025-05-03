@@ -1451,13 +1451,13 @@ void SValue::property_op( const SValue& value )
         switch( m_type )
         {
         case Type::Object:
-            set_field( get_object().size() - 1 );
+            set_number( get_object().size() - 1 );
             return;
         case Type::rlist:
-            set_field( get_rlist().size() );
+            set_number( get_rlist().size() );
             return;
         case Type::String:
-            set_field( get_str().size() );
+            set_number( get_str().size() );
             return;
         default:
             set_number( 0 );
