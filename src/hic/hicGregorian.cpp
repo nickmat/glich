@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     6th April 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -42,8 +42,8 @@ using std::string;
 void glich::gregorian_from_jdn( Field* year, Field* month, Field* day, Field jdn )
 {
     Field date = jdn - BASEDATE_Gregorian;
-    *year = div_f( date, 146097 ) * 400;
-    date = mod_f( date, 146097 );
+    *year = fdiv_f( date, 146097 ) * 400;
+    date = fmod_f( date, 146097 );
 
     if( date < 60 )
     {
@@ -103,10 +103,10 @@ void glich::gregorian_from_jdn( Field* year, Field* month, Field* day, Field jdn
 Field glich::gregorian_to_jdn( Field year, Field month, Field day )
 {
     Field jdn =
-        div_f( year, 400 ) * 146097           //     days in 400 year cycles
-        + (mod_f( year, 400 ) / 100) * 36524    // - 1 days in 100 year cycles
-        + (mod_f( year, 100 ) / 4) * 1461       // + 1 days in 4 year cycles
-        + mod_f( year, 4 ) * 365              // + 1 days in year
+        fdiv_f( year, 400 ) * 146097           //     days in 400 year cycles
+        + (fmod_f( year, 400 ) / 100) * 36524    // - 1 days in 100 year cycles
+        + (fmod_f( year, 100 ) / 4) * 1461       // + 1 days in 4 year cycles
+        + fmod_f( year, 4 ) * 365              // + 1 days in year
         + latin_diy[month] + day            // - 1 days numbered from 1 not 0
         + BASEDATE_Gregorian;
 
