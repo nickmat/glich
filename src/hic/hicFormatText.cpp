@@ -465,7 +465,7 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
                     i++;
                 }
                 if( i == size ) {
-                    return i;
+                    return int( i );
                 }
             }
             token.clear();
@@ -474,7 +474,7 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
                 ifs[i].type = IFT_quest;
                 i++;
                 if( i == size ) {
-                    return i;
+                    return int( i );
                 }
                 // Question marks are not grouped
                 prev_grp = CP_Group::Sep;
@@ -485,7 +485,7 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
             token_grp = grp;
         }
         if( done ) {
-            return i;
+            return int( i );
         }
         if( token_grp == CP_Group::Digit || token_grp == CP_Group::Other ) {
             token += *it;
