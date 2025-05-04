@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     12th August 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -41,8 +41,8 @@ namespace {
 
     Field hebrew_elapsed_days( Field year )
     {
-        Field months = div_f( 235 * year - 234, 19 );
-        Field days = 29 * months + div_f( 12084L + 13753L * months, 25920 );
+        Field months = fdiv_f( 235 * year - 234, 19 );
+        Field days = 29 * months + fdiv_f( 12084L + 13753L * months, 25920 );
         if( ( ( 3 * ( days + 1 ) ) % 7 ) < 3 ) {
             return days + 1;
         }
@@ -178,7 +178,7 @@ namespace {
      */
     void hebrew_from_jdn( Field* year, Field* month, Field* day, Field jdn )
     {
-        Field y = div_f( 4L * ( jdn - BASEDATE_Hebrew ), 1461 );
+        Field y = fdiv_f( 4L * ( jdn - BASEDATE_Hebrew ), 1461 );
         for(;;) {
             if( hebrew_new_year( y ) > jdn ) {
                 --y;
