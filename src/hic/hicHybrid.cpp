@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     15th June 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -102,11 +102,11 @@ void Hybrid::complete_beg( FieldVec& fields ) const
         return;
     }
     for( size_t i = 0; i < m_data.size(); i++ ) {
-        FieldVec sfields = get_scheme_fields( fields, i );
+        FieldVec sfields = get_scheme_fields( fields, Field( i ) );
         m_data[i].base->complete_beg( sfields );
         Field jdn = m_data[i].base->get_jdn( sfields );
         if( jdn < m_data[i].end ) {
-            set_hybrid_fields( fields, sfields, i );
+            set_hybrid_fields( fields, sfields, Field( i ) );
             return;
         }
     }
@@ -123,11 +123,11 @@ void Hybrid::complete_end( FieldVec& fields ) const
         return;
     }
     for( size_t i = 0; i < m_data.size(); i++ ) {
-        FieldVec sfields = get_scheme_fields( fields, i );
+        FieldVec sfields = get_scheme_fields( fields, Field( i ) );
         m_data[i].base->complete_end( sfields );
         Field jdn = m_data[i].base->get_jdn( sfields );
         if( jdn < m_data[i].end ) {
-            set_hybrid_fields( fields, sfields, i );
+            set_hybrid_fields( fields, sfields, Field( i ) );
             return;
         }
     }
@@ -140,10 +140,10 @@ void Hybrid::update_input( FieldVec& fields ) const
     }
     Field result = f_invalid;
     for( size_t i = 0; i < m_data.size(); i++ ) {
-        FieldVec fs = get_xref( fields, i );
+        FieldVec fs = get_xref( fields, Field( i ) );
         Field jdn = m_data[i].base->get_jdn( fs );
         if( jdn >= m_data[i].start ) {
-            result = i;
+            result = Field( i );
         }
         else {
             break;
@@ -154,7 +154,7 @@ void Hybrid::update_input( FieldVec& fields ) const
 
 FieldVec Hybrid::get_fields( Field jdn ) const
 {
-    Field sch = find_scheme( jdn );
+    Field sch = Field( find_scheme( jdn ) );
     FieldVec f( record_size(), f_invalid );
     f[0] = sch;
     XRefVec xref = m_xref_fields[sch];
