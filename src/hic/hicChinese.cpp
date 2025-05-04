@@ -66,7 +66,7 @@ namespace {
     {
         double s = 
             solar_longitude( universal_from_standard( jdn, chinese_zone( jdn ) ) );
-        return famod_f( 2 + floor_n( s / 30 ), 12 );
+        return famod_f( 2 + floor_f( s / 30 ), 12 );
     }
 
     // CC3 p251
