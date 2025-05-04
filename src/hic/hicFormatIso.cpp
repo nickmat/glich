@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     11th July 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -672,7 +672,7 @@ StringPairVec FormatIso::string_to_stringpair( string& text ) const
     for( ;;) {
         size_t pos1 = text.find( ',' );
         string rangestr = text.substr( 0, pos1 );
-        size_t pos2 = rangestr.find( '..' );
+        size_t pos2 = rangestr.find( ".." );
         if( pos2 == string::npos ) {
             pair.first = rangestr;
             pair.second = string();

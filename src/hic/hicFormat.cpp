@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     24th March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -121,14 +121,14 @@ string Format::rlist_to_string( const Scheme& sch, const RList& rlist ) const
     return output;
 }
 
-StringPairVec glich::Format::string_to_stringpair( std::string& text ) const
+StringPairVec Format::string_to_stringpair( string& text ) const
 {
     StringPair pair;
     StringPairVec pairs;
     for( ;;) {
         size_t pos1 = text.find( '|' );
         string rangestr = text.substr( 0, pos1 );
-        size_t pos2 = rangestr.find( '..' );
+        size_t pos2 = rangestr.find( ".." );
         if( pos2 == string::npos ) {
             pair.first = rangestr;
             pair.second = string();
