@@ -141,9 +141,9 @@ Field Islamic::to_jdn( Field year, Field month, Field day ) const
     return
         m_basedate - 1
         + ( year - 1 ) * 354
-        + div_f( year * 11 + 3, 30 )
+        + fdiv_f( year * 11 + 3, 30 )
         + 29 * ( month - 1 )
-        + div_f( month, 2 ) + day;
+        + fdiv_f( month, 2 ) + day;
 }
 
 /*! Splits the given Julian Day Number date into the day, month and year
@@ -151,10 +151,10 @@ Field Islamic::to_jdn( Field year, Field month, Field day ) const
  */
 bool Islamic::from_jdn( Field* year, Field* month, Field* day, Field jdn ) const
 {
-    *year = div_f( 30 * ( jdn - m_basedate ) + 10646, 10631 );
+    *year = fdiv_f( 30 * ( jdn - m_basedate ) + 10646, 10631 );
 
     Field temp = to_jdn( *year, 1, 1 );
-    *month = div_f( 11 * ( jdn - temp ) + 330, 325 );
+    *month = fdiv_f( 11 * ( jdn - temp ) + 330, 325 );
 
     temp = to_jdn( *year, *month, 1 );
     *day = 1 + jdn - temp;
