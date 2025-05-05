@@ -60,8 +60,8 @@ int main( int argc, char* argv[] )
 
     int result = Catch::Session().run( argc, argv );
 
-    int s = (clock() - t) / CLOCKS_PER_SEC;
-    int m = (int) s / 60;
+    clock_t s = (clock() - t) / CLOCKS_PER_SEC;
+    clock_t m = s / 60;
     std::cout << "Timed: " << m << "m " << s - (m * 60) << "s" << std::endl;
 
     exit_hic();
