@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     4th September 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -49,16 +49,55 @@ HicGlich* g_glc = nullptr;
 #define GLCTEST_TYPE  "Soak "
 #endif
 
+Depth g_depth = Depth::Soak;
+
+string gs_ascii_tolower( const string& str )
+{
+    string result;
+    for( string::const_iterator it = str.begin(); it != str.end(); it++ ) {
+        if( *it >= 'A' && *it <= 'Z' ) {
+            result += *it + ('a' - 'A');
+        }
+        else {
+            result += *it;
+        }
+    }
+    return result;
+}
+
 int main( int argc, char* argv[] )
 {
     init_hic( InitLibrary::Hics );
     g_glc = &hic();
 
-    std::cout << GLCTEST_TYPE;
+    Catch::Session session;
+
+    string type = "Soak";
+    auto cli = session.cli()
+        | Catch::clara::Opt( type, "test-type" )
+        ["-T"]["--test-type"]("Test type: Short, Long, Soak");
+    session.cli( cli );
+    auto cli_result = cli.parse( Catch::clara::detail::Args( argc, argv ) );
+    string ltype = gs_ascii_tolower( type );
+    if( ltype == "short" ) {
+        g_depth = Depth::Short;
+    }
+    else if( ltype == "long" ) {
+        g_depth = Depth::Long;
+    }
+    else if( ltype == "soak" ) {
+        g_depth = Depth::Soak;
+    }
+    else {
+        std::cout << "Test type not recognised.\n";
+        return 1;
+    }
+
+    std::cout << type;
 
     clock_t t = clock();
 
-    int result = Catch::Session().run( argc, argv );
+    int result = session.run( argc, argv );
 
     clock_t s = (clock() - t) / CLOCKS_PER_SEC;
     clock_t m = s / 60;

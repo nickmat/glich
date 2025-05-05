@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     4th September 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -38,6 +38,10 @@ extern glich::HicGlich* g_glc;
 //#define GLCTEST_SHORT
 //#define GLCTEST_LONG
 #define GLCTEST_SOAK
+
+enum class Depth { Short, Long, Soak };
+
+extern Depth g_depth;
 
 inline std::string cvt_fields(
     glich::Field f1, glich::Field f2, glich::Field f3, glich::Field f4 )
