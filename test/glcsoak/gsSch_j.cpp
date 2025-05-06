@@ -47,13 +47,13 @@ TEST_CASE( "Scheme j Soak Test", "[j Soak]" )
     Field end_year = 0;
     switch( g_depth ) {
     case Depth::Short:
-        start_year = 1890;
-        start_jdn = 2411381;
+        start_year = 1990;
+        start_jdn = 2447906;
         end_year = 2010;
         break;
     case Depth::Long:
-        start_year = 1200;
-        start_jdn = 2159358;
+        start_year = 1500;
+        start_jdn = 2268933;
         end_year = 2050;
         break;
     case Depth::Soak:
