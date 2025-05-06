@@ -37,18 +37,6 @@ using std::string;
 
 HicGlich* g_glc = nullptr;
 
-#ifdef GLCTEST_SHORT
-#define GLCTEST_TYPE  "Short "
-#endif
-
-#ifdef GLCTEST_LONG
-#define GLCTEST_TYPE  "Long "
-#endif
-
-#ifdef GLCTEST_SOAK
-#define GLCTEST_TYPE  "Soak "
-#endif
-
 Depth g_depth = Depth::Soak;
 
 string gs_ascii_tolower( const string& str )
