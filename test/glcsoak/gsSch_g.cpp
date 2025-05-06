@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     4th September 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -34,23 +34,6 @@
 using namespace glich;
 using std::string;
 
-#ifdef GLCTEST_SHORT
-#define GLCTEST_G_START_YEAR     1890
-#define GLCTEST_G_START_JDN      2411369
-#define GLCTEST_G_END_YEAR       2010
-#endif
-
-#ifdef GLCTEST_LONG
-#define GLCTEST_G_START_YEAR     1200
-#define GLCTEST_G_START_JDN      2159351
-#define GLCTEST_G_END_YEAR       2050
-#endif
-
-#ifdef GLCTEST_SOAK
-#define GLCTEST_G_START_YEAR     -1000
-#define GLCTEST_G_START_JDN      1355818
-#define GLCTEST_G_END_YEAR       2150
-#endif
 
 TEST_CASE( "Scheme g Soak Test", "[g Soak]" )
 {
@@ -59,16 +42,37 @@ TEST_CASE( "Scheme g Soak Test", "[g Soak]" )
         { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
     };
 
+    Field start_year = 0;
+    Field start_jdn = 0;
+    Field end_year = 0;
+    switch( g_depth ) {
+    case Depth::Short:
+        start_year = 1890;
+        start_jdn = 2411369;
+        end_year = 2010;
+        break;
+    case Depth::Long:
+        start_year = 1200;
+        start_jdn = 2159351;
+        end_year = 2050;
+        break;
+    case Depth::Soak:
+        start_year = -1000;
+        start_jdn = 1355818;
+        end_year = 2150;
+        break;
+    }
+
     std::cout << ".";
 
     string sig = "g:def";
-    string date = cvt_fields( GLCTEST_G_START_YEAR, 1, 1 );
+    string date = cvt_fields( start_year, 1, 1 );
     Field daycount = g_glc->text_to_field( date, sig );
-    REQUIRE( daycount == GLCTEST_G_START_JDN );
+    REQUIRE( daycount == start_jdn );
 
     string cvtdate;
     Range range;
-    for( Field year = GLCTEST_G_START_YEAR; year < GLCTEST_G_END_YEAR; year++ ) {
+    for( Field year = start_year; year < end_year; year++ ) {
         Field month1 = daycount;
         size_t leap_year = 0;
         if( year % 4 == 0 ) leap_year = 1;

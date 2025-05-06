@@ -34,11 +34,6 @@
 
 extern glich::HicGlich* g_glc;
 
-// Only one of these should defined at any one time.
-//#define GLCTEST_SHORT
-//#define GLCTEST_LONG
-#define GLCTEST_SOAK
-
 enum class Depth { Short, Long, Soak };
 
 extern Depth g_depth;

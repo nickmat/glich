@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th September 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -34,18 +34,6 @@
 using namespace glich;
 using std::string;
 
-#if defined( GLCTEST_SHORT )
-#define GLCTEST_JA_START_YEAR     1496   //  Historical year.
-#define GLCTEST_JA_START_JDN      2267472
-#define GLCTEST_JA_END_YEAR       1506
-#endif
-
-#if defined( GLCTEST_LONG ) || defined( GLCTEST_SOAK )
-#define GLCTEST_JA_START_YEAR     796   //  Historical year.
-#define GLCTEST_JA_START_JDN      2011797
-#define GLCTEST_JA_END_YEAR       2110
-#endif
-
 
 TEST_CASE( "Scheme ja Soak Test", "[ja Soak]" )
 {
@@ -56,14 +44,31 @@ TEST_CASE( "Scheme ja Soak Test", "[ja Soak]" )
 
     std::cout << ".";
 
+    Field start_year = 0;
+    Field start_jdn = 0;
+    Field end_year = 0;
+    switch( g_depth ) {
+    case Depth::Short:
+        start_year = 1496;
+        start_jdn = 2267472;
+        end_year = 1506;
+        break;
+    case Depth::Long:
+    case Depth::Soak:
+        start_year = 796;
+        start_jdn = 2011797;
+        end_year = 2110;
+        break;
+    }
+
     string sig = "ja:cdef";
-    Field cyear = GLCTEST_JA_START_YEAR - 1; // Civil year.
+    Field cyear = start_year - 1; // Civil year.
     string date = cvt_fields( cyear, 1, 1 );
     Field daycount = g_glc->text_to_field( date, sig );
-    REQUIRE( daycount == GLCTEST_JA_START_JDN );
+    REQUIRE( daycount == start_jdn );
 
     string cvtdate;
-    for( Field year = GLCTEST_JA_START_YEAR; year < GLCTEST_JA_END_YEAR; year++ ) {
+    for( Field year = start_year; year < end_year; year++ ) {
         size_t leap_year = 0;
         if( year % 4 == 0 ) leap_year = 1;
         for( Field month = 1; month <= 12; month++ ) {
