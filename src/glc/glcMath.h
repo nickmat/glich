@@ -75,7 +75,7 @@ namespace glich {
         // see Knuth section 4.2.2 pages 217-218
     }
     inline bool is_zero( double x ) {
-        if( isinf( x ) ) return false;
+        if( std::isinf( x ) ) return false;
         return is_equal( x, 0.0 );
     }
 
@@ -83,12 +83,12 @@ namespace glich {
 
     double inline rad_to_deg( double rad ) { return rad * 180 / cal_pi; }
 
-    double inline sin_d( double deg ) { return sin( deg_to_rad( deg ) ); }
-    double inline cos_d( double deg ) { return cos( deg_to_rad( deg ) ); }
-    double inline tan_d( double deg ) { return tan( deg_to_rad( deg ) ); }
-    double inline asin_d( double n ) { return rad_to_deg( asin( n ) ); }
-    double inline acos_d( double n ) { return rad_to_deg( acos( n ) ); }
-    double inline atan_d( double n ) { return rad_to_deg( atan( n ) ); }
+    double inline sin_d( double deg ) { return std::sin( deg_to_rad( deg ) ); }
+    double inline cos_d( double deg ) { return std::cos( deg_to_rad( deg ) ); }
+    double inline tan_d( double deg ) { return std::tan( deg_to_rad( deg ) ); }
+    double inline asin_d( double n ) { return rad_to_deg( std::asin( n ) ); }
+    double inline acos_d( double n ) { return rad_to_deg( std::acos( n ) ); }
+    double inline atan_d( double n ) { return rad_to_deg( std::atan( n ) ); }
 
     // Set operations
     enum class SetOp {

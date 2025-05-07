@@ -169,7 +169,7 @@ Field glich::round_f( double r )
 
 Num glich::floor_n( double r )
 {
-    return Num( floor( r ) );
+    return Num( std::floor( r ) );
 }
 
 Field glich::floor_f( double r )
@@ -188,12 +188,12 @@ int glich::cal_signum( double n )
 
 double glich::dmod_f( double x, double y )
 {
-    return x - y * floor( x / y ); 
+    return x - y * std::floor( x / y ); 
 } 
 
 double glich::dmod_r( double x, double y )
 {
-    double f = floor( x / y );
+    double f = std::floor( x / y );
     double r = x - y * f;
     if( r > y / 2 ) {
         return r - y;
