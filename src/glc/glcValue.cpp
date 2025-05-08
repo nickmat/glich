@@ -1046,11 +1046,11 @@ void SValue::divide( const SValue& value )
         set_error( only_ints_err );
         return;
     }
-    if( isnan( right ) ) {
+    if( std::isnan( right ) ) {
         set_error( "Division by nan." );
         return;
     }
-    if( isinf( right ) ) {
+    if( std::isinf( right ) ) {
         string sign = (right > 0) ? "+" : "-";
         set_error( "Division by " + sign + "inf." );
         return;
@@ -1059,7 +1059,7 @@ void SValue::divide( const SValue& value )
         set_error( "Division by zero." );
         return;
     }
-    if( isnan( left ) ) {
+    if( std::isnan( left ) ) {
         set_error( "Cannot divide nan." );
         return;
     }
@@ -1522,7 +1522,7 @@ void SValue::negate()
     case Type::Error:
         return;
     case Type::Float:
-        if( !isnan( get_float() ) ) {
+        if( !std::isnan( get_float() ) ) {
             set_float( -get_float() );
         }
         return;
