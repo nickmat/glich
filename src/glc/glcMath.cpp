@@ -362,7 +362,7 @@ Range glich::enclosing_range( const RList& rlist )
 
 double glich::add_float_field( double dbl, Field fld )
 {
-    if( fld > f_maximum || fld < f_minimum || isnan( dbl ) ) {
+    if( fld > f_maximum || fld < f_minimum || std::isnan( dbl ) ) {
         // This incudes f_invalid.
         return std::numeric_limits<double>::quiet_NaN();
     }
@@ -437,7 +437,7 @@ RList glich::add_rlist( const RList& rlist, Field fld, bool& success )
 
 double glich::mult_float_field( double dbl, Field fld )
 {
-    if( fld > f_maximum || fld < f_minimum || isnan( dbl ) ) {
+    if( fld > f_maximum || fld < f_minimum || std::isnan( dbl ) ) {
         // This incudes f_invalid.
         return std::numeric_limits<double>::quiet_NaN();
     }
