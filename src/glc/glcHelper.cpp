@@ -143,7 +143,7 @@ double glich::field_to_double( Field fld, bool& success )
 Field glich::double_to_field( double dbl, bool& success )
 {
     success = true;
-    if( isnan( dbl ) ) {
+    if( std::isnan( dbl ) ) {
         return f_invalid;
     }
     if( dbl == std::numeric_limits<double>::infinity() ) {
@@ -167,7 +167,7 @@ string glich::bool_to_string( bool b )
 
 string glich::float_to_string( double real )
 {
-    if( isnan( real ) ) {
+    if( std::isnan( real ) ) {
         return "nan";
     }
     if( is_zero( real ) ) {
