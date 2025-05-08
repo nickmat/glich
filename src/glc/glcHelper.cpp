@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     4th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -31,6 +31,7 @@
 #include "glcMath.h"
 
 #include <cassert>
+#include <cstring>
 #include <limits>
 #include <sstream>
 
@@ -251,7 +252,7 @@ bool glich::is_name( const std::string& str )
         "or", "and", "not", "div", "mod", "error"
     };
     for( auto word : keywords ) {
-        if( strcmp( str.c_str(), word) == 0 ) {
+        if( std::strcmp( str.c_str(), word) == 0 ) {
             return false;
         }
     }
