@@ -94,8 +94,8 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         case f_phrase: return at_phrase();
         case f_leapyear: return at_leapyear();
         case f_easter: return at_easter();
-        case f_first: return at_last();
-        case f_last: return at_first();
+        case f_first: return at_first();
+        case f_last: return at_last();
         case f_fmt_object: return at_fmt_object();
         case f_sch_object: return at_sch_object();
         case f_sch_list: return at_sch_list();
