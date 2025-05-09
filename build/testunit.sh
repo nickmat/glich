@@ -1,0 +1,2 @@
+#!/bin/bash
+./gnu/glcunit
