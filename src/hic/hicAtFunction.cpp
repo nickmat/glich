@@ -345,4 +345,32 @@ SValue glich::hic_at_sch_object( const StdStrVec& quals )
     return SValue( obj );
 }
 
+SValue glich::hic_at_fmt_object( const StdStrVec& quals )
+{
+    string sig, scode, fcode;
+    if( quals.empty() ) {
+        return SValue::create_error( "@fmt:object requires format signiture." );
+    }
+    sig = quals[0];
+    split_code( &scode, &fcode, sig );
+    Scheme* sch = hic().get_scheme( scode );
+    if( sch == nullptr ) {
+        return SValue::create_error( "@fmt:object scheme not found." );
+    }
+    Format* fmt = sch->get_grammar()->get_format( fcode );
+    if( fmt == nullptr ) {
+        return SValue::create_error( "@fmt:object format not found." );
+    }
+    SValueVec obj;
+    obj.push_back( "fmt:" );
+    obj.push_back( fcode );
+    obj.push_back( fmt->get_grammar().get_code() );
+    obj.push_back( glich::get_fmt_rules_text( fmt->get_rules() ) );
+    obj.push_back( fmt->is_visible() );
+    obj.push_back( fmt->get_input_str() );
+    obj.push_back( fmt->get_output_str() );
+    obj.push_back( fmt->allow_shorthand() );
+    return SValue( obj );
+}
+
 // End of src/hic/hicAtFunction.cpp file

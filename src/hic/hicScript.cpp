@@ -90,7 +90,6 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         {
         case f_first: return at_first();
         case f_last: return at_last();
-        case f_fmt_object: return at_fmt_object();
         }
         StdStrVec quals = get_qualifiers( GetToken::next );
         SValueVec args = get_args( GetToken::current );
@@ -105,6 +104,7 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         case f_easter: return hic_at_easter( quals, args );
         case f_sch_list: return hic_at_sch_list();
         case f_sch_object: return hic_at_sch_object( quals );
+        case f_fmt_object: return hic_at_fmt_object( quals );
         }
         success = false;
         return SValue::create_error( "Built-in function error." );
@@ -1065,36 +1065,6 @@ SValue HicScript::at_first()
         }
     }
     return f_invalid;
-}
-
-SValue HicScript::at_fmt_object()
-{
-    StdStrVec quals = get_qualifiers( GetToken::next );
-    SValueVec args = get_args( GetToken::current );
-    string sig, scode, fcode;
-    if( quals.empty() ) {
-        return SValue::create_error( "@fmt:object requires format signiture." );
-    }
-    sig = quals[0];
-    split_code( &scode, &fcode, sig );
-    Scheme* sch = hic().get_scheme( scode );
-    if( sch == nullptr ) {
-        return SValue::create_error( "@fmt:object scheme not found." );
-    }
-    Format* fmt = sch->get_grammar()->get_format( fcode );
-    if( fmt == nullptr ) {
-        return SValue::create_error( "@fmt:object format not found." );
-    }
-    SValueVec obj;
-    obj.push_back( "fmt:" );
-    obj.push_back( fcode );
-    obj.push_back( fmt->get_grammar().get_code() );
-    obj.push_back( glich::get_fmt_rules_text( fmt->get_rules() ) );
-    obj.push_back( fmt->is_visible() );
-    obj.push_back( fmt->get_input_str() );
-    obj.push_back( fmt->get_output_str() );
-    obj.push_back( fmt->allow_shorthand() );
-    return SValue( obj );
 }
 
 // End of src/glc/hicCreateSch.cpp file

@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -74,7 +74,6 @@ namespace glich {
         SValue complete_object( Scheme* sch, const std::string& input, const std::string& fcode );
         SValue at_last();
         SValue at_first();
-        SValue at_fmt_object();
     };
 
 }
