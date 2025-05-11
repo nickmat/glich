@@ -294,4 +294,55 @@ SValue glich::hic_at_easter( const StdStrVec& quals, const SValueVec& args )
     return SValue( result, SValue::Type::field );
 }
 
+SValue glich::hic_at_sch_list()
+{
+    SValueVec obj;
+    obj.push_back( ":" );
+    StdStrVec scodes = hic().get_scheme_list();
+    for( const auto& scode : scodes ) {
+        obj.push_back( scode );
+    }
+    return SValue( obj );
+}
+
+SValue glich::hic_at_sch_object( const StdStrVec& quals )
+{
+    if( quals.empty() ) {
+        return SValue::create_error( "@sch:object requires scheme code." );
+    }
+    string scode = quals[0];
+    Scheme* sch = hic().get_scheme( scode );
+    if( sch == nullptr ) {
+        return SValue::create_error( "@sch:object scheme not found." );
+    }
+    SValueVec obj;
+    obj.push_back( "sch:" );
+    obj.push_back( scode );
+    obj.push_back( sch->get_name() );
+    obj.push_back( sch->get_base().basename() );
+
+    SValueVec fnobj;
+    fnobj.push_back( ":" );
+    StdStrVec fnames = sch->get_base().get_fieldnames();
+    for( const auto& fname : fnames ) {
+        fnobj.push_back( fname );
+    }
+    obj.push_back( fnobj );
+
+    obj.push_back( sch->get_grammar()->get_code() );
+
+    SValueVec fobj;
+    fobj.push_back( ":" );
+    StdStrVec fcodes = sch->get_format_list();
+    for( const auto& fcode : fcodes ) {
+        fobj.push_back( fcode );
+    }
+    obj.push_back( fobj );
+
+    obj.push_back( sch->get_grammar()->get_pref_input_fcode() );
+    obj.push_back( sch->get_grammar()->get_pref_output_fcode() );
+    obj.push_back( sch->get_cur_visible() );
+    return SValue( obj );
+}
+
 // End of src/hic/hicAtFunction.cpp file

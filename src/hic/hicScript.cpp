@@ -91,8 +91,6 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         case f_first: return at_first();
         case f_last: return at_last();
         case f_fmt_object: return at_fmt_object();
-        case f_sch_object: return at_sch_object();
-        case f_sch_list: return at_sch_list();
         }
         StdStrVec quals = get_qualifiers( GetToken::next );
         SValueVec args = get_args( GetToken::current );
@@ -105,6 +103,8 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         case f_phrase: return hic_at_phrase( quals, args );
         case f_leapyear: return hic_at_leapyear( quals, args );
         case f_easter: return hic_at_easter( quals, args );
+        case f_sch_list: return hic_at_sch_list();
+        case f_sch_object: return hic_at_sch_object( quals );
         }
         success = false;
         return SValue::create_error( "Built-in function error." );
@@ -1094,62 +1094,6 @@ SValue HicScript::at_fmt_object()
     obj.push_back( fmt->get_input_str() );
     obj.push_back( fmt->get_output_str() );
     obj.push_back( fmt->allow_shorthand() );
-    return SValue( obj );
-}
-
-SValue HicScript::at_sch_object()
-{
-    StdStrVec quals = get_qualifiers( GetToken::next );
-    SValueVec args = get_args( GetToken::current );
-    if( quals.empty() ) {
-        return SValue::create_error( "@sch:object requires scheme code." );
-    }
-    string scode = quals[0];
-    Scheme* sch = hic().get_scheme( scode );
-    if( sch == nullptr ) {
-        return SValue::create_error( "@sch:object scheme not found." );
-    }
-    SValueVec obj;
-    obj.push_back( "sch:" );
-    obj.push_back( scode );
-    obj.push_back( sch->get_name() );
-    obj.push_back( sch->get_base().basename() );
-
-    SValueVec fnobj;
-    fnobj.push_back( ":" );
-    StdStrVec fnames = sch->get_base().get_fieldnames();
-    for( const auto& fname : fnames ) {
-        fnobj.push_back( fname );
-    }
-    obj.push_back( fnobj );
-
-    obj.push_back( sch->get_grammar()->get_code() );
-
-    SValueVec fobj;
-    fobj.push_back( ":" );
-    StdStrVec fcodes = sch->get_format_list();
-    for( const auto& fcode : fcodes ) {
-        fobj.push_back( fcode );
-    }
-    obj.push_back( fobj );
-
-    obj.push_back( sch->get_grammar()->get_pref_input_fcode() );
-    obj.push_back( sch->get_grammar()->get_pref_output_fcode() );
-    obj.push_back( sch->get_cur_visible() );
-    return SValue( obj );
-}
-
-SValue HicScript::at_sch_list()
-{
-    StdStrVec quals = get_qualifiers( GetToken::next );
-    SValueVec args = get_args( GetToken::current );
-
-    SValueVec obj;
-    obj.push_back( ":" );
-    StdStrVec scodes = hic().get_scheme_list();
-    for( const auto& scode : scodes ) {
-        obj.push_back( scode );
-    }
     return SValue( obj );
 }
 

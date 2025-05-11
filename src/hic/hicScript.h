@@ -75,8 +75,6 @@ namespace glich {
         SValue at_last();
         SValue at_first();
         SValue at_fmt_object();
-        SValue at_sch_object();
-        SValue at_sch_list();
     };
 
 }
