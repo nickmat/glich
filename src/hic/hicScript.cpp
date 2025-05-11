@@ -31,6 +31,7 @@
 #include "glcHelper.h"
 #include "glcMath.h"
 #include "glcScript.h"
+#include "hicAtFunction.h"  
 #include "hicBase.h"
 #include "hicCalendars.h"
 #include "hicDatePhrase.h"
@@ -87,11 +88,6 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         success = true;
         switch( fnum->second )
         {
-        case f_date: return at_date();
-        case f_text: return at_text();
-        case f_scheme: return at_scheme();
-        case f_element: return at_element();
-        case f_phrase: return at_phrase();
         case f_leapyear: return at_leapyear();
         case f_easter: return at_easter();
         case f_first: return at_first();
@@ -100,6 +96,17 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         case f_sch_object: return at_sch_object();
         case f_sch_list: return at_sch_list();
         }
+        StdStrVec quals = get_qualifiers( GetToken::next );
+        SValueVec args = get_args( GetToken::current );
+        switch( fnum->second )
+        {
+        case f_date: return hic_at_date( *this, quals, args );
+        case f_text: return hic_at_text( quals, args );
+        case f_scheme: return hic_at_scheme( *this, quals, args );
+        case f_element: return hic_at_element( quals, args );
+        case f_phrase: return hic_at_phrase( quals, args );
+        }
+        success = false;
         return SValue::create_error( "Built-in function error." );
     }
     success = false;
@@ -897,15 +904,6 @@ bool HicScript::do_grammar_use( Grammar* gmr )
     return true;
 }
 
-SValue HicScript::object_to_date( Scheme* sch, SValue value )
-{
-    assert( sch != nullptr );
-    const Base& base = sch->get_base();
-    Record record( base, value );
-    record.calc_jdn();
-    return SValue( record.get_jdn(), SValue::Type::field );
-}
-
 FunctionData* HicScript::get_function_data( Scheme* sch, Format* fmt )
 {
     if( fmt->has_use_function() ) {
@@ -946,108 +944,6 @@ SValue HicScript::str_to_date( Scheme* sch, string& text, const string& fcode )
     SValue value;
     value.set_rlist_demote( op_set_well_order( rlist ) );
     return value;
-}
-
-SValue glich::HicScript::at_date()
-{
-    StdStrVec quals = get_qualifiers( GetToken::next );
-    SValueVec args = get_args( GetToken::current );
-    string sig, scode, fcode;
-    if( !quals.empty() ) {
-        sig = quals[0];
-    }
-    split_code( &scode, &fcode, sig );
-    Scheme* sch = hic().get_scheme( scode );
-    if( sch == nullptr && !scode.empty() ) {
-        return SValue::create_error( "Scheme \"" + scode + "\" not found." );
-    }
-    if( args.empty() ) {
-        return SValue::create_error( "One argument required." );
-    }
-    SValue value( args[0] );
-    if( value.type() == SValue::Type::Object ) {
-        Object* obj = value.get_object_ptr();
-        if( obj == nullptr ) {
-            return SValue::create_error( "Object type not recognised." );
-        }
-        // We ignore any suffix scheme setting
-        sch = dynamic_cast<Scheme*>(obj);
-        if( sch == nullptr ) {
-            return SValue::create_error( "Object is not a scheme." );
-        }
-        return object_to_date( sch, value );
-    }
-    if( value.type() == SValue::Type::String ) {
-        if( sch == nullptr ) {
-            sch = hic().get_ischeme();
-            if( sch == nullptr ) {
-                return SValue::create_error( "No default scheme set." );
-            }
-        }
-        string text = value.get_str();
-        return str_to_date( sch, text, fcode );
-    }
-    return SValue::create_error( "Expected an object or string type." );
-}
-
-SValue HicScript::at_text()
-{
-    StdStrVec quals = get_qualifiers( GetToken::next );
-    SValueVec args = get_args( GetToken::current );
-    string sig, scode, fcode;
-    if( !quals.empty() ) {
-        sig = quals[0];
-    }
-    split_code( &scode, &fcode, sig );
-    Scheme* sch = hic().get_scheme( scode );
-    Scheme* rec_sch = nullptr;
-    if( args.empty() ) {
-        return SValue::create_error( "One argument required." );
-    }
-    SValue value( args[0] );
-    if( value.type() == SValue::Type::Object ) {
-        Object* obj = value.get_object_ptr();
-        if( obj == nullptr ) {
-            return SValue::create_error( "Object type not recognised." );
-        }
-        // We ignore any suffix scheme setting
-        rec_sch = dynamic_cast<Scheme*>(obj);
-        if( rec_sch == nullptr ) {
-            return SValue::create_error( "Object is not a scheme." );
-        }
-        value = rec_sch->object_to_demoted_rlist( value );
-    }
-    if( sch == nullptr ) {
-        if( rec_sch != nullptr ) {
-            sch = rec_sch;
-        }
-        else {
-            sch = hic().get_oscheme();
-        }
-        if( sch == nullptr ) {
-            if( !scode.empty() ) {
-                return SValue::create_error( "Scheme \"" + scode + "\" not found." );
-            }
-            return SValue::create_error( "No default scheme set." );
-        }
-    }
-    bool success = false;
-    Field jdn = value.get_field( success );
-    if( success ) {
-        string text = sch->jdn_to_str( jdn, fcode );
-        return SValue( text );
-    }
-    Range range = value.get_range( success );
-    if( success ) {
-        string text = sch->range_to_str( range, fcode );
-        return SValue( text );
-    }
-    RList rlist = value.get_rlist( success );
-    if( success ) {
-        string text = sch->rlist_to_str( rlist, fcode );
-        return SValue( text );
-    }
-    return SValue::create_error( "Expected field, range, rlist or record type." );
 }
 
 SValue HicScript::complete_object( Scheme* sch, Field jdn )
@@ -1091,95 +987,6 @@ SValue HicScript::complete_object( Scheme* sch, const string& input, const strin
         mask.set_object( value );
     }
     return mask.get_object( ocode );
-}
-
-SValue HicScript::at_scheme()
-{
-    const char* no_default_mess = "No default scheme set.";
-    StdStrVec quals = get_qualifiers( GetToken::next );
-    SValueVec args = get_args( GetToken::current );
-    if( args.empty() ) {
-        return SValue::create_error( "One argument required." );
-    }
-    SValue value( args[0] );
-    string sig, scode, fcode;
-    if( !quals.empty() ) {
-        sig = quals[0];
-    }
-    split_code( &scode, &fcode, sig );
-    Scheme* sch = hic().get_scheme( scode );
-    bool success = false;
-    Field jdn = value.get_field( success );
-    if( success ) {
-        if( sch == nullptr ) {
-            sch = hic().get_oscheme();
-            if( sch == nullptr ) {
-                return SValue::create_error( no_default_mess );
-            }
-        }
-        return complete_object( sch, jdn );
-    }
-    if( value.type() == SValue::Type::String ) {
-        if( sch == nullptr ) {
-            sch = hic().get_ischeme();
-            if( sch == nullptr ) {
-                return SValue::create_error( no_default_mess );
-            }
-        }
-        string text = value.get_str();
-        return complete_object( sch, text, fcode );
-    }
-    return SValue::create_error( "Expected a field or string type." );
-}
-
-SValue HicScript::at_element()
-{
-    StdStrVec quals = get_qualifiers( GetToken::next );
-    SValueVec args = get_args( GetToken::current );
-    string sig;
-    if( !quals.empty() ) {
-        sig = quals[0];
-    }
-    Element ele;
-    if( !sig.empty() ) {
-        ele.add_char( ':' );
-        ele.add_string( sig );
-    }
-    SValue value( args[0] );
-    bool success = false;
-    Field fld = value.get_field( success );
-    if( success ) {
-        string element = ele.get_formatted_element( fld );
-        if( element.empty() ) {
-            return SValue::create_error( "Element not found." );
-        }
-        value.set_str( element );
-    }
-    else if( value.type() == SValue::Type::String ) {
-        value.set_field( ele.get_converted_field( &glc(), value.get_str()));
-    }
-    else {
-        value.set_error( "Element requires field like or string type." );
-    }
-    return value;
-}
-
-SValue HicScript::at_phrase()
-{
-    const char* no_default_mess = "No default scheme set.";
-    StdStrVec quals = get_qualifiers( GetToken::next );
-    SValueVec args = get_args( GetToken::current );
-    if( args.size() != 1 || args[0].type() != SValue::Type::String ) {
-        return SValue::create_error( "@phrase requires 1 string argument." );
-    }
-    string sig;
-    if( !quals.empty() ) {
-        sig = quals[0];
-    }
-    RList rlist = hic().date_phrase_to_rlist( args[0].get_str(), sig );
-    SValue value;
-    value.set_rlist_demote( rlist );
-    return value;
 }
 
 SValue HicScript::at_leapyear()

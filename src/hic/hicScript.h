@@ -67,16 +67,11 @@ namespace glich {
         bool do_grammar_function( Grammar* gmr );
         bool do_grammar_use( Grammar* gmr );
 
-        SValue object_to_date( Scheme* sch, SValue value );
+    public:
         FunctionData* get_function_data( Scheme* sch, Format* fmt );
         SValue str_to_date( Scheme* sch, std::string& text, const std::string& fcode );
-        SValue at_date();
-        SValue at_text();
         SValue complete_object( Scheme* sch, Field jdn );
         SValue complete_object( Scheme* sch, const std::string& input, const std::string& fcode );
-        SValue at_scheme();
-        SValue at_element();
-        SValue at_phrase();
         SValue at_leapyear();
         SValue at_easter();
         SValue at_last();

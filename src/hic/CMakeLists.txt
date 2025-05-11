@@ -4,13 +4,14 @@
 # Author:      Nick Matthews
 # Website:     https://github.com/nickmat/glich
 # Created:     22nd October 2024
-# Copyright:   Copyright (c) 2024, Nick Matthews.
+# Copyright:   Copyright (c) 2024..2025, Nick Matthews.
 # Licence:     GNU GPLv3
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 set( HIC_SOURCES
     hic.cpp
     hicAstro.cpp
+    hicAtFunction.cpp
     hicBase.cpp
     hicChinese.cpp
     hicDatePhrase.cpp
@@ -49,6 +50,7 @@ set( HIC_HEADERS
     ../../include/glc/hicDefs.h
     ../../include/glc/hicGlich.h
     hicAstro.h
+    hicAtFunction.h
     hicBase.h
     hicCalendars.h
     hicChinese.h
