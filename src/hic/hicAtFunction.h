@@ -39,6 +39,8 @@ namespace glich {
     SValue hic_at_scheme( HicScript& script, const StdStrVec& quals, const SValueVec& args );
     SValue hic_at_element( const StdStrVec& quals, const SValueVec& args );
     SValue hic_at_phrase( const StdStrVec& quals, const SValueVec& args );
+    SValue hic_at_leapyear( const StdStrVec& quals, const SValueVec& args );
+    SValue hic_at_easter( const StdStrVec& quals, const SValueVec& args );
 
 }
 

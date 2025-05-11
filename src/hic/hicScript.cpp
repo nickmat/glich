@@ -88,8 +88,6 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         success = true;
         switch( fnum->second )
         {
-        case f_leapyear: return at_leapyear();
-        case f_easter: return at_easter();
         case f_first: return at_first();
         case f_last: return at_last();
         case f_fmt_object: return at_fmt_object();
@@ -105,6 +103,8 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         case f_scheme: return hic_at_scheme( *this, quals, args );
         case f_element: return hic_at_element( quals, args );
         case f_phrase: return hic_at_phrase( quals, args );
+        case f_leapyear: return hic_at_leapyear( quals, args );
+        case f_easter: return hic_at_easter( quals, args );
         }
         success = false;
         return SValue::create_error( "Built-in function error." );
@@ -987,70 +987,6 @@ SValue HicScript::complete_object( Scheme* sch, const string& input, const strin
         mask.set_object( value );
     }
     return mask.get_object( ocode );
-}
-
-SValue HicScript::at_leapyear()
-{
-    StdStrVec quals = get_qualifiers( GetToken::next );
-    SValueVec args = get_args( GetToken::current );
-    if( quals.empty() ) {
-        return SValue::create_error( "@leapyear requires a qualifier." );
-    }
-    string mess = "@leapyear requires integer argument.";
-    if( args.empty() ) {
-        return SValue::create_error( mess );
-    }
-    bool success = false;
-    Field year = args[0].get_field( success );
-    if( !success ) {
-        return SValue::create_error( mess );
-    }
-
-    string calendar = quals[0];
-    if( calendar == "julian" ) {
-        return Julian::leap_year( year );
-    }
-    if( calendar == "gregorian" ) {
-        return Gregorian::leap_year( year );
-    }
-    if( calendar == "hebrew" ) {
-        return Hebrew::leap_year( year );
-    }
-    if( calendar == "ordinal" ) {
-        return IsoOrdinal::leap_year( year );
-    }
-    if( calendar == "isoweek" ) {
-        return IsoWeek::leap_year( year );
-    }
-    return false;
-}
-
-SValue HicScript::at_easter()
-{
-    StdStrVec quals = get_qualifiers( GetToken::next );
-    SValueVec args = get_args( GetToken::current );
-    if( quals.empty() ) {
-        return SValue::create_error( "@easter requires a qualifier." );
-    }
-    string mess = "@easter requires integer argument.";
-    if( args.empty() ) {
-        return SValue::create_error( mess );
-    }
-    bool success = false;
-    Field year = args[0].get_field( success );
-    if( !success ) {
-        return SValue::create_error( mess );
-    }
-
-    string calendar = quals[0];
-    Field result = f_invalid;
-    if( calendar == "julian" ) {
-        result = Julian::easter( year );
-    }
-    if( calendar == "gregorian" ) {
-        result = Gregorian::easter( year );
-    }
-    return SValue( result, SValue::Type::field );
 }
 
 SValue HicScript::at_last()
