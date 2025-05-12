@@ -52,30 +52,48 @@
 <p>
  The project is broken down into the following sub projects.
 </p>
-<h3>1. The Glich Language. glc.lib</h3>
+<h3>1. The Glich Language. glc.lib andd hic.lib</h3>
 <p>
- This is the engine that forms the basis for subsequent extensions.
- These are named <b>hics</b>, <b>higs</b> and <b>hils</b>.
- These extensions are, or will be, part of the genealogy program
- <a href='http://thefamilypack.org'>The Family Pack</a>.
+ These are the library files for the core <b>glc</b> language
+ and the <b>hic</b> extension.
 </p>
 <p>
  As stated, the library is written in C++.
  It has only one external dependency, a small
- utf-8 C library, utf8api which is included in the project.
+ utf-8 C library, utf8api which is included in the project as a submodule.
 </p>
 
-<h3>2. Glich Console Program. glcs.exe</h3>
+<h3>2. Glich Console Program. glich.exe</h3>
+<p>
+ This is a command line program that can be used to run a Glich script
+ and then exit.
+</p>
+
+<h3>3. Glich Interactive Program. glcs.exe</h3>
 <p>
  A command line program which can be used to test out the language.
- This will be released soon to allow others to experiment with it.
+ This can be used to experiment with the language.
 </p>
 
-<h3>3. The Test Scripts and Program. glctest.exe</h3>
+<h3>4. The Test Scripts and Program. glctest.exe</h3>
 <p>
  A series of Glich Script files have been created using a standard comment format
  to indicate the expected output of the script.
  The test program then runs through each file and compares its output to that expected.
+</p>
+
+<h3>5. A Unit Test Program. glcunit.exe</h3>
+<p>
+ A unit test program to test the API of the Glich glc and hic libraries.
+</p>
+
+<h3>6. A Unit Test Soak Program. glcsoak.exe</h3>
+<p>
+ A unit test program which runs exhaustive tests
+ on specific calendar schemes.
+ The program will run through every date for the defined
+ usage range of the calendar scheme.
+ The program is expected to take some time to run.
 </p>
 
 <h3>Separate development of a Glich Editor. gliched.exe</h3>
@@ -84,24 +102,10 @@
  See <a href='https://nickmat.github.io/gliched'>Gliched Website</a> for details.
 </p>
 
-<h2>The Hics Extension</h2>
+<h3>Separate development of the HistoryCal GUI program</h3>
 <p>
- Hics is the HistoryCal extension to the language
- to allow calendar schemes to be defined and manipulated.
-</p>
-<h3>4. The Hics Unit Test Program. hicunit.exe</h3>
-<p>
- Proposed: A unit test program to test the interface
- between the HistoryCal GUI program and the Glich language library.
-</p>
-
-<h3>5. The Hics Unit Test Soak Program. hicsoak.exe</h3>
-<p>
- Proposed: A unit test program which runs exhaustive tests
- on specific calendar schemes.
- The program will run through every date for the defined
- usage range of the calendar scheme.
- The program is expected to take some time to run.
+ This is a calendar conversion and calculation program.
+ See <a href='http://historycal.org'>HistoryCal website</a> for details.
 </p>
 
 </div><!--id=content-->
