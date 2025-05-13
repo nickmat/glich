@@ -71,6 +71,7 @@ namespace glich {
         FunctionData* get_function_data( Scheme* sch, Format* fmt );
         SValue str_to_date( Scheme* sch, std::string& text, const std::string& fcode );
         SValue complete_object( Scheme* sch, Field jdn );
+        SValue complete_object( Scheme* sch, Range rng, const std::string& fcode );
         SValue complete_object( Scheme* sch, const std::string& input, const std::string& fcode );
     };
 

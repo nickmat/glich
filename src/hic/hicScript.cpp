@@ -958,6 +958,25 @@ SValue HicScript::complete_object( Scheme* sch, Field jdn )
     return value;
 }
 
+SValue HicScript::complete_object( Scheme* sch, Range rng, const std::string& fcode )
+{
+    assert( sch != nullptr );
+    const Base& base = sch->get_base();
+    Record beg( base, rng.m_beg ), end( base, rng.m_end );
+    Format* fmt = sch->get_input_format( fcode );
+    assert( fmt != nullptr );
+    BoolVec reveal = fmt->get_reveal( beg, end );
+    FieldVec beg_fields = beg.get_reveald_fields( reveal );
+    FieldVec end_fields = end.get_reveald_fields( reveal );
+    for( size_t i = 0; i < beg_fields.size(); i++ ) {
+        if( beg_fields[i] != end_fields[i] ) {
+            return SValue::create_error( "Can not complete object." );
+        }
+    }
+    beg.set_fields( beg_fields );
+    return beg.get_object( sch->get_code() );
+}   
+
 SValue HicScript::complete_object( Scheme* sch, const string& input, const string& fcode )
 {
     assert( sch != nullptr );
