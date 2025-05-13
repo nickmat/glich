@@ -292,4 +292,16 @@ Field Record::get_revealed_field( size_t index, const BoolVec& reveal ) const
     return f_invalid;
 }
 
+FieldVec Record::get_reveald_fields( const BoolVec& mask ) const
+{
+    FieldVec fields( m_f.size(), f_invalid );
+    size_t size = std::min( mask.size(), m_f.size() );
+    for( size_t i = 0; i < size; i++ ) {
+        if( mask[i] ) {
+            fields[i] = m_f[i];
+        }
+    }
+    return fields;
+}
+
 // End of src/glc/hicRecord.cpp file
