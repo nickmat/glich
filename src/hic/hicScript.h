@@ -72,8 +72,6 @@ namespace glich {
         SValue str_to_date( Scheme* sch, std::string& text, const std::string& fcode );
         SValue complete_object( Scheme* sch, Field jdn );
         SValue complete_object( Scheme* sch, const std::string& input, const std::string& fcode );
-        SValue at_last();
-        SValue at_first();
     };
 
 }

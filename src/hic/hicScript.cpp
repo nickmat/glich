@@ -73,9 +73,8 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
     };
     const static std::map<string, f> fmap = {
         { "date", f_date }, { "text", f_text }, {"scheme", f_scheme}, {"element", f_element},
-        { "phrase", f_phrase }, { "leapyear", f_leapyear }, { "easter", f_easter }, { "first", f_first }, { "last", f_last },
-        { "fmt:object", f_fmt_object }, { "sch:object", f_sch_object },
-        { "sch:list", f_sch_list }
+        { "phrase", f_phrase }, { "leapyear", f_leapyear }, { "easter", f_easter },
+        { "sch:list", f_sch_list }, { "sch:object", f_sch_object }, { "fmt:object", f_fmt_object }
     };
 
     SValue value = Script::builtin_function_call( success, name );
@@ -86,11 +85,6 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
     auto fnum = fmap.find( name );
     if( fnum != fmap.end() ) {
         success = true;
-        switch( fnum->second )
-        {
-        case f_first: return at_first();
-        case f_last: return at_last();
-        }
         StdStrVec quals = get_qualifiers( GetToken::next );
         SValueVec args = get_args( GetToken::current );
         switch( fnum->second )
@@ -989,6 +983,7 @@ SValue HicScript::complete_object( Scheme* sch, const string& input, const strin
     return mask.get_object( ocode );
 }
 
+#if 0
 SValue HicScript::at_last()
 {
     StdStrVec quals = get_qualifiers( GetToken::next );
@@ -1066,5 +1061,6 @@ SValue HicScript::at_first()
     }
     return f_invalid;
 }
+#endif
 
 // End of src/glc/hicCreateSch.cpp file
