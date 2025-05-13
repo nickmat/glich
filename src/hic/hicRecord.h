@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     http://historycal.org
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -75,6 +75,7 @@ namespace glich {
 
         const Base& get_base() const { return m_base; }
         const FieldVec& get_field_vec() const { return m_f; }
+        size_t get_field_vec_size() const { return m_f.size(); }
         FieldVec& get_field_vec() { return m_f; }
         Field get_field_at( size_t index ) const { return m_f[index]; }
         Field get_field( size_t index ) const;
