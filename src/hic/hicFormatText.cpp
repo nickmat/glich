@@ -230,13 +230,13 @@ void FormatText::setup_control_out()
     }
 }
 
-std::string glich::FormatText::get_text_output( Record& record ) const
+string FormatText::get_text_output( Record& record ) const
 {
     const Base& base = record.get_base();
     return get_revealed_output( record, nullptr );
 }
 
-BoolVec glich::FormatText::get_reveal( Record& rec1, Record& rec2 ) const
+BoolVec FormatText::get_reveal( Record& rec1, Record& rec2 ) const
 {
     return rec1.mark_balanced_fields( rec2, m_rank_to_def_index, m_sig_rank_size );
 }
@@ -302,7 +302,7 @@ string FormatText::get_revealed_output( const Record& record, const BoolVec* rev
     return output + fieldout;
 }
 
-Range glich::FormatText::string_to_range( const Base& base, const std::string& input, FunctionData* fdata ) const
+Range FormatText::string_to_range( const Base& base, const string& input, FunctionData* fdata ) const
 {
     Record mask( base, input, *this, Boundary::None );
     if( fdata && !( input == "today" || input == "past" || input == "future" ) ) {
@@ -360,7 +360,7 @@ bool FormatText::is_significant_rank_name( const string& fieldname ) const
     return false;
 }
 
-void glich::FormatText::remove_from_rank( const std::string& fieldname )
+void FormatText::remove_from_rank( const string& fieldname )
 {
     for( size_t i = 0; i < m_sig_rank_size; i++ ) {
         if( fieldname == m_rank_fieldnames[i] ) {
@@ -503,7 +503,7 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
     return 0;
 }
 
-Field glich::FormatText::find_token( Lexicon** lex, const std::string& word ) const
+Field FormatText::find_token( Lexicon** lex, const string& word ) const
 {
     Field field = f_invalid;
     for( size_t i = 0; i < m_lexicons.size(); i++ ) {
