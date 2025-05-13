@@ -175,6 +175,16 @@ SValue glich::hic_at_scheme( HicScript& script, const StdStrVec& quals, const SV
         }
         return script.complete_object( sch, jdn );
     }
+    Range range = value.get_range( success );
+    if( success ) {
+        if( sch == nullptr ) {
+            sch = hic().get_oscheme();
+            if( sch == nullptr ) {
+                return SValue::create_error( no_default_mess );
+            }
+        }
+        return script.complete_object( sch, range, fcode );
+    }
     if( value.type() == SValue::Type::String ) {
         if( sch == nullptr ) {
             sch = hic().get_ischeme();
