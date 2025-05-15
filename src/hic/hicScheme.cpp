@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Name:        src/glc/hicScheme.cpp
+ * Name:        src/hic/hicScheme.cpp
  * Project:     Glich: Extendable Script Language.
  * Purpose:     Scheme class implimentation.
  * Author:      Nick Matthews
@@ -52,7 +52,8 @@
 using namespace glich;
 using std::string;
 
-glich::Scheme::Scheme( const std::string& code, const Base& base )
+
+Scheme::Scheme( const string& code, const Base& base )
     : m_def_visible(false), m_cur_visible(false), m_base(base), Object(code)
 {
     set_value_names( base.get_fieldnames() );
@@ -63,7 +64,7 @@ Scheme::~Scheme()
     delete &m_base;
 }
 
-bool glich::Scheme::reset()
+bool Scheme::reset()
 {
     Grammar* gmr = m_base.get_grammar();
     if( gmr == nullptr ) {
@@ -124,7 +125,7 @@ string Scheme::get_scode() const
     return scode.substr( 2 );
 }
 
-StdStrVec glich::Scheme::get_format_list() const
+StdStrVec Scheme::get_format_list() const
 {
     Grammar* gmr = m_base.get_grammar();
     StdStrVec fcodes = gmr->get_format_code_list();
@@ -162,7 +163,7 @@ void Scheme::get_info( Scheme_info* info ) const
     }
 }
 
-void glich::Scheme::get_format_text_info( FormatText_info* info, const std::string& fcode ) const
+void Scheme::get_format_text_info( FormatText_info* info, const string& fcode ) const
 {
     FormatText* fmt = dynamic_cast<FormatText*>(m_base.get_format( fcode ));
     if( fmt ) {
@@ -171,7 +172,7 @@ void glich::Scheme::get_format_text_info( FormatText_info* info, const std::stri
     }
 }
 
-bool glich::Scheme::is_leap_year( Field year ) const
+bool Scheme::is_leap_year( Field year ) const
 {
     return m_base.is_leap_year( year );;
 }
@@ -231,7 +232,7 @@ string Scheme::object_to_str( const SValue& ovalue, const string& fcode ) const
     return fmt->get_text_output( record );
 }
 
-bool glich::Scheme::set_epoch( Base* base, Field epoch, int line )
+bool Scheme::set_epoch( Base* base, Field epoch, int line )
 {
     Easter* ebase = dynamic_cast<Easter*>(base);
     if( ebase != nullptr ) {
@@ -336,4 +337,4 @@ bool Scheme::create_epoch_functions( Field epoch, int line )
     return true;
 }
 
-// End of src/glc/hicScheme.cpp file
+// End of src/hic/hicScheme.cpp file
