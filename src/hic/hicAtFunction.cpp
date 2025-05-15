@@ -125,7 +125,7 @@ SValue glich::hic_at_text( const StdStrVec& quals, const SValueVec& args )
         if( rec_sch == nullptr ) {
             return SValue::create_error( "Object is not a scheme." );
         }
-        value = rec_sch->object_to_demoted_rlist( value );
+        value = hic_object_to_date( rec_sch, value );
     }
     if( sch == nullptr ) {
         if( rec_sch != nullptr ) {
