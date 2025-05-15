@@ -47,8 +47,18 @@ static SValue hic_object_to_date( Scheme* sch, SValue value )
     assert( sch != nullptr );
     const Base& base = sch->get_base();
     Record record( base, value );
-    record.calc_jdn();
-    return SValue( record.get_jdn(), SValue::Type::field );
+    Field jdn = record.calc_jdn();
+    if( jdn != f_invalid ) {
+        return SValue( jdn, SValue::Type::field );
+    }
+    Record rec_end( record );
+    record.complete_fields_as_beg();
+    rec_end.complete_fields_as_end();
+    Range range(record.get_jdn(), rec_end.get_jdn());
+    if( range.is_valid() ) {
+        return SValue( range );
+    }
+    return SValue::create_error( "Cannot convert object." );
 }
 
 
