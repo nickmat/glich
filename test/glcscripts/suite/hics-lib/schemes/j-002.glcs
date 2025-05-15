@@ -1,0 +1,21 @@
+// j-002.glc // Test formats
+
+write nl;
+
+write @date.j:dmy( "may2025" ), @date.j:dmy( "2025" ) nl;
+write @date( {s:j 2025,5} ), @date( {s:j 2025} ) nl;
+write @text.j:dmy( 2460810..2460840 ),  @text.j:dmy( 2460690..2461054 ) nl;
+write @text( {s:j 2025,5} ), @text( {s:j 2025} ) nl;
+write @scheme.j( 2460810..2460840 ), @scheme.j( 2460690..2461054 ) nl;
+write @scheme.j:dmy( "may2025" ), @scheme.j:dmy( "2025" ) nl;
+
+/*[OUTPUT]
+
+2460810..2460840, 2460690..2461054
+2460810..2460840, 2460690..2461054
+May 2025, 2025
+May 2025, 2025
+{s:j 2025, 5, null, null}, {s:j 2025, null, null, null}
+{s:j 2025, 5, null, null}, {s:j 2025, null, null, null}
+
+[OUTPUT]*/
