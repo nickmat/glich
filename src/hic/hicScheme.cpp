@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -229,15 +229,6 @@ string Scheme::object_to_str( const SValue& ovalue, const string& fcode ) const
         return string();
     }
     return fmt->get_text_output( record );
-}
-
-// This currently expects the default fields to be complete on entry.
-SValue Scheme::object_to_demoted_rlist( const SValue& ovalue ) const
-{
-    const Base& base = get_base();
-    Record record( base, ovalue );
-    record.calc_jdn();
-    return SValue( record.get_jdn(), SValue::Type::field );
 }
 
 bool glich::Scheme::set_epoch( Base* base, Field epoch, int line )
