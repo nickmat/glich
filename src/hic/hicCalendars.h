@@ -1,11 +1,11 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Name:        src/glc/hicCalendars.h
+ * Name:        src/hic/hicCalendars.h
  * Project:     Glich: Extendable Script Language.
  * Purpose:     Include all calendar classes.
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     14th November 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -29,6 +29,7 @@
 #define GLC_HICCALENDAR_H_GUARD
 
 #include "hicChinese.h"
+#include "hicEaster.h"  
 #include "hicFrench.h"
 #include "hicGregorian.h"
 #include "hicHebrew.h"
