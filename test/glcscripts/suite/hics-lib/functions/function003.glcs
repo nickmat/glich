@@ -1,0 +1,79 @@
+// function003.hcs - test age function
+
+object AGE { values value, unit, scheme; }
+
+function AGE.sch( birth, date ) {
+    sch = @if( sch="", "g", sch );
+    let days = date - birth;
+    if days < 0
+        result = @error( "Date before birth." );
+        end
+    endif
+    let date1 = @scheme.(sch)(birth);
+    let y1 = date1[year]; let m1 = date1[month]; let d1 = date1[day];
+    let date2 = @scheme.(sch)(date);
+    let y2 = date2[year]; let m2 = date2[month]; let d2 = date2[day];
+
+    let unit = "year";    
+    let age = y2 - y1;
+    if m2 < m1 or ( m2 = m1 and d2 < d1 )
+        age -= 1;
+    endif
+    if age = 0
+        unit = "month";
+        age = m2 - m1;
+        if d2 < d1
+            age -= 1;
+        endif
+        age = age mod 12;
+        if age = 0
+            unit = "week";
+            age = days div 7;
+            if age = 0
+                unit = "day";
+                age = days;
+            endif
+        endif
+    endif
+
+    result = {AGE age, unit, sch};
+}
+
+write nl;
+let birth = @date("19sep1948");
+let date = @date("18sep1948");
+write @text(date), @AGE(birth,date) nl;
+date += 1;
+write @text(date), @AGE(birth,date) nl;
+date += 6;
+write @text(date), @AGE(birth,date) nl;
+date += 1;
+write @text(date), @AGE(birth,date) nl;
+date = @date("18oct1948");
+write @text(date), @AGE(birth,date) nl;
+date += 1;
+write @text(date), @AGE(birth,date) nl;
+date = @date("18sep1949");
+write @text(date), @AGE(birth,date) nl;
+date += 1;
+write @text(date), @AGE(birth,date) nl;
+date = @date("18sep1950");
+write @text(date), @AGE(birth,date) nl;
+date += 1;
+write @text(date), @AGE(birth,date) nl;
+
+
+/*[OUTPUT]
+
+18 Sep 1948, Error (9): Date before birth.
+19 Sep 1948, {AGE 0, "day", "g"}
+25 Sep 1948, {AGE 6, "day", "g"}
+26 Sep 1948, {AGE 1, "week", "g"}
+18 Oct 1948, {AGE 4, "week", "g"}
+19 Oct 1948, {AGE 1, "month", "g"}
+18 Sep 1949, {AGE 11, "month", "g"}
+19 Sep 1949, {AGE 1, "year", "g"}
+18 Sep 1950, {AGE 1, "year", "g"}
+19 Sep 1950, {AGE 2, "year", "g"}
+
+[OUTPUT]*/
