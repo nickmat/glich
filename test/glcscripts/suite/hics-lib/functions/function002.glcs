@@ -1,0 +1,115 @@
+// function002.hcs - test date of birth function
+
+
+object AGE { values value, unit, scheme; }
+
+function DOB( date, age ) {
+    if @object(age) <> "AGE"
+        result = @error( "Parameter age must be AGE object" );
+        end
+    endif
+    let sch = age[scheme];
+    if @type(sch) = "null"
+        sch = "g";
+    endif
+    if age[unit] = "day"
+        result = date - age[value];
+        end
+    endif
+    if age[unit] = "week"
+        let start = date - ( age[value] + 1 ) * 7 + 1;
+        result = start .. start + 6;
+        end
+    endif
+    let record = @scheme.(sch)( date );
+    let beg = record;
+    let fin = record;
+    if age[unit] = "month"
+        let m = record[month] - age[value] - 1;
+        let y = record[year];
+        if m < 1
+            m = m mod 12;
+            y = record[year] - 1;
+        endif
+        beg[month] = m;
+        beg[year] = y;
+        if m > 12
+            m = (m mod 12) + 1;
+            y = record[year] + 1;
+        endif
+        m += 1;
+        fin[month] = m;
+        fin[year] = y;
+    elseif age[unit] = "year"
+        beg[year] = record[year] - age[value] - 1;
+        fin[year] = record[year] - age[value];
+    else
+        result = @error("Invalid age unit");
+        end;
+    endif
+
+    result = @date(beg) + 1 .. @date(fin);
+}
+
+// Date of Birth is g# 15 Feb 2025
+write nl;
+write 1, @text(@DOB( @date("15feb2025"), {AGE 0, "day"} )) nl;
+write 2, @text(@DOB( @date("16feb2025"), {AGE 1, "day"} )) nl;
+write 3, @text(@DOB( @date("21feb2025"), {AGE 6, "day"} )) nl;
+write nl;
+write 4, @text(@DOB( @date("22feb2025"), {AGE 1, "week"} )) nl;
+write 5, @text(@DOB( @date("23feb2025"), {AGE 1, "week"} )) nl;
+write 6, @text(@DOB( @date("28feb2025"), {AGE 1, "week"} )) nl;
+write 7, @text(@DOB( @date("1mar2025"), {AGE 2, "week"} )) nl;
+write 8, @text(@DOB( @date("14mar2025"), {AGE 3, "week"} )) nl;
+write nl;
+write 9, @text(@DOB( @date("15mar2025"), {AGE 1, "month"} )) nl;
+write 10, @text(@DOB( @date("16mar2025"), {AGE 1, "month"} )) nl;
+write 11, @text(@DOB( @date("31mar2025"), {AGE 1, "month"} )) nl;
+write 12, @text(@DOB( @date("1apr2025"), {AGE 1, "month"} )) nl;
+write 13, @text(@DOB( @date("14apr2025"), {AGE 1, "month"} )) nl;
+write 14, @text(@DOB( @date("15apr2025"), {AGE 2, "month"} )) nl;
+write nl;
+write 15, @text(@DOB( @date("14dec2025"), {AGE 9, "month"} )) nl;
+write 16, @text(@DOB( @date("15dec2025"), {AGE 10, "month"} )) nl;
+write 17, @text(@DOB( @date("31dec2025"), {AGE 10, "month"} )) nl;
+write 18, @text(@DOB( @date("1jan2026"), {AGE 10, "month"} )) nl;
+write 19, @text(@DOB( @date("14jan2026"), {AGE 10, "month"} )) nl;
+write 20, @text(@DOB( @date("15jan2026"), {AGE 11, "month"} )) nl;
+write nl;
+write 21, @text(@DOB( @date("15feb2026"), {AGE 1, "year"} )) nl;
+write 22, @text(@DOB( @date("14feb2027"), {AGE 1, "year"} )) nl;
+write 22, @text(@DOB( @date("15feb2027"), {AGE 2, "year"} )) nl;
+
+
+/*[OUTPUT]
+
+1, 15 Feb 2025
+2, 15 Feb 2025
+3, 15 Feb 2025
+
+4, 9 Feb 2025..15 Feb 2025
+5, 10 Feb 2025..16 Feb 2025
+6, 15 Feb 2025..21 Feb 2025
+7, 9 Feb 2025..15 Feb 2025
+8, 15 Feb 2025..21 Feb 2025
+
+9, 16 Jan 2025..15 Feb 2025
+10, 17 Jan 2025..16 Feb 2025
+11, 1 Feb 2025..3 Mar 2025
+12, 2 Feb 2025..1 Mar 2025
+13, 15 Feb 2025..14 Mar 2025
+14, 16 Jan 2025..15 Feb 2025
+
+15, 15 Feb 2025..14 Mar 2025
+16, 16 Jan 2025..15 Feb 2025
+17, 1 Feb 2025..3 Mar 2025
+18, 2 Feb 2025..1 Mar 2025
+19, 15 Feb 2025..14 Mar 2025
+20, 16 Jan 2025..15 Feb 2025
+
+21, 16 Feb 2024..15 Feb 2025
+22, 15 Feb 2025..14 Feb 2026
+22, 16 Feb 2024..15 Feb 2025
+
+[OUTPUT]*/
