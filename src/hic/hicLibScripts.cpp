@@ -34,6 +34,7 @@
 // Built-in section.
 glich::ScriptModule glich::hics_builtin_scripts[] = {
     { "hic_builtin",  /* hic_builtin.glcs */
+ "object age: { values value unit style; }\n"
  "object fmt: {\n"
  "values code grammar rules visible pseudo:in pseudo:out shorthand;\n"
  "}\n"
