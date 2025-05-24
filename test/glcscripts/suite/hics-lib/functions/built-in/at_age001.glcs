@@ -1,0 +1,41 @@
+// age001.glcs  Test age function
+
+let birth = @date("19sep1948");
+let date = @date("18sep1948");
+
+write nl;
+write @text(date), @age(birth,date) nl;
+date += 1;
+write @text(date), @age(birth,date) nl;
+date += 6;
+write @text(date), @age(birth,date) nl;
+date += 1;
+write @text(date), @age(birth,date) nl;
+date = @date("18oct1948");
+write @text(date), @age(birth,date) nl;
+date += 1;
+write @text(date), @age(birth,date) nl;
+date = @date("18sep1949");
+write @text(date), @age(birth,date) nl;
+date += 1;
+write @text(date), @age(birth,date) nl;
+date = @date("18sep1950");
+write @text(date), @age(birth,date) nl;
+date += 1;
+write @text(date), @age(birth,date) nl;
+
+
+/*[OUTPUT]
+
+18 Sep 1948, {age: -1, "day"}
+19 Sep 1948, {age: 0, "day"}
+25 Sep 1948, {age: 6, "day"}
+26 Sep 1948, {age: 1, "week"}
+18 Oct 1948, {age: 4, "week"}
+19 Oct 1948, {age: 1, "month"}
+18 Sep 1949, {age: 11, "month"}
+19 Sep 1949, {age: 1, "year"}
+18 Sep 1950, {age: 1, "year"}
+19 Sep 1950, {age: 2, "year"}
+
+[OUTPUT]*/
