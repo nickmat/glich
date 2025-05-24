@@ -393,4 +393,91 @@ SValue glich::hic_at_fmt_object( const StdStrVec& quals )
     return SValue( obj );
 }
 
+SValue glich::hic_at_age( const StdStrVec& quals, const SValueVec& args )
+{
+    if( args.size() < 2 ) {
+        return SValue::create_error( "@age requires from and to date." );
+    }
+    Field birth = args[0].get_as_field();
+    if( birth == f_invalid ) {
+        return SValue::create_error( "@age birth date not valid." );
+    }
+    Field date = args[1].get_as_field();
+    if( date == f_invalid ) {
+        return SValue::create_error( "@age date not valid." );
+    }
+    int direction = 1;
+    if( date < birth ) {
+        Field temp = birth;
+        birth = date;
+        date = temp;
+        direction = -1;
+    }
+    string scode;
+    if( !quals.empty() ) {
+        scode = quals[0];
+    }
+    Scheme* sch = hic().get_scheme( scode );
+    if( sch == nullptr ) {
+        sch = hic().get_oscheme();
+        if( sch == nullptr ) {
+            return SValue::create_error( "No default scheme found." );
+        }
+    }
+    const Base& base = sch->get_base();
+    Record r_birth( base, birth );
+    Record r_date( base, date );
+    int y_index = base.get_fieldname_index( "year" );
+    if( y_index < 0 ) {
+        return SValue::create_error( "@age scheme does not have a year field." );
+    }
+    int m_index = base.get_fieldname_index( "month" );
+    if( m_index < 0 ) {
+        return SValue::create_error( "@age scheme does not have a month field." );
+    }
+    int d_index = base.get_fieldname_index( "day" );
+    if( d_index < 0 ) {
+        return SValue::create_error( "@age scheme does not have a day field." );
+    }
+    Field y1 = r_birth.get_field( y_index );
+    Field y2 = r_date.get_field( y_index );
+    Field m1 = r_birth.get_field( m_index );
+    Field m2 = r_date.get_field( m_index );
+    Field d1 = r_birth.get_field( d_index );
+    Field d2 = r_date.get_field( d_index );
+    Field age = y2 - y1;
+    if( m2 < m1 || (m2 == m1 && d2 < d1) ) {
+        age--;
+    }
+    SValueVec obj;
+    obj.push_back( "age:" );
+    if( age > 0 ) {
+        obj.push_back( age * direction );
+        obj.push_back( "year" );
+        return SValue( obj );
+    }
+    age = m2 - m1;
+    if( d2 < d1 ) {
+        age--;
+    }
+    if( age < 0 ) {
+        age += 12;
+    }
+    if( age > 0 ) {
+        obj.push_back( age * direction );
+        obj.push_back( "month" );
+        return SValue( obj );
+    }
+    Field days = date - birth;
+    age = days / 7;
+    if( age > 0 ) {
+        obj.push_back( age * direction );
+        obj.push_back( "week" );
+        return SValue( obj );
+    }
+    obj.push_back( days * direction );
+    obj.push_back( "day" );
+    return SValue( obj );
+}
+
 // End of src/hic/hicAtFunction.cpp file
