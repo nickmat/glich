@@ -90,7 +90,7 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         SValueVec args = get_args( GetToken::current );
         switch( fnum->second )
         {
-        case f_date: return hic_at_date( *this, quals, args );
+        case f_date: return hic_at_date( quals, args, get_out_stream() );
         case f_text: return hic_at_text( quals, args );
         case f_scheme: return hic_at_scheme( *this, quals, args );
         case f_element: return hic_at_element( quals, args );
@@ -899,48 +899,6 @@ bool HicScript::do_grammar_use( Grammar* gmr )
     }
     gmr->set_use_function( usemap );
     return true;
-}
-
-FunctionData* HicScript::get_function_data( Scheme* sch, Format* fmt )
-{
-    if( fmt->has_use_function() ) {
-        string ocode = sch->get_code();
-        Object* obj = glc().get_object( ocode );
-        string funcode = fmt->get_from_text_funcode();
-        Function* fun = obj->get_function( funcode );
-        FunctionData* fundata = new FunctionData( *fun, get_out_stream() );
-        fundata->ocode = ocode;
-        return fundata;
-    }
-    return nullptr;
-}
-
-SValue HicScript::str_to_date( Scheme* sch, string& text, const string& fcode )
-{
-    assert( sch != nullptr );
-    Format* fmt = sch->get_input_format( fcode );
-    if( fmt == nullptr ) {
-        return SValue::create_error( "Unable to find \"" + fcode + "\" format." );
-    }
-    StringPairVec pairs = fmt->string_to_stringpair( text );
-    RList rlist;
-    Range range;
-    const Base& base = sch->get_base();
-    FunctionData* fundata = get_function_data( sch, fmt );
-    for( auto& pair : pairs ) {
-        range = fmt->string_to_range( base, pair.first, fundata );
-        if( !pair.second.empty() ) {
-            Range range2 = fmt->string_to_range( base, pair.second, fundata );
-            range.m_end = range2.m_end;
-        }
-        if( range.is_valid() ) {
-            rlist.push_back( range );
-        }
-    }
-    delete fundata;
-    SValue value;
-    value.set_rlist_demote( op_set_well_order( rlist ) );
-    return value;
 }
 
 SValue HicScript::complete_object( Scheme* sch, Field jdn )

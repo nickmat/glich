@@ -34,7 +34,7 @@ namespace glich {
 
     class HicScript;
 
-    SValue hic_at_date( HicScript& script, const StdStrVec& quals, const SValueVec& args );
+    SValue hic_at_date( const StdStrVec& quals, const SValueVec& args, std::ostream& outs );
     SValue hic_at_text( const StdStrVec& quals, const SValueVec& args );
     SValue hic_at_scheme( HicScript& script, const StdStrVec& quals, const SValueVec& args );
     SValue hic_at_element( const StdStrVec& quals, const SValueVec& args );
