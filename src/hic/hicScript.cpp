@@ -92,7 +92,7 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         {
         case f_date: return hic_at_date( quals, args, get_out_stream() );
         case f_text: return hic_at_text( quals, args );
-        case f_scheme: return hic_at_scheme( *this, quals, args );
+        case f_scheme: return hic_at_scheme( quals, args, get_out_stream() );
         case f_element: return hic_at_element( quals, args );
         case f_phrase: return hic_at_phrase( quals, args );
         case f_leapyear: return hic_at_leapyear( quals, args );
@@ -899,68 +899,6 @@ bool HicScript::do_grammar_use( Grammar* gmr )
     }
     gmr->set_use_function( usemap );
     return true;
-}
-
-SValue HicScript::complete_object( Scheme* sch, Field jdn )
-{
-    assert( sch != nullptr );
-    const Base& base = sch->get_base();
-    Record record( base, jdn );
-    SValue value = record.get_object( sch->get_code() );
-    const Grammar* gmr = sch->get_grammar();
-    assert( gmr != nullptr );
-    string funcode = gmr->get_calculate();
-    Function* fun = sch->get_function( funcode );
-    if( fun != nullptr ) {
-        StdStrVec qual;
-        SValueVec args;
-        value = fun->run( &value, qual, args, get_out_stream() );
-    }
-    return value;
-}
-
-SValue HicScript::complete_object( Scheme* sch, Range rng, const std::string& fcode )
-{
-    assert( sch != nullptr );
-    const Base& base = sch->get_base();
-    Record beg( base, rng.m_beg ), end( base, rng.m_end );
-    Format* fmt = sch->get_input_format( fcode );
-    assert( fmt != nullptr );
-    BoolVec reveal = fmt->get_reveal( beg, end );
-    FieldVec beg_fields = beg.get_reveald_fields( reveal );
-    FieldVec end_fields = end.get_reveald_fields( reveal );
-    for( size_t i = 0; i < beg_fields.size(); i++ ) {
-        if( beg_fields[i] != end_fields[i] ) {
-            return SValue::create_error( "Can not complete object." );
-        }
-    }
-    beg.set_fields( beg_fields );
-    return beg.get_object( sch->get_code() );
-}   
-
-SValue HicScript::complete_object( Scheme* sch, const string& input, const string& fcode )
-{
-    assert( sch != nullptr );
-    Format* fmt = sch->get_input_format( fcode );
-    if( fmt == nullptr ) {
-        return SValue();
-    }
-    const Base& base = sch->get_base();
-    Record mask( base, input, *fmt );
-    string ocode = sch->get_code();
-    SValue value = mask.get_object( ocode );
-    if( fmt->has_use_function() ) {
-        string funcode = fmt->get_from_text_funcode();
-        Object* obj = glc().get_object( ocode );
-        Function* fun = obj->get_function( funcode );
-        if( fun != nullptr ) {
-            StdStrVec qual;
-            SValueVec args;
-            value = fun->run( &value, qual, args, get_out_stream() );
-        }
-        mask.set_object( value );
-    }
-    return mask.get_object( ocode );
 }
 
 #if 0

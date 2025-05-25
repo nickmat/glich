@@ -66,11 +66,6 @@ namespace glich {
         bool do_grammar_alias( Grammar* gmr );
         bool do_grammar_function( Grammar* gmr );
         bool do_grammar_use( Grammar* gmr );
-
-    public:
-        SValue complete_object( Scheme* sch, Field jdn );
-        SValue complete_object( Scheme* sch, Range rng, const std::string& fcode );
-        SValue complete_object( Scheme* sch, const std::string& input, const std::string& fcode );
     };
 
 }

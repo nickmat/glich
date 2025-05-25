@@ -105,6 +105,68 @@ static SValue str_to_date( Scheme* sch, string& text, const string& fcode, std::
     return value;
 }
 
+static SValue complete_object( Scheme* sch, Field jdn, std::ostream& outs )
+{
+    assert( sch != nullptr );
+    const Base& base = sch->get_base();
+    Record record( base, jdn );
+    SValue value = record.get_object( sch->get_code() );
+    const Grammar* gmr = sch->get_grammar();
+    assert( gmr != nullptr );
+    string funcode = gmr->get_calculate();
+    Function* fun = sch->get_function( funcode );
+    if( fun != nullptr ) {
+        StdStrVec qual;
+        SValueVec args;
+        value = fun->run( &value, qual, args, outs );
+    }
+    return value;
+}
+
+static SValue complete_object( Scheme* sch, Range rng, const std::string& fcode )
+{
+    assert( sch != nullptr );
+    const Base& base = sch->get_base();
+    Record beg( base, rng.m_beg ), end( base, rng.m_end );
+    Format* fmt = sch->get_input_format( fcode );
+    assert( fmt != nullptr );
+    BoolVec reveal = fmt->get_reveal( beg, end );
+    FieldVec beg_fields = beg.get_reveald_fields( reveal );
+    FieldVec end_fields = end.get_reveald_fields( reveal );
+    for( size_t i = 0; i < beg_fields.size(); i++ ) {
+        if( beg_fields[i] != end_fields[i] ) {
+            return SValue::create_error( "Can not complete object." );
+        }
+    }
+    beg.set_fields( beg_fields );
+    return beg.get_object( sch->get_code() );
+}
+
+static SValue complete_object( Scheme* sch, const string& input, const string& fcode, std::ostream& outs )
+{
+    assert( sch != nullptr );
+    Format* fmt = sch->get_input_format( fcode );
+    if( fmt == nullptr ) {
+        return SValue();
+    }
+    const Base& base = sch->get_base();
+    Record mask( base, input, *fmt );
+    string ocode = sch->get_code();
+    SValue value = mask.get_object( ocode );
+    if( fmt->has_use_function() ) {
+        string funcode = fmt->get_from_text_funcode();
+        Object* obj = glc().get_object( ocode );
+        Function* fun = obj->get_function( funcode );
+        if( fun != nullptr ) {
+            StdStrVec qual;
+            SValueVec args;
+            value = fun->run( &value, qual, args, outs );
+        }
+        mask.set_object( value );
+    }
+    return mask.get_object( ocode );
+}
+
 
 SValue glich::hic_at_date( const StdStrVec& quals, const SValueVec& args, std::ostream& outs )
 {
@@ -205,7 +267,7 @@ SValue glich::hic_at_text( const StdStrVec& quals, const SValueVec& args )
 }
 
 
-SValue glich::hic_at_scheme( HicScript& script, const StdStrVec& quals, const SValueVec& args )
+SValue glich::hic_at_scheme( const StdStrVec& quals, const SValueVec& args, std::ostream& outs )
 {
     const char* no_default_mess = "No default scheme set.";
     if( args.empty() ) {
@@ -227,7 +289,7 @@ SValue glich::hic_at_scheme( HicScript& script, const StdStrVec& quals, const SV
                 return SValue::create_error( no_default_mess );
             }
         }
-        return script.complete_object( sch, jdn );
+        return complete_object( sch, jdn, outs);
     }
     Range range = value.get_range( success );
     if( success ) {
@@ -237,7 +299,7 @@ SValue glich::hic_at_scheme( HicScript& script, const StdStrVec& quals, const SV
                 return SValue::create_error( no_default_mess );
             }
         }
-        return script.complete_object( sch, range, fcode );
+        return complete_object( sch, range, fcode );
     }
     if( value.type() == SValue::Type::String ) {
         if( sch == nullptr ) {
@@ -247,7 +309,7 @@ SValue glich::hic_at_scheme( HicScript& script, const StdStrVec& quals, const SV
             }
         }
         string text = value.get_str();
-        return script.complete_object( sch, text, fcode );
+        return complete_object( sch, text, fcode, outs );
     }
     return SValue::create_error( "Expected a field or string type." );
 }
