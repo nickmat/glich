@@ -480,4 +480,96 @@ SValue glich::hic_at_age( const StdStrVec& quals, const SValueVec& args )
     return SValue( obj );
 }
 
+SValue glich::hic_at_dob( const StdStrVec& quals, const SValueVec& args )
+{
+    if( args.size() < 2 ) {
+        return SValue::create_error( "@dob requires date and age." );
+    }
+    Field date = args[0].get_as_field();
+    if( date == f_invalid ) {
+        return SValue::create_error( "@dob date not valid." );
+    }
+    SValue age = args[1];
+    bool success = false;
+    SValueVec age_obj = age.get_object( success );
+    if( !success || age_obj.size() < 2 ) {
+        return SValue::create_error( "@dob age object not valid." );
+    }
+    Field age_value = age_obj[1].get_field( success );
+    if( !success || age_value == f_invalid ) {
+        return SValue::create_error( "@dob age value not valid." );
+    }
+
+    string age_unit;
+    if( age_obj.size() >= 3 ) {
+        age_unit = age_obj[2].get_str( success );    
+    }
+    if( age_unit.empty() ) {
+        age_unit = "year";
+    }
+    
+    if( age_unit == "day" ) {
+        return SValue( date - age_value );
+    }
+    if( age_unit == "week" ) {
+        Field start = date - (age_value + 1) * 7 + 1;
+        return SValue( Range( start, start + 6 ) );
+    }
+
+    string scode;
+    if( !quals.empty() ) {
+        scode = quals[0];
+    }
+    Scheme* sch = hic().get_scheme( scode );
+    if( sch == nullptr ) {
+        sch = hic().get_oscheme();
+        if( sch == nullptr ) {
+            return SValue::create_error( "No default scheme found." );
+        }
+    }
+    const Base& base = sch->get_base();
+    Record  record( base, date );
+    Record beg( record );
+    Record end( record );
+    int y_index = base.get_fieldname_index( "year" );
+    if( y_index < 0 ) {
+        return SValue::create_error( "@dob scheme does not have a year field." );
+    }
+    if( age_unit == "year" ) {
+        Field y_value = record.get_field( y_index );
+        beg.set_field( y_value - age_value - 1, y_index );
+        end.set_field( y_value - age_value, y_index );
+    }
+    else if( age_unit == "month" ) {
+        Field m_index = base.get_fieldname_index( "month" );
+        if( m_index < 0 ) {
+            return SValue::create_error( "@dob scheme does not have a month field." );
+        }
+        Field m_value = record.get_field( m_index ) - age_value - 1;
+        Field y_value = record.get_field( y_index );
+        if( m_value < 1 ) {
+            y_value--;
+            m_value += 12;
+        }
+        beg.set_field( m_value, m_index );
+        beg.set_field( y_value, y_index );
+        m_value++;
+        if( m_value > 12 ) {
+            m_value = 1;
+            y_value++;
+        }
+        end.set_field( m_value, m_index );
+        end.set_field( y_value, y_index );
+    }
+    else {
+        return SValue::create_error( "@dob age unit not recognised." );
+    }
+
+    Range range( beg.calc_jdn() + 1, end.calc_jdn() );
+    if( !range.is_valid() ) {
+        return SValue::create_error( "@dob range not valid." );
+    }
+    return SValue( range );
+}
+
 // End of src/hic/hicAtFunction.cpp file

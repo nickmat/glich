@@ -69,13 +69,13 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
 {
     enum f {
         f_date, f_text, f_scheme, f_element, f_phrase, f_leapyear, f_easter,
-        f_sch_list, f_sch_object, f_fmt_object, f_age
+        f_sch_list, f_sch_object, f_fmt_object, f_age, f_dob
     };
     const static std::map<string, f> fmap = {
         { "date", f_date }, { "text", f_text }, {"scheme", f_scheme}, {"element", f_element},
         { "phrase", f_phrase }, { "leapyear", f_leapyear }, { "easter", f_easter },
         { "sch:list", f_sch_list }, { "sch:object", f_sch_object }, { "fmt:object", f_fmt_object },
-        { "age", f_age }
+        { "age", f_age }, { "dob", f_dob }
     };
 
     SValue value = Script::builtin_function_call( success, name );
@@ -101,6 +101,7 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         case f_sch_object: return hic_at_sch_object( quals );
         case f_fmt_object: return hic_at_fmt_object( quals );
         case f_age: return hic_at_age( quals, args );
+        case f_dob: return hic_at_dob( quals, args );
         }
         success = false;
         return SValue::create_error( "Built-in function error." );
