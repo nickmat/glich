@@ -1,0 +1,65 @@
+// at_dob001.hcs - test date of birth function
+
+
+// Date of Birth is g# 15 Feb 2025
+write nl;
+write 1, @text(@dob( @date("15feb2025"), {age: 0, "day"} )) nl;
+write 2, @text(@dob( @date("16feb2025"), {age: 1, "day"} )) nl;
+write 3, @text(@dob( @date("21feb2025"), {age: 6, "day"} )) nl;
+write nl;
+write 4, @text(@dob( @date("22feb2025"), {age: 1, "week"} )) nl;
+write 5, @text(@dob( @date("23feb2025"), {age: 1, "week"} )) nl;
+write 6, @text(@dob( @date("28feb2025"), {age: 1, "week"} )) nl;
+write 7, @text(@dob( @date("1mar2025"), {age: 2, "week"} )) nl;
+write 8, @text(@dob( @date("14mar2025"), {age: 3, "week"} )) nl;
+write nl;
+write 9, @text(@dob( @date("15mar2025"), {age: 1, "month"} )) nl;
+write 10, @text(@dob( @date("16mar2025"), {age: 1, "month"} )) nl;
+write 11, @text(@dob( @date("31mar2025"), {age: 1, "month"} )) nl;
+write 12, @text(@dob( @date("1apr2025"), {age: 1, "month"} )) nl;
+write 13, @text(@dob( @date("14apr2025"), {age: 1, "month"} )) nl;
+write 14, @text(@dob( @date("15apr2025"), {age: 2, "month"} )) nl;
+write nl;
+write 15, @text(@dob( @date("14dec2025"), {age: 9, "month"} )) nl;
+write 16, @text(@dob( @date("15dec2025"), {age: 10, "month"} )) nl;
+write 17, @text(@dob( @date("31dec2025"), {age: 10, "month"} )) nl;
+write 18, @text(@dob( @date("1jan2026"), {age: 10, "month"} )) nl;
+write 19, @text(@dob( @date("14jan2026"), {age: 10, "month"} )) nl;
+write 20, @text(@dob( @date("15jan2026"), {age: 11, "month"} )) nl;
+write nl;
+write 21, @text(@dob( @date("15feb2026"), {age: 1, "year"} )) nl;
+write 22, @text(@dob( @date("14feb2027"), {age: 1, "year"} )) nl;
+write 22, @text(@dob( @date("15feb2027"), {age: 2, "year"} )) nl;
+
+
+/*[OUTPUT]
+
+1, 15 Feb 2025
+2, 15 Feb 2025
+3, 15 Feb 2025
+
+4, 9 Feb 2025..15 Feb 2025
+5, 10 Feb 2025..16 Feb 2025
+6, 15 Feb 2025..21 Feb 2025
+7, 9 Feb 2025..15 Feb 2025
+8, 15 Feb 2025..21 Feb 2025
+
+9, 16 Jan 2025..15 Feb 2025
+10, 17 Jan 2025..16 Feb 2025
+11, 1 Feb 2025..3 Mar 2025
+12, 2 Feb 2025..1 Mar 2025
+13, 15 Feb 2025..14 Mar 2025
+14, 16 Jan 2025..15 Feb 2025
+
+15, 15 Feb 2025..14 Mar 2025
+16, 16 Jan 2025..15 Feb 2025
+17, 1 Feb 2025..3 Mar 2025
+18, 2 Feb 2025..1 Mar 2025
+19, 15 Feb 2025..14 Mar 2025
+20, 16 Jan 2025..15 Feb 2025
+
+21, 16 Feb 2024..15 Feb 2025
+22, 15 Feb 2025..14 Feb 2026
+22, 16 Feb 2024..15 Feb 2025
+
+[OUTPUT]*/
