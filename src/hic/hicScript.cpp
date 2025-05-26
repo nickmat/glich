@@ -101,7 +101,7 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         case f_sch_object: return hic_at_sch_object( quals );
         case f_fmt_object: return hic_at_fmt_object( quals );
         case f_age: return hic_at_age( quals, args );
-        case f_dob: return hic_at_dob( quals, args );
+        case f_dob: return hic_at_dob( quals, args, get_out_stream() );
         }
         success = false;
         return SValue::create_error( "Built-in function error." );

@@ -586,12 +586,16 @@ SValue glich::hic_at_age( const StdStrVec& quals, const SValueVec& args )
     return SValue( obj );
 }
 
-SValue glich::hic_at_dob( const StdStrVec& quals, const SValueVec& args )
+SValue glich::hic_at_dob( const StdStrVec& quals, const SValueVec& args, std::ostream& outs )
 {
     if( args.size() < 2 ) {
         return SValue::create_error( "@dob requires date and age." );
     }
-    Field date = args[0].get_as_field();
+    SValue date_value( args[0] );
+    if( date_value.type() == SValue::Type::Object || date_value.type() == SValue::Type::String ) {
+        date_value = hic_at_date( quals, args, outs );
+    }
+    Field date = date_value.get_as_field();
     if( date == f_invalid ) {
         return SValue::create_error( "@dob date not valid." );
     }
