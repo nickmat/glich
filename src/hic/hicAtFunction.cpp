@@ -595,6 +595,29 @@ SValue glich::hic_at_dob( const StdStrVec& quals, const SValueVec& args, std::os
     if( date_value.type() == SValue::Type::Object || date_value.type() == SValue::Type::String ) {
         date_value = hic_at_date( quals, args, outs );
     }
+    if( date_value.type() == SValue::Type::range ) {
+        const char* mess = "@dob date range not valid.";
+        Range range = date_value.get_range();
+        SValueVec args2 = args;
+        args2[0] = SValue( range.m_beg, SValue::Type::field );
+        SValue beg_value = hic_at_dob( quals, args2, outs );
+        args2[0] = SValue( range.m_end, SValue::Type::field );
+        SValue end_value = hic_at_dob( quals, args2, outs );
+        bool success = false;
+        Range beg_range = beg_value.get_range( success );
+        if( !success ) {
+            return SValue::create_error( mess );
+        }
+        Range end_range = end_value.get_range( success );
+        if( !success ) {
+            return SValue::create_error( mess );
+        }
+        Range result = Range( beg_range.m_beg -1, end_range.m_end );
+        if( !result.is_valid() ) {
+            return SValue::create_error( mess );
+        }
+        return SValue( result );
+    }
     Field date = date_value.get_as_field();
     if( date == f_invalid ) {
         return SValue::create_error( "@dob date not valid." );
@@ -647,7 +670,7 @@ SValue glich::hic_at_dob( const StdStrVec& quals, const SValueVec& args, std::os
     }
     if( age_unit == "year" ) {
         Field y_value = record.get_field( y_index );
-        beg.set_field( y_value - age_value - 1, y_index );
+        beg.set_field( y_value - age_value -1 , y_index);
         end.set_field( y_value - age_value, y_index );
     }
     else if( age_unit == "month" ) {
