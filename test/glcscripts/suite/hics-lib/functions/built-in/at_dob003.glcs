@@ -1,0 +1,23 @@
+// at_dob002.hcs - test date of birth function
+
+
+// Date of Birth is g# 15 Feb 2025
+write nl;
+write @text(@dob( "15feb2026..14feb2027", {age: 1, "year"} )) nl;
+write @text(@dob( "15feb2027..16feb2027", {age: 1, "year"} )) nl;
+write nl;
+write @text(@dob( {s:g 2026, 2}, {age: 1, "year"} )) nl;
+write @text(@dob( {s:g 2026, 3}, {age: 1, "year"} )) nl;
+write @text(@dob( {s:g 2026}, {age: 1, "year"} )) nl;
+
+
+/*[OUTPUT]
+
+15 Feb 2024..14 Feb 2026
+15 Feb 2025..16 Feb 2026
+
+Feb 2024..Feb 2025
+Mar 2024..Mar 2025
+2024..2025
+
+[OUTPUT]*/
