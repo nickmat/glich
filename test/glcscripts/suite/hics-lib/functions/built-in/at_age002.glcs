@@ -1,0 +1,17 @@
+// age002.glcs  Test age function with different input value types.
+
+write nl;
+write @age({s:g 2020, 6, 10}, "10may2025") nl;
+write @age("15jun2020", {s:g 2025,5,10}) nl;
+write @age("15jun2020", "10may2025") nl;
+write @age({s:g 2020, 6, 10}, {s:g 2025,5,10}) nl;
+
+
+/*[OUTPUT]
+
+{age: 4, "year"}
+{age: 4, "year"}
+{age: 4, "year"}
+{age: 4, "year"}
+
+[OUTPUT]*/
