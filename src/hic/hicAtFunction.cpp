@@ -30,6 +30,7 @@
 #include <glc/hic.h>
 
 #include "glcMath.h"
+#include "glcValue.h"
 #include "hicCalendars.h"
 #include "hicElement.h"
 #include "hicFormat.h"
@@ -617,6 +618,23 @@ SValue glich::hic_at_dob( const StdStrVec& quals, const SValueVec& args, std::os
             return SValue::create_error( mess );
         }
         return SValue( result );
+    }
+    if( date_value.type() == SValue::Type::rlist ) {
+        RList rlist = date_value.get_rlist();
+        SValueVec args2 = args;
+        SValue result;
+        for( const auto& range : rlist ) {
+            SValue range_value( range );
+            args2[0] = range_value;
+            SValue dob_value = hic_at_dob( quals, args2, outs );
+            if( result.type() == SValue::Type::Null ) {
+                result = dob_value;
+            }
+            else {
+                result.rlist_union( dob_value );
+            }
+        }
+        return result;
     }
     Field date = date_value.get_as_field();
     if( date == f_invalid ) {
