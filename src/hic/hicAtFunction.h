@@ -42,7 +42,7 @@ namespace glich {
     SValue hic_at_sch_list();
     SValue hic_at_sch_object( const StdStrVec& quals );
     SValue hic_at_fmt_object( const StdStrVec& quals );
-    SValue hic_at_age( const StdStrVec& quals, const SValueVec& args );
+    SValue hic_at_age( const StdStrVec& quals, const SValueVec& args, std::ostream& outs );
     SValue hic_at_dob( const StdStrVec& quals, const SValueVec& args, std::ostream& outs );
 
 }

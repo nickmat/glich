@@ -500,19 +500,31 @@ SValue glich::hic_at_fmt_object( const StdStrVec& quals )
     return SValue( obj );
 }
 
-SValue glich::hic_at_age( const StdStrVec& quals, const SValueVec& args )
+SValue glich::hic_at_age( const StdStrVec& quals, const SValueVec& args, std::ostream& outs )
 {
     if( args.size() < 2 ) {
-        return SValue::create_error( "@age requires from and to date." );
+        return SValue::create_error( "@age requires birth date and an 'age at' date." );
     }
-    Field birth = args[0].get_as_field();
-    if( birth == f_invalid ) {
+    SValue birth_value( args[0] );
+    bool success = false;
+    if( birth_value.type() == SValue::Type::String || birth_value.type() == SValue::Type::Object ) {
+        birth_value = hic_at_date( quals, args, outs );
+    }
+    Field birth = birth_value.get_field( success );
+    if( !success ) {
         return SValue::create_error( "@age birth date not valid." );
     }
-    Field date = args[1].get_as_field();
-    if( date == f_invalid ) {
+
+    SValue date_value( args[1] );
+    if( date_value.type() == SValue::Type::String || date_value.type() == SValue::Type::Object ) {
+        SValueVec arg = { date_value };
+        date_value = hic_at_date( quals, arg, outs );
+    }
+    Field date = date_value.get_field( success );
+    if( !success ) {
         return SValue::create_error( "@age date not valid." );
     }
+
     int direction = 1;
     if( date < birth ) {
         Field temp = birth;
