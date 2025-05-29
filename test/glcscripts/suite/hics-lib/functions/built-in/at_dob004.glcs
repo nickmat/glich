@@ -1,0 +1,9 @@
+// at_dob004.hcs - test date of birth function with rlist input
+
+
+write @text(@dob( 2451545..2451910 | 2460677..2461041, {age: 1, "year"} ));
+
+
+/*[OUTPUT]
+1998..1999 | 2023..2024
+[OUTPUT]*/
