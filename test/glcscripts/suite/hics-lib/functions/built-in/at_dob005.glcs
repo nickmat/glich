@@ -1,0 +1,9 @@
+// at_dob004.hcs - test date of birth function with number as age
+
+
+write @text( @dob( 2460825, 1 ) );
+
+
+/*[OUTPUT]
+30 May 2023..29 May 2024
+[OUTPUT]*/
