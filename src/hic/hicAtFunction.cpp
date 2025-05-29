@@ -592,6 +592,7 @@ SValue glich::hic_at_dob( const StdStrVec& quals, const SValueVec& args, std::os
     if( args.size() < 2 ) {
         return SValue::create_error( "@dob requires date and age." );
     }
+    bool success = false;
     SValue date_value( args[0] );
     if( date_value.type() == SValue::Type::Object || date_value.type() == SValue::Type::String ) {
         date_value = hic_at_date( quals, args, outs );
@@ -604,7 +605,6 @@ SValue glich::hic_at_dob( const StdStrVec& quals, const SValueVec& args, std::os
         SValue beg_value = hic_at_dob( quals, args2, outs );
         args2[0] = SValue( range.m_end, SValue::Type::field );
         SValue end_value = hic_at_dob( quals, args2, outs );
-        bool success = false;
         Range beg_range = beg_value.get_range( success );
         if( !success ) {
             return SValue::create_error( mess );
@@ -641,14 +641,24 @@ SValue glich::hic_at_dob( const StdStrVec& quals, const SValueVec& args, std::os
         return SValue::create_error( "@dob date not valid." );
     }
     SValue age = args[1];
-    bool success = false;
-    SValueVec age_obj = age.get_object( success );
-    if( !success || age_obj.size() < 2 ) {
-        return SValue::create_error( "@dob age object not valid." );
+    SValueVec age_obj;
+    Field age_value = age.get_field( success );
+    if( success ) {
+        age_obj.push_back( "age:" );
+        age_obj.push_back( age_value );
     }
-    Field age_value = age_obj[1].get_field( success );
-    if( !success || age_value == f_invalid ) {
-        return SValue::create_error( "@dob age value not valid." );
+    else if( age.type() == SValue::Type::Object ) {
+        age_obj = age.get_object( success );
+        if( !success || age_obj.size() < 2 ) {
+            return SValue::create_error( "@dob age object not valid." );
+        }
+        age_value = age_obj[1].get_field( success );
+        if( !success || age_value == f_invalid ) {
+            return SValue::create_error( "@dob age value not valid." );
+        }
+    }
+    else {
+        return SValue::create_error( "@dob age type not recognised." );
     }
 
     string age_unit;
@@ -656,7 +666,7 @@ SValue glich::hic_at_dob( const StdStrVec& quals, const SValueVec& args, std::os
         age_unit = age_obj[2].get_str( success );    
     }
     if( age_unit.empty() ) {
-        age_unit = "year";
+        age_unit = "year";  // Default unit is year
     }
     
     if( age_unit == "day" ) {
