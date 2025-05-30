@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     16th March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -130,11 +130,11 @@ namespace glich {
     using StrUnitMap = std::map<std::string, Unit>;
 
     // Normalisation flag. Determines how invalid dates are corrected.
-    enum Norm {
-        norm_expand,     // Add missing days to the next unit.
-        norm_expand_min, // Go to the start of the next unit.
-        norm_truncate,   // Truncate the current unit.
-        norm_average     // Add the average number of days for the unit.
+    enum class Norm {
+        expand,     // Add missing days to the next unit.
+        expand_min, // Go to the start of the next unit.
+        truncate,   // Truncate the current unit.
+        average     // Add the average number of days for the unit.
     };
 
     // Relative date functions
