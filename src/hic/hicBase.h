@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -87,6 +87,13 @@ namespace glich {
 
         virtual BoolVec mark_balanced_fields(
             const FieldVec& fbeg, const FieldVec& fend, const XIndexVec& rank_to_def, size_t size ) const;
+
+        // normalise is to correct illegal reg values
+        // when considered in combination.
+        // Individual values are assumed valid
+        // ie For Gregorian calendar, r[2] = 31 is a valid but not if r[1] = 2.
+        // Return true if value adjusted or false if no change.
+        virtual bool normalise( FieldVec& fields, Norm norm ) const { return false; }
 
     protected:
         StdStrVec m_fieldnames; // This is both required, calculated and optional.
