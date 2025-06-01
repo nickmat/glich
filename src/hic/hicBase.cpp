@@ -157,6 +157,11 @@ Field Base::get_beg_field_value( const FieldVec& fields, size_t index ) const
     return 1;
 }
 
+Field Base::get_end_field_value( const FieldVec& fields, size_t index ) const
+{
+    return f_invalid;
+}
+
 void Base::complete_beg( FieldVec& fields ) const
 {
     if( fields[0] == f_invalid ) {

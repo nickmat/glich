@@ -72,7 +72,7 @@ namespace glich {
         virtual Field get_jdn( const FieldVec& fields ) const = 0;
 
         virtual Field get_beg_field_value( const FieldVec& fields, size_t index ) const;
-        virtual Field get_end_field_value( const FieldVec& fields, size_t index ) const = 0;
+        virtual Field get_end_field_value( const FieldVec& fields, size_t index ) const;
         virtual void complete_beg( FieldVec& fields ) const;
         virtual void complete_end( FieldVec& fields ) const;
 
