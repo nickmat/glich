@@ -96,6 +96,8 @@ namespace glich {
         virtual bool normalise( FieldVec& fields, Norm norm ) const { return false; }
 
     protected:
+        virtual Field last_day_in_month( Field year, Field month ) const { return f_invalid; }
+
         StdStrVec m_fieldnames; // This is both required, calculated and optional.
         size_t m_record_size;
         LocaleData m_locale;

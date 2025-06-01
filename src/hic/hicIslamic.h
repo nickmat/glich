@@ -50,7 +50,7 @@ namespace glich {
 
     private:
         bool is_leap_year( Field year ) const override;
-        Field last_day_in_month( Field year, Field month ) const;
+        Field last_day_in_month( Field year, Field month ) const override;
         Field to_jdn( Field year, Field month, Field day ) const;
         bool from_jdn( Field* year, Field* month, Field* day, Field jdn ) const;
 

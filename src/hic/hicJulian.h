@@ -54,7 +54,7 @@ namespace glich {
         static Field year_from_jdn( Field jdn );
 
     protected:
-        Field last_day_in_month( Field year, Field month ) const;
+        Field last_day_in_month( Field year, Field month ) const override;
 
     private:
         Field m_year_offset;
