@@ -133,8 +133,7 @@ namespace glich {
     enum class Norm {
         expand,     // Add missing days to the next unit.
         expand_min, // Go to the start of the next unit.
-        truncate,   // Truncate the current unit.
-        average     // Add the average number of days for the unit.
+        truncate    // Truncate the current unit.
     };
 
     // Relative date functions
