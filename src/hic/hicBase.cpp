@@ -212,4 +212,52 @@ BoolVec Base::mark_balanced_fields(
     return mask;
 }
 
+// Normalises the day and month fields in the given FieldVec.
+// It assumes that the scheme record has 3 default fields,
+// nominally: year, month and day.
+bool Base::normalise( FieldVec& fields, Norm norm ) const
+{
+    // Normalises for days in month.
+    if( fields.size() < 3 ) {
+        return false; // Not enough fields to normalise.
+    }
+    if( fields[0] < f_minimum || fields[0] > f_maximum ||
+        fields[1] == f_invalid || fields[2] == f_invalid ) {
+        return false; // no change.
+    }
+    Field last_month = get_end_field_value( fields, 1 );
+    if( fields[1] > last_month ) {
+        fields[0]++; // Increment year
+        fields[1] = get_end_field_value( fields, 1 ) - fields[1];
+    }
+    last_month = get_beg_field_value( fields, 1 );  
+    Field last_day = get_end_field_value( fields, 2 );
+    if( fields[2] > last_day ) {
+        switch( norm )
+        {
+        case Norm::expand:
+            fields[1]++;
+            if( fields[1] > last_month ) {
+                fields[1] = get_beg_field_value( fields, 1 );
+            }
+            fields[2] = get_end_field_value( fields, 2 ) - fields[2];
+            break;
+        case Norm::expand_min:
+            fields[1]++;
+            if( fields[1] > last_month ) {
+                fields[1] = get_beg_field_value( fields, 1 );
+            }
+            fields[2] = get_beg_field_value( fields, 2 );
+            break;
+        case Norm::truncate:
+            fields[2] = last_day;
+            break;
+        default:
+            return false; // No change
+        }
+        return true;
+    }
+    return false;
+}
+
 // End of src/glc/hicBase.cpp file

@@ -93,7 +93,7 @@ namespace glich {
         // Individual values are assumed valid
         // ie For Gregorian calendar, r[2] = 31 is a valid but not if r[1] = 2.
         // Return true if value adjusted or false if no change.
-        virtual bool normalise( FieldVec& fields, Norm norm ) const { return false; }
+        virtual bool normalise( FieldVec& fields, Norm norm ) const;
 
     protected:
         virtual Field last_day_in_month( Field year, Field month ) const { return f_invalid; }
