@@ -32,6 +32,8 @@
 
 namespace glich {
 
+    class Scheme;
+
     SValue hic_at_date( const StdStrVec& quals, const SValueVec& args, std::ostream& outs );
     SValue hic_at_text( const StdStrVec& quals, const SValueVec& args );
     SValue hic_at_scheme( const StdStrVec& quals, const SValueVec& args, std::ostream& outs );
@@ -45,6 +47,9 @@ namespace glich {
     SValue hic_at_age( const StdStrVec& quals, const SValueVec& args, std::ostream& outs );
     SValue hic_at_dob( const StdStrVec& quals, const SValueVec& args, std::ostream& outs );
 
+    // Scheme object functions.
+    SValue hic_sch_at_pseudo_in( const Scheme* sch, const SValueVec& args );
+    SValue hic_sch_at_pseudo_out( const Scheme* sch, const SValueVec& args );
 }
 
 #endif // SRC_HIC_HICATFUNCTION_H   

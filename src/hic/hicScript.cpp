@@ -189,30 +189,29 @@ bool HicScript::do_format( Grammar* gmr )
 
 SValue HicScript::do_object_at( bool& success, Object* obj, const string& fcode, const SValue& left )
 {
+    enum class of {
+        pseudo_in, pseudo_out, name, normalise
+    };
+    const static std::map<string, of> ofmap = {
+        { "pseudo_in", of::pseudo_in }, { "pseudo_out", of::pseudo_out }, { "name", of::name }
+    };
+
     Scheme* sch = dynamic_cast<Scheme*>(obj);
     if( sch == nullptr ) {
        return Script::do_object_at( success, obj, fcode, left );
     }
-    SValueVec args = get_args( GetToken::current );
-    SValue value;
-    if( !args.empty() ) {
-        value = args[0];
-    }
-    success = true;
-    if( fcode == "pseudo_in" && value.type() == SValue::Type::String ) {
-        Format* fmt = sch->get_input_format( value.get_str() );
-        if( fmt ) {
-            return SValue( fmt->get_input_str() );
+    auto fnum = ofmap.find( fcode );
+    if( fnum != ofmap.end() ) {
+        success = true;
+        StdStrVec quals = get_qualifiers( GetToken::current );
+        SValueVec args = get_args( GetToken::current );
+        switch( fnum->second )
+        {
+        case of::pseudo_in: return hic_sch_at_pseudo_in( sch, args );
+        case of::pseudo_out: return hic_sch_at_pseudo_out( sch, args );
+        case of::name: return SValue( sch->get_name() );
+        default: break;
         }
-    }
-    if( fcode == "pseudo_out" && value.type() == SValue::Type::String ) {
-        Format* fmt = sch->get_output_format( value.get_str() );
-        if( fmt ) {
-            return SValue( fmt->get_output_str() );
-        }
-    }
-    if( fcode == "name" ) {
-        return SValue( sch->get_name() );
     }
     success = false;
     return SValue();

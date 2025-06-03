@@ -745,4 +745,30 @@ SValue glich::hic_at_dob( const StdStrVec& quals, const SValueVec& args, std::os
     return SValue( range );
 }
 
+SValue glich::hic_sch_at_pseudo_in( const Scheme* sch, const SValueVec& args )
+{
+    Format* fmt = nullptr;
+    if( !args.empty() && args[0].type() == SValue::Type::String ) {
+        string fcode = args[0].get_str();
+        fmt = sch->get_input_format( fcode );
+    }
+    if( fmt == nullptr ) {
+        return SValue::create_error( "Format not found." );
+    }
+    return SValue( fmt->get_input_str() );
+}
+
+SValue glich::hic_sch_at_pseudo_out( const Scheme* sch, const SValueVec& args )
+{
+    Format* fmt = nullptr;
+    if( !args.empty() && args[0].type() == SValue::Type::String ) {
+        string fcode = args[0].get_str();
+        fmt = sch->get_output_format( fcode );
+    }
+    if( fmt == nullptr ) {
+        return SValue::create_error( "Format not found." );
+    }
+    return SValue( fmt->get_output_str() );
+}
+
 // End of src/hic/hicAtFunction.cpp file
