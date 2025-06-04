@@ -83,6 +83,16 @@ namespace glich {
         return names[index];
     }
 
+    inline Norm norm_from_string( const std::string& str )
+    {
+        if( str == "expand:min" ) {
+            return Norm::expand_min;
+        }
+        if( str == "truncate" ) {
+            return Norm::truncate;
+        }
+        return Norm::expand;
+    }
 }
 
 #endif // SRC_GLC_HICHELPER_H_GUARD
