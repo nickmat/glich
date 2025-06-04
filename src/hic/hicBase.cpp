@@ -225,13 +225,15 @@ bool Base::normalise( FieldVec& fields, Norm norm ) const
         fields[1] == f_invalid || fields[2] == f_invalid ) {
         return false; // no change.
     }
+    bool ret = false;
     Field last_month = get_end_field_value( fields, 1 );
+    Field last_day = get_end_field_value( fields, 2 );
+    Field excess = fields[2] - last_day;
     if( fields[1] > last_month ) {
         fields[0]++; // Increment year
         fields[1] = get_end_field_value( fields, 1 ) - fields[1];
+        ret = true;
     }
-    last_month = get_beg_field_value( fields, 1 );  
-    Field last_day = get_end_field_value( fields, 2 );
     if( fields[2] > last_day ) {
         switch( norm )
         {
@@ -240,7 +242,7 @@ bool Base::normalise( FieldVec& fields, Norm norm ) const
             if( fields[1] > last_month ) {
                 fields[1] = get_beg_field_value( fields, 1 );
             }
-            fields[2] = get_end_field_value( fields, 2 ) - fields[2];
+            fields[2] = get_beg_field_value( fields, 2 ) + excess - 1;
             break;
         case Norm::expand_min:
             fields[1]++;
@@ -255,9 +257,9 @@ bool Base::normalise( FieldVec& fields, Norm norm ) const
         default:
             return false; // No change
         }
-        return true;
+        ret = true;
     }
-    return false;
+    return ret;
 }
 
 // End of src/glc/hicBase.cpp file
