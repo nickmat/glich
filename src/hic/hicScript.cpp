@@ -189,11 +189,13 @@ bool HicScript::do_format( Grammar* gmr )
 
 SValue HicScript::do_object_at( bool& success, Object* obj, const string& fcode, const SValue& left )
 {
+    assert( left.type() == SValue::Type::Object );
     enum class of {
         pseudo_in, pseudo_out, name, normalise
     };
     const static std::map<string, of> ofmap = {
-        { "pseudo_in", of::pseudo_in }, { "pseudo_out", of::pseudo_out }, { "name", of::name }
+        { "pseudo_in", of::pseudo_in }, { "pseudo_out", of::pseudo_out }, { "name", of::name },
+        { "normalise", of::normalise }, { "normalize", of::normalise }
     };
 
     Scheme* sch = dynamic_cast<Scheme*>(obj);
@@ -210,6 +212,7 @@ SValue HicScript::do_object_at( bool& success, Object* obj, const string& fcode,
         case of::pseudo_in: return hic_sch_at_pseudo_in( sch, args );
         case of::pseudo_out: return hic_sch_at_pseudo_out( sch, args );
         case of::name: return SValue( sch->get_name() );
+        case of::normalise: return hic_sch_at_normalise( sch, quals, left );
         default: break;
         }
     }

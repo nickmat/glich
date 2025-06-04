@@ -50,6 +50,7 @@ namespace glich {
     // Scheme object functions.
     SValue hic_sch_at_pseudo_in( const Scheme* sch, const SValueVec& args );
     SValue hic_sch_at_pseudo_out( const Scheme* sch, const SValueVec& args );
+    SValue hic_sch_at_normalise( const Scheme* sch, const StdStrVec& qual, const SValue& left );
 }
 
 #endif // SRC_HIC_HICATFUNCTION_H   

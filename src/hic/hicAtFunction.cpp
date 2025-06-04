@@ -771,4 +771,20 @@ SValue glich::hic_sch_at_pseudo_out( const Scheme* sch, const SValueVec& args )
     return SValue( fmt->get_output_str() );
 }
 
+SValue glich::hic_sch_at_normalise( const Scheme* sch, const StdStrVec& qual, const SValue& left )
+{
+    Norm norm = Norm::expand;
+    if( !qual.empty() ) {
+        norm = norm_from_string( qual[0] );
+    }
+    Record record( sch->get_base(), left );
+    FieldVec& fields = record.get_field_vec();
+    const Base& base = sch->get_base();
+    if( base.normalise( fields, norm ) ) {
+        record.calc_jdn();
+    }
+    return record.get_object( left.get_object_code() );
+}
+
+
 // End of src/hic/hicAtFunction.cpp file
