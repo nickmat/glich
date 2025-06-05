@@ -1,0 +1,10 @@
+// suite/hics-lib/sch-fun/sch-normal001.glcs
+
+write nl;
+write {s:g 2025,2,30}@normalise.expand nl;
+write {s:g 2025,2,30}@normalise.expand:min nl;
+write {s:g 2025,4,31}@normalise.expand:min nl;
+
+/*[OUTPUT]
+{s:g 2025,3,2}
+[OUTPUT]*/
