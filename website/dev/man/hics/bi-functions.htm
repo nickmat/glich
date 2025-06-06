@@ -39,13 +39,13 @@
 
 <table class='basic'>
 <tr><th>Group</th><th>Functions</th></tr>
-<tr><td>Date Representation</td><td>@date, @text, @scheme, @element, @phrase</td></tr>
-<tr><td>Moveable Days</td><td>@easter</td></tr>
-<tr><td>Scheme Details</td><td>@sch:list, @sch:object, @first, @last</td></tr>
-<tr><td>Format Details</td><td>@fmt:object</td></tr>
+<tr><td><a href='#date-rep'>Date Representation</a></td><td>@date, @text, @scheme, @element, @phrase</td></tr>
+<tr><td><a href='#move-days'>Moveable Days</a></td><td>@easter</td></tr>
+<tr><td><a href='#sch-data'>Scheme Details</a></td><td>@sch:list, @sch:object, @leapyear, @first, @last</td></tr>
+<tr><td><a href='#fmt-data'>Format Details</a></td><td>@fmt:object</td></tr>
 </table>
 
-<h3>Date Representation</h3>
+<h3 id='date-rep'>Date Representation</h3>
 <p>
  The hics extension can uniquely describe a single day in Earth's past or future
  in three different ways.
@@ -193,7 +193,7 @@
  <tr><td colspan='2'>The above examples assume a system input and output setting of "g:dmy" and today = 10 Nov 2023.</td></tr>
 </table>
 
-<h3>Moveable Days</h3>
+<h3 id='move-days'>Moveable Days</h3>
 
 <table class='basic'>
 <tr><th>Function</th><th>Description</th></tr>
@@ -213,19 +213,20 @@
  <tr><td class='example'>@easter.julian( 1750 )</td><td class='example'>2360350</td></tr>
 </table>
 
-<h3>Scheme Details</h3>
+<h3 id='sch-data'>Scheme Details</h3>
 
 <table class='basic'>
 <tr><th>Function</th><th>Description</th></tr>
 <tr><td>@<b>sch:list</b></td><td>Returns an object with a list of available scheme codes (scodes).</td></tr>
 <tr><td>@<b>sch:object</b>.<i>scode</i></td><td>Returns a sch: object detailing the scheme.</td></tr>
+<tr><td>@<b>leapyear</b>.<i>scode</i>( <i>year</i> )</td><td>Returns 'true' if the year is a leap year, otherwise 'false'</td></tr>
 <tr><td>@<b>first</b></td><td>First value of scheme record field. Development</td></tr>
 <tr><td>@<b>last</b></td><td>Last value of scheme record field. Development</td></tr>
 </table>
 
 <h4>Function: @sch:list</h4>
 <p>
- Function returns a list of available scheme codes (scodes).
+ Function returns an object containing a list of available scheme codes (scodes).
 </p>
 <table class='basic'>
 <tr><th>Example</th><th>Result</th></tr>
@@ -243,7 +244,14 @@
  <tr><td class='example'>@sch:object.jce[fieldnames]</td><td class='example' style='white-space: normal'>{: "year", "month", "day", "ce", "ceyear", "wday"}</td></tr>
 </table>
 
-<h3>Format Details</h3>
+<h4>Function: @leapyear</h4>
+<p>
+ If the calendar is a lunar-solar calendar type, then if there are 13 months in the year, the function returns true.
+ If the calendar is a solar calendar type, the function returns true if there is an extra day in the year.
+ For every other situation, the function returns false.
+</p>
+
+<h3 id='fmt-data'>Format Details</h3>
 
 <table class='basic'>
 <tr><th>Function</th><th>Description</th></tr>
