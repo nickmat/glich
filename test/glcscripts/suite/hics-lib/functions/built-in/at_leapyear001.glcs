@@ -1,0 +1,22 @@
+// at-leapyear001.glcs  Test scheme functions
+
+
+write nl;
+write @leapyear.gregorian(1900) nl;
+write @leapyear.gregorian(2024) nl;
+write @leapyear.gregorian(2025) nl;
+write @leapyear.julian(2024) nl;
+write @leapyear.julian(2025) nl;
+write @leapyear(2025) nl;
+
+
+/*[OUTPUT]
+
+false
+true
+false
+true
+false
+Error (10): @leapyear requires a qualifier.
+
+[OUTPUT]*/
