@@ -6,5 +6,9 @@ write {s:g 2025,2,30}@normalise.expand:min nl;
 write {s:g 2025,4,31}@normalise.expand:min nl;
 
 /*[OUTPUT]
-{s:g 2025,3,2}
+
+{s:g 2025, 3, 2, 7}
+{s:g 2025, 3, 1, 6}
+{s:g 2025, 5, 1, 4}
+
 [OUTPUT]*/
