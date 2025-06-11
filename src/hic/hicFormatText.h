@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     21st March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -76,7 +76,6 @@ namespace glich {
         std::string m_control_in;
         std::string m_control_out;
         std::string m_separators;
-//        bool m_shorthand; // Shorthand range allowed
 
         StdStrVec   m_default_fieldnames;
         StdStrVec   m_rank_fieldnames;
