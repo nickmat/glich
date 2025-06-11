@@ -128,13 +128,16 @@ Field Gregorian::get_jdn( const FieldVec& fields ) const
     if( fields.size() < 3 || fields[0] == f_invalid || fields[1] == f_invalid || fields[2] == f_invalid ) {
         return f_invalid;
     }
-    return gregorian_to_jdn( fields[0], fields[1], fields[2] );
+    Field year = fields[0] + m_year_offset;
+    return gregorian_to_jdn( year, fields[1], fields[2] );
 }
 
 FieldVec Gregorian::get_fields( Field jdn ) const
 {
     FieldVec fields( record_size(), f_invalid );
-    gregorian_from_jdn( &fields[0], &fields[1], &fields[2], jdn );
+    Field year = f_invalid;
+    gregorian_from_jdn( &year, &fields[1], &fields[2], jdn );
+    fields[0] = year - m_year_offset;
     return fields;
 }
 

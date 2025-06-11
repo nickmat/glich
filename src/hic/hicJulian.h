@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -55,8 +55,6 @@ namespace glich {
 
     protected:
         Field last_day_in_month( Field year, Field month ) const override;
-
-    private:
         Field m_year_offset;
     };
 
