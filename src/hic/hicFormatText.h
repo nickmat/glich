@@ -66,6 +66,7 @@ namespace glich {
         bool is_significant_rank_name( const std::string& fieldname ) const;
         void remove_from_rank( const std::string& fieldname );
         bool is_separator( char ch ) const;
+        bool is_padding( const std::string& word ) const;
         CP_Group get_cp_group(
             std::string::const_iterator it,
             std::string::const_iterator end ) const;
@@ -77,6 +78,7 @@ namespace glich {
         std::string m_control_in;
         std::string m_control_out;
         std::string m_separators;
+        StdStrVec   m_padding;
 
         StdStrVec   m_default_fieldnames;
         StdStrVec   m_rank_fieldnames;

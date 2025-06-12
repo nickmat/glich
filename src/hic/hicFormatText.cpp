@@ -109,11 +109,21 @@ void FormatText::setup_control_in()
 {
     ElementControlIn ele;
     bool do_output = true;
-    string input;
+    bool do_padding = false;
+    string input, padding;
     for( auto it = m_control_in.begin(); it != m_control_in.end(); it++ ) {
         if( do_output ) {
             if( *it == '{' ) {
                 do_output = false;
+            }
+            if( *it == ' ' || *it == '{' || *it == '|' || is_separator(*it) ) {
+                if( !padding.empty() ) {
+                    m_padding.push_back( padding );
+                    padding.clear();
+                }
+            }
+            else {
+                padding += *it;
             }
             continue;
         }
@@ -381,6 +391,16 @@ bool FormatText::is_separator( char ch ) const
     return false;
 }
 
+bool FormatText::is_padding( const string& word ) const
+{
+    for( const string& pad : m_padding ) {
+        if( word == pad ) {
+            return true;
+        }
+    }
+    return false;
+}
+
 FormatText::CP_Group FormatText::get_cp_group(
     string::const_iterator it, string::const_iterator end ) const
 {
@@ -431,7 +451,7 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
     if( str.empty() ) {
         return 0;
     }
-    string token;
+    string token, word;
     CP_Group grp, prev_grp, token_grp;
     auto it = str.begin();
     grp = prev_grp = token_grp = get_cp_group( it, str.end() );
@@ -442,6 +462,10 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
     size_t size = ifs.size();
     for( size_t i = 0;;) {
         if( grp != prev_grp ) {
+            if( !word.empty() && !is_padding(word) ) {
+                token += word;
+            }
+            word.clear();
             token = full_trim( token );
             if( token.size() ) {
                 if( token_grp == CP_Group::Digit ) {
@@ -495,8 +519,20 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
         if( done ) {
             return int( i );
         }
-        if( token_grp == CP_Group::Digit || token_grp == CP_Group::Other ) {
+        if( token_grp == CP_Group::Digit ) {
             token += *it;
+        }
+        if( token_grp == CP_Group::Other ) {
+            if( *it == ' ' ) {
+                if( is_padding( word ) ) {
+                    grp = CP_Group::Sep;
+                }
+                else {
+                    token += word + " ";
+                }
+                word.clear();
+            }
+            word += *it;
         }
         it++;
         if( grp != CP_Group::Digit && grp != CP_Group::Dual ) dual = false;
