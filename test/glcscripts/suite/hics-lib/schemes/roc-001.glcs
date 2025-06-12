@@ -1,0 +1,14 @@
+// hics-lib/schemes/roc-001.glcs - Test Republic of Chinese Calendar scheme.
+
+write nl;
+write @text.roc:ymd( 2460838 ), @scheme.roc( 2460838 ) nl;
+write @date.roc:ymd( "ROC 114-6-11" ),  @scheme.roc:ymd( "ROC 114-6-11" ) nl;
+write @text.:ymd( {s:roc 114, 6, 11} ), @date( {s:roc 114, 6, 11} ) nl;
+
+/*[OUTPUT]
+
+ROC 114-06-11, {s:roc 114, 6, 11}
+2460838, {s:roc 114, 6, 11}
+ROC 114-06-11, 2460838
+
+[OUTPUT]*/
