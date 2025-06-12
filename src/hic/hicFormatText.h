@@ -65,6 +65,7 @@ namespace glich {
 
         bool is_significant_rank_name( const std::string& fieldname ) const;
         void remove_from_rank( const std::string& fieldname );
+        bool is_separator( char ch ) const;
         CP_Group get_cp_group(
             std::string::const_iterator it,
             std::string::const_iterator end ) const;

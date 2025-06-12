@@ -371,6 +371,16 @@ void FormatText::remove_from_rank( const string& fieldname )
     }
 }
 
+bool FormatText::is_separator( char ch ) const
+{
+    for( auto sit = m_separators.begin(); sit != m_separators.end(); sit++ ) {
+        if( ch == *sit ) {
+            return true;
+        }
+    }
+    return false;
+}
+
 FormatText::CP_Group FormatText::get_cp_group(
     string::const_iterator it, string::const_iterator end ) const
 {
@@ -378,10 +388,8 @@ FormatText::CP_Group FormatText::get_cp_group(
     if( ch < 0 ) {  // eliminate non-ascii 
         return CP_Group::Other;
     }
-    for( string::const_iterator sit = m_separators.begin(); sit != m_separators.end(); sit++ ) {
-        if( *it == *sit ) {
-            return CP_Group::Sep;
-        }
+    if( is_separator( ch ) ) {
+        return CP_Group::Sep;
     }
     if( ch == '-' ) {
         // If hyphen is followed by a digit treat as digit
