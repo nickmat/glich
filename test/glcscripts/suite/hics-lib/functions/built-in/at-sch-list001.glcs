@@ -8,7 +8,7 @@ write list nl;
 
 /*[OUTPUT]
 
-22
-{: "ay", "c", "eh", "fr", "g", "go", "gw", "h", "i", "if", "ims", "j", "ja", "jap", "jce", "jdn", "je", "jn", "jwn", "jwsn", "mjd", "rd"}
+23
+{: "ay", "c", "eh", "fr", "g", "go", "gw", "h", "i", "if", "ims", "j", "ja", "jap", "jce", "jdn", "je", "jn", "jwn", "jwsn", "mjd", "rd", "roc"}
 
 [OUTPUT]*/
