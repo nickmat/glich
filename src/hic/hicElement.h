@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     19th March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -51,7 +51,7 @@ namespace glich {
         std::string get_lcode() const { return m_lcode; }
 
         std::string get_formatted_element( Field field );
-        Field get_converted_field( Glich* glc, const std::string& str ) const;
+        Field get_converted_field( const std::string& str ) const;
 
         bool has_dual_field_name() const { return !m_dual_field_name.empty(); }
         bool is_text_only() const { return m_text_only; }

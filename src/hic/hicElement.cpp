@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     19th March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -144,7 +144,7 @@ string Element::get_formatted_element( Field field )
     return result;
 }
 
-Field Element::get_converted_field( Glich* glc, const string& str ) const
+Field Element::get_converted_field( const string& str ) const
 {
     if ( m_lcode.empty() && m_spec.empty() ) {
         return str_to_field( str );

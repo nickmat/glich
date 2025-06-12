@@ -337,7 +337,7 @@ SValue glich::hic_at_element( const StdStrVec& quals, const SValueVec& args )
         value.set_str( element );
     }
     else if( value.type() == SValue::Type::String ) {
-        value.set_field( ele.get_converted_field( &glc(), value.get_str() ) );
+        value.set_field( ele.get_converted_field( value.get_str() ) );
     }
     else {
         value.set_error( "Element requires field like or string type." );
