@@ -7,7 +7,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     1st April 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -114,6 +114,10 @@ glich::StdStrMap glich::hics_default_scripts = {
  "lexicon cstem cbrch animal lmon fs;\n"
  "grammar c;\n"
  "scheme c;\n"
+ "}\n"
+ "module hics:roc {\n"
+ "grammar roc;\n"
+ "scheme roc;\n"
  "}\n"
  "set inout g;\n" },
     { "jdn",  /* jdn.glcs */
@@ -894,6 +898,20 @@ glich::StdStrMap glich::hics_default_scripts = {
  "name \"Chinese\";\n"
  "base chinese;\n"
  "grammar c;\n"
+ "}\n" },
+    { "roc",  /* roc.glcs */
+ "grammar roc {\n"
+ "name \"Republic of China\";\n"
+ "fields year month day;\n"
+ "format ymd {\n"
+ "separators \"-\";\n"
+ "inout \"ROC {year::lp:03}|-{month::lp:02}|-{day::lp:02}\";\n"
+ "}\n"
+ "}\n"
+ "scheme roc {\n"
+ "name \"Republic of China (Gregorian)\";\n"
+ "base gregorian year:1911;\n"
+ "grammar roc;\n"
  "}\n" },
 };
 

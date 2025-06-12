@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     1st April 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -93,6 +93,10 @@ module hics:chinese {
     lexicon cstem cbrch animal lmon fs;
     grammar c;
     scheme c;
+}
+module hics:roc {
+    grammar roc;
+    scheme roc;
 }
 
 set inout g; // Set Gregorian as the default input and output scheme.
