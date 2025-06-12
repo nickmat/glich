@@ -1,0 +1,29 @@
+// hics/schemes/roc-02.glcs - Test Republic of Chinese Calendar scheme.
+
+grammar ROC {
+    fields year month day;
+    format ymd {
+        separators "-";
+        inout "ROC {year}|-{month}|-{day}";
+    }
+}
+
+scheme ROC {
+    name "Republic of Chinese";
+    base gregorian year:1911;
+    grammar ROC;
+}
+
+
+write nl;
+write @text.ROC:ymd( 2460838 ), @scheme.ROC( 2460838 ) nl;
+write @date.ROC:ymd( "ROC 114-6-11" ),  @scheme.ROC:ymd( "ROC 114-6-11" ) nl;
+write @text.:ymd( {s:ROC 114, 6, 11} ), @date( {s:ROC 114, 6, 11} ) nl;
+
+/*[OUTPUT]
+
+ROC 114-6-11, {s:ROC 114, 6, 11}
+2460838, {s:ROC 114, 6, 11}
+ROC 114-6-11, 2460838
+
+[OUTPUT]*/
