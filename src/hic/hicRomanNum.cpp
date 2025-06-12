@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -126,6 +126,24 @@ Field glich::convert_roman_numerals( const string& num )
         result += curr;
     }
     return result;
+}
+
+bool glich::is_roman_numeral( const string& str )
+{
+    bool decimal = false;
+    for( auto it = str.begin(); it != str.end(); it++ ) {
+        if( get_roman_value( *it, decimal ) == f_invalid ) {
+            return false;
+        }
+    }
+    if( str.empty() ) {
+        return false;
+    }
+    Field value = convert_roman_numerals( str );
+    if( value == f_invalid ) {
+        return false;
+    }
+    return true;
 }
 
 
