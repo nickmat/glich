@@ -1,0 +1,75 @@
+// roc-002.glcs  Create Republic of China Gregorian scheme format table.
+
+let sch = "roc";
+
+let d1 = 2459984;
+
+let so = @sch:object.(sch);
+let sfl = so[formats];
+let size = @size( sfl );
+
+write nl;
+write "<table class='basic data'>" nl;
+write "<tr><th colspan='6'>Formats - Grammar " + so[grammar] + "</th></tr>" nl;
+write "<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>" nl;
+
+let index = 0;
+do
+    let fmt = sfl[(index)];
+    let sig = sch + ":" + fmt;
+    let fo = @fmt:object.(sig);
+    let note = @if(fo[visible], "", "H");
+    if so[default:in] = fmt or so[default:out] = fmt
+        if @size( note ) > 0
+            note += ", ";
+        endif
+        note += "D";
+    endif
+    if fo[shorthand]
+        if @size( note ) > 0
+            note += ", ";
+        endif
+        note += "S";
+    endif
+        
+    let row = "<tr><td><b>" + fo[code] + "</b></td>"
+      + "<td>" +fo[rules] + "</td>"
+      + "<td>" + fo[pseudo:in] + "</td>"
+      + "<td>" + fo[pseudo:out] + "</td>"
+      + "<td class='example'>" + @text.(sig)(d1) + "</td>"
+      + "<td>" + note + "</td></tr>";
+
+    write row nl;
+
+    index += 1;
+    until index = size;
+loop
+
+write "<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported." nl;
+write "Example based on jdn# " + d1 + "</td></tr>" nl;
+write "</table>" nl;
+
+
+/*[OUTPUT]
+
+<table class='basic data'>
+<tr><th colspan='6'>Formats - Grammar j</th></tr>
+<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>dmy</b></td><td>text</td><td>day month year</td><td>dd Mon yyyy</td><td class='example'>26 Jan 2061</td><td>D, S</td></tr>
+<tr><td><b>dmy+</b></td><td>text</td><td>day month year</td><td>dd Month yyyy</td><td class='example'>26 January 2061</td><td>S</td></tr>
+<tr><td><b>wdmy</b></td><td>text</td><td>wday day month year</td><td>Wday dd Mon yyyy</td><td class='example'>Wed 26 Jan 2061</td><td></td></tr>
+<tr><td><b>wdmy+</b></td><td>text</td><td>wday day month year</td><td>Weekday dd Month yyyy</td><td class='example'>Wednesday 26 January 2061</td><td></td></tr>
+<tr><td><b>out</b></td><td>text</td><td></td><td>ddth Month yyyy</td><td class='example'>26th January 2061</td><td>S</td></tr>
+<tr><td><b>full</b></td><td>text</td><td></td><td>Weekday ddth Month yyyy</td><td class='example'>Wednesday 26th January 2061</td><td></td></tr>
+<tr><td><b>mdy</b></td><td>text</td><td>month day year</td><td>Mon dd, yyyy</td><td class='example'>Jan 26, 2061</td><td>S</td></tr>
+<tr><td><b>mdy+</b></td><td>text</td><td>month day year</td><td>Month dd, yyyy</td><td class='example'>January 26, 2061</td><td>S</td></tr>
+<tr><td><b>wmdy</b></td><td>text</td><td>wday month day year</td><td>Wday, Mon dd, yyyy</td><td class='example'>Wed, Jan 26, 2061</td><td></td></tr>
+<tr><td><b>wmdy+</b></td><td>text</td><td>wday month day year</td><td>Weekday, Month dd, yyyy</td><td class='example'>Wednesday, January 26, 2061</td><td></td></tr>
+<tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>yyyy:Mon:dd</td><td class='example'>2061:Jan:26</td><td>S</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2061 1 26</td><td>H, S</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>2061y 1m 26d</td><td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
+Example based on jdn# 2459984</td></tr>
+</table>
+
+[OUTPUT]*/
