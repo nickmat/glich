@@ -34,6 +34,8 @@
 #include "hicLexicon.h"
 #include "hicRecord.h"
 
+#include <utf8/utf8api.h>
+
 #include <algorithm>
 #include <cassert>
 
@@ -118,7 +120,8 @@ void FormatText::setup_control_in()
             }
             if( *it == ' ' || *it == '{' || *it == '|' || is_separator(*it) ) {
                 if( !padding.empty() ) {
-                    m_padding.push_back( padding );
+                    string key = Utf8api::normal( padding );
+                    m_padding.push_back( key );
                     padding.clear();
                 }
             }
@@ -393,8 +396,9 @@ bool FormatText::is_separator( char ch ) const
 
 bool FormatText::is_padding( const string& word ) const
 {
+    string key = Utf8api::normal( word );
     for( const string& pad : m_padding ) {
-        if( word == pad ) {
+        if( key == pad ) {
             return true;
         }
     }
