@@ -2,12 +2,28 @@
 
 write nl;
 write @text.roc:ymd( 2460838 ), @scheme.roc( 2460838 ) nl;
-write @date.roc:ymd( "ROC 114-6-11" ),  @scheme.roc:ymd( "ROC 114-6-11" ) nl;
+write @date.roc:ymd( "ROC 114/6/11" ),  @scheme.roc:ymd( "ROC 114/6/11" ) nl;
 write @text.:ymd( {s:roc 114, 6, 11} ), @date( {s:roc 114, 6, 11} ) nl;
+write nl;
+write @text."roc:ymd."( 2460838 ), @scheme.roc( 2460838 ) nl;
+write @date."roc:ymd."( "ROC 114.6.11" ),  @scheme."roc:ymd."( "ROC 114.6.11" ) nl;
+write @text."roc:ymd."( {s:roc 114, 6, 11} ), @date( {s:roc 114, 6, 11} ) nl;
+write nl;
+write @text.roc:cns7648( 2460838 ), @scheme.cns7648( 2460838 ) nl;
+write @date.roc:cns7648( "ROC 114-6-11" ),  @scheme.roc:cns7648( "ROC 114-6-11" ) nl;
+write @text.:cns7648( {s:roc 114, 6, 11} ), @date( {s:roc 114, 6, 11} ) nl;
 
 /*[OUTPUT]
 
-ROC 114-06-11, {s:roc 114, 6, 11}
+ROC 114/6/11, {s:roc 114, 6, 11}
+2460838, {s:roc 114, 6, 11}
+ROC 114/6/11, 2460838
+
+ROC 114.6.11, {s:roc 114, 6, 11}
+2460838, {s:roc 114, 6, 11}
+ROC 114.6.11, 2460838
+
+ROC 114-06-11, {s:g 2025, 6, 11, 3}
 2460838, {s:roc 114, 6, 11}
 ROC 114-06-11, 2460838
 
