@@ -88,12 +88,25 @@
 <table class='basic data'>
 <tr><th colspan='6'>Formats - Grammar roc</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
-<tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>ROC 000-00-00</td><td class='example'>ROC 112-02-08</td><td>S</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>year month day</td><td class='example'>112 2 8</td><td>H, D, S</td></tr>
-<tr><td><b>u</b></td><td>unit</td><td>9year 9month 9day</td><td>9year 9month 9day</td><td class='example'>112year 2month 8day</td><td>H</td></tr>
+<tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>ROC yyy/mm/dd</td><td class='example'>ROC 114/6/14</td><td>D, S</td></tr>
+<tr><td><b>ymd.</b></td><td>text</td><td>year month day</td><td>ROC yyy.mm.dd</td><td class='example'>ROC 114.6.14</td><td>S</td></tr>
+<tr><td><b>cns7648</b></td><td>text</td><td>yyy-mm-dd</td><td>ROC yyy-mm-dd</td><td class='example'>ROC 114-06-14</td><td>S</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyy mm dd</td><td class='example'>114 6 14</td><td>H, S</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>114y 6m 14d</td><td>H</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
-Example based on jdn# 2459984</td></tr>
+Example based on jdn# 2460841</td></tr>
 </table>
+
+<p>
+ The <b>cns7648</b> format is based on the
+ National Standards of the Republic of China CNS 7648
+ which is similar to the ISO 8601 standard.
+ This is implemented using <b>text</b> rules with the hyphan '-'
+ as a separator.
+ This is the same as the minus character
+ which means it is not possible to show negative years.
+ Therefore proleptic dates are not available with this format.
+</p>
 
 <h3>Script</h3>
 <table class='code lfloat'>
@@ -102,10 +115,23 @@ Example based on jdn# 2459984</td></tr>
 >grammar roc {
     name "Republic of China";
     fields year month day;
+    alias pseudo { dd day; mm month; yyy year; }
+    alias unit { d day; m month; y year; }
     format ymd {
+        separators "/,:";
+        inout "ROC {year}|/{month}|/{day}";
+    }
+    format "ymd." {
+        separators ".,:";
+        inout "ROC {year}|.{month}|.{day}";
+    }
+    format cns7648 {
         separators "-";
         inout "ROC {year::lp:03}|-{month::lp:02}|-{day::lp:02}";
+        pseudo:out "ROC yyy-mm-dd";
+        pseudo:in "yyy-mm-dd";
     }
+    preferred ymd;
 }
 scheme roc {
     name "Republic of China (Gregorian)";
