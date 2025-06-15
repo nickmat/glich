@@ -1,0 +1,14 @@
+// hics-lib/schemes/roc-003.glcs - Test Republic of Chinese Calendar scheme.
+
+write nl;
+write @date.roc("ROC 114/6/14"), @text.roc( 2460841 ) nl;
+write @date.roc("ROC 114/6"), @text.roc( 2460828..2460857 ) nl;
+write @date.roc("ROC 114"), @text.roc( 2460677..2461041 ) nl;
+
+/*[OUTPUT]
+
+2460841, ROC 114/6/14
+2460828..2460857, ROC 114/6
+2460677..2461041, ROC 114
+
+[OUTPUT]*/
