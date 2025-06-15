@@ -471,7 +471,7 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
             }
             word.clear();
             token = full_trim( token );
-            if( token.size() ) {
+            if( !token.empty() ) {
                 if( token_grp == CP_Group::Digit ) {
                     if( grp == CP_Group::Dual ) {
                         ifs[i].value = str_to_field( token );
