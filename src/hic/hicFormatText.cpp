@@ -33,6 +33,7 @@
 #include "hicElement.h"
 #include "hicLexicon.h"
 #include "hicRecord.h"
+#include "hicRomanNum.h"
 
 #include <utf8/utf8api.h>
 
@@ -44,7 +45,8 @@ using std::string;
 
 
 FormatText::FormatText( const string& code, Grammar& gmr )
-    : Format( code, gmr, FmtRules::Text ), m_separators(":,"), m_sig_rank_size(0)
+    : Format( code, gmr, FmtRules::Text ), m_separators(":,"),
+    m_has_roman(false), m_sig_rank_size(0)
 {
     m_shorthand = true;
 }
@@ -143,6 +145,12 @@ void FormatText::setup_control_in()
             InputFieldType type = ele.get_type();
             if( ele.has_dual_field() ) {
                 type = IFT_dual1;
+            }
+            string spec = ele.get_spec();
+            if( !spec.empty() ) {
+                if( spec == "rn" ) {
+                    m_has_roman = true;
+                }
             }
             string fieldname = ele.get_record_field_name();
             if( !fieldname.empty() ) {

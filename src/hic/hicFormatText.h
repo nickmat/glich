@@ -79,6 +79,7 @@ namespace glich {
         std::string m_control_out;
         std::string m_separators;
         StdStrVec   m_padding;
+        bool        m_has_roman;
 
         StdStrVec   m_default_fieldnames;
         StdStrVec   m_rank_fieldnames;
