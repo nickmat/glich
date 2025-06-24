@@ -61,7 +61,7 @@ namespace glich {
         bool set_input( Record& record, const std::string& input ) const override;
 
     private:
-        enum class CP_Group { Hyphen, Digit, Quest, Dual, Sep, Other };
+        enum class CP_Group { Hyphen, Digit, Number, Quest, Dual, Sep, Other };
 
         bool is_significant_rank_name( const std::string& fieldname ) const;
         void remove_from_rank( const std::string& fieldname );

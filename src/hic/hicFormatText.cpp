@@ -472,6 +472,7 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
     }
     bool done = false, ignore = false, dual = false;
     size_t size = ifs.size();
+    Field field = f_invalid;
     for( size_t i = 0;;) {
         if( grp != prev_grp ) {
             if( !word.empty() && !is_padding(word) ) {
@@ -500,12 +501,19 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
                     }
                 }
                 if( token_grp == CP_Group::Other ) {
-                    Field f = find_token( &(ifs[i].lexicon), token );
-                    if( f == f_invalid ) {
+                    InputFieldType type = IFT_lexicon;
+                    if( m_has_roman && is_roman_numeral( token ) ) {
+                        field = convert_roman_numerals( token );
+                        type = IFT_number;
+                    }
+                    else {
+                        field = find_token( &(ifs[i].lexicon), token );
+                    }
+                    if( field == f_invalid ) {
                         return -1; // Unrecognised token
                     }
-                    ifs[i].value = f;
-                    ifs[i].type = IFT_lexicon;
+                    ifs[i].value = field;
+                    ifs[i].type = type;
                     i++;
                 }
                 if( i == size ) {
@@ -523,6 +531,16 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
                 // Question marks are not grouped
                 prev_grp = CP_Group::Sep;
             }
+            else if( grp == CP_Group::Number ) {
+                ifs[i].value = field;
+                ifs[i].type = IFT_number;
+                i++;
+                if( i == size ) {
+                    return int( i );
+                }
+                // Question marks are not grouped
+                grp = prev_grp = get_cp_group( it, str.end() );
+            }
             else {
                 prev_grp = grp;
             }
@@ -539,6 +557,10 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
                 if( is_padding( word ) ) {
                     grp = CP_Group::Sep;
                 }
+                else if( m_has_roman && is_roman_numeral( word ) ) {
+                    field = convert_roman_numerals( word );
+                    grp = CP_Group::Number;
+                }
                 else {
                     token += word + " ";
                 }
@@ -552,7 +574,7 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
             grp = CP_Group::Sep;
             done = true;
         }
-        else {
+        else if( grp != CP_Group::Number ) {
             grp = get_cp_group( it, str.end() );
         }
     }
