@@ -85,6 +85,9 @@ Field glich::convert_roman_numerals( const string& num )
     Field result = 0, prev = 1001, curr;
     bool dec = false;
     for( auto it = num.begin(); it != num.end(); it++ ) {
+        if( *it == ' ' ) {
+            continue;
+        }
         curr = get_roman_value( *it, dec );
         if( curr == f_invalid ) {
             return f_invalid;
@@ -130,16 +133,17 @@ Field glich::convert_roman_numerals( const string& num )
 
 bool glich::is_roman_numeral( const string& str )
 {
+    string word = full_trim( str );
     bool decimal = false;
-    for( auto it = str.begin(); it != str.end(); it++ ) {
+    for( auto it = word.begin(); it != word.end(); it++ ) {
         if( get_roman_value( *it, decimal ) == f_invalid ) {
             return false;
         }
     }
-    if( str.empty() ) {
+    if( word.empty() ) {
         return false;
     }
-    Field value = convert_roman_numerals( str );
+    Field value = convert_roman_numerals( word );
     if( value == f_invalid ) {
         return false;
     }
