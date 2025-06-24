@@ -1,0 +1,18 @@
+// format007.glcs  Test text format with Roman numerals.
+
+grammar G { 
+    fields year month day;
+    format rn "{day} |{month::rn} |{year}"; 
+}
+
+scheme G { base gregorian; grammar G; }
+
+
+write nl;
+write @text.G:rn( 2460842 ), @date.G:rn("15 VI 2025"), @date.G:rn("15vi2025") nl;
+
+/*[OUTPUT]
+
+15 VI 2025, 2460842, 2460842
+
+[OUTPUT]*/
