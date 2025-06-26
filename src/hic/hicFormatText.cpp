@@ -404,7 +404,10 @@ bool FormatText::is_separator( char ch ) const
 
 bool FormatText::is_padding( const string& word ) const
 {
-    string key = Utf8api::normal( word );
+    if( m_padding.empty() ) {
+        return false;
+    }
+    string key = Utf8api::normal( full_trim( word ) );
     for( const string& pad : m_padding ) {
         if( key == pad ) {
             return true;
