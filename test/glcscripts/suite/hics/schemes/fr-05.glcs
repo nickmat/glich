@@ -1,0 +1,113 @@
+// hics/schemes/fr-05.glcs - Test French Republic standard format
+// Including padding and Roman numerals for years.
+
+lexicon FRNM {
+    name "Normal Month names";
+    fieldname nmonth;
+    lang en;
+    pseudo    Month,  Mon;
+    tokens {
+        1, "Vendémiaire",      "Vend";
+        2, "Brumaire",         "Brum";
+        3, "Frimaire",         "Frim";
+        4, "Nivôse",           "Nivo";
+        5, "Pluviôse",         "Pluv";
+        6, "Ventôse",          "Vent";
+        7, "Germinal",         "Germ";
+        8, "Floréal",          "Flor";
+        9, "Prairial",         "Prai";
+        10, "Messidor",        "Mess";
+        11, "Thermidor",       "Ther";
+        12, "Fructidor",       "Fruc";
+    }
+}
+
+lexicon FRM {
+    name "Month names";
+    inherit FRNM;
+    fieldname month;
+    tokens {
+        13, "Complémentaires", "Comp";
+    }
+}
+
+lexicon FRCOMP {
+    name "Complementary Days";
+    fieldname cday;
+    lang en;
+    pseudo    CompDay,           CDay;
+    tokens {
+        1, "Fête de la Vertu",      "Ver";
+        2, "Fête du Génie",         "Gen";
+        3, "Fête du Travail",       "Trav";
+        4, "Fête de l'Opinion",     "Opin";
+        5, "Fête des Récompenses",  "Rec";
+        6, "Fête de la Révolution", "Rev";
+    }
+}
+
+grammar FR {
+    name "French Republic";
+    fields year month day;
+    calculated nmonth nmday cday, dday;
+    optional wday;
+    rank year nmonth nmday;
+    lexicons FRM, FRNM, FRCOMP;
+    alias pseudo { dd day; mm month; yyyy year; mm nmonth; dd nmday; c cday; d dday; w wday; }
+    alias unit { d day; m month; y year; nm nmonth; nd nmday; cd cday; dd dday; }
+
+    // Record: year month day nmonth nmday cday dday wday
+    function calc_to_def {
+        if cday = null
+            month = nmonth;
+            day = nmday;
+            dday = ( (day - 1) mod 10 ) + 1;
+        else
+            month = 13;
+            day = cday;
+            dday = null;
+        endif
+        result = this;
+    }
+    function def_to_calc {
+        if month <> null
+            if month < 13
+                nmonth = month;
+                nmday = day;
+                cday = null;
+                dday = ( (day - 1) mod 10 ) + 1;
+            else
+                nmonth = null;
+                nmday = null;
+                cday = day;
+                dday = null;
+            endif
+        endif
+        result = this;
+    }
+
+    use { calculate def_to_calc; from:text calc_to_def; }
+
+    format std "{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |an {year::rn}";
+
+    preferred std;
+}
+
+scheme FR {
+    name "French Republic";
+    base french;
+    grammar FR;
+}
+
+
+write nl;
+write @text.FR:std( 2460854 ), @date.FR:std("9 Messidor an CCXXXIII") nl;
+write @text.FR:std( 2460938 ), @date.FR:std("Fête du Travail an CCXXXIII") nl;
+
+
+/*[OUTPUT]
+
+9 Messidor an CCXXXIII, 2460854
+Fête du Travail an CCXXXIII, 2460938
+
+[OUTPUT]*/
