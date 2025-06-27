@@ -558,11 +558,13 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
         if( token_grp == CP_Group::Other ) {
             if( *it == ' ' ) {
                 if( is_padding( word ) ) {
-                    grp = CP_Group::Sep;
+                    grp = CP_Group::Sep; // Ignore padding
+                    ignore = true;
                 }
                 else if( m_has_roman && is_roman_numeral( word ) ) {
                     field = convert_roman_numerals( word );
                     grp = CP_Group::Number;
+                    ignore = true;
                 }
                 else {
                     token += word + " ";
@@ -572,12 +574,20 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
             word += *it;
         }
         it++;
-        if( grp != CP_Group::Digit && grp != CP_Group::Dual ) dual = false;
+        if( grp != CP_Group::Digit && grp != CP_Group::Dual ) {
+            dual = false;
+        }
         if( it == str.end() ) {
             grp = CP_Group::Sep;
             done = true;
         }
-        else if( grp != CP_Group::Number ) {
+        else if( ignore ) {
+                if( grp == CP_Group::Sep ) {
+                    --it;
+                }
+                ignore = false;
+            }
+        else {
             grp = get_cp_group( it, str.end() );
         }
     }
