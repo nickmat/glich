@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     20th June 2024
- * Copyright:   Copyright (c) 2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2024..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -148,9 +148,7 @@ grammar fr {
     }
     format  cdmy   "{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
     format "cdmy-" "{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
-    format out {
-        output "{cday:frcomp} |{nmday} |{nmonth:frnm} |an {year::rn}";
-    }
+    format  std     "{cday:frcomp} |{nmday} |{nmonth:frnm} |an {year::rn}";
     format  dcdmy   "{dday:frdd} |{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
     format "dcdmy-" "{dday:frdd:a} |{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
     format  wcdmy   "{wday:w}, |{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";

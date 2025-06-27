@@ -19,8 +19,8 @@ write @date.fr:cdmy("Fête des Récompenses 232"), @text.fr:cdmy( 2460575 ) nl;
 write @date.fr:cdmy("1 Vendémiaire 233"), @text.fr:cdmy( 2460576 ) nl;
 write @date."fr:cdmy-"("Rec 232"), @text."fr:cdmy-"( 2460575 ) nl;
 write @date."fr:cdmy-"("1 Vend 233"), @text."fr:cdmy-"( 2460576 ) nl;
-write @text.fr:out( 2460575 ) nl;
-write @text.fr:out( 2460576 ) nl;
+write @date.fr:std("Fête des Récompenses an CCXXXII"), @text.fr:std( 2460575 ) nl;
+write @date.fr:std("1 Vendémiaire an CCXXXIII"), @text.fr:std( 2460576 ) nl;
 write @date.fr:dcdmy("Fête des Récompenses 232"), @text.fr:dcdmy( 2460575 ) nl;
 write @date.fr:dcdmy("Primidi 1 Vendémiaire 233"), @text.fr:dcdmy( 2460576 ) nl;
 write @date."fr:dcdmy-"("Rec 232"), @text."fr:dcdmy-"( 2460575 ) nl;
@@ -52,8 +52,8 @@ empty
 2460576, 1 Vendémiaire 233
 2460575, Rec 232
 2460576, 1 Vend 233
-Fête des Récompenses an CCXXXII
-1 Vendémiaire an CCXXXIII
+2460575, Fête des Récompenses an CCXXXII
+2460576, 1 Vendémiaire an CCXXXIII
 2460575, Fête des Récompenses 232
 2460576, Primidi 1 Vendémiaire 233
 2460575, Rec 232

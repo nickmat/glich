@@ -66,7 +66,7 @@ write "</table>" nl;
 <tr><td><b>ymd</b></td><td>text</td><td><b>Input:</b> year month day<br /><b>Output:</b> yyyy Month dd</td><td class='example'>232 Complémentaires 5<br />233 Vendémiaire 1<td>S</td></tr>
 <tr><td><b>cdmy</b></td><td>text</td><td><b>Input:</b> cday nmday nmonth year<br /><b>Output:</b> CompDay dd Month yyyy</td><td class='example'>Fête des Récompenses 232<br />1 Vendémiaire 233<td></td></tr>
 <tr><td><b>cdmy-</b></td><td>text</td><td><b>Input:</b> cday nmday nmonth year<br /><b>Output:</b> CDay dd Mon yyyy</td><td class='example'>Rec 232<br />1 Vend 233<td></td></tr>
-<tr><td><b>out</b></td><td>text</td><td><b>Output:</b> CompDay dd Month an yyyy[X]</td><td class='example'>Fête des Récompenses an CCXXXII<br />1 Vendémiaire an CCXXXIII<td></td></tr>
+<tr><td><b>std</b></td><td>text</td><td><b>Input:</b> cday nmday nmonth year<br /><b>Output:</b> CompDay dd Month an yyyy[X]</td><td class='example'>Fête des Récompenses an CCXXXII<br />1 Vendémiaire an CCXXXIII<td></td></tr>
 <tr><td><b>dcdmy</b></td><td>text</td><td><b>Input:</b> dday cday nmday nmonth year<br /><b>Output:</b> DecDay CompDay dd Month yyyy</td><td class='example'>Fête des Récompenses 232<br />Primidi 1 Vendémiaire 233<td></td></tr>
 <tr><td><b>dcdmy-</b></td><td>text</td><td><b>Input:</b> dday cday nmday nmonth year<br /><b>Output:</b> DDay CDay dd Mon yyyy</td><td class='example'>Rec 232<br />Prim 1 Vend 233<td></td></tr>
 <tr><td><b>wcdmy</b></td><td>text</td><td><b>Input:</b> wday cday nmday nmonth year<br /><b>Output:</b> Weekday, CompDay dd Month yyyy</td><td class='example'>Saturday, Fête des Récompenses 232<br />Sunday, 1 Vendémiaire 233<td></td></tr>
