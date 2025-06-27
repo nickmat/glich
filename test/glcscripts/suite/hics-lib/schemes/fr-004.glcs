@@ -1,0 +1,17 @@
+// fr-004.glcs  Test fr scheme with roman numerals
+
+
+format fr:YMD "{year::rn}| {nmonth:frnm:a}| {nmday}";
+format fr:STD "{cday:frcomp} |{nmday} |{nmonth:frnm} |an {year::rn}";
+
+
+write nl;
+write @date.fr:YMD( "cx mess 6" ), @text.fr:YMD( 2415926 ) nl;
+write @date.fr:STD( "6 Mess an CX" ), @text.fr:STD( 2415926 ) nl;
+
+/*[OUTPUT]
+
+2415926, CX Mess 6
+2415926, 6 Messidor an CX
+
+[OUTPUT]*/
