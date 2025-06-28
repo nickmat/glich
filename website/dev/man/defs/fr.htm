@@ -376,9 +376,7 @@ grammar fr {
     }
     format  cdmy   "{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
     format "cdmy-" "{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
-    format out {
-        output "{cday:frcomp} |{nmday} |{nmonth:frnm} |an {year::rn}";
-    }
+    format  std     "{cday:frcomp} |{nmday} |{nmonth:frnm} |an {year::rn}";
     format  dcdmy   "{dday:frdd} |{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
     format "dcdmy-" "{dday:frdd:a} |{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
     format  wcdmy   "{wday:w}, |{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
