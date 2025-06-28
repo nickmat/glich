@@ -582,11 +582,11 @@ int FormatText::parse_date( InputFieldVec& ifs, const string& str ) const
             done = true;
         }
         else if( ignore ) {
-                if( grp == CP_Group::Sep ) {
-                    --it;
-                }
-                ignore = false;
+            if( grp == CP_Group::Sep ) {
+                --it;
             }
+            ignore = false;
+        }
         else {
             grp = get_cp_group( it, str.end() );
         }
