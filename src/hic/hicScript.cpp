@@ -581,13 +581,13 @@ bool HicScript::do_create_format( const string& code, Grammar* gmr )
             error( "Unable to create format." );
             return false;
         }
-        if( separators.size() ) {
+        if( !separators.empty() ) {
             fmtt->set_separators( separators );
         }
-        if( rankfields.size() ) {
+        if( !rankfields.empty() ) {
             fmtt->set_rank_fieldnames( rankfields );
         }
-        if( rankoutfields.size() ) {
+        if( !rankoutfields.empty() ) {
             fmtt->set_rankout_fieldnames( rankoutfields );
         }
         if( !format_out.empty() ) {
