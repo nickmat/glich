@@ -481,7 +481,7 @@ bool HicScript::do_create_format( const string& code, Grammar* gmr )
     assert( gmr != nullptr );
 
     string format_in, format_out, instring, outstring, separators, infun;
-    StdStrVec rankfields, rankoutfields, rules;
+    StdStrVec rankfields, rankoutfields, rules, padding;
     bool visible = true;
     if( current_token().type() == SToken::Type::LCbracket ) {
         for( ;;) {
@@ -546,6 +546,10 @@ bool HicScript::do_create_format( const string& code, Grammar* gmr )
                     infun = get_name_or_primary( GetToken::next );
                     continue;
                 }
+                if( name == "padding" ) {
+                    padding = get_string_list( GetToken::next );
+                    continue;
+                }
                 error( "Expected format sub-statement." );
             }
         }
@@ -600,6 +604,9 @@ bool HicScript::do_create_format( const string& code, Grammar* gmr )
         }
         if( !infun.empty() ) {
             fmtt->set_from_text_function( infun );
+        }
+        if( !padding.empty() ) {
+            fmtt->set_padding( padding );
         }
         fmt = fmtt;
     }
