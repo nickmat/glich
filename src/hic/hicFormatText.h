@@ -46,6 +46,7 @@ namespace glich {
         void set_rankout_fieldnames( StdStrVec fieldnames ) { m_rankout_fieldnames = fieldnames; }
         void set_control_out( const std::string& format ) { m_control_out = format; }
         void set_control_in( const std::string& format ) { m_control_in = format; }
+        void set_padding( const StdStrVec& padding ) { m_padding = padding; }
 
         std::string get_control_in() const { return m_control_in; }
         std::string get_control_out() const { return m_control_out; }
