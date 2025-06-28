@@ -373,6 +373,11 @@ string glich::get_ordinal_suffix_style( StrStyle style )
     return style == StrStyle::uppercase ? "TH" : "th";
 }
 
+StdStrVec glich::get_ordinal_suffix_list()
+{
+    return { "th", "st", "nd", "rd" };
+}
+
 static string left_padded_str( const string& str, const string& ch, size_t size )
 {
     assert( ch.size() > 0 );

@@ -73,6 +73,7 @@ namespace glich {
     std::string dual_fields_to_str( Field field, Field dual );
     std::string get_ordinal_suffix( Field field, StrStyle style = StrStyle::lowercase );
     std::string get_ordinal_suffix_style( StrStyle style = StrStyle::lowercase );
+    StdStrVec get_ordinal_suffix_list();
 
     std::string get_left_padded( Field field, const std::string& specifier );
     std::string get_left_padded( Field field, const std::string& ch, size_t width );
