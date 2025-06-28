@@ -1,0 +1,47 @@
+// format009.glcs  Test format with ordinal suffixes
+
+lexicon M {
+    name "Month names";
+    fieldname month;
+    lang en;
+    pseudo     Month,     Mon;
+    tokens {
+        1,  "January",   "Jan";
+        2,  "February",  "Feb";
+        3,  "March",     "Mar";
+        4,  "April",     "Apr";
+        5,  "May";
+        6,  "June",      "Jun";
+        7,  "July",      "Jul";
+        8,  "August",    "Aug";
+        9,  "September", "Sep";
+        10, "October",   "Oct";
+        11, "November",  "Nov";
+        12, "December",  "Dec";
+    }
+}
+
+grammar J { 
+    fields year month day;
+    lexicons M;
+    format DEF "{day::os} |{month:M} |{year}";
+}
+
+scheme J { base julian; grammar J; }
+
+
+write nl;
+write @date.J:DEF( "28th June 2024" ), @text.J:DEF( 2460503 ) nl;
+write @date.J:DEF( "23rd July 2024" ), @text.J:DEF( 2460528 ) nl;
+write @date.J:DEF( "June 2024" ), @text.J:DEF( 2460476..2460505 ) nl;
+write @date.J:DEF( "1st September 1948..2nd September 1948 | 2024" ), @text.J:DEF( 2432809..2432810 | 2460324..2460689 ) nl;
+
+
+/*[OUTPUT]
+
+2460503, 28th June 2024
+2460528, 23rd July 2024
+2460476..2460505, June 2024
+2432809..2432810 | 2460324..2460689, 1st September 1948..2nd September 1948 | 2024
+
+[OUTPUT]*/
