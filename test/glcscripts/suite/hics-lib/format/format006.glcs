@@ -1,0 +1,13 @@
+// format006.glcs - Test complex example of format statement.
+
+format g:X "{day::os} day of |{month:m} in the |{year::os} year of our Lord";
+
+write nl;
+write @date.g:X("1st day of July in the 2023rd year of our Lord"), @text.g:X( 2460127 ) nl;
+
+
+/*[OUTPUT]
+
+2460127, 1st day of July in the 2023rd year of our Lord
+
+[OUTPUT]*/
