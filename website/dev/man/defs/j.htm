@@ -121,8 +121,8 @@
 <tr><td><b>dmy+</b></td><td>text</td><td>day month year</td><td>dd Month yyyy</td><td class='example'>26 January 2023</td><td>S</td></tr>
 <tr><td><b>wdmy</b></td><td>text</td><td>wday day month year</td><td>Wday dd Mon yyyy</td><td class='example'>Wed 26 Jan 2023</td><td></td></tr>
 <tr><td><b>wdmy+</b></td><td>text</td><td>wday day month year</td><td>Weekday dd Month yyyy</td><td class='example'>Wednesday 26 January 2023</td><td></td></tr>
-<tr><td><b>out</b></td><td>text</td><td></td><td>ddth Month yyyy</td><td class='example'>26th January 2023</td><td>S</td></tr>
-<tr><td><b>full</b></td><td>text</td><td></td><td>Weekday ddth Month yyyy</td><td class='example'>Wednesday 26th January 2023</td><td></td></tr>
+<tr><td><b>std</b></td><td>text</td><td>day month year</td><td>ddth Month yyyy</td><td class='example'>26th January 2023</td><td>S</td></tr>
+<tr><td><b>full</b></td><td>text</td><td>wday day month year</td><td>Weekday ddth Month yyyy</td><td class='example'>Wednesday 26th January 2023</td><td></td></tr>
 <tr><td><b>mdy</b></td><td>text</td><td>month day year</td><td>Mon dd, yyyy</td><td class='example'>Jan 26, 2023</td><td>S</td></tr>
 <tr><td><b>mdy+</b></td><td>text</td><td>month day year</td><td>Month dd, yyyy</td><td class='example'>January 26, 2023</td><td>S</td></tr>
 <tr><td><b>wmdy</b></td><td>text</td><td>wday month day year</td><td>Wday, Mon dd, yyyy</td><td class='example'>Wed, Jan 26, 2023</td><td></td></tr>
@@ -169,8 +169,8 @@ grammar j {
     format "dmy+" "{day} |{month:m} |{year}";
     format wdmy "{wday:w:a} |{day} |{month:m:a} |{year}";
     format "wdmy+" "{wday:w} |{day} |{month:m} |{year}";
-    format out { output "{day::os} |{month:m} |{year}"; }
-    format full { output "{wday:w} |{day::os} |{month:m} |{year}"; }
+    format std "{day::os} |{month:m} |{year}";
+    format full "{wday:w} |{day::os} |{month:m} |{year}";
     format mdy "{month:m:a} |{day}, |{year}";
     format "mdy+" "{month:m} |{day}, |{year}";
     format wmdy "{wday:w:a}, |{month:m:a} |{day}, |{year}";
