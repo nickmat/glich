@@ -58,8 +58,8 @@ grammar j {
     format "dmy+" "{day} |{month:m} |{year}";
     format wdmy "{wday:w:a} |{day} |{month:m:a} |{year}";
     format "wdmy+" "{wday:w} |{day} |{month:m} |{year}";
-    format out { output "{day::os} |{month:m} |{year}"; }
-    format full { output "{wday:w} |{day::os} |{month:m} |{year}"; }
+    format std "{day::os} |{month:m} |{year}";
+    format full "{wday:w} |{day::os} |{month:m} |{year}";
     format mdy "{month:m:a} |{day}, |{year}";
     format "mdy+" "{month:m} |{day}, |{year}";
     format wmdy "{wday:w:a}, |{month:m:a} |{day}, |{year}";
