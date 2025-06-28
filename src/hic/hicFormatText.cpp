@@ -151,6 +151,9 @@ void FormatText::setup_control_in()
                 if( spec == "rn" ) {
                     m_has_roman = true;
                 }
+                else if( spec == "os" || spec == "oa" ) {
+                    vec_append( m_padding, get_ordinal_suffix_list() );
+                }
             }
             string fieldname = ele.get_record_field_name();
             if( !fieldname.empty() ) {
