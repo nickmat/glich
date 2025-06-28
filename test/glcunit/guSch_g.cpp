@@ -183,10 +183,14 @@ TEST_CASE( "Scheme g Test Formats", "[g Formats]" )
     REQUIRE( jdn == result );
     str = g_glc->field_to_text( result, "g:wdmy+" );
     REQUIRE( str == "Sunday 3 September 2023" );
-    // Format "g:out" output only
-    str = g_glc->field_to_text( jdn, "g:out" );
+    // Format "g:std"
+    result = g_glc->text_to_field( "3rd september2023", "g:std" );
+    REQUIRE( jdn == result );
+    str = g_glc->field_to_text( jdn, "g:std" );
     REQUIRE( str == "3rd September 2023" );
-    // Format "g:full" output only
+    // Format "g:full"
+    result = g_glc->text_to_field( "sunday3rd september2023", "g:full" );
+    REQUIRE( jdn == result );
     str = g_glc->field_to_text( jdn, "g:full" );
     REQUIRE( str == "Sunday 3rd September 2023" );
     // Format "g:mdy"
