@@ -1,0 +1,51 @@
+// format008.glcs  Test format with padding
+
+
+lexicon M {
+    name "Month names";
+    fieldname month;
+    lang en;
+    pseudo     Month,     Mon;
+    tokens {
+        1,  "January",   "Jan";
+        2,  "February",  "Feb";
+        3,  "March",     "Mar";
+        4,  "April",     "Apr";
+        5,  "May";
+        6,  "June",      "Jun";
+        7,  "July",      "Jul";
+        8,  "August",    "Aug";
+        9,  "September", "Sep";
+        10, "October",   "Oct";
+        11, "November",  "Nov";
+        12, "December",  "Dec";
+    }
+}
+
+grammar J { 
+    fields year month day;
+    lexicons M;
+    format DEF {
+        inout "{day} |{month:M} |{year}";        
+        padding mon tue wed thur fri sat sun;;
+    }
+}
+
+scheme J { base julian; grammar J; }
+
+
+write nl;
+write @date.J:DEF( "Thur 28 June 2024" ), @text.J:DEF( 2460503 ) nl;
+write @date.J:DEF( "Mon 23 July 2024" ), @text.J:DEF( 2460528 ) nl;
+write @date.J:DEF( "Fri 1 June 2024..Sat 30 June 2024" ), @text.J:DEF( 2460476..2460505 ) nl;
+write @date.J:DEF( "Tue 1 September 1948..Wed 2 September 1948 | Sun 1 January 2024..Mon 31 December 2024" ), @text.J:DEF( 2432809..2432810 | 2460324..2460689 ) nl;
+
+
+/*[OUTPUT]
+
+2460503, 28 June 2024
+2460528, 23 July 2024
+2460476..2460505, June 2024
+2432809..2432810 | 2460324..2460689, 1 September 1948..2 September 1948 | 2024
+
+[OUTPUT]*/
