@@ -5,6 +5,6 @@ write "Gregorian: " + @text.g:full( today ) nl;
 write "    ISO Week No: " + @scheme.gw( today )[week] +
         "    Ordinal Day No: " + @scheme.go( today)[day] nl;
 
-write "Julian Annunciation Florence: " + @text.ja:out( today ) nl;
+write "Julian Annunciation Florence: " + @text.ja:std( today ) nl;
 
-write "Julian Annunciation Pisa: " + @text.jap:out( today );
+write "Julian Annunciation Pisa: " + @text.jap:std( today );
