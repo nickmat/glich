@@ -146,6 +146,7 @@ writeln text.XS:html 2460127;</td>
 <tr><td class='code'><b>pseudo:in</b> <i>string</i>;</td><td class='example'><b>pseudo:in</b> "Day Month Year";</td><td>Set the string that shows the input format.</td></tr>
 <tr><td class='code'><b>pseudo:out</b> <i>string</i>;</td><td class='example'><b>pseudo:out</b> "d-Mmm-yyyy";</td><td>Set the string that shows the output format.</td></tr>
 <tr><td class='code'><b>use:in</b> <i>string</i>;</td><td class='example'><b>use:in</b> calc_month;</td><td>Function code used to complete default fields.</td></tr>
+<tr><td class='code'><b>padding</b> <i>string-list</i>;</td><td class='example'><b>padding</b> mon tue wed thur fri sat sun;</td><td>These words will be ignored if included.</td></tr>
 </table>
 
 <p>
@@ -272,6 +273,20 @@ writeln text.XS:html 2460127;</td>
  based on those fields used in the input text string.
  If not given the the function specified by the grammar
  sub-statement <b><a href="grammar.htm#use">use from_text</a></b> is used.
+</p>
+
+<h4 id="use-in">Format Sub-Statement: padding</h4>
+<p>
+ The padding sub-statement allows words to be included in the formatted text
+ which is then ignored when parsing it.
+ The words will however act as a separator.
+</p>
+<p>
+ Note that when the format output style uses ordinal suffixes,
+ the suffixes (th st nd rd) are automatically added to the padding list.
+</p>
+<p>
+ The case of the padding words is ignored.
 </p>
 
 <h3 id='rules-units'>Format Sub-Statement: rules units</h3>
