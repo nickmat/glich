@@ -65,8 +65,8 @@ write "</table>" nl;
 <tr><td><b>dmy+</b></td><td>text</td><td><b>Input:</b> day month cyear<br /><b>Output:</b> dd Month yyyy/h</td><td class='example'>24 March 1234<br />25 March 1235/4<td>S</td></tr>
 <tr><td><b>wdmy</b></td><td>text</td><td><b>Input:</b> wday day month cyear<br /><b>Output:</b> Wday dd Mon yyyy/h</td><td class='example'>Fri 24 Mar 1234<br />Sat 25 Mar 1235/4<td></td></tr>
 <tr><td><b>wdmy+</b></td><td>text</td><td><b>Input:</b> wday day month cyear<br /><b>Output:</b> Weekday dd Month yyyy/h</td><td class='example'>Friday 24 March 1234<br />Saturday 25 March 1235/4<td></td></tr>
-<tr><td><b>out</b></td><td>text</td><td><b>Output:</b> ddth Month yyyy/h</td><td class='example'>24th March 1234<br />25th March 1235/4<td>S</td></tr>
-<tr><td><b>full</b></td><td>text</td><td><b>Output:</b> Weekday ddth Month yyyy/h</td><td class='example'>Friday 24th March 1234<br />Saturday 25th March 1235/4<td></td></tr>
+<tr><td><b>std</b></td><td>text</td><td><b>Input:</b> day month cyear<br /><b>Output:</b> ddth Month yyyy/h</td><td class='example'>24th March 1234<br />25th March 1235/4<td>S</td></tr>
+<tr><td><b>full</b></td><td>text</td><td><b>Input:</b> wday day month cyear<br /><b>Output:</b> Weekday ddth Month yyyy/h</td><td class='example'>Friday 24th March 1234<br />Saturday 25th March 1235/4<td></td></tr>
 <tr><td><b>mdy</b></td><td>text</td><td><b>Input:</b> month day cyear<br /><b>Output:</b> Mon dd, yyyy/h</td><td class='example'>Mar 24, 1234<br />Mar 25, 1235/4<td>S</td></tr>
 <tr><td><b>mdy+</b></td><td>text</td><td><b>Input:</b> month day cyear<br /><b>Output:</b> Month dd, yyyy/h</td><td class='example'>March 24, 1234<br />March 25, 1235/4<td>S</td></tr>
 <tr><td><b>wmdy</b></td><td>text</td><td><b>Input:</b> wday month day cyear<br /><b>Output:</b> Wday, Mon dd, yyyy/h</td><td class='example'>Fri, Mar 24, 1234<br />Sat, Mar 25, 1235/4<td></td></tr>
