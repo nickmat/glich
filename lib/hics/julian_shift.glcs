@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     15th June 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -40,8 +40,8 @@ grammar j_sh {
     format "dmy+" "{day} |{month:m} |{cyear/year}";
     format  wdmy "{wday:w:a} |{day} |{month:m:a} |{cyear/year}";
     format "wdmy+" "{wday:w} |{day} |{month:m} |{cyear/year}";
-    format  out { output "{day::os} |{month:m} |{cyear/year}"; }
-    format  full { output "{wday:w} |{day::os} |{month:m} |{cyear/year}"; }
+    format  std "{day::os} |{month:m} |{cyear/year}";
+    format  full "{wday:w} |{day::os} |{month:m} |{cyear/year}";
     format  mdy "{month:m:a} |{day}, |{cyear/year}";
     format "mdy+" "{month:m} |{day}, |{cyear/year}";
     format  wmdy "{wday:w:a}, |{month:m:a} |{day}, |{cyear/year}";
