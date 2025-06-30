@@ -44,7 +44,7 @@
 using namespace glich;
 using std::string;
 
-static SValue hic_object_to_date( Scheme* sch, SValue value )
+static SValue hic_object_to_date( Scheme* sch, const SValue& value )
 {
     assert( sch != nullptr );
     const Base& base = sch->get_base();
@@ -124,7 +124,7 @@ static SValue complete_object( Scheme* sch, Field jdn, std::ostream& outs )
     return value;
 }
 
-static SValue complete_object( Scheme* sch, Range rng, const std::string& fcode )
+static SValue complete_object( Scheme* sch, const Range& rng, const std::string& fcode )
 {
     assert( sch != nullptr );
     const Base& base = sch->get_base();
