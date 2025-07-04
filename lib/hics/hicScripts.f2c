@@ -53,7 +53,7 @@ glich::StdStrMap glich::hics_default_scripts = {
     { "hebrew", @(cp.cpp)"hebrew.glcs" },
     { "french_rep", @(cp.cpp)"french_rep.glcs" },
     { "islamic", @(cp.cpp)"islamic.glcs" },
-    { "chinese", @(cp.cpp)"chinese.glcs" },
+//    { "chinese", @(cp.cpp)"chinese.glcs" },
     { "roc", @(cp.cpp)"roc.glcs" },
 };
 

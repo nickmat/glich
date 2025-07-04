@@ -89,11 +89,13 @@ module hics:islamic {
     grammar i;
     scheme i ims if;
 }
+/*
 module hics:chinese {
     lexicon cstem cbrch animal lmon fs;
     grammar c;
     scheme c;
 }
+*/
 module hics:roc {
     grammar roc;
     scheme roc;
