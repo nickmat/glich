@@ -238,7 +238,7 @@ namespace {
 Chinese::Chinese( const StdStrVec& data )
     : Base( data, 5 )
 {
-    m_fieldnames = { "cycle", "cyear", "month", "lmonth", "day" };
+    m_fieldnames = { "year", "month", "lmonth", "day" };
 }
 
 Field Chinese::get_jdn( const FieldVec& fields ) const
@@ -246,21 +246,29 @@ Field Chinese::get_jdn( const FieldVec& fields ) const
     if( fields[0] == f_invalid ||
         fields[1] == f_invalid ||
         fields[2] == f_invalid ||
-        fields[3] == f_invalid ||
-        fields[4] == f_invalid
+        fields[3] == f_invalid
     ) {
         return f_invalid;
     }
-    return chinese_to_jdn( fields[0], fields[1], fields[2], fields[3], fields[4] );
+    Field cycle = (fields[0] / 60 ) + 1;
+    Field cyear = famod_f( fields[0], 60 );
+    return chinese_to_jdn( cycle, cyear, fields[1], fields[2], fields[3] );
 }
 
 
 Field Chinese::get_beg_field_value( const FieldVec& fields, size_t index ) const
 {
-    if( index == CHIN_lmonth ) {
-        return 0;
+    if( index > 0 && fields[0] == f_minimum ) {
+        return f_invalid;
     }
-    if( index > 0 && index < record_size() ) {
+    switch( index )
+    {
+    case 0: // year
+        return f_minimum;
+    case 2: // lmonth
+        return 0;
+    case 1: // month
+    case 3: // day
         return 1;
     }
     return f_invalid;
@@ -268,16 +276,19 @@ Field Chinese::get_beg_field_value( const FieldVec& fields, size_t index ) const
 
 Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
 {
+    if( index > 0 && fields[0] == f_maximum ) {
+        return f_invalid;
+    }
     switch( index )
     {
-    case CHIN_cyear:
-        return 60;
-    case CHIN_month:
+    case 0: // year
+        return f_maximum;
+    case 1: // month
         return 12;
-    case CHIN_lmonth:
+    case 2: // lmonth
         return chinese_is_leap_month(
             fields[CHIN_cycle], fields[CHIN_cyear], fields[CHIN_month] ) ? 1 : 0;
-    case CHIN_day:
+    case 3: // day
         return chinese_last_day_of_month( fields[CHIN_cycle], fields[CHIN_cyear],
              fields[CHIN_month], fields[CHIN_lmonth] );
     }
@@ -287,7 +298,13 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
 FieldVec Chinese::get_fields( Field jdn ) const
 {
     FieldVec fields( record_size(), f_invalid );
-    chinese_from_jdn( &fields[0], &fields[1], &fields[2], &fields[3], &fields[4], jdn );
+    Field cycle = f_invalid;
+    Field cyear = f_invalid;
+    chinese_from_jdn( &cycle, &cyear, &fields[1], &fields[2], &fields[3], jdn );
+    if( cycle == f_invalid || cyear == f_invalid ) {
+        return fields; // Invalid date
+    }
+    fields[0] = (cycle - 1) * 60 + cyear;
     return fields;
 }
 
