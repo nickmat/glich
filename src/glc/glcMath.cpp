@@ -175,7 +175,9 @@ Num glich::floor_n( double r )
 Field glich::floor_f( double r )
 {
     Num n = floor_n( r );
-    assert( n > f_minimum && n < f_maximum );
+    if( n <= f_minimum || n >= f_maximum ) {
+        return f_invalid;
+    }
     return Field( n );
 }
 
