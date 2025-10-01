@@ -49,6 +49,9 @@ Field glich::latin_length_of_month[3][12] = {
 // CC3 p20
 Field glich::min_search( Field start, calSearchFunc func, const void* data )
 {
+    if( start == f_invalid ) {
+        return f_invalid;
+    }
     for( Field i = 0, d = start; i < calSEARCH_MAX; i++, d++ ) {
         if( func( d, data ) ) {
             return d;
@@ -61,6 +64,9 @@ Field glich::min_search( Field start, calSearchFunc func, const void* data )
 // CC3 p20
 Field glich::max_search( Field start, calSearchFunc func, const void* data )
 {
+    if( start == f_invalid ) {
+        return f_invalid;
+    }
     for( Field i = 0, d = start; i < calSEARCH_MAX; i++, d++ ) {
         if( !func( d, data ) ) {
             return d - 1;
