@@ -282,6 +282,9 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
     if( index > 0 && fields[0] == f_maximum ) {
         return f_invalid;
     }
+    Field cycle = (fields[0] / 60) + 1;
+    Field cyear = famod_f( fields[0], 60 );
+
     switch( index )
     {
     case 0: // year
@@ -289,11 +292,10 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
     case 1: // month
         return 12;
     case 2: // lmonth
-        return chinese_is_leap_month(
-            fields[CHIN_cycle], fields[CHIN_cyear], fields[CHIN_month] ) ? 1 : 0;
+        return chinese_is_leap_month( cycle, cyear, fields[CHIN_month] ) ? 1 : 0;
     case 3: // day
-        return chinese_last_day_of_month( fields[CHIN_cycle], fields[CHIN_cyear],
-             fields[CHIN_month], fields[CHIN_lmonth] );
+        return chinese_last_day_of_month(
+            cycle, cyear, fields[CHIN_month], fields[CHIN_lmonth] );
     }
     return f_invalid;
 }
