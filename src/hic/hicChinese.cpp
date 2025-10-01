@@ -83,6 +83,9 @@ namespace {
     // CC3 p251
     Field chinese_winter_solstice_on_or_before( Field jdn )
     {
+        if( jdn == f_invalid ) {
+            return f_invalid;
+        }
         double approx = estimate_prior_solar_longitude(
             winter, midnight_in_china( jdn + 1 ) );
         return min_search(
