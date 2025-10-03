@@ -63,43 +63,67 @@ lexicon FS {
 }
 
 grammar C {
-    fields cycle cyear month lmonth day;
-    calculated clmonth stem branch;
-    // cycle cyear month lmonth day clmonth stem branch
+    fields year month lmonth day;
+    calculated cycle cyear clmonth stem branch;
+    // year month lmonth day cycle cyear clmonth stem branch
+
     lexicons LMON FS CSTEM CBRCH;
     alias pseudo { dd day; mm month; lm lmonth; yy year; cc cycle; }
     alias unit { d day; m month; lm lmonth; y cyear; c cycle; }
 
-    function calc_to_def {
-        lmonth = @if(clmonth=null, 0, 1);
+    function def_to_calc { // calculate
+        cycle = ( (year - 1) div 60 ) + 1;
+        cyear = ( (year - 1) mod 60 ) + 1;
+        stem = (cyear - 1) mod 10 + 1;
+        branch = (cyear - 1) mod 12 + 1;
+        clmonth = @if(lmonth=0, null, 1);
+        result = this;
+    }
+
+    function calc_to_def { // format cymld
         if stem <> null and branch <> null
             cyear = ((stem - branch) mod 12) * 5 + stem;
         endif
-        result = this;
-    }
-    function def_to_calc {
+        if cycle <> null and cyear <> null
+            year = (cycle - 1) * 60 + cyear;
+        endif
         clmonth = @if(lmonth=0, null, 1);
         stem = (cyear - 1) mod 10 + 1;
         branch = (cyear - 1) mod 12 + 1;
         result = this;
     }
+
+    function cycle_to_year { // format cylmd
+        if stem <> null and branch <> null
+            cyear = ((stem - branch) mod 12) * 5 + stem;
+        endif
+        if cycle <> null and cyear <> null
+            year = (cycle - 1) * 60 + cyear;
+        endif
+        lmonth = @if( clmonth = null, 0, clmonth );
+        clmonth = @if(lmonth=0, null, 1);
+        stem = (cyear - 1) mod 10 + 1;
+        branch = (cyear - 1) mod 12 + 1;
+        result = this;
+    }
+
     use { calculate def_to_calc; from:text calc_to_def; }
 
     // Note, format used in "Calendrical Calculations"
     format cymld {
         inout "{cycle}| {cyear}| {month}| {lmonth:FS:a:l}| {day}";
-        use:in def_to_calc;
+        rank cycle cyear month lmonth day;
     }
-
     format cylmd {
-        inout "{cycle}| {cyear}| {clmonth:LMON:a}| {month}| {day}";
-        rank cycle cyear month day;
-        use:in calc_to_def;
+        inout "{cycle}| {cyear}| {clmonth:LMON*:a}| {month}| {day}";
+        rank cycle cyear month day lmonth;
+        use:in cycle_to_year;
     }
     format cylmd_s {
         inout "{cycle}| {stem:CSTEM}|-{branch:CBRCH::l}|, {clmonth:LMON:a}| {month}| {day}";
         rank cycle month day;
         separators ",-";
+        use:in cycle_to_year;
     }
     format full {
         output "Cycle: {cycle},| Year: {stem:CSTEM}-{branch:CBRCH::l} ({cyear}),| {lmonth:LMON}:| {month},| Day: {day}";
@@ -116,34 +140,61 @@ scheme C {
 let d1 = 2460866;
 let d2 = 2460896;
 
+//write /*@scheme.C("78 42 6 f 15"),*/ @scheme.C("78 42 6 s 15") nl;
 
-write nl;
+write nl; // Default cymld format
+write "Default cymld format" nl;
 write @scheme.C(d1), @scheme.C(d2) nl;
 write @scheme.C("78 42 6 f 15"), @scheme.C("78 42 6 s 15") nl;
-write @text.C( d1 ), @text.C( d2 ) nl;
-write @text.C:cylmd( d1 ), @text.C:cylmd( d2 ) nl;
-write @text.C:cylmd_s( d1 ), @text.C:cylmd_s( d2 ) nl;
-write @date( {s:C 78, 42, 6, 0, 15} ), @date( {s:C 78, 42, 6, 1, 15} ) nl;
-write @date( {s:C 78, 42, 6,, 15}@calc_to_def ), @date( {s:C 78, 42, 6,, 15, 1}@calc_to_def ) nl;
-write @date( {s:C 78,, 6,, 15,, 2, 6}@calc_to_def ), @date( {s:C 78,, 6,, 15, 1, 2, 6}@calc_to_def ) nl;
 write @date.C("78 42 6 f 15"), @date.C("78 42 6 s 15") nl;
+write @date( {s:C 4662, 6, 0, 15} ), @date( {s:C 4662, 6, 1, 15} ) nl;
+write @text.C(d1), @text.C(d2) nl;
+write @text( {s:C 4662, 6, 0, 15} ), @text( {s:C 4662, 6, 1, 15} ) nl;
+
+write nl;
+write "cylmd format" nl;
+write @scheme.C:cylmd("78 42 6 15"), @scheme.C:cylmd("78 42 Leap 6 15") nl;
 write @date.C:cylmd("78 42 6 15"), @date.C:cylmd("78 42 Leap 6 15") nl;
+write @text.C:cylmd(d1), @text.C:cylmd(d2) nl;
+write @text.:cylmd( {s:C 4662, 6, 0, 15} ), @text.:cylmd( {s:C 4662, 6, 1, 15} ) nl;
+
+write nl;
+write "cylmd_s format" nl;
+write @scheme.C:cylmd_s("78 Yǐ-sì 6 15"), @scheme.C:cylmd_s("78 Yǐ-sì, Leap 6 15") nl;
 write @date.C:cylmd_s("78 Yǐ-sì 6 15"), @date.C:cylmd_s("78 Yǐ-sì, Leap 6 15") nl;
-write @text.C:full( d1 ) nl @text.C:full( d2 ) nl;
+write @text.C:cylmd_s(d1), @text.C:cylmd_s(d2) nl;
+write @text.:cylmd_s( {s:C 4662, 6, 0, 15} ), @text.:cylmd_s( {s:C 4662, 6, 1, 15} ) nl;
+
+write nl;
+write "full format" nl;
+write @text.C:full(d1) nl @text.C:full(d2) nl;
+write @text.:full( {s:C 4662, 6, 0, 15} ) nl @text.:full( {s:C 4662, 6, 1, 15} ) nl;
 
 /*[OUTPUT]
 
-{s:C 78, 42, 6, 0, 15, null, 2, 6}, {s:C 78, 42, 6, 1, 15, 1, 2, 6}
-{s:C 78, 42, 6, 0, 15, null, 2, 6}, {s:C 78, 42, 6, 1, 15, 1, 2, 6}
+Default cymld format
+{s:C 4662, 6, 0, 15, 78, 42, null, 2, 6}, {s:C 4662, 6, 1, 15, 78, 42, 1, 2, 6}
+{s:C 4662, 6, 0, 15, 78, 42, null, 2, 6}, {s:C 4662, 6, 1, 15, 78, 42, 1, 2, 6}
+2460866, 2460896
+2460866, 2460896
 78 42 6 f 15, 78 42 6 s 15
+78 42 6 f 15, 78 42 6 s 15
+
+cylmd format
+{s:C 4662, 6, 0, 15, 78, 42, null, 2, 6}, {s:C 4662, 6, 1, 15, 78, 42, 1, 2, 6}
+2460866, 2460896
 78 42 6 15, 78 42 Leap 6 15
+78 42 6 15, 78 42 Leap 6 15
+
+cylmd_s format
+{s:C 4662, 6, 0, 15, 78, 42, null, 2, 6}, {s:C 4662, 6, 1, 15, 78, 42, 1, 2, 6}
+2460866, 2460896
 78 Yǐ-sì 6 15, 78 Yǐ-sì, Leap 6 15
-2460866, 2460896
-2460866, 2460896
-2460866, 2460896
-2460866, 2460896
-2460866, 2460896
-2460866, 2460896
+78 Yǐ-sì 6 15, 78 Yǐ-sì, Leap 6 15
+
+full format
+Cycle: 78, Year: Yǐ-sì (42), Month: 6, Day: 15
+Cycle: 78, Year: Yǐ-sì (42), Leap-month: 6, Day: 15
 Cycle: 78, Year: Yǐ-sì (42), Month: 6, Day: 15
 Cycle: 78, Year: Yǐ-sì (42), Leap-month: 6, Day: 15
 
