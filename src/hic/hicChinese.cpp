@@ -292,10 +292,10 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
     case 1: // month
         return 12;
     case 2: // lmonth
-        return chinese_is_leap_month( cycle, cyear, fields[CHIN_month] ) ? 1 : 0;
+        return chinese_is_leap_month( cycle, cyear, fields[1] ) ? 1 : 0;
     case 3: // day
         return chinese_last_day_of_month(
-            cycle, cyear, fields[CHIN_month], fields[CHIN_lmonth] );
+            cycle, cyear, fields[1], fields[2] );
     }
     return f_invalid;
 }
