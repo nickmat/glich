@@ -294,8 +294,7 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
     case 2: // lmonth
         return chinese_is_leap_month( cycle, cyear, fields[1] ) ? 1 : 0;
     case 3: // day
-        return chinese_last_day_of_month(
-            cycle, cyear, fields[1], fields[2] );
+        return chinese_last_day_of_month( cycle, cyear, fields[1], fields[2] );
     }
     return f_invalid;
 }
@@ -313,5 +312,12 @@ FieldVec Chinese::get_fields( Field jdn ) const
     return fields;
 }
 
+/* static */
+bool Chinese::is_leap_month( Field year, Field month )
+{
+    Field cycle = (year / 60) + 1;
+    Field cyear = famod_f( year, 60 );
+    return chinese_is_leap_month( cycle, cyear, month );
+}
 
 // End of src/glc/hicChinese.cpp
