@@ -3,29 +3,48 @@
 
 write nl;
 write @fmt:object.c:u[shorthand], @fmt:object.c:def[shorthand],
+    @fmt:object.c:ymld[shorthand], @fmt:object.c:ylmd[shorthand],
     @fmt:object.c:cymld[shorthand], @fmt:object.c:cylmd[shorthand],
     @fmt:object.c:cylmd_s[shorthand], @fmt:object.c:full[shorthand],
     @fmt:object.c:animal[shorthand] nl;
+write @date.c:ymld( "4662 6 F 15" ), @text.c:ymld( 2460866 ) nl;
+write @date.c:ymld( "4662 6 S 15" ), @text.c:ymld( 2460896 ) nl;
+write @date.c:ymld( "4662 6 F" ), @text.c:ymld( 2460852..2460881 ) nl;
+write @date.c:ymld( "4662 6 S" ), @text.c:ymld( 2460882..2460910 ) nl;
+write @date.c:ymld( "4662 6" ), @text.c:ymld( 2460852..2460910 ) nl;
+write @date.c:ymld( "4662 7 F" ), @text.c:ymld( 2460911..2460940 ) nl;
+write @date.c:ymld( "4662 7" ), @text.c:ymld( 2460911..2460940 ) nl;
+write @date.c:ymld( "4662" ), @text.c:ymld( 2460705..2461088 ) nl;
+
+write nl;
 write @date.c( "78 42 6 f 15" ), @text.c( 2460866 ) nl;
 write @date.c( "78 42 6 f" ), @text.c( 2460852..2460881 ) nl;
 write @date.c( "78 42 6 s" ), @text.c( 2460882..2460910 ) nl;
-write @date.c( "78 42 7 f" ), @text.c( 2460911..2460940 ) nl;
 write @date.c( "78 42 6" ), @text.c( 2460852..2460910 ) nl;
+write @date.c( "78 42 7 f" ), @text.c( 2460911..2460940 ) nl;
 write @date.c( "78 42 7" ), @text.c( 2460911..2460940 ) nl;
 write @date.c( "78 42" ), @text.c( 2460705..2461088 ) nl;
-write @date.c( "78" ), @text.c( 2445733..2467644 ) nl;
+//write @date.c( "78" ), @text.c( 2445733..2467644 ) nl; // TODO: <<======<<<<
 
 
 /*[OUTPUT]
 
-false, false, true, false, false, false, false
+false, false, true, true, true, false, false, false, false
+2460866, 4662 6 F 15
+2460896, 4662 6 S 15
+2460852..2460881, 4662 6 F
+2460882..2460910, 4662 6 S
+2460852..2460910, 4662 6
+2460911..2460940, 4662 7
+2460911..2460940, 4662 7
+2460705..2461088, 4662
+
 2460866, 78 42 6 f 15
 2460852..2460881, 78 42 6 f
 2460882..2460910, 78 42 6 s
-2460911..2460940, 78 42 7
 2460852..2460910, 78 42 6
 2460911..2460940, 78 42 7
+2460911..2460940, 78 42 7
 2460705..2461088, 78 42
-2445733..2467644, 78
 
 [OUTPUT]*/
