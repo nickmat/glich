@@ -1,0 +1,17 @@
+// at-leapyear001.glcs  Test scheme functions
+
+
+write nl;
+write @leapmonth.chinese( 4662, 6 ) nl;
+write @leapmonth.chinese( 4662, 7 ) nl;
+write @leapmonth.chinese( 4662 ) nl;
+write @leapmonth( 4662, 6 ) nl;
+
+/*[OUTPUT]
+
+true
+false
+Error (7): @leapmonth requires two integer arguments.
+Error (8): @leapmonth requires a base calendar qualifier.
+
+[OUTPUT]*/
