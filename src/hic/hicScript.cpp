@@ -68,12 +68,13 @@ bool HicScript::statement()
 SValue HicScript::builtin_function_call( bool& success, const string& name )
 {
     enum f {
-        f_date, f_text, f_scheme, f_element, f_phrase, f_leapyear, f_easter,
+        f_date, f_text, f_scheme, f_element, f_phrase, f_leapyear, f_leapmonth, f_easter,
         f_sch_list, f_sch_object, f_fmt_object, f_age, f_dob
     };
     const static std::map<string, f> fmap = {
         { "date", f_date }, { "text", f_text }, {"scheme", f_scheme}, {"element", f_element},
-        { "phrase", f_phrase }, { "leapyear", f_leapyear }, { "easter", f_easter },
+        { "phrase", f_phrase }, { "leapyear", f_leapyear }, { "leapmonth", f_leapmonth },
+        { "easter", f_easter },
         { "sch:list", f_sch_list }, { "sch:object", f_sch_object }, { "fmt:object", f_fmt_object },
         { "age", f_age }, { "dob", f_dob }
     };
@@ -96,6 +97,7 @@ SValue HicScript::builtin_function_call( bool& success, const string& name )
         case f_element: return hic_at_element( quals, args );
         case f_phrase: return hic_at_phrase( quals, args );
         case f_leapyear: return hic_at_leapyear( quals, args );
+        case f_leapmonth: return hic_at_leapmonth( quals, args );
         case f_easter: return hic_at_easter( quals, args );
         case f_sch_list: return hic_at_sch_list();
         case f_sch_object: return hic_at_sch_object( quals );

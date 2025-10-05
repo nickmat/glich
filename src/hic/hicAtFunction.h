@@ -40,6 +40,7 @@ namespace glich {
     SValue hic_at_element( const StdStrVec& quals, const SValueVec& args );
     SValue hic_at_phrase( const StdStrVec& quals, const SValueVec& args );
     SValue hic_at_leapyear( const StdStrVec& quals, const SValueVec& args );
+    SValue hic_at_leapmonth( const StdStrVec& quals, const SValueVec& args );
     SValue hic_at_easter( const StdStrVec& quals, const SValueVec& args );
     SValue hic_at_sch_list();
     SValue hic_at_sch_object( const StdStrVec& quals );

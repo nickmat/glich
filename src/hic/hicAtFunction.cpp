@@ -395,6 +395,29 @@ SValue glich::hic_at_leapyear( const StdStrVec& quals, const SValueVec& args )
     return false;
 }
 
+SValue glich::hic_at_leapmonth( const StdStrVec& quals, const SValueVec& args )
+{
+    if( quals.empty() ) {
+        return SValue::create_error( "@leapmonth requires a base calendar qualifier." );
+    }
+    string mess = "@leapmonth requires two integer arguments.";
+    if( args.size() < 2 ) {
+        return SValue::create_error( mess );
+    }
+    bool success1 = false;
+    Field year = args[0].get_field( success1 );
+    bool success2 = false;
+    Field month = args[1].get_field( success2 );
+    if( !(success1 && success2) ) {
+        return SValue::create_error( mess );
+    }
+    string calendar = quals[0];
+    if( calendar == "chinese" ) {
+        return Chinese::is_leap_month( year, month );
+    }
+    return false;
+}
+
 SValue glich::hic_at_easter( const StdStrVec& quals, const SValueVec& args )
 {
     if( quals.empty() ) {
