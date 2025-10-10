@@ -282,6 +282,9 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
     if( index > 0 && fields[0] == f_maximum ) {
         return f_invalid;
     }
+    if( fields[0] == f_invalid ) {
+        return f_invalid;
+    }
     Field cycle = (fields[0] / 60) + 1;
     Field cyear = famod_f( fields[0], 60 );
 
