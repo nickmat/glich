@@ -27,8 +27,11 @@
 
 #include "hicFormatText.h"
 
+#include <glc/hic.h>
+
 #include "glcHelper.h"
 #include "glcMath.h"
+#include "glcObject.h"
 #include "hicBase.h"
 #include "hicElement.h"
 #include "hicLexicon.h"
@@ -328,13 +331,80 @@ string FormatText::get_revealed_output( const Record& record, const BoolVec* rev
 
 Range FormatText::string_to_range( const Base& base, const string& input, FunctionData* fdata ) const
 {
-    Record mask( base, input, *this, Boundary::None );
-    if( fdata && !( input == "today" || input == "past" || input == "future" ) ) {
-        SValue value = mask.get_object( fdata->ocode );
-        value = fdata->run( &value );
-        mask.set_object( value );
+    Record mask1( base, input, *this, Boundary::None );
+    if( !fdata || (input == "today" || input == "past" || input == "future") ) {
+        return mask1.get_range_from_mask();
     }
-    return mask.get_range_from_mask();
+    SValue value = mask1.get_object( fdata->ocode );
+    value = fdata->run( &value );
+    const SValue& ovalue = value;
+
+    assert( m_sig_rank_size > 1 );
+    const SValueVec* values = ovalue.get_object_values();
+    if( values == nullptr || values->size() <= 1 ) {
+        return Range();
+    }
+    Record mask( base, ovalue );
+    for( size_t i = 1, cnt = 0; i < values->size(); i++ ) {
+        if( values->at(i).type() == SValue::Type::field ) {
+            cnt++;
+        }
+        if( cnt == m_sig_rank_size - 1 ) {
+            return mask.get_range_from_mask();
+        }
+    }
+
+    Range range;
+    Record beg( mask ), end( mask );
+    FieldVec& bfields = beg.get_field_vec();
+    FieldVec& efields = end.get_field_vec();
+    Object* obj = hic().get_object( ovalue.get_object_code() );
+    Function* fun_first = obj->get_function( "first" );
+    Function* fun_last = obj->get_function( "last" );
+    Function* fun_complete = obj->get_function( get_from_text_funcode() );
+    assert( fun_complete != nullptr );
+    bool start = true;
+    for( size_t i = 0; i < m_sig_rank_size; i++ ) {
+        size_t def_index = m_rank_to_def_index[i];
+        if( start && bfields[def_index] != f_invalid ) {
+            continue;
+        }
+        if(def_index >= base.required_size() ) {
+            // Set calculated fields.
+            // Use functions defined in Grammar to calculate the beg/end field
+            if( fun_first == nullptr || fun_last == nullptr ) {
+                break;
+            }
+            SValue obj_first = beg.get_object( fdata->ocode );
+            SValue obj_last = end.get_object( fdata->ocode );
+            StdStrVec qual_fname = { m_default_fieldnames[def_index] };
+            StdStrVec qual;
+            SValueVec args;
+            SValue val_first = fun_first->run( &obj_first, qual_fname, args, fdata->out_stream );
+            if( val_first.type() == SValue::Type::field ){
+                bfields[def_index] = val_first.get_as_field();
+                obj_first = beg.get_object( fdata->ocode );
+                obj_first = fun_complete->run( &obj_first, qual, args, fdata->out_stream );
+                beg.set_object( obj_first );
+            }
+            SValue val_last = fun_last->run( &obj_last, qual_fname, args, fdata->out_stream );
+            if( val_last.type() == SValue::Type::field ){
+                efields[def_index] = val_last.get_as_field();
+                obj_last = end.get_object( fdata->ocode );
+                obj_last = fun_complete->run( &obj_last, qual, args, fdata->out_stream );
+                end.set_object( obj_last );
+            }
+        }
+        else {
+            // Set required fields.
+            bfields[def_index] = base.get_beg_field_value( bfields, def_index );
+            efields[def_index] = base.get_end_field_value( efields, def_index );
+        }
+        start = false;
+    }
+    range.m_beg = beg.calc_jdn();
+    range.m_end = end.calc_jdn();
+    return range;
 }
 
 bool FormatText::set_input( Record& record, const string& input, Boundary rb ) const
