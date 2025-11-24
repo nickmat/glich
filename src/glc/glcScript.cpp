@@ -1136,6 +1136,16 @@ SValue Script::do_subscript( const SValue& left, const SValue& right )
             }
         }
     }
+    else if( left.type() == SValue::Type::rlist ) {
+        RList rlist = left.get_rlist();
+        bool success = false;
+        Num index = right.get_number( success );
+        if( success ) {
+            if( index >= 0 && index < rlist.size() ) {
+                return rlist[index];
+            }
+        }
+    }
     return SValue();
 }
 
