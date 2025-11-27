@@ -1,5 +1,5 @@
 // c-003.glcs  Create c scheme format table.
-
+/*[SKIP]*/
 let sch = "c";
 
 let d1 = 2460866;
