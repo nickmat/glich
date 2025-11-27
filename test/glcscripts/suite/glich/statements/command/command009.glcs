@@ -1,0 +1,21 @@
+// command009.glcs - Test command statement.
+
+
+global all = "";
+
+command simonsays( word ) {
+    let space = @if(@size(all) = 0, "", " "); 
+    all += space + word;
+    write "Simon Says: " + @quote(all) nl;
+}
+
+write nl;
+call simonsays("one");
+call simonsays("two");
+
+/*[OUTPUT]
+
+Simon Says: "one"
+Simon Says: "one two"
+
+[OUTPUT]*/
