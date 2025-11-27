@@ -40,7 +40,7 @@
 
 #include <cassert>
 #include <fstream>
-#include <iostream>
+//#include <iostream>
 #include <sstream>
 
 
@@ -51,7 +51,7 @@ using std::vector;
 
 string InOut::get_input( const string& prompt ) {
     if( !prompt.empty() ) {
-        std::cout << prompt;
+        m_out << prompt;
     }
     string result;
     std::getline( std::cin, result );
@@ -59,7 +59,9 @@ string InOut::get_input( const string& prompt ) {
 }
 
 Glich::Glich( InOut* inout )
-    : m_store( new Store ), m_inout( inout )
+    : m_store( new Store ), m_inout( inout ),
+    m_out( inout ? inout->m_out : std::cout ),
+    m_err( inout ? inout->m_err : std::cerr )
 {
     Mark::set_zero_store( m_store );
     if( !m_inout ) {

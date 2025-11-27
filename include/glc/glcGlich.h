@@ -29,6 +29,7 @@
 #define INCLUDE_GLC_GLCGLICH_H_GUARD
 
 #include "glcDefs.h"
+#include <iostream>
 
 namespace glich {
 
@@ -50,6 +51,9 @@ namespace glich {
         virtual ~InOut() {}
 
         virtual std::string get_input( const std::string& prompt );
+
+        std::ostream& m_out = std::cout;
+        std::ostream& m_err = std::cerr;
     };
 
     class Glich {
@@ -62,6 +66,8 @@ namespace glich {
         static const char* version();
 
         GlcMarkDataVec get_glc_data() const;
+        std::ostream& out_stream() const { return m_out; }
+        std::ostream& err_stream() const { return m_err; }
 
         virtual void load_builtin_library( StdStrVec args );
 
@@ -137,6 +143,8 @@ namespace glich {
         SValueMap m_constants;
         std::string m_init_error;
         InOut* m_inout;
+        std::ostream& m_out;
+        std::ostream& m_err;
         StdStrSet m_module_names;
     };
 

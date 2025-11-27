@@ -48,7 +48,8 @@ using std::vector;
 STokenStream* Script::s_current_ts = nullptr;
 
 Script::Script( std::istream& in, std::ostream& out)
-    : m_ts( in, out ), m_out( &out ), m_err( &out ) {}
+    : m_ts( in, out ), m_out_( &out ), m_err( &out ) {}
+
 
 bool Script::run()
 {
@@ -72,11 +73,15 @@ bool Script::run()
 
 SValue Script::run_script( string& script )
 {
-    STokenStream prev_ts = m_ts;
+    // Save pointer to previous stream, not by value
+    STokenStream* prev_ts = &m_ts;
     std::istringstream iss( script );
     m_ts.reset_in( &iss );
     SValue value = expr( GetToken::next );
-    m_ts = prev_ts;
+    // Restore previous stream by resetting input to original stream
+    m_ts.reset_in(
+        &(prev_ts->current().value().get_str().empty() ? *static_cast<std::istream*>(nullptr) : iss) 
+    );
     return value;
 }
 
@@ -469,7 +474,7 @@ bool Script::do_write( const string& term )
         out = file->get_out();
     }
     if( out == nullptr ) {
-        out = m_out;
+        out = m_out_;
     }
 
     for( ;;) {
