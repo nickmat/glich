@@ -71,9 +71,11 @@ static FunctionData* get_function_data( Scheme* sch, Format* fmt, std::ostream& 
         Object* obj = glc().get_object( ocode );
         string funcode = fmt->get_from_text_funcode();
         Function* fun = obj->get_function( funcode );
-        FunctionData* fundata = new FunctionData( *fun, outs );
-        fundata->ocode = ocode;
-        return fundata;
+        if( fun != nullptr ) {
+            FunctionData* fundata = new FunctionData( *fun, outs );
+            fundata->ocode = ocode;
+            return fundata;
+        }
     }
     return nullptr;
 }
