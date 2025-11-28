@@ -395,7 +395,7 @@ string Grammar::get_funcode( const string& name ) const
     if( m_use_function.count( name ) == 1 ) {
         return m_use_function.find(name)->second;
     }
-    return std::string();
+    return name;
 }
 
 Grammar* Grammar::create_default_grammar( const Base* base, Glich* glc )
