@@ -74,7 +74,7 @@ Record::Record( const Scheme& sch, Field jdn )
         m_f[i] = fields[i];
     }
     const Grammar* gmr = sch.get_grammar();
-    Function* fun = sch.get_function( gmr->get_calculate() );
+    Function* fun = sch.get_function( "calculate" );
     if( fun != nullptr ) {
         SValue value = get_object( sch.get_code() );
         std::ostringstream outstm;

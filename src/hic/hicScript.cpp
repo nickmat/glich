@@ -444,9 +444,14 @@ Grammar* HicScript::do_create_grammar( const string& code, const Base* base )
             else if( name == "use" ) {
                 do_grammar_use( gmr );
             }
+            else {
+                error( "Grammar sub-statement " + name + " not recognised." );
+                return nullptr;
+            }
         }
         else {
             error( "Grammar sub-statement expected." );
+            return nullptr;
         }
     }
     gmr->constuct();
@@ -862,7 +867,6 @@ bool HicScript::do_grammar_function( Grammar* gmr )
 
 bool HicScript::do_grammar_use( Grammar* gmr )
 {
-    StdStrMap usemap;
     SToken token = next_token();
     if( current_token().type() == SToken::Type::Name ) {
         string sub = token.get_str();
@@ -879,31 +883,8 @@ bool HicScript::do_grammar_use( Grammar* gmr )
             return false;
         }
     }
-    if( current_token().type() != SToken::Type::LCbracket ) {
-        error( "'{' expected." );
-        return false;
-    }
-    for( ;;) {
-        // Look ahead for '}'
-        next_token();
-        if( current_token().type() == SToken::Type::RCbracket ||
-            current_token().type() == SToken::Type::End )
-        {
-            break; // All done.
-        }
-        StdStrVec pair = get_string_list( GetToken::current );
-        if( pair.size() != 2 ) {
-            error( "Name or String pair expected." );
-            return false;
-        }
-        if( current_token().type() != SToken::Type::Semicolon ) {
-            error( "';' expected." );
-            return false;
-        }
-        usemap[pair[0]] = pair[1];
-    }
-    gmr->set_use_function( usemap );
-    return true;
+    error( "name expected." );
+    return false;
 }
 
 #if 0

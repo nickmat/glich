@@ -390,14 +390,6 @@ Function* Grammar::get_function( const string& code ) const
     return nullptr;
 }
 
-string Grammar::get_funcode( const string& name ) const
-{
-    if( m_use_function.count( name ) == 1 ) {
-        return m_use_function.find(name)->second;
-    }
-    return name;
-}
-
 Grammar* Grammar::create_default_grammar( const Base* base, Glich* glc )
 {
     Grammar* gmr = new Grammar( "", glc );

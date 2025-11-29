@@ -47,24 +47,17 @@ grammar JA {
     alias unit { d day; m month; y year; }
 
     // Record: year month day cyear
-    function calc_to_def {
+    function fixed {
         year = @if( month<3 or (month=3 and day<25), cyear+1, cyear);
         result = this;
     }
-    function def_to_calc {
+    function calculate {
         cyear = @if( month<3 or (month=3 and day<25), year-1, year);
         result = this;
     }
-    use { calculate def_to_calc; to_text def_to_calc; from_text calc_to_def; }
 
-    format  dmc {
-        inout "{day} |{month:M:a} |{cyear}";
-        use:in calc_to_def;
-    }
-    format  wdmc {
-        inout "{wday:W:a} |{day} |{month:M:a} |{cyear}";
-        use:in calc_to_def;
-    }
+    format  dmc "{day} |{month:M:a} |{cyear}";
+    format  wdmc "{wday:W:a} |{day} |{month:M:a} |{cyear}";
     format  out {
         output "{day::os} |{month:M} |{cyear}";
     }
@@ -83,10 +76,10 @@ write @scheme.JA( 2360328 ), @scheme.JA( 2360329 ) nl;
 write @scheme.JA:dmc( "24 mar 1749" ), @scheme.JA:dmc( "25 Mar 1750" ) nl;
 write @text.JA:wdmc( 2360328 ), @text.JA:wdmc( 2360329 ) nl;
 write @text.JA:wdmc( {s:JA 1750,3,24} ), @text.JA:wdmc( {s:JA 1750,3,25} ) nl;
-write @text.JA:wdmc ({s:JA ,3,24,1749}@calc_to_def), @text.JA:wdmc ({s:JA ,3,25,1750}@calc_to_def) nl;
+write @text.JA:wdmc ({s:JA ,3,24,1749}@fixed), @text.JA:wdmc ({s:JA ,3,25,1750}@fixed) nl;
 write @date.JA:dmc( "24 mar 1749" ), @date.JA:dmc( "25 Mar 1750" ) nl;
 write @date.JA:dmc( {s:JA 1750,3,24} ), @date.JA:dmc( {s:JA 1750,3,25} ) nl;
-write @date.JA:dmc( {s:JA ,3,24,1749}@calc_to_def ), @date.JA:dmc( {s:JA ,3,25,1750}@calc_to_def ) nl;
+write @date.JA:dmc( {s:JA ,3,24,1749}@fixed ), @date.JA:dmc( {s:JA ,3,25,1750}@fixed ) nl;
 write @text.JA:out( 2432814 ) nl;
 
 

@@ -106,7 +106,7 @@ bool FormatText::construct()
         setup_control_out();
     }
     if( m_input_function.empty() ) {
-        m_input_function = gmr.get_funcode( "fixed" );
+        m_input_function = "fixed";
     }
     set_ok( true );
     return true;

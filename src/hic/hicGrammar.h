@@ -61,7 +61,6 @@ namespace glich {
         void add_lexicon( Lexicon* lex ) { m_lexicons.push_back( lex ); }
         bool add_format( Format* fmt );
         void add_alias( const std::string& alias, const StdStrVec& pairs );
-        void set_use_function( StdStrMap& usemap ) { m_use_function = usemap; }
 
         std::string get_code() const { return m_code; }
         std::string get_name() const { return m_name; }
@@ -98,8 +97,6 @@ namespace glich {
         bool add_function( SpFunction fun );
         Function* get_function( const std::string& funcode ) const;
         const SpFunctionMap& get_function_map() const { return m_functions; }
-        std::string get_funcode( const std::string& name ) const;
-        std::string get_calculate() const { return get_funcode( "calculate" ); }
 
         static Grammar* create_default_grammar( const Base* base, Glich* glc );
 
@@ -131,7 +128,6 @@ namespace glich {
         StdStrMap   m_unit_alias;
         StrUnitMap  m_unit_type_alias;
         SpFunctionMap m_functions;
-        StdStrMap   m_use_function;
     };
 
 }

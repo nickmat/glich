@@ -116,8 +116,7 @@ static SValue complete_object( Scheme* sch, Field jdn, std::ostream& outs )
     SValue value = record.get_object( sch->get_code() );
     const Grammar* gmr = sch->get_grammar();
     assert( gmr != nullptr );
-    string funcode = gmr->get_calculate();
-    Function* fun = sch->get_function( funcode );
+    Function* fun = sch->get_function( "calculate" );
     if( fun != nullptr ) {
         StdStrVec qual;
         SValueVec args;
