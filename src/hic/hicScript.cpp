@@ -867,17 +867,11 @@ bool HicScript::do_grammar_use( Grammar* gmr )
     if( current_token().type() == SToken::Type::Name ) {
         string sub = token.get_str();
         if( sub == "epoch" ) {
-            usemap = {
-                { "calculate", "calc_cyear" },
-                { "to:text", "calc_cyear" },
-                { "from:text", "calc_year" }
-            };
             token = next_token();
             if( token.type() != SToken::Type::Semicolon ) {
                 error( "';' expected." );
                 return false;
             }
-            gmr->set_use_function( usemap );
             return true;
         }
         else {

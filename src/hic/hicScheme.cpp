@@ -303,7 +303,7 @@ bool Scheme::create_epoch_functions( Field epoch, int line )
         " result = this;";
 
 
-    SpFunction fun = SpFunction( new Function( "calc_year" ) );
+    SpFunction fun = SpFunction( new Function( "fixed" ) );
     if( fun == nullptr ) {
         return false;
     }
@@ -316,7 +316,7 @@ bool Scheme::create_epoch_functions( Field epoch, int line )
         " year" + adj_year_true + ", year" + adj_year_false + ");"
         " result = this;";
 
-    fun = SpFunction( new Function( "calc_cyear" ) );
+    fun = SpFunction( new Function( "calculate" ) );
     if( fun == nullptr ) {
         return false;
     }
