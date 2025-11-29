@@ -58,21 +58,20 @@ grammar H {
     alias pseudo { w wsday; dd day; mm month; mm cmonth; yyyy year; }
     alias unit { d day; m month; cm cmonth; y year; }
 
-    function calc_cmonth {
+    function calculate {
         cmonth = @if( month=12 and @leapyear.hebrew(year), 14, month );
         result = this;
     }
-    function calc_month {
+    function fixed {
         month = @if( cmonth=14, 12, cmonth );
         result = this;
     }
-    use { calculate calc_cmonth; from:text calc_month; }
 
     format  dmy    "{day} |{cmonth:HCM} |{year}";
     format "dmy-" {
         inout "{day} |{month} |{year}";
         rank year month day;
-        use:in calc_cmonth;
+        use:in calculate;
     }
     format  wdmy   "{wsday:HW:a} |{day} |{cmonth:HCM:a} |{year}";
     format "wdmy+" "{wsday:HW} |{day} |{cmonth:HCM} |{year}";

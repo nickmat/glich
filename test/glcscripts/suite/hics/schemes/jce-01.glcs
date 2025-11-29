@@ -58,17 +58,15 @@ grammar JCE {
     alias unit { d day; m month; y year; cy ceyear; }
 
     // Record: year month day ce ceyear
-    function calc_ceyear { // output
+    function calculate { // output
         ce = @if( year<1, 0, 1 );
         ceyear = @if( year<1, -year+1, year );
         result = this;
     }
-    function calc_year { // input
+    function fixed { // input
         year = @if( ce=1, ceyear, -ceyear+1 );
         result = this;
     }
-
-    use { calculate calc_ceyear; from:text calc_year; }
 
     format  dmye, "{day} |{month:M:a} |{ceyear} |{ce:CE:a}";
     format  wdmye, "{wday:W:a} |{day} |{month:M:a} |{ceyear} |{ce:CE:a}";
@@ -90,10 +88,10 @@ write @scheme.JCE( 1721423 ), @scheme.JCE( 1721424 ) nl;
 write @scheme.JCE:dmye( "31 dec 1 bce" ), @scheme.JCE:dmye( "1 jan 1 ce" ) nl;
 write @text.JCE:dmye( 1721423 ), @text.JCE:dmye( 1721424 ) nl;
 write @text.JCE:dmye( {s:JCE 0,12,31} ), @text.JCE:dmye( {s:JCE 1,1,1} ) nl;
-write @text.JCE:dmye ({s:JCE ,12,31,0,1}@calc_year), @text.JCE:dmye ({s:JCE ,1,1,1,1}@calc_year) nl;
+write @text.JCE:dmye ({s:JCE ,12,31,0,1}@fixed), @text.JCE:dmye ({s:JCE ,1,1,1,1}@fixed) nl;
 write @date.JCE:dmye( "31 dec 1 bce" ), @date.JCE:dmye( "1 jan 1 ce" ) nl;
 write @date.JCE( {s:JCE 0,12,31} ), @date.JCE( {s:JCE 1,1,1} ) nl;
-write @date.JCE( {s:JCE ,12,31,0,1}@calc_year ), @date.JCE( {s:JCE ,1,1,1,1}@calc_year ) nl;
+write @date.JCE( {s:JCE ,12,31,0,1}@fixed ), @date.JCE( {s:JCE ,1,1,1,1}@fixed ) nl;
 write @text.JCE:out( 2432814 ) nl;
 let fo = @fmt:object.JCE:u;
 write fo[pseudo:in], fo[pseudo:out] nl;

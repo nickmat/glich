@@ -91,7 +91,7 @@ grammar FR {
     alias unit { d day; m month; y year; }
 
     // Record: year month day nmonth nmday cday dday wday
-    function calc_to_def {
+    function fixed {
         if cday = null
             month = nmonth;
             day = nmday;
@@ -103,7 +103,7 @@ grammar FR {
         endif
         result = this;
     }
-    function def_to_calc {
+    function calculate {
         if month = null
             end;
         endif
@@ -121,22 +121,20 @@ grammar FR {
         result = this;
     }
 
-    use { calculate def_to_calc; from:text calc_to_def; }
-
     format dmy {
         inout "{day} |{month:FRM:a} |{year}";
         rank year month day;
-        use:in def_to_calc;
+        use:in calculate;
     }
     format "dmy+" {
         inout "{day} |{month:FRM} |{year}";
         rank year month day;
-        use:in def_to_calc;
+        use:in calculate;
     }
     format ymd {
         inout "{year} |{month:FRM:a} |{day}";
         rank year month day;
-        use:in def_to_calc;
+        use:in calculate;
     }
     format cdmy  "{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";
     format out {
@@ -171,7 +169,7 @@ write @date.FR:ymd( "232 Frim 30" ), @date.FR:ymd( "232 Comp 2" ) nl;
 write @date.FR:cdmy( "30 Frim 232" ), @date.FR:cdmy( "Gen 232" ) nl;
 write @date.FR:dcdmy( "Décadi 30 Frimaire 232" ), @date.FR:dcdmy( "Fête du Génie 232" ) nl;
 write @date.FR:wcdmy( "Thursday, 30 Frimaire 232" ), @date.FR:wcdmy( "Wednesday, Fête du Génie 232" ) nl;
-write @date( {s:FR 232, 3, 30} ), @date( {s:FR 232,,,,,2}@calc_to_def ) nl;
+write @date( {s:FR 232, 3, 30} ), @date( {s:FR 232,,,,,2}@fixed ) nl;
 
 /*[OUTPUT]
 

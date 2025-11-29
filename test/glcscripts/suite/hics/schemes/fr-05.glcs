@@ -57,7 +57,7 @@ grammar FR {
     alias unit { d day; m month; y year; nm nmonth; nd nmday; cd cday; dd dday; }
 
     // Record: year month day nmonth nmday cday dday wday
-    function calc_to_def {
+    function fixed {
         if cday = null
             month = nmonth;
             day = nmday;
@@ -69,7 +69,7 @@ grammar FR {
         endif
         result = this;
     }
-    function def_to_calc {
+    function calculate {
         if month <> null
             if month < 13
                 nmonth = month;
@@ -85,8 +85,6 @@ grammar FR {
         endif
         result = this;
     }
-
-    use { calculate def_to_calc; from:text calc_to_def; }
 
     format std "{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |an {year::rn}";
 

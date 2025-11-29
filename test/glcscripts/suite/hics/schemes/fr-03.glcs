@@ -74,38 +74,35 @@ grammar FR {
     alias unit { d day; m month; y year; }
 
     // Record: year month day nmonth nmday cday
-    function calc_to_def {
+    function fixed {
         month = @if( cday=null, nmonth, 13 );
         day = @if( cday=null, nmday, cday );
         result = this;
     }
-    function def_to_calc {
+    function calculate {
         nmonth = @if( month<13, month, null );
         nmday = @if( month<13, day, null );
         cday = @if( month=13, day, null );
         result = this;
     }
 
-    use { calculate def_to_calc; to_text def_to_calc; from_text calc_to_def; }
-
     format dmy {
         inout "{day} |{month:FRM:a} |{year}";
         rank year month day;
-        use:in def_to_calc;
+        use:in calculate;
     }
     format "dmy+" {
         inout "{day} |{month:FRM} |{year}";
         rank year month day;
-        use:in def_to_calc;
+        use:in calculate;
     }
     format ymd {
         inout "{year} |{month:FRM:a} |{day}";
         rank year month day;
-        use:in def_to_calc;
+        use:in calculate;
     }
     format cdmy {
         inout "{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";
-        use:in calc_to_def;
     }
     preferred dmy;
 }
@@ -127,7 +124,7 @@ write @text.FR:cdmy( 2460300 ), @text.FR:cdmy( 2460207 ) nl;
 write @text.FR:ymd( {s:FR 232, 3, 30} ), @text.FR:ymd( {s:FR 231, 13, 2} ) nl;
 write @date.FR:ymd( "232 Frim 30" ), @date.FR:ymd( "231 Comp 2" ) nl;
 write @date.FR:cdmy( "30 Frim 232" ), @date.FR:cdmy( "Gen 231" ) nl;
-write @date( {s:FR 232, 3, 30} ), @date( {s:FR 231,,,,, 2}@calc_to_def ) nl;
+write @date( {s:FR 232, 3, 30} ), @date( {s:FR 231,,,,, 2}@fixed ) nl;
 
 /*[OUTPUT]
 
