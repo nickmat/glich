@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     16th August 2024
- * Copyright:   Copyright (c) 2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2024..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -48,15 +48,14 @@ grammar je {
     lexicons m ws rpt rptd;
     alias pseudo { w wsday; rpt repeat; dd day; mm month; yyyy eyear; h hyear; }
     alias unit { d day; r repeat; m month; y eyear; rptd repeated; }
-    function def_to_calc {
+    function calculate {
         repeated = @if( repeat=1, 1, null );
         result = this;
     }
-    function calc_to_def {
+    function fixed {
         repeat = @if( repeated=1, 1, 0 );
         result = this;
     }
-    use { calculate def_to_calc; from:text calc_to_def; }
 
     format dmy    "{day} |{month:m} |{eyear/hyear}| {repeated:rptd}";
     format dmy_a  "{day} |{month:m:a} |{eyear/hyear}| {repeated:rptd:a}";

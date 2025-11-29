@@ -118,7 +118,7 @@ grammar c {
     alias pseudo { yy year; mm month; lm lmonth; cm clmonth; dd day; cc cycle; cy cyear; ss stem; bb branch; }
     alias unit { d day; m month; lm lmonth; y cyear; c cycle; cm clmonth; s stem; b branch; }
 
-    function def_to_calc { // calculate
+    function calculate {
         cycle = ( (year - 1) div 60 ) + 1;
         cyear = ( (year - 1) mod 60 ) + 1;
         stem = (cyear - 1) mod 10 + 1;
@@ -127,7 +127,7 @@ grammar c {
         result = this;
     }
 
-    function calc_to_def { // format cymld
+    function fixed { // format cymld
         if stem <> null and branch <> null
             cyear = ((stem - branch) mod 12) * 5 + stem;
         endif
@@ -153,8 +153,6 @@ grammar c {
         branch = (cyear - 1) mod 12 + 1;
         result = this;
     }
-
-    use { calculate def_to_calc; from:text calc_to_def; }
 
     format ymld "{year}| {month}| {lmonth:fs:a}| {day}";
     format ylmd "{year}| {lmonth:lmon:a}| {month}| {day}";

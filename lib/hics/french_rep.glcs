@@ -100,7 +100,7 @@ grammar fr {
     alias unit { d day; m month; y year; nm nmonth; nd nmday; cd cday; dd dday; }
 
     // Record: year month day nmonth nmday cday dday wday
-    function calc_to_def {
+    function fixed {
         if cday = null
             month = nmonth;
             day = nmday;
@@ -112,7 +112,7 @@ grammar fr {
         endif
         result = this;
     }
-    function def_to_calc {
+    function calculate {
         if month <> null
             if month < 13
                 nmonth = month;
@@ -129,22 +129,20 @@ grammar fr {
         result = this;
     }
 
-    use { calculate def_to_calc; from:text calc_to_def; }
-
     format dmy_a {
         inout "{day} |{month:frm:a} |{year}";
         rank year month day;
-        use:in def_to_calc;
+        use:in calculate;
     }
     format dmy {
         inout "{day} |{month:frm} |{year}";
         rank year month day;
-        use:in def_to_calc;
+        use:in calculate;
     }
     format ymd {
         inout "{year}| {month:frm}| {day}";
         rank year month day;
-        use:in def_to_calc;
+        use:in calculate;
     }
     format  cdmy   "{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
     format "cdmy-" "{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
@@ -156,7 +154,7 @@ grammar fr {
     format gedcom {
         inout "{day} |{month:frm:a:u} |{year}";
         rank year month day;
-        use:in def_to_calc;
+        use:in calculate;
     }
 
     preferred dmy;

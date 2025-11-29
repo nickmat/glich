@@ -44,16 +44,16 @@ grammar jce {
     lexicons m w ce;
     alias pseudo { w wday; dd day; mm month; yyyy ceyear; ce ce; }
     alias unit { d day; m month; y year; cy ceyear; }
-    function calc_ceyear { // output
+    function calculate { // output
         ce = @if( year<1, 0, 1 );
         ceyear = @if( year<1, -year+1, year );
         result = this;
     }
-    function calc_year { // input
+    function fixed { // input
         year = @if( ce=1, ceyear, -ceyear+1 );
         result = this;
     }
-    use { calculate calc_ceyear; from:text calc_year; }
+
     format dmye "{day} |{month:m:a} |{ceyear} |{ce:ce:a}";
     format wdmye "{wday:w:a} |{day} |{month:m:a} |{ceyear} |{ce:ce:a}";
     format mdye "{month:m:a} |{day}, |{ceyear} |{ce:ce:a}";

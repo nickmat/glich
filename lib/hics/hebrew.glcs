@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     12th November 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -81,34 +81,33 @@ grammar h {
     alias pseudo { w wsday; dd day; mm month; mm cmonth; yyyy year; }
     alias unit { d day; m month; cm cmonth; y year; }
 
-    function calc_cmonth {
+    function calculate {
         cmonth = @if( month=12 and @leapyear.hebrew(year), 14, month );
         result = this;
     }
-    function calc_month {
+    function fixed {
         month = @if( cmonth=14, 12, cmonth );
         result = this;
     }
-    use { calculate calc_cmonth; from:text calc_month; }
 
     format  dmy_a "{day} |{cmonth:hcm:a} |{year}";
     format  dmy   "{day} |{cmonth:hcm} |{year}";
     format "dmy-" {
         inout "{day} |{month} |{year}";
         rank year month day;
-        use:in calc_cmonth;
+        use:in calculate;
     }
     format  wdmy  "{wsday:hw} |{day} |{cmonth:hcm} |{year}";
     format  ymd   "{year}| {cmonth:hcm}| {day}";
     format "ymd-" {
         inout "{year}| {month}| {day}";
         rank year month day;
-        use:in calc_cmonth;
+        use:in calculate;
     }
     format gedcom {
         inout "{day} |{month:hm:a:u} |{year}";
         rank year month day;
-        use:in calc_cmonth;
+        use:in calculate;
     }
     preferred dmy;
 }
