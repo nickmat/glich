@@ -54,7 +54,7 @@
 <tr><td class='code'>lexicons</td><td>The list of lexicons used with this grammar.</td><td class='example'>lexicons m w jce;</td></tr>
 <tr><td class='code'>alias</td><td>Allow the use of alternative field names.</td><td class='example'>alias field {WDay wday; ...}</td></tr>
 <tr><td class='code'>function</td><td>A function to be available to an attached scheme.</td><td class='example'>function code { ... result = this; }</td></tr>
-<tr><td class='code'>use</td><td>The default functions to be used by format.</td><td class='example'>use { calculate cmonth; from:text month; }</td></tr>
+<tr><td class='code'>use</td><td>Indicate when functions are created by the scheme.</td><td class='example'>use epoch;</td></tr>
 <tr><td class='code'>format</td><td>The description of the formats.</td><td class='example'>format dmy "{day} |{month:m:a} |{year}";</td></tr>
 <tr><td class='code'>preferred</td><td>The preferred format to use, unless otherwise stated.</td><td class='example'>preferred dmy;</td></tr>
 </table>
@@ -166,64 +166,53 @@
  <a href='../script/object.htm#function'>object function</a>.
 </p>
 <p>
- The default, calculated and optional field names
+ The fixed, calculated and optional field names
  will be available to the function as local variables.
  To actually make changes to the scheme object,
  the function should set the result to 'this' (the modified scheme object).
 </p>
+<p>
+ The following functions are required when using calculated fields.
+</p>
+<ol>
+ <li>
+  A function named <code>calculate</code>.
+  Converting a jdn (Julian Day Number) to a text string
+  which uses calculated fields.
+  The jdn is converted into the fixed fields
+  and a function would complete the calculated fields
+  before formulating the text string.
+ </li>
+ <li>
+  A function named <code>fixed</code>
+  When converting a text string to a jdn.
+  The date elements are composed into their fields
+  and any calculated fields are used to complete the fixed fields.
+  The fixed fields are then used to obtain the jdn value.
+ </li>
+</ol>
+<p>
+ If there are different ways to find the fixed fields,
+ different formats may require the use of different functions
+ depending on the calculated fields used.
+ If a format does not use the "fixed" function for text input
+ then it can be specified it with the <b><a href='format.htm#use-in'>use:in</a></b> sub-statement.
+</p>
 
 <h3 id="use">Sub-Statement: use</h3>
 <p>
- Define the default functions to be used by format sub-statements.
- Either define the functions directly or refer to those automatically created.
+ Used to indicate when functions are automatically created by the scheme.
+ The "calculated" and "fixed" functions are created when the grammar is attached to the scheme.
 </p>
 <table class='basic'>
 <tr><th colspan='3'>grammar use Sub-Statement</th></tr>
 <tr><th>Code</th><th>Note</th><th>Example</th></tr>
-<tr>
-<td class='code'>use {
-    calculate <i>create-calculated</i>;
-    from:text <i>create-default</i>;
-}</td>
-<td>
-Create all calculated fields from the default fields.<br>
-Create all fields the fields provided from the text.<br>
-</td>
-<td class='example'>use {
-    calculate calc_cmonth;
-    from:text calc_month;
-}</td>
-</tr>
 <tr>
 <td class='code'>use epoch;</td>
 <td>Used with schemes that define an epoch date.</td>
 <td class='example'>use epoch;</td>
 </tr>
 </table>
-<p>
- A format may use a function in two different ways.
-</p>
-<ol>
- <li>
-  Converting a jdn (Julian Day Number) to a text string
-  which uses calculated fields.
-  The jdn is converted into the default fields
-  and a function would complete the calculated fields
-  before formulating the text string.
-  This uses the <code>calculate</code> function.
- </li>
- <li>
-  When converting a text string to a jdn.
-  The date elements are composed into their fields
-  and any calculated fields are used to complete the default fields.
-  The default fields are then used to obtain the jdn value.
-  This uses the <code>from:text</code> function.
- </li>
-</ol>
-<p>
- If a format does not use the default function for text input,
- then the format sub-statement <b><a href='format.htm#use-in'>use:in</a></b> should be used to specify it.
-</p>
 
 <h3>Sub-Statement: format</h3>
 <p>
