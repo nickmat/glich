@@ -351,6 +351,70 @@ std::string STokenStream::read_until( const std::string& name, const std::string
     return code;
 }
 
+bool STokenStream::skip_to_char( char end )
+{
+    char ch;
+    for( ;;) {
+        if( !m_in->get( ch ) ) {
+            return false;
+        }
+        if( ch == end ) {
+            return true;
+        }
+        // Skip comments
+        if( ch == '/' ) {
+            if( m_in->peek() == '*' ) { // Multiline comments
+                m_in->get(); // Step over '*'
+                while( m_in->get( ch ) ) {
+                    if( ch == '\n' ) {
+                        m_line++;
+                    }
+                    if( ch == '*' && m_in->peek() == '/' ) {
+                        m_in->get(); // Step over '/'
+                        ch = ' '; // Replace comment with a space
+                        break;
+                    }
+                }
+            }
+            if( m_in->peek() == '/' ) { // Singleline comments
+                m_in->get(); // Step over '/'
+                while( m_in->get( ch ) ) {
+                    if( ch == '\n' ) {
+                        m_line++;
+                        break;
+                    }
+                }
+            }
+        }
+        // Skip strings
+        if( ch == '"' ) {
+            while( m_in->get( ch ) && ch != '"' ) {
+                if( ch == '\n' ) {
+                    m_line++;
+                }
+            }
+        }
+        // skip blocks
+        if( ch == '{' ) {
+            int nested = 1;
+            while( nested > 0 && m_in->get( ch ) ) {
+                if( ch == '{' ) {
+                    nested++;
+                }
+                else if( ch == '}' ) {
+                    nested--;
+                }
+                else if( ch == '\n' ) {
+                    m_line++;
+                }
+            }
+        }
+        if( ch == '\n' ) {
+            m_line++;
+        }
+    }
+}
+
 bool STokenStream::error( const std::string& mess )
 {
     *m_err << "Error (" << m_line << "): " << mess << "\n";
