@@ -1,0 +1,13 @@
+// if013.glcs - Test if block statement errors.
+
+
+if false {
+    write "test" nl;
+} else
+    write "what" nl;
+;
+
+/*[OUTPUT]
+Error (7): '{' expected after elseif or else.
+
+[OUTPUT]*/

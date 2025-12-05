@@ -1,0 +1,11 @@
+// if010.glcs - Test if block statement errors.
+
+
+if 8 {
+    write "really?";
+};
+
+/*[OUTPUT]
+Error (4): Boolean expression expected.
+
+[OUTPUT]*/

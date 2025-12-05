@@ -1,0 +1,13 @@
+// if014.glcs - Test if block statement errors.
+
+
+if false {
+    write "test" nl;
+} elseif 0 {
+    write "what" nl;
+};
+
+/*[OUTPUT]
+Error (6): Boolean expression expected.
+
+[OUTPUT]*/

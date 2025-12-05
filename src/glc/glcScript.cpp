@@ -147,23 +147,101 @@ bool Script::do_mark()
 
 bool Script::do_if()
 {
-    bool done = false, result = false;
+    SValue value = expr( GetToken::next );
+    if( value.type() == SValue::Type::Error ) {
+        error_value( value );
+        return false;
+    }
+    if( value.type() != SValue::Type::Bool ) {
+        error( "Boolean expression expected." );
+        return false;
+    }
+    bool result = value.get_bool();
+    SToken token = current_token();
+    if( token.type() != SToken::Type::LCbracket ) {
+        return do_if_orig( result );
+    }
+    bool done = false;
     int nested = 0;
     const char* enderr = "if ended unexpectedly.";
+    const char* braceerr = "'{' expected after elseif or else.";
+    token = next_token();
     for( ;;) {
-        if( !result && !done ) {
-            SValue value = expr( GetToken::next );
-            if( value.type() == SValue::Type::Error ) {
-                error_value( value );
+        if( result ) {
+            // Run the statement block
+            if( run_block( GetToken::current ) == false ) {
+                error( enderr );
                 return false;
             }
-            if( value.type() != SValue::Type::Bool ) {
-                error( "Boolean expression expected." );
+            if( !m_ts.skip_to_char( ';' ) ) {
+                error( enderr );
                 return false;
             }
-            result = value.get_bool();
+            return true;
         }
-        SToken token = current_token();
+        else {
+            // move on to the next "elseif" or "else"
+            if( m_ts.skip_to_char( '}' ) == false ) {
+                error( enderr );
+                return false;
+            }
+            token = next_token();
+            if( token.type() == SToken::Type::Semicolon ) {
+                return true;
+            }
+            if( token.type() == SToken::Type::End ) {
+                error( enderr );
+                return false;
+            }
+            if( token.type() == SToken::Type::Name ) {
+                string name = token.get_str();
+                if( name == "else" ) {
+                    token = next_token();
+                    if( token.type() != SToken::Type::LCbracket ) {
+                        error( braceerr );
+                        return false;
+                    }
+                    result = true;
+                }
+                else if( name == "elseif" ) {
+                    value = expr( GetToken::next );
+                    if( value.type() == SValue::Type::Error ) {
+                        error_value( value );
+                        return false;
+                    }
+                    if( value.type() != SValue::Type::Bool ) {
+                        error( "Boolean expression expected." );
+                        return false;
+                    }
+                    result = value.get_bool();
+                    token = current_token();
+                    if( token.type() != SToken::Type::LCbracket ) {
+                        error( braceerr );
+                        return false;
+                    }
+                } 
+                else {
+                    error( "Expected else or elseif." );
+                    return false;
+                }
+                next_token();
+            }
+            else {
+                error( "Expected ';'." );
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+bool glich::Script::do_if_orig( bool result )
+{
+    bool done = false;
+    int nested = 0;
+    const char* enderr = "if ended unexpectedly.";
+    SToken token = current_token();
+    for( ;;) {
         if( result ) {
             // Run the statements
             for( ;;) {
@@ -250,6 +328,19 @@ bool Script::do_if()
                 }
             }
         }
+        if( !result && !done ) {
+            SValue value = expr( GetToken::next );
+            if( value.type() == SValue::Type::Error ) {
+                error_value( value );
+                return false;
+            }
+            if( value.type() != SValue::Type::Bool ) {
+                error( "Boolean expression expected." );
+                return false;
+            }
+            result = value.get_bool();
+        }
+        token = current_token();
     }
     return true;
 }
@@ -789,6 +880,25 @@ bool Script::do_module()
         return false;
     }
     return true;
+}
+
+bool Script::run_block( GetToken get )
+{
+    bool ret = false;
+    SToken token = (get == GetToken::next) ? next_token() : current_token();
+    for( ;;) {
+        if( current_token().type() == SToken::Type::End ) {
+            return true;
+        }
+        if( current_token().type() == SToken::Type::RCbracket ) {
+            return true;
+        }
+        if( statement() == false ) {
+            return (m_ts.errors() == 0);
+        }
+        next_token();
+    }
+    return false;
 }
 
 SValue Script::expr( GetToken get )

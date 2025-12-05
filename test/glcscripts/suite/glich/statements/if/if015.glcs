@@ -1,0 +1,45 @@
+// if015.glcs Test if elseif else statement block
+
+let x = 0;
+
+
+write nl;
+
+if false {
+    x = 1;
+} elseif false {
+    x = 2;
+} elseif true {
+    x = 3;
+};
+write x nl;
+
+x = 4;
+if false {
+    x = 5;
+} elseif false {
+    x = 6;
+} elseif false {
+    x = 7;
+};
+write x nl;
+
+if false {
+    x = 8;
+} elseif false {
+    x = 9;
+} elseif false {
+    x = 10;
+} else {
+    x = 11;
+};
+write x nl;
+
+
+/*[OUTPUT]
+
+3
+4
+11
+
+[OUTPUT]*/

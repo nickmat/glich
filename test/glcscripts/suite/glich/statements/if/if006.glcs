@@ -1,0 +1,24 @@
+// if006.glcs Test if statement blocks
+
+let x = 0;
+
+
+write nl;
+
+if true {
+    x = 1;
+};
+write x nl;
+
+x = 2;
+if false {
+    x = 3;
+};
+write x nl;
+
+/*[OUTPUT]
+
+1
+2
+
+[OUTPUT]*/

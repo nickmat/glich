@@ -1,0 +1,28 @@
+// if007.glcs Test if and else statement blocks
+
+let x = 0;
+
+
+write nl;
+
+if true {
+    x = 1;
+} else {
+    x = 2;
+};
+write x nl;
+
+if false {
+    x = 3;
+} else {
+    x = 4;
+};
+write x nl;
+
+
+/*[OUTPUT]
+
+1
+4
+
+[OUTPUT]*/

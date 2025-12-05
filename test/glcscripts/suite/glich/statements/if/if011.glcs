@@ -1,0 +1,12 @@
+// if011.glcs - Test if block statement errors.
+
+
+if true {
+    write "test" nl;
+}
+
+/*[OUTPUT]
+test
+Error (13): if ended unexpectedly.
+
+[OUTPUT]*/

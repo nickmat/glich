@@ -62,6 +62,7 @@ namespace glich {
         virtual bool statement();
         bool do_mark();
         bool do_if();
+        bool do_if_orig( bool result );
         bool do_do();
         bool do_set();
         bool do_let( VariableType vartype );
@@ -75,6 +76,7 @@ namespace glich {
         bool do_object();
         bool do_file();
         bool do_module();
+        bool run_block( GetToken get );
 
         SValue expr( GetToken get );
         SValue compare( GetToken get );
