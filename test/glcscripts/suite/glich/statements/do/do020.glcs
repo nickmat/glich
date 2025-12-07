@@ -1,0 +1,12 @@
+// do020.glcs Test incomplete do statement block
+
+write nl;
+
+do {
+    write "hello";
+
+/*[OUTPUT]
+
+Error (14): Do loop not terminated.
+
+[OUTPUT]*/

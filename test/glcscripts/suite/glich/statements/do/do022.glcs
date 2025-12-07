@@ -1,0 +1,17 @@
+// do022.glcs Test do statement error on non boolean condition 
+
+write "Start ";
+
+let count = 0;
+do {
+  let count = count + 1;
+  write count + ", ";
+  until 3;
+};
+
+write "end";
+
+/*[OUTPUT]
+Start 1, Error (9): Boolean expression expected.
+end
+[OUTPUT]*/

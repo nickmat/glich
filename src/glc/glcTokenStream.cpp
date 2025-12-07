@@ -351,6 +351,105 @@ std::string STokenStream::read_until( const std::string& name, const std::string
     return code;
 }
 
+// This is a tempory method to read a do...loop or do {...}; block.
+// When the do ... loop construct is removed this method can be
+// replaced with read_until( "}", "{" );
+std::string STokenStream::read_do_block()
+{
+    string code;
+    string name = "loop";
+    string esc = "do";
+    char ch;
+    int count = 0;
+    bool braces = false; // (name == "}");
+    bool started = false;
+    for( ;;) {
+        string word;
+        while( m_in->get( ch ) && isalnum( ch ) ) {
+            word += ch;
+        }
+        code += word;
+        if( !started ) {
+            if( ch == '{' ) {
+                braces = true;
+                name = "}";
+                esc = "{";
+                started = true;
+                continue;
+            }
+            if( !word.empty() ) {
+                started = true;
+            }
+        }
+        if( ch == '\n' ) {
+            m_line++;
+        }
+        if( braces ) {
+            if( ch == '{' ) {
+                count++;
+            }
+            if( ch == '}' ) {
+                if( count == 0 ) {
+                    code += ch;
+                    break;
+                }
+                --count;
+            }
+        }
+        else if( !word.empty() ) {
+            if( word == esc ) {
+                count++;
+            }
+            if( word == name ) {
+                if( count == 0 ) {
+                    code += ch;
+                    break;
+                }
+                --count;
+            }
+        }
+        if( ch == '/' ) {
+            if( m_in->peek() == '*' ) { // Multiline comments
+                m_in->get(); // Step over '*'
+                while( m_in->get( ch ) ) {
+                    if( ch == '\n' ) {
+                        m_line++;
+                        code += '\n'; // Keep line numbers in sync.
+                    }
+                    if( ch == '*' && m_in->peek() == '/' ) {
+                        m_in->get(); // Step over '/'
+                        ch = ' '; // Replace comment with a space
+                        break;
+                    }
+                }
+            }
+            if( m_in->peek() == '/' ) { // Singleline comments
+                m_in->get(); // Step over '/'
+                while( m_in->get( ch ) ) {
+                    if( ch == '\n' ) {
+                        m_line++;
+                        break;
+                    }
+                }
+            }
+        }
+        if( ch == '"' ) {
+            code += ch;
+            while( m_in->get( ch ) && ch != '"' ) {
+                if( ch == '\n' ) {
+                    m_line++;
+                }
+                code += ch;
+            }
+        }
+        code += ch;
+        if( m_in->eof() ) { // End of stream before name found.
+            return "";
+        }
+    }
+    return code;
+}
+
 bool STokenStream::skip_to_char( char end )
 {
     char ch;
