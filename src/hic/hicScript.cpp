@@ -392,7 +392,8 @@ Grammar* HicScript::do_create_grammar( const string& code, const Base* base )
     string str;
     for( ;;) {
         token = next_token();
-        if( token.type() == SToken::Type::LCbracket ) {
+        if( token.type() == SToken::Type::LCbracket ||
+            token.type() == SToken::Type::Semicolon ) {
             continue;
         }
         else if( token.type() == SToken::Type::RCbracket ||
