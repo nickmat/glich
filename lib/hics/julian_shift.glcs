@@ -51,7 +51,7 @@ grammar j_sh {
         visible no;
     };
     preferred dmy;
-}
+};
 
 scheme jn {
     name "Julian Nativity";

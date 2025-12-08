@@ -138,7 +138,7 @@ grammar c {
         stem = (cyear - 1) mod 10 + 1;
         branch = (cyear - 1) mod 12 + 1;
         result = this;
-    }
+    };
 
     function cycle_to_year { // format cylmd
         if stem <> null and branch <> null {

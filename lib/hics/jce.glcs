@@ -63,7 +63,7 @@ grammar jce {
     format std "{day::os} |{month:m} |{ceyear} |{ce:ce}";
     format full "{wday:w} |{day::os} |{month:m} |{ceyear} |{ce:ce}";
     preferred dmye;
-}
+};
 
 scheme jce {
     name "Julian Common Era";

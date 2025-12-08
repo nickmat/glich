@@ -28,7 +28,7 @@ lexicon hm {
     name "Month names";
     fieldname month;
     lang en;
-    pseudo     Month,     Mon;
+    pseudo   Month,     Mon;
     tokens {
         1, "Nissan",   "Nsn", "Nisan";
         2, "Iyar",     "Iyr", "Iyyar";
@@ -78,8 +78,8 @@ grammar h {
     optional wsday;
     rank year cmonth day;
     lexicons hm, hcm, hw;
-    alias pseudo { w wsday; dd day; mm month; mm cmonth; yyyy year; }
-    alias unit { d day; m month; cm cmonth; y year; }
+    alias pseudo { w wsday; dd day; mm month; mm cmonth; yyyy year; };
+    alias unit { d day; m month; cm cmonth; y year; };
 
     function calculate {
         cmonth = @if( month=12 and @leapyear.hebrew(year), 14, month );
@@ -110,7 +110,7 @@ grammar h {
         use:in calculate;
     };
     preferred dmy;
-}
+};
 
 scheme h {
     name "Hebrew";
