@@ -149,26 +149,26 @@ Example based on jdn# 2460631</td></tr>
         5, "Friday",    "Fri";
         6, "Saturday",  "Sat";
         7, "Sunday",    "Sun";
-    }
-}
+    };
+};
 grammar jwn {
     name "Julian Week Number (Monday)";
     fields week day;
     lexicons w;
-    alias lexicon { wday day; }
-    alias pseudo { wwwww week; d day; }
-    alias unit { d day; w week; }
+    alias lexicon { wday day; };
+    alias pseudo { wwwww week; d day; };
+    alias unit { d day; w week; };
     format  wd      "{week}| {day}";
     format  wday    "{week}| {day:w:a}";
     format "wday+", "{week}| {day:w}";
     preferred wday;
-}
+};
 scheme jwn {
     name "Julian Week Number";
     base jwn;
     grammar jwn;
     visible no;
-}
+};
 </td></tr>
 </table>
 <p>

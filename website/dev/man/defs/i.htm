@@ -151,8 +151,8 @@ Example based on jdn# 2460491</td></tr>
         10, "Shawwāl",         "Shawwal";
         11, "Dhū al-Qa‘dah",   "Dhu al-Qa'dah";
         12, "Dhū al-Ḥijjah",   "Dhu al-Hijjah";
-    }
-}
+    };
+};
 lexicon iw {
     name "Islamic Weekday names";
     fieldname wsday; // Note: Days are numbered from Sunday, unlike "wday".
@@ -166,14 +166,15 @@ lexicon iw {
         5, "Yawm al-Khamīs",     "Kham"; // Thursday
         6, "Yawm al-Jumu‘ah",    "Jumu"; // Friday
         7, "Yawm as-Sabt",       "Sabt"; // Saturday
-    }
-}
+    };
+};
 grammar i {
+    name "Tabular Islamic"; 
     fields year month day;
     optional wsday;
     lexicons im iw;
-    alias pseudo { w wsday; dd day; mm month; yyyy year; }
-    alias unit { d day; m month; y year; }
+    alias pseudo { w wsday; dd day; mm month; yyyy year; };
+    alias unit { d day; m month; y year; };
     format  dmy    "{day} |{month:im} |{year}";
     format  dmy_a  "{day} |{month:im:a} |{year}";
     format  dmy_d  "{day} |{month} |{year}";
@@ -181,12 +182,12 @@ grammar i {
     format  wdmy_a "{wsday:iw:a} |{day} |{month:im:a} |{year}";
     format  ymd    "{year}| {month:im:a}| {day}";
     preferred dmy;
-}
+};
 scheme i {
     name "Islamic Tabular";
     base islamic IIc;
     grammar i;
-}
+};
 </td></tr>
 </table>
 <p class="clear">

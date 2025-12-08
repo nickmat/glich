@@ -134,15 +134,15 @@ Example based on jdn# 2459984</td></tr>
 >grammar g {
     name "Gregorian";
     inherit j;
-    format iso { rules iso8601 minus; }
-    format iso_set { rules iso8601 dateset minus; }
+    format iso { rules iso8601 minus; };
+    format iso_set { rules iso8601 dateset minus; };
     preferred dmy;
-}
+};
 scheme g {
     name "Gregorian";
     base gregorian;
     grammar g;
-}
+};
 </td></tr>
 </table>
 <p class='lclear'>

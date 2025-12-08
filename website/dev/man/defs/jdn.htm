@@ -112,16 +112,16 @@
 >grammar d {
     name "Day Count";
     fields day;
-    alias pseudo { dddd day; }
-    alias unit { d day; }
+    alias pseudo { dddd day; };
+    alias unit { d day; };
     format d "{day}";
     preferred d;
-}
+};
 scheme jdn {
     name "Julian Day Number";
     base jdn;
     grammar d;
-}
+};
 </td></tr>
 </table>
 <p>

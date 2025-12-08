@@ -278,16 +278,16 @@ Example based on jdn# 2460575 and 2460576</td></tr>
         10, "Messidor",        "Mess";
         11, "Thermidor",       "Ther";
         12, "Fructidor",       "Fruc";
-    }
-}
+    };
+};
 lexicon frm {
     name "Month names";
     inherit frnm;
     fieldname month;
     tokens {
         13, "Complémentaires", "Comp";
-    }
-}
+    };
+};
 lexicon frcomp {
     name "Complementary Days";
     fieldname cday;
@@ -300,8 +300,8 @@ lexicon frcomp {
         4, "Fête de l'Opinion",     "Opin";
         5, "Fête des Récompenses",  "Rec";
         6, "Fête de la Révolution", "Rev";
-    }
-}
+    };
+};
 lexicon frdd {
     name "Decade Day";
     fieldname dday;
@@ -318,8 +318,8 @@ lexicon frdd {
         8, "Octidi",   "Oct";
         9, "Nonidi",   "Non";
         10, "Décadi",  "Dec";
-    }
-}
+    };
+};
 grammar fr {
     name "French Republic";
     fields year month day;
@@ -330,50 +330,49 @@ grammar fr {
     alias pseudo { dd day; mm month; yyyy year; mm nmonth; dd nmday; c cday; d dday; w wday; }
     alias unit { d day; m month; y year; nm nmonth; nd nmday; cd cday; dd dday; }
     // Record: year month day nmonth nmday cday dday wday
-    function calc_to_def {
-        if cday = null
+    function fixed {
+        if cday = null {
             month = nmonth;
             day = nmday;
             dday = ( (day - 1) mod 10 ) + 1;
-        else
+        } else {
             month = 13;
             day = cday;
             dday = null;
-        endif
+        };
         result = this;
-    }
-    function def_to_calc {
-        if month &lt;&gt; null
-            if month &lt; 13
+    };
+    function calculate {
+        if month &lt;&gt; null {
+            if month < 13 {
                 nmonth = month;
                 nmday = day;
                 cday = null;
                 dday = ( (day - 1) mod 10 ) + 1;
-            else
+            } else {
                 nmonth = null;
                 nmday = null;
                 cday = day;
                 dday = null;
-            endif
-        endif
+            };
+        };
         result = this;
-    }
-    use { calculate def_to_calc; from:text calc_to_def; }
+    };
     format dmy_a {
         inout "{day} |{month:frm:a} |{year}";
         rank year month day;
-        use:in def_to_calc;
-    }
+        use:in calculate;
+    };
     format dmy {
         inout "{day} |{month:frm} |{year}";
         rank year month day;
-        use:in def_to_calc;
-    }
+        use:in calculate;
+    };
     format ymd {
         inout "{year}| {month:frm}| {day}";
         rank year month day;
-        use:in def_to_calc;
-    }
+        use:in calculate;
+    };
     format  cdmy   "{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
     format "cdmy-" "{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
     format  std     "{cday:frcomp} |{nmday} |{nmonth:frnm} |an {year::rn}";
@@ -384,15 +383,15 @@ grammar fr {
     format gedcom {
         inout "{day} |{month:frm:a:u} |{year}";
         rank year month day;
-        use:in def_to_calc;
-    }
+        use:in calculate;
+    };
     preferred dmy;
-}
+};
 scheme fr {
     name "French Republic";
     base french;
     grammar fr;
-}
+};
 </td></tr>
 </table>
 <p class="clear">

@@ -143,8 +143,8 @@ Example based on jdn# 1705426 and 1732577</td></tr>
     tokens {
         0, "Before Common Era", "BCE";
         1, "Common Era",        "CE";
-    }
-}
+    };
+};
 grammar jce {
     name "Julian Common Era";
     fields year month day;
@@ -152,18 +152,17 @@ grammar jce {
     optional wday;
     rank ce ceyear month day;
     lexicons m w ce;
-    alias pseudo { w wday; dd day; mm month; yyyy ceyear; ce ce; }
-    alias unit { d day; m month; y year; cy ceyear; }
-    function calc_ceyear { // output
+    alias pseudo { w wday; dd day; mm month; yyyy ceyear; ce ce; };
+    alias unit { d day; m month; y year; cy ceyear; };
+    function calculate { // output
         ce = @if( year&lt;1, 0, 1 );
         ceyear = @if( year&lt;1, -year+1, year );
         result = this;
-    }
-    function calc_year { // input
+    };
+    function fixed { // input
         year = @if( ce=1, ceyear, -ceyear+1 );
         result = this;
-    }
-    use { calculate calc_ceyear; from:text calc_year; }
+    };
     format dmye "{day} |{month:m:a} |{ceyear} |{ce:ce:a}";
     format wdmye "{wday:w:a} |{day} |{month:m:a} |{ceyear} |{ce:ce:a}";
     format mdye "{month:m:a} |{day}, |{ceyear} |{ce:ce:a}";
@@ -173,12 +172,12 @@ grammar jce {
     format std "{day::os} |{month:m} |{ceyear} |{ce:ce}";
     format full "{wday:w} |{day::os} |{month:m} |{ceyear} |{ce:ce}";
     preferred dmye;
-}
+};
 scheme jce {
     name "Julian Common Era";
     base julian;
     grammar jce;
-}
+};
 </td></tr>
 </table>
 <p class='lclear'>

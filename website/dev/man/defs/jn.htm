@@ -151,8 +151,8 @@ Example based on jdn# 2172134 and 2172135</td></tr>
     optional wday;
     rank cyear month day;
     lexicons m w;
-    alias pseudo { w wday; dd day; mm month; yyyy cyear; h year; }
-    alias unit { d day; m month; hy year; cy cyear; }
+    alias pseudo { w wday; dd day; mm month; yyyy cyear; h year; };
+    alias unit { d day; m month; hy year; cy cyear; };
     use epoch;
     format  dmy "{day} |{month:m:a} |{cyear/year}";
     format "dmy+" "{day} |{month:m} |{cyear/year}";
@@ -167,15 +167,15 @@ Example based on jdn# 2172134 and 2172135</td></tr>
     format  cdef {
         inout "{cyear}| {month}| {day}";
         visible no;
-    }
+    };
     preferred dmy;
-}
+};
 scheme jn {
     name "Julian Nativity";
     base julian;
     epoch 1721417;    // j:dmy# 25 Dec 0
     grammar j_sh;
-}
+};
 </td></tr>
 </table>
 <p class='lclear'>

@@ -118,17 +118,17 @@ Example based on jdn# 2459984</td></tr>
 >grammar go {
     name "Year Day";
     fields year day;
-    alias pseudo { ddd day; yyyy year; }
-    alias unit { d day; y year; }
+    alias pseudo { ddd day; yyyy year; };
+    alias unit { d day; y year; };
     format yd "{year}| {day}";
-    format iso { rules iso8601 ordinal minus; }
+    format iso { rules iso8601 ordinal minus; };
     preferred yd;
-}
+};
 scheme go {
     name "Gregorian Ordinal";
     base ordinal;
     grammar go;
-}
+};
 </td></tr>
 </table>
 <p>
