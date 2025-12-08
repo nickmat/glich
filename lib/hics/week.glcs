@@ -38,28 +38,28 @@ lexicon w {
         5, "Friday",    "Fri";
         6, "Saturday",  "Sat";
         7, "Sunday",    "Sun";
-    }
-}
+    };
+};
 
 grammar jwn {
     name "Julian Week Number (Monday)";
     fields week day;
     lexicons w;
-    alias lexicon { wday day; }
-    alias pseudo { wwwww week; d day; }
-    alias unit { d day; w week; }
+    alias lexicon { wday day; };
+    alias pseudo { wwwww week; d day; };
+    alias unit { d day; w week; };
     format  wd      "{week}| {day}";
     format  wday    "{week}| {day:w:a}";
     format "wday+", "{week}| {day:w}";
     preferred wday;
-}
+};
 
 scheme jwn {
     name "Julian Week Number";
     base jwn;
     grammar jwn;
     visible no;
-}
+};
 
 lexicon ws {
     name "Weekday names Sunday start";
@@ -74,28 +74,28 @@ lexicon ws {
         5, "Thursday",  "Thur";
         6, "Friday",    "Fri";
         7, "Saturday",  "Sat";
-    }
-}
+    };
+};
 
 grammar jwsn {
     name "Julian Week Number (Sunday)";
     fields week day;
     lexicons ws;
-    alias lexicon { wsday day; }
-    alias pseudo { wwwww week; d day; }
-    alias unit { d day; w week; }
+    alias lexicon { wsday day; };
+    alias pseudo { wwwww week; d day; };
+    alias unit { d day; w week; };
     format  wd      "{week}| {day}";
     format  wday    "{week}| {day:ws:a}";
     format "wday+", "{week}| {day:ws}";
     preferred wday;
-}
+};
 
 scheme jwsn {
     name "Julian Week (Sunday) Number";
     base jwn sunday;
     grammar jwsn;
     visible no;
-}
+};
 
 
 // End of scripts/base.hcs file

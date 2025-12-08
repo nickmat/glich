@@ -41,8 +41,8 @@ lexicon cstem {
         8,  "Xīn",  "Xin";
         9,  "Rén",  "Ren";
         10, "Guì",  "Gui";
-    }
-}
+    };
+};
 
 lexicon cbrch {
     name "Chinese Branch";
@@ -62,8 +62,8 @@ lexicon cbrch {
         10, "Yǒu",  "You";
         11, "Xū",   "Xu";
         12, "Hài",  "Hai";
-    }
-}
+    };
+};
 
 lexicon animal {
     name "Chinese Year Animals";
@@ -83,8 +83,8 @@ lexicon animal {
         10, "Rooster";
         11, "Dog";
         12, "Pig";
-    }
-}
+    };
+};
 
 lexicon lmon {
     name "Leap month";
@@ -94,8 +94,8 @@ lexicon lmon {
     tokens {
         0,  "Month";
         1,  "Leap-month", "Leap";
-    }
-}
+    };
+};
 
 lexicon fs {
     name "First and Second";
@@ -105,8 +105,8 @@ lexicon fs {
     tokens {
         0,  "First", "F";
         1,  "Second", "S";
-    }
-}
+    };
+};
 
 grammar c {
     fields year month lmonth day;
@@ -115,8 +115,8 @@ grammar c {
 
     lexicons lmon fs cstem cbrch animal;
 
-    alias pseudo { yy year; mm month; lm lmonth; cm clmonth; dd day; cc cycle; cy cyear; ss stem; bb branch; }
-    alias unit { d day; m month; lm lmonth; y cyear; c cycle; cm clmonth; s stem; b branch; }
+    alias pseudo { yy year; mm month; lm lmonth; cm clmonth; dd day; cc cycle; cy cyear; ss stem; bb branch; };
+    alias unit { d day; m month; lm lmonth; y cyear; c cycle; cm clmonth; s stem; b branch; };
 
     function calculate {
         cycle = ( (year - 1) div 60 ) + 1;
@@ -125,15 +125,15 @@ grammar c {
         branch = (cyear - 1) mod 12 + 1;
         clmonth = @if(lmonth=0, null, 1);
         result = this;
-    }
+    };
 
     function fixed { // format cymld
-        if stem <> null and branch <> null
+        if stem <> null and branch <> null {
             cyear = ((stem - branch) mod 12) * 5 + stem;
-        endif
-        if cycle <> null and cyear <> null
+        };
+        if cycle <> null and cyear <> null {
             year = (cycle - 1) * 60 + cyear;
-        endif
+        };
         clmonth = @if(lmonth=0, null, 1);
         stem = (cyear - 1) mod 10 + 1;
         branch = (cyear - 1) mod 12 + 1;
@@ -141,18 +141,18 @@ grammar c {
     }
 
     function cycle_to_year { // format cylmd
-        if stem <> null and branch <> null
+        if stem <> null and branch <> null {
             cyear = ((stem - branch) mod 12) * 5 + stem;
-        endif
-        if cycle <> null and cyear <> null
+        };
+        if cycle <> null and cyear <> null {
             year = (cycle - 1) * 60 + cyear;
-        endif
+        };
         lmonth = @if( clmonth = null, 0, clmonth );
         clmonth = @if(lmonth=0, null, 1);
         stem = (cyear - 1) mod 10 + 1;
         branch = (cyear - 1) mod 12 + 1;
         result = this;
-    }
+    };
 
     format ymld "{year}| {month}| {lmonth:fs:a}| {day}";
     format ylmd "{year}| {lmonth:lmon:a}| {month}| {day}";
@@ -160,31 +160,31 @@ grammar c {
     format cymld {
         inout "{cycle}| {cyear}| {month}| {lmonth:fs:a:l}| {day}";
         rank cycle cyear month lmonth day;
-    }
+    };
     format cylmd {
         inout "{cycle}| {cyear}| {clmonth:lmon*:a}| {month}| {day}";
         rank cycle cyear month day lmonth;
         use:in cycle_to_year;
-    }
+    };
     format cylmd_s {
         inout "{cycle}| {stem:cstem}|-{branch:cbrch::l}|, {clmonth:lmon:a}| {month}| {day}";
         rank cycle month day;
         separators ",-";
         use:in cycle_to_year;
-    }
+    };
     format full {
         output "Cycle: {cycle},| Year: {stem:cstem}-{branch:cbrch::l} ({cyear}),| {lmonth:lmon}:| {month},| Day: {day}";
-    }
+    };
     format animal {
         output "(Cycle {cycle})| Year of the {branch:animal} {cyear}| {lmonth:lmon}| {month}| Day {day}";
-    }
+    };
     preferred cymld;
-}
+};
 
 scheme c {
   name "Chinese";
   base chinese;
   grammar c;
-}
+};
 
 // End of lib/hics/chinese.glcs file

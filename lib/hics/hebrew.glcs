@@ -43,8 +43,8 @@ lexicon hm {
         11, "Shevat",  "Shv", "Shvat";
         12, "Adar",    "Adr";
         13, "Adar II", "Ads";
-    }
-}
+    };
+};
 
 lexicon hcm {
     name "Complete Month names";
@@ -52,8 +52,8 @@ lexicon hcm {
     inherit hm;
     tokens {
         14, "Adar I",  "Adf";
-    }
-}
+    };
+};
 
 lexicon hw {
     name "Weekday names";
@@ -68,8 +68,8 @@ lexicon hw {
         5, "Yom Hamishi",  "Hami"; // Thursday
         6, "Yom Shishi",   "Shis"; // Friday
         7, "Yom Shabbat",  "Shab"; // Saturday
-    }
-}
+    };
+};
 
 grammar h {
     name "Hebrew";
@@ -84,11 +84,11 @@ grammar h {
     function calculate {
         cmonth = @if( month=12 and @leapyear.hebrew(year), 14, month );
         result = this;
-    }
+    };
     function fixed {
         month = @if( cmonth=14, 12, cmonth );
         result = this;
-    }
+    };
 
     format  dmy_a "{day} |{cmonth:hcm:a} |{year}";
     format  dmy   "{day} |{cmonth:hcm} |{year}";
@@ -96,19 +96,19 @@ grammar h {
         inout "{day} |{month} |{year}";
         rank year month day;
         use:in calculate;
-    }
+    };
     format  wdmy  "{wsday:hw} |{day} |{cmonth:hcm} |{year}";
     format  ymd   "{year}| {cmonth:hcm}| {day}";
     format "ymd-" {
         inout "{year}| {month}| {day}";
         rank year month day;
         use:in calculate;
-    }
+    };
     format gedcom {
         inout "{day} |{month:hm:a:u} |{year}";
         rank year month day;
         use:in calculate;
-    }
+    };
     preferred dmy;
 }
 
@@ -116,6 +116,6 @@ scheme h {
     name "Hebrew";
     base hebrew;
     grammar h;
-}
+};
 
 // End of lib/hics/hebrew.glcs file

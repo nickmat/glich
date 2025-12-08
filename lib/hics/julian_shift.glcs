@@ -33,8 +33,8 @@ grammar j_sh {
     optional wday;
     rank cyear month day;
     lexicons m w;
-    alias pseudo { w wday; dd day; mm month; yyyy cyear; h year; }
-    alias unit { d day; m month; hy year; cy cyear; }
+    alias pseudo { w wday; dd day; mm month; yyyy cyear; h year; };
+    alias unit { d day; m month; hy year; cy cyear; };
     use epoch;
     format  dmy "{day} |{month:m:a} |{cyear/year}";
     format "dmy+" "{day} |{month:m} |{cyear/year}";
@@ -49,7 +49,7 @@ grammar j_sh {
     format  cdef {
         inout "{cyear}| {month}| {day}";
         visible no;
-    }
+    };
     preferred dmy;
 }
 
@@ -58,20 +58,20 @@ scheme jn {
     base julian;
     epoch 1721417;    // j:dmy# 25 Dec 0
     grammar j_sh;
-}
+};
 
 scheme ja {
     name "Julian Annunciation Florence";
     base julian;
     epoch 1721507;    // j:dmy# 25 Mar 1
     grammar j_sh;
-}
+};
 
 scheme jap {
     name "Julian Annunciation Pisa";
     base julian;
     epoch 1721142;    // j:dmy# 25 Mar 0
     grammar j_sh;
-}
+};
 
 // End of slib/hics/julian_shifted.glcs file

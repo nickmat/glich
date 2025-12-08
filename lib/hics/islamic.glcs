@@ -42,8 +42,8 @@ lexicon im {
         10, "Shawwāl",         "Shawwal";
         11, "Dhū al-Qa‘dah",   "Dhu al-Qa'dah";
         12, "Dhū al-Ḥijjah",   "Dhu al-Hijjah";
-    }
-}
+    };
+};
 
 lexicon iw {
     name "Islamic Weekday names";
@@ -58,16 +58,16 @@ lexicon iw {
         5, "Yawm al-Khamīs",     "Kham"; // Thursday
         6, "Yawm al-Jumu‘ah",    "Jumu"; // Friday
         7, "Yawm as-Sabt",       "Sabt"; // Saturday
-    }
-}
+    };
+};
 
 grammar i {
     name "Tabular Islamic"; 
     fields year month day;
     optional wsday;
     lexicons im iw;
-    alias pseudo { w wsday; dd day; mm month; yyyy year; }
-    alias unit { d day; m month; y year; }
+    alias pseudo { w wsday; dd day; mm month; yyyy year; };
+    alias unit { d day; m month; y year; };
 
     format  dmy    "{day} |{month:im} |{year}";
     format  dmy_a  "{day} |{month:im:a} |{year}";
@@ -76,24 +76,24 @@ grammar i {
     format  wdmy_a "{wsday:iw:a} |{day} |{month:im:a} |{year}";
     format  ymd    "{year}| {month:im:a}| {day}";
     preferred dmy;
-}
+};
 
 scheme i {
     name "Islamic Tabular";
     base islamic IIc;
     grammar i;
-}
+};
 
 scheme ims {
     name "Islamic Microsoft Hijri";
     base islamic IIa;
     grammar i;
-}
+};
 
 scheme "if" {
     name "Islamic Fātimid";
     base islamic IIIa;
     grammar i;
-}
+};
 
 // End of lib/hics/islamic.glcs file

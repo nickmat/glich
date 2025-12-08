@@ -28,15 +28,15 @@
 
 object age: {
      values value unit style;
-     function text { result = value + unit + @if(@size(style)=0, "", " (" + style + ")"); }
-}
+     function text { result = value + unit + @if(@size(style)=0, "", " (" + style + ")"); };
+};
 
 object fmt: {
     values code grammar rules visible pseudo:in pseudo:out shorthand;
-}
+};
 
 object sch: {
     values code name basename fieldnames grammar formats default:in default:out visible;
-}
+};
 
 // End of lib/glich/glc_builtin.glcs file

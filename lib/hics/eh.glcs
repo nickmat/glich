@@ -30,6 +30,6 @@ scheme eh {
     name "Julian Era Hispanica";
     base julian "year:-38";
     grammar j;
-}
+};
 
 // End of lib/hics/eh.hcs file

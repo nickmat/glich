@@ -27,50 +27,50 @@
 grammar g {
     name "Gregorian";
     inherit j;
-    format iso { rules iso8601 minus; }
-    format iso_set { rules iso8601 dateset minus; }
+    format iso { rules iso8601 minus; };
+    format iso_set { rules iso8601 dateset minus; };
     preferred dmy;
-}
+};
 
 scheme g {
     name "Gregorian";
     base gregorian;
     grammar g;
-}
+};
 
 grammar gw {
     name "Year Week Day";
     fields year week day;
     lexicons w;
-    alias field { wday week; }
-    alias pseudo { d day; ww week; yyyy year; }
-    alias unit { d day; w week; y year; }
+    alias field { wday week; };
+    alias pseudo { d day; ww week; yyyy year; };
+    alias unit { d day; w week; y year; };
     format  ywd "{year}| {week}| {day:w:a}";
     format "ywd+", "{year}| {week}| {day:w}";
-    format iso { rules iso8601 week minus; }
+    format iso { rules iso8601 week minus; };
     preferred ywd;
-}
+};
 
 scheme gw {
     name "Gregorian ISO Week";
     base isoweek;
     grammar gw;
-}
+};
 
 grammar go {
     name "Year Day";
     fields year day;
-    alias pseudo { ddd day; yyyy year; }
-    alias unit { d day; y year; }
+    alias pseudo { ddd day; yyyy year; };
+    alias unit { d day; y year; };
     format yd "{year}| {day}";
-    format iso { rules iso8601 ordinal minus; }
+    format iso { rules iso8601 ordinal minus; };
     preferred yd;
-}
+};
 
 scheme go {
     name "Gregorian Ordinal";
     base ordinal;
     grammar go;
-}
+};
 
 // End of lib/hics/gregorian.glcs file

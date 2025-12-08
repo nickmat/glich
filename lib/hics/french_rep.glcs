@@ -43,8 +43,8 @@ lexicon frnm {
         10, "Messidor",        "Mess";
         11, "Thermidor",       "Ther";
         12, "Fructidor",       "Fruc";
-    }
-}
+    };
+};
 
 lexicon frm {
     name "Month names";
@@ -52,8 +52,8 @@ lexicon frm {
     fieldname month;
     tokens {
         13, "Complémentaires", "Comp";
-    }
-}
+    };
+};
 
 lexicon frcomp {
     name "Complementary Days";
@@ -67,8 +67,8 @@ lexicon frcomp {
         4, "Fête de l'Opinion",     "Opin";
         5, "Fête des Récompenses",  "Rec";
         6, "Fête de la Révolution", "Rev";
-    }
-}
+    };
+};
 
 lexicon frdd {
     name "Decade Day";
@@ -86,8 +86,8 @@ lexicon frdd {
         8, "Octidi",   "Oct";
         9, "Nonidi",   "Non";
         10, "Décadi",  "Dec";
-    }
-}
+    };
+};
 
 grammar fr {
     name "French Republic";
@@ -101,49 +101,49 @@ grammar fr {
 
     // Record: year month day nmonth nmday cday dday wday
     function fixed {
-        if cday = null
+        if cday = null {
             month = nmonth;
             day = nmday;
             dday = ( (day - 1) mod 10 ) + 1;
-        else
+        } else {
             month = 13;
             day = cday;
             dday = null;
-        endif
+        };
         result = this;
-    }
+    };
     function calculate {
-        if month <> null
-            if month < 13
+        if month <> null {
+            if month < 13 {
                 nmonth = month;
                 nmday = day;
                 cday = null;
                 dday = ( (day - 1) mod 10 ) + 1;
-            else
+            } else {
                 nmonth = null;
                 nmday = null;
                 cday = day;
                 dday = null;
-            endif
-        endif
+            };
+        };
         result = this;
-    }
+    };
 
     format dmy_a {
         inout "{day} |{month:frm:a} |{year}";
         rank year month day;
         use:in calculate;
-    }
+    };
     format dmy {
         inout "{day} |{month:frm} |{year}";
         rank year month day;
         use:in calculate;
-    }
+    };
     format ymd {
         inout "{year}| {month:frm}| {day}";
         rank year month day;
         use:in calculate;
-    }
+    };
     format  cdmy   "{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
     format "cdmy-" "{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
     format  std     "{cday:frcomp} |{nmday} |{nmonth:frnm} |an {year::rn}";
@@ -155,15 +155,14 @@ grammar fr {
         inout "{day} |{month:frm:a:u} |{year}";
         rank year month day;
         use:in calculate;
-    }
-
+    };
     preferred dmy;
-}
+};
 
 scheme fr {
     name "French Republic";
     base french;
     grammar fr;
-}
+};
 
 // End of lib/hics/french_rep.glcs file

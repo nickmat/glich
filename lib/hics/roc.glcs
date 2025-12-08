@@ -27,29 +27,29 @@
 grammar roc {
     name "Republic of China";
     fields year month day;
-    alias pseudo { dd day; mm month; yyy year; }
-    alias unit { d day; m month; y year; }
+    alias pseudo { dd day; mm month; yyy year; };
+    alias unit { d day; m month; y year; };
     format ymd {
         separators "/,:";
         inout "ROC {year}|/{month}|/{day}";
-    }
+    };
     format "ymd." {
         separators ".,:";
         inout "ROC {year}|.{month}|.{day}";
-    }
+    };
     format cns7648 {
         separators "-";
         inout "ROC {year::lp:03}|-{month::lp:02}|-{day::lp:02}";
         pseudo:out "ROC yyy-mm-dd";
         pseudo:in "yyy-mm-dd";
-    }
+    };
     preferred ymd;
-}
+};
 
 scheme roc {
     name "Republic of China (Gregorian)";
     base gregorian year:1911;
     grammar roc;
-}
+};
 
 // End of lib/hics/roc.hcs file

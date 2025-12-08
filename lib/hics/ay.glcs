@@ -33,16 +33,16 @@ lexicon jg {
     tokens {
         0, "Julian",     "j";
         1, "Gregorian",  "g";
-    }
-}
+    };
+};
 
 grammar jg {
     name "Hybrid Julian and Gregorian";
     fields scheme year month day;
     rank year month day;
     lexicons m jg;
-    alias pseudo { dd day; mm month; yyyy year; s scheme; }
-    alias unit { d day; m month; y year; s scheme; }
+    alias pseudo { dd day; mm month; yyyy year; s scheme; };
+    alias unit { d day; m month; y year; s scheme; };
 
     format  dmy    "{day} |{month:m:a} |{year}";
     format "dmy+"  "{day} |{month:m} |{year}";
@@ -53,17 +53,17 @@ grammar jg {
     format  mdys   "{month:m:a} |{day}, |{year} |{scheme:jg:a}";
     format "mdys+" "{month:m} |{day}, |{year} |{scheme:jg}";
     preferred dmy;
-}
+};
 
 scheme ay {
     name "Astronomical Year";
     base hybrid {
         fields scheme year month day;
-        scheme 0 { base julian; }
+        scheme 0 { base julian; };
         change 2299161;  // g# 15 Oct 1582
-        scheme 1 { base gregorian; }
-    }
+        scheme 1 { base gregorian; };
+    };
     grammar jg;
-}
+};
 
 // End of lib/hics/ay.glcs file

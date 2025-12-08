@@ -44,16 +44,16 @@ lexicon m {
         10, "October",   "Oct";
         11, "November",  "Nov";
         12, "December",  "Dec";
-    }
-}
+    };
+};
 
 grammar j {
     name "Julian";
     fields year month day;
     optional wday;
     lexicons m, w;
-    alias pseudo { w wday; dd day; mm month; yyyy year; }
-    alias unit { d day; m month; y year; }
+    alias pseudo { w wday; dd day; mm month; yyyy year; };
+    alias unit { d day; m month; y year; };
     format dmy "{day} |{month:m:a} |{year}";
     format "dmy+" "{day} |{month:m} |{year}";
     format wdmy "{wday:w:a} |{day} |{month:m:a} |{year}";
@@ -66,12 +66,12 @@ grammar j {
     format "wmdy+" "{wday:w}, |{month:m} |{day}, |{year}";
     format ymd "{year}|:{month:m:a}|:{day}";
     preferred dmy;
-}
+};
 
 scheme j {
     name "Julian";
     base julian;
     grammar j;
-}
+};
 
 // End of lib/hics/julian.glcs file

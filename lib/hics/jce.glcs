@@ -32,8 +32,8 @@ lexicon ce {
     tokens {
         0, "Before Common Era", "BCE";
         1, "Common Era",        "CE";
-    }
-}
+    };
+};
 
 grammar jce {
     name "Julian Common Era";
@@ -42,17 +42,17 @@ grammar jce {
     optional wday;
     rank ce ceyear month day;
     lexicons m w ce;
-    alias pseudo { w wday; dd day; mm month; yyyy ceyear; ce ce; }
-    alias unit { d day; m month; y year; cy ceyear; }
+    alias pseudo { w wday; dd day; mm month; yyyy ceyear; ce ce; };
+    alias unit { d day; m month; y year; cy ceyear; };
     function calculate { // output
         ce = @if( year<1, 0, 1 );
         ceyear = @if( year<1, -year+1, year );
         result = this;
-    }
+    };
     function fixed { // input
         year = @if( ce=1, ceyear, -ceyear+1 );
         result = this;
-    }
+    };
 
     format dmye "{day} |{month:m:a} |{ceyear} |{ce:ce:a}";
     format wdmye "{wday:w:a} |{day} |{month:m:a} |{ceyear} |{ce:ce:a}";
@@ -69,6 +69,6 @@ scheme jce {
     name "Julian Common Era";
     base julian;
     grammar jce;
-}
+};
 
 // End of lib/hics/jce.glcs file

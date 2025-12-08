@@ -32,13 +32,13 @@ lexicon rpt {
   tokens {
       0, "First",    "F";
       1, "Repeated", "Rpt";
-  }
-}
+  };
+};
 
 lexicon rptd {
   inherit rpt;
   fieldname repeated;
-}
+};
 
 grammar je {
     fields eyear repeat month day;
@@ -46,16 +46,16 @@ grammar je {
     optional hyear wsday;
     rank eyear month day;
     lexicons m ws rpt rptd;
-    alias pseudo { w wsday; rpt repeat; dd day; mm month; yyyy eyear; h hyear; }
-    alias unit { d day; r repeat; m month; y eyear; rptd repeated; }
+    alias pseudo { w wsday; rpt repeat; dd day; mm month; yyyy eyear; h hyear; };
+    alias unit { d day; r repeat; m month; y eyear; rptd repeated; };
     function calculate {
         repeated = @if( repeat=1, 1, null );
         result = this;
-    }
+    };
     function fixed {
         repeat = @if( repeated=1, 1, 0 );
         result = this;
-    }
+    };
 
     format dmy    "{day} |{month:m} |{eyear/hyear}| {repeated:rptd}";
     format dmy_a  "{day} |{month:m:a} |{eyear/hyear}| {repeated:rptd:a}";
@@ -72,6 +72,6 @@ scheme je {
   name "Julian Easter";
   base easter;
   grammar je;
-}
+};
 
 // End of lib/hics/easter.glcs file

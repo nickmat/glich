@@ -27,30 +27,30 @@
 grammar d {
     name "Day Count";
     fields day;
-    alias pseudo { dddd day; }
-    alias unit { d day; }
+    alias pseudo { dddd day; };
+    alias unit { d day; };
     format d "{day}";
     preferred d;
-}
+};
 
 scheme jdn {
     name "Julian Day Number";
     base jdn;
     grammar d;
-}
+};
 
 scheme mjd {
     name "Modified Julian Day";
     base jdn epoch:2400002;
     grammar d;
     visible no;
-}
+};
 
 scheme rd {
     name "Rata Die";
     base jdn epoch:1721426; // g:dmy# 1 Jan 1
     grammar d;
     visible no;
-}
+};
 
 // End of scripts/jdn.hcs file
