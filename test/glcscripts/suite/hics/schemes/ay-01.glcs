@@ -18,8 +18,8 @@ lexicon M {
         10, "October",   "Oct";
         11, "November",  "Nov";
         12, "December",  "Dec";
-    }
-}
+    };
+};
 
 lexicon JG {
     name "Scheme names";
@@ -29,8 +29,8 @@ lexicon JG {
     tokens {
         0, "Julian",     "j";
         1, "Gregorian",  "g";
-    }
-}
+    };
+};
 
 grammar JG {
     fields scheme year month day;
@@ -38,22 +38,22 @@ grammar JG {
     lexicons M JG;
     alias pseudo {
         s, scheme;
-    }
+    };
     format  dmy   "{day} |{month:M:a} |{year}";
     format  dmys  "{day} |{month:M:a} |{year} |{scheme:JG:a}";
     preferred dmy;
-}
+};
 
 scheme AY {
     name "Astronomical Year";
     base hybrid {
         fields scheme year month day;
-        scheme 0 { base julian; }
+        scheme 0 { base julian; };
         change 2299161;  // g# 15 Oct 1582
-        scheme 1 { base gregorian; }
-    }
+        scheme 1 { base gregorian; };
+    };
     grammar JG;
-}
+};
 
 
 write nl;
