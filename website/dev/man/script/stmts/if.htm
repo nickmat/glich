@@ -45,36 +45,34 @@
 <p>
  The statement may include zero or more '<b>elseif</b> condition' sub-statements
  and an optional '<b>else</b>' sub-statement.
- The statement must end with the <b>endif</b> keyword.
+ The statement must end with a semicolon.
 </p>
 
 <table class='basic'>
  <tr><th>if Statement Format</th></tr>
  <tr>
-  <td class='code'><b>if</b> <i>bool_expr</i>
+  <td class='code'><b>if</b> <i>bool_expr</i> <b>{</b>
     <i>statements ...</i>
-<b>elseif</b> <i>bool_expr</i>
+<b>} elseif</b> <i>bool_expr</i> <b>{</b>
     <i>statements ...</i>
-<b>elseif</b> <i>bool_expr</i>
+<b>} else {</b>
     <i>statements ...</i>
-<b>else</b>
-    <i>statements ...</i>
-<b>endif</b></td>
+<b>};</b></td>
  </tr>
 </table>
 
 <table class='basic'>
  <tr><th>Example</th></tr>
  <tr>
-  <td class='example'><b>if</b> value = 10
+  <td class='example'><b>if</b> value = 10 <b>{</b>
     write "Value is a round 10" nl;
-<b>elseif</b> value &lt; 5
+<b>} elseif</b> value &lt; 5 <b>{</b>
     write "Value as less than 5" nl;
-<b>elseif</b> value = 100
+<b>} elseif</b> value = 100 <b>{</b>
     write "Value is exactly 100" nl;
-<b>else</b>
+<b>} else {</b>
     write "Value is boring" nl;
-<b>endif</b></td>
+<b>};</b></td>
  </tr>
 </table>
 

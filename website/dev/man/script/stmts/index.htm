@@ -56,8 +56,9 @@
 <h3>Language Statements</h3>
 <p>
  A script consists of one or more statements.
- Some of these statements may include one or more sub-statements.
- The base language statements are as follows:-
+ A statement consists of the statement keyword followed by any required parameters and ending with a semicolon.
+ Some of these statements may include one or more sub-statements in {} blocks.
+ The core language statements are as follows:-
 </p>
 <table class='basic'>
 <tr><th colspan='3'>Statement List</th></tr>
@@ -65,41 +66,41 @@
 <tr><td class='code'><a href='command.htm'><b>call</b></a></td><td>Run a predefined command.</td><td class='example'>call bold_write("Hello");</td></tr>
 <tr><td class='code'><a href='command.htm'><b>command</b></a></td><td>Define a Command which can be called later.</td><td class='example'>command bold_write( mess ) {
   write "&lt;b&gt;" + mess + "&lt;/b&gt;";
-}</td></tr>
+};</td></tr>
 <tr><td class='code'><a href='let.htm'><b>constant</b></a></td><td>Create a constant value.</td><td class='example'>constant tau = pi * 2;</td></tr>
-<tr><td class='code'><a href='do.htm'><b>do</b></a></td><td>Loop through a script until a condition is met.</td><td class='example'>do while y &lt;= 2015
+<tr><td class='code'><a href='do.htm'><b>do</b></a></td><td>Loop through a script until a condition is met.</td><td class='example'>do {
+  while y &lt;= 2015;
   write "1 Jan " + y nl;
   y += 1;
-loop</td></tr>
+};</td></tr>
 <tr><td class='code'><a href='end.htm'><b>end</b></a></td><td>Stop running a script, command or function.</td><td class='example'>end;</td></tr>
 
 <tr><td class='code'><a href='file.htm'><b>file</b></a></td><td>Define a file object for input and output.</td><td class='example'>file test append "text.txt";</td></tr>
 
 <tr><td class='code'><a href='function.htm'><b>function</b></a></td><td>Define a Function which can be used in an expression.</td><td class='example'>function double( x ) {
   result = x * 2;
-}</td></tr>
+};</td></tr>
 
 <tr><td class='code'><a href='let.htm'><b>global</b></a></td><td>Initialise or change a global variable.</td><td class='example'>global paper = "A4";</td></tr>
 
-<tr><td class='code'><a href='if.htm'><b>if</b></a></td><td>Run code depending on condition.</td><td class='example'>if value = 10
+<tr><td class='code'><a href='if.htm'><b>if</b></a></td><td>Run code depending on condition.</td><td class='example'>if value = 10 {
   write "&lt;b&gt;" + value + "&lt;/b&gt;";
-else
+} else {
   write value;
-endif</td></tr>
+};</td></tr>
 <tr><td class='code'><a href='let.htm'><b>let</b></a></td><td>Initialise or change a local variable.</td><td class='example'>let d = 1;</td></tr>
-<tr><td class='code'><a href='mark.htm'><b>mark</b></a></td><td>Set a named mark in the script.</td><td class='example'>mark "test1";</td></tr>
+<tr><td class='code'><a href='mark.htm'><b>mark</b></a></td><td>Set a named mark in the script.</td><td class='example'>mark test1;</td></tr>
 
 <tr><td class='code'><a href='object.htm'><b>object</b></a></td><td>Define an Object for later use.</td><td class='example'>object pair {
     values first second;
     function sum {
         result = first + second;
-    }
-}</td></tr>
+    };
+};</td></tr>
 
 <tr><td class='code'><a href='set.htm'><b>set</b></a></td><td>Set a global default setting.</td><td class='example'>set context hics;</td></tr>
 
 <tr><td class='code'><a href='write.htm'><b>write</b></a></td><td>Create output.</td><td class='example'>write value1, value2 nl;</td></tr>
-<tr><td class='code'><a href='write.htm'><b>writeln</b></a></td><td>Create output, followed by a new line.</td><td class='example'>writeln.fname "Date: " + today_str;</td></tr>
 </table>
 
 <p>

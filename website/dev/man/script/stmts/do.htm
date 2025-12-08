@@ -38,30 +38,30 @@
 <div id='content' class='nomenu'>
 
 
-<h2>Statement: do .. loop</h2>
+<h2>Statement: do { ... };</h2>
 <p>
- A <b>do</b> <i>statements</i> ... <b>loop</b> statement runs the statements in between
+ A <b>do {</b> <i>statements</i> ... <b>};</b> statement runs the statements in between
  until a '<b>while</b> <i>condition</i>' or '<b>until</b> <i>condition</i>' sub-statement causes the loop to exit.
- Currently the maximum number of iterations is fixed 1000.
+ Currently the maximum number of iterations is fixed at 1000.
 </p>
 <p>
- If a '<b>while</b> <i>condition</i>' sub-statement is encountered
+ If a '<b>while</b> <i>condition</i><b>;</b>' sub-statement is encountered
  and the condition is false,
- the execution of the script moves to the first statement after the '<b>loop</b>' keyword.
- Encountering an '<b>until</b> <i>condition</i>' sub-statement breaks out of the loop
+ the execution of the script moves to the first statement after the end of the <b>do { ... };</b> statement.
+ Encountering an '<b>until</b> <i>condition</i><b>;</b>' sub-statement breaks out of the loop
  if the condition is true.
 </p>
 
 <table class='basic'>
  <tr><th>do Statement Format</th></tr>
  <tr>
-  <td class='code'><b>do</b>
+  <td class='code'><b>do {</b>
     <i>statements ...</i>
-    <b>while</b> <i>bool_expr</i>
+    <b>while</b> <i>bool_expr></i><b>;</b>
     <i>statements ...</i>
-    <b>until</b> <i>bool_expr</i>
+    <b>until</b> <i>bool_expr</i><b>;</b>
     <i>statements ...</i>
-<b>loop</b></td>
+<b>};</b></td>
 </tr>
 </table>
 
@@ -70,11 +70,11 @@
  <tr><th>Example</th><th>Output</th></tr>
  <tr>
   <td class='example'>let day = @date.g:dmy("1apr2017");
-<b>do</b>
+<b>do {</b>
     write @text."g:wdmy+"(day) nl;
     <b>until</b> day >= @date.g:dmy("1may2017");
     day += 7;
-<b>loop</b></td>
+<b>};</b></td>
   <td>
    Saturday 1 April 2017<br />
    Saturday 8 April 2017<br />

@@ -71,15 +71,15 @@ object test_sum {
     values one two three;
     function sum {
         result = one + two + three;
-    }
-}
+    };
+};
 </td>
 <td></td>
 </tr><tr>
 <td class='example'>// Script file: test_run.glcs
 <b>module</b> file:test_mod {
     object test_sum;
-}
+};
 let ts = {test_sum 1, 2, 3};
 write ts nl ts@sum; 
 </td>

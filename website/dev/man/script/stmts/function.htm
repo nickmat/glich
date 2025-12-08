@@ -68,7 +68,7 @@
 <tr> <!-- See test file - test\glcscripts\suite\glich\statements\function\function015.glcs -->
 <td class='code'><b>function</b> <i>name.qualifier</i><b>(</b><i>arg</i>[<b>=</b><i>value</i>]<b>,</b> <i>arg</i>[<b>=</b><i>value</i>]<b>) {</b>
     ... <b>result</b> = <i>expr</i><b>; ...</b>
-<b>}</b>
+<b>};</b>
 
 write <b>@</b><i>name.qualifier</i><b>(</b><i>value1</i><b>,</b> <i>value2</i><b>);</b>
 write <b>@</b><i>name</i><b>(</b><i>value1</i><b>);</b>
@@ -79,7 +79,7 @@ write <b>@</b><i>name</i><b>;</b></td>
 <tr> <!-- See test file - test\tscripts\suite\functions\function013.hcs -->
 <td class='code'><b>function</b> <i>name</i> <b>{</b>
     ... <b>result</b> = <i>expr</i><b>;</b> ...
-<b>}</b>
+<b>};</b>
 
 write <b>@</b><i>name</i><b>;</b></td>
 </tr>
@@ -90,12 +90,12 @@ write <b>@</b><i>name</i><b>;</b></td>
 <tr><th>Example</th><th>Output</th></tr>
 <tr> <!-- See test file - test\glcscripts\suite\glich\statements\functions\function015.glcs -->
 <td class='example'><b>function</b> range_plus<b>(</b>start<b>,</b> duration = 7<b>){</b>
-    if duration < 1
+    if duration < 1 {
         <b>result</b> = @error( "Duration must be above zero." );
         end;
-    endif
+    };
     <b>result</b> = start .. start + duration - 1;
-<b>}</b>
+<b>};</b>
 
 let r = <b>@</b>range_plus<b>(</b>100<b>)</b>;
 
@@ -107,14 +107,14 @@ Error (3): Duration must be above zero.</td>
 <tr> <!-- See test file - test\glcscripts\suite\hics-lib\functions\function013.hcs -->
   <td class='example'>// Requires the hics extensions.
 <b>function</b> this_week.day_start <b>{</b>
-    if day_start = "sun"
+    if day_start = "sun" {
         let day = @record.jwsn( today )[day];
-    else
+    } else {
         let day = @record.jwn( today )[day];
-    endif
+    };
     let start = today - day + 1;
     result = start .. ( start + 6 );
-<b>}</b>
+<b>};</b>
 
 write @text( @this_week ) nl;
 write @text( @this_week.sun );

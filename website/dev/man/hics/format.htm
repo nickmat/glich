@@ -44,11 +44,11 @@
  <tr>
   <td class='code'><b>format</b> <i>gcode</i><b>:</b><i>fcode</i> <b>{</b>
     <i>format-statements</i>
-<b>}</b></td> <!-- See test file - test/tscripts/suite/suite\hics-lib\format\format001.glcs -->
+<b>};</b></td> <!-- See test file - test/tscripts/suite/suite\hics-lib\format\format001.glcs -->
   <td class='example'><b>format</b> j:OBLIQUE <b>{</b>
     separators "/";
     inout "{day}/|{month}/|{year}"; 
-<b>}</b>
+<b>};</b>
 writeln text.g:OBLIQUE 2460136;
 writeln date.j:OBLIQUE "27/6/2023";
 </td>
@@ -66,15 +66,15 @@ writeln text.g:UPPER 2460141;</td>
     <i>grammar-statements</i>
     <b>format</b> <i>fcode</i> <b>{</b>
         <i>format-statements</i>
-    <b>}</b>
-<b>}</b></td>
+    <b>};</b>
+<b>};</b></td>
   <!-- See test file - test/tscripts/suite/statements/grammar/g_format003.hcs -->
   <td class='example'><b>grammar</b> XG <b>{</b>
     inherit g;
     <b>format</b> dXmy <b>{</b>
         output "{Day} |{Month::rn} |{Year}";
-    <b>}</b>
-<b>}</b>
+    <b>};</b>
+<b>};</b>
 scheme XS{ base gregorian; grammar XG; }
 writeln text.XS:dXmy 2460141;</td>
   <td>15 VII 2023</td>
@@ -83,14 +83,14 @@ writeln text.XS:dXmy 2460141;</td>
   <td class='code'><b>grammar</b> <i>gcode</i> <b>{</b>
     <i>grammar-statements</i>
     <b>format</b> <i>fcode</i> <i>format-string</i><b>;</b>
-<b>}</b></td>
+<b>};</b></td>
   <!-- See test file - test/tscripts/suite/statements/grammar/g_format004.hcs -->
   <td class='example'><b>grammar</b> XG <b>{</b>
     inherit g;
     <b>format</b> html
         "{day}&lt;sup&gt;{day::oa}&lt;/sup&gt; |{month:m} |{year}";
-<b>}</b>
-scheme XS{ base gregorian; grammar XG; }
+<b>};</b>
+scheme XS{ base gregorian; grammar XG; };
 writeln text.XS:html 2460127;</td>
   <td>1<sup>st</sup> July 2023</td>
  </tr>
@@ -366,16 +366,16 @@ writeln text.XS:html 2460127;</td>
 <tr><td
 >format g:iso_y5 {
     rules iso8601 caldate minus year5;
-}
+};
 format g:iso_y5set {
     rules iso8601 dateset minus year5;
-}
+};
 format gw:iso_y5wd {
     rules iso8601 week minus year5;
-}
+};
 format go:iso_y5d {
     rules iso8601 ordinal minus year5;
-}
+};
 </td></tr>
 </table>
 
@@ -384,16 +384,16 @@ format go:iso_y5d {
 <tr><td
 >format g:iso_y6 {
     rules iso8601 caldate minus year6;
-}
+};
 format g:iso_y6set {
     rules iso8601 dateset minus year6;
-}
+};
 format gw:iso_y6wd {
     rules iso8601 week minus year6;
-}
+};
 format go:iso_y6d {
     rules iso8601 ordinal minus year6;
-}
+};
 </td></tr>
 </table>
 

@@ -52,14 +52,14 @@
  <tr> <!-- See test file - test\tscripts\suite\functions\function012.hcs -->
 <td class='code'><b>command</b> <i>name</i> <b>{</b>
     <i>statements ...</i>
-<b>}</b>
+<b>};</b>
 
 <b>call</b> <i>name</i><b>;</b></td>
  </tr>
  <tr> <!-- See test file - test\tscripts\suite\functions\function014.hcs -->
 <td class='code'><b>command</b> <i>name</i><b>(</b><i>arg</i><b>=</b><i>value</i><b>,</b> <i>arg</i><b>=</b><i>value</i><b>) {</b>
     <i>statements ...</i>
-<b>}</b>
+<b>};</b>
 
 <b>call</b> <i>name</i><b>(</b><i>value1</i><b>,</b> <i>value2</i><b>);</b>
 </td>
@@ -71,7 +71,7 @@
  <tr> <!-- See test file - test\tscripts\suite\functions\function012.hcs -->
   <td class='example'><b>command</b> wr_today <b>{</b>
     write string.g:dmy today;
-<b>}</b>
+<b>};</b>
     ...
 <b>call</b> wr_today<b>;</b></td>
   <td>21 May 2017</td>
@@ -84,17 +84,16 @@
   <td class='example'>object complex { values real imaginary; }
     
 <b>command</b> write_complex<b>(</b> c <b>) {</b>
-    if v[.object] = complex
-        if c[imaginary] < 0
+    if v[.object] = complex {
+        if c[imaginary] < 0 {
             write c[real] + " - " + c[imaginary] + "i";
-        elseif c[imaginary] = 0
+        } elseif c[imaginary] = 0 {
             write c[real];
-        else
+        } else {
             write c[real] + " + " + c[imaginary] + "i";
-        endif
-    endif
-<b>}</b>
-
+        };
+    };
+<b>};</b>
 <b>call</b> write_complex( {complex 20, -25} );</b></td>
   <td>20 - 25i</td>
  </tr>

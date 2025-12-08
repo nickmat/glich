@@ -64,23 +64,24 @@
 <tr> <!-- See test file - test\glcscripts\suite\glich\examples\object-def-01.glcs -->
 <td class='example'><b>object</b> complex <b>{</b>
     <b>values</b> real imaginary<b>;</b>
-    <b>function</b> add<b>(</b> comp <b>){</b>
-        if (comp[.object] = "complex")
+    <b>function</b> add<b>(</b> comp <b>) {</b>
+        if @object( comp ) = "complex" {
             <b>result</b> = {complex real+comp[real], imaginary+comp[imaginary]};
-        else
+        } else {
             <b>result</b> = error "Must have 'complex' argument";
-        endif
-    <b>}</b>
-<b>}</b>
+        };
+    <b>};</b>
+<b>};</b>
 
 let c1 = {complex 5, 9};
-let c2 = c1 @add( {complex 20, 6} );
-let c2 = {complex 20, 6};
+let c2 = c1@add( {complex 20, 6} );
 
-write c1 @add( c2 ) nl;
-write c1 @add( 1 ) nl;
+write  c1, c2 nl;
+write c1 @ add( c2 ) nl;
+write c1 @ add( 1 ) nl;
 </td>
-<td>{complex 25, 15}<br />
+<td>{complex 5, 9}, {complex 25, 15}<br />
+{complex 30, 24}<br />
 Error (9): Must have 'complex' argument
 </tr>
 </table>

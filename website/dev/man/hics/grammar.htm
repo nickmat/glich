@@ -52,8 +52,8 @@
 <tr><td class='code'>optional</td><td>List of optional fields.</td><td class='example'>optional wday;</td></tr>
 <tr><td class='code'>rank</td><td>The field ranking used by the format sub-statements.</td><td class='example'>rank ce ceyear month day;</td></tr>
 <tr><td class='code'>lexicons</td><td>The list of lexicons used with this grammar.</td><td class='example'>lexicons m w jce;</td></tr>
-<tr><td class='code'>alias</td><td>Allow the use of alternative field names.</td><td class='example'>alias field {WDay wday; ...}</td></tr>
-<tr><td class='code'>function</td><td>A function to be available to an attached scheme.</td><td class='example'>function code { ... result = this; }</td></tr>
+<tr><td class='code'>alias</td><td>Allow the use of alternative field names.</td><td class='example'>alias field {WDay wday; ...};</td></tr>
+<tr><td class='code'>function</td><td>A function to be available to an attached scheme.</td><td class='example'>function code { ... result = this; };</td></tr>
 <tr><td class='code'>use</td><td>Indicate when functions are created by the scheme.</td><td class='example'>use epoch;</td></tr>
 <tr><td class='code'>format</td><td>The description of the formats.</td><td class='example'>format dmy "{day} |{month:m:a} |{year}";</td></tr>
 <tr><td class='code'>preferred</td><td>The preferred format to use, unless otherwise stated.</td><td class='example'>preferred dmy;</td></tr>
@@ -119,7 +119,7 @@
 </p>
 <table class='basic'>
  <tr>
-  <td class='code'><b>alias <i>type</i> {</b> <i>alias field-name</i><b>;</b> <i>alias field-name</i><b>;</b> ... <b>}</b></td>
+  <td class='code'><b>alias <i>type</i> {</b> <i>alias field-name</i><b>;</b> <i>alias field-name</i><b>;</b> ... <b>};</b></td>
  </tr>
 </table>
 <p>
@@ -128,10 +128,10 @@
 <table class='basic'>
 <tr><th colspan='3'>grammar alias Sub-Statement</th></tr>
 <tr><th>Sub-Statement</th><th>Use</th><th>Example</th></tr>
-<tr><td class='code'>alias field</td><td>Allow the use of more user friendly field names.</td><td class='example'>alias field {WDay wday; ...}</td></tr>
-<tr><td class='code'>alias pseudo</td><td>The pseudonym matching numbers in the pseudo date.</td><td class='example'>alias pseudo {w wday; dd day; ...}</td></tr>
-<tr><td class='code'>alias unit</td><td>Alternative field name when used as a unit.</td><td class='example'>alias field {d day; m month; ...}</td></tr>
-<tr><td class='code'>alias lexicon</td><td>When the register name does not match the lexicon name.</td><td class='example'>alias lexicon {wday day; ...}</td></tr>
+<tr><td class='code'>alias field</td><td>Allow the use of more user friendly field names.</td><td class='example'>alias field {WDay wday; ...};</td></tr>
+<tr><td class='code'>alias pseudo</td><td>The pseudonym matching numbers in the pseudo date.</td><td class='example'>alias pseudo {w wday; dd day; ...};</td></tr>
+<tr><td class='code'>alias unit</td><td>Alternative field name when used as a unit.</td><td class='example'>alias field {d day; m month; ...};</td></tr>
+<tr><td class='code'>alias lexicon</td><td>When the register name does not match the lexicon name.</td><td class='example'>alias lexicon {wday day; ...};</td></tr>
 </table>
 <p>
  Note, the alias does not replace the field-name, but gives a preferred alternative.

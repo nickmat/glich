@@ -54,7 +54,7 @@
 <tr><td class='code'>base</td><td>The base calendar used by the scheme.</td><td class='example'>base julian;</td></tr>
 <tr><td class='code'>epoch</td><td>Scheme uses a different epoch to the base calendar.</td><td class='example'>epoch 1721507;</td></tr>
 <tr><td class='code' rowspan='2'>grammar</td><td>Predefined grammar to be used.</td><td class='example'>grammar jce;</td></tr>
-<tr><td>Anonymous grammar definition.</td><td class='example'>grammar { optional wday; }</td></tr>
+<tr><td>Anonymous grammar definition.</td><td class='example'>grammar { optional wday; };</td></tr>
 <tr><td class='code'>visible</td><td>The default visibility in scheme lists.</td><td class='example'>visible no;</td></tr>
 </table>
 
@@ -77,6 +77,7 @@
 <tr><td>Julian Day Number</td><td class='code'>jdn</td><td>A day count calendar used internally by Glich.</td><td><a href='../defs/jdn.htm'>jdn</a></td></tr>
 <tr><td>Julian Week Number</td><td class='code'>jwn</td><td>A week count calendar based on Julian Day Number.</td><td><a href='../defs/jwn.htm'>jwn</a></td></tr>
 <tr><td>Julian</td><td class='code'>julian</td><td>The base for the Julian calendar variants.</td><td><a href='../defs/j.htm'>j</a></td></tr>
+<tr><td>Julian Easter</td><td class='code'>easter</td><td>A Julian Easter new year calendar variant.</td><td><a href='../defs/j.htm'>j</a></td></tr>
 <tr><td>Gregorian</td><td class='code'>gregorian</td><td>The modified Julian calendar used world wide.</td><td><a href='../defs/g.htm'>g</a></td></tr>
 <tr><td>ISO Week</td><td class='code'>isoweek</td><td>A solar calendar with numbered 7 day weeks, based on Gregorian.</td><td><a href='../defs/gw.htm'>gw</a></td></tr>
 <tr><td>Gregorian Ordinal</td><td class='code'>ordinal</td><td>A solar calendar with numbered days, based on Gregorian.</td><td><a href='../defs/go.htm'>go</a></td></tr>
@@ -134,7 +135,7 @@
 <table class='basic'>
 <tr><th colspan='4'>Base jdn Keyword</th></tr>
 <tr><th>Keyword</th><th>Description</th><th>Example</th><th>Reference Scheme</th></tr>
-<tr><td class='code'>epoch:<i>date</i></td><td>Change the day count epoch.</td><td class="example">base jdn epoch:2400002</td><td><a href='../defs/mjd.htm'>mjd</a></td></tr>
+<tr><td class='code'>epoch:<i>date</i></td><td>Change the day count epoch.</td><td class="example">base jdn epoch:2400002;</td><td><a href='../defs/mjd.htm'>mjd</a></td></tr>
 </table>
 
 <h4>Sub-Statement: base jwn</h4>
@@ -160,7 +161,7 @@
 <tr><td class='code'>sunday</td><td>Week start Sunday.</td><td class='code'>1w 1d = jdn 6d</td><td><a href='../defs/jwsn.htm'>jwsn</a></td></tr>
 </table>
 
-<h4>base julian Sub-Statement</h4>
+<h4>Sub-Statement: base julian</h4>
 <p>
  This sub-statement implements the Julian calendar.
  The calendar has a record with three fixed fields named 'year', 'month' and 'day',
@@ -179,17 +180,45 @@
 <table class='basic'>
 <tr><th colspan='4'>Base julian Keyword</th></tr>
 <tr><th>Keyword</th><th>Description</th><th>Example</th><th>Reference Scheme</th></tr>
-<tr><td class='code'>year:<i>offset</i></td><td>Offset the year by a fixed amount.</td><td class="example">base julian "year:-38"</td><td><a href='../defs/eh.htm'>eh</a></td></tr>
+<tr><td class='code'>year:<i>offset</i></td><td>Offset the year by a fixed amount.</td><td class="example">base julian "year:-38";</td><td><a href='../defs/eh.htm'>eh</a></td></tr>
 </table>
 
-<h4>base gregorian Sub-Statement</h4>
+<h4>Sub-Statement: base easter</h4>
+<p>
+ This sub-statement implements a Julian calendar with the year start on Easter Sunday.
+ Because the length of the year varies, dates around Easter may be ambiguous.
+ The ambiguity is resolved by adding a 'repeat' field.
+</p>
+<p>
+ The calendar has a record with four fixed fields named 'eyear', 'repeat', 'month' and 'day',
+ ranked in that order.
+ The day and month fields follow the Julian calendar rules.
+ The 'eyear' field gives the year number based on the Easter Sunday year.
+ The 'repeat' field has the value 0 the first time the date occurs in the year
+ and 1 if the date occurs a second time in the same Easter year.
+ The epoch is jdn# 1721509, Easter Sunday in the year Julian year 1.
+</p>
+<p>
+ An additional keywords <code>year:<i>offset</i></code>
+ may be used which effectively changes the epoch by a fixed number of years
+ and <code>day:<i>offset</i></code>
+ which changes the start of the year from Easter Sunday.
+</p>
+<table class='basic'>
+<tr><th colspan='3'>Base easter Keywords</th></tr>
+<tr><th>Keyword</th><th>Description</th><th>Example</th></tr>
+<tr><td class='code'>year:<i>offset</i></td><td>Offset the year by a fixed amount.</td><td class="example">base easter "year:10";</td></tr>
+<tr><td class='code'>day:<i>offset</i></td><td>Offset the nuber of days from Easter Sunday.</td><td class="example">base easter "day:5";</td></tr>
+</table>
+
+<h4>Sub-Statement: base gregorian</h4>
 <p>
  This sub-statement implements the Gregorian calendar.
  The calendar is identical to the Julian calendar except the epoch is jdn# 1721426
  and century years not divisible by 4 are common years.
 </p>
 
-<h4>base isoweek Sub-Statement</h4>
+<h4>Sub-Statement: base isoweek</h4>
 <p>
  This sub-statement implements the ISO 8601 Week calendar,
  a variant of the Gregorian calendar.
@@ -200,7 +229,7 @@
  The year starts on the week day 1 (Monday) that is closest to the Gregorian year start.
 </p>
 
-<h4>base isoordinal Sub-Statement</h4>
+<h4>Sub-Statement: base isoordinal</h4>
 <p>
  This sub-statement implements the ISO 8601 Ordinal calendar,
  a variant of the Gregorian calendar.
@@ -210,7 +239,7 @@
  The day is numbered 1 to 365 days in a common year and 1 to 366 in a leap year.
 </p>
 
-<h4>base hebrew Sub-Statement</h4>
+<h4>Sub-Statement: base hebrew</h4>
 <p>
  This sub-statement implements the arithmetical lunisolar Hebrew calendar
  used by Jewish communities since the 12th century.
@@ -224,7 +253,7 @@
  See the default script <a href='../defs/h.htm'>Hebrew calendar</a> definition for more details.
 </p>
 
-<h4>base french Sub-Statement</h4>
+<h4>Sub-Statement: base french</h4>
 <p>
  This sub-statement implements the calendar established following the creation of the French Republic.
  The calendar has a record with three fixed fields named 'year', 'month' and 'day',
@@ -235,7 +264,7 @@
  The epoch is jdn# 2375840 (g:dmy# 22 Sep 1792).
 </p>
 
-<h4>base islamic Sub-Statement</h4>
+<h4>Sub-Statement: base islamic</h4>
 <p>
  This sub-statement implements the arithmetical lunar Islamic calendar.
  (The observational Islamic calendar will be implemented in a future version.)
@@ -269,7 +298,7 @@
  If the additional keyword is not given, IIc is assumed.
 </p>
 
-<h4>base chinese Sub-Statement</h4>
+<h4>Sub-Statement: base chinese</h4>
 <p>
  This sub-statement implements the lunisolar Chinese calendar.
  The calendar has a record with five fixed fields named 'cycle', 'cyear', 'month', 'lmonth' and 'day',
@@ -284,58 +313,7 @@
  See the default script for the <a href='../defs/c.htm'>Chinese calendar</a> for more details.
 </p>
 
-<h3>epoch Shift Sub-Statement</h3>
-<p>
- Calendars normally have two separate parts to their definitions.
- There is the definition that describes how the days are counted within the year,
- then there is the method of counting those years.
- One common occurrence is that different calendar schemes may use the same method
- to count the days with the year but have different ways of counting the years.
- The year count may start at any point of the year,
- not just the point normally considered the start of the year (New Years Day).
-</p>
-<p>
- For instance, when Julius Caesar introduced the Julian calendar,
- New Years Day was considered to be 1st January.
- However, not all calendar systems increased the year count on this day.
- When the AD (Anno Domini) Julian calendar was first used,
- the year change occurred on the 25th December.
- Later, many other dates were used, for instance, 25th March,
- the Feast of the Annunciation.
-</p>
-<p>
- We can also use the epoch variant to change the era,
- even if the year change remains the 1st January,
- as with the <a href='../defs/se.htm'>Julian Spanish Era</a> calendar.
- It will also work with day count calendars,
- to create day count calendar that starts at a different date,
- such as the Modified Julian Day calendar.
-</p>
-<table class='basic'>
-<tr><th colspan='2'>epoch Sub-Statement</th></tr>
-<tr><th>Sub-Statement</th><th>Example</th></tr>
-<tr>
- <td class='code'>epoch <i>date-field</i> <i>base-scheme</i>;</td>
- <td class='example'>epoch 1721417 julian; // j:dmy# 25 Dec 0
-epoch 2400001 jdn; // Modified Julian Day</td>
-</tr>
-</table>
-<p>
- The sub-statement consists of the 'epoch' keyword followed by the epoch date
- followed by the base scheme.
-</p>
-<table class='code'>
-<tr><th>Example Script</th></tr> <!-- See test/shift001.hcs -->
-<tr><td class='example'
->scheme JS {
-    name "Julian September Start Calendar";
-    epoch date.j:dmy "1 Sep 0" julian;
-    grammar jepoch;
-}
-</td></tr>
-</table>
-
-<h3>hybrid Sub-Statement</h3>
+<h3>Sub-Statement: hybrid</h3>
 <p>
  When an authority changes from one calender system to another,
  and where the underling system is the same,
@@ -376,54 +354,32 @@ epoch 2400001 jdn; // Modified Julian Day</td>
         scheme j;
         change 2361222;  // g:dmy# 14 Sep 1752
         scheme g;
-    }
+    };
     grammar hy; // See default script <a href='../defs/eng.htm'>eng</a>
-}
+};
 </td></tr>
 </table>
 <table class='basic'>
 <tr><th colspan='2'>hybrid Sub-Statement</th></tr>
 <tr><th>Sub-Statement</th><th>Example</th></tr>
-<tr><td class='code'>hybrid { fields <i>name1</i>, <i>name2</i>, <i>name3</i>; ... }</td><td class='example'>fields year, month, day;</td></tr>
-<tr><td class='code'>hybrid { ... scheme <i>scode</i>; ... }</td><td class='example'>scheme ja; // Julian Annunciation</td></tr>
-<tr><td class='code'>hybrid { ... change <i>date_value</i>; ... }</td><td class='example'>change 2360976; // j:dmy# 1 Jan 1752</td></tr>
-<tr><td class='code'>hybrid { ... scheme {<i>scheme sub-statements</i>} ... }</td><td class='example'>scheme { base julian; }</td></tr>
+<tr><td class='code'>hybrid { fields <i>name1</i>, <i>name2</i>, <i>name3</i>; ... };</td><td class='example'>fields year, month, day;</td></tr>
+<tr><td class='code'>hybrid { ... scheme <i>scode</i>; ... };</td><td class='example'>scheme ja; // Julian Annunciation</td></tr>
+<tr><td class='code'>hybrid { ... change <i>date_value</i>; ... };</td><td class='example'>change 2360976; // j:dmy# 1 Jan 1752</td></tr>
+<tr><td class='code'>hybrid { ... scheme {<i>scheme sub-statements</i>}; ... };</td><td class='example'>scheme { base julian; };</td></tr>
 </table>
 <p>
  Note, a schemes must either be defined before use,
  or created in place anonymously.
 </p>
 
-<h3>regnal Sub-Statement</h3>
-<p>
- A common method of numbering the years in a calendar
- is to number them from the start of the reign of a monarch or official.
- Such calendars are still in use today.
-</p>
-<p>
- A calendar based on this system is really a sequence of shifted calendars,
- the era of each based on the start of the reign.
- We can also specify the date range covered by each era,
- which may overlap or have gaps.
- A default calendar is also defined and is used if no suitable range is found.
-</p>
-<table class='basic'>
-<tr><th colspan='2'>regnal Sub-Statement</th></tr>
-<tr><th>Sub-Statement</th><th>Example</th></tr>
-<tr><td class='code'>regnal { fields <i>name1</i>, <i>name2</i>, <i>name3</i>; ... }</td><td class='example'>fields year, month, day;</td></tr>
-<tr><td class='code'>regnal { ... extended <i>name1</i>, <i>name2</i>; ... }</td><td class='example'>extended hyear;</td></tr>
-<tr><td class='code'>regnal { ... fixed <i>date.field</i> = <i>value</i>; ... }</td><td class='example'>fixed year = 1;</td></tr>
-<tr><td class='code'>regnal { ... era { <i>era-sub-statements</i> } }</td><td class='example'>era { scheme j; } // Julian default scheme</td></tr>
-</table>
-
-<h3>grammar Sub-Statement</h3>
+<h3>Sub-Statement: grammar</h3>
 <p>
  This can be used to link to a previously defined grammar (using its grammar code)
  or to define an anonymous grammar.
  One or zero grammar sub-statements can be defined.
 </p>
 
-<h3>visible Sub-Statement</h3>
+<h3>Sub-Statement: visible</h3>
 <p>
  When a scheme list is requested,
  this attribute determines if the scheme is to be included.
