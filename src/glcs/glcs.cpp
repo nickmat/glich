@@ -44,9 +44,13 @@ using std::string;
 using std::vector;
 
 
-#define VERSION   "0.1.0"
+#define VERSION   "0.2.0"
 #define PROGNAME  " (Glich Script)"
-#define COPYRIGHT  "2023 Nick Matthews"
+#define COPYRIGHT  "2023..2025 Nick Matthews"
+
+/*
+  9dec2025 v0.2.0  Updated for new Glich syntax and statements.
+*/
 
 const char* g_version = VERSION;
 const char* g_progName = PROGNAME;
@@ -58,18 +62,10 @@ const char* g_title = PROGNAME " - Version " VERSION "\n";
 const char* g_title = PROGNAME " - Version " VERSION " Debug\n";
 #endif
 
-enum class StmtType { semicolon, curlybracket, both, if_endif, do_loop };
-
 struct StmtStatus {
-    StmtType type;
-    bool in_quote;
-    bool in_mcomment; // Multiline comment
-    int brace_cnt;
-    int word_cnt;
-
-    StmtStatus( StmtType t )
-        : type( t ), in_quote( false ), in_mcomment( false ),
-        brace_cnt( 0 ), word_cnt( 0 ) {}
+    bool in_quote = false;
+    bool in_mcomment = false; // Multiline comment
+    int brace_cnt = 0;
 };
 
 hg::StdStrVec get_args( int argc, char* argv[] )
@@ -159,55 +155,6 @@ void do_help( const string& option )
     ;
 }
 
-// Remove comments and strings.
-string compress_statement( const string& line, StmtStatus& status )
-{
-    string compressed;
-    bool start_comment = false;
-    bool end_comment = false;
-
-    for( auto ch : line ) {
-        if( start_comment ) {
-            start_comment = false;
-            if( ch == '/' ) {
-                break; // Single line comment.
-            }
-            else if( ch == '*' ) {
-                status.in_mcomment = true;
-                continue;
-            }
-            else {
-                compressed += string( "/" ) + ch;
-            }
-        }
-        if( status.in_mcomment ) {
-            if( end_comment ) {
-                if( ch == '/' ) {
-                    status.in_mcomment = false;
-                }
-            }
-            end_comment = (ch == '*');
-            continue;
-        }
-
-        if( status.in_quote ) {
-            if( ch == '"' ) {
-                status.in_quote = false;
-            }
-        }
-        else if( ch == '"' ) {
-            status.in_quote = true;
-        }
-        else if( ch == '/' ) {
-            start_comment = true;
-        }
-        else {
-            compressed += ch;
-        }
-    }
-    return compressed;
-}
-
 bool terminated_semicolon( const string& stmt )
 {
     if( stmt.empty() ) {
@@ -217,59 +164,6 @@ bool terminated_semicolon( const string& stmt )
     input.erase( std::remove( input.begin(), input.end(), ' ' ), input.end() );
     int ch = stmt.back();
     return (ch == ';');
-}
-
-bool terminated_word( const string& line, StmtStatus& status )
-{
-    string beg, end;
-    if( status.type == StmtType::if_endif ) {
-        beg = "if";
-        end = "endif";
-    }
-    else if( status.type == StmtType::do_loop ) {
-        beg = "do";
-        end = "loop";
-    }
-    else {
-        return true; // End search.
-    }
-    string stmt = compress_statement( line, status ) + '\n';
-
-    string word;
-    bool in_word = false;
-    bool is_funct = false;
-    for( auto ch : stmt ) {
-        if( in_word ) {
-            if( isalnum( ch ) || ch == '_' || ch == ':' ) {
-                word += ch;
-            }
-            else {
-                if( is_funct ) {
-                    is_funct = false;
-                }
-                else if( word == beg ) {
-                    status.word_cnt++;
-                }
-                else if( word == end ) {
-                    if( status.word_cnt > 1 ) {
-                        --status.word_cnt;
-                    }
-                    else {
-                        return true;
-                    }
-                }
-                in_word = false;
-            }
-        }
-        else if( isascii( ch ) && (isalpha( ch ) || ch == '_' || ch == ':') ) {
-            in_word = true;
-            word = ch;
-        }
-        else if( ch == '@' ) {
-            is_funct = true;
-        }
-    }
-    return false;
 }
 
 bool terminated( const string& stmt, StmtStatus& status )
@@ -288,6 +182,7 @@ bool terminated( const string& stmt, StmtStatus& status )
                 continue;
             }
         }
+
         if( status.in_mcomment ) {
             if( end_comment ) {
                 if( ch == '/' ) {
@@ -295,22 +190,20 @@ bool terminated( const string& stmt, StmtStatus& status )
                 }
             }
             end_comment = (ch == '*');
-            continue;
         }
-
-        if( status.in_quote ) {
+        else if( status.in_quote ) {
             if( ch == '"' ) {
                 status.in_quote = false;
             }
         }
+        else if( ch == '{' ) {
+            status.brace_cnt++;
+        }
         else if( ch == '}' ) {
             status.brace_cnt--;
-            if( status.type == StmtType::curlybracket && status.brace_cnt == 0 ) {
-                return true;
-            }
         }
         else if( ch == ';' ) {
-            if( status.type == StmtType::semicolon || status.type == StmtType::both ) {
+            if( status.brace_cnt <= 0 ) {
                 return true;
             }
         }
@@ -320,36 +213,22 @@ bool terminated( const string& stmt, StmtStatus& status )
         else if( ch == '/' ) {
             start_comment = true;
         }
-        else if( ch == '{' ) {
-            status.brace_cnt++;
-            if( status.type == StmtType::both ) {
-                status.type = StmtType::curlybracket;
-            }
-        }
     }
     return false;
 }
 
-string get_statement( const string& start, StmtType type )
+string get_statement( const string& start )
 {
-    StmtStatus status( type );
+    StmtStatus status;
     string line = start;
     string statement;
     for( int lnum = 2;; lnum++ ) {
-        line = left_trim( line );
         statement += line + "\n";
-        if( line.empty() ) {
+        if( left_trim( line ).empty() ) {
             break;
         }
-        if( type == StmtType::if_endif || type == StmtType::do_loop ) {
-            if( terminated_word( line, status ) ) {
-                break;
-            }
-        }
-        else {
-            if( terminated( line, status ) ) {
-                break;
-            }
+        if( terminated( line, status ) ) {
+            break;
         }
         string prompt = std::to_string( lnum );
         while( prompt.size() < 4 ) {
@@ -430,24 +309,13 @@ int main( int argc, char* argv[] )
         else if(
             word == "let" || word == "set" || word == "write"
             || word == "writeln" || word == "mark" || word == "clear"
-            || word == "call" )
-        {
-            cmnd = get_statement( cmnd, StmtType::semicolon );
-        }
-        else if(
-            word == "function" || word == "command" || word == "object" ||
-            word == "scheme" || word == "grammar" || word == "lexicon" )
-        {
-            cmnd = get_statement( cmnd, StmtType::curlybracket );
-        }
-        else if( word == "format" ) {
-            cmnd = get_statement( cmnd, StmtType::both );
-        }
-        else if( word == "if" ) {
-            cmnd = get_statement( cmnd, StmtType::if_endif );
-        }
-        else if( word == "do" ) {
-            cmnd = get_statement( cmnd, StmtType::do_loop );
+            || word == "call" || word == "if" || word == "do"
+            || word == "global" || word == "constant" || word == "file"
+            || word == "function" || word == "command" || word == "object"
+            || word == "scheme" || word == "grammar" || word == "lexicon"
+            || word == "format" || word == "module"
+        ) {
+            cmnd = get_statement( cmnd );
         }
         else {
             if( !terminated_semicolon( cmnd ) && !cmnd.empty() ) {
