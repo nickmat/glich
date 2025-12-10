@@ -6,11 +6,11 @@ let year = "2023";
 let days = @date(year)[.span];
 
 let answer = "[" + year + "] is not a valid year.";
-if days = 365
+if days = 365 {
     answer = year + " is not a leap year.";
-elseif days = 366
+} elseif days = 366 {
     answer = year + " is a leap year.";
-endif
+};
 
 write answer;
 
