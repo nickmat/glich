@@ -4,7 +4,7 @@ let a = 15 div 3;
 
 let b = 99 div a;
 
-write a + ", " + b;
+write a, b;
 
 
 /*[OUTPUT]

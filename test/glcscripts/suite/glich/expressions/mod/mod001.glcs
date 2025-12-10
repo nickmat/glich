@@ -4,7 +4,7 @@ let a = 15 mod 3;
 
 let b = 99 mod 5;
 
-write a + ", " + b;
+write a, b;
 
 
 /*[OUTPUT]
