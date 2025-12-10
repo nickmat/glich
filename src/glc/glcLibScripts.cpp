@@ -33,7 +33,7 @@
 
 glich::ScriptModule glich::glc_builtin_scripts[] = {
     { "glc_builtin",  /* glc_builtin.glcs */
- "object : {}\n" },
+ "object : {};\n" },
 };
 
 size_t glich::glc_builtin_scripts_size =
