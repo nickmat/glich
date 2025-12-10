@@ -200,7 +200,14 @@ SToken& STokenStream::next()
         case '=': m_in->get( ch ); set_type( SToken::Type::StarEq ); break;
         default: set_type( SToken::Type::Star ); break;
         } break;
-    case '%': set_type( SToken::Type::Percent ); break;
+    case '%':
+        switch( m_in->peek() )
+        {
+        case '/': m_in->get( ch ); set_type( SToken::Type::Div ); break;
+        case '%': m_in->get( ch ); set_type( SToken::Type::Mod ); break;
+        default: set_type( SToken::Type::Percent ); break;
+        }
+        break;
     case '<':
         switch( m_in->peek() ) {
         case '>': m_in->get( ch ); set_type( SToken::Type::NotEqual ); break;
