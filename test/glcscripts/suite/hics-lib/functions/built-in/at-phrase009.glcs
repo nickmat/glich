@@ -1,0 +1,13 @@
+// suite/hics-lib/functions/phrase/phrase009.glcs
+// Test @phrase with Relative complement \\ operator.
+
+write nl;
+write @text(@phrase("1890..1920 \\ 1900..1940")) nl;
+write @text(@phrase("1948 \\ Sep 1948")) nl;
+
+/*[OUTPUT]
+
+1890..1899
+Jan 1948..Aug 1948 | Oct 1948..Dec 1948
+
+[OUTPUT]*/

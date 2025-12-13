@@ -1,0 +1,11 @@
+// suite/hics-lib/functions/phrase/phrase008.glcs
+// Test @phrase with Symmetric Difference ^^ operator.
+
+write nl;
+write @text(@phrase("1890..1920 ^^ 1900..1940")) nl;
+
+/*[OUTPUT]
+
+1890..1899 | 1921..1940
+
+[OUTPUT]*/

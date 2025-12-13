@@ -1,0 +1,15 @@
+// suite/hics-lib/functions/phrase/phrase007.glcs
+// Test @phrase with intersection && operator.
+
+write nl;
+write @text(@phrase("past..sep2025 && 2025")) nl;
+write @text(@phrase("past..sep2025 && j# 2025")) nl;
+write @text(@phrase("1890..1920 && 1900..1940")) nl;
+
+/*[OUTPUT]
+
+Jan 2025..Sep 2025
+14 Jan 2025..30 Sep 2025
+1900..1920
+
+[OUTPUT]*/
