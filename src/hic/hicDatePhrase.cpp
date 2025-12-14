@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -141,6 +141,7 @@ string glich::parse_date_phrase( const string& str )
             break;
         case '@':
             // TODO: date should be empty at this point, do error checks? 
+            ct = CT_none;
             for ( ; it != str.end() ; it++ ) {
                 date += *it;
                 nit = it + 1;
