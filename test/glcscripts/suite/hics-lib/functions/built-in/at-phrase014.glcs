@@ -1,0 +1,13 @@
+// suite/hics-lib/functions/phrase/phrase014.glcs
+// Test @phrase with variables.
+
+let name = 2461024;
+
+write nl;
+write @text(@phrase("2025 \\ #name")) nl;
+
+/*[OUTPUT]
+
+1 Jan 2025..13 Dec 2025 | 15 Dec 2025..31 Dec 2025
+
+[OUTPUT]*/
