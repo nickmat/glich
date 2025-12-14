@@ -2,10 +2,10 @@
 // Test @phrase with # Number and + operators.
 
 write nl;
-write @text(@phrase("11dec2025+#10")) nl;
-write @text(@phrase("11dec2025+#10..10jan2026")) nl;
-write @text(@phrase("11dec2025..10jan2026+#10")) nl;
-write @text(@phrase("(11dec2025..10jan2026)+#10")) nl;
+write @text(@phrase("11dec2025+.#10")) nl;
+write @text(@phrase("11dec2025+.#10..10jan2026")) nl;
+write @text(@phrase("11dec2025..10jan2026+.#10")) nl;
+write @text(@phrase("(11dec2025..10jan2026)+.#10")) nl;
 
 /*[OUTPUT]
 
