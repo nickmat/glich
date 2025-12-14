@@ -88,7 +88,7 @@ string glich::parse_date_phrase( const string& str )
                 }
             }
             break;
-        case '.': case '/': // Must be followed by dot.
+        case '.': case '+': case '-': case '*': // Must be followed by dot.
             nit = it + 1;
             if( nit != str.end() && (*nit == '.') ) {
                 script += create_date_str( sig, date, ct );
@@ -115,7 +115,7 @@ string glich::parse_date_phrase( const string& str )
             }
             break;
         case '(': case ')': // Always recognised operators.
-        case '|': case '!': case '+': case '*':
+        case '|': case '!':
             script += create_date_str( sig, date, ct );
             script += *it;
             break;
