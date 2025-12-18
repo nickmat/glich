@@ -47,7 +47,7 @@ namespace {
                 d = "@date" + sig + "(\"" + d + "\")";
                 break;
             case CT_record:
-                d = "@record" + sig + "(\"" + d + "\")";
+                d = "@record" + sig + "(" + d + ")";
                 break;
             case CT_none:
                 break;
@@ -58,6 +58,17 @@ namespace {
         ct = CT_date;
         return d;
     }
+
+    bool whitespace( string::const_iterator& it )
+    {
+        switch( *it )
+        {
+        case ' ': case '\t': case '\n': case '\r':
+            return true;
+        default:
+            return false;
+        }
+    }
 }
 
 // Convert a date phrase string to a script string.
@@ -66,18 +77,18 @@ string glich::parse_date_phrase( const string& str )
     string script, date, sig;
     string::const_iterator it, nit;
     CastType ct = CT_date;
+    bool inside = false;
     for( it = str.begin() ; it != str.end() ; it++ ) {
         switch( *it )
         {
         case '"':
+            script += *it;
             it++;
             while( it != str.end() && *it != '"' ) {
-                date += *it;
+                script += *it;
                 it++;
             }
-            if( it != str.end() ) {
-                it++;
-            }
+            script += *it;
             break;
         case '[':  // Ignore comments in square brackets.
             for( int cnt = 1 ; it != str.end() && cnt != 0 ; it++ ) {
@@ -114,6 +125,26 @@ string glich::parse_date_phrase( const string& str )
                 date += *it; // Treat as part of date string.
             }
             break;
+        case '{': // Read object in curly braces.
+            script += create_date_str( sig, date, ct );
+            script += *it;
+            it++;
+            inside = false;
+            while( it != str.end() ) {
+                if( whitespace(it) ) {
+                    if( inside ) {
+                        script += *it;
+                        break;
+                    }
+                }
+                else {
+                    inside = true;
+                }
+                script += *it;
+                it++;
+            }
+            break;
+        case '}':
         case '(': case ')': // Always recognised operators.
         case '|': case '!':
             script += create_date_str( sig, date, ct );
