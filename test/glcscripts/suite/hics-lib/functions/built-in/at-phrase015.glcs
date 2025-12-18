@@ -1,0 +1,15 @@
+// suite/hics-lib/functions/phrase/phrase013.glcs
+// Test @phrase with @ functions.
+
+
+write nl;
+write @text( @dob( @date( "13dec2025"), {age: 10, "year"} ) ) nl;
+write @text( @phrase( "@dob(13dec2025;{ age: #10;""year""})" ) ) nl;
+
+
+/*[OUTPUT]
+
+14 Dec 2014..13 Dec 2015
+14 Dec 2014..13 Dec 2015
+
+[OUTPUT]*/
