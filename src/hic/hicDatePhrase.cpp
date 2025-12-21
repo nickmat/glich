@@ -125,6 +125,20 @@ string glich::parse_date_phrase( const string& str )
                 date += *it; // Treat as part of date string.
             }
             break;
+        case '%': // Modulo and integer division operators.
+            nit = it + 1;
+            if( nit != str.end() && ( *nit == '%' || *nit == '/' ) ) {
+                // Use %% for mod and %/ for integer division
+                script += create_date_str( sig, date, ct );
+                script += *it;
+                script += *nit;
+                it++;       // Step over second.
+                break;
+            }
+            else {
+                date += *it; // Treat as part of date string.
+            }
+            break;
         case '{': // Read object in curly braces.
             script += create_date_str( sig, date, ct );
             script += *it;
