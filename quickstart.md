@@ -1,4 +1,71 @@
-# Glich QUICKSTART
+# Glich Quickstart
+
+Welcome to the quickstart guide for **Glich**—a script language with a historical calendar creation and manipulation extension. This guide introduces the core language concepts step by step, showing you how to build and extend the language.
+
+---
+
+## Getting Started: Running Glich Scripts
+
+### Glich Script Basics
+
+- A **Glich script** is a plain UTF-8 text file with the `.glcs` extension.
+- Scripts define functions, objects and other logic, or perform calendar calculations and conversions using the hics module.
+- You can run Glich scripts either **non-interactively** with the `glich` program or **interactively** with the `glcs` terminal program.
+
+### Running a Script and Exiting: `glich`
+
+- Use `glich.exe` to run one or more Glich scripts in sequence, performing all calculations/output, and then exiting.
+- Typical usage:
+
+```sh
+glich.exe myscript.glcs
+```
+
+- You can supply multiple scripts; they will be run in order:
+
+```sh
+glich.exe setup.glcs calendar.glcs demo.glcs
+```
+
+- Output from `write` statement and similar instructions will be displayed in the console terminal, or can be redirected to a file.
+
+### Interactive Terminal: `glcs.exe`
+
+- Use `glcs.exe` for an interactive Glich session—much like a Python or Bash REPL.
+- Type Glich expressions, script code, and commands, and see immediate results:
+
+```sh
+glcs.exe
+```
+
+- You can also load a script first, then interact:
+
+```sh
+glcs.exe myscript.glcs
+```
+
+### Other Glich/Hics Programs
+
+- **gliched.exe**: A very basic IDE for writing, editing, and running Glich scripts.  
+  Useful for rapid development and experimentation, but not a full-featured code editor.
+- **HistoryCal.exe**: A standalone calendar calculator and conversion program.  
+  Designed for quick calculations, conversions, and lookups outside the scripting environment.
+
+### Script Format
+
+- Scripts should be saved as `.glcs` files using **UTF-8 encoding**—this supports Unicode names, tokens, and examples.
+- Use any text editor you prefer, or gliched.exe for simple editing.
+
+---
+
+## Next Steps
+
+Now that you know how to run Glich scripts, let's proceed to understanding the language.
+
+---
+
+
+# Glich Script Language
 
 ## Types Overview
 
@@ -17,15 +84,14 @@ let answer = 42;
 
 ### Field
 
-- Integer type, less than 32 bits, with reserved values for special meanings.
-- Used for array indices, range bounds, etc.
+- Integer type, 32 bits, with reserved values for special meanings.
+- Used for range bounds and integer sets, etc.
 - To write a field literal, use the `f` suffix (e.g., `7f`).
 - **Core special values:**
     - **Infinity:** Use the keyword `infinity` for positive infinity; prefix with `-` for negative infinity (`infinity`, `+infinity`, `-infinity`).
     - **Not-a-number (unknown):** `?`
-- Both `+` and `-` can prefix `infinity`.
 - For concepts such as “before a value,” write `-infinity..1950`.
-- **Calendar extension:** If installed, defines the constants:
+- **Hics calendar extension:** If installed, defines the constants:
     - `past` as `-infinity` and `future` as `+infinity` for clearer temporal intervals (e.g., `past..1950`).
 
 **Examples:**
@@ -50,7 +116,7 @@ let far_future = future; // Same as +infinity
 ```glich
 let r = 2f..7f;          // Range from 2 to 7
 let from_ints = 3..6;    // Numbers auto-convert to fields
-let single = 8f..8f;     // Single value, equivalent to 8f field
+let single = 8..8;     // Single value, equivalent to 8f field
 let backwards = 7..4;    // Auto-stored as 4..7
 write r;          // Output: 2..7
 write single;     // Output: 8
@@ -61,7 +127,7 @@ write backwards;  // Output: 4..7
 - A list of zero or more Ranges (intervals), separated using the `|` operator.
 - May represent the empty set using the `empty` keyword.
 - Used for set/interval operations (union, intersection, etc.), and can hold joined or disjoint ranges.
-- Promotes and demotes with Range and Field as required.
+- Promotes and demotes with **Range** and **Field** as required.
 
 **Example:**
 ```glich
@@ -129,7 +195,7 @@ write is_valid;   // Output: true
 
 ```glich
 let val = null;
-if val = null write "No value"; endif
+if val = null { write "No value"; };
 ```
 ---
 
@@ -145,8 +211,8 @@ Glich provides operators for manipulating numbers, fields, floats, booleans, str
 | `-`                | Subtraction         | `5 - 1`         | `4`         |
 | `*`                | Multiplication      | `4 * 2`         | `8`         |
 | `/`                | Division (float result) | `5 / 2`     | `2.5`       |
-| `div`              | Integer division    | `5 div 2`       | `2`         |
-| `mod`              | Modulo/remainder    | `8 mod 3`       | `2`         |
+| `%/`               | Integer division    | `5 %/ 2`        | `2`         |
+| `%%`               | Modulo/remainder    | `8 %% 3`        | `2`         |
 | `-x`               | Negation            | `-7`            | `-7`        |
 
 ### Assignment Operators
@@ -158,6 +224,8 @@ Glich provides operators for manipulating numbers, fields, floats, booleans, str
 | `-=`      | `n -= 1`        | `n = n - 1`        |
 | `*=`      | `x *= 10`       | `x = x * 10`       |
 | `/=`      | `x /= 2`        | `x = x / 2`        |
+| `%/=`     | `x %/= 2`       | `x = x %/ 2`       |
+| `%%=`     | `x %%= 2`       | `x = x %% 2`       |
 
 ### Comparison Operators
 
@@ -191,21 +259,21 @@ Only for Boolean values (`true`, `false`). Using with any other type is an error
 
 - Set operations always operate on RLists; fields and ranges are promoted automatically.
 
-| Operator | Description                           | Example syntax            |
+| Operator | Description                           | Example syntax           |
 |----------|---------------------------------------|--------------------------|
 | `..`     | Range between two fields (inclusive)  | `1..5`                   |
-| `|`      | Union (OR) of ranges/RLists           | `1..3 &#124; 8..9`       |
+| `\|`     | Union (OR) of ranges/RLists           | `1..3 \| 8..9`           |
 | `!`      | Set complement                        | `!0`                     |
 | `&&`     | Intersection (AND)                    | `1..10 && 5..15`         |
 | `^^`     | Symmetric difference (XOR)            | `1..5 ^^ 4..8`           |
-| `\\`     | Relative complement (A minus B)       | `1..10 \ 3..6`           |
+| `\\`     | Relative complement (A minus B)       | `1..10 \\ 3..6`          |
 
 **Typical results:**
 ```glich
 let all_but_zero = !0;          // -infinity..-1 | 1..infinity
 let both = 1..10 && 7..20;      // 7..10
 let xor = 1..5 ^^ 4..8;         // 1..3 | 6..8
-let minus = 2..9 \ 5..6;        // 2..4 | 7..9
+let minus = 2..9 \\ 5..6;       // 2..4 | 7..9
 let united = 1..3 | 8..9;       // 1..3 | 8..9
 let combined = (2 | 3..5) | 7;  // 2..5 | 7
 ```
@@ -223,7 +291,7 @@ let combined = (2 | 3..5) | 7;  // 2..5 | 7
 - Cannot start with a number.
   - Valid: `field1`, `iso_date`, `main:calendar`
   - Invalid: `3number`
-- In certain contexts, a name may be used as a string value.
+- In certain contexts, a name may be used as a literal string value.
 
 ---
 
@@ -232,26 +300,27 @@ let combined = (2 | 3..5) | 7;  // 2..5 | 7
 ### The `function` Statement
 
 ```
-function identifier.qualifier(arg1 = default, ...) {
+function identifier.qualifier (arg1 = default, ...) {
   // function body
-}
+};
 ```
 - `identifier`: The function's primary name.
 - `qualifier`: Optional dot-separated name (available as string `qualifier`).
 - Arguments may have defaults; if omitted and no default is given, the value is `null`.
 - Function body can only see: `qualifier`, arguments, global variables, and `result`.
-- `result` is special: its value becomes the function’s result, and is initially `null`.
+- `result` is a special variable: its value becomes the function’s result, and is initially `null`.
+- To call a function, prefix the `identifier` with the function operator `@`.
 
 **Examples:**
 ```glich
-function sum.x(a = 1, b = 2) {
+function sum.x (a = 1, b = 2) {
   result = x + " with: " + (a + b);
-}
+};
 write @sum.foo(5, 10);     // Outputs: foo with: 15
 write @sum.foo(, 10);      // Outputs: foo with: 11
 write @sum.foo;            // Outputs: foo with: 3
 ```
-Here, `identifier` is `sum`, `qualifier` is `foo`, the arguments are `a` and `b`.
+Here, `identifier` is `sum`, `qualifier` is `"foo"`, the arguments are `a` and `b`.
 
 ---
 
@@ -259,12 +328,12 @@ Here, `identifier` is `sum`, `qualifier` is `foo`, the arguments are `a` and `b`
 
 - Syntax is identical to `function`.
 - Used to define custom statement-like logic for use with the `call` statement.
-- Error values returned by commands are specially handled; if the result is an `error`, the `call` fails.
+- Error values returned by commands are specially handled; if the `result` variable is an `error`, the `call` fails.
 - In practice, most logic can be handled by functions, and command is mainly for custom statement-like integration or special error flow.
 
 **Example:**
 ```glich
-command simon(says) { write "Simon Says: " + @quote(says) nl; }
+command simon (says) { write "Simon Says: " + @quote(says) nl; };
 call simon("Jump");
 // Output: Simon Says: "Jump"
 ```
@@ -273,7 +342,6 @@ call simon("Jump");
 
 - The `command` statement in glich is designed to allow for custom user-defined statements.
 - Unlike functions (which are used as part of expressions), commands are invoked as standalone statements via the `call` keyword.
-- In typical scripting, there may be little need for custom commands; most logic can be handled with functions.
 - Commands are mainly useful when you want to define a new statement-like block with special error-handling or when integrating tightly with scripting flow.
 
 ---
@@ -289,9 +357,9 @@ call simon("Jump");
 
 - **Examples:**
 ```glich
-function sum.x(a = 1, b = 2) {
+function sum.x (a = 1, b = 2) {
   result = x + " with: " + (a + b);
-}
+};
 @sum.foo(7, 8)             // x = "foo", a = 7, b = 8
 @sum.x(5)                  // x = "x", a = 5, b = 2
 @sum( , 10)                // x = "", a = 1, b = 10
@@ -314,45 +382,45 @@ You can control flow using `if`, `elseif`, and `else` blocks:
 
 ```
 if condition
-  statements
+  { statements }
 [elseif condition
-  statements]
+  { statements }]
 ...
 [else
-  statements]
-endif
+  { statements }]
+;
 ```
 
 - You may include any number of `elseif` blocks and at most one `else` block.
 - The block following the first true condition is executed; the rest are skipped.
-- `endif` ends the entire conditional block.
+- `;` ends the entire conditional block.
 - Use `end;` to immediately exit from the current function, command, or script.
 
 **Example with `if`/`elseif`/`else`:**
 
 ```glich
 let x = ...;  // some number
-if x < 0
+if x < 0 {
   write "negative" nl;
-elseif x = 0
+} elseif x = 0 {
   write "zero" nl;
-else
+} else {
   write "positive" nl;
-endif
+};
 ```
 
 **Example in a function:**
 
 ```glich
-function classify(x) {
-  if x < 0
+function classify (x) {
+  if x < 0 {
     result = "negative";
-  elseif x = 0
+  } elseif x = 0 {
     result = "zero";
-  else
+  } else {
     result = "positive";
-  endif
-}
+  };
+};
 ```
 Usage:
 ```glich
@@ -364,10 +432,10 @@ write @classify(8);   // Output: positive
 You can also use `end;` to stop execution immediately when a condition is met:
 
 ```glich
-if x < 0 or y < 0
+if x < 0 or y < 0 {
   result = @error("Inputs must be non-negative.");
   end;
-endif
+};
 ```
 ---
 
@@ -377,31 +445,43 @@ Glich provides several built-in functions available anywhere in your code using 
 
 ### Examples
 
-- **@quote(value)**
-  Ensures the output is always a legal double-quoted string literal, even if the value is numeric, null, or another type.
-  - `@quote(123)` outputs `"123"`
-  - `@quote("hello")` outputs `"hello"`
-  - Nested and complex: `write @quote("Say " + @quote("No"));` outputs `"Say ""No"""`
+> Built-in functions always require the `@` operator and are used like ordinary user-defined functions in expressions.
 
 - **@if(condition, is_true, is_false)**
   Returns `is_true` if `condition` is true, otherwise `is_false`.
   This is equivalent to:
   ```glich
-  function if(cond, t, f) {
-    if cond
+  function if (cond, t, f) {
+    if cond {
       result = t;
-    else
+    } else {
       result = f;
-    endif
-  }
+    };
+  };
   ```
   Example: `write @if(2 > 1, "yes", "no"); // Output: yes`
 
 - **@type(value)**
   Returns the name of the value’s type as a string.
-  Example: `write @type(1.0); // Output: float`
+  Example: `write @type(1.0); // Output: "float" `
 
-> Built-in functions always require the `@` operator and are used like ordinary user-defined functions in expressions.
+- **@error( message )**
+  Returns an error type value holding the message string prefixed with the line number.
+  Example:
+   ```
+   if @type(val) <> "string" {
+       result = @error("val must be string type.");
+       end;
+   };
+   // Output (if val not string):
+   // Error (42): val must be string type.`
+   ```
+
+- **@quote(value)**
+  Ensures the output is always a legal double-quoted string literal, even if the value is numeric, null, or another type.
+  - `@quote(123)` outputs `"123"`
+  - `@quote("hello")` outputs `"hello"`
+  - Nested and complex: `write @quote("Say " + @quote("No"));` outputs `"Say ""No"""`
 
 **Full Reference:**
 For a complete list of built-in functions, see:
@@ -413,7 +493,7 @@ For a complete list of built-in functions, see:
 
 - Define with the `object` statement using a code and fields:
 ```glich
-object pair { values first second; }
+object pair { values first second; };
 ```
 - Create with curly braces:
 ```glich
@@ -421,8 +501,8 @@ let p = {pair "one", 1};
 ```
 - Access fields with names or by index:
 ```glich
-write p[first] " is " p[second];  // Output: one is 1
-write p[0] " is " p[1];           // Output: one is 1
+write p[first] + " is " + p[second];  // Output: one is 1
+write p[0] + " is " + p[1];           // Output: one is 1
 ```
 - Objects must be defined before use.
 - **Object code** is a special short name identifying the object type.
@@ -445,8 +525,8 @@ write array; // Output: {: 1, 2, "three"}
 ```glich
 object pair {
   values first second;
-  function sum { result = first + second; }
-}
+  function sum { result = first + second; };
+};
 let p = {pair 3, 5};
 write p@sum;        // Output: 8
 ```
@@ -454,22 +534,22 @@ write p@sum;        // Output: 8
 **Key Points:**
 - **Calling:** Call object functions with the `@` operator and function name: `objectInstance@functionName`
 - **Context:** In the body, object fields are directly accessible by name.
-- **Scope:** Only object fields, the function’s own parameters, and `result` are visible (not global variables).
+- **Scope:** Only object fields, the function’s own parameters, and `result`, `this` and global variables are visible.
 - **Result:** Set the function’s result via assignment to the special `result` variable.
 - **No Inheritance:** Only functions defined directly on the object may be called this way.
 - **Parameter Defaults:** Defaults for parameters are supported as for regular functions.
-- **No Qualifier:** Only `objectInstance@functionName` (no qualifier allowed).
+- **Qualifier:** Qualifiers are also supported.
 - **Copy Semantics:** The functions operate on a **copy** of the object, so the original object is unchanged when the function runs.
 - A variable **`this`** is available inside the function body, representing the local copy.
-    - You can assign to `result = this;` to return the updated object (though there are some limitations; this behavior may need refinement in future versions).
+    - You can assign to `result = this;` to return the updated object (though there are some limitations; this behaviour may need refinement in future versions).
     - You can reference or mutate unnamed fields with an index, e.g., `this[0] = 10;`.
 
 **Example with parameters and defaults:**
 ```glich
 object counter {
   values value;
-  function add(x = 1) { result = value + x; }
-}
+  function add(x = 1) { result = value + x; };
+};
 let c = {counter 10};
 write c@add(5);       // Output: 15
 write c@add();        // Output: 11
@@ -482,8 +562,8 @@ object pair {
   function set_first(new_first) {
     this[0] = new_first;
     result = this;  // Return an updated copy (original remains unchanged)
-  }
-}
+  };
+};
 let p = {pair "a", "b"};
 let q = p@set_first("z");
 write p[first];   // Output: a
@@ -506,7 +586,6 @@ Common built-in object functions include:
 - **@size** — returns the number of elements/fields in the object.
 - **@obj:name** — returns the object code string.
 - **@obj:list** — returns the values as a standard list/array.
-- **@mask** — returns a new object with only selected fields.
 
 For a complete list and details, see:
 [https://nickmat.github.io/glich/website/dev/man/script/bi-objects.htm](https://nickmat.github.io/glich/website/dev/man/script/bi-objects.htm)
@@ -530,15 +609,15 @@ function must_be_positive(x) {
 
 ---
 
-## Looping: The `do .. loop` Statement
+## Looping: The `do { ... };` Statement
 
-Use the `do .. loop` construct to repeat a block of statements.
+Use the `do { ... };` construct to repeat a block of statements.
 
 **Basic Syntax:**
 ```glich
-do
+do {
   // repeated statements
-loop
+};
 ```
 
 ### Exiting a Loop
@@ -554,35 +633,35 @@ There are **three ways** to exit a loop:
 **Example: Using `while` at the beginning:**
 ```glich
 let n = 0;
-do
+do {
   while n < 5;
-  write n nl;
+  write n + " ";
   n += 1;
-loop
+};
 // Output: 0 1 2 3 4
 ```
 
 **Example: Using `until` at the end:**
 ```glich
 let n = 0;
-do
-  write n nl;
+do {
+  write n + " ";
   n += 1;
   until n = 5;
-loop
+};
 // Output: 0 1 2 3 4
 ```
 
 **Example: Using `end;` to exit:**
 ```glich
 let n = 0;
-do
+do {
   write n nl;
   n += 1;
-  if n = 5
+  if n = 5 {
     end;
-  endif
-loop
+  };
+};
 // Output: 0 1 2 3 4
 ```
 
@@ -633,14 +712,14 @@ The `mark` statement is used to **control script memory** and ensure a clean env
 
 - Place `mark tag;` at the **very start** of your script, where `tag` is any name you choose.
 - The first time the mark is seen, it is created and everything read after it is loaded as usual.
-- On subsequent runs, when the script encounters the same `mark tag;`, it **removes** all objects, functions, and variables defined after the mark—giving a fresh start.
+- On subsequent runs, when the script encounters the same tag `mark tag;`, it **removes** all objects, functions, and variables defined after the mark—giving a fresh start.
 
 **Typical usage:**
 ```glich
 mark myscript;
 // Now define all objects, variables, functions, etc.
-object score { values value; }
-function add(x, y) { result = x + y; }
+object score { values value; };
+function add(x, y) { result = x + y; };
 ...
 ```
 By always including a `mark` line at the top, you can rerun scripts freely without worrying about memory “ghosts” or redefinition errors.
@@ -683,6 +762,3 @@ For full details on the file statement and file-based I/O, see:
 [https://nickmat.github.io/glich/website/dev/man/script/stmts/file.htm](https://nickmat.github.io/glich/website/dev/man/script/stmts/file.htm)
 
 ---
-
-> Expression errors produce an error value in their place and allow the script to continue,  
-> while statement (syntax) errors immediately halt execution and send an error message to the error output.
