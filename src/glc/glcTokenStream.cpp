@@ -203,8 +203,20 @@ SToken& STokenStream::next()
     case '%':
         switch( m_in->peek() )
         {
-        case '/': m_in->get( ch ); set_type( SToken::Type::Div ); break;
-        case '%': m_in->get( ch ); set_type( SToken::Type::Mod ); break;
+        case '/':
+            m_in->get( ch );
+            switch( m_in->peek() ) {
+            case '=': m_in->get( ch ); set_type( SToken::Type::IntDivEq ); break;
+            default: set_type( SToken::Type::Div );
+            }
+            break;
+        case '%':
+            m_in->get( ch );
+            switch( m_in->peek() ) {
+            case '=': m_in->get( ch ); set_type( SToken::Type::ModEq ); break;
+            default: set_type( SToken::Type::Mod );
+            }
+            break;
         default: set_type( SToken::Type::Percent ); break;
         }
         break;

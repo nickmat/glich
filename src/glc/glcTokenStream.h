@@ -43,6 +43,7 @@ namespace glich {
             Null, End, String, Name, Number, Field, Real,
             Equal, Plus, Minus, Divide, Star,
             PlusEq, MinusEq, DivideEq, StarEq,
+            IntDivEq, ModEq,
             Percent, Backslash, DblBackslash, Tilde,
             Dot, Comma, Semicolon, Qmark,
             Vline, Ampersand, DblAmpersand, Exclamation, DblExclamation,

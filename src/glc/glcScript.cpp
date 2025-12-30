@@ -530,6 +530,12 @@ bool Script::do_assign( const string& name, VariableType vartype )
         case SToken::Type::StarEq:
             value.multiply( expr( GetToken::next ) );
             break;
+        case SToken::Type::IntDivEq:
+            value.int_div( expr( GetToken::next ) );
+            break;
+        case SToken::Type::ModEq:
+            value.modulus( expr( GetToken::next ) );
+            break;
         case SToken::Type::AtEq:
             value = do_at( value, get_name_or_primary( GetToken::next ) );
             break;
