@@ -1,0 +1,37 @@
+// let002.glcs Test let statements
+
+write nl;
+
+let x = 10;
+x += 1;
+write x nl;
+
+x -= 5;
+write x nl;
+
+x *= 7;
+write x nl;
+
+let y = 50;
+y /= 7;
+write y nl;
+
+let y = 50;
+y %/= 7;
+write y nl;
+
+let y = 50;
+y %%= 7;
+write y nl;
+
+
+/*[OUTPUT]
+
+11
+6
+42
+7.142857
+7
+1
+
+[OUTPUT]*/
