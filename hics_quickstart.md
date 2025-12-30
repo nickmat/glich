@@ -1,13 +1,230 @@
-# HICS-Quickstart
+# Glich Hics Extension Quickstart
 
-Welcome to the quickstart guide for **hics**—a flexible, powerful calendar and date-parsing toolkit. This guide introduces the central concepts step by step, showing you how to build and extend your own schemes, grammars, formats, and lexicons.
+## Introduction
+
+**Hics (HistoryCal Script)** is a Glich extension designed to bring precise, programmable handling of historical dates, intervals, and calendar systems into your scripting. Hics was created during the development of _The Family Pack_ genealogy program, in direct response to the real-world challenges of processing historical records.
+
+Genealogy and historical research frequently deal with calendars, date formats that simply aren’t covered accurately on most of the internet. There is a lot of confusion and many misleading resources—especially regarding old or unusual calendars, and even more so about how dates were written in original sources.
+
+**HistoryCal Script (hics) solves these problems by:**
+- Providing programmable, extensible support for historical and scientific calendars (including schemes like Gregorian, Julian, French Revolutionary, etc.).
+- Treating date formats as first-class data, so you track not just _what_ day is meant, but _how_ it was recorded.
+- Enabling direct comparison, arithmetic, and “reasoning” on uncertain or imprecise dates/ranges from real records.
+- Allowing you to define and use new calendar schemes and customized formats for your own data domain.
+
+With hics, you can enter data from historical sources as faithfully as possible, compare and analyze those dates intelligently, and write out clear, accurate conclusions.
+
+---
+
+*This guide assumes you’ve worked through the basic Glich quickstart and are ready to jump into calendars and dates with hics.*
+
+---
+
+## Terminology and Core Concepts
+
+### The Core Unit: The Day
+
+- **hics** revolves around the concept of the **day**—specifically, the historical/astronomical "Julian Day Number" (jdn).
+- The *Julian Day Number* system, with scheme code `jdn`, counts days continuously from a fixed zero point in deep past history.
+- For most scripting with hics, we’ll just call this “the date.”
+
+**Note:**  
+- **Time of day** and **time zones** are not handled in hics (at least, not currently)—everything is about whole days.
+
+### Representing a Date
+
+A date in hics can be held in three interchangeable forms:
+
+1. **As a number:**  
+   The _jdn_ number, an integer representing the day count.
+2. **As a text string:**  
+   The date as it appeared in a historical record or as a formatted string, e.g. `"14 February 1756"` or `"1/2/1756 Julian"`.
+3. **As a scheme object:**  
+   A structured object with scheme-aware fields (e.g., calendar code, year, month, day, possibly notation for uncertainty, etc.).
+
+You can freely convert between these forms using built-in functions:
+
+- `@date()`   – Converts text or a scheme object to a plain jdn number.
+- `@text()`   – Converts a date or scheme object to a text string.
+- `@scheme()`  – Converts a date or text string into the appropriate scheme object for further manipulation or reasoning.
+
+**Scheme Codes Are Case Sensitive**  
+- Every calendar scheme is identified by a short **code** (e.g., `jdn`, `g` (for Gregorian), `j` (for Julian)).
+- **Scheme codes are always case sensitive** in hics.
+- The standard library schemes always use lowercase codes.
+- **Best Practice:** To avoid accidental clashes when experimenting or testing, hics test examples commonly use uppercase codes (e.g., `MYCAL`) to ensure there’s no conflict with library names.
+
+**Example transformations:**
+
+```glich
+let d_text = "3 March 1582";        // A date string as found in a document
+let d_obj = @scheme.j:dmy(d_text);  // Parse to a scheme object
+let jdn    = @date(d_obj);          // Extract the day as a jdn number
+let as_str = @text.g:dmy(jdn);      // Convert jdn back to canonical text
+// All these can be interconverted as needed
+```
+
+**Summary:**  
+With hics, you never lose sight of the "real day" behind a date, but you can always preserve and manipulate the _formatting_ and calendar-specific details found in sources.
+
+---
+
+## Standard Calendar Schemes & Formats
+
+A major strength of hics is its **library of standard calendar schemes**, each with a short, case-sensitive code—always in lowercase.
+
+You can find a complete, up-to-date list of all supported schemes and their codes at:  
+➡ [https://nickmat.github.io/glich/website/dev/man/defs/index.htm](https://nickmat.github.io/glich/website/dev/man/defs/index.htm)
+
+For each scheme, there’s a dedicated documentation page that:
+- Explains how the calendar works,
+- Shows the definition of its **record** (the scheme object type—for example, its fields for year, month, day, etc.),
+- Lists all available **formats** for reading and writing that type of date,
+- Shows the underlying implementation/library code.
+
+**Example – The Gregorian calendar (code `g`):**
+
+- Documentation: [https://nickmat.github.io/glich/website/dev/man/defs/g.htm](https://nickmat.github.io/glich/website/dev/man/defs/g.htm)
+- Code: `g`
+- Object fields: typically year, month, day, etc.
+- Formats: e.g., “YYYY-MM-DD”, “1 Jan 1600”, localized/language variants, etc.
+
+The hics library includes standard schemes for:
+- **g**   – Gregorian (modern civil calendar)
+- **j**   – Julian (used in much of Europe before 1582; still used in some traditions)
+- **jdn**   – Julian Day Number (days counted from BCE 4713-11-24)
+- **fr** – French Revolutionary calendar
+- ...and many more, including Hebrew, Islamic, Chinese and more specialized or historical systems
+
+**Important notes:**
+- All scheme codes are lowercase in the library (e.g., `g`, `j`, `jdn`). User/test codes in examples may use uppercase to avoid accidental conflicts.
+- Each scheme comes with a set of **formats** for parsing dates in human-readable strings, and for printing data out in canonical or source-fidelity form.
+
+**Exploring a scheme and its formats:**
+To see all details for a particular scheme, consult its documentation page from the [scheme list](https://nickmat.github.io/glich/website/dev/man/defs/index.htm). For example, viewing [g.htm](https://nickmat.github.io/glich/website/dev/man/defs/g.htm) will show you:
+- The formal object layout for a Gregorian date,
+- Format patterns,
+- Library implementation code,
+- Usage tips and known quirks.
+
+---
+
+## Scheme, Format, and Signature Codes
+
+Every **calendar scheme** in hics has its own short code (e.g., `g` for Gregorian, `j` for Julian, `jdn` for Julian Day Number), and **each format** available within a scheme also has its own code (e.g., `dmy` for day-month-year, `iso` for ISO 8601 date format).
+
+You can combine these codes using a colon (`:`) to produce a **signature**.  
+For example, `g:dmy` means “Gregorian calendar, day-month-year format,” while `g:iso` refers to the Gregorian calendar in **ISO 8601** format (year-month-day).
+
+### Using Signatures for Precise Conversion
+
+You use these **signatures** to qualify hics conversion functions, allowing you to be explicit about how to interpret and format your dates.
+
+#### Examples
+
+- **Convert a date string in day-month-year format into a jdn field:**
+
+    ```glich
+    @date.g:dmy("26 Nov 2025")      // returns 2461006
+    ```
+
+- **Convert a date string in ISO 8601 (year-month-day) format:**
+
+    ```glich
+    @date.g:iso("2025-11-26")      // also returns 2461006
+    ```
+
+- **Convert a script value or scheme object to a corresponding text string in a desired format:**
+
+    ```glich
+    let d = 2461006;
+    @text.g:dmy(d)                 // returns "26 Nov 2025"
+    @text.g:iso(d)                 // returns "2025-11-26"
+    ```
+
+- **Parse and extract a scheme object directly (for deeper calendar analysis):**
+
+    ```glich
+    let d_obj = @scheme.g:dmy("26 Nov 2025");
+    write d_obj;                   // outputs: {s:g 2025, 11, 26, 3}.
+    write @scheme.g:dmy(2461006)[year]; // outputs: 2025
+    ```
+
+### Why Signatures Matter
+
+By making the scheme and format explicit, you:
+- Eliminate ambiguities in date interpretation,
+- Can always reproduce the original date string (including idiosyncrasies or regional styles),
+- Make your scripts robust to changes in locale or calendar conventions.
+
+**Tip:**  
+- All library schemes and formats use lowercase codes.  
+- You may use uppercase scheme codes in your own tests to avoid conflicts.
+
+---
+## Scheme Objects and Their Structure
+
+Each calendar scheme in hics defines its own **scheme object type**, which is fixed when the scheme is declared (using the `scheme` statement).  
+- These are structured as Glich objects and hold key calendar fields relevant for that scheme.
+- The fields and their order is described as the schemes **default record**.
+
+### Naming Convention
+
+- Each scheme object type is named with a prefix `s:` followed by the scheme code.
+    - For example, the Gregorian scheme (`g`) defines an object type `s:g`.
+    - This prefix avoids conflicts, because all scheme object types co-exist with all other objects in the runtime and may have overlapping names.
+
+- All scheme objects are grouped together in the namespace—so using the `s:` helps keep things organized.
+
+### Example: The Gregorian (`g`) Scheme Object
+
+The Gregorian object acts as if it were defined:
+
+```glich
+object s:g { values year month day wday; };
+```
+- **year** — the full year (e.g., 2025)
+- **month** — 1 = January, ..., 12 = December
+- **day** — day of month
+- **wday** — (optional) day of the week, with **Monday = 1**, ..., **Sunday = 7**
+
+### Example Usage
+
+When you parse a date string into a Gregorian scheme object, you get these fields:
+
+```glich
+let d_obj = @scheme.g:dmy("26 Nov 2025");
+write d_obj;   // outputs: {s:g 2025, 11, 26, 3}
+```
+Here,
+- 2025 = year
+- 11   = month (November)
+- 26   = day
+- 3    = wday (Wednesday; Monday=1, so Wednesday=3)
+
+> Note: The presence of `wday` depends on the format and scheme implementation. Some schemes may provide additional or fewer fields, according to historical calendar rules.
+
+**Summary:**  
+- Each scheme object type provides all the date details needed for conversion, computation, and reasoning in that calendar.
+- The naming and fields are intrinsic to each scheme and documented on their definition pages.
+
+---
+
+## Creating New Schemes
+
+A key feature of the Hics extension is the ability to create new schemes
+as variations of the core calendars,
+together with custom formatting.
+
+This guide introduces the central concepts step by step,
+showing you how to build and extend your own schemes,
+grammars, formats, and lexicons.
 
 ---
 
 > **Note on Field Types:**  
-> In hics, fields are divided into three classes:
+> In hics, the scheme object fields are divided into three classes:
 > - **Fixed fields**: The fields supplied by the base calendar (e.g., year, month, day in the Gregorian calendar).  
->   Previously referred to as "base fields" or "default fields".
 > - **Calculated fields**: Additional fields whose values are computed from the fixed fields, used for derived information, era names, etc.
 > - **Optional fields**: Fields not needed to define a unique date, but which can be included for formatting or display—such as the day of the week.
 
@@ -55,12 +272,12 @@ With the `scheme` statement, you can define your own calendar schemes—tailored
 
 Official reference: [scheme statement documentation](https://nickmat.github.io/glich/website/dev/man/hics/scheme.htm)
 
-### The Shortest Possible Scheme Definition
+### The Simplest Possible Scheme Definition
 
-Let’s define a new scheme named `G`, built directly on the rules of the existing Gregorian calendar:
+Let’s define a new scheme named `G`, built directly on the rules of the base Gregorian calendar:
 
 ```glich
-scheme G { base gregorian; }
+scheme G { base gregorian; };
 ```
 
 - This creates a new calendar scheme called `G`.
@@ -71,9 +288,12 @@ scheme G { base gregorian; }
 
 - The **base** describes the underlying calendar logic—these are called **base calendars**.
 - The list of base calendars (`gregorian`, `jdn`, `julian`, etc.) will grow over time and support more cultures and conventions.
-- Depending on the chosen base, you can add specific **keywords** to further customize behavior.
-    - For instance, **`base jdn`** is just a raw count of days and is the same as hics’ internal day representation.
-    - With `base gregorian`, the new calendar follows modern civil rules for year, month, day.
+- Depending on the chosen base, you can add specific **keywords** to further customize behaviour. For example the Republic of China calendar scheme uses the Gregorian base but the year count (year 1) is from 1912. We can create this using a keyword:
+```
+scheme ROC { base gregorian "year:1911"; };
+```
+> Keywords should not contain spaces. Putting them in quotes
+is optional if they conform to the **name** conventions.
 
 ### Calendar Epochs
 
@@ -95,7 +315,7 @@ The **Modified Julian Day (MJD)** system is a variation of the Julian Day Number
 scheme MJD {
     name "Modified Julian Day";
     base jdn epoch:2400002;
-}
+};
 ```
 
 - Here, the `epoch:2400002` keyword ensures that **MJD day 1 = JDN 2400002**.
@@ -120,7 +340,7 @@ Where `2461006` is the date number (Julian Day Number) for 26 November 2025.
 
 ### Quick Recap
 
-- `scheme G { base gregorian; }` creates a Gregorian-based scheme you can use and extend.
+- `scheme G { base gregorian; };` creates a Gregorian-based scheme you can use and extend.
 - The `base` describes which date rules your new scheme follows.
 - Many base calendars will be supported over time, allowing significant flexibility.
 - For simple day-counting schemes, you can set the base to `jdn` and specify your own epoch.
@@ -134,7 +354,7 @@ You can also add a human-readable name to your scheme using the **name** sub
 This is helpful for documentation and makes it easier to generate or browse lists of available schemes.
 
 ```glich
-scheme J { name "My Julian Test"; base julian; }
+scheme J { name "My Julian Test"; base julian; };
 ```
 
 - Here, the scheme code is **J**
@@ -171,7 +391,7 @@ A **grammar** defines how dates are parsed from or written to text.
    grammar J {
        name "Test";
        fields year month day;
-   }
+   };
    ```
    - The `fields` sub-statement is **required** and must exactly match the **fixed fields** expected by the base calendar scheme.  
      (This is a sanity check—if the fields do not match, results can be unpredictable!)
@@ -183,7 +403,7 @@ A **grammar** defines how dates are parsed from or written to text.
        name "Test Julian";
        base julian;
        grammar J;
-   }
+   };
    ```
    - Now, the scheme `J` uses the grammar `J` for parsing and formatting.
    - You can give your scheme a human-readable name as well.
@@ -212,7 +432,7 @@ This can be verbose and less convenient for frequent data entry or reading.
 You can define aliases to provide short forms for each field name:
 
 ```glich
-alias unit { d day; m month; y year; }
+alias unit { d day; m month; y year; };
 ```
 
 - Here, `d` is mapped to `day`, `m` to `month`, and `y` to `year`.
@@ -258,11 +478,11 @@ grammar MyGrammar {
     format def "{year} |{month} |{day}";
     format pretty "{day}/{month}/{year}";
     alias unit { d day; m month; y year; }
-}
+};
 scheme EX {
     base gregorian;
     grammar MyGrammar;
-}
+};
 ```
 
 - The `grammar` statement defines:
@@ -277,7 +497,7 @@ scheme EX {
 If you create a scheme like this:
 
 ```glich
-scheme G { base gregorian; }
+scheme G { base gregorian; };
 ```
 
 - No grammar is specified, so hics will auto-create an anonymous grammar.
@@ -360,7 +580,7 @@ If you want to use different separators (like `/`), you must use the **long form
   format slash {
       separators "/,";
       inout "{day}/|{month}/|{year}";
-  }
+  };
   ```
   - `separators "/,";` declares `/` and `,` as valid separators for both parsing and output.
   - `inout` gives the template for both directions (input and output).
@@ -375,12 +595,12 @@ grammar MyGrammar {
     format slash {
         separators "/,";
         inout "{day}/|{month}/|{year}";
-    }
-}
+    };
+};
 scheme EX {
     base gregorian;
     grammar MyGrammar;
-}
+};
 ```
 
 - Allows both `@date.EX:slash("26/11/2025")` and `@date.EX:slash("26,11,2025")` as valid inputs.
@@ -413,9 +633,9 @@ lexicon M {
         2, February, Feb;
         // ...
         12, December, Dec;
-    }
+    };
     pseudo Month, Mon;
-}
+};
 ```
 
 You can reference this lexicon in your format by providing its code and additional selectors in the placeholder:
@@ -469,8 +689,8 @@ When hics encounters a word or string in place of a number, it searches through 
 Suppose you've defined several lexicons for month names, weekdays, etc.:
 
 ```glich
-lexicon M { ... }   // months
-lexicon W { ... }   // weekdays
+lexicon M { ... };   // months
+lexicon W { ... };   // weekdays
 ```
 
 You attach them to your grammar like so:
@@ -480,7 +700,7 @@ grammar MyGrammar {
     fields year month day;
     lexicons M, W;
     ...
-}
+};
 ```
 
 - With `lexicons M, W;`, hics will check both the month (M) and weekday (W) lexicons during parsing.
@@ -539,8 +759,8 @@ lexicon FRCOMP {
         // ...
         5, "Fête de la Récompense", "Rec", "Récompense", "Recompense";
         // (sometimes 6, in a leap year)
-    }
-}
+    };
+};
 ```
 
 Here, the fieldname is `cday` for the "complementary days" at the end of the French Revolutionary calendar year.  
@@ -575,9 +795,9 @@ lexicon M {
         2, February, Feb;
         // ...
         12, December, Dec;
-    }
+    };
     pseudo Month, Mon;
-}
+};
 ```
 
 - **pseudo Month, Mon;**  
@@ -591,8 +811,8 @@ You can also specify how to show number placeholders for output examples using t
 ```glich
 grammar MyGrammar {
     fields day month year;
-    alias pseudo { dd day; mm month; yyyy year; }
-}
+    alias pseudo { dd day; mm month; yyyy year; };
+};
 ```
 
 - This tells hics (and any tooling around it) to generate, for example, the string `"dd mm yyyy"` to illustrate the expected numeric ordering and widths, instead of just showing a sample with real numbers.
@@ -607,7 +827,7 @@ grammar MyGrammar {
 
 ## Note on Text Input: The Importance of Field Order
 
-While hics is very flexible with text input—accepting numbers, names, abbreviations, and even labels/aliases—**the order of fields in an unlabeled input string is determined by the format string**, not by the grammar's field order.
+While hics is very flexible with text input—accepting numbers, names, abbreviations, and even labels/aliases—**the order of fields in an unlabelled input string is determined by the format string**, not by the grammar's field order.
 
 For example:
 - If your format is `"{day} {month} {year}"`, then the string `"2 3 2025"` will be interpreted as **2 March 2025**.
@@ -670,7 +890,7 @@ This is especially useful for HTML or rich-text output.
 ```glich
 format html {
     output "{day}<sup>{day::oa}</sup> day of {month:M} in the year {year}";
-}
+};
 ```
 
 Outputs:
@@ -719,7 +939,7 @@ The ISO 8601 standard is implemented as a special rule:
 ```glich
 format iso {
     rules iso8601;
-}
+};
 ```
 
 This enables full ISO 8601 conformance and handles negatives, extended years, and strict formatting.
@@ -732,7 +952,7 @@ For example, to force the sign (`+` or `-`) always to appear on the year, use:
 ```glich
 format s_iso {
     rules iso8601 sign;
-}
+};
 ```
 
 - This will output `+2025-11-26` for AD dates and `-0044-03-15` for BCE.
@@ -857,12 +1077,12 @@ grammar JCE {
         ce = @if( year < 1, 0, 1 );
         ceyear = @if( year < 1, -year + 1, year );
         result = this;
-    }
+    };
     function fixed {
         year = @if( ce = 1, ceyear, -ceyear + 1 );
         result = this;
-    }
-}
+    };
+};
 ```
 
 - The order in `fields` is significant:  
@@ -879,7 +1099,7 @@ scheme JCE {
     name "Julian with Common Era";
     base julian;
     grammar JCE;
-}
+};
 ```
 
 ---
@@ -895,8 +1115,8 @@ lexicon CE {
     tokens {
         0, "Before Common Era", BCE;
         1, "Common Era", CE;
-    }
-}
+    };
+};
 ```
 - The first string for each value is the full name (e.g., "Before Common Era")
 - The second string is the abbreviation ("BCE")
@@ -912,8 +1132,8 @@ lexicon M {
         2, February, Feb;
         // ...through...
         12, December, Dec;
-    }
-}
+    };
+};
 ```
 
 ---
@@ -1007,7 +1227,7 @@ grammar OLDSTYLE {
     rank cyear month day;
     use epoch;
     // Add formats and lexicons as needed...
-}
+};
 ```
 - `cyear` is the civil year field to be calculated.
 - `use epoch;` tells hics to generate the necessary `calculate` and `fixed` functions for you (no need to code manually).
@@ -1021,7 +1241,7 @@ scheme OLDSTYLE {
     base julian;
     grammar OLDSTYLE;
     epoch 1721417;                   // or epoch @date.j:dmy("25 Mar 0");
-}
+};
 ```
 - `epoch` sets the start of the *first* civil year (the civil new year).  
   For England, Old Style:  
@@ -1092,9 +1312,9 @@ scheme AY {
         julian (astro) through 2299160;
         // Gregorian calendar with astronomical year numbering from cutover onward
         gregorian (astro) from 2299161;
-    }
+    };
     grammar AY;
-}
+};
 ```
 
 - `(astro)` signals astronomical year numbering—years 0, -1, etc., are allowed according to the astronomical system (not traditional BCE/CE).
@@ -1149,13 +1369,13 @@ The core "base" assignment for a hybrid scheme is structured as:
 ```glich
 base hybrid {
     fields scheme year month day;
-    scheme 0 { base julian; }      // local scheme "0", Julian rules
+    scheme 0 { base julian; };     // local scheme "0", Julian rules
     change 2299161;                // JDN at which to switch
-    scheme 1 { base gregorian; }   // local scheme "1", Gregorian rules
-}
+    scheme 1 { base gregorian; };  // local scheme "1", Gregorian rules
+};
 ```
 - **schemes** are numbered (`0`, `1`, …) automatically, but you may assign codes for clarity.
-- Each `scheme { ... }` block defines the local settings for that segment of the calendar.
+- Each `scheme { ... };` block defines the local settings for that segment of the calendar.
 
 #### Example Lexicon for `scheme` Field
 
@@ -1166,8 +1386,8 @@ lexicon CAL {
     tokens {
         0, Julian;
         1, Gregorian;
-    }
-}
+    };
+};
 ```
 
 **Full Example: Astronomical Year Hybrid**
@@ -1179,8 +1399,8 @@ lexicon CAL {
     tokens {
         0, Julian;
         1, Gregorian;
-    }
-}
+    };
+};
 
 grammar AY {
     fields scheme year month day;
@@ -1188,18 +1408,18 @@ grammar AY {
     rank year month day;
     format def "{year} {month} {day}";
     // Additional formats as needed...
-}
+};
 
 scheme AY {
     name "Astronomical Year calendar (hybrid)";
     base hybrid {
         fields scheme year month day;
-        scheme 0 { base julian (astro); }
+        scheme 0 { base julian (astro); };
         change 2299161;
-        scheme 1 { base gregorian (astro); }
-    }
+        scheme 1 { base gregorian (astro); };
+    };
     grammar AY;
-}
+};
 ```
 
 - The grammar's `fields` matches what the hybrid declares.
