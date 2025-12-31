@@ -1,0 +1,8 @@
+// union001.glcs
+
+write empty | 100, 999 | empty;
+
+
+/*[OUTPUT]
+100, 999
+[OUTPUT]*/
