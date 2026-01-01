@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     6th February 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -206,20 +206,31 @@ double glich::dmod_r( double x, double y )
 
 RList glich::set_operation( SetOp op, const RList& left, const RList& right )
 {
-    bool lon = false, ron = false;
-    Field lpos = f_maximum, rpos = f_maximum, apos = f_minimum;
+    if( left.empty() ) {
+        switch( op )
+        {
+        case SetOp::Inter:
+            return RList(); // Empty set.
+        default:
+            return right; // Union, SymDif, RelComp with empty left is right.
+        }
+    }
+    if( right.empty() ) {
+        switch( op )
+        {
+        case SetOp::Inter:
+        case SetOp::RelComp:
+            return RList(); // Empty set.
+        default:
+            return left; // Union, SymDif with empty right is left.
+        }
+    }
+
+    Field lpos = f_minimum, rpos = f_minimum, apos = f_minimum;
+    bool lon = (left[0].m_beg == f_minimum);
+    bool ron = (right[0].m_beg == f_minimum);
     size_t li = 0, ri = 0;
     bool aon = false, paon = false;
-
-    if( left.size() ) {
-        lpos = f_minimum;
-        lon = (lpos == left[0].m_beg);
-    }
-    if( right.size() ) {
-        rpos = f_minimum;
-        ron = (rpos == right[0].m_beg);
-    }
-
     RList answer;
     Range range;
     while( apos != f_end && apos != f_invalid2 ) {
