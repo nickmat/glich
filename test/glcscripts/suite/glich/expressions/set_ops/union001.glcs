@@ -1,8 +1,17 @@
 // union001.glcs
 
-write empty | 100, 999 | empty;
+write nl;
+write 999 | 100, empty | 100, 999 | empty nl;
+write 999..500 | 599..100 nl;
+write infinity..500 | 599..100 nl;
+write 999..500 | 599..-infinity nl;
 
 
 /*[OUTPUT]
-100, 999
+
+100 | 999, 100, 999
+100..999
+100..+infinity
+-infinity..999
+
 [OUTPUT]*/
