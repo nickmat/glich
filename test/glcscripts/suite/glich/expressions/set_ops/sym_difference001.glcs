@@ -1,8 +1,17 @@
 // sym_difference001.glcs
 
-write 20..75 ^^ 100..120, 20..100 ^^ 75..120;
+write nl;
+write 20..75 ^^ 100..120, 20..100 ^^ 75..120 nl;
+write empty ^^ 100, 999 ^^ empty nl;
+write infinity..500 ^^ 599..100 nl;
+write 999..500 ^^ 599..-infinity nl;
 
 
 /*[OUTPUT]
+
 20..75 | 100..120, 20..74 | 101..120
+100, 999
+100..499 | 600..+infinity
+-infinity..499 | 600..999
+
 [OUTPUT]*/
