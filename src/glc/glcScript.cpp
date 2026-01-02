@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     5th February 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -857,6 +857,14 @@ bool Script::do_module()
     if( code.empty() ) {
         error( "Module name missing." );
         return false;
+    }
+    if( current_token().type() == SToken::Type::Semicolon ) {
+        string ret = glc().run_module( code );
+        if( !ret.empty() ) {
+            error( ret );
+            return false;
+        }
+        return true;
     }
     if( glc().module_exists( code ) ) {
         error( "Module \"" + code + "\" already exists." );

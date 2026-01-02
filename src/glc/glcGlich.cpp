@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -40,7 +40,7 @@
 
 #include <cassert>
 #include <fstream>
-//#include <iostream>
+#include <filesystem>
 #include <sstream>
 
 
@@ -187,7 +187,11 @@ string Glich::run_module( const string& mod )
     string location, module;
     split_string( location, module, run );
     if( location == "file" ) {
-        return run_script_file( module + ".glcs" );
+        string filename = module +  ".glcs";
+        if( !std::filesystem::exists( filename ) ) {
+            return "Module file not found: " + filename;
+        }
+        return run_script_file( filename );
     }
     else if( location == "glich" ) {
         return string(); // There are no glich modules yet!
