@@ -193,11 +193,11 @@
 
 <table class='basic'>
 <tr><th>Operator</th><th>Name</th><th>Example</th><th>Result</th></tr>
-<tr><td class='code'>!</td><td>Complement</td><td class='example'><b>!</b>0<br><b>!</b>(-infinity..-1 | 1..+infinity)</td><td class='example'>-infinity..-1 | 1..+infinity<br>0</td></tr>
-<tr><td class='code'>|</td><td>Union</td><td class='example'>1..100 <b>|</b> 50..150</td><td class='example'>1..150</td></tr>
-<tr><td class='code'>&amp;&amp;</td><td>Intersection</td><td class='example'>1..100 <b>&amp;&amp;</b> 50..150</td><td class='example'>50..100</td></tr>
-<tr><td class='code'>^^</td><td>Symmetric difference</td><td class='example'>1..100 <b>^^</b> 50..150</td><td class='example'>1..49 | 101..150</td></tr>
-<tr><td class='code'>\\</td><td>Relative complement</td><td class='example'>1..100 <b>\\</b> 50..150</td><td class='example'>1..49</td></tr>
+<tr><td class='code'>!</td><td>Complement (NOT)</td><td class='example'><b>!</b>0<br><b>!</b>empty</td><td class='example'>-infinity..-1 | 1..+infinity<br>-infinity..+infinity</td></tr>
+<tr><td class='code'>|</td><td>Union (OR)</td><td class='example'>1..100 <b>|</b> 50..150</td><td class='example'>1..150</td></tr>
+<tr><td class='code'>&amp;&amp;</td><td>Intersection (AND)</td><td class='example'>1..100 <b>&amp;&amp;</b> 50..150</td><td class='example'>50..100</td></tr>
+<tr><td class='code'>^^</td><td>Symmetric difference (XOR)</td><td class='example'>1..100 <b>^^</b> 50..150</td><td class='example'>1..49 | 101..150</td></tr>
+<tr><td class='code'>\\</td><td>Relative complement (AND NOT)</td><td class='example'>1..100 <b>\\</b> 50..150</td><td class='example'>1..49</td></tr>
 </table>
 
 
