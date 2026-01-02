@@ -1,0 +1,6 @@
+// test_module005 - Test module, do not run separately.
+
+
+function test_mod5( mess ) {
+    result = "The message is: " + mess;
+};
