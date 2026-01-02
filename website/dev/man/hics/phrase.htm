@@ -32,6 +32,82 @@
 <div id='content' class='nomenu'>
 
 <h2>Page Under Construction</h2>
+<h2>Date Phrases and Set Operations</h2>
+<p>
+ Date phrases let you combine date expressions,
+ including multiple calendar schemes, using set and other operators.
+ This allows you to express unions, intersections, exclusions
+ and differences between periods expressed in differing calendar schemes
+ all in a single phrase.
+ The phrase is then converted to an ordered list that can be displayed
+ or further manipulated.
+</p>
+<p>
+ A Date Phrase is made up of one or more Date Expressions
+ combined using operators.
+ The supported operators are:
+</p>
+<ul>
+ <li><strong>Range</strong> - operator <code>..</code> - specifies an inclusive range of dates between two date expressions.</li>
+ <li><strong>Complement (<code>NOT</code></strong>) - operator <code>!</code> - specifies the inverse of a date expression.</li>
+ <li><strong>Union (<code>OR</code>)</strong> - operator <code>|</code> - combines two date expressions
+  to include all dates from both expressions.
+ </li>
+ <li><strong>Intersection (<code>AND</code>)</strong> - operator <code>&amp;&amp;</code> - combines two date expressions
+  to include only dates that are present in both expressions.
+ </li>
+ <li><strong>Difference (<code>XOR</code>)</strong> operator <code>^^</code> - includes dates that are present
+  in either of the two expressions but not in both.
+ </li>
+ <li><strong>Exclusion (<code>AND NOT</code>)</strong> - operator <code>\\</code> - removes dates from the first expression
+  that are present in the second expression.</li>
+ </li>
+
+<h4>Notes</h4>
+<ul>
+<li><strong>Parentheses</strong> <code>( ... )</code> are supported for grouping and controlling precedence.</li>
+<li>All values between operators must be well-formed <strong>dates or shortcut ranges</strong> in valid hics syntax (see earlier sections).</li>
+<li>Other arithmetic operators may appear in future releases.</li>
+</ul>
+
+<h3>Scheme and Format Qualification</h3>
+<p>A date phrase will have a default scheme and format unless otherwise specified.</p>
+<p>To use non-default schemes in a phrase, prefix the entry with scheme[:format]#, for example:</p>
+
+<table class='code'>
+<tr><th>Example Script</th></tr>
+<tr><td
+>@phrase.g:dmy("2025 | j:dmy# 2025")
+</td></tr>
+</table>
+
+
+<pre></pre>
+<p>Combines the Gregorian year 2025 and Julian year 2025.</p>
+<h4>Example Usages</h4>
+// Range and union
+@text.g:dmy(@phrase("1 Jan 2025..10 Jan 2025 | 15 Jan 2025"))
+
+// Exclusion
+@text.g:dmy(@phrase("2025 && !30 Nov 2025"))
+
+// Scheme qualification
+@text.g:dmy(@phrase("2025 | j:dmy# 2025"))
+
+// Set subtraction
+@text.g:dmy(@phrase("2025 \\ Jan 2025"))
+
+// Parentheses for grouping
+@text.g:dmy(@phrase("(2025 | 2026) && !10 Jan 2025"))
+Limitations (for now)
+Only valid date values or shortcut ranges (not arbitrary words) are accepted.
+More advanced operators beyond those listed are in development/testing.
+Summary:
+
+Date phrases let you combine and manipulate lists or ranges of dates using familiar set operators, with parentheses for grouping.
+The set subtraction operator is two backslashes: \\.
+Each value must be a valid date expression.
+You can mix schemes/format using qualification; see examples above.
 
 </div><!--id=content-->
 
