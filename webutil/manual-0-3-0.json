@@ -26,6 +26,7 @@
     { "name": "grammar", "label": "Define grammar" },
     { "name": "format", "label": "Define format" },
     { "name": "scheme", "label": "Define scheme" },
+    { "name": "module", "label": "module Extensions" },
     { "name": "set", "label": "set Extensions" },
     { "name": "bi-objects", "label": "Built-in Objects" },
     { "name": "bi-functions", "label": "Built-in Functions" },
