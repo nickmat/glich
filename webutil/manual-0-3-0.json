@@ -8,7 +8,7 @@
       { "name": "let", "label": "let Statement" },
       { "name": "end", "label": "end Statement" },
       { "name": "if", "label": "if Statement" },
-      { "name": "do", "label": "do ... loop", "subtitle": "do ... loop Statement" },
+      { "name": "do", "label": "do Statement", "subtitle": "do Loop Statement" },
       { "name": "function", "label": "Define function" },
       { "name": "command", "label": "command & call", "subtitle": "Define command & call Statement" },
       { "name": "object", "label": "Define object" },
