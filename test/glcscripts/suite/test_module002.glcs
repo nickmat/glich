@@ -8,6 +8,6 @@ lexicon RPT {
   tokens {
       0, "First",    "F";
       1, "Repeated", "Rpt";
-  }
-}
+  };
+};
 

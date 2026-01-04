@@ -1,5 +1,5 @@
-// test_module003 - Test module, do not run separately.
+// test_module004 - Test module, do not run separately.
 
 scheme G {
     base gregorian;
-}
+};

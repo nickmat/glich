@@ -4,5 +4,5 @@ object test_sum {
     values one two three;
     function sum {
         result = one + two + three;
-    }
-}
+    };
+};

@@ -3,8 +3,8 @@
 grammar D {
     name "Day Number";
     fields day;
-    alias pseudo { ddddd day; }
-    alias unit { d day; }
+    alias pseudo { ddddd day; };
+    alias unit { d day; };
     format d "{day}";
     preferred d;
-}
+};
