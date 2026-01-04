@@ -1,0 +1,8 @@
+// args003.glcs  Test built-in constant args.
+
+let args[1] = "test";
+
+/*[OUTPUT]
+Error (3): "args" is a constant.
+
+[OUTPUT]*/
