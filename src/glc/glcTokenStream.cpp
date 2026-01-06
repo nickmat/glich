@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     5th February 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -193,6 +193,13 @@ SToken& STokenStream::next()
     case '/':
         switch( m_in->peek() ) {
         case '=': m_in->get( ch ); set_type( SToken::Type::DivideEq ); break;
+        case '%':
+            m_in->get( ch );
+            switch( m_in->peek() ) {
+            case '=': m_in->get( ch ); set_type( SToken::Type::IntDivEq ); break;
+            default: m_in->get( ch ); set_type( SToken::Type::Div ); break;
+            }
+            break;
         default: set_type( SToken::Type::Divide ); break;
         } break;
     case '*':
@@ -201,23 +208,9 @@ SToken& STokenStream::next()
         default: set_type( SToken::Type::Star ); break;
         } break;
     case '%':
-        switch( m_in->peek() )
-        {
-        case '/':
-            m_in->get( ch );
-            switch( m_in->peek() ) {
-            case '=': m_in->get( ch ); set_type( SToken::Type::IntDivEq ); break;
-            default: set_type( SToken::Type::Div );
-            }
-            break;
-        case '%':
-            m_in->get( ch );
-            switch( m_in->peek() ) {
-            case '=': m_in->get( ch ); set_type( SToken::Type::ModEq ); break;
-            default: set_type( SToken::Type::Mod );
-            }
-            break;
-        default: set_type( SToken::Type::Percent ); break;
+        switch( m_in->peek() ) {
+        case '=': m_in->get( ch ); set_type( SToken::Type::ModEq ); break;
+        default: set_type( SToken::Type::Mod ); break;
         }
         break;
     case '<':
