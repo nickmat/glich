@@ -42,8 +42,8 @@
 <tr><td class='code'>-</td><td>Minus</td><td class='example'>any_numeric_type <b>-</b> numeric_type<br>numeric_type <b>-</b> any_numeric_type</td><td class='example'>any_numeric_type</td></tr>
 <tr><td class='code'>*</td><td>Multiply</td><td class='example'>numeric_type <b>*</b> numeric_type</td><td class='example'>numeric_type</td></tr>
 <tr><td class='code'>/</td><td>Divide</td><td class='example'>numeric_type <b>/</b> numeric_type</td><td class='example'>float_type</td></tr>
-<tr><td class='code'>div</td><td>Integer divide</td><td class='example'>integer_type <b>div</b> integer_type</td><td class='example'>integer_type</td></tr>
-<tr><td class='code'>mod</td><td>Integer modulo</td><td class='example'>integer_type <b>mod</b> integer_type</td><td class='example'>integer_type</td></tr>
+<tr><td class='code'>/%</td><td>Integer divide</td><td class='example'>integer_type <b>div</b> integer_type</td><td class='example'>integer_type</td></tr>
+<tr><td class='code'>%</td><td>Integer modulo</td><td class='example'>integer_type <b>mod</b> integer_type</td><td class='example'>integer_type</td></tr>
 </table>
 <p>
  For numeric_types,
@@ -111,8 +111,8 @@
 <h4>Multiplication, Division and Modulo</h4>
 <p>
  Glich has two distinct division operators, floating point division <b>'/'</b>
- and integer division <b>'div'</b>.
- The <b>'mod'</b> operator is only used for integer modulo.
+ and integer division <b>'/%'</b>.
+ The <b>'%'</b> operator is only used for integer modulo.
 </p>
 <p>
  Currently, these operators can only be used with numerical types.
@@ -140,7 +140,7 @@
 </p>
 <div class='note'><div class='inner'>
     <p>Note, these rules have been set to ensure the following is always true:<br />
-    If <b>q = a div b</b> and <b>r = a mod b</b> then <b>a = b * q + r</b>
+    If <b>q = a /% b</b> and <b>r = a % b</b> then <b>a = b * q + r</b>
     and <b>r</b> is always positive.
 </div></div>
 <table class='basic'>
@@ -151,13 +151,13 @@
  <td class='example'>50<br />-infinity<br />Error</td>
 </tr>
 <tr>
- <td class='code'>field_type <b>div</b> field_type</td>
- <td class='example'>10 <b>div</b> 5<br />-infinity <b>div</b> 123<br />123 <b>div</b> +infinity</td>
+ <td class='code'>field_type <b>/%</b> field_type</td>
+ <td class='example'>10 <b>/%</b> 5<br />-infinity <b>/%</b> 123<br />123 <b>/%</b> +infinity</td>
  <td class='example'>2<br />-infinity<br />Error</td>
 </tr>
 <tr>
- <td class='code'>field_type <b>mod</b> field_type</td>
- <td class='example'>21 <b>mod</b> 5<br />-100 <b>mod</b> -6<br />-infinity <b>mod</b> 2</td>
+ <td class='code'>field_type <b>%</b> field_type</td>
+ <td class='example'>21 <b>%</b> 5<br />-100 <b>%</b> -6<br />-infinity <b>%</b> 2</td>
  <td class='example'>1<br />2<br />0</td>
 </tr>
 </table>
@@ -330,8 +330,8 @@ object_value<b>@</b>name<b>.</b>qualifier<b>(</b>expr, ...<b>)</b>
 <tr><td class='code' colspan='4'></td></tr>
 <tr><td class='code'>*</td><td>Multiply</td><td class='example'>numeric_value <b>*</b> numeric_value</td><td class='example'>numeric_value</td></tr>
 <tr><td class='code'>/</td><td>Divide</td><td class='example'>numeric_value <b>/</b> numeric_value</td><td class='example'>float_value</td></tr>
-<tr><td class='code'>div</td><td>Integer divide</td><td class='example'>integer_value <b>div</b> integer_value</td><td class='example'>integer_value</td></tr>
-<tr><td class='code'>mod</td><td>Integer modulo</td><td class='example'>integer_value <b>mod</b> integer_value</td><td class='example'>integer_value</td></tr>
+<tr><td class='code'>/%</td><td>Integer divide</td><td class='example'>integer_value <b>/%</b> integer_value</td><td class='example'>integer_value</td></tr>
+<tr><td class='code'>%</td><td>Integer modulo</td><td class='example'>integer_value <b>%</b> integer_value</td><td class='example'>integer_value</td></tr>
 <tr><td class='code' colspan='4'></td></tr>
 <tr><td class='code'>+</td><td>Plus</td>
  <td class='example'>number_value <b>+</b> number_value<br />string_value <b>+</b> value<br />value <b>+</b> string_value</td>
@@ -367,13 +367,12 @@ object_value<b>@</b>name<b>.</b>qualifier<b>(</b>expr, ...<b>)</b>
  and, if used as codes or signatures, they must be enclosed in double quotes.
 </p>
 <p>
- <b>and, div, do, endif, else, elseif, false, future, if, inf, infinite, loop, mod,
- nan, not, null, or, past, this, today, true</b>
+ <b>and, do, else, elseif, false, future, if, inf, infinite, nan, not, null, or, past, this, today, true</b>
 </p>
 <p>
  The other statement words
  <b>call, command, end, file, format, function, grammar, let, lexicon, mark, object,
- scheme, set, until, while, write, writeln</b>
+ scheme, set, until, while, write</b>
  are not strictly keyword, but are best avoided.
  If they are used as variable names then all assignments must start with 'let'.
 </p>
