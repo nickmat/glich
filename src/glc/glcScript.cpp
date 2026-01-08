@@ -913,7 +913,7 @@ bool Script::run_block( GetToken get )
             return true;
         }
         if( statement() == false ) {
-            return (m_ts.errors() == 0);
+            return false;
         }
         next_token();
     }
