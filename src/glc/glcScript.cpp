@@ -169,8 +169,7 @@ bool Script::do_if()
     for( ;;) {
         if( result ) {
             // Run the statement block
-            if( run_block( GetToken::current ) == false ) {
-                error( enderr );
+            if( !run_block( GetToken::current ) ) {
                 return false;
             }
             if( !m_ts.skip_to_char( ';' ) ) {
