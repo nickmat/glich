@@ -535,6 +535,21 @@ bool Script::do_assign( const string& name, VariableType vartype )
         case SToken::Type::ModEq:
             value.modulus( expr( GetToken::next ) );
             break;
+        case SToken::Type::RangeEq:
+            value.range_op( expr( GetToken::next ) );
+            break;
+        case SToken::Type::UnionEq:
+            value.rlist_union( expr( GetToken::next ) );
+            break;
+        case SToken::Type::IntersectEq:
+            value.intersection( expr( GetToken::next ) );
+            break;
+        case SToken::Type::RelCompEq:
+            value.rel_complement( expr( GetToken::next ) );
+            break;
+        case SToken::Type::SymDiffEq:
+            value.sym_difference( expr( GetToken::next ) );
+            break;
         case SToken::Type::AtEq:
             value = do_at( value, get_name_or_primary( GetToken::next ) );
             break;

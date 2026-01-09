@@ -234,14 +234,28 @@ SToken& STokenStream::next()
     case ',': set_type( SToken::Type::Comma ); break;
     case '.':
         switch( m_in->peek() ) {
-        case '.': m_in->get( ch ); set_type( SToken::Type::DotDot ); break;
+        case '.':
+            m_in->get( ch );
+            switch( m_in->peek() ) {
+            case '=': m_in->get( ch ); set_type( SToken::Type::RangeEq ); break;
+            default: set_type( SToken::Type::DotDot ); break;
+            } break;
         default: set_type( SToken::Type::Dot ); break;
         } break;
     case '~': set_type( SToken::Type::Tilde ); break;
-    case '|': set_type( SToken::Type::Vline ); break;
+    case '|':
+        switch( m_in->peek() ) {
+        case '=': m_in->get( ch ); set_type( SToken::Type::UnionEq ); break;
+        default: set_type( SToken::Type::Vline ); break;
+        } break;
     case '&':
         switch( m_in->peek() ) {
-        case '&': m_in->get( ch ); set_type( SToken::Type::DblAmpersand ); break;
+        case '&':
+            m_in->get( ch );
+            switch( m_in->peek() ) {
+            case '=': m_in->get( ch ); set_type( SToken::Type::IntersectEq ); break;
+            default: set_type( SToken::Type::DblAmpersand ); break;
+            } break;
         default: set_type( SToken::Type::Ampersand ); break;
         } break;        
     case '!':
@@ -251,12 +265,22 @@ SToken& STokenStream::next()
         } break;
     case '^':
         switch( m_in->peek() ) {
-        case '^': m_in->get( ch ); set_type( SToken::Type::DblCarrot ); break;
+        case '^':
+            m_in->get( ch );
+            switch( m_in->peek() ) {
+            case '=': m_in->get( ch ); set_type( SToken::Type::SymDiffEq ); break;
+            default: set_type( SToken::Type::DblCarrot ); break;
+            } break;
         default: set_type( SToken::Type::Carrot ); break;
         } break;
     case '\\':
         switch( m_in->peek() ) {
-        case '\\': m_in->get( ch ); set_type( SToken::Type::DblBackslash ); break;
+        case '\\':
+            m_in->get( ch );
+            switch( m_in->peek() ) {
+            case '=': m_in->get( ch ); set_type( SToken::Type::RelCompEq ); break;
+            default: set_type( SToken::Type::DblBackslash ); break;
+            } break;
         default: set_type( SToken::Type::Backslash ); break;
         } break;
     case '?': set_type( SToken::Type::Qmark ); break;

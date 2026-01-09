@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     5th February 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -58,6 +58,11 @@ namespace glich {
             LessThan,    //  "<"
             LessThanEq,  //  "<="
             AtEq,        //  "@="
+            RangeEq,     //  "..="
+            UnionEq,     //  "|="
+            IntersectEq, //  "&&="
+            RelCompEq,   //  "\\="
+            SymDiffEq,   //  "^^="
             // Alternative token names
             UNION = Vline,
             INTERSECTION = DblAmpersand,
