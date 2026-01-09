@@ -1,0 +1,17 @@
+// let005.glcs Test let statements
+
+write nl;
+
+let x = empty;
+x \\= 6..99;
+write x nl;
+x \\= 50..150;
+write x nl;
+
+
+/*[OUTPUT]
+
+6..99
+6..49
+
+[OUTPUT]*/
