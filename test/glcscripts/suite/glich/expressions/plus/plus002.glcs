@@ -1,7 +1,7 @@
 // plus002.glcs Test file to test plus and minus maths.
 
-writeln 1 + 2;
-writeln 1 - 2;
+write 1 + 2 nl;
+write 1 - 2 nl;
 
 /*[OUTPUT]
 3

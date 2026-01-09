@@ -3,8 +3,8 @@
 object test {
     function hi {
         result = "Hello";
-    }
-}
+    };
+};
 
 let t = {test};
 

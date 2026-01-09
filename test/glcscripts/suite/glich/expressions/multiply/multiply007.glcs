@@ -10,8 +10,7 @@ let f = -inf * 3f;
 let g = inf * 3f;
 
 
-write a + ", " + b + ", " + c + ", " + d + ", " + e
- + ", " + f + ", " + g;
+write a, b, c, d, e, f, g;
 
 
 /*[OUTPUT]

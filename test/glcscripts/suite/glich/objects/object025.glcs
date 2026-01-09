@@ -1,14 +1,14 @@
 // glich/objects/object024.glcs - Test proposed dir: object
 
-object kv { values key value; }
+object kv { values key value; };
 
 object dir {
     function add.key( value = 0 ) {
         let size = this@size;
         this[(size)] = {kv key, value};
         result = this;
-    }
-}
+    };
+};
 
 let list = {dir {kv "apple", 2}, {kv "pear", 3}};
 list @= add.banana(6);

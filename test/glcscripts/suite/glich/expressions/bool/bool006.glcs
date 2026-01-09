@@ -1,12 +1,12 @@
 // bool006.glcs Test file to test bool maths.
 
-writeln "";
+write nl;
 
-writeln 1 > 1;
-writeln 1 > 2;
-writeln 2 > 1;
-writeln 1 > +infinity;
-writeln 1 > -infinity;
+write 1 > 1 nl;
+write 1 > 2 nl;
+write 2 > 1 nl;
+write 1 > +infinity nl;
+write 1 > -infinity nl;
 
 /*[OUTPUT]
 

@@ -1,7 +1,7 @@
 // divide004.glcs Test file to test division of special fields
 
-let a = infinity div 2;
-let b = -infinity div 2;
+let a = infinity /% 2;
+let b = -infinity /% 2;
 
 write a + ", " + b;
 

@@ -3,10 +3,10 @@
 write "Start ";
 
 let count = 0;
-do
+do {
   let count = count + 1;
   write count + ", ";
-until count > 2 loop
+until count > 2; };
 
 write "end";
 

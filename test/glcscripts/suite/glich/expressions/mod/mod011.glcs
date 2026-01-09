@@ -1,10 +1,10 @@
 // mod011.glcs Test file to test modulus of fields
 
-let a = 15f mod 3f;
+let a = 15f % 3f;
 
-let b = 99f mod 5f;
+let b = 99f % 5f;
 
-write a + ", " + b;
+write a, b;
 
 
 /*[OUTPUT]

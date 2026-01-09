@@ -1,4 +1,4 @@
-// bool003.glcs Test file to test bool maths
+// bool010.glcs Test file to test bool maths
 
 write nl;
 write 1 and true;

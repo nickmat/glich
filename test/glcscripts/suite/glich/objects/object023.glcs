@@ -1,11 +1,11 @@
-mark test;
+// object023.glcs  Test creating and using objects.
 
 object obj {
     values first second;
     function fun.qual( arg ) {
         result = qual + " " + arg;
-    }
-}
+    };
+};
 
 let x = {obj};
 

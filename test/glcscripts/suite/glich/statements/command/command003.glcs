@@ -3,7 +3,7 @@
 command say {
   let d = 3;
   writeln d;
-}
+};
 
 call say;
 

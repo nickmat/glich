@@ -13,7 +13,7 @@ let e = -inf - ?;
 let f = -inf - -infinity;
 
 
-write a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f;
+write a, b, c, d, e, f;
 
 /*[OUTPUT]
 inf, inf, nan, -inf, nan, nan

@@ -1,6 +1,6 @@
 // object019.glcs  Test function object_name.
 
-object test {}
+object test {};
 
 let a = {test 1, 2, 3};
 

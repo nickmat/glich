@@ -3,15 +3,15 @@
 write "Start ";
 
 let count = 0;
-do
+do {
   let count = count + 1;
   write count + ", ";
-  until 3
-loop
+  until 3;
+};
 
 write "end";
 
 /*[OUTPUT]
-Start 1, Error (10): Boolean expression expected.
+Start 1, Error (9): Boolean expression expected.
 end
 [OUTPUT]*/

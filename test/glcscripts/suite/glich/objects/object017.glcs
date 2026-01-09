@@ -6,8 +6,8 @@ object obj {
         two = a;
         one *= b;
         result = one + two;
-    }
-}
+    };
+};
 
 let x = {obj 10};
 let y = x@test( 99, 5 );

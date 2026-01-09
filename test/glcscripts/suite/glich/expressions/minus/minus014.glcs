@@ -7,7 +7,7 @@ let e = ? - inf;
 let f = -infinity - inf;
 
 
-write d + ", " + e + ", " + f;
+write d, e, f;
 
 /*[OUTPUT]
 nan, nan, -inf

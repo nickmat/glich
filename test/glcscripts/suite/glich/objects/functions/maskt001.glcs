@@ -1,6 +1,6 @@
 // mask001.glcs  Test object function mask.
 
-object test {}
+object test {};
 
 let a = {test ,,5,,};
 let b = {test 99,,,,88};

@@ -1,7 +1,7 @@
 // divide012.glcs Test file to test division of integers with %/
 
-let a = 15 %/ 3;
-let b = 99 %/ a;
+let a = 15 /% 3;
+let b = 99 /% a;
 write a, b;
 
 /*[OUTPUT]

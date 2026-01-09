@@ -1,90 +1,90 @@
 // mod004.glcs Test file to test division and mod.
 
-writeln "";
+write nl;
 
 let a = 15;
 let n = 4;
-let q = a div n;
-let r = a mod n;
+let q = a /% n;
+let r = a % n;
 let b = (a = n * q + r);
-write b + ", " + q + ", " + r;
+write b, q, r,;
 
 let a = -15;
 let n = 4;
-let q = a div n;
-let r = a mod n;
+let q = a /% n;
+let r = a % n;
 let b = (a = n * q + r);
-write ", " + b + ", " + q + ", " + r;
+write b, q, r,;
 
 let a = 15;
 let n = -4;
-let q = a div n;
-let r = a mod n;
+let q = a /% n;
+let r = a % n;
 let b = (a = n * q + r);
-write ", " + b + ", " + q + ", " + r;
+write b, q, r,;
 
 let a = -15;
 let n = -4;
-let q = a div n;
-let r = a mod n;
+let q = a /% n;
+let r = a % n;
 let b = (a = n * q + r);
-writeln ", " + b + ", " + q + ", " + r;
+write b, q, r nl;
 
 let a = 16;
 let n = 4;
-let q = a div n;
-let r = a mod n;
+let q = a /% n;
+let r = a % n;
 let b = (a = n * q + r);
-write b + ", " + q + ", " + r;
+write b, q, r,;
 
 let a = -16;
 let n = 4;
-let q = a div n;
-let r = a mod n;
+let q = a /% n;
+let r = a % n;
 let b = (a = n * q + r);
-write ", " + b + ", " + q + ", " + r;
+write b, q, r,;
 
 let a = 16;
 let n = -4;
-let q = a div n;
-let r = a mod n;
+let q = a /% n;
+let r = a % n;
 let b = (a = n * q + r);
-write ", " + b + ", " + q + ", " + r;
+write b, q, r,;
 
 let a = -16;
 let n = -4;
-let q = a div n;
-let r = a mod n;
+let q = a /% n;
+let r = a % n;
 let b = (a = n * q + r);
-writeln ", " + b + ", " + q + ", " + r;
+write b, q, r nl;
 
 let a = 17;
 let n = 4;
-let q = a div n;
-let r = a mod n;
+let q = a /% n;
+let r = a % n;
 let b = (a = n * q + r);
-write b + ", " + q + ", " + r;
+write b, q, r,;
 
 let a = -17;
 let n = 4;
-let q = a div n;
-let r = a mod n;
+let q = a /% n;
+let r = a % n;
 let b = (a = n * q + r);
-write ", " + b + ", " + q + ", " + r;
+write b, q, r,;
 
 let a = 17;
 let n = -4;
-let q = a div n;
-let r = a mod n;
+let q = a /% n;
+let r = a % n;
 let b = (a = n * q + r);
-write ", " + b + ", " + q + ", " + r;
+write b, q, r,;
 
 let a = -17;
 let n = -4;
-let q = a div n;
-let r = a mod n;
+let q = a /% n;
+let r = a % n;
 let b = (a = n * q + r);
-writeln ", " + b + ", " + q + ", " + r;
+write b, q, r nl;
 
 
 /*[OUTPUT]

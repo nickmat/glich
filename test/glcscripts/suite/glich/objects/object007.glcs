@@ -3,13 +3,13 @@
 object complex {
     values real imaginary;
     function add( comp ) {
-        if @object( comp ) = "complex"
+        if @object( comp ) = "complex" {
             result = {complex real+comp[real], imaginary+comp[imaginary]};
-        else
+        } else {
             result = @error( "Must have 'complex' argument" );
-        endif
-    }
-}
+        };
+    };
+};
 
 let c1 = {complex 5, 9};
 let c2 = {complex 20, 6};

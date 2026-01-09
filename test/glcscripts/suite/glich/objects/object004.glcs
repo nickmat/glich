@@ -8,8 +8,8 @@ object complex {
         else
             result = @error( "Must have 'complex' argument" );
         endif
-    }
-}
+    };
+};
 
 let c1 = {complex 5, 9};
 let c2 = {complex 20, 6};

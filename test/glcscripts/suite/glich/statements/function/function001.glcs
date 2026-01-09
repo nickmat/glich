@@ -3,10 +3,10 @@
 function test_var {
     let x = 10;
     result = x * 5;
-}
+};
 
-writeln "";
-writeln @test_var;
+write nl;
+write @test_var nl;
 
 x += 20;
 

@@ -1,21 +1,21 @@
 // at-if001.hcs - Test @if function works with if statement.
 
-writeln "";
-if @if(true,true,false)
-    writeln "It's true";
-endif
+write nl;
+if @if(true,true,false) {
+    write "It's true" nl;
+};
 
 let test = "hidden";
-if false
+if false {
     test = @if( false, "not this", "but this" );
-endif
-writeln test;
-if true
+};
+write test nl;
+if true {
     test = @if( false, "not this", "but this" );
-endif
-writeln test;
+};
+write test nl;
 
-writeln "We're done";
+write "We're done" nl;
 
 /*[OUTPUT]
 

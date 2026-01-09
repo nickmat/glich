@@ -1,8 +1,8 @@
 // mod007.glcs Test file to test modulus of integers with %%
 
-let a = 15 %% 3;
+let a = 15 % 3;
 
-let b = 99 %% 5;
+let b = 99 % 5;
 
 write a, b;
 

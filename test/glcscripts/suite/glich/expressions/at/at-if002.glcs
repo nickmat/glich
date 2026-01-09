@@ -2,7 +2,7 @@
 
 write nl;
 
-function if(c,a,b) { if c result=a; else result=b; endif }
+function if(c,a,b) { if c { result=a; } else { result=b; }; };
 
 /*[OUTPUT]
 

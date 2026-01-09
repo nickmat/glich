@@ -17,11 +17,11 @@ y /= 7;
 write y nl;
 
 let y = 50;
-y %/= 7;
+y /%= 7;
 write y nl;
 
 let y = 50;
-y %%= 7;
+y %= 7;
 write y nl;
 
 

@@ -1,14 +1,14 @@
 // command007.hcs - Test qualified command statement.
 
 command say.greet {
-    if greet = "hi"
+    if greet = "hi" {
         write "Hello" nl;
-    elseif greet = "bye"
+    } elseif greet = "bye" {
         write "Goodbye" nl;
-    else
+    } else {
         write "What's up?" nl;
-    endif
-}
+    };
+};
 
 write nl;
 call say.hi;

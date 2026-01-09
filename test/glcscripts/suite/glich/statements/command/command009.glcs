@@ -7,7 +7,7 @@ command simonsays( word ) {
     let space = @if(@size(all) = 0, "", " "); 
     all += space + word;
     write "Simon Says: " + @quote(all) nl;
-}
+};
 
 write nl;
 call simonsays("one");

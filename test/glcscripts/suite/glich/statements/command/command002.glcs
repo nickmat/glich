@@ -2,11 +2,11 @@
 
 command say {
     write "Hello";
-}
+};
 
 command say {
     write "bye";
-}
+};
 
 /*[OUTPUT]
 Error (7): command "say" already exists.

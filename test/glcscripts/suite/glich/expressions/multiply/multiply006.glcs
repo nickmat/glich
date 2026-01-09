@@ -14,8 +14,7 @@ let i = 15 * inf;
 let j = -infinity * -inf;
 let k = infinity * inf;
 
-write a + ", " + b + ", " + c + ", " + d + ", " + e
- + ", " + f + ", " + g + ", " + h + ", " + i + ", " + j + ", " + k;
+write a, b, c, d, e, f, g, h, i, j, k;
 
 
 /*[OUTPUT]

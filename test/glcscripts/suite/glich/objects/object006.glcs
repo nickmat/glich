@@ -2,8 +2,8 @@
 
 object greet {
     values greeting;
-    function hi( name ) { result = greeting + " " + name; }
-}
+    function hi( name ) { result = greeting + " " + name; };
+};
 
 let g = {greet "Hello"};
 

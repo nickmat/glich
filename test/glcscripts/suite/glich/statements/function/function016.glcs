@@ -1,12 +1,12 @@
 // function015.hcs - Test manual example functions.
 
 function range_plus(start, duration = 7) {
-    if duration < 1
+    if duration < 1 {
         result = @error( "Duration must be above zero." );
         end;
-    endif
+    };
     result = start .. start + duration - 1;
-}
+};
 
 let r = @range_plus(100);
 

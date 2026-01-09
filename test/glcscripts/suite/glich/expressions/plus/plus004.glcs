@@ -8,7 +8,7 @@ let c = 3 + 5..9;
 
 let d = 3 + (5..9);
 
-write a +", "+ b +", "+ c +", "+ d;
+write a, b, c, d;
 
 
 /*[OUTPUT]

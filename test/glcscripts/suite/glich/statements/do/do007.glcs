@@ -3,12 +3,12 @@
 write "Start ";
 
 let count = 0;
-do
+do {
   let count = count + 1;
   let value = "A string with loop in it";
-  while count < 4
+  while count < 4;
   write count + ", ";
-loop
+};
 
 write "end";
 

@@ -12,7 +12,7 @@ let e = -inf + nan;
 
 let f = -inf + -inf;
 
-write a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f;
+write a, b, c, d, e, f;
 
 
 /*[OUTPUT]

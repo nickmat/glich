@@ -2,7 +2,7 @@
 
 object complex {
     values real imaginary;
-}
+};
 
 let c = {complex 1, 2};
 

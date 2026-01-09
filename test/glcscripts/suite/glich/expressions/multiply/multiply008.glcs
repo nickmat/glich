@@ -10,8 +10,7 @@ let f = 15f * -inf;
 let g = 15f * inf;
 
 
-write a + ", " + b + ", " + c + ", " + d + ", " + e
- + ", " + f + ", " + g;
+write a, b, c, d, e, f, g;
 
 
 /*[OUTPUT]

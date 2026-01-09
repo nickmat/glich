@@ -7,7 +7,7 @@ let b = inf + 10;
 let c = nan + 100;
 
 
-write a + ", " + b + ", " + c;
+write a, b, c;
 
 
 /*[OUTPUT]

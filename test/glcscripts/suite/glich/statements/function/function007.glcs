@@ -2,7 +2,7 @@
 
 function get_ten {
     result = 10;
-}
+};
 
 write "get_ten returns: " + @get_ten + " exactly";
 

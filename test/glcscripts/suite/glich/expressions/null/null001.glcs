@@ -4,8 +4,8 @@ let n = null;
 
 write nl;
 
-write n +", "+ (n = null) +", "+ (null = n) +", "+ (n <> null) +", "+ (n <> null) nl;
-write (n = 1) +", "+ (1 = n) +", "+ (n <> 1) +", "+ (n <> 1) nl;
+write n, (n = null), (null = n), (n <> null), (n <> null) nl;
+write (n = 1), (1 = n), (n <> 1), (n <> 1) nl;
 write (n > null) nl;
 write (n < null) nl;
 write (n > 1) nl;

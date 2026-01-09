@@ -2,19 +2,19 @@
 
 object complex {
     values real imaginary;
-}
+};
 
 command write_complex( c ) {
-    if @object(c) = "complex"
-        if c[imaginary] < 0
+    if @object(c) = "complex" {
+        if c[imaginary] < 0 {
             write c[real] + " - " + -c[imaginary] + "i";
-        elseif c[imaginary] = 0
+        } elseif c[imaginary] = 0 {
             write c[real];
-        else
+        } else {
             write c[real] + " + " + c[imaginary] + "i";
-        endif
-    endif
-}
+        };
+    };
+};
 
 call write_complex( {complex 10, 5} );
 write ", ";

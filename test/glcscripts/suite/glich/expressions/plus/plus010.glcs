@@ -12,7 +12,7 @@ let e = -infinity + ?;
 
 let f = -infinity + -infinity;
 
-write a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f;
+write a, b, c, d, e, f;
 
 
 /*[OUTPUT]

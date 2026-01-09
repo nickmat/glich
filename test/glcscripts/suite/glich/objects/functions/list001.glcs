@@ -2,7 +2,7 @@
 
 object test {
     values zero one two three;
-}
+};
 
 let a = {test 0, 1, 2, 3, "four", "five"};
 let b = {test "zero", "one"};

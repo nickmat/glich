@@ -1,6 +1,6 @@
 // object020.glcs  Test creating and using objects.
 
-object complex { values real imaginary; }
+object complex { values real imaginary; };
 
 let a = {complex 1, 2};
 

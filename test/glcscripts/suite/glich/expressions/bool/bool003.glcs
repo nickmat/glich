@@ -1,9 +1,9 @@
 // bool003.glcs Test file to test bool maths
 
-writeln true and true;
-writeln true and false;
-writeln false and true;
-writeln false and false;
+write true and true nl;
+write true and false nl;
+write false and true nl;
+write false and false nl;
 
 /*[OUTPUT]
 true

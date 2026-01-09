@@ -5,7 +5,7 @@ let d = 7;
 command say {
   let e = 10 + d;
   write e;
-}
+};
 
 call say;
 

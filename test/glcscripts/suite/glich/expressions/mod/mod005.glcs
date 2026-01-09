@@ -2,13 +2,13 @@
 
 write nl;
 
-write 9 mod 0;
-write 9 mod ?;
-write ? mod 3;
-write 9 mod -infinity;
-write -infinity mod 3 nl;
-write 9 mod +infinity;
-write +infinity mod 3 nl;
+write 9 % 0;
+write 9 % ?;
+write ? % 3;
+write 9 % -infinity;
+write -infinity % 3 nl;
+write 9 % +infinity;
+write +infinity % 3 nl;
 
 /*[OUTPUT]
 

@@ -1,4 +1,4 @@
-// plus006.glcs Test file to test addition of special values.
+// minus011.glcs Test file to test addition of special values.
 
 let a = 5.0 - -inf;
 
@@ -7,7 +7,7 @@ let b = inf - 10.0;
 let c = nan - 100.0;
 
 
-write a + ", " + b + ", " + c;
+write a, b, c;
 
 
 /*[OUTPUT]

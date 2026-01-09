@@ -3,7 +3,7 @@
 command write_sum(a, b) {
     let sum = a + b;
     write "Sum is: " + sum;
-}
+};
 
 call write_sum(8, 60);
 

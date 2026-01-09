@@ -3,19 +3,19 @@
 write "Start ";
 
 let count = 0;
-do
+do {
   let count = count + 1;
   let newcount = count;
   write "[";
-  do
+  do {
     let newcount = newcount - 1;
     write newcount;
-    while newcount <> 0
+    while newcount <> 0;
     write ",";
-  loop
+  };
   write "] ";
-  until count = 4
-loop
+  until count = 4;
+};
 
 write "end";
 

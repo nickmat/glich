@@ -4,7 +4,7 @@ let a = (100 .. 129) - 4;
 
 let b = 4 - (100 .. 129);
 
-write a +", "+ b;
+write a, b;
 
 
 /*[OUTPUT]

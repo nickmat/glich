@@ -5,10 +5,10 @@ let c = "This" + " is the day.";
 let d = 2432814 + " is the day.";
 let e = "The day is " + 2432814;
 
-writeln a;
-writeln c;
-writeln d;
-writeln e;
+write a nl;
+write c nl;
+write d nl;
+write e nl;
 
 
 /*[OUTPUT]

@@ -1,10 +1,10 @@
 // object008.glcs  Test creating and using objects as arrays.
 
-object array {}
+object array {};
 
 let a = {array 10, 20};
 
-write a + ", " + a[1] + ", " + a[0] + ", " + a[2];
+write a, a[1], a[0], a[2];
 
 /*[OUTPUT]
 {array 10, 20}, 20, 10, null

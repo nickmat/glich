@@ -4,7 +4,7 @@ let a = 5 + 3;
 
 let b = 10 + 5 + a;
 
-write a + ", " + b;
+write a, b;
 
 
 /*[OUTPUT]

@@ -7,7 +7,7 @@ multiple
 lines
 "
     ;
-}
+};
 
 write nl;
 write @test;

@@ -1,17 +1,16 @@
-// divide002.glcs Test file to test division of negative fields
+// mod002.glcs Test file to test modulus of negative fields
 
-let a = 4 mod 2;
-let b = 3 mod 2;
-let c = 2 mod 2;
-let d = 1 mod 2;
-let e = 0 mod 2;
-let f = -1 mod 2;
-let g = -2 mod 2;
-let h = -3 mod 2;
-let i = -4 mod 2;
+let a = 4 % 2;
+let b = 3 % 2;
+let c = 2 % 2;
+let d = 1 % 2;
+let e = 0 % 2;
+let f = -1 % 2;
+let g = -2 % 2;
+let h = -3 % 2;
+let i = -4 % 2;
 
-write a + ", " + b + ", " + c + ", " + d + ", " + e
-  + ", " + f + ", " + g + ", " + h + ", " + i;
+write a, b, c, d, e, f, g, h, i;
 
 
 /*[OUTPUT]

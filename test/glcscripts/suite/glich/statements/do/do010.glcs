@@ -3,14 +3,14 @@
 write "Start ";
 
 let count = 0;
-do while 3
+do { while 3;
   let count = count + 1;
   write count + ", ";
-loop
+};
 
 write "end";
 
 /*[OUTPUT]
-Start Error (7): Boolean expression expected.
+Start Error (6): Boolean expression expected.
 end
 [OUTPUT]*/

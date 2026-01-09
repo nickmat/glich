@@ -1,6 +1,6 @@
 // object013.glcs  Test creating and using objects.
 
-object array {}
+object array {};
 
 let a = {array};
 

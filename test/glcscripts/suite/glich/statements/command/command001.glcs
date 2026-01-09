@@ -1,8 +1,8 @@
-// function001.hcs - Test function statement.
+// command001.glcs - Test command statement.
 
 command say {
     write "Hello Command";
-}
+};
 
 write "Start ";
 call say;

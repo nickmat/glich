@@ -2,7 +2,7 @@
 
 function sum(a, b) {
     result = a + b;
-}
+};
 
 write "Sum: " + @sum(50, 8);
 
