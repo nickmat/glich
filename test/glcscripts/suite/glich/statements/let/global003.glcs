@@ -3,10 +3,12 @@
 let x = 5;
 
 function test.type( y ) {
-    if type = "g" result = x;
-    else result = y;
-    endif
-}
+    if type = "g" {
+        result = x;
+    } else {
+        result = y;
+    };
+};
 
 global x = 10;
 write x, @test.l(99), @test.g(99);

@@ -1,11 +1,11 @@
 // let001.glcs Test let statements
 
 let x = 10;
-writeln x * 5;
+write x * 5 nl;
 let y = x + 20;
-writeln y;
-x = y div 10;
-writeln x;
+write y nl;
+x = y /% 10;
+write x nl;
 
 /*[OUTPUT]
 50

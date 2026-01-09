@@ -2,7 +2,7 @@
 
 function test {
     result = c;
-}
+};
 
 constant c = 5;
 write c, @test;

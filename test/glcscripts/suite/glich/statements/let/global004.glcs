@@ -5,7 +5,7 @@ global x = 5;
 function test {
     result = x;
     x += 10;
-}
+};
 
 write @test, @test, x;
 

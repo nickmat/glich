@@ -1,7 +1,7 @@
 // write005.glcs Test write statement
 
 write "xxx";
-writeln;
+write nl;
 write "yyy";
 
 /*[OUTPUT]
