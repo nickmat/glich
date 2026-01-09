@@ -3,17 +3,18 @@
 write "Start ";
 
 let count = 0;
-do { while count < 2;
+do {
+  while count < 2;
   /* Multiline
    * comments
    */
   xxx
-  let count = count + 1;
+  let count += 1;
   // Single line comment
-  write count + ", ";
+  write count,;
 };
 
 /*[OUTPUT]
-Start Error (10): Unrecognised statement.
+Start Error (11): Unrecognised statement.
 
 [OUTPUT]*/

@@ -4,7 +4,7 @@ write "Start ";
 
 let count = 0;
 do {
-  let count = count + 1;
+  let count += 1;
   let newcount = count;
   write "[";
   do {

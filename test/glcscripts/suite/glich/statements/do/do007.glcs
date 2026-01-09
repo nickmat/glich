@@ -4,10 +4,10 @@ write "Start ";
 
 let count = 0;
 do {
-  let count = count + 1;
+  let count += 1;
   let value = "A string with loop in it";
   while count < 4;
-  write count + ", ";
+  write count,;
 };
 
 write "end";
