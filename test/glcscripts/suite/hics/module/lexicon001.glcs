@@ -5,7 +5,7 @@ mark test_module;
 
 module file:test_module002 {
     lexicon RPT;
-}
+};
 
 let e = @element.RPT( 1 );
 write nl e nl;

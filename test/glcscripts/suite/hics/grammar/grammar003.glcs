@@ -3,9 +3,9 @@
 grammar G2 { 
 //  fields year month day;
     fields year month;
-}
+};
 
-scheme J2 { base julian; grammar G2; }
+scheme J2 { base julian; grammar G2; };
 
 
 /*[OUTPUT]

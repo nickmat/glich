@@ -18,16 +18,16 @@ lexicon M {
         10, "October",   "Oct";
         11, "November",  "Nov";
         12, "December",  "Dec";
-    }
-}
+    };
+};
 
 grammar G { 
     fields year month day;
     lexicons M;
     format DMY "{day} |{month:M:a} |{year}";
-}
+};
 
-scheme J { base julian; grammar G; }
+scheme J { base julian; grammar G; };
 
 write @text.J:DMY( 2432814 ),;
 write @date.J:DMY( "22feb1948" );

@@ -5,13 +5,13 @@ mark test_module;
 
 module file:test_module003 {
     grammar D;
-}
+};
 
 scheme JDN {
     name "Julian Day Number";
     base jdn;
     grammar D;
-}
+};
 
 let d = @text.JDN:u( 2460583 );
 write nl d nl;
@@ -22,7 +22,7 @@ scheme JDN {
     name "Julian Day Number";
     base jdn;
     grammar D;
-}
+};
 
 let d = @text.JDN:u( 2460583 );
 write d;

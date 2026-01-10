@@ -3,9 +3,9 @@
 grammar G1 {
 //  fields year month day;
     fields year week day;
-}
+};
 
-scheme J1 { base julian; grammar G1; }
+scheme J1 { base julian; grammar G1; };
 
 
 /*[OUTPUT]

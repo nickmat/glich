@@ -2,9 +2,9 @@
 
 grammar G { 
     fields year month day;
-}
+};
 
-scheme J { base julian; grammar G; }
+scheme J { base julian; grammar G; };
 let d = {s:J 1948, 9, 19};
 
 write d[year] + ", " + d[2];

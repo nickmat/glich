@@ -1,6 +1,6 @@
 // at-sch-object001.glcs  Test @sch:object function
 
-scheme G { base gregorian; }
+scheme G { base gregorian; };
 
 let s = @sch:object.G;
 

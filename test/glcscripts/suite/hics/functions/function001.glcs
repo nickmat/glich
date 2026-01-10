@@ -1,6 +1,6 @@
 // function001.glcs  Test scheme functions
 
-scheme G { base gregorian; }
+scheme G { base gregorian; };
 
 write nl;
 write {s:G}@pseudo_in( "def" ) nl;
