@@ -3,9 +3,9 @@
 grammar G { 
     fields year month day;
     format DEF "{year}| {month}| {day}";
-}
+};
 
-scheme J { base julian; grammar G; }
+scheme J { base julian; grammar G; };
 
 write nl;
 write @date.J:DEF( "1948 9 6" ) nl;

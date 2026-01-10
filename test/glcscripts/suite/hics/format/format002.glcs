@@ -2,10 +2,10 @@
 
 grammar G { 
     fields year month day;
-    format U { rules units; }
-}
+    format U { rules units; };
+};
 
-scheme J { base julian; grammar G; }
+scheme J { base julian; grammar G; };
 
 write @date.J:U( "1948year 6day 9month" ),;
 write @date.J:U( "9month 1948year" );

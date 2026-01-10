@@ -3,9 +3,9 @@
 grammar G { 
     fields year month day;
     format rn "{day} |{month::rn} |{year}"; 
-}
+};
 
-scheme G { base gregorian; grammar G; }
+scheme G { base gregorian; grammar G; };
 
 
 write nl;

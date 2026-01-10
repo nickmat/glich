@@ -18,16 +18,16 @@ lexicon M {
         10, "October",   "Oct";
         11, "November",  "Nov";
         12, "December",  "Dec";
-    }
-}
+    };
+};
 
 grammar J { 
     fields year month day;
     lexicons M;
     format DEF "{day::os} |{month:M} |{year}";
-}
+};
 
-scheme J { base julian; grammar J; }
+scheme J { base julian; grammar J; };
 
 
 write nl;

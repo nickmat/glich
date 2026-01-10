@@ -18,8 +18,8 @@ lexicon M {
         10, "October",   "Oct";
         11, "November",  "Nov";
         12, "December",  "Dec";
-    }
-}
+    };
+};
 
 grammar J {
     fields year month day;
@@ -27,13 +27,13 @@ grammar J {
     format dmy "{day} |{month:M:a} |{year}";
     format mdy "{month:M:a} |{day}, |{year}";
     preferred mdy;
-}
+};
 
 scheme G {
     name "Gregorian";
     base gregorian;
     grammar J;
-}
+};
 
 write @text.G:dmy (2459946..2460310), @text.G:dmy (2459977..2460004);
 

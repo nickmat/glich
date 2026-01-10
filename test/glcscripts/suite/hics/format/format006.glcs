@@ -3,14 +3,14 @@
 grammar G { 
     fields year month day;
     format DEF "{year}| {month}| {day}";
-}
+};
 
-scheme J { base julian; grammar G; }
+scheme J { base julian; grammar G; };
 
 format G:OBLIQUE {
     separators "/";
     inout "{day}/|{month}/|{year}";
-}
+};
 
 write nl;
 write @text.J:DEF( 2460503 ) nl;

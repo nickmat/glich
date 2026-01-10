@@ -2,10 +2,10 @@
 
 grammar G { 
     fields year month day;
-    format U { rules units; }
-}
+    format U { rules units; };
+};
 
-scheme J { base julian; grammar G; }
+scheme J { base julian; grammar G; };
 
 write nl;
 write @text.J:U( 2432814 ) nl;
