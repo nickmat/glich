@@ -18,8 +18,8 @@ lexicon FRNM {
         10, "Messidor",        "Mess";
         11, "Thermidor",       "Ther";
         12, "Fructidor",       "Fruc";
-    }
-}
+    };
+};
 
 lexicon FRM {
     name "Month names";
@@ -27,8 +27,8 @@ lexicon FRM {
     fieldname month;
     tokens {
         13, "Complémentaires", "Comp";
-    }
-}
+    };
+};
 
 lexicon FRCOMP {
     name "Complementary Days";
@@ -42,8 +42,8 @@ lexicon FRCOMP {
         4, "Fête de l'Opinion",     "Opin";
         5, "Fête des Récompenses",  "Rec";
         6, "Fête de la Révolution", "Rev";
-    }
-}
+    };
+};
 
 lexicon FRDD {
     name "Decade Day";
@@ -61,8 +61,8 @@ lexicon FRDD {
         8, "Octidi",   "Oct";
         9, "Nonidi",   "Non";
         10, "Décadi",  "Dec";
-    }
-}
+    };
+};
 
 lexicon W {
     name "Weekday names";
@@ -77,8 +77,8 @@ lexicon W {
         5, "Friday",    "Fri";
         6, "Saturday",  "Sat";
         7, "Sunday",    "Sun";
-    }
-}
+    };
+};
 
 grammar FR {
     name "French Republic";
@@ -87,71 +87,71 @@ grammar FR {
     optional wday;
     rank year nmonth nmday;
     lexicons FRM FRNM FRCOMP FRDD W;
-    alias pseudo { d day; mm month; yyyy year; }
-    alias unit { d day; m month; y year; }
+    alias pseudo { d day; mm month; yyyy year; };
+    alias unit { d day; m month; y year; };
 
     // Record: year month day nmonth nmday cday dday wday
     function fixed {
-        if cday = null
+        if cday = null {
             month = nmonth;
             day = nmday;
             dday = ( (day - 1) mod 10 ) + 1;
-        else
+        } else {
             month = 13;
             day = cday;
             dday = null;
-        endif
+        };
         result = this;
     }
     function calculate {
-        if month = null
+        if month = null {
             end;
-        endif
-        if month < 13
+        };
+        if month < 13 {
             nmonth = month;
             nmday = day;
             cday = null;
             dday = ( (day - 1) mod 10 ) + 1;
-        else
+        } else {
             nmonth = null;
             nmday = null;
             cday = day;
             dday = null;
-        endif
+        };
         result = this;
-    }
+    };
 
     format dmy {
         inout "{day} |{month:FRM:a} |{year}";
         rank year month day;
         use:in calculate;
-    }
+    };
     format "dmy+" {
         inout "{day} |{month:FRM} |{year}";
         rank year month day;
         use:in calculate;
-    }
+    };
     format ymd {
         inout "{year} |{month:FRM:a} |{day}";
         rank year month day;
         use:in calculate;
-    }
+    };
     format cdmy  "{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";
     format out {
         output "{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |an {year::rn}";
-    }
+    };
     format dcdmy  "{dday:FRDD} |{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";
     format wcdmy  "{wday:W}, |{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";
 
     preferred dmy;
-}
+};
 
 
 scheme FR {
     name "French Republic";
     base french;
     grammar FR;
-}
+};
 
 
 write nl;

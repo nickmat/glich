@@ -19,8 +19,8 @@ lexicon FRNM {
         10, "Messidor",        "Mess";
         11, "Thermidor",       "Ther";
         12, "Fructidor",       "Fruc";
-    }
-}
+    };
+};
 
 lexicon FRM {
     name "Month names";
@@ -28,8 +28,8 @@ lexicon FRM {
     fieldname month;
     tokens {
         13, "Complémentaires", "Comp";
-    }
-}
+    };
+};
 
 lexicon FRCOMP {
     name "Complementary Days";
@@ -43,8 +43,8 @@ lexicon FRCOMP {
         4, "Fête de l'Opinion",     "Opin";
         5, "Fête des Récompenses",  "Rec";
         6, "Fête de la Révolution", "Rev";
-    }
-}
+    };
+};
 
 grammar FR {
     name "French Republic";
@@ -53,49 +53,49 @@ grammar FR {
     optional wday;
     rank year nmonth nmday;
     lexicons FRM, FRNM, FRCOMP;
-    alias pseudo { dd day; mm month; yyyy year; mm nmonth; dd nmday; c cday; d dday; w wday; }
-    alias unit { d day; m month; y year; nm nmonth; nd nmday; cd cday; dd dday; }
+    alias pseudo { dd day; mm month; yyyy year; mm nmonth; dd nmday; c cday; d dday; w wday; };
+    alias unit { d day; m month; y year; nm nmonth; nd nmday; cd cday; dd dday; };
 
     // Record: year month day nmonth nmday cday dday wday
     function fixed {
-        if cday = null
+        if cday = null {
             month = nmonth;
             day = nmday;
             dday = ( (day - 1) mod 10 ) + 1;
-        else
+        } else {
             month = 13;
             day = cday;
             dday = null;
-        endif
+        };
         result = this;
-    }
+    };
     function calculate {
-        if month <> null
-            if month < 13
+        if month <> null {
+            if month < 13 {
                 nmonth = month;
                 nmday = day;
                 cday = null;
                 dday = ( (day - 1) mod 10 ) + 1;
-            else
+            } else {
                 nmonth = null;
                 nmday = null;
                 cday = day;
                 dday = null;
-            endif
-        endif
+            };
+        };
         result = this;
-    }
+    };
 
     format std "{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |an {year::rn}";
 
     preferred std;
-}
+};
 
 scheme FR {
     name "French Republic";
     base french;
     grammar FR;
-}
+};
 
 
 write nl;

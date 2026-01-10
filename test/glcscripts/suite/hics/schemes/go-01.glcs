@@ -2,18 +2,18 @@
 
 grammar GO {
     fields year day;
-    alias pseudo { d day; yyyy year; }
-    alias unit { d day; y year; }
-//    format iso { rules iso8601 ordinal; }
+    alias pseudo { d day; yyyy year; };
+    alias unit { d day; y year; };
+//    format iso { rules iso8601 ordinal; };
     format  yd "{year}| {day}";
     preferred yd;
-}
+};
 
 scheme GO {
     name "Gregorian Ordinal";
     base ordinal;
     grammar GO;
-}
+};
 
 write nl;
 write @scheme.GO( 2460138 ) nl;

@@ -19,26 +19,26 @@ lexicon FRM {
         11, "Thermidor",       "Ther";
         12, "Fructidor",       "Fruc";
         13, "Complémentaires", "Comp";
-    }
-}
+    };
+};
 
 grammar FR {
     fields year month day;
     lexicons FRM;
-    alias pseudo { d day; mm month; yyyy year; }
-    alias unit { d day; m month; y year; }
+    alias pseudo { d day; mm month; yyyy year; };
+    alias unit { d day; m month; y year; };
 
     format dmy      "{day} |{month:FRM:a} |{year}";
     format "dmy+"   "{day} |{month:FRM} |{year}";
     format ymd      "{year} |{month:FRM:a} |{day}";
     preferred dmy;
-}
+};
 
 scheme FR {
     name "French Republic";
     base french;
     grammar FR;
-}
+};
 
 
 write nl;

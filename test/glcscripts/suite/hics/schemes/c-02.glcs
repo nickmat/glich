@@ -8,41 +8,41 @@ lexicon CLMON {
     tokens {
         0,  "Month",       "Month";
         1,  "Leap-month",  "Leap";
-    }
-}
+    };
+};
 
 grammar C {
     fields year month lmonth day;
     calculated cycle cyear clmonth;
     rank cycle cyear clmonth month day;
     lexicons CLMON;
-    alias pseudo { dd day; mm month; lm lmonth; yy year; cc cycle; }
-    alias unit { d day; m month; lm lmonth; y cyear; c cycle; }
+    alias pseudo { dd day; mm month; lm lmonth; yy year; cc cycle; };
+    alias unit { d day; m month; lm lmonth; y cyear; c cycle; };
 
     function fixed {
         year = (cycle - 1) * 60 + cyear;
         lmonth = @if(clmonth=null, 0, 1);
         result = this;
-    }
+    };
     function calculate {
         cycle = ( (year - 1) div 60 ) + 1;
         cyear = ( (year - 1) mod 60 ) + 1;
         clmonth = @if(lmonth=0, null, 1);
         result = this;
-    }
+    };
 
     format cymd "{cycle}| {cyear}| {clmonth:CLMON:a}| {month}| {day}";
     format full {
         output "Cycle: {cycle}| Year: {cyear}| {clmonth:CLMON:a}| Month: {month}| Day: {day}";
-    }
+    };
     preferred cymd;
-}
+};
 
 scheme C {
   name "Chinese";
   base chinese;
   grammar C;
-}
+};
 
 let d1 = 2446012;
 let d2 = 2446042;

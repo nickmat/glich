@@ -3,7 +3,7 @@
 scheme C {
     name "Chinese";
     base chinese;
-}
+};
 
 write nl;
 write @scheme.C( 758326 ), @date( {s:C 1, 1, 0, 1} ) nl;

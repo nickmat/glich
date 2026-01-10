@@ -3,7 +3,7 @@
 scheme FR {
     name "French Republic";
     base french;
-}
+};
 
 // Note, Autumn Equinox is 7.50am GMT on September 23, 2023 (jdn# 2460211)
 // Only a few minutes difference from Paris local time (the time used by French Rep. calendar).

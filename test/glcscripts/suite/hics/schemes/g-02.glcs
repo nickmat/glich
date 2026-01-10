@@ -2,17 +2,17 @@
 
 grammar ISOG {
     fields year month day;
-    format iso1 { rules iso8601 caldate extended year4 nosign; }
-    format iso2 { rules iso8601 basic; }
-    format iso3 { rules iso8601 year6 sign; }
-    format iso4 { rules iso8601 dateset; }
-}
+    format iso1 { rules iso8601 caldate extended year4 nosign; };
+    format iso2 { rules iso8601 basic; };
+    format iso3 { rules iso8601 year6 sign; };
+    format iso4 { rules iso8601 dateset; };
+};
 
 scheme G {
     name "Gregorian";
     base gregorian;
     grammar ISOG;
-}
+};
 
 write nl;
 write @text.G:iso1( 2460138 ), @date.G:iso1( "2023-07-12" ) nl;

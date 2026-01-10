@@ -2,17 +2,17 @@
 
 grammar GO {
     fields year day;
-    format iso1 { rules iso8601 ordinal extended year4 nosign; }
-    format iso2 { rules iso8601 ordinal basic; }
-    format iso3 { rules iso8601 ordinal year6 sign; }
-    format iso4 { rules iso8601 ordinal dateset; }
-}
+    format iso1 { rules iso8601 ordinal extended year4 nosign; };
+    format iso2 { rules iso8601 ordinal basic; };
+    format iso3 { rules iso8601 ordinal year6 sign; };
+    format iso4 { rules iso8601 ordinal dateset; };
+};
 
 scheme G {
     name "Gregorian ISO 8601 Ordinal";
     base ordinal;
     grammar GO;
-}
+};
 
 write nl;
 write @text.G:iso1( 2460140 ), @date.G:iso1( "2023-195" ) nl;

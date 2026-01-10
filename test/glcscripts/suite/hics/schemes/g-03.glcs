@@ -13,8 +13,8 @@ lexicon W {
         5, "Friday",    "Fri";
         6, "Saturday",  "Sat";
         7, "Sunday",    "Sun";
-    }
-}
+    };
+};
 
 lexicon M {
     name "Month names";
@@ -34,38 +34,38 @@ lexicon M {
         10, "October",   "Oct";
         11, "November",  "Nov";
         12, "December",  "Dec";
-    }
-}
+    };
+};
 
 grammar J {
     fields year month day;
     optional wday;
     lexicons M W;
-    alias pseudo { w wday; dd day; mm month; yyyy year; }
-    alias unit { d day; m month; y year; }
+    alias pseudo { w wday; dd day; mm month; yyyy year; };
+    alias unit { d day; m month; y year; };
     format dmy "{day} |{month:M:a} |{year}";
     format wdmy "{wday:W:a} |{day} |{month:M:a} |{year}";
-    format out { output "{day::os} |{month:M} |{year}"; }
-    format full { output "{wday:W} |{day::os} |{month:M} |{year}"; }
+    format out { output "{day::os} |{month:M} |{year}"; };
+    format full { output "{wday:W} |{day::os} |{month:M} |{year}"; };
     format "dmy+" "{day} |{month:M} |{year}";
     format "wdmy+" "{wday:W} |{day} |{month:M} |{year}";
     format mdy "{month:M:a} |{day}, |{year}";
     format ymd "{year}|:{month:M:a}|:{day}";
     preferred dmy;
-}
+};
 
 grammar G {
     inherit J;
-    format iso { rules iso8601; }
-    format iso_set { rules iso8601 dateset; }
+    format iso { rules iso8601; };
+    format iso_set { rules iso8601 dateset; };
     preferred dmy;
-}
+};
 
 scheme G {
     name "Gregorian";
     base gregorian;
     grammar G;
-}
+};
 
 write nl;
 write @text.G:wdmy( 2460049 ), @date.G:wdmy( "Fri 14 Apr 2023" ) nl;

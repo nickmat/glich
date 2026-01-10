@@ -18,8 +18,8 @@ lexicon FRNM {
         10, "Messidor",        "Mess";
         11, "Thermidor",       "Ther";
         12, "Fructidor",       "Fruc";
-    }
-}
+    };
+};
 
 lexicon FRM {
     name "Month names";
@@ -27,8 +27,8 @@ lexicon FRM {
     fieldname month;
     tokens {
         13, "Complémentaires", "Comp";
-    }
-}
+    };
+};
 
 lexicon FRCOMP {
     name "Complementary Days";
@@ -42,8 +42,8 @@ lexicon FRCOMP {
         4, "Fête de l'Opinion",     "Opin";
         5, "Fête des Récompenses",  "Rec";
         6, "Fête de la Révolution", "Rev";
-    }
-}
+    };
+};
 
 lexicon FRDD {
     name "Decade Day";
@@ -61,8 +61,8 @@ lexicon FRDD {
         8, "Octidi",   "Oct";
         9, "Nonidi",   "Non";
         10, "Décadi",  "Dec";
-    }
-}
+    };
+};
 
 grammar FR {
     name "French Republic";
@@ -70,49 +70,49 @@ grammar FR {
     calculated nmonth nmday cday;
     rank year nmonth nmday;
     lexicons FRM FRNM FRCOMP;
-    alias pseudo { d day; mm month; yyyy year; }
-    alias unit { d day; m month; y year; }
+    alias pseudo { d day; mm month; yyyy year; };
+    alias unit { d day; m month; y year; };
 
     // Record: year month day nmonth nmday cday
     function fixed {
         month = @if( cday=null, nmonth, 13 );
         day = @if( cday=null, nmday, cday );
         result = this;
-    }
+    };
     function calculate {
         nmonth = @if( month<13, month, null );
         nmday = @if( month<13, day, null );
         cday = @if( month=13, day, null );
         result = this;
-    }
+    };
 
     format dmy {
         inout "{day} |{month:FRM:a} |{year}";
         rank year month day;
         use:in calculate;
-    }
+    };
     format "dmy+" {
         inout "{day} |{month:FRM} |{year}";
         rank year month day;
         use:in calculate;
-    }
+    };
     format ymd {
         inout "{year} |{month:FRM:a} |{day}";
         rank year month day;
         use:in calculate;
-    }
+    };
     format cdmy {
         inout "{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";
-    }
+    };
     preferred dmy;
-}
+};
 
 
 scheme FR {
     name "French Republic";
     base french;
     grammar FR;
-}
+};
 
 
 write nl;

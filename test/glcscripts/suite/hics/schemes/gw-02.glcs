@@ -2,17 +2,17 @@
 
 grammar ISOW {
     fields year week day;
-    format iso1 { rules iso8601 week extended year4 nosign; }
-    format iso2 { rules iso8601 week basic; }
-    format iso3 { rules iso8601 week year6 sign; }
-    format iso4 { rules iso8601 week dateset; }
-}
+    format iso1 { rules iso8601 week extended year4 nosign; };
+    format iso2 { rules iso8601 week basic; };
+    format iso3 { rules iso8601 week year6 sign; };
+    format iso4 { rules iso8601 week dateset; };
+};
 
 scheme G {
     name "Gregorian ISO 8601 Week";
     base isoweek;
     grammar ISOW;
-}
+};
 
 write nl;
 write @text.G:iso1( 2460139 ), @date.G:iso1( "2023-W28-4" ) nl;

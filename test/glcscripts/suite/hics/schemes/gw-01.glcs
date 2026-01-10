@@ -13,26 +13,26 @@ lexicon W {
         5, "Friday",    "Fri";
         6, "Saturday",  "Sat";
         7, "Sunday",    "Sun";
-    }
-}
+    };
+};
 
 grammar ISOW {
     fields year week day;
     lexicons W;
-    alias lexicon { wday day; }
-    alias pseudo { d day; ww week; yyyy year; }
-    alias unit { d day; y year; w week; }
-    format iso { rules iso8601 week; }
+    alias lexicon { wday day; };
+    alias pseudo { d day; ww week; yyyy year; };
+    alias unit { d day; y year; w week; };
+    format iso { rules iso8601 week; };
     format  ywd,   "{year}| {week}| {day:W:a}";
     format "ywd+", "{year}| {week}| {day:W}";
     preferred ywd;
-}
+};
 
 scheme ISOW {
     name "ISO:8601 Standard Week";
     base isoweek;
     grammar ISOW;
-}
+};
 
 write nl;
 write @scheme.ISOW( 2460137 ) nl;
