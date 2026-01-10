@@ -3,7 +3,7 @@
 scheme JEAP {
     name "Julian Easter Ascension";
     base easter day:39 year:1199;
-}
+};
 
 
 write nl;

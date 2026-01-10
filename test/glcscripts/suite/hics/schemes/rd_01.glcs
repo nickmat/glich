@@ -4,13 +4,13 @@ grammar D {
     fields day;
     format d "{day}";
     preferred d;
-}
+};
 
 scheme RD {
     name "Rata Die";
     base jdn epoch:1721426;
     grammar D;
-}
+};
 
 let d = 2460622;
 let t = "739197";

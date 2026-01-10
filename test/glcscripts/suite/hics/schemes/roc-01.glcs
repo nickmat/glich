@@ -3,7 +3,7 @@
 scheme ROC {
     name "Republic of Chinese";
     base gregorian year:1911;
-}
+};
 
 write nl;
 write @text.ROC( 2460838 ), @scheme.ROC( 2460838 ) nl;

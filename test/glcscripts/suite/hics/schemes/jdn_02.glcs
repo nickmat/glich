@@ -4,7 +4,7 @@ scheme JDN {
     name "Julian Day Number";
     base jdn;
     grammar D;
-}
+};
 
 
 /*[OUTPUT]

@@ -4,13 +4,13 @@ grammar D {
     fields day;
     format d "{day}";
     preferred d;
-}
+};
 
 scheme MJD {
     name "Modified Julian Day";
     base jdn epoch:2400002;
     grammar D;
-}
+};
 
 let d = 2460622;
 let t = "60621";

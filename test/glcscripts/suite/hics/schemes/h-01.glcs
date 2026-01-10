@@ -20,8 +20,8 @@ lexicon HM {
         11, "Shevat",    "Shv";
         12, "Adar",      "Adr";
         13, "Adar II",   "Ads";
-    }
-}
+    };
+};
 
 lexicon HW {
     name "Weekday names";
@@ -36,16 +36,16 @@ lexicon HW {
         5, "Yom Hamishi",  "Hami"; // Thursday
         6, "Yom Shishi",   "Shis"; // Friday
         7, "Yom Shabbat",  "Shab"; // Saturday
-    }
-}
+    };
+};
 
 grammar H {
     name "Hebrew";
     fields year month day;
     optional wsday;
     lexicons HM, HW;
-    alias pseudo { w wday; dd day; mm month; yyyy year; }
-    alias unit { d day; m month; y year; }
+    alias pseudo { w wday; dd day; mm month; yyyy year; };
+    alias unit { d day; m month; y year; };
     format  dmy    "{day} |{month:HM:a} |{year}";
     format "dmy+"  "{day} |{month:HM} |{year}";
     format "dmy-"  "{day} |{month} |{year}";
@@ -55,13 +55,13 @@ grammar H {
     format "ymd+"  "{year}| {month:HM}| {day}";
     format "ymd-"  "{year}| {month}| {day}";
     preferred dmy;
-}
+};
 
 scheme H {
     name "Hebrew";
     base hebrew;
     grammar H;
-}
+};
 
 write nl;
 write @scheme.H( 2460049 ) nl;

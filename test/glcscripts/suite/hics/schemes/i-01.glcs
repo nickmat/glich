@@ -3,7 +3,7 @@
 scheme I {
     name "Islamic Tabular";
     base islamic IIc;
-}
+};
 
 write nl;
 write @text.I( 2460485 ), @scheme.I( 2460485 ) nl;

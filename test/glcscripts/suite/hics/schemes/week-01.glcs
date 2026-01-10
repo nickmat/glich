@@ -13,8 +13,8 @@ lexicon W {
         5, "Friday",    "Fri";
         6, "Saturday",  "Sat";
         7, "Sunday",    "Sun";
-    }
-}
+    };
+};
 
 write @element.W( 2 ), @element.W:a( 7 ),;
 

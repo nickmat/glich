@@ -1,6 +1,6 @@
 // scheme002.glcs  Test casting field to scheme
 
-scheme J { base julian; }
+scheme J { base julian; };
 
 write @scheme.J( 2432814 ), @date( {s:J 2023, 3, 10} );
 

@@ -13,8 +13,8 @@ lexicon W {
         5, "Friday",    "Fri";
         6, "Saturday",  "Sat";
         7, "Sunday",    "Sun";
-    }
-}
+    };
+};
 
 lexicon M {
     name "Month names";
@@ -34,8 +34,8 @@ lexicon M {
         10, "October",   "Oct";
         11, "November",  "Nov";
         12, "December",  "Dec";
-    }
-}
+    };
+};
 
 lexicon CE {
     name "Historic Era";
@@ -45,8 +45,8 @@ lexicon CE {
     tokens {
         0, "Before Common Era", "BCE";
         1, "Common Era",        "CE";
-    }
-}
+    };
+};
 
 grammar JCE {
     fields year month day;
@@ -54,33 +54,33 @@ grammar JCE {
     calculated ce ceyear;
     rank ce, ceyear, month, day;
     lexicons M, W, CE;
-    alias pseudo { w wday; dd day; mm month; yyyy ceyear; ce ce; }
-    alias unit { d day; m month; y year; cy ceyear; }
+    alias pseudo { w wday; dd day; mm month; yyyy ceyear; ce ce; };
+    alias unit { d day; m month; y year; cy ceyear; };
 
     // Record: year month day ce ceyear
     function calculate { // output
         ce = @if( year<1, 0, 1 );
         ceyear = @if( year<1, -year+1, year );
         result = this;
-    }
+    };
     function fixed { // input
         year = @if( ce=1, ceyear, -ceyear+1 );
         result = this;
-    }
+    };
 
     format  dmye, "{day} |{month:M:a} |{ceyear} |{ce:CE:a}";
     format  wdmye, "{wday:W:a} |{day} |{month:M:a} |{ceyear} |{ce:CE:a}";
     format  out {
         output "{day::os} |{month:M} |{ceyear} |{ce:CE}";
-    }
+    };
     preferred dmye;
-}
+};
 
 scheme JCE {
     name "Julian Common Era";
     base julian;
     grammar JCE;
-}
+};
 
 
 write nl;

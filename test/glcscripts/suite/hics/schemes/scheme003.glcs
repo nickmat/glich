@@ -1,6 +1,6 @@
 // scheme003.glcs // Test basic scheme definition
 
-scheme T { base gregorian; }
+scheme T { base gregorian; };
 
 write @text.T( 2460048 ), @date.T( "1948 9 19" );
 

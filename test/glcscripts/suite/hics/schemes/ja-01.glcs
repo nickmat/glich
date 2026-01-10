@@ -13,8 +13,8 @@ lexicon W {
         5, "Friday",    "Fri";
         6, "Saturday",  "Sat";
         7, "Sunday",    "Sun";
-    }
-}
+    };
+};
 
 lexicon M {
     name "Month names";
@@ -34,8 +34,8 @@ lexicon M {
         10, "October",   "Oct";
         11, "November",  "Nov";
         12, "December",  "Dec";
-    }
-}
+    };
+};
 
 grammar JA {
     fields year month day;
@@ -43,32 +43,32 @@ grammar JA {
     calculated cyear;
     rank cyear, month, day;
     lexicons M, W;
-    alias pseudo { w wday; dd day; mm month; yyyy cyear; }
-    alias unit { d day; m month; y year; }
+    alias pseudo { w wday; dd day; mm month; yyyy cyear; };
+    alias unit { d day; m month; y year; };
 
     // Record: year month day cyear
     function fixed {
         year = @if( month<3 or (month=3 and day<25), cyear+1, cyear);
         result = this;
-    }
+    };
     function calculate {
         cyear = @if( month<3 or (month=3 and day<25), year-1, year);
         result = this;
-    }
+    };
 
     format  dmc "{day} |{month:M:a} |{cyear}";
     format  wdmc "{wday:W:a} |{day} |{month:M:a} |{cyear}";
     format  out {
         output "{day::os} |{month:M} |{cyear}";
-    }
+    };
     preferred dmc;
-}
+};
 
 scheme JA {
     name "Julian Annunciation";
     base julian;
     grammar JA;
-}
+};
 
 
 write nl;

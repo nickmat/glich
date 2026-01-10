@@ -3,8 +3,8 @@
 scheme JAP {
     base julian;
     epoch 1721142; // j:dmy# 25 Mar 0
-    grammar { calculated cyear; use epoch; }
-}
+    grammar { calculated cyear; use epoch; };
+};
 
 write @scheme.JAP:def( 2460595 );
 

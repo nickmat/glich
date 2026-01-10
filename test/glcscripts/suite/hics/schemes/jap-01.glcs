@@ -13,8 +13,8 @@ lexicon W {
         5, "Friday",    "Fri";
         6, "Saturday",  "Sat";
         7, "Sunday",    "Sun";
-    }
-}
+    };
+};
 
 lexicon M {
     name "Month names";
@@ -34,46 +34,42 @@ lexicon M {
         10, "October",   "Oct";
         11, "November",  "Nov";
         12, "December",  "Dec";
-    }
-}
+    };
+};
 
 grammar JAP {
     fields year month day;
     optional wday;
     calculated cyear;
-//    calculate {
-//        output {: ,,,@if( month<3 or (month=3 and day<25), year, year+1) };
-//        input {: @if( month<3 or (month=3 and day<25), cyear, cyear-1) };
-//    }
     rank cyear, month, day;
     lexicons M, W;
-    alias pseudo { w wday; dd day; mm month; yyyy cyear; }
-    alias unit { d day; m month; y year; }
+    alias pseudo { w wday; dd day; mm month; yyyy cyear; };
+    alias unit { d day; m month; y year; };
 
     // Record: year month day cyear
     function fixed {
         year = @if( month<3 or (month=3 and day<25), cyear, cyear-1);
         result = this;
-    }
+    };
     function calculate {
         cyear = @if( month<3 or (month=3 and day<25), year, year+1);
         result = this;
-    }
+    };
 
     format  dmc "{day} |{month:M:a} |{cyear}";
 
     format  wdmc "{wday:W:a} |{day} |{month:M:a} |{cyear}";
     format  out {
         output "{day::os} |{month:M} |{cyear}";
-    }
+    };
     preferred dmc;
-}
+};
 
 scheme JAP {
     name "Julian Annunciation";
     base julian;
     grammar JAP;
-}
+};
 
 write nl;
 write @scheme.JAP( 2360328 ), @scheme.JAP( 2360329 ) nl;

@@ -13,8 +13,8 @@ lexicon W {
         5, "Friday",    "Fri";
         6, "Saturday",  "Sat";
         7, "Sunday",    "Sun";
-    }
-}
+    };
+};
 
 lexicon M {
     name "Month names";
@@ -34,8 +34,8 @@ lexicon M {
         10, "October",   "Oct";
         11, "November",  "Nov";
         12, "December",  "Dec";
-    }
-}
+    };
+};
 
 grammar JAP {
     fields year month day;
@@ -43,8 +43,8 @@ grammar JAP {
     calculated cyear;
     rank cyear, month, day;
     lexicons M, W;
-    alias pseudo { w wday; dd day; mm month; yyyy cyear; }
-    alias unit { d day; m month; y year; }
+    alias pseudo { w wday; dd day; mm month; yyyy cyear; };
+    alias unit { d day; m month; y year; };
 
     use epoch;
 
@@ -52,16 +52,16 @@ grammar JAP {
     format  wdmc, "{wday:W:a} |{day} |{month:M:a} |{cyear}";
     format  out {
         output "{day::os} |{month:M} |{cyear}";
-    }
+    };
     preferred dmc;
-}
+};
 
 scheme JAP {
     name "Julian Annunciation Pisa";
     base julian;
     epoch 1721142;   // j:dmy# 25 Mar 0
     grammar JAP;
-}
+};
 
 write nl;
 write @scheme.JAP( 2360328 ), @scheme.JAP( 2360329 ) nl;

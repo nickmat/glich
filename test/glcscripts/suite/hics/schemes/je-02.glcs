@@ -3,7 +3,7 @@
 scheme JEA {
     name "Julian Easter Ascension";
     base easter day:39;
-}
+};
 
 write nl;
 write @date( {s:JEA 2021, 0, 5, 19} ), @scheme.JEA( 2459732 ) nl;  // j#  19 May 2022

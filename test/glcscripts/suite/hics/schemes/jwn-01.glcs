@@ -13,25 +13,25 @@ lexicon W {
         5, "Friday",    "Fri";
         6, "Saturday",  "Sat";
         7, "Sunday",    "Sun";
-    }
-}
+    };
+};
 
 grammar JWN {
     fields week day;
     lexicons W;
-    alias lexicon { wday day; }
-    alias pseudo { wwwww week; d day; }
+    alias lexicon { wday day; };
+    alias pseudo { wwwww week; d day; };
     format  wd      "{week}| {day}";
     format  wday    "{week}| {day:W:a}";
     format "wday+", "{week}| {day:W}";
     preferred wday;
-}
+};
 
 scheme JWN {
     name "Julian Week Number";
     base jwn;
     grammar JWN;
-}
+};
 
 write nl;
 write @scheme.JWN( 2460154 ) nl;

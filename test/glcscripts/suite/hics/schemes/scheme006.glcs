@@ -2,7 +2,7 @@
 
 scheme test {
     base xxxx;
-}
+};
 
 write "Ok";
 

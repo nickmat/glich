@@ -6,8 +6,8 @@ scheme test {
     base gregorian;
     grammar {
         format f "{day::os} day of the |{month::os} month of the |year {year}";
-    }
-}
+    };
+};
 write nl;
 write @scheme.test( _today ) nl;
 write @text.test:f( _today ) nl;

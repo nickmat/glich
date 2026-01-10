@@ -1,6 +1,6 @@
 // scheme001.glcs  Test simplest scheme declaration
 
-scheme J { base julian; }
+scheme J { base julian; };
 
 let d = {s:J 1948, 9, 19};
 

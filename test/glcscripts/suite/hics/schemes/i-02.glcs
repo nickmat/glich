@@ -18,8 +18,8 @@ lexicon IM {
         10, "Shawwāl",         "Shawwal";
         11, "Dhū al-Qa‘dah",   "Dhu al-Qa'dah";
         12, "Dhū al-Ḥijjah",   "Dhu al-Hijjah";
-    }
-}
+    };
+};
 
 lexicon IW {
     name "Weekday names";
@@ -34,8 +34,8 @@ lexicon IW {
         5, "Yawm al-Khamīs",     "Kham"; // Thursday
         6, "Yawm al-Jumu‘ah",    "Jumu"; // Friday
         7, "Yawm as-Sabt",       "Sabt"; // Saturday
-    }
-}
+    };
+};
 
 grammar I {
     fields year month day;
@@ -46,13 +46,13 @@ grammar I {
         dd,   Day;
         mm,   Month;
         yyyy, Year;
-    }
+    };
     alias unit {
         d, day;
         m, month;
         y, year;
         w, week;
-    }
+    };
     format  dmy    "{day} |{month:IM} |{year}";
     format  dmy_a  "{day} |{month:IM:a} |{year}";
     format  dmy_d  "{day} |{month} |{year}";
@@ -60,13 +60,13 @@ grammar I {
     format  wdmy_a "{wsday:IW:a} |{day} |{month:IM:a} |{year}";
     format  ymd    "{year}| {month:IM:a}| {day}";
     preferred dmy;
-}
+};
 
 scheme I {
     name "Islamic Tabular";
     base islamic IIc;
     grammar I;
-}
+};
 
 
 write nl;

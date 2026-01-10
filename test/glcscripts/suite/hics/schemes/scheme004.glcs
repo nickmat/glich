@@ -1,8 +1,8 @@
 // scheme003.glcs // Test basic scheme definition
 
-scheme T { base gregorian; }
+scheme T { base gregorian; };
 
-scheme T { base julian; }
+scheme T { base julian; };
 
 
 /*[OUTPUT]

@@ -2,16 +2,16 @@
 
 grammar D {
     fields day;
-    alias pseudo { ddddd, day; }
+    alias pseudo { ddddd, day; };
     format d "{day}";
     preferred d;
-}
+};
 
 scheme JDN {
     name "Julian Day Number";
     base jdn;
     grammar D;
-}
+};
 
 let d = 2432617;
 let t = "2432617";
