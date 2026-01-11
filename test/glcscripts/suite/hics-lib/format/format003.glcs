@@ -4,10 +4,10 @@ grammar XG {
     inherit g;
     format dXmy {
         output "{day} |{month::rn} |{year}";
-    }
-}
+    };
+};
 
-scheme XS { base gregorian; grammar XG; }
+scheme XS { base gregorian; grammar XG; };
 
 write @text.XS:dXmy( 2460141 );
 

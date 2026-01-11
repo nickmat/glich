@@ -1,14 +1,14 @@
 // function003.hcs - test age function
 
-object AGE { values value, unit, scheme; }
+object AGE { values value, unit, scheme; };
 
 function AGE.sch( birth, date ) {
     sch = @if( sch="", "g", sch );
     let days = date - birth;
-    if days < 0
+    if days < 0 {
         result = @error( "Date before birth." );
-        end
-    endif
+        end;
+    };
     let date1 = @scheme.(sch)(birth);
     let y1 = date1[year]; let m1 = date1[month]; let d1 = date1[day];
     let date2 = @scheme.(sch)(date);
@@ -16,28 +16,28 @@ function AGE.sch( birth, date ) {
 
     let unit = "year";    
     let age = y2 - y1;
-    if m2 < m1 or ( m2 = m1 and d2 < d1 )
+    if m2 < m1 or ( m2 = m1 and d2 < d1 ) {
         age -= 1;
-    endif
-    if age = 0
+    };
+    if age = 0 {
         unit = "month";
         age = m2 - m1;
-        if d2 < d1
+        if d2 < d1 {
             age -= 1;
-        endif
+        };
         age = age mod 12;
-        if age = 0
+        if age = 0 {
             unit = "week";
             age = days div 7;
-            if age = 0
+            if age = 0 {
                 unit = "day";
                 age = days;
-            endif
-        endif
-    endif
+            };
+        };
+    };
 
     result = {AGE age, unit, sch};
-}
+};
 
 write nl;
 let birth = @date("19sep1948");

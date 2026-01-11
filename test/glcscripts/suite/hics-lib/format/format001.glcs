@@ -3,7 +3,7 @@
 format j:OBLIQUE {
     separators "/";
     inout "{day}/|{month}/|{year}";
-}
+};
 
 write nl;
 write @text.g:OBLIQUE( 2460136 ) nl;

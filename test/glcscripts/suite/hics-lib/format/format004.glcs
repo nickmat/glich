@@ -4,9 +4,9 @@ grammar XG {
     inherit g;
     format html
         "{day}<sup>{day::oa}</sup> |{month:m} |{year}";
-}
+};
 
-scheme XS { base gregorian; grammar XG; }
+scheme XS { base gregorian; grammar XG; };
 
 write @text.XS:html( 2460127 );
 

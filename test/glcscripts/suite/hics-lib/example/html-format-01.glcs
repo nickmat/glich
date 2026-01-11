@@ -4,7 +4,7 @@ mark example_html;
 
 format j:html {
     output "<span class='date'>|{day}<sup>{day::oa}</sup> |<b>{month:m}</b> |{year}|</span>";
-}
+};
 
 write @text.g:html( 2460255 );
 

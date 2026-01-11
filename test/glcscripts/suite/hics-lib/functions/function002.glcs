@@ -4,52 +4,52 @@
 object AGE { values value, unit, scheme; }
 
 function DOB( date, age ) {
-    if @object(age) <> "AGE"
+    if @object(age) <> "AGE" {
         result = @error( "Parameter age must be AGE object" );
-        end
-    endif
+        end;
+    };
     let sch = age[scheme];
-    if @type(sch) = "null"
+    if @type(sch) = "null" {
         sch = "g";
-    endif
-    if age[unit] = "day"
+    };
+    if age[unit] = "day" {
         result = date - age[value];
-        end
-    endif
-    if age[unit] = "week"
+        end;
+    };
+    if age[unit] = "week" {
         let start = date - ( age[value] + 1 ) * 7 + 1;
         result = start .. start + 6;
-        end
-    endif
+        end;
+    };
     let record = @scheme.(sch)( date );
     let beg = record;
     let fin = record;
-    if age[unit] = "month"
+    if age[unit] = "month" {
         let m = record[month] - age[value] - 1;
         let y = record[year];
-        if m < 1
+        if m < 1 {
             m = m mod 12;
             y = record[year] - 1;
-        endif
+        };
         beg[month] = m;
         beg[year] = y;
-        if m > 12
+        if m > 12 {
             m = (m mod 12) + 1;
             y = record[year] + 1;
-        endif
+        };
         m += 1;
         fin[month] = m;
         fin[year] = y;
-    elseif age[unit] = "year"
+    } elseif age[unit] = "year" {
         beg[year] = record[year] - age[value] - 1;
         fin[year] = record[year] - age[value];
-    else
+    } else {
         result = @error("Invalid age unit");
         end;
-    endif
+    };
 
     result = @date(beg) + 1 .. @date(fin);
-}
+};
 
 // Date of Birth is g# 15 Feb 2025
 write nl;

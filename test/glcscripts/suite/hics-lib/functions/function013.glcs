@@ -2,14 +2,14 @@
 
 function this_week.day_start {
     let _today = 2460049;
-    if day_start = "sun"
+    if day_start = "sun" {
         let day = @scheme.jwsn( _today )[day];
-    else
+    } else {
         let day = @scheme.jwn( _today )[day];
-    endif
+    };
     let start = _today - day + 1;
     result = start .. ( start + 6 );
-}
+};
 
 write nl;
 write @text( @this_week ) nl;

@@ -4,19 +4,19 @@ let _today = 2460166;
 
 format g:ISO_y6 {
     rules iso8601 caldate year6;
-}
+};
 
 format g:ISO_y6set {
     rules iso8601 dateset year6;
-}
+};
 
 format gw:ISO_y6wd {
     rules iso8601 week year6;
-}
+};
 
 format go:ISO_y6d {
     rules iso8601 ordinal year6;
-}
+};
 
 
 write nl;
