@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     22nd October 2024
- * Copyright:   Copyright (c) 2024..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2024..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -48,7 +48,7 @@ namespace glich {
         std::string run_module( const std::string& mod ) override;
 
         SValue evaluate( const std::string& expression ) override;
-        bool run( std::istream& in, std::ostream& out, int line = 1 ) override;
+        bool run( std::istream& in, std::ostream& out, const std::string& module, int line = 1 ) override;
 
         bool add_module_def( const ModuleDef& def, const std::string& code ) override;
 

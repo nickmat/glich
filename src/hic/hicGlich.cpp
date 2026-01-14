@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     22nd October 2024
- * Copyright:   Copyright (c) 2024..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2024..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -91,7 +91,7 @@ void HicGlich::load_builtin_library( StdStrVec args )
 {
     Glich::load_builtin_library( args );
     for( size_t i = 0; i < hics_builtin_scripts_size; i++ ) {
-        string error = run_script( hics_builtin_scripts[i].script );
+        string error = run_script( hics_builtin_scripts[i].script, hics_builtin_scripts[i].module );
         if( !error.empty() ) {
             m_init_error += "Module: \"" +
                 string( hics_builtin_scripts[i].module ) + "\"\n" + error;
@@ -112,7 +112,7 @@ string HicGlich::run_module( const string& mod )
     split_string( location, module, run );
     if( location == "hics" ) {
         if( hics_default_scripts.count( module ) == 1 ) {
-            return run_script( hics_default_scripts[module] );
+            return run_script( hics_default_scripts[module], module );
         }
     }
     return Glich::run_module( mod );
@@ -126,10 +126,10 @@ SValue HicGlich::evaluate( const string& expression )
     return scr.evaluate();
 }
 
-bool HicGlich::run( std::istream& in, std::ostream& out, int line )
+bool HicGlich::run( std::istream& in, std::ostream& out, const std::string& module, int line )
 {
     HicScript scr( in, out );
-    scr.set_line( line );
+    scr.set_line( module, line );
     return scr.run();
 }
 

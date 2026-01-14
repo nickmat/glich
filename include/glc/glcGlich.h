@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -71,11 +71,11 @@ namespace glich {
 
         virtual void load_builtin_library( StdStrVec args );
 
-        std::string run_script( const std::string& script );
+        std::string run_script( const std::string& script, const std::string& module );
         std::string run_script_file( const std::string& filename );
         virtual std::string run_module( const std::string& mod );
         virtual SValue evaluate( const std::string& expression );
-        virtual bool run( std::istream& in, std::ostream& out, int line = 1 );
+        virtual bool run( std::istream& in, std::ostream& out, const std::string& module, int line = 1 );
 
         std::string get_init_error() const { return m_init_error; }
 

@@ -110,8 +110,9 @@ namespace glich {
         bool error_value( const std::string& mess );
         int errors() const { return m_errors; }
 
+        std::string get_module() const { return m_module; }
         int get_line() const { return m_line; }
-        void set_line( int line ) { m_line = line; }
+        void set_line( const std::string& module, int line ) { m_module = module; m_line = line; }
         std::istream* reset_in( std::istream* in );
 
     private:
@@ -121,6 +122,7 @@ namespace glich {
         std::istream* m_in;
         std::ostream* m_err;
         SToken        m_cur_token;
+        std::string   m_module;
         int           m_line;
         int           m_errors;
     };

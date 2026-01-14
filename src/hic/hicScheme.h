@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -86,7 +86,7 @@ namespace glich {
 
         std::string object_to_str( const SValue& ovalue, const std::string& fcode ) const;
 
-        bool set_epoch( Base* base, Field epoch, int line );
+        bool set_epoch( Base* base, Field epoch, const std::string& module, int line );
 
         static Base* create_base( BaseName bs, const StdStrVec& data );
         static Base* create_base_hybrid(
@@ -94,7 +94,7 @@ namespace glich {
             const std::vector<HybridData>& data );
 
     private:
-        bool create_epoch_functions( Field epoch, int line );
+        bool create_epoch_functions( Field epoch, const std::string& module, int line );
 
         std::string  m_name;
         bool         m_def_visible; // Default visiblity.

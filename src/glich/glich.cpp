@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     23rd February 2025
- * Copyright:   Copyright (c) 2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2025..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -126,7 +126,7 @@ int main( int argc, char* argv[] )
         if( script.empty() ) {
             continue;
         }
-        string response = hg::hic().run_script( script );
+        string response = hg::hic().run_script( script, "file:" + filenames[i]);
         if( !response.empty() ) {
             std::cout << response << "\n";
         }

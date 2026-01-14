@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     5th February 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -55,7 +55,8 @@ namespace glich {
 
         std::ostream& get_out_stream() { return *m_out; }
         int get_line() const { return m_ts.get_line(); }
-        void set_line( int line ) { m_ts.set_line( line ); }
+        std::string get_module() const { return m_ts.get_module(); }
+        void set_line( const std::string& module, int line ) { m_ts.set_line( module, line ); }
         bool error( const std::string& mess ) { return m_ts.error( mess ); }
         bool error_value( const SValue& value );
 

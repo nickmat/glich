@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     22nd October 2024
- * Copyright:   Copyright (c) 2024..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2024..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -62,7 +62,7 @@ void glich::init_hic( InitLibrary lib, InOut* inout, StdStrVec args )
         break;
     }
     // Mark the start of user definitions.
-    s_hic->run_script( "mark __user;" );
+    s_hic->run_script( "mark __user;", "hics:" );
 
 }
 

@@ -314,7 +314,7 @@ Scheme* HicScript::do_create_scheme( const string& code )
     sch->set_def_visible( visible );
     sch->set_cur_visible( visible );
     if( epoch != f_invalid ) {
-        if( !sch->set_epoch( base, epoch, epoch_line ) ) {
+        if( !sch->set_epoch( base, epoch, get_module(), epoch_line) ) {
             error( "Unable to set epoch." );
             error_ret = true;
         }

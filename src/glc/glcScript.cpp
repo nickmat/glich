@@ -358,7 +358,7 @@ bool Script::do_do()
     std::istringstream iss( code );
     std::istream* prev_iss = m_ts.reset_in( &iss );
     for( size_t i = 1000; i > 0; --i ) {  // We have a limit of 1000 reiterations
-        m_ts.set_line( start_line );
+        m_ts.set_line( get_module(), start_line );
         bool exit = false;
         SToken token = next_token();
         for( ;;) {
@@ -405,7 +405,7 @@ bool Script::do_do()
         iss.seekg( 0 );
     }
     m_ts.reset_in( prev_iss );
-    m_ts.set_line( end_line );
+    m_ts.set_line( get_module(), end_line );
     return true;
 }
 
@@ -683,7 +683,7 @@ SpFunction Script::create_function( const string& code )
     fun->set_qualifiers( quals );
     fun->set_args( args );
     fun->set_defaults( defs );
-    fun->set_line( line );
+    fun->set_line( get_module(), line );
     fun->set_script( script );
     return fun;
 }

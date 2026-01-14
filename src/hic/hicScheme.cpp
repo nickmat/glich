@@ -222,13 +222,13 @@ string Scheme::object_to_str( const SValue& ovalue, const string& fcode ) const
     return fmt->get_text_output( record );
 }
 
-bool Scheme::set_epoch( Base* base, Field epoch, int line )
+bool Scheme::set_epoch( Base* base, Field epoch, const std::string& module, int line )
 {
     Easter* ebase = dynamic_cast<Easter*>(base);
     if( ebase != nullptr ) {
         return ebase->set_epoch( epoch );
     }
-    return create_epoch_functions( epoch, line );
+    return create_epoch_functions( epoch, module, line );
 }
 
 /* static */
@@ -275,7 +275,7 @@ Base* Scheme::create_base_hybrid( const StdStrVec& fieldnames, const std::vector
     return nullptr;
 }
 
-bool Scheme::create_epoch_functions( Field epoch, int line )
+bool Scheme::create_epoch_functions( Field epoch, const std::string& module, int line )
 {
     int index = m_base.get_fieldname_index( "cyear" );
     if( index != 3 ) {
@@ -307,7 +307,7 @@ bool Scheme::create_epoch_functions( Field epoch, int line )
     if( fun == nullptr ) {
         return false;
     }
-    fun->set_line( line );
+    fun->set_line( module, line );
     fun->set_script( script );
     add_function( fun );
 
@@ -320,7 +320,7 @@ bool Scheme::create_epoch_functions( Field epoch, int line )
     if( fun == nullptr ) {
         return false;
     }
-    fun->set_line( line );
+    fun->set_line( module, line );
     fun->set_script( script );
     add_function( fun );
 

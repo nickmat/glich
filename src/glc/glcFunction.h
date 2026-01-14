@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -39,7 +39,7 @@ namespace glich {
         Function( const std::string& code ) : m_code( code ), m_line( 0 ) {}
 
         void set_script( const std::string& script ) { m_script = script; }
-        void set_line( int line ) { m_line = line; }
+        void set_line( const std::string& module, int line ) { m_module = module; m_line = line; }
         void set_qualifiers( const StdStrVec& quals ) { m_qualifiers = quals; }
         void set_args( const StdStrVec& args ) { m_args = args; }
         void set_defaults( const SValueVec& defs ) { m_defs = defs; }
@@ -60,6 +60,7 @@ namespace glich {
         void create_locals( StdStrVec& qual, SValueVec& args ) const;
 
         std::string  m_code;
+        std::string  m_module;
         int          m_line;
         std::string  m_script;
         StdStrVec    m_qualifiers;

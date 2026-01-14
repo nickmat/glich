@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th August 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -174,7 +174,7 @@ TEST_CASE( "Test get_glc_data", "[get_glc_data]" )
         "let vnumber = 123;\n"
         "let vstring = \"text\";\n"
         ;
-    g_glc->run_script( script );
+    g_glc->run_script( script, "get_glc_data" );
     GlcMarkDataVec marks = g_glc->get_glc_data();
     int cnt = 0;
     for( auto& mark : marks ) {

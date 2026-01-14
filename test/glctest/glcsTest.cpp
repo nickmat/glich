@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     http://historycal.org
  * Created:     9th February 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  glctest is free software: you can redistribute it and/or modify
@@ -113,8 +113,8 @@ string run_test( TestResults* totals, Glich& glc, const string& filename )
         }
         return "";
     }
-    glc.run_script( "mark __:test:__;" ); // All test should start clean;
-    string output = glc.run_script( script );
+    glc.run_script( "mark __:test:__;", "test:" ); // All test should start clean;
+    string output = glc.run_script( script, "test:" + filename );
     totals->tests++;
     string expected;
     pos1 = script.find( "/*[OUTPUT]\n" );
@@ -158,7 +158,7 @@ string run_full_test( TestResults* totals, Glich& glc, const string& path )
         if( !dir_entry.is_directory() ) {
             continue;
         }
-        glc.run_script( "mark __user;" ); // Start directory clean;
+        glc.run_script( "mark __user;", "test:" ); // Start directory clean;
         string dir = dir_entry.path().string();
         if( ends_with( dir, "hics-lib" ) ) {
             hic().load_hics_library();
@@ -179,11 +179,11 @@ string run_full_test( TestResults* totals, Glich& glc, const string& path )
 string run_test_script( TestResults* totals, Glich& glc, const string& filename )
 {
     string script = read_file( filename );
-    glc.run_script( "mark __user;" ); // Start clean;
+    glc.run_script( "mark __user;", "test:" ); // Start clean;
     if( filename.find( "hics-lib" ) != string::npos ) {
         hic().load_hics_library();
     }
-    string output = glc.run_script( script );
+    string output = glc.run_script( script, "test:" + filename );
     string expected;
     size_t pos1 = script.find( "/*[OUTPUT]\n" );
     if( pos1 != string::npos ) {

@@ -283,7 +283,7 @@ int main( int argc, char* argv[] )
         if( script.empty() ) {
             continue;
         }
-        string response = hg::hic().run_script( script );
+        string response = hg::hic().run_script( script, "file:" + filenames[i]);
         if( !response.empty() ) {
             std::cout << response << "\n";
         }
@@ -322,7 +322,7 @@ int main( int argc, char* argv[] )
                 cmnd = "let answer = " + cmnd + "; write answer//*/\n;";
             }
         }
-        string output = hg::hic().run_script( cmnd );
+        string output = hg::hic().run_script( cmnd, "glcs:" );
         if( output.size() ) {
             std::cout << output << "\n";
         }

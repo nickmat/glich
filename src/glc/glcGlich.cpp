@@ -144,7 +144,7 @@ GlcMarkDataVec Glich::get_glc_data() const
 void Glich::load_builtin_library( StdStrVec args )
 {
     for( size_t i = 0; i < glc_builtin_scripts_size; i++ ) {
-        string error = run_script( glc_builtin_scripts[i].script );
+        string error = run_script( glc_builtin_scripts[i].script, glc_builtin_scripts[i].module );
         if( !error.empty() ) {
             m_init_error += "Module: \"" +
                 string( glc_builtin_scripts[i].module ) + "\"\n" + error;
@@ -159,17 +159,17 @@ void Glich::load_builtin_library( StdStrVec args )
         args_var += string_to_quote( arg );
     }
     args_var = "constant args = {: " + args_var + "};";
-    string error = run_script( args_var );
+    string error = run_script( args_var, "glich:" );
     if( !error.empty() ) {
         m_init_error += "Create arg: \"" + args_var + "\"\n" + error;
     }
 }
 
-string Glich::run_script( const string& script )
+string Glich::run_script( const string& script, const string& module )
 {
     std::istringstream iss( script );
     std::ostringstream oss;
-    run( iss, oss );
+    run( iss, oss, module );
     return oss.str();
 }
 
@@ -177,7 +177,7 @@ string Glich::run_script_file( const string& filename )
 {
     std::ifstream ifs( filename.c_str() );
     std::ostringstream oss;
-    run( ifs, oss );
+    run( ifs, oss, "file:" + filename, 1 );
     return oss.str();
 }
 
@@ -207,10 +207,10 @@ SValue Glich::evaluate( const string& expression )
     return scr.evaluate();
 }
 
-bool Glich::run( std::istream& in, std::ostream& out, int line )
+bool Glich::run( std::istream& in, std::ostream& out, const std::string& module, int line )
 {
     Script scr( in, out );
-    scr.set_line( line );
+    scr.set_line( module, line );
     return scr.run();
 }
 
