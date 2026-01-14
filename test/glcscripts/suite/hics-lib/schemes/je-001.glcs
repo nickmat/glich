@@ -1,6 +1,5 @@
-// je-05.glcs  - Test version of Julian Easter with dual dates.
+// je-001.glcs  - Test version of Julian Easter with dual dates.
 
-//write @date.je("2 Apr 2022/3") nl;
 
 write nl; // j# 2 Apr 2023
 write @text.je(2460050), @date.je("2 Apr 2022/3"), @scheme.je(2460050) nl;

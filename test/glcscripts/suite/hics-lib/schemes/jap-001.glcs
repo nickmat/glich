@@ -1,4 +1,4 @@
-// jap-002.hcs - Test jap scheme.
+// jap-001.glcs - Test jap scheme.
 
 write nl;
 write @text.jap:dmy( 2460176 ) nl;

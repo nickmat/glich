@@ -14,23 +14,23 @@ write "<tr><th colspan='6'>Formats - Grammar jwn</th></tr>" nl;
 write "<tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>" nl;
 
 let index = 0;
-do
+do {
     let fmt = sfl[(index)];
     let sig = sch + ":" + fmt;
     let fo = @fmt:object.(sig);
     let note = @if(fo[visible], "", "H");
-    if so[default:in] = fmt or so[default:out] = fmt
-        if @size( note ) > 0
+    if so[default:in] = fmt or so[default:out] = fmt {
+        if @size( note ) > 0 {
             note += ", ";
-        endif
+        };
         note += "D";
-    endif
-    if fo[shorthand]
-        if @size( note ) > 0
+    };
+    if fo[shorthand] {
+        if @size( note ) > 0 {
             note += ", ";
-        endif
+        };
         note += "S";
-    endif
+    };
         
     let row = "<tr><td><b>" + fo[code] + "</b></td>"
       + "<td>" +fo[rules] + "</td>"
@@ -43,7 +43,7 @@ do
 
     index += 1;
     until index = size;
-loop
+};
 
 write "<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported." nl;
 write "Example based on jdn# " + d1 + "</td></tr>" nl;

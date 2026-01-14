@@ -1,4 +1,4 @@
-// jce-002.glc // Test formats
+// jce-003.glcs // Test formats
 
 write @date.jce( "44xx..411xx" ), @date.jce( "44xx" ), @date.jce( "411xx" );
 

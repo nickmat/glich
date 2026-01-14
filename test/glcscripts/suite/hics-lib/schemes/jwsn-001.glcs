@@ -1,4 +1,4 @@
-// jwsn-001.glc // Test jwsn Julian Week (Sunday) Number scheme
+// jwsn-001.glcs // Test jwsn Julian Week (Sunday) Number scheme
 
 write nl;
 write @scheme.jwsn( 2460154 ) nl;

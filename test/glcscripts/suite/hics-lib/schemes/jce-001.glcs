@@ -1,4 +1,4 @@
-// jce-001.glc // Test formats
+// jce-001.glcs // Test formats
 
 write nl;
 write @scheme.jce( 1721423 ), @scheme.jce( 1721424 ) nl;
