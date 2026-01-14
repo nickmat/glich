@@ -16,28 +16,28 @@ write "<table class='basic data'>" nl;
 write "<tr><th colspan='5'>Formats - Grammar " + so[grammar] + "</th></tr>" nl;
 write "<tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>" nl;
 
-do
+do {
     let fmt = sfl[(index)];
     let sig = sch + ":" + fmt;
     let fo = @fmt:object.(sig);
     let note = @if(fo[visible], "", "H");
-    if so[default:in] = fmt or so[default:out] = fmt
-        if @size( note ) > 0
+    if so[default:in] = fmt or so[default:out] = fmt {
+        if @size( note ) > 0 {
             note += ", ";
-        endif
+        };
         note += "D";
-    endif
-    if fo[shorthand]
-        if @size( note ) > 0
+    };
+    if fo[shorthand] {
+        if @size( note ) > 0 {
             note += ", ";
-        endif
+        };
         note += "S";
-    endif
+    };
     
     let p = fo[pseudo:in];
-    if @size(p) > 0
+    if @size(p) > 0 {
         p = "<b>Input:</b> " + p + "<br />";
-    endif
+    };
     p = "<td>" + p + "<b>Output:</b> " + fo[pseudo:out] + "</td>";
 
     let row = "<tr><td><b>" + fo[code] + "</b></td>"
@@ -52,7 +52,7 @@ do
 
     index += 1;
     until index = size;
-loop
+};
 
 write "<tr><td colspan='6'>Notes: D = Default, H = Hidden." nl;
 write "Example based on jdn# " + d1, d2 + " and " + d3 + "</td></tr>" nl;
