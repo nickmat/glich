@@ -274,11 +274,12 @@
 <tr><th>Example</th><th>Result</th></tr><!-- See function008.hcs test file -->
  <tr><td class='example'>function power(number, power) {
     result = 1;
-    do while power > 0
+    do {
+        while power > 0;
         result *= number;
         power -= 1;
-    loop
-}</td><td class='example'></td></tr>
+    };
+};</td><td class='example'></td></tr>
  <tr><td class='example'>4 * @power(2,4) + 10</td><td class='example'>74</td></tr>
 </table>
 
@@ -293,8 +294,8 @@
     values first second;
     function sum {
         result = first + second;
-    }
-}</td><td class='example'></td></tr>
+    };
+};</td><td class='example'></td></tr>
  <tr><td class='example'>{pair 3, 4} @ sum</td><td class='example'>7</td></tr>
 </table>
 
@@ -374,7 +375,7 @@ object_value<b>@</b>name<b>.</b>qualifier<b>(</b>expr, ...<b>)</b>
  <b>call, command, end, file, format, function, grammar, let, lexicon, mark, object,
  scheme, set, until, while, write</b>
  are not strictly keyword, but are best avoided.
- If they are used as variable names then all assignments must start with 'let'.
+ If they are used as variable names then all assignments must start with 'let' or 'global'.
 </p>
 
 <h2>Names</h2>
