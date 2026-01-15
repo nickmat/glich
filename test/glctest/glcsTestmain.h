@@ -35,5 +35,6 @@ enum class CheckFile { none, file, dir };
 CheckFile check_file( const std::string& name );
 
 void get_filenames( std::vector<std::string>& vec, const std::string& path );
+std::string get_module_name( const std::string& filename );
 
 #endif // TEST_GLCTEST_GLCSTESTMAIN_H_GUARD

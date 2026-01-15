@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     7th February 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  glctest is free software: you can redistribute it and/or modify
@@ -63,5 +63,10 @@ void get_filenames( vector<string>& vec, const string& path )
     }
 }
 
+string get_module_name( const string& filename )
+{
+    fs::path path( filename );
+    return "file:" + path.stem().string();
+}
 
 // End of test/glctest/glcGetfns.cpp
