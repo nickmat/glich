@@ -552,7 +552,7 @@ bool STokenStream::skip_to_char( char end )
 
 bool STokenStream::error( const std::string& mess )
 {
-    *m_err << "Error (" << m_line << "): " << mess << "\n";
+    *m_err << "Error " << m_module << " (" << m_line << "): " << mess << "\n";
     return (++m_errors > MAX_ALLOWED_ERRORS);
 }
 
