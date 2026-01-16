@@ -10,6 +10,6 @@ write a;
 
 
 /*[OUTPUT]
-Error (7): Object index error.
+Error file:object015 (7): Object index error.
 
 [OUTPUT]*/

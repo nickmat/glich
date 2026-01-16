@@ -9,6 +9,6 @@ file test read filename;
 
 /*[OUTPUT]
 
-Error (7): Unable to open file: Test-glcs-file2.txt
+Error file:file002 (7): Unable to open file: Test-glcs-file2.txt
 
 [OUTPUT]*/

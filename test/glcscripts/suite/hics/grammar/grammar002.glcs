@@ -9,6 +9,6 @@ scheme J1 { base julian; grammar G1; };
 
 
 /*[OUTPUT]
-Error (8): Unable to attach grammar.
+Error file:grammar002 (8): Unable to attach grammar.
 
 [OUTPUT]*/

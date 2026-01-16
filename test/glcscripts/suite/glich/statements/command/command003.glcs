@@ -11,6 +11,6 @@ d += 7;
 
 /*[OUTPUT]
 3
-Error (10): Unrecognised statement.
+Error file:command003 (10): Unrecognised statement.
 
 [OUTPUT]*/

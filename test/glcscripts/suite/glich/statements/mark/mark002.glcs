@@ -1,11 +1,11 @@
 // mark002.glcs Test file to test error when missing a mark statement
 
 mark "test";
-object "test1" {}
-object "test1" {}
+object "test1" {};
+object "test1" {};
 write "Ok so far";
 
 /*[OUTPUT]
-Error (5): object "test1" already exists.
+Error file:mark002 (5): object "test1" already exists.
 
 [OUTPUT]*/

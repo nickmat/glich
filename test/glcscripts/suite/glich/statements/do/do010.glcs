@@ -12,6 +12,6 @@ do {
 write "end";
 
 /*[OUTPUT]
-Start Error (7): Boolean expression expected.
+Start Error file:do010 (7): Boolean expression expected.
 end
 [OUTPUT]*/

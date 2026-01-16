@@ -3,6 +3,6 @@
 let args[1] = "test";
 
 /*[OUTPUT]
-Error (3): "args" is a constant.
+Error file:args003 (3): "args" is a constant.
 
 [OUTPUT]*/

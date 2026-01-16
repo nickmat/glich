@@ -16,6 +16,6 @@ do { while count < 2;
 };
 
 /*[OUTPUT]
-Start 1, Error (11): Unrecognised statement.
+Start 1, Error file:do005 (11): Unrecognised statement.
 
 [OUTPUT]*/

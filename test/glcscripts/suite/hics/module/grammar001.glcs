@@ -30,7 +30,7 @@ write d;
 /*[OUTPUT]
 
 2460583d
-Error (24): Grammar "D" not found.
+Error file:grammar001 (24): Grammar "D" not found.
 Error (27): Scheme "JDN" not found.
 
 [OUTPUT]*/

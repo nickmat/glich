@@ -9,6 +9,6 @@ command say {
 };
 
 /*[OUTPUT]
-Error (7): command "say" already exists.
+Error file:command002 (7): command "say" already exists.
 
 [OUTPUT]*/

@@ -6,6 +6,6 @@ function if(c,a,b) { if c { result=a; } else { result=b; }; };
 
 /*[OUTPUT]
 
-Error (5): The function "if" already exists.
+Error file:at-if002 (5): The function "if" already exists.
 
 [OUTPUT]*/

@@ -7,6 +7,6 @@ if true {
 
 /*[OUTPUT]
 test
-Error (13): if ended unexpectedly.
+Error file:if011 (13): if ended unexpectedly.
 
 [OUTPUT]*/

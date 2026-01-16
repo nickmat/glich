@@ -8,6 +8,6 @@ if false {
 };
 
 /*[OUTPUT]
-Error (6): Expected else or elseif.
+Error file:if012 (6): Expected else or elseif.
 
 [OUTPUT]*/

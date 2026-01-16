@@ -1,4 +1,4 @@
-// grammar001.glcs  Test simplest grammar declaration
+// grammar003.glcs  Test simplest grammar declaration
 
 grammar G2 { 
 //  fields year month day;
@@ -9,6 +9,6 @@ scheme J2 { base julian; grammar G2; };
 
 
 /*[OUTPUT]
-Error (8): Unable to attach grammar.
+Error file:grammar003 (8): Unable to attach grammar.
 
 [OUTPUT]*/

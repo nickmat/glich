@@ -15,6 +15,6 @@ do {
 };
 
 /*[OUTPUT]
-Start Error (11): Unrecognised statement.
+Start Error file:do004 (11): Unrecognised statement.
 
 [OUTPUT]*/

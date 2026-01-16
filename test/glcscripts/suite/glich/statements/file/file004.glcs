@@ -9,6 +9,6 @@ file test rubbish filename;
 
 /*[OUTPUT]
 
-Error (7): File mode "rubbish" not understood.
+Error file:file004 (7): File mode "rubbish" not understood.
 
 [OUTPUT]*/

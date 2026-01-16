@@ -8,6 +8,6 @@ if false {
 ;
 
 /*[OUTPUT]
-Error (7): '{' expected after elseif or else.
+Error file:if013 (7): '{' expected after elseif or else.
 
 [OUTPUT]*/

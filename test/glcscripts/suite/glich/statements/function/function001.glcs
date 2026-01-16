@@ -13,6 +13,6 @@ x += 20;
 /*[OUTPUT]
 
 50
-Error (11): Unrecognised statement.
+Error file:function001 (11): Unrecognised statement.
 
 [OUTPUT]*/

@@ -3,6 +3,6 @@
 args[1] = "test";
 
 /*[OUTPUT]
-Error (3): Unrecognised statement.
+Error file:args002 (3): Unrecognised statement.
 
 [OUTPUT]*/

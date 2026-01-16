@@ -17,6 +17,6 @@ xxx
 write "end";
 
 /*[OUTPUT]
-Start 1, 2, Error (16): Unrecognised statement.
+Start 1, 2, Error file:do003 (16): Unrecognised statement.
 
 [OUTPUT]*/
