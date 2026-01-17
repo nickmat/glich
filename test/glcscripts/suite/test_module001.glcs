@@ -5,4 +5,7 @@ object test_sum {
     function sum {
         result = one + two + three;
     };
+    function err {
+        result = @error( "Testing." );
+    };
 };
