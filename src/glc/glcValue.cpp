@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     5th February 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -151,7 +151,8 @@ void SValue::set_error( const std::string& str )
     STokenStream* ts = Script::get_current_ts();
     m_type = Type::Error;
     if( ts ) {
-        m_data = "Error (" + std::to_string( ts->get_line() ) + "): " + str;
+        m_data = "Error " + ts->get_module() +
+            " (" + std::to_string( ts->get_line() ) + "): " + str;
     }
     else {
         m_data = str;
