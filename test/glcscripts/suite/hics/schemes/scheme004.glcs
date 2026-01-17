@@ -6,6 +6,6 @@ scheme T { base julian; };
 
 
 /*[OUTPUT]
-Error (5): Scheme "T" already exists.
+Error file:scheme004 (5): Scheme "T" already exists.
 
 [OUTPUT]*/

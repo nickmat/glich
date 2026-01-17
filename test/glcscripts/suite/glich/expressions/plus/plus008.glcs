@@ -3,6 +3,6 @@
 write true + 1;
 
 /*[OUTPUT]
-Error (3): Unable to add or subtract types.
+Error file:plus008 (3): Unable to add or subtract types.
 
 [OUTPUT]*/

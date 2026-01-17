@@ -10,8 +10,8 @@ write -2147483640f * 2 nl; // overflow
 /*[OUTPUT]
 
 2147483640
-Error (6): Multiply has invalid result.
+Error file:multiply004 (6): Multiply has invalid result.
 -2147483640
-Error (8): Multiply has invalid result.
+Error file:multiply004 (8): Multiply has invalid result.
 
 [OUTPUT]*/

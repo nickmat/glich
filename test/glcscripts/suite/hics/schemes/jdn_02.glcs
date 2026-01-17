@@ -8,6 +8,6 @@ scheme JDN {
 
 
 /*[OUTPUT]
-Error (6): Grammar "D" not found.
+Error file:jdn_02 (6): Grammar "D" not found.
 
 [OUTPUT]*/

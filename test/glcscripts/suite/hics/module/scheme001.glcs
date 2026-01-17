@@ -19,6 +19,6 @@ write d;
 /*[OUTPUT]
 
 2024 10 2
-Error (15): Scheme "G" not found.
+Error file:scheme001 (15): Scheme "G" not found.
 
 [OUTPUT]*/

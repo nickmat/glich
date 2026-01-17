@@ -12,12 +12,12 @@ write +infinity % 3 nl;
 
 /*[OUTPUT]
 
-Error (5): Modulo by zero.
-Error (6): Modulo by invalid.
-Error (7): Cannot modulo invalid.
-Error (8): Modulo by -infinity.
+Error file:mod005 (5): Modulo by zero.
+Error file:mod005 (6): Modulo by invalid.
+Error file:mod005 (7): Cannot modulo invalid.
+Error file:mod005 (8): Modulo by -infinity.
 0
-Error (10): Modulo by +infinity.
+Error file:mod005 (10): Modulo by +infinity.
 0
 
 [OUTPUT]*/

@@ -5,6 +5,6 @@ write @if(true);
 
 /*[OUTPUT]
 
-Error (4): @if requires 3 arguments.
+Error file:at-if003 (4): @if requires 3 arguments.
 
 [OUTPUT]*/

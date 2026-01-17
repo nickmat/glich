@@ -24,6 +24,6 @@ write c1@add( 1 ) nl;
 
 {complex 5, 9}, {complex 25, 15}
 {complex 30, 24}
-Error (9): Must have 'complex' argument
+Error file:object-def-01 (9): Must have 'complex' argument
 
 [OUTPUT]*/

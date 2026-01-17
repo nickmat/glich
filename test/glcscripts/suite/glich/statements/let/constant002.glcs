@@ -11,6 +11,6 @@ write a;
 /*[OUTPUT]
 
 5
-Error (8): Variable "a" not found.
+Error file:constant002 (8): Variable "a" not found.
 
 [OUTPUT]*/

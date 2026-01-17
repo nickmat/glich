@@ -15,9 +15,9 @@ write (n < 1) nl;
 
 null, true, true, false, false
 false, false, true, true
-Error (9): Can only compare a null value for equal or not equal.
-Error (10): Can only compare a null value for equal or not equal.
-Error (11): Must compare same types.
-Error (12): Must compare same types.
+Error file:null001 (9): Can only compare a null value for equal or not equal.
+Error file:null001 (10): Can only compare a null value for equal or not equal.
+Error file:null001 (11): Must compare same types.
+Error file:null001 (12): Must compare same types.
 
 [OUTPUT]*/

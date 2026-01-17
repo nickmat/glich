@@ -31,6 +31,6 @@ write d;
 
 2460583d
 Error file:grammar001 (24): Grammar "D" not found.
-Error (27): Scheme "JDN" not found.
+Error file:grammar001 (27): Scheme "JDN" not found.
 
 [OUTPUT]*/

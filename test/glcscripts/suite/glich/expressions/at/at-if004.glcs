@@ -5,6 +5,6 @@ write @if(0,true,false);
 
 /*[OUTPUT]
 
-Error (4): 1st argument of @if must be a boolean.
+Error file:at-if004 (4): 1st argument of @if must be a boolean.
 
 [OUTPUT]*/

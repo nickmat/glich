@@ -17,6 +17,6 @@ write o;
 /*[OUTPUT]
 
 {test_sum 1, 2, 3}, 6
-Error (14): Object name not recognised.
+Error file:module001 (14): Object name not recognised.
 
 [OUTPUT]*/

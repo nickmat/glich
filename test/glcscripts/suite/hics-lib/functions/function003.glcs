@@ -65,7 +65,7 @@ write @text(date), @AGE(birth,date) nl;
 
 /*[OUTPUT]
 
-18 Sep 1948, Error (9): Date before birth.
+18 Sep 1948, Error file:function003 (9): Date before birth.
 19 Sep 1948, {AGE 0, "day", "g"}
 25 Sep 1948, {AGE 6, "day", "g"}
 26 Sep 1948, {AGE 1, "week", "g"}

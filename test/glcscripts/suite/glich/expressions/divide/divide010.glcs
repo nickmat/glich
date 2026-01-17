@@ -11,11 +11,11 @@ write ? / 2;
 
 /*[OUTPUT]
 
-Error (5): Division by zero.
-Error (6): Division by zero.
-Error (7): Division by nan.
-Error (8): Division by -inf.
-Error (9): Division by +inf.
-Error (10): Cannot divide nan.
+Error file:divide010 (5): Division by zero.
+Error file:divide010 (6): Division by zero.
+Error file:divide010 (7): Division by nan.
+Error file:divide010 (8): Division by -inf.
+Error file:divide010 (9): Division by +inf.
+Error file:divide010 (10): Cannot divide nan.
 
 [OUTPUT]*/

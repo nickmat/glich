@@ -11,6 +11,6 @@ call say;
 
 
 /*[OUTPUT]
-Error (6): Variable "d" not found.
+Error file:command004 (6): Variable "d" not found.
 
 [OUTPUT]*/

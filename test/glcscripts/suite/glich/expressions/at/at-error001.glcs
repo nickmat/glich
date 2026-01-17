@@ -3,6 +3,6 @@
 write @error( "this." );
 
 /*[OUTPUT]
-Error (3): this.
+Error file:at-error001 (3): this.
 
 [OUTPUT]*/

@@ -19,6 +19,6 @@ Text
 on
 multiple
 lines
-Error (14): Display line count
+Error file:bug001 (14): Display line count
 
 [OUTPUT]*/

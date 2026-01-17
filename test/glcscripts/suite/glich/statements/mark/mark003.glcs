@@ -23,6 +23,6 @@ write d;
 +infinity, -infinity..+infinity, number
 future, past..future, number, field
 +infinity, -infinity..+infinity, number, number
-Error (18): Variable "d" not found.
+Error file:mark003 (18): Variable "d" not found.
 
 [OUTPUT]*/

@@ -16,6 +16,6 @@ write @low( a ), @low( b ), @low( c ), @low( d ), @low( e ), @low( f ), @low( g 
 
 /*[OUTPUT]
 
-123, 456, 10.5, ?, 5, 4, ?, ?, ?, Error (12): Whoops
+123, 456, 10.5, ?, 5, 4, ?, ?, ?, Error file:low001 (12): Whoops
 
 [OUTPUT]*/

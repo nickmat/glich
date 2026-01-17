@@ -16,6 +16,6 @@ write @span( a ), @span( b ), @span( c ), @span( d ), @span( e ), @span( f ), @s
 
 /*[OUTPUT]
 
-1, 1, ?, ?, 6, 15, ?, ?, ?, Error (12): Whoops
+1, 1, ?, ?, 6, 15, ?, ?, ?, Error file:span001 (12): Whoops
 
 [OUTPUT]*/

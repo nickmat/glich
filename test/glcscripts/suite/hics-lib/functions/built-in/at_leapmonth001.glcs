@@ -11,7 +11,7 @@ write @leapmonth( 4662, 6 ) nl;
 
 true
 false
-Error (7): @leapmonth requires two integer arguments.
-Error (8): @leapmonth requires a base calendar qualifier.
+Error file:at_leapmonth001 (7): @leapmonth requires two integer arguments.
+Error file:at_leapmonth001 (8): @leapmonth requires a base calendar qualifier.
 
 [OUTPUT]*/

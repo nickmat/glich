@@ -7,7 +7,7 @@ scheme test {
 write "Ok";
 
 /*[OUTPUT]
-Error (4): Base scheme not recognised.
-Error (5): Scheme "test" not created.
+Error file:scheme006 (4): Base scheme not recognised.
+Error file:scheme006 (5): Scheme "test" not created.
 Ok
 [OUTPUT]*/

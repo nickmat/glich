@@ -21,6 +21,6 @@ call maths(2,4);
 12
 11
 -8
-Error (9): Qualifier must be "add" or "sub"
+Error file:command008 (9): Qualifier must be "add" or "sub"
 
 [OUTPUT]*/

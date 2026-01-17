@@ -16,6 +16,6 @@ write @high( a ), @high( b ), @high( c ), @high( d ), @high( e ), @high( f ), @h
 
 /*[OUTPUT]
 
-123, 456, 10.5, ?, 10, 18, ?, ?, ?, Error (12): Whoops
+123, 456, 10.5, ?, 10, 18, ?, ?, ?, Error file:high001 (12): Whoops
 
 [OUTPUT]*/

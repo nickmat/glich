@@ -11,11 +11,11 @@ write ? /% 2;
 
 /*[OUTPUT]
 
-Error (5): Division by zero.
-Error (6): Division by zero.
-Error (7): Division by invalid.
-Error (8): Division by -infinity.
-Error (9): Division by +infinity.
-Error (10): Cannot divide invalid.
+Error file:divide005 (5): Division by zero.
+Error file:divide005 (6): Division by zero.
+Error file:divide005 (7): Division by invalid.
+Error file:divide005 (8): Division by -infinity.
+Error file:divide005 (9): Division by +infinity.
+Error file:divide005 (10): Cannot divide invalid.
 
 [OUTPUT]*/

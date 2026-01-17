@@ -17,6 +17,6 @@ write @range_plus( 100, 0 ) nl;
 /*[OUTPUT]
 
 100..106, Duration: 7
-Error (5): Duration must be above zero.
+Error file:function015 (5): Duration must be above zero.
 
 [OUTPUT]*/

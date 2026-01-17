@@ -3,6 +3,6 @@
 write ? .. 10;
 
 /*[OUTPUT]
-Error (3): Range invalid.
+Error file:literal004 (3): Range invalid.
 
 [OUTPUT]*/

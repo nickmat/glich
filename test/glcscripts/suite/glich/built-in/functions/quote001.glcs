@@ -42,7 +42,7 @@ write v, @type( a ), @type( v ) nl;
 "10..20", range, string
 "5..10 | 50", rlist, string
 "{: null, 11}", object, string
-"Error (30): Test
+"Error file:quote001 (30): Test
 ", error, string
 
 [OUTPUT]*/

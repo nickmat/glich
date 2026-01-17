@@ -9,9 +9,9 @@ write -infinity * infinity;
 
 /*[OUTPUT]
 
-Error (5): Multiply has invalid result.
-Error (6): Multiply has invalid result.
-Error (7): Multiply has invalid result.
-Error (8): Multiply has invalid result.
+Error file:multiply002 (5): Multiply has invalid result.
+Error file:multiply002 (6): Multiply has invalid result.
+Error file:multiply002 (7): Multiply has invalid result.
+Error file:multiply002 (8): Multiply has invalid result.
 
 [OUTPUT]*/

@@ -7,7 +7,7 @@ write infinity * 0;
 
 /*[OUTPUT]
 
-Error (5): Multiply has invalid result.
-Error (6): Multiply has invalid result.
+Error file:multiply003 (5): Multiply has invalid result.
+Error file:multiply003 (6): Multiply has invalid result.
 
 [OUTPUT]*/

@@ -22,6 +22,6 @@ write c1@add( 1 ) nl;
 /*[OUTPUT]
 
 {complex 25, 15}
-Error (9): Must have 'complex' argument
+Error file:object004 (9): Must have 'complex' argument
 
 [OUTPUT]*/

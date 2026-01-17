@@ -24,7 +24,7 @@ write c1 nl;
 /*[OUTPUT]
 
 {complex 25, 15}
-Error (9): Must have 'complex' argument
+Error file:object007 (9): Must have 'complex' argument
 {complex 5, 9}
 
 [OUTPUT]*/

@@ -18,6 +18,6 @@ write e;
 /*[OUTPUT]
 
 Repeated
-Error (15): Element not found.
+Error file:lexicon001 (15): Element not found.
 
 [OUTPUT]*/

@@ -17,6 +17,6 @@ write @object( a ), @object( b ), @object( c ), @object( d ), @object( e ),
 
 /*[OUTPUT]
 
-, , , , , , :, , , Error (12): Whoops
+, , , , , , :, , , Error file:object001 (12): Whoops
 
 [OUTPUT]*/

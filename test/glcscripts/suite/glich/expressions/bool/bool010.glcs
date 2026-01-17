@@ -8,9 +8,9 @@ write 1 or 1;
 
 /*[OUTPUT]
 
-Error (4): Operator 'and' requires boolean values.
-Error (5): Operator 'and' requires boolean values.
-Error (6): Operator 'or' requires boolean values.
-Error (7): Operator 'or' requires boolean values.
+Error file:bool010 (4): Operator 'and' requires boolean values.
+Error file:bool010 (5): Operator 'and' requires boolean values.
+Error file:bool010 (6): Operator 'or' requires boolean values.
+Error file:bool010 (7): Operator 'or' requires boolean values.
 
 [OUTPUT]*/

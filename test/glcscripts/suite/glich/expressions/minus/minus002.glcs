@@ -3,6 +3,6 @@
 write -true;
 
 /*[OUTPUT]
-Error (3): Can only negate number types.
+Error file:minus002 (3): Can only negate number types.
 
 [OUTPUT]*/

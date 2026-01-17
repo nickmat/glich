@@ -3,6 +3,6 @@
 write -"Hello";
 
 /*[OUTPUT]
-Error (3): Can only negate number types.
+Error file:minus003 (3): Can only negate number types.
 
 [OUTPUT]*/

@@ -16,6 +16,6 @@ write @size( a ), @size( b ), @size( c ), @size( d ), @size( e ), @size( f ), @s
 
 /*[OUTPUT]
 
-0, 0, 0, 4, 0, 2, 3, 0, 0, Error (12): Whoops
+0, 0, 0, 4, 0, 2, 3, 0, 0, Error file:size001 (12): Whoops
 
 [OUTPUT]*/
