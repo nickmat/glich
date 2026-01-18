@@ -173,11 +173,11 @@ string Glich::run_script( const string& script, const string& module )
     return oss.str();
 }
 
-string Glich::run_script_file( const string& filename )
+string Glich::run_script_file( const string& filename, const std::string& module )
 {
     std::ifstream ifs( filename.c_str() );
     std::ostringstream oss;
-    run( ifs, oss, "file:" + filename, 1 );
+    run( ifs, oss, module, 1 );
     return oss.str();
 }
 
@@ -191,7 +191,7 @@ string Glich::run_module( const string& mod )
         if( !std::filesystem::exists( filename ) ) {
             return "Module file not found: " + filename;
         }
-        return run_script_file( filename );
+        return run_script_file( filename, mod );
     }
     else if( location == "glich" ) {
         return string(); // There are no glich modules yet!

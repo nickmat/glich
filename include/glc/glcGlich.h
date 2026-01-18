@@ -72,7 +72,7 @@ namespace glich {
         virtual void load_builtin_library( StdStrVec args );
 
         std::string run_script( const std::string& script, const std::string& module );
-        std::string run_script_file( const std::string& filename );
+        std::string run_script_file( const std::string& filename, const std::string& module );
         virtual std::string run_module( const std::string& mod );
         virtual SValue evaluate( const std::string& expression );
         virtual bool run( std::istream& in, std::ostream& out, const std::string& module, int line = 1 );
