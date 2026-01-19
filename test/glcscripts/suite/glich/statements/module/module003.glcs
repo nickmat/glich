@@ -13,6 +13,6 @@ write o@err;
 /*[OUTPUT]
 
 {test_sum 1, 2, 3}, 6
-Error file:test_module001.glcs (9): Testing.
+Error file:test_module001 (9): Testing.
 
 [OUTPUT]*/

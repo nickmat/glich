@@ -4,3 +4,7 @@
 function test_mod5( mess ) {
     result = "The message is: " + mess;
 };
+
+function test_err {
+    result = @error( "Test err." );
+};

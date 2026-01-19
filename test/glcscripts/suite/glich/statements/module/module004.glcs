@@ -1,0 +1,10 @@
+// module005.glcs Test module statement
+
+module file:test_module005;
+
+write @test_err;
+
+/*[OUTPUT]
+Error file:test_module005 (9): Test err.
+
+[OUTPUT]*/
