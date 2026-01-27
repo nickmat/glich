@@ -103,7 +103,6 @@ namespace glich {
         SToken& current() { return m_cur_token; }
         void skip_to( SToken::Type type );
         std::string read_until( const std::string& name, const std::string& esc );
-        std::string read_do_block();
         bool skip_to_char( char end );
 
         bool error( const std::string& mess );

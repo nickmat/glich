@@ -347,9 +347,12 @@ bool glich::Script::do_if_orig( bool result )
 bool Script::do_do()
 {
     int start_line = m_ts.get_line();
-//    Use the following when removing the do ... loop option.
-//    string code = m_ts.read_until( "}", "{" );
-    string code = m_ts.read_do_block();
+    SToken token = next_token();
+    if( token.type() != SToken::Type::LCbracket ) {
+        error( "'{' expected." );
+        return false;
+    }
+    string code = m_ts.read_until( "}", "{" );
     if( code.empty() ) {
         error( "Do loop not terminated." );
         return false;
@@ -362,11 +365,7 @@ bool Script::do_do()
         bool exit = false;
         SToken token = next_token();
         for( ;;) {
-            if( token.type() == SToken::Type::RCbracket ) {
-                break;
-            }
             if( token.type() == SToken::Type::End ) {
-                exit = true;
                 break;
             }
             if( token.type() == SToken::Type::Name ) {
@@ -387,9 +386,6 @@ bool Script::do_do()
                     }
                     token = current_token();
                     continue;
-                }
-                if( name == "loop" ) {
-                    break;
                 }
             }
             if( statement() == false ) {
