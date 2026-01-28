@@ -348,9 +348,40 @@ bool Script::do_do()
 {
     int start_line = m_ts.get_line();
     SToken token = next_token();
+    string entry;
+    SValue container;
+    Range range;
+    Field index = 0, end_index = 0;
     if( token.type() != SToken::Type::LCbracket ) {
-        error( "'{' expected." );
-        return false;
+        if( token.type() == SToken::Type::Name ) {
+            entry = token.get_str();
+            token = next_token();
+            if( token.type() == SToken::Type::Name && token.get_str() == "in" ) {
+                container = expr( GetToken::next );
+                bool success = false;
+                range = container.get_range( success );
+                if( !success ) {
+                    error( "Range expression expected." );
+                    return false;
+                }
+                if( !range.is_finite() ) {
+                    error( "Finite range expected." );
+                    return false;
+                }
+                if( current_token().type() != SToken::Type::LCbracket ) {
+                    error( "'{' expected." );
+                    return false;
+                }
+            } else {
+                error( "Expected 'in'." );
+                return false;
+            }
+        } else {
+            error( "'{' expected." );
+            return false;
+        }
+        end_index = range.m_end - range.m_beg + 1;
+        glc().create_local( entry );
     }
     string code = m_ts.read_until( "}", "{" );
     if( code.empty() ) {
@@ -361,6 +392,13 @@ bool Script::do_do()
     std::istringstream iss( code );
     std::istream* prev_iss = m_ts.reset_in( &iss );
     for( size_t i = 1000; i > 0; --i ) {  // We have a limit of 1000 reiterations
+        if( container.type() == SValue::Type::range ) {
+            if( index >= end_index ) {
+                break;
+            }
+            glc().update_local( entry, SValue( range.m_beg + index ) );
+            ++index;
+        }
         m_ts.set_line( get_module(), start_line );
         bool exit = false;
         SToken token = next_token();
