@@ -1,0 +1,13 @@
+// do012.glcs Test file to test do statement
+
+write "Start ";
+
+do cnt in 1..3 {
+  write cnt,;
+};
+
+write "end", cnt;
+
+/*[OUTPUT]
+Start 1, 2, 3, end, 3
+[OUTPUT]*/
