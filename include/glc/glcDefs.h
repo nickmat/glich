@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -78,6 +78,7 @@ namespace glich {
         Range( Field beg, Field end ) : m_beg( beg ), m_end( end ) {}
 
         bool is_valid() const { return m_beg != f_invalid && m_end != f_invalid && m_beg <= m_end; }
+        bool is_finite() const { return m_beg > f_minimum && m_end < f_maximum && m_beg <= m_end; }
     };
 
     inline bool operator==( const Range& left, const Range& right ) {
