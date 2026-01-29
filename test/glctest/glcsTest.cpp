@@ -183,7 +183,7 @@ string run_test_script( TestResults* totals, Glich& glc, const string& filename 
     if( filename.find( "hics-lib" ) != string::npos ) {
         hic().load_hics_library();
     }
-    string output = glc.run_script( script, "test:" + filename );
+    string output = glc.run_script( script, get_module_name( filename ) );
     string expected;
     size_t pos1 = script.find( "/*[OUTPUT]\n" );
     if( pos1 != string::npos ) {
