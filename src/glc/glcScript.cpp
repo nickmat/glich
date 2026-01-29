@@ -373,7 +373,7 @@ bool Script::do_do()
                     return false;
                 }
             } else {
-                error( "Expected 'in'." );
+                error( "Expected 'in' keyword." );
                 return false;
             }
         } else {
