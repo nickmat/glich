@@ -388,6 +388,11 @@ bool Script::do_do()
         error( "Do loop not terminated." );
         return false;
     }
+    token = next_token();
+    if( token.type() != SToken::Type::Semicolon ) {
+        error( "';' expected." );
+        return false;
+    }
     int end_line = m_ts.get_line();
     std::istringstream iss( code );
     std::istream* prev_iss = m_ts.reset_in( &iss );
@@ -416,13 +421,18 @@ bool Script::do_do()
                         exit = true;
                         break;
                     }
+                    if( current_token().type() != SToken::Type::Semicolon ) {
+                        error( "';' expected." );
+                        exit = true;
+                        break;
+                    }
+                    token = next_token(); // Move past semicolon
                     if( name == "while" ) {
                         exit = !exit;
                     }
                     if( exit ) {
                         break;
                     }
-                    token = current_token();
                     continue;
                 }
             }
