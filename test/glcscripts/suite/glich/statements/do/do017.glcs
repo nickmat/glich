@@ -1,0 +1,16 @@
+// do017.glcs Test file to test do statement
+
+write nl;
+write "Start ";
+
+do cnt inx 1..3 {
+  write cnt,;
+};
+
+write "end", cnt nl;
+
+/*[OUTPUT]
+
+Start Error file:do017 (6): Expected 'in' keyword.
+
+[OUTPUT]*/

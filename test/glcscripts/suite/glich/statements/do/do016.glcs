@@ -1,0 +1,16 @@
+// do016.glcs Test file to test do statement
+
+write nl;
+write "Start ";
+
+do cnt in 1..+infinity {
+  write cnt,;
+};
+
+write "end", cnt nl;
+
+/*[OUTPUT]
+
+Start Error file:do016 (6): Finite range expected.
+
+[OUTPUT]*/
