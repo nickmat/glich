@@ -1,0 +1,17 @@
+// do013.glcs Test do statement error on missing ; statement terminator 
+
+write "Start ";
+
+let count = 0;
+do { 
+  while count < 3 // missing ';'
+  let count += 1;
+  write count,;
+};
+
+write "end";
+
+/*[OUTPUT]
+Start Error file:do013 (8): ';' expected.
+end
+[OUTPUT]*/

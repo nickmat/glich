@@ -1,0 +1,16 @@
+// do012.glcs Test file to test do statement
+
+write nl;
+write "Start ";
+
+do cnt in 1..3 {
+  write cnt,;
+} // missing ';'
+
+write "end", cnt nl;
+
+/*[OUTPUT]
+
+Start Error file:do014 (10): ';' expected.
+
+[OUTPUT]*/
