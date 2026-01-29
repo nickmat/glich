@@ -392,7 +392,7 @@ bool Script::do_do()
     std::istringstream iss( code );
     std::istream* prev_iss = m_ts.reset_in( &iss );
     for( size_t i = 1000; i > 0; --i ) {  // We have a limit of 1000 reiterations
-        if( container.type() == SValue::Type::range ) {
+        if( range.m_beg != f_invalid ) {
             if( index >= end_index ) {
                 break;
             }
