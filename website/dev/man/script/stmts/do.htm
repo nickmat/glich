@@ -86,6 +86,31 @@
  </tr>
 </table>
 
+<h2>Statement: do <i>int</i> in <i>range</i> { ... };</h2>
+<p>
+ A <b>do</b> <i>int</i> <b>in</b> <i>range</i> <b>{</b> <i>statements</i> ... <b>};</b> statement
+ runs the statements in between for each integer in the given range.
+ The integer variable is set to the current integer in the range
+ for each iteration of the loop.
+</p>
+<p>
+ The statement creates or reuses a local variable with the name given by <i>int</i>.
+ The variable is not scoped and is available after the loop has finished.
+</p>
+<table class='basic'>
+ <tr><th colspan='2'>do Statement</th></tr>
+ <tr><th>Example</th><th>Output</th></tr>
+ <tr>
+  <td class='example'>let a = {: 2, 3, 5, 7, 11, 13, 17, 19 };
+<b>do</b> i <b>in</b> 0..a@size-1 <b>{</b>
+    write a[(i)] * a[(i)],;
+<b>};</b></td>
+  <td>
+    4, 9, 25, 49, 121, 169, 289, 361
+  </td>
+ </tr>
+</table>
+
 </div><!--id=content-->
 
  <div class="crumbs">
