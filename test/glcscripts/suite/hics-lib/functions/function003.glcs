@@ -10,9 +10,9 @@ function AGE.sch( birth, date ) {
         end;
     };
     let date1 = @scheme.(sch)(birth);
-    let y1 = date1[year]; let m1 = date1[month]; let d1 = date1[day];
+    let y1 = date1[.year]; let m1 = date1[.month]; let d1 = date1[.day];
     let date2 = @scheme.(sch)(date);
-    let y2 = date2[year]; let m2 = date2[month]; let d2 = date2[day];
+    let y2 = date2[.year]; let m2 = date2[.month]; let d2 = date2[.day];
 
     let unit = "year";    
     let age = y2 - y1;

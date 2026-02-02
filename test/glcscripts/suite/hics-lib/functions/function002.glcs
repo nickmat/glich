@@ -1,48 +1,48 @@
 // function002.hcs - test date of birth function
 
 
-object AGE { values value, unit, scheme; }
+object AGE { values value, unit, scheme; };
 
 function DOB( date, age ) {
     if @object(age) <> "AGE" {
         result = @error( "Parameter age must be AGE object" );
         end;
     };
-    let sch = age[scheme];
+    let sch = age[.scheme];
     if @type(sch) = "null" {
         sch = "g";
     };
-    if age[unit] = "day" {
-        result = date - age[value];
+    if age[.unit] = "day" {
+        result = date - age[.value];
         end;
     };
-    if age[unit] = "week" {
-        let start = date - ( age[value] + 1 ) * 7 + 1;
+    if age[.unit] = "week" {
+        let start = date - ( age[.value] + 1 ) * 7 + 1;
         result = start .. start + 6;
         end;
     };
     let record = @scheme.(sch)( date );
     let beg = record;
     let fin = record;
-    if age[unit] = "month" {
-        let m = record[month] - age[value] - 1;
-        let y = record[year];
+    if age[.unit] = "month" {
+        let m = record[.month] - age[.value] - 1;
+        let y = record[.year];
         if m < 1 {
             m = m mod 12;
-            y = record[year] - 1;
+            y = record[.year] - 1;
         };
         beg[month] = m;
         beg[year] = y;
         if m > 12 {
             m = (m mod 12) + 1;
-            y = record[year] + 1;
+            y = record[.year] + 1;
         };
         m += 1;
         fin[month] = m;
         fin[year] = y;
-    } elseif age[unit] = "year" {
-        beg[year] = record[year] - age[value] - 1;
-        fin[year] = record[year] - age[value];
+    } elseif age[.unit] = "year" {
+        beg[year] = record[.year] - age[.value] - 1;
+        fin[year] = record[.year] - age[.value];
     } else {
         result = @error("Invalid age unit");
         end;

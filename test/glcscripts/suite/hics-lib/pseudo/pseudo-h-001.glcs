@@ -3,16 +3,16 @@
 let fo = @fmt:object.h:u;
 
 write nl;
-write fo[pseudo:in] nl;
-write fo[pseudo:out] nl;
+write fo[.pseudo:in] nl;
+write fo[.pseudo:out] nl;
 
 fo = @fmt:object.h:dmy_a;
-write fo[pseudo:in] nl;
-write fo[pseudo:out] nl;
+write fo[.pseudo:in] nl;
+write fo[.pseudo:out] nl;
 
 fo = @fmt:object.h:gedcom;
-write fo[pseudo:in] nl;
-write fo[pseudo:out] nl;
+write fo[.pseudo:in] nl;
+write fo[.pseudo:out] nl;
 
 
 /*[OUTPUT]

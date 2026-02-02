@@ -5,9 +5,9 @@ scheme G { base gregorian; };
 let s = @sch:object.G;
 
 write nl;
-write s[code], s[basename], s[default:in], s[default:out], s[visible] nl;
-write s[fieldnames] nl;
-write s[formats] nl;
+write s[.code], s[.basename], s[.default:in], s[.default:out], s[.visible] nl;
+write s[.fieldnames] nl;
+write s[.formats] nl;
 
 /*[OUTPUT]
 

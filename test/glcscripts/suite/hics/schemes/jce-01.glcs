@@ -94,7 +94,7 @@ write @date.JCE( {s:JCE 0,12,31} ), @date.JCE( {s:JCE 1,1,1} ) nl;
 write @date.JCE( {s:JCE ,12,31,0,1}@fixed ), @date.JCE( {s:JCE ,1,1,1,1}@fixed ) nl;
 write @text.JCE:out( 2432814 ) nl;
 let fo = @fmt:object.JCE:u;
-write fo[pseudo:in], fo[pseudo:out] nl;
+write fo[.pseudo:in], fo[.pseudo:out] nl;
 
 /*[OUTPUT]
 

@@ -6,7 +6,7 @@ object complex {
 
 let c = {complex 5, 9};
 
-write c[real] + ", " + c[1];
+write c[.real] + ", " + c[1];
 
 /*[OUTPUT]
 5, 9

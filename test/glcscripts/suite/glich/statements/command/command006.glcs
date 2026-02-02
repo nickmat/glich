@@ -6,12 +6,12 @@ object complex {
 
 command write_complex( c ) {
     if @object(c) = "complex" {
-        if c[imaginary] < 0 {
-            write c[real] + " - " + -c[imaginary] + "i";
-        } elseif c[imaginary] = 0 {
-            write c[real];
+        if c[.imaginary] < 0 {
+            write c[.real] + " - " + -c[.imaginary] + "i";
+        } elseif c[.imaginary] = 0 {
+            write c[.real];
         } else {
-            write c[real] + " + " + c[imaginary] + "i";
+            write c[.real] + " + " + c[.imaginary] + "i";
         };
     };
 };
