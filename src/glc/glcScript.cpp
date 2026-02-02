@@ -1127,22 +1127,19 @@ SValue Script::subscript( GetToken get )
         SToken token = current_token();
         switch( token.type() )
         {
-        case SToken::Type::LSbracket: {
-                SValue right;
-                token = next_token();
-                if( token.type() == SToken::Type::Name ) {
-                    right.set_str( token.get_str() );
-                    next_token();
-                }
-                else {
-                    right = expr( GetToken::current );
-                }
-                left = do_subscript( left, right );
-                if( current_token().type() != SToken::Type::RSbracket ) {
-                    error( "']' expected." );
-                }
-                next_token();
+        case SToken::Type::LSbracket:
+            token = next_token();
+            if( token.type() == SToken::Type::Dot ) {
+                left = do_subscript( left, SValue( get_name_or_primary( GetToken::next ) ) );
             }
+            else {
+                left = do_subscript( left, expr( GetToken::current ) );
+            }
+            if( current_token().type() != SToken::Type::RSbracket ) {
+                error( "']' expected." );
+                break;
+            }
+            next_token(); // Step over ']'.
             break;
         case SToken::Type::At:
             left = do_at( left, get_name_or_primary( GetToken::next ) );
