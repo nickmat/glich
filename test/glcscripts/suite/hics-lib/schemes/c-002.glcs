@@ -2,11 +2,11 @@
 
 
 write nl;
-write @fmt:object.c:u[shorthand], @fmt:object.c:def[shorthand],
-    @fmt:object.c:ymld[shorthand], @fmt:object.c:ylmd[shorthand],
-    @fmt:object.c:cymld[shorthand], @fmt:object.c:cylmd[shorthand],
-    @fmt:object.c:cylmd_s[shorthand], @fmt:object.c:full[shorthand],
-    @fmt:object.c:animal[shorthand] nl;
+write @fmt:object.c:u[.shorthand], @fmt:object.c:def[.shorthand],
+    @fmt:object.c:ymld[.shorthand], @fmt:object.c:ylmd[.shorthand],
+    @fmt:object.c:cymld[.shorthand], @fmt:object.c:cylmd[.shorthand],
+    @fmt:object.c:cylmd_s[.shorthand], @fmt:object.c:full[.shorthand],
+    @fmt:object.c:animal[.shorthand] nl;
 write @date.c:ymld( "4662 6 F 15" ), @text.c:ymld( 2460866 ) nl;
 write @date.c:ymld( "4662 6 S 15" ), @text.c:ymld( 2460896 ) nl;
 write @date.c:ymld( "4662 6 F" ), @text.c:ymld( 2460852..2460881 ) nl;

@@ -5,7 +5,7 @@ let sch = "jwsn";
 let d1 = 2460631;
 
 let so = @sch:object.(sch);
-let sfl = so[formats];
+let sfl = so[.formats];
 let size = @size( sfl );
 
 write nl;
@@ -18,24 +18,24 @@ do {
     let fmt = sfl[(index)];
     let sig = sch + ":" + fmt;
     let fo = @fmt:object.(sig);
-    let note = @if(fo[visible], "", "H");
-    if so[default:in] = fmt or so[default:out] = fmt {
+    let note = @if(fo[.visible], "", "H");
+    if so[.default:in] = fmt or so[.default:out] = fmt {
         if @size( note ) > 0 {
             note += ", ";
         };
         note += "D";
     };
-    if fo[shorthand] {
+    if fo[.shorthand] {
         if @size( note ) > 0 {
             note += ", ";
         };
         note += "S";
     };
         
-    let row = "<tr><td><b>" + fo[code] + "</b></td>"
-      + "<td>" +fo[rules] + "</td>"
-      + "<td>" + fo[pseudo:in] + "</td>"
-      + "<td>" + fo[pseudo:out] + "</td>"
+    let row = "<tr><td><b>" + fo[.code] + "</b></td>"
+      + "<td>" +fo[.rules] + "</td>"
+      + "<td>" + fo[.pseudo:in] + "</td>"
+      + "<td>" + fo[.pseudo:out] + "</td>"
       + "<td class='example'>" + @text.(sig)(d1) + "</td>"
       + "<td>" + note + "</td></tr>";
 

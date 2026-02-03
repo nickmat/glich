@@ -7,41 +7,41 @@ let d2 = 2460409;
 let d3 = 2460764;
 
 let so = @sch:object.(sch);
-let sfl = so[formats];
+let sfl = so[.formats];
 let size = @size( sfl );
 let index = 0;
 
 write nl;
 write "<table class='basic data'>" nl;
-write "<tr><th colspan='5'>Formats - Grammar " + so[grammar] + "</th></tr>" nl;
+write "<tr><th colspan='5'>Formats - Grammar " + so[.grammar] + "</th></tr>" nl;
 write "<tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>" nl;
 
 do {
     let fmt = sfl[(index)];
     let sig = sch + ":" + fmt;
     let fo = @fmt:object.(sig);
-    let note = @if(fo[visible], "", "H");
-    if so[default:in] = fmt or so[default:out] = fmt {
+    let note = @if(fo[.visible], "", "H");
+    if so[.default:in] = fmt or so[.default:out] = fmt {
         if @size( note ) > 0 {
             note += ", ";
         };
         note += "D";
     };
-    if fo[shorthand] {
+    if fo[.shorthand] {
         if @size( note ) > 0 {
             note += ", ";
         };
         note += "S";
     };
     
-    let p = fo[pseudo:in];
+    let p = fo[.pseudo:in];
     if @size(p) > 0 {
         p = "<b>Input:</b> " + p + "<br />";
     };
-    p = "<td>" + p + "<b>Output:</b> " + fo[pseudo:out] + "</td>";
+    p = "<td>" + p + "<b>Output:</b> " + fo[.pseudo:out] + "</td>";
 
-    let row = "<tr><td><b>" + fo[code] + "</b></td>"
-      + "<td>" +fo[rules] + "</td>"
+    let row = "<tr><td><b>" + fo[.code] + "</b></td>"
+      + "<td>" +fo[.rules] + "</td>"
       + p
       + "<td class='example'>" + @text.(sig)(d1) + "<br />"
       + @text.(sig)(d2) + "<br />"
