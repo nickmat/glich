@@ -1,0 +1,25 @@
+// subscript002.glcs Test let statement with subscript index
+
+object pair { values first second; };
+
+let p = {pair};
+
+write nl;
+write p nl;
+
+p[1] = 123;
+p[0] = "name";
+write p nl;
+
+let second = 0;
+p[second] = "rabbit";
+p[10 /% (8 + 2)] = 999;
+write p nl;
+
+/*[OUTPUT]
+
+{pair null, null}
+{pair "name", 123}
+{pair "rabbit", 999}
+
+[OUTPUT]*/

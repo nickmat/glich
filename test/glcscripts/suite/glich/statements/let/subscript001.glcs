@@ -1,0 +1,27 @@
+// subscript001.glcs Test let statement with subscript names
+
+object pair { values first second; };
+
+let p = {pair};
+
+write nl;
+write p nl;
+
+p["second"] = 123;
+p[.first] = "name";
+write p nl;
+
+let second = "second";
+let beg = "fi";
+let end = "rst";
+p[second] = 999;
+p[beg + end] = "rabbit";
+write p nl;
+
+/*[OUTPUT]
+
+{pair null, null}
+{pair "name", 123}
+{pair "rabbit", 999}
+
+[OUTPUT]*/
