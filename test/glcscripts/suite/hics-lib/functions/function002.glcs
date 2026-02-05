@@ -31,18 +31,18 @@ function DOB( date, age ) {
             m = m mod 12;
             y = record[.year] - 1;
         };
-        beg[month] = m;
-        beg[year] = y;
+        beg[.month] = m;
+        beg[.year] = y;
         if m > 12 {
             m = (m mod 12) + 1;
             y = record[.year] + 1;
         };
         m += 1;
-        fin[month] = m;
-        fin[year] = y;
+        fin[.month] = m;
+        fin[.year] = y;
     } elseif age[.unit] = "year" {
-        beg[year] = record[.year] - age[.value] - 1;
-        fin[year] = record[.year] - age[.value];
+        beg[.year] = record[.year] - age[.value] - 1;
+        fin[.year] = record[.year] - age[.value];
     } else {
         result = @error("Invalid age unit");
         end;

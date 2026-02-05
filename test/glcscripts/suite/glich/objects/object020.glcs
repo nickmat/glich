@@ -4,7 +4,7 @@ object complex { values real imaginary; };
 
 let a = {complex 1, 2};
 
-a[real] = 9;
+a[.real] = 9;
 
 write a;
 
