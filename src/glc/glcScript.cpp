@@ -527,12 +527,36 @@ bool Script::do_assign( const string& name, VariableType vartype )
             error( "Object type expected." );
             return false;
         }
+        token = next_token();
+        if( token.type() == SToken::Type::RSbracket || token.type() == SToken::Type::End) {
+            error( "Subscript expected." );
+            return false;
+        }
+        string istr;
         size_t index = 0;
-        string istr = get_name_or_primary( GetToken::next );
-        if( istr.size() > 0 && isdigit( istr[0] ) ) {
-            index = str_to_num( istr );
+        if( token.type() == SToken::Type::Dot ) {
+            istr = get_name_or_primary( GetToken::next );
         }
         else {
+            SValue sub = expr( GetToken::current );
+            if( sub.type() == SValue::Type::String ) {
+                istr = sub.get_str();
+            }
+            else {
+                bool success = false;
+                Num num = sub.get_number( success );
+                if( !success ) {
+                    error( "Numeric or string subscript expected." );
+                    return false;
+                }
+                if( num < 0 ) {
+                    error( "Negative subscript not allowed." );
+                    return false;
+                }
+                index = static_cast<size_t>( num );
+            }
+        }
+        if( !istr.empty() ) {
             Object* obj = vp->get_object_ptr();
             index = obj->get_vindex( istr );
             if( index == 0 ) {
