@@ -11,6 +11,6 @@ write "end", cnt nl;
 
 /*[OUTPUT]
 
-Start Error file:do017 (6): Expected 'in' keyword.
+Start Error file:do017 (6): Expected 'in' or 'in:r' keyword.
 
 [OUTPUT]*/
