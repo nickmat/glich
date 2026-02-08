@@ -14,41 +14,41 @@ Welcome to the quickstart guide for **Glich**—a script language with a histori
 
 ### Running a Script and Exiting: `glich`
 
-- Use `glich.exe` to run one or more Glich scripts in sequence, performing all calculations/output, and then exiting.
+- Use `glich` to run one or more Glich scripts in sequence, performing all calculations/output, and then exiting.
 - Typical usage:
 
 ```sh
-glich.exe myscript.glcs
+glich myscript.glcs
 ```
 
 - You can supply multiple scripts; they will be run in order:
 
 ```sh
-glich.exe setup.glcs calendar.glcs demo.glcs
+glich setup.glcs calendar.glcs demo.glcs
 ```
 
-- Output from `write` statement and similar instructions will be displayed in the console terminal, or can be redirected to a file.
+- Output from the `write` statement and similar instructions will be displayed in the console terminal, or can be redirected to a file.
 
-### Interactive Terminal: `glcs.exe`
+### Interactive Terminal: `glcs`
 
-- Use `glcs.exe` for an interactive Glich session—much like a Python or Bash REPL.
+- Use `glcs` for an interactive Glich session—much like a Python or Bash REPL.
 - Type Glich expressions, script code, and commands, and see immediate results:
 
 ```sh
-glcs.exe
+glcs
 ```
 
 - You can also load a script first, then interact:
 
 ```sh
-glcs.exe myscript.glcs
+glcs myscript.glcs
 ```
 
 ### Other Glich/Hics Programs
 
-- **gliched.exe**: A very basic IDE for writing, editing, and running Glich scripts.  
+- **gliched**: A very basic IDE for writing, editing, and running Glich scripts.  
   Useful for rapid development and experimentation, but not a full-featured code editor.
-- **HistoryCal.exe**: A standalone calendar calculator and conversion program.  
+- **HistoryCal**: A standalone calendar calculator and conversion program.  
   Designed for quick calculations, conversions, and lookups outside the scripting environment.
 
 ### Script Format
@@ -116,11 +116,11 @@ let far_future = future; // Same as +infinity
 ```glich
 let r = 2f..7f;          // Range from 2 to 7
 let from_ints = 3..6;    // Numbers auto-convert to fields
-let single = 8..8;     // Single value, equivalent to 8f field
+let single = 8..8;       // Single value, equivalent to 8f field
 let backwards = 7..4;    // Auto-stored as 4..7
-write r;          // Output: 2..7
-write single;     // Output: 8
-write backwards;  // Output: 4..7
+write r;                 // Output: 2..7
+write single;            // Output: 8
+write backwards;         // Output: 4..7
 ```
 
 ### RList
@@ -148,8 +148,8 @@ write none;               // Output: empty
 **Examples:**
 ```glich
 let pi = 3.14159;
-let f1 = +inf;    // Positive infinity
-let f2 = -inf;    // Negative infinity
+let f1 = +inf;         // Positive infinity
+let f2 = -inf;         // Negative infinity
 let impossible = nan;  // Not-a-number float value
 ```
 
@@ -163,8 +163,8 @@ let impossible = nan;  // Not-a-number float value
 ```glich
 write "He said ""Hi""";   // Output: He said "Hi"
 write "First line
-Second line";            // Output: First line
-//         Second line
+Second line";             // Output: First line
+                          //         Second line
 ```
 - There are no single-quoted strings; only double quotes are used for literals.
 
@@ -174,6 +174,7 @@ Second line";            // Output: First line
 ```glich
 let is_valid = true;
 write is_valid;   // Output: true
+write 2 = 3;      // Output: false
 ```
 
 ### Object
@@ -211,8 +212,8 @@ Glich provides operators for manipulating numbers, fields, floats, booleans, str
 | `-`                | Subtraction         | `5 - 1`         | `4`         |
 | `*`                | Multiplication      | `4 * 2`         | `8`         |
 | `/`                | Division (float result) | `5 / 2`     | `2.5`       |
-| `%/`               | Integer division    | `5 %/ 2`        | `2`         |
-| `%%`               | Modulo/remainder    | `8 %% 3`        | `2`         |
+| `/%`               | Integer division    | `5 /% 2`        | `2`         |
+| `%`                | Modulo/remainder    | `8 % 3`         | `2`         |
 | `-x`               | Negation            | `-7`            | `-7`        |
 
 ### Assignment Operators
@@ -224,8 +225,13 @@ Glich provides operators for manipulating numbers, fields, floats, booleans, str
 | `-=`      | `n -= 1`        | `n = n - 1`        |
 | `*=`      | `x *= 10`       | `x = x * 10`       |
 | `/=`      | `x /= 2`        | `x = x / 2`        |
-| `%/=`     | `x %/= 2`       | `x = x %/ 2`       |
-| `%%=`     | `x %%= 2`       | `x = x %% 2`       |
+| `/%=`     | `x /%= 2`       | `x = x /% 2`       |
+| `%=`      | `x %= 2`        | `x = x % 2`        |
+| `\|=`     | `x \|= 2`       | `x = x \| 2`       |
+| `&&=`     | `x &&= 2`       | `x = x && 2`       |
+| `^^=`     | `x ^^= 2`       | `x = x ^^ 2`       |
+| `\\=`     | `x \\= 2`       | `x = x \\ 2`       |
+
 
 ### Comparison Operators
 
@@ -499,9 +505,10 @@ object pair { values first second; };
 ```glich
 let p = {pair "one", 1};
 ```
-- Access fields with names or by index:
+- Access fields with names or by index.
+- Use a string or string expression or the dot notation to avoid quotation marks:
 ```glich
-write p[first] + " is " + p[second];  // Output: one is 1
+write p[.first] + " is " + p["second"];  // Output: one is 1
 write p[0] + " is " + p[1];           // Output: one is 1
 ```
 - Objects must be defined before use.
@@ -566,8 +573,8 @@ object pair {
 };
 let p = {pair "a", "b"};
 let q = p@set_first("z");
-write p[first];   // Output: a
-write q[first];   // Output: z
+write p[.first];   // Output: a
+write q[.first];   // Output: z
 ```
 
 ---
@@ -585,7 +592,7 @@ write {: 10, 20}@obj:name;      // Output: ":"
 Common built-in object functions include:
 - **@size** — returns the number of elements/fields in the object.
 - **@obj:name** — returns the object code string.
-- **@obj:list** — returns the values as a standard list/array.
+- **@obj:list** — returns the values as a standard list/array one element per line..
 
 For a complete list and details, see:
 [https://nickmat.github.io/glich/website/dev/man/script/bi-objects.htm](https://nickmat.github.io/glich/website/dev/man/script/bi-objects.htm)
@@ -605,7 +612,7 @@ function must_be_positive(x) {
   result = x;
 }
 ```
-- Returned error values propagate—for `command`, they'll cause the `call` to fail.
+- Returned error values propagate—for `command`, they'll cause the `call` statement to fail.
 
 ---
 
@@ -656,7 +663,7 @@ do {
 ```glich
 let n = 0;
 do {
-  write n nl;
+  write n + " ";
   n += 1;
   if n = 5 {
     end;
@@ -665,7 +672,23 @@ do {
 // Output: 0 1 2 3 4
 ```
 
-- You can use assignment operators like `+=`, `-=`, etc., for counters and other variables in the loop.
+**Counter variable Syntax:**
+The loop can use or reuse a local variable using the `counter in range` syntax. The counter runs through all values of the range, automatically increasing at the end of the loop.
+```glich
+do counter in range {
+  // repeated statements
+  // counter is incremented with each pass.
+};
+
+**Example: Using counter**
+```glich
+do n in 1..5 {
+  write n nl;
+};
+// Output: 1 2 3 4 5
+```
+- Note, range values are inclusive.
+
 
 ---
 
