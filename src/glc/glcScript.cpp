@@ -352,11 +352,13 @@ bool Script::do_do()
     SValue container;
     Range range;
     Field index = 0, end_index = 0;
+    bool forward = true;
     if( token.type() != SToken::Type::LCbracket ) {
         if( token.type() == SToken::Type::Name ) {
             entry = token.get_str();
             token = next_token();
-            if( token.type() == SToken::Type::Name && token.get_str() == "in" ) {
+            if( token.type() == SToken::Type::Name && token.get_str() == "in" ||
+                token.type() == SToken::Type::Name && token.get_str() == "in:r" ) {
                 container = expr( GetToken::next );
                 bool success = false;
                 range = container.get_range( success );
@@ -364,17 +366,20 @@ bool Script::do_do()
                     error( "Range expression expected." );
                     return false;
                 }
-                if( !range.is_finite() ) {
-                    error( "Finite range expected." );
-                    return false;
-                }
-                if( current_token().type() != SToken::Type::LCbracket ) {
-                    error( "'{' expected." );
-                    return false;
-                }
             } else {
                 error( "Expected 'in' keyword." );
                 return false;
+            }
+            if( !range.is_finite() ) {
+                error( "Finite range expected." );
+                return false;
+            }
+            if( current_token().type() != SToken::Type::LCbracket ) {
+                error( "'{' expected." );
+                return false;
+            }
+            if( token.get_str() == "in:r" ) {
+                forward = false;
             }
         } else {
             error( "'{' expected." );
@@ -401,8 +406,13 @@ bool Script::do_do()
             if( index >= end_index ) {
                 break;
             }
-            glc().update_local( entry, SValue( range.m_beg + index ) );
-            ++index;
+            if( forward ) {
+                glc().update_local( entry, SValue( range.m_beg + index ) );
+            }
+            else {
+                glc().update_local( entry, SValue( range.m_end - index ) );
+            }
+            index++;
         }
         m_ts.set_line( get_module(), start_line );
         bool exit = false;
