@@ -346,11 +346,14 @@ bool glich::Script::do_if_orig( bool result )
 
 bool Script::do_do()
 {
+    enum class DoType { forever, range, object };
+    DoType do_type = DoType::forever;
     int start_line = m_ts.get_line();
     SToken token = next_token();
     string entry;
     SValue container;
     Range range;
+    SValueVec values;
     Field index = 0, end_index = 0;
     bool forward = true;
     if( token.type() != SToken::Type::LCbracket ) {
@@ -361,16 +364,26 @@ bool Script::do_do()
                 token.type() == SToken::Type::Name && token.get_str() == "in:r" ) {
                 container = expr( GetToken::next );
                 bool success = false;
-                range = container.get_range( success );
+                values = container.get_object( success );
+                if( success ) {
+                    do_type = DoType::object;
+                    end_index = values.size() - 1;
+                }else{
+                    range = container.get_range( success );
+                    if( success ) {
+                        do_type = DoType::range;
+                        end_index = range.m_end - range.m_beg + 1;
+                    }
+                }
                 if( !success ) {
-                    error( "Range expression expected." );
+                    error( "Range or object expression expected." );
                     return false;
                 }
             } else {
-                error( "Expected 'in' keyword." );
+                error( "Expected 'in' or 'in:r' keyword." );
                 return false;
             }
-            if( !range.is_finite() ) {
+            if( do_type == DoType::range && !range.is_finite() ) {
                 error( "Finite range expected." );
                 return false;
             }
@@ -385,7 +398,6 @@ bool Script::do_do()
             error( "'{' expected." );
             return false;
         }
-        end_index = range.m_end - range.m_beg + 1;
         glc().create_local( entry );
     }
     string code = m_ts.read_until( "}", "{" );
@@ -402,15 +414,25 @@ bool Script::do_do()
     std::istringstream iss( code );
     std::istream* prev_iss = m_ts.reset_in( &iss );
     for( size_t i = 1000; i > 0; --i ) {  // We have a limit of 1000 reiterations
-        if( range.m_beg != f_invalid ) {
+        if( do_type != DoType::forever ) {
             if( index >= end_index ) {
                 break;
             }
-            if( forward ) {
-                glc().update_local( entry, SValue( range.m_beg + index ) );
+            if( do_type == DoType::object ) {
+                if( forward ) {
+                    glc().update_local( entry, values[index + 1] );
+                }
+                else {
+                    glc().update_local( entry, values[end_index - index] );
+                }
             }
             else {
-                glc().update_local( entry, SValue( range.m_end - index ) );
+                if( forward ) {
+                    glc().update_local( entry, SValue( range.m_beg + index ) );
+                }
+                else {
+                    glc().update_local( entry, SValue( range.m_end - index ) );
+                }
             }
             index++;
         }
