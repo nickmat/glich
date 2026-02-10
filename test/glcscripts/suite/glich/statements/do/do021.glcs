@@ -1,0 +1,17 @@
+// do021.glcs Test file to test do value in (empty) object statement
+
+
+write nl;
+write "Start ";
+
+do val in {:} {
+  write val,;
+};
+
+write "end", val nl;
+
+/*[OUTPUT]
+
+Start end, null
+
+[OUTPUT]*/

@@ -1,0 +1,18 @@
+// do020.glcs Test file to test do value in:r object statement
+
+let obj = {: "one", "two", "three"};
+
+write nl;
+write "Start ";
+
+do val in:r obj {
+  write val,;
+};
+
+write "end", val nl;
+
+/*[OUTPUT]
+
+Start three, two, one, end, one
+
+[OUTPUT]*/
