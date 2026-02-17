@@ -111,6 +111,31 @@
  </tr>
 </table>
 
+<h2>Statement: do <i>value</i> in <i>object</i> { ... };</h2>
+<p>
+ A <b>do</b> <i>value</i> <b>in</b> <i>object</i> <b>{</b> <i>statements</i> ... <b>};</b> statement
+ runs the statements in between for each value in the given object.
+ The value variable is set to the current value in the object
+ for each iteration of the loop.
+</p>
+<p>
+ The statement creates or reuses a local variable with the name given by <i>value</i>.
+ The variable is not scoped and is available after the loop has finished.
+</p>
+<table class='basic'>
+ <tr><th colspan='2'>do Statement</th></tr>
+ <tr><th>Example</th><th>Output</th></tr>
+ <tr>
+  <td class='example'>let obj = {: "Example text", 3, 5..7, 11 | 13 };
+<b>do</b> val <b>in</b> obj <b>{</b>
+    write val,;
+<b>};</b></td>
+  <td>
+    Example text, 3, 5..7, 11 | 13,
+  </td>
+ </tr>
+</table>
+
 </div><!--id=content-->
 
  <div class="crumbs">
