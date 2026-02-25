@@ -101,7 +101,6 @@ bool Script::statement()
 
     if( token.type() == SToken::Type::Name ) {
         string name = token.get_str();
-        if( name == "end" ) return false;
         if( name == "exit" ) return false;
         if( name == "mark" ) return do_mark();
         if( name == "if" ) return do_if();
