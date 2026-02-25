@@ -3,7 +3,7 @@
 function range_plus(start, duration = 7) {
     if duration < 1 {
         result = @error( "Duration must be above zero." );
-        end;
+        exit;
     };
     result = start .. start + duration - 1;
 };

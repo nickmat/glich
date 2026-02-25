@@ -6,7 +6,7 @@ object AGE { values value, unit, scheme; };
 function DOB( date, age ) {
     if @object(age) <> "AGE" {
         result = @error( "Parameter age must be AGE object" );
-        end;
+        exit;
     };
     let sch = age[.scheme];
     if @type(sch) = "null" {
@@ -14,12 +14,12 @@ function DOB( date, age ) {
     };
     if age[.unit] = "day" {
         result = date - age[.value];
-        end;
+        exit;
     };
     if age[.unit] = "week" {
         let start = date - ( age[.value] + 1 ) * 7 + 1;
         result = start .. start + 6;
-        end;
+        exit;
     };
     let record = @scheme.(sch)( date );
     let beg = record;
@@ -45,7 +45,7 @@ function DOB( date, age ) {
         fin[.year] = record[.year] - age[.value];
     } else {
         result = @error("Invalid age unit");
-        end;
+        exit;
     };
 
     result = @date(beg) + 1 .. @date(fin);
