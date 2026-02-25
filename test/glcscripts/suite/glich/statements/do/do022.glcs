@@ -1,0 +1,20 @@
+// do022.glcs Test file to test do statement with exit
+
+write nl;
+write "Start ";
+
+do cnt in 1..10 {
+  if cnt > 3 {
+    exit;
+  };
+  write cnt,;
+};
+
+write "end" nl;
+
+
+/*[OUTPUT]
+
+Start 1, 2, 3, end
+
+[OUTPUT]*/
