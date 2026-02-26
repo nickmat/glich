@@ -37,16 +37,16 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Statement: end</h2>
+<h2>Statement: exit</h2>
 <p>
- The <b>end</b> statement simply stops execution of the script.
+ The <b>exit</b> statement simply stops execution of the script.
 </p>
 
 <table class='code'>
 <tr><th>Example Script</th></tr>
 <tr><td class='example'
 >write "So far so good." nl;
-end;
+exit;
 write "We never get here!" nl;
 </td></tr>
 <tr><td class='note'>
@@ -55,11 +55,55 @@ write "We never get here!" nl;
 </td></tr>
 </table>
 
+<h3>Usage in Functions and Commands</h3>
+
 <p>
- If the end statement is used in a function or command,
+ If the exit statement is used in a function or command,
  then it ends the function or command
  and the script continues running from the calling point.
 </p>
+
+<table class='code'>
+<tr><th>Example Script</th></tr>
+<tr><td class='example'
+>function must_be_positive(x) {
+  if x <= 0 {
+    result = @error("Value must be positive.");
+    exit;
+  };
+  result = x;
+};
+write @must_be_positive(5) nl;
+write @must_be_positive(-3) nl;
+</td></tr>
+<tr><td class='note'>
+<b>Output:-</b><br />
+<code>5
+Value must be positive.<code>
+</td></tr>
+</table>
+
+<h3>Usage in Do Loops</h3>
+<p>
+ If the exit statement is used in a do loop,
+ then it ends the loop and the script continues running from the point after the loop.
+</p>
+<table class='code'>
+<tr><th>Example Script</th></tr>
+<tr><td class='example'
+>do i in 1..10 {
+    write i,;
+    if i = 5 {
+       exit;
+    };
+};
+write "Done" nl;
+</td></tr>
+<tr><td class='note'>
+<b>Output:-</b><br />
+<code>1, 2, 3, 4, 5, Done<code>
+</td></tr>
+</table>
 
 </div><!--id=content-->
 
