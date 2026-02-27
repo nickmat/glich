@@ -1,4 +1,5 @@
-// command005.hcs - Test command statement.
+// command006.glcs - Test command statement.
+// Used as example on the website command statement page.
 
 object complex {
     values real imaginary;
@@ -13,6 +14,8 @@ command write_complex( c ) {
         } else {
             write c[.real] + " + " + c[.imaginary] + "i";
         };
+    } else {
+        result = @error( "Argument must be a complex object." );
     };
 };
 
