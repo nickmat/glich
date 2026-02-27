@@ -70,7 +70,7 @@
 <tr><th>Example</th><th>Output</th></tr>
  <tr> <!-- See test file - test\tscripts\suite\functions\function012.hcs -->
   <td class='example'><b>command</b> wr_today <b>{</b>
-    write string.g:dmy today;
+    write @string.g:dmy( today );
 <b>};</b>
     ...
 <b>call</b> wr_today<b>;</b></td>
@@ -80,18 +80,20 @@
   <td colspan='2'>Written when today = "g:dmy# 21 May 2017"</td>
  </tr>
 
- <tr> <!-- See test file - test\tscripts\suite\functions\function014.hcs -->
+ <tr> <!-- See test file - test\glcscripts\suite\glich\statements\command\command006.glcs -->
   <td class='example'>object complex { values real imaginary; }
     
 <b>command</b> write_complex<b>(</b> c <b>) {</b>
-    if v[.object] = complex {
-        if c[imaginary] < 0 {
-            write c[real] + " - " + c[imaginary] + "i";
-        } elseif c[imaginary] = 0 {
-            write c[real];
+    if @object( c ) = "complex" {
+        if c[.imaginary] < 0 {
+            write c[.real] + " - " + c[.imaginary] + "i";
+        } elseif c[.imaginary] = 0 {
+            write c[.real];
         } else {
-            write c[real] + " + " + c[imaginary] + "i";
+            write c[.real] + " + " + c[.imaginary] + "i";
         };
+    } else {
+        <b>result</b> = @error("Argument must be a complex object.");
     };
 <b>};</b>
 <b>call</b> write_complex( {complex 20, -25} );</b></td>
