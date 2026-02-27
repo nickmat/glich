@@ -186,6 +186,7 @@ write 2 = 3;      // Output: false
 
 ### Blob
 - Arbitrary binary data (Binary Large OBject), useful for file contents or buffers.
+  For future use with SQL.
 
 ### Error
 - Represents error states or exceptional conditions.
@@ -382,7 +383,7 @@ call simon("Jump");    // Output: Simon Says: "Jump"
 
 ---
 
-## Conditional Execution (`if` statement) and `end;`
+## Conditional Execution (`if` statement) and `exit;`
 
 You can control flow using `if`, `elseif`, and `else` blocks:
 
@@ -400,7 +401,7 @@ if condition
 - You may include any number of `elseif` blocks and at most one `else` block.
 - The block following the first true condition is executed; the rest are skipped.
 - `;` ends the entire conditional block.
-- Use `end;` to immediately exit from the current function, command, or script.
+- Use `exit;` to immediately exit from the current function, command, or script.
 
 **Example with `if`/`elseif`/`else`:**
 
@@ -435,12 +436,12 @@ write @classify(0);   // Output: zero
 write @classify(8);   // Output: positive
 ```
 
-You can also use `end;` to stop execution immediately when a condition is met:
+You can also use `exit;` to stop execution immediately when a condition is met:
 
 ```glich
 if x < 0 or y < 0 {
   result = @error("Inputs must be non-negative.");
-  end;
+  exit;
 };
 ```
 ---
@@ -477,7 +478,7 @@ Glich provides several built-in functions available anywhere in your code using 
    ```
    if @type(val) <> "string" {
        result = @error("val must be string type.");
-       end;
+       exit;
    };
    // Output (if val not string):
    // Error (42): val must be string type.`
@@ -509,7 +510,7 @@ let p = {pair "one", 1};
 - Use a string or string expression or the dot notation to avoid quotation marks:
 ```glich
 write p[.first] + " is " + p["second"];  // Output: one is 1
-write p[0] + " is " + p[1];           // Output: one is 1
+write p[0] + " is " + p[1];              // Output: one is 1
 ```
 - Objects must be defined before use.
 - **Object code** is a special short name identifying the object type.
@@ -607,7 +608,7 @@ For a complete list and details, see:
 function must_be_positive(x) {
   if x <= 0
     result = @error("Value must be positive.");
-    end;
+    exit;
   endif
   result = x;
 }
@@ -633,7 +634,7 @@ There are **three ways** to exit a loop:
 
 - `while condition;` — Exits the loop if the condition is **false**. If the condition is true, looping continues. Typically placed at the start of the loop body.
 - `until condition;` — Exits the loop if the condition is **true**. If the condition is false, looping continues. Usually placed at the end of the loop body.
-- `end;` — Immediately exits the enclosing function, command, or script, so also ends the loop.
+- `exit;` — Immediately exits the enclosing function, command, or script, so also ends the loop.
 
 ### Examples
 
@@ -659,14 +660,14 @@ do {
 // Output: 0 1 2 3 4
 ```
 
-**Example: Using `end;` to exit:**
+**Example: Using `exit;` to exit:**
 ```glich
 let n = 0;
 do {
   write n + " ";
   n += 1;
   if n = 5 {
-    end;
+    exit;
   };
 };
 // Output: 0 1 2 3 4
