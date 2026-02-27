@@ -5,7 +5,7 @@
     { "folder": "stmts", "name": "index", "label": "Statements", "content": [
       { "name": "write", "label": "write Statement" },
       { "name": "file", "label": "Define file" },
-      { "name": "let", "label": "let Statement" },
+      { "name": "let", "label": "Variables & Constants" },
       { "name": "exit", "label": "exit Statement" },
       { "name": "if", "label": "if Statement" },
       { "name": "do", "label": "do Statement", "subtitle": "do Loop Statement" },
