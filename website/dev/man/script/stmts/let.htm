@@ -37,15 +37,75 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Statement: let</h2>
+<h2>Constants, Local and Global Variables</h2>
 <p>
- The <b>let</b> statement is used to introduce a named variable and
- initialize it or change the value of an existing variable.
- If a variable already exists then the <b>let</b> at the start is optional.
+ A constant is a named value that cannot be changed after it has been
+ initialized. A variable is a named value that can be changed after it has
+ been initialized.
+ A local variable is a variable that is only accessible within the block in which it is defined.
+ A global variable is a variable that is accessible from any part of the program.
+ In particular, functions and commands can access global variables
+ but only local variables defined within the function or command.
+ Constants are always global and are accessible from any part of the program.
 </p>
 <p>
- The type of the variable is determined by the expression used.
+ Three separate statements are used to define constants <b>constant</b>,
+ local variables <b>let</b> and global variables <b>global</b>.
+ Once a variable has been defined, the <b>let</b> and <b>global</b> keywords may be omitted
+ when changing its value, unless a global and local variable share the same name,
+ in which case the <b>global</b> keyword must be used to change the value of the global variable.
 </p>
+<p>
+ It is an error to define a constant or variable with the same name as an existing constant
+ or variable.
+</p>
+<p>
+ Constants and variables persist between running scripts, until the host program is terminated.
+ They can be controlled with the <b><a href='mark.htm'>mark</a></b> statement.
+</p>
+
+<h2>Statement: constant</h2>
+<p>
+ The <b>constant</b> statement is used to introduce a named constant and
+ initialize it with a value. Once a constant has been defined, its value cannot be changed.
+</p>
+
+<table class='basic'>
+ <tr><th colspan='3'>constant Statement</th></tr>
+ <tr><th>Format</th><th>Example</th><th>Result</th></tr>
+ <tr>
+  <td class='code'><b>constant</b> <i>name</i> <b>=</b> <i>expr</i><b>;</b></td>
+  <td class='example'>constant julian_cycle = 4 * 365 + 1;</td>
+  <td>julian_cycle holds number value 1461</td>
+ </tr>
+</table>
+
+<p>
+ It is an error to use the same name for a constant and a variable,
+ or to define a constant with the same name as an existing constant.
+</p>
+
+<h2>Statements: let and global</h2>
+<p>
+ The difference between a local variable and a global variable is that
+ functions and commands can access global variables
+ but only local variables defined within the function or command.
+</p>
+<p>
+ The <b>let</b> statement is used to introduce a named local variable and
+ initialize it or change the value of an existing local variable.
+</p>
+<p>
+  The <b>global</b> statement is used to introduce a named global variable and
+  initialize it or change the value of an existing global variable.
+</p>
+<p>
+ If a local or global variable already exists
+ then the <b>let</b> or <b>global</b> keyword at the start is optional.
+ However, if a local and global variable share the same name
+ then the <b>global</b> keyword must be used to change the value of the global variable.
+</p>
+
 
 <table class='basic'>
  <tr><th colspan='3'>let Statement</th></tr>
@@ -78,7 +138,7 @@
  <tr>
   <td class='code'><i>name</i> <b>=</b> <i>expr</i><b>;</b></td>
   <td class='example'>answer = 50 .. 30;</td>
-  <td>answer holds range value 30 .. 50</td>
+  <td>answer holds range value 30..50</td>
  </tr>
  <tr>
   <td class='code'><i>name</i> <b>@=</b> <i>obj_function</i><b>;</b></td>
