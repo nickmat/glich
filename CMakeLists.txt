@@ -4,7 +4,7 @@
 # Author:      Nick Matthews
 # Website:     https://github.com/nickmat/glich
 # Created:     8th February 2023
-# Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+# Copyright:   Copyright (c) 2023..2026, Nick Matthews.
 # Licence:     GNU GPLv3
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
@@ -28,3 +28,9 @@ add_subdirectory( src/utf8 )
 add_subdirectory( test/glctest )
 add_subdirectory( test/glcunit )
 add_subdirectory( test/glcsoak )
+
+add_custom_target( Documentation ALL SOURCES
+    readme.md
+    quickstart.md
+    hics_quickstart.md
+)
