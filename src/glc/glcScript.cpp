@@ -873,7 +873,7 @@ bool Script::do_object()
                 string fcode = get_name_or_primary( GetToken::next );
                 SpFunction fun = create_function( fcode );
                 if( fun == nullptr ) {
-                    error( "Unable to create function." );
+                    error( "Unable to create function \"" + fcode + "\"." );
                     ok = false;
                     break;
                 }
