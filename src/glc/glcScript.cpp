@@ -843,7 +843,7 @@ bool Script::do_object()
 {
     string code = get_name_or_primary( GetToken::next );
     if( code.empty() ) {
-        error( "Object name missing." );
+        error( "Object code missing." );
         return false;
     }
     DefinedStatus status = glc().get_object_status( code );
