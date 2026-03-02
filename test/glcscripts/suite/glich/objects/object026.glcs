@@ -1,0 +1,10 @@
+// object026.glcs  Test creating objects.
+
+object obj name {};
+
+
+
+/*[OUTPUT]
+Error file:object026 (3): '{' expected.
+
+[OUTPUT]*/

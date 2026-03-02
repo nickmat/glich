@@ -1,0 +1,17 @@
+// object026.glcs  Test creating objects.
+
+
+write nl;
+
+object obj {
+    function fun xxx { result = null; };
+};
+
+
+
+/*[OUTPUT]
+
+Error file:object027 (7): '{' expected.
+Error file:object027 (7): Unable to create function "fun".
+
+[OUTPUT]*/

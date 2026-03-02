@@ -1,0 +1,10 @@
+// object019.glcs  Test creating objects.
+
+object {};
+
+
+
+/*[OUTPUT]
+Error file:object019 (3): Object code missing.
+
+[OUTPUT]*/
