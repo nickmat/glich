@@ -26,6 +26,7 @@ With hics, you can enter data from historical sources as faithfully as possible,
 
 - **hics** revolves around the concept of the **day**—specifically, the historical/astronomical "Julian Day Number" (jdn).
 - The *Julian Day Number* system, with scheme code `jdn`, counts days continuously from a fixed zero point in deep past history.
+- The start and end of the day varies with different calendar schemes and occasionally within a scheme. We'll use the date as defined at midday.
 - For most scripting with hics, we’ll just call this “the date.”
 
 **Note:**  
@@ -82,9 +83,9 @@ For each scheme, there’s a dedicated documentation page that:
 - Lists all available **formats** for reading and writing that type of date,
 - Shows the underlying implementation/library code.
 
-**Example – The Gregorian calendar (code `g`):**
+**Example** – The Gregorian calendar (code `g`): See Documentation at [https://nickmat.github.io/glich/website/dev/man/defs/g.htm](https://nickmat.github.io/glich/website/dev/man/defs/g.htm)
 
-- Documentation: [https://nickmat.github.io/glich/website/dev/man/defs/g.htm](https://nickmat.github.io/glich/website/dev/man/defs/g.htm)
+
 - Code: `g`
 - Object fields: typically year, month, day, etc.
 - Formats: e.g., “YYYY-MM-DD”, “1 Jan 1600”, localized/language variants, etc.
@@ -149,6 +150,17 @@ You use these **signatures** to qualify hics conversion functions, allowing you 
     write d_obj;                   // outputs: {s:g 2025, 11, 26, 3}.
     write @scheme.g:dmy(2461006)[year]; // outputs: 2025
     ```
+
+### Exploring a scheme and its formats:
+To see all details for a particular scheme, consult its documentation page from the [scheme list](https://nickmat.github.io/glich/website/dev/man/defs/index.htm). For example, viewing [g.htm](https://nickmat.github.io/glich/website/dev/man/defs/g.htm) will show you:
+- The formal object layout for a Gregorian date,
+- Format patterns,
+- Library implementation code,
+- Usage tips and known quirks.
+
+### Default scheme and format
+Each scheme has a default format setting which is used if the format part is omitted.
+There is a system wide setting for the default scheme. Initially this is the Gregorian scheme `g` which has the default format of `dmy`. These can be changed using the `set` statement: [https://nickmat.github.io/glich/website/dev/man/hics/set.htm](https://nickmat.github.io/glich/website/dev/man/hics/set.htm)
 
 ### Why Signatures Matter
 
