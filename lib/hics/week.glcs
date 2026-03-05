@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     2nd April 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -50,7 +50,7 @@ grammar jwn {
     alias unit { d day; w week; };
     format  wd      "{week}| {day}";
     format  wday    "{week}| {day:w:a}";
-    format "wday+", "{week}| {day:w}";
+    format  wday_f  "{week}| {day:w}";
     preferred wday;
 };
 
@@ -86,7 +86,7 @@ grammar jwsn {
     alias unit { d day; w week; };
     format  wd      "{week}| {day}";
     format  wday    "{week}| {day:ws:a}";
-    format "wday+", "{week}| {day:ws}";
+    format  wday_f  "{week}| {day:ws}";
     preferred wday;
 };
 
