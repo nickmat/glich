@@ -1,3 +1,6 @@
 [submodule "3rdparty/utf8proc"]
 	path = 3rdparty/utf8proc
 	url = https://github.com/nickmat/utf8proc.git
+[submodule "3rdparty/file2cpp"]
+	path = 3rdparty/file2cpp
+	url = https://github.com/nickmat/file2cpp.git
