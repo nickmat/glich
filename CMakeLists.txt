@@ -19,6 +19,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED On)
 
 include_directories( include )
 
+add_subdirectory( 3rdparty/file2cpp)
 add_subdirectory( 3rdparty/utf8proc)
 add_subdirectory( src/glc )
 add_subdirectory( src/hic )
