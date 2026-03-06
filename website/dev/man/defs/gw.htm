@@ -101,7 +101,7 @@
 <tr><th colspan='6'>Formats - Grammar gw</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
 <tr><td><b>ywd</b></td><td>text</td><td>year week day</td><td>yyyy ww Wday</td><td class='example'>2023 6 Wed</td><td>D, S</td></tr>
-<tr><td><b>ywd+</b></td><td>text</td><td>year week day</td><td>yyyy ww Weekday</td><td class='example'>2023 6 Wednesday</td><td>S</td></tr>
+<tr><td><b>ywd_f</b></td><td>text</td><td>year week day</td><td>yyyy ww Weekday</td><td class='example'>2023 6 Wednesday</td><td>S</td></tr>
 <tr><td><b>iso</b></td><td>iso8601</td><td>ISO:8601 Week -YYYY</td><td>-YYYY-Www-D</td><td class='example'>2023-W06-3</td><td>S</td></tr>
 <tr><td><b>def</b></td><td>text</td><td>year week day</td><td>yyyy ww d</td><td class='example'>2023 6 3</td><td>H, S</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9y 9w 9d</td><td>9y 9w 9d</td><td class='example'>2023y 6w 3d</td><td>H</td></tr>
@@ -121,7 +121,7 @@ Example based on jdn# 2459984</td></tr>
     alias pseudo { d day; ww week; yyyy year; };
     alias unit { d day; w week; y year; };
     format  ywd "{year}| {week}| {day:w:a}";
-    format "ywd+", "{year}| {week}| {day:w}";
+    format  ywd_f "{year}| {week}| {day:w:a}";
     format iso { rules iso8601 week minus; };
     preferred ywd;
 };

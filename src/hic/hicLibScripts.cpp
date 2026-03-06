@@ -377,7 +377,7 @@ glich::StdStrMap glich::hics_default_scripts = {
  "alias pseudo { d day; ww week; yyyy year; };\n"
  "alias unit { d day; w week; y year; };\n"
  "format ywd \"{year}| {week}| {day:w:a}\";\n"
- "format \"ywd+\", \"{year}| {week}| {day:w}\";\n"
+ "format ywd_f \"{year}| {week}| {day:w}\";\n"
  "format iso { rules iso8601 week minus; };\n"
  "preferred ywd;\n"
  "};\n"
