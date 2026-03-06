@@ -1,11 +1,11 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Name:        test/gu/guSch_j.cpp
+ * Name:        test/gu/guSch_ja.cpp
  * Project:     glcUnit: Unit test program for the Glich Hics library.
  * Purpose:     Test Scheme "ja" Julian Annunciation conversions.
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th September 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -102,9 +102,9 @@ TEST_CASE( "Scheme ja Test Table", "[ja TestTable]" )
         str = g_glc->field_to_text( jdn, "ja:wdmy" );
         REQUIRE( str == table_ja[i][2] );
 
-        jdn = g_glc->text_to_field( table_ja[i][3], "ja:wmdy+" );
+        jdn = g_glc->text_to_field( table_ja[i][3], "ja:wmdy_f" );
         REQUIRE( jdn == guTT_jdn[i] );
-        str = g_glc->field_to_text( jdn, "ja:wmdy+" );
+        str = g_glc->field_to_text( jdn, "ja:wmdy_f" );
         REQUIRE( str == table_ja[i][3] );
 
     }

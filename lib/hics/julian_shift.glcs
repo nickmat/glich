@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     15th June 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -37,15 +37,15 @@ grammar j_sh {
     alias unit { d day; m month; hy year; cy cyear; };
     use epoch;
     format  dmy "{day} |{month:m:a} |{cyear/year}";
-    format "dmy+" "{day} |{month:m} |{cyear/year}";
+    format  dmy_f "{day} |{month:m} |{cyear/year}";
     format  wdmy "{wday:w:a} |{day} |{month:m:a} |{cyear/year}";
-    format "wdmy+" "{wday:w} |{day} |{month:m} |{cyear/year}";
+    format  wdmy_f "{wday:w} |{day} |{month:m} |{cyear/year}";
     format  std "{day::os} |{month:m} |{cyear/year}";
     format  full "{wday:w} |{day::os} |{month:m} |{cyear/year}";
     format  mdy "{month:m:a} |{day}, |{cyear/year}";
-    format "mdy+" "{month:m} |{day}, |{cyear/year}";
+    format  mdy_f "{month:m} |{day}, |{cyear/year}";
     format  wmdy "{wday:w:a}, |{month:m:a} |{day}, |{cyear/year}";
-    format "wmdy+" "{wday:w}, |{month:m} |{day}, |{cyear/year}";
+    format  wmdy_f "{wday:w}, |{month:m} |{day}, |{cyear/year}";
     format  cdef {
         inout "{cyear}| {month}| {day}";
         visible no;
