@@ -243,12 +243,12 @@
 <tr><td><b>dmy</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd Month yyyy</td><td class='example'>5 Complémentaires 232<br />1 Vendémiaire 233<td>D, S</td></tr>
 <tr><td><b>ymd</b></td><td>text</td><td><b>Input:</b> year month day<br /><b>Output:</b> yyyy Month dd</td><td class='example'>232 Complémentaires 5<br />233 Vendémiaire 1<td>S</td></tr>
 <tr><td><b>cdmy</b></td><td>text</td><td><b>Input:</b> cday nmday nmonth year<br /><b>Output:</b> CompDay dd Month yyyy</td><td class='example'>Fête des Récompenses 232<br />1 Vendémiaire 233<td></td></tr>
-<tr><td><b>cdmy-</b></td><td>text</td><td><b>Input:</b> cday nmday nmonth year<br /><b>Output:</b> CDay dd Mon yyyy</td><td class='example'>Rec 232<br />1 Vend 233<td></td></tr>
+<tr><td><b>cdmy_a</b></td><td>text</td><td><b>Input:</b> cday nmday nmonth year<br /><b>Output:</b> CDay dd Mon yyyy</td><td class='example'>Rec 232<br />1 Vend 233<td></td></tr>
 <tr><td><b>std</b></td><td>text</td><td><b>Input:</b> cday nmday nmonth year<br /><b>Output:</b> CompDay dd Month an yyyy[X]</td><td class='example'>Fête des Récompenses an CCXXXII<br />1 Vendémiaire an CCXXXIII<td></td></tr>
 <tr><td><b>dcdmy</b></td><td>text</td><td><b>Input:</b> dday cday nmday nmonth year<br /><b>Output:</b> DecDay CompDay dd Month yyyy</td><td class='example'>Fête des Récompenses 232<br />Primidi 1 Vendémiaire 233<td></td></tr>
-<tr><td><b>dcdmy-</b></td><td>text</td><td><b>Input:</b> dday cday nmday nmonth year<br /><b>Output:</b> DDay CDay dd Mon yyyy</td><td class='example'>Rec 232<br />Prim 1 Vend 233<td></td></tr>
+<tr><td><b>dcdmy_a</b></td><td>text</td><td><b>Input:</b> dday cday nmday nmonth year<br /><b>Output:</b> DDay CDay dd Mon yyyy</td><td class='example'>Rec 232<br />Prim 1 Vend 233<td></td></tr>
 <tr><td><b>wcdmy</b></td><td>text</td><td><b>Input:</b> wday cday nmday nmonth year<br /><b>Output:</b> Weekday, CompDay dd Month yyyy</td><td class='example'>Saturday, Fête des Récompenses 232<br />Sunday, 1 Vendémiaire 233<td></td></tr>
-<tr><td><b>wcdmy-</b></td><td>text</td><td><b>Input:</b> wday cday nmday nmonth year<br /><b>Output:</b> Wday, CDay dd Mon yyyy</td><td class='example'>Sat, Rec 232<br />Sun, 1 Vend 233<td></td></tr>
+<tr><td><b>wcdmy_a</b></td><td>text</td><td><b>Input:</b> wday cday nmday nmonth year<br /><b>Output:</b> Wday, CDay dd Mon yyyy</td><td class='example'>Sat, Rec 232<br />Sun, 1 Vend 233<td></td></tr>
 <tr><td><b>gedcom</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd MON yyyy</td><td class='example'>5 COMP 232<br />1 VEND 233<td>S</td></tr>
 <tr><td><b>def</b></td><td>text</td><td><b>Input:</b> year month day nmonth nmday cday dday<br /><b>Output:</b> yyyy mm dd mm dd c d</td><td class='example'>232 13 5 5<br />233 1 1 1 1 1<td>H</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9y 9m 9d 9nm 9nd 9cd 9dd<br /><b>Output:</b> 9y 9m 9d 9nm 9nd 9cd 9dd</td><td class='example'>232y 13m 5d 5cd<br />233y 1m 1d 1nm 1nd 1dd<td>H</td></tr>
@@ -374,12 +374,12 @@ grammar fr {
         use:in calculate;
     };
     format  cdmy   "{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
-    format "cdmy-" "{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
+    format  cdmy_a "{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
     format  std     "{cday:frcomp} |{nmday} |{nmonth:frnm} |an {year::rn}";
     format  dcdmy   "{dday:frdd} |{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
-    format "dcdmy-" "{dday:frdd:a} |{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
+    format  dcdmy_a "{dday:frdd:a} |{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
     format  wcdmy   "{wday:w}, |{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
-    format "wcdmy-" "{wday:w:a}, |{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
+    format  wcdmy_a "{wday:w:a}, |{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
     format gedcom {
         inout "{day} |{month:frm:a:u} |{year}";
         rank year month day;

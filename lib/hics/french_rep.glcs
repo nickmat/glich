@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     20th June 2024
- * Copyright:   Copyright (c) 2024..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2024..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -144,13 +144,13 @@ grammar fr {
         rank year month day;
         use:in calculate;
     };
-    format  cdmy   "{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
-    format "cdmy-" "{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
+    format  cdmy    "{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
+    format  cdmy_a  "{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
     format  std     "{cday:frcomp} |{nmday} |{nmonth:frnm} |an {year::rn}";
     format  dcdmy   "{dday:frdd} |{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
-    format "dcdmy-" "{dday:frdd:a} |{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
+    format  dcdmy_a "{dday:frdd:a} |{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
     format  wcdmy   "{wday:w}, |{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
-    format "wcdmy-" "{wday:w:a}, |{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
+    format  wcdmy_a "{wday:w:a}, |{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
     format gedcom {
         inout "{day} |{month:frm:a:u} |{year}";
         rank year month day;
