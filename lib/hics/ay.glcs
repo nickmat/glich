@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     26th July 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -45,13 +45,13 @@ grammar jg {
     alias unit { d day; m month; y year; s scheme; };
 
     format  dmy    "{day} |{month:m:a} |{year}";
-    format "dmy+"  "{day} |{month:m} |{year}";
+    format  dmy_f  "{day} |{month:m} |{year}";
     format  mdy    "{month:m:a} |{day}, |{year}";
-    format "mdy+"  "{month:m} |{day}, |{year}";
+    format  mdy_f  "{month:m} |{day}, |{year}";
     format  dmys   "{day} |{month:m:a} |{year} |{scheme:jg:a}";
-    format "dmys+" "{day} |{month:m} |{year} |{scheme:jg}";
+    format  dmys_f "{day} |{month:m} |{year} |{scheme:jg}";
     format  mdys   "{month:m:a} |{day}, |{year} |{scheme:jg:a}";
-    format "mdys+" "{month:m} |{day}, |{year} |{scheme:jg}";
+    format  mdys_f "{month:m} |{day}, |{year} |{scheme:jg}";
     preferred dmy;
 };
 

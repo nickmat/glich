@@ -89,13 +89,13 @@
 <tr><th colspan='5'>Formats - Grammar jg</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>
 <tr><td><b>dmy</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd Mon yyyy</td><td class='example'>4 Oct 1582<br />15 Oct 1582<td>D, S</td></tr>
-<tr><td><b>dmy+</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd Month yyyy</td><td class='example'>4 October 1582<br />15 October 1582<td>S</td></tr>
+<tr><td><b>dmy_f</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd Month yyyy</td><td class='example'>4 October 1582<br />15 October 1582<td>S</td></tr>
 <tr><td><b>mdy</b></td><td>text</td><td><b>Input:</b> month day year<br /><b>Output:</b> Mon dd, yyyy</td><td class='example'>Oct 4, 1582<br />Oct 15, 1582<td>S</td></tr>
-<tr><td><b>mdy+</b></td><td>text</td><td><b>Input:</b> month day year<br /><b>Output:</b> Month dd, yyyy</td><td class='example'>October 4, 1582<br />October 15, 1582<td>S</td></tr>
+<tr><td><b>mdy_f</b></td><td>text</td><td><b>Input:</b> month day year<br /><b>Output:</b> Month dd, yyyy</td><td class='example'>October 4, 1582<br />October 15, 1582<td>S</td></tr>
 <tr><td><b>dmys</b></td><td>text</td><td><b>Input:</b> day month year scheme<br /><b>Output:</b> dd Mon yyyy sch</td><td class='example'>4 Oct 1582 j<br />15 Oct 1582 g<td></td></tr>
-<tr><td><b>dmys+</b></td><td>text</td><td><b>Input:</b> day month year scheme<br /><b>Output:</b> dd Month yyyy Scheme</td><td class='example'>4 October 1582 Julian<br />15 October 1582 Gregorian<td></td></tr>
+<tr><td><b>dmys_f</b></td><td>text</td><td><b>Input:</b> day month year scheme<br /><b>Output:</b> dd Month yyyy Scheme</td><td class='example'>4 October 1582 Julian<br />15 October 1582 Gregorian<td></td></tr>
 <tr><td><b>mdys</b></td><td>text</td><td><b>Input:</b> month day year scheme<br /><b>Output:</b> Mon dd, yyyy sch</td><td class='example'>Oct 4, 1582 j<br />Oct 15, 1582 g<td></td></tr>
-<tr><td><b>mdys+</b></td><td>text</td><td><b>Input:</b> month day year scheme<br /><b>Output:</b> Month dd, yyyy Scheme</td><td class='example'>October 4, 1582 Julian<br />October 15, 1582 Gregorian<td></td></tr>
+<tr><td><b>mdys_f</b></td><td>text</td><td><b>Input:</b> month day year scheme<br /><b>Output:</b> Month dd, yyyy Scheme</td><td class='example'>October 4, 1582 Julian<br />October 15, 1582 Gregorian<td></td></tr>
 <tr><td><b>def</b></td><td>text</td><td><b>Input:</b> scheme year month day<br /><b>Output:</b> s yyyy mm dd</td><td class='example'>0 1582 10 4<br />1 1582 10 15<td>H</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9s 9y 9m 9d<br /><b>Output:</b> 9s 9y 9m 9d</td><td class='example'>0s 1582y 10m 4d<br />1s 1582y 10m 15d<td>H</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
@@ -124,13 +124,13 @@ grammar jg {
     alias pseudo { dd day; mm month; yyyy year; s scheme; };
     alias unit { d day; m month; y year; s scheme; };
     format  dmy    "{day} |{month:m:a} |{year}";
-    format "dmy+"  "{day} |{month:m} |{year}";
+    format  dmy_f  "{day} |{month:m} |{year}";
     format  mdy    "{month:m:a} |{day}, |{year}";
-    format "mdy+"  "{month:m} |{day}, |{year}";
+    format  mdy_f  "{month:m} |{day}, |{year}";
     format  dmys   "{day} |{month:m:a} |{year} |{scheme:jg:a}";
-    format "dmys+" "{day} |{month:m} |{year} |{scheme:jg}";
+    format  dmys_f "{day} |{month:m} |{year} |{scheme:jg}";
     format  mdys   "{month:m:a} |{day}, |{year} |{scheme:jg:a}";
-    format "mdys+" "{month:m} |{day}, |{year} |{scheme:jg}";
+    format  mdys_f "{month:m} |{day}, |{year} |{scheme:jg}";
     preferred dmy;
 };
 scheme ay {
