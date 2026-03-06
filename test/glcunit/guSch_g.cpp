@@ -103,9 +103,9 @@ TEST_CASE( "Scheme g Test Table", "[g TestTable]" )
         str = g_glc->field_to_text( jdn, "g:wdmy" );
         REQUIRE( str == test_strs[i][2] );
 
-        jdn = g_glc->text_to_field( test_strs[i][3], "g:wmdy+" );
+        jdn = g_glc->text_to_field( test_strs[i][3], "g:wmdy_f" );
         REQUIRE( jdn == guTT_jdn[i] );
-        str = g_glc->field_to_text( jdn, "g:wmdy+" );
+        str = g_glc->field_to_text( jdn, "g:wmdy_f" );
         REQUIRE( str == test_strs[i][3] );
 
         jdn = g_glc->text_to_field( test_strs[i][4], "g:iso" );
@@ -169,9 +169,9 @@ TEST_CASE( "Scheme g Test Formats", "[g Formats]" )
     str = g_glc->field_to_text( result, "g:dmy" );
     REQUIRE( str == "3 Sep 2023" );
     // Format "g:dmy+"
-    result = g_glc->text_to_field( "3september2023", "g:dmy+" );
+    result = g_glc->text_to_field( "3september2023", "g:dmy_f" );
     REQUIRE( jdn == result );
-    str = g_glc->field_to_text( result, "g:dmy+" );
+    str = g_glc->field_to_text( result, "g:dmy_f" );
     REQUIRE( str == "3 September 2023" );
     // Format "g:wdmy"
     result = g_glc->text_to_field( "sun3sep2023", "g:wdmy" );
@@ -179,9 +179,9 @@ TEST_CASE( "Scheme g Test Formats", "[g Formats]" )
     str = g_glc->field_to_text( result, "g:wdmy" );
     REQUIRE( str == "Sun 3 Sep 2023" );
     // Format "g:wdmy+"
-    result = g_glc->text_to_field( "sunday3september2023", "g:wdmy+" );
+    result = g_glc->text_to_field( "sunday3september2023", "g:wdmy_f" );
     REQUIRE( jdn == result );
-    str = g_glc->field_to_text( result, "g:wdmy+" );
+    str = g_glc->field_to_text( result, "g:wdmy_f" );
     REQUIRE( str == "Sunday 3 September 2023" );
     // Format "g:std"
     result = g_glc->text_to_field( "3rd september2023", "g:std" );
@@ -199,9 +199,9 @@ TEST_CASE( "Scheme g Test Formats", "[g Formats]" )
     str = g_glc->field_to_text( result, "g:mdy" );
     REQUIRE( str == "Sep 3, 2023" );
     // Format "g:mdy+"
-    result = g_glc->text_to_field( "september3,2023", "g:mdy+" );
+    result = g_glc->text_to_field( "september3,2023", "g:mdy_f" );
     REQUIRE( jdn == result );
-    str = g_glc->field_to_text( result, "g:mdy+" );
+    str = g_glc->field_to_text( result, "g:mdy_f" );
     REQUIRE( str == "September 3, 2023" );
     // Format "g:wmdy"
     result = g_glc->text_to_field( "sun,sep3,2023", "g:wmdy" );
@@ -209,9 +209,9 @@ TEST_CASE( "Scheme g Test Formats", "[g Formats]" )
     str = g_glc->field_to_text( result, "g:wmdy" );
     REQUIRE( str == "Sun, Sep 3, 2023" );
     // Format "g:wmdy+"
-    result = g_glc->text_to_field( "sunday,september3,2023", "g:wmdy+" );
+    result = g_glc->text_to_field( "sunday,september3,2023", "g:wmdy_f" );
     REQUIRE( jdn == result );
-    str = g_glc->field_to_text( result, "g:wmdy+" );
+    str = g_glc->field_to_text( result, "g:wmdy_f" );
     REQUIRE( str == "Sunday, September 3, 2023" );
     // Format "g:ymd"
     result = g_glc->text_to_field( "2023:sep:3", "g:ymd" );
