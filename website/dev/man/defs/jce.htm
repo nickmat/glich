@@ -121,8 +121,8 @@
 <tr><td><b>wdmye</b></td><td>text</td><td><b>Input:</b> wday day month ceyear ce<br /><b>Output:</b> Wday dd Mon yyyy CE</td><td class='example'>Wed 15 Mar 44 BCE<br />Mon 16 Jul 31 CE<td></td></tr>
 <tr><td><b>mdye</b></td><td>text</td><td><b>Input:</b> month day ceyear ce<br /><b>Output:</b> Mon dd, yyyy CE</td><td class='example'>Mar 15, 44 BCE<br />Jul 16, 31 CE<td>S</td></tr>
 <tr><td><b>wmdye</b></td><td>text</td><td><b>Input:</b> wday month day ceyear ce<br /><b>Output:</b> Wday Mon dd, yyyy CE</td><td class='example'>Wed Mar 15, 44 BCE<br />Mon Jul 16, 31 CE<td></td></tr>
-<tr><td><b>dmye+</b></td><td>text</td><td><b>Input:</b> day month ceyear ce<br /><b>Output:</b> dd Month yyyy CommonEra</td><td class='example'>15 March 44 Before Common Era<br />16 July 31 Common Era<td>S</td></tr>
-<tr><td><b>wdmye+</b></td><td>text</td><td><b>Input:</b> wday day month ceyear ce<br /><b>Output:</b> Weekday dd Month yyyy CommonEra</td><td class='example'>Wednesday 15 March 44 Before Common Era<br />Monday 16 July 31 Common Era<td></td></tr>
+<tr><td><b>dmye_f</b></td><td>text</td><td><b>Input:</b> day month ceyear ce<br /><b>Output:</b> dd Month yyyy CommonEra</td><td class='example'>15 March 44 Before Common Era<br />16 July 31 Common Era<td>S</td></tr>
+<tr><td><b>wdmye_f</b></td><td>text</td><td><b>Input:</b> wday day month ceyear ce<br /><b>Output:</b> Weekday dd Month yyyy CommonEra</td><td class='example'>Wednesday 15 March 44 Before Common Era<br />Monday 16 July 31 Common Era<td></td></tr>
 <tr><td><b>std</b></td><td>text</td><td><b>Input:</b> day month ceyear ce<br /><b>Output:</b> ddth Month yyyy CommonEra</td><td class='example'>15th March 44 Before Common Era<br />16th July 31 Common Era<td>S</td></tr>
 <tr><td><b>full</b></td><td>text</td><td><b>Input:</b> wday day month ceyear ce<br /><b>Output:</b> Weekday ddth Month yyyy CommonEra</td><td class='example'>Wednesday 15th March 44 Before Common Era<br />Monday 16th July 31 Common Era<td></td></tr>
 <tr><td><b>def</b></td><td>text</td><td><b>Input:</b> year month day ce ceyear<br /><b>Output:</b> year mm dd ce yyyy</td><td class='example'>-43 3 15 0 44<br />31 7 16 1 31<td>H</td></tr>
@@ -167,8 +167,8 @@ grammar jce {
     format wdmye "{wday:w:a} |{day} |{month:m:a} |{ceyear} |{ce:ce:a}";
     format mdye "{month:m:a} |{day}, |{ceyear} |{ce:ce:a}";
     format wmdye "{wday:w:a} |{month:m:a} |{day}, |{ceyear} |{ce:ce:a}";
-    format "dmye+" "{day} |{month:m} |{ceyear} |{ce:ce}";
-    format "wdmye+" "{wday:w} |{day} |{month:m} |{ceyear} |{ce:ce}";
+    format dmye_f "{day} |{month:m} |{ceyear} |{ce:ce}";
+    format wdmye_f "{wday:w} |{day} |{month:m} |{ceyear} |{ce:ce}";
     format std "{day::os} |{month:m} |{ceyear} |{ce:ce}";
     format full "{wday:w} |{day::os} |{month:m} |{ceyear} |{ce:ce}";
     preferred dmye;
