@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     12th November 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -92,14 +92,14 @@ grammar h {
 
     format  dmy_a "{day} |{cmonth:hcm:a} |{year}";
     format  dmy   "{day} |{cmonth:hcm} |{year}";
-    format "dmy-" {
+    format  dmy_d {
         inout "{day} |{month} |{year}";
         rank year month day;
         use:in calculate;
     };
     format  wdmy  "{wsday:hw} |{day} |{cmonth:hcm} |{year}";
     format  ymd   "{year}| {cmonth:hcm}| {day}";
-    format "ymd-" {
+    format  ymd_d {
         inout "{year}| {month}| {day}";
         rank year month day;
         use:in calculate;
