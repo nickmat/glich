@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -140,7 +140,7 @@ Format* Scheme::get_input_format( const string& fcode ) const
 
 void Scheme::get_info( Scheme_info* info ) const
 {
-    info->name = m_name;
+    info->name = get_name();
     info->code = get_scode();
     Grammar* gmr = m_base.get_grammar();
     if( gmr ) {

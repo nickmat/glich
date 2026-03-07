@@ -59,7 +59,6 @@ namespace glich {
         SValue complete_object( const std::string& input, const std::string& fcode ) const;
 
         std::string get_scode() const;
-        std::string get_name() const { return m_name; }
         bool get_def_visible() const { return m_def_visible; }
         bool get_cur_visible() const { return m_cur_visible; }
         const Base& get_base() const { return m_base; }
@@ -76,7 +75,6 @@ namespace glich {
 
         FieldVec get_object_fields( const SValueVec& values ) const;
 
-        void set_name( const std::string& name ) { m_name = name; }
         void set_def_visible( bool vis ) { m_def_visible = vis; }
         void set_cur_visible( bool vis ) { m_cur_visible = vis; }
 
@@ -96,7 +94,6 @@ namespace glich {
     private:
         bool create_epoch_functions( Field epoch, const std::string& module, int line );
 
-        std::string  m_name;
         bool         m_def_visible; // Default visiblity.
         bool         m_cur_visible; // Currently set visiblity.
         const Base&  m_base;
