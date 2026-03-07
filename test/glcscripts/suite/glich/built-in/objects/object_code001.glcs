@@ -1,4 +1,4 @@
-// object_name001.glcs - {:} // create object.
+// glich/built-in/objects/object_code001.glcs -  create object.
 
 object test {
     values one two three;
@@ -6,7 +6,7 @@ object test {
 
 let obj = {test 1, 2};
 
-write obj@obj:name;
+write obj@obj:code;
 
 /*[OUTPUT]
 test

@@ -1434,7 +1434,7 @@ SValue Script::do_object_at( bool& success, Object* obj, const string& fcode, co
         const SValueVec* elements = left.get_object_values();
         return SValue( elements->size() - 1, SValue::Type::Number );
     }
-    else if( fcode == "obj:name" ) {
+    else if( fcode == "obj:code" ) {
         return obj->get_code();
     }
     else if( fcode == "obj:list" ) {
