@@ -865,7 +865,11 @@ bool Script::do_object()
         }
         else if( token.type() == SToken::Type::Name ) {
             string name = token.get_str();
-            if( name == "values" ) {
+            if( name == "name" ) {
+                string obj_name = expr( GetToken::next ).as_string();
+                obj->set_name( obj_name );
+            }
+            else if( name == "values" ) {
                 StdStrVec values = get_string_list( GetToken::next );
                 obj->set_value_names( values );
             }
