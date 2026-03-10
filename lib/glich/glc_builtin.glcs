@@ -26,6 +26,6 @@
 
 // Add before any mark so it cannot be removed.
 
-object : {};
+object : { name "General purpose array."; };
 
 // End of lib/glich/glc_builtin.glcs file
