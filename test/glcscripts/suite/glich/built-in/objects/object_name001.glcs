@@ -1,0 +1,14 @@
+// glich/built-in/objects/object_name001.glcs -  create object with name.
+
+object test {
+    name "test object";
+    values one two three;
+};
+
+let obj = {test 1, 2};
+
+write obj@obj:name;
+
+/*[OUTPUT]
+test object
+[OUTPUT]*/
