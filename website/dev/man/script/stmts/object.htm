@@ -43,17 +43,19 @@
  which can later be used to create an object value.
  An object value is an array of other values
  which can referenced by number or given names.
+ An object value also has a code name which is the name of the object type.
  Additionally functions can be defined which can be called
  using the function operator <b>'@'</b>.
 </p>
 <p>
- Two sub-statements can be used in an object definition.
- Both are optional.
+ The following sub-statements can be used in an object definition.
+ All are optional.
 </p>
 
 <table class='basic'>
 <tr><th colspan='2'>object Sub-Statement List</th></tr>
 <tr><th>Sub-Statement</th><th>Use</th></tr>
+<tr><td class='code'><b>name</b></td><td>A short descriptive name for the object to expand its code name.</td></tr>
 <tr><td class='code'><b>values</b></td><td>A list values that are used as local variables.</td></tr>
 <tr><td class='code'><b>function</b></td><td>As normal function but has access to the values.</td></tr>
 </table>
@@ -63,6 +65,7 @@
 <tr><th>Example</th><th>Output</th></tr>
 <tr> <!-- See test file - test\glcscripts\suite\glich\examples\object-def-01.glcs -->
 <td class='example'><b>object</b> complex <b>{</b>
+    <b>name</b> "Complex number"<b>;</b>
     <b>values</b> real imaginary<b>;</b>
     <b>function</b> add<b>(</b> comp <b>) {</b>
         if @object( comp ) = "complex" {
@@ -85,6 +88,12 @@ write c1 @ add( 1 ) nl;
 Error (9): Must have 'complex' argument
 </tr>
 </table>
+
+<h3>Sub-Statement: name</h3>
+<p>
+ The name sub-statement provides a short descriptive name for the object.
+ This name can be used to expand the object's code name.
+</p>
 
 <h3>Sub-Statement: values</h3>
 <p>
