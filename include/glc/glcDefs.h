@@ -137,6 +137,8 @@ namespace glich {
     struct GlcMarkData {
         std::string name;
         GlcDataVec  var;
+        GlcDataVec  global;
+        GlcDataVec  constant;
         GlcDataVec  obj;
         GlcDataVec  fun;
         GlcDataVec  com;
