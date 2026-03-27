@@ -110,7 +110,7 @@ void Mark::get_mark_glc_data( GlcMarkData& mark ) const
     for( auto object : m_objects ) {
         Object* obj = glc().get_object( object );
         data.name = object;
-        data.value = string();
+        data.value = obj->get_name();
         mark.obj.push_back( data );
     }
     for( auto& local : m_locals ) {
