@@ -109,6 +109,9 @@ void Mark::get_mark_glc_data( GlcMarkData& mark ) const
     }
     for( auto object : m_objects ) {
         Object* obj = glc().get_object( object );
+        if( obj == nullptr ) {
+            continue;
+        }
         data.name = object;
         data.value = obj->get_name();
         mark.obj.push_back( data );
@@ -122,6 +125,9 @@ void Mark::get_mark_glc_data( GlcMarkData& mark ) const
     }
     for( auto& global : m_globals ) {
         SValue* value = glc().get_global_ptr( global );
+        if( value == nullptr ) {
+            continue;
+        }
         data.type = value->type_str();
         data.name = global;
         data.value = value->as_string();
@@ -129,6 +135,9 @@ void Mark::get_mark_glc_data( GlcMarkData& mark ) const
     }
     for( auto& constant : m_constants ) {
         SValue* value = glc().get_constant_ptr( constant );
+        if( value == nullptr ) {
+            continue;
+        }
         data.type = value->type_str();
         data.name = constant;
         data.value = value->as_string();

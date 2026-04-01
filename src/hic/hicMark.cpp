@@ -78,12 +78,18 @@ void glich::HicMark::get_mark_hic_data( HicMarkData& mark ) const
     for( auto code : m_lexicons ) {
         data.name = code;
         Lexicon* lex = hic().get_lexicon( code );
+        if( lex == nullptr ) {
+            continue;
+        }
         data.value = lex->get_name();
         mark.lex.push_back( data );
     }
     for( auto code : m_grammars ) {
         data.name = code;
         Grammar* gmr = hic().get_grammar( code );
+        if( gmr == nullptr ) {
+            continue;
+        }
         data.value = gmr->get_name();
         mark.gmr.push_back( data );
     }
@@ -95,6 +101,9 @@ void glich::HicMark::get_mark_hic_data( HicMarkData& mark ) const
     for( auto code : m_schemes ) {
         data.name = code;
         Scheme* sch = hic().get_scheme( code );
+        if( sch == nullptr ) {
+            continue;
+        }
         data.value = sch->get_name();
         mark.sch.push_back( data );
     }
