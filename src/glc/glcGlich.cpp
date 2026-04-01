@@ -187,8 +187,16 @@ string Glich::run_module( const string& mod )
     string location, module;
     split_string( location, module, run );
     if( location == "file" ) {
-        string filename = module +  ".glcs";
+        string filename = module + ".glcs";
+        // First check current directory.
         if( !std::filesystem::exists( filename ) ) {
+            // Now check directorys in m_file_module_paths
+            for( const auto& path : m_file_module_paths ) {
+                std::string full_path = path + "/" + filename;
+                if( std::filesystem::exists( full_path ) ) {
+                    return run_script_file( full_path, mod );
+                }
+            }
             return "Module file not found: " + filename;
         }
         return run_script_file( filename, mod );

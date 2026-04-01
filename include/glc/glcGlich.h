@@ -76,6 +76,7 @@ namespace glich {
         virtual std::string run_module( const std::string& mod );
         virtual SValue evaluate( const std::string& expression );
         virtual bool run( std::istream& in, std::ostream& out, const std::string& module, int line = 1 );
+        void set_file_module_paths( const StdStrVec& paths ) { m_file_module_paths = paths; }
 
         std::string get_init_error() const { return m_init_error; }
 
@@ -146,6 +147,7 @@ namespace glich {
         std::ostream& m_out;
         std::ostream& m_err;
         StdStrSet m_module_names;
+        StdStrVec m_file_module_paths;
     };
 
 } // namespace glich
