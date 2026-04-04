@@ -79,6 +79,7 @@ namespace glich {
 
         bool is_valid() const { return m_beg != f_invalid && m_end != f_invalid && m_beg <= m_end; }
         bool is_finite() const { return m_beg > f_minimum && m_end < f_maximum && m_beg <= m_end; }
+        Field size() const { return (is_finite()) ? m_end - m_beg + 1 : f_invalid; }
     };
 
     inline bool operator==( const Range& left, const Range& right ) {
