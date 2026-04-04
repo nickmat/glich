@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     13th February 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -113,6 +113,30 @@ namespace glich {
         return range.m_beg != f_invalid && range.m_end != f_invalid;
     }
 
+    inline Field rlist_size( const RList& rlist ) {
+        Field size = 0;
+        for( const Range& rng : rlist ) {
+            if( !rng.is_valid() ) {
+                return f_invalid;
+            }
+            if( rng.is_finite() ) {
+                size += rng.size();
+            }
+            else {
+                return f_maximum;
+            }
+        }
+        return size;
+    }
+
+    inline bool rlist_is_finite( const RList& rlist ) {
+        for( const Range& rng : rlist ) {
+            if( !rng.is_finite() ) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     // Append std::vector
     // Appends the 2nd argument to the 1st.
