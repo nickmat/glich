@@ -346,13 +346,16 @@ bool glich::Script::do_if_orig( bool result )
 
 bool Script::do_do()
 {
-    enum class DoType { forever, range, object };
+    enum class DoType { forever, range, rlist, object };
     DoType do_type = DoType::forever;
     int start_line = m_ts.get_line();
     SToken token = next_token();
     string entry;
     SValue container;
     Range range;
+    RList rlist;
+    size_t rlist_index = 0;
+    size_t range_index = 0;
     SValueVec values;
     Field index = 0, end_index = 0;
     bool forward = true;
@@ -364,27 +367,53 @@ bool Script::do_do()
                 token.type() == SToken::Type::Name && token.get_str() == "in:r" ) {
                 container = expr( GetToken::next );
                 bool success = false;
-                values = container.get_object( success );
-                if( success ) {
-                    do_type = DoType::object;
-                    end_index = values.size() - 1;
-                }else{
+                SValue::Type cont_type = container.type();
+                switch( cont_type )
+                {
+                case glich::SValue::Type::Number:
+                case glich::SValue::Type::field:
+                case glich::SValue::Type::range:
                     range = container.get_range( success );
                     if( success ) {
+                        if( !range.is_finite() ) {
+                            error( "Finite range expected." );
+                            return false;
+                        }
                         do_type = DoType::range;
-                        end_index = range.m_end - range.m_beg + 1;
+                        end_index = range.size();
                     }
+                    break;
+                case glich::SValue::Type::rlist:
+                    rlist = container.get_rlist( success );
+                    if( success ) {
+                        if( !rlist_is_finite( rlist ) ) {
+                            error( "Finite RList expected." );
+                            return false;
+                        }
+                        do_type = DoType::rlist;
+                        if( !rlist.empty() ) {
+                            range = rlist[0];
+                            end_index = rlist_size( rlist );
+                        }
+                    }
+                    break;
+                case glich::SValue::Type::Object:
+                    values = container.get_object( success );
+                    if( success ) {
+                        do_type = DoType::object;
+                        end_index = values.size() - 1;
+                    }
+                    break;
+                case glich::SValue::Type::Error:
+                    error_value( container );
+                    return false;
                 }
                 if( !success ) {
-                    error( "Range or object expression expected." );
+                    error( "Range, RList or Object expression expected." );
                     return false;
                 }
             } else {
                 error( "Expected 'in' or 'in:r' keyword." );
-                return false;
-            }
-            if( do_type == DoType::range && !range.is_finite() ) {
-                error( "Finite range expected." );
                 return false;
             }
             if( current_token().type() != SToken::Type::LCbracket ) {
@@ -393,6 +422,10 @@ bool Script::do_do()
             }
             if( token.get_str() == "in:r" ) {
                 forward = false;
+                if( do_type == DoType::rlist && !rlist.empty() ) {
+                    range = rlist[rlist.size() - 1];
+                    rlist_index = rlist.size() - 1;
+                }
             }
         } else {
             error( "'{' expected." );
@@ -426,13 +459,32 @@ bool Script::do_do()
                     glc().update_local( entry, values[end_index - index] );
                 }
             }
-            else {
+            else if( do_type == DoType::range ) {
                 if( forward ) {
                     glc().update_local( entry, SValue( range.m_beg + index ) );
                 }
                 else {
                     glc().update_local( entry, SValue( range.m_end - index ) );
                 }
+            }
+            else if( do_type == DoType::rlist ) {
+                Field value;
+                if( forward ) {
+                    if( range_index >= range.size() && rlist_index < rlist.size() - 1 ) {
+                        rlist_index++;
+                        range_index = 0;
+                    }
+                    value = rlist[rlist_index].m_beg + range_index;
+                }
+                else {
+                    if( range_index >= range.size() && rlist_index > 0 ) {
+                        --rlist_index;
+                        range_index = 0;
+                    }
+                    value = rlist[rlist_index].m_end - range_index;
+                }
+                glc().update_local( entry, SValue( value ) );
+                range_index++;
             }
             index++;
         }
