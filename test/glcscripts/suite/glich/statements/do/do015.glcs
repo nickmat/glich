@@ -11,6 +11,6 @@ write "end", cnt nl;
 
 /*[OUTPUT]
 
-Start Error file:do015 (6): Range or object expression expected.
+Start Error file:do015 (6): Range, RList or Object expression expected.
 
 [OUTPUT]*/
