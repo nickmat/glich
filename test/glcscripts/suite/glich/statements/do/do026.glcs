@@ -1,0 +1,19 @@
+// do026.glcs Test file to test do statement with error as container
+
+write nl;
+write "Start ";
+
+let e = @error("This is an error value.");
+
+do cnt in e {
+  write cnt,;
+};
+
+write "end" nl;
+
+
+/*[OUTPUT]
+
+Start Error file:do026 (6): This is an error value.
+
+[OUTPUT]*/

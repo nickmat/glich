@@ -1,0 +1,17 @@
+// do023.glcs Test file to test do statement with empty rlist
+
+write nl;
+write "Start ";
+
+do cnt in empty {
+  write cnt,;
+};
+
+write "end" nl;
+
+
+/*[OUTPUT]
+
+Start end
+
+[OUTPUT]*/

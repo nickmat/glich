@@ -1,0 +1,17 @@
+// do025.glcs Test file to test do statement with infinite rlist
+
+write nl;
+write "Start ";
+
+do cnt in 0..infinity | -10 {
+  write cnt,;
+};
+
+write "end" nl;
+
+
+/*[OUTPUT]
+
+Start Error file:do025 (6): Finite RList expected.
+
+[OUTPUT]*/
