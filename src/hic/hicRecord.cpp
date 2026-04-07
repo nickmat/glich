@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     http://historycal.org
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -73,7 +73,6 @@ Record::Record( const Scheme& sch, Field jdn )
     for( size_t i = 0; i < fields.size(); i++ ) {
         m_f[i] = fields[i];
     }
-    const Grammar* gmr = sch.get_grammar();
     Function* fun = sch.get_function( "calculate" );
     if( fun != nullptr ) {
         SValue value = get_object( sch.get_code() );
