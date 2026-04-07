@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     11th May 2025
- * Copyright:   Copyright (c) 2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2025..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -108,15 +108,14 @@ static SValue str_to_date( Scheme* sch, string& text, const string& fcode, std::
     return value;
 }
 
-static SValue complete_object( Scheme* sch, Field jdn, std::ostream& outs )
+static SValue complete_object( const Scheme& sch, Field jdn, std::ostream& outs )
 {
-    assert( sch != nullptr );
-    const Base& base = sch->get_base();
+    const Base& base = sch.get_base();
     Record record( base, jdn );
-    SValue value = record.get_object( sch->get_code() );
-    const Grammar* gmr = sch->get_grammar();
+    SValue value = record.get_object( sch.get_code() );
+    const Grammar* gmr = sch.get_grammar();
     assert( gmr != nullptr );
-    Function* fun = sch->get_function( "calculate" );
+    Function* fun = sch.get_function( "calculate" );
     if( fun != nullptr ) {
         StdStrVec qual;
         SValueVec args;
@@ -125,14 +124,13 @@ static SValue complete_object( Scheme* sch, Field jdn, std::ostream& outs )
     return value;
 }
 
-static SValue complete_object( Scheme* sch, const Range& rng, const std::string& fcode )
+static SValue complete_object( const Scheme& sch, const Range& rng, const std::string& fcode )
 {
-    assert( sch != nullptr );
-    const Base& base = sch->get_base();
+    const Base& base = sch.get_base();
     Record beg( base, rng.m_beg ), end( base, rng.m_end );
-    Format* fmt = sch->get_input_format( fcode );
+    Format* fmt = sch.get_input_format( fcode );
     assert( fmt != nullptr );
-    BoolVec reveal = fmt->get_reveal( beg, end );
+    BoolVec reveal = fmt->get_reveal( sch, beg, end );
     FieldVec beg_fields = beg.get_reveald_fields( reveal );
     FieldVec end_fields = end.get_reveald_fields( reveal );
     for( size_t i = 0; i < beg_fields.size(); i++ ) {
@@ -141,19 +139,18 @@ static SValue complete_object( Scheme* sch, const Range& rng, const std::string&
         }
     }
     beg.set_fields( beg_fields );
-    return beg.get_object( sch->get_code() );
+    return beg.get_object( sch.get_code() );
 }
 
-static SValue complete_object( Scheme* sch, const string& input, const string& fcode, std::ostream& outs )
+static SValue complete_object( const Scheme& sch, const string& input, const string& fcode, std::ostream& outs )
 {
-    assert( sch != nullptr );
-    Format* fmt = sch->get_input_format( fcode );
+    Format* fmt = sch.get_input_format( fcode );
     if( fmt == nullptr ) {
         return SValue();
     }
-    const Base& base = sch->get_base();
+    const Base& base = sch.get_base();
     Record mask( base, input, *fmt );
-    string ocode = sch->get_code();
+    string ocode = sch. get_code();
     SValue value = mask.get_object( ocode );
     if( fmt->has_use_function() ) {
         string funcode = fmt->get_from_text_funcode();
@@ -291,7 +288,7 @@ SValue glich::hic_at_scheme( const StdStrVec& quals, const SValueVec& args, std:
                 return SValue::create_error( no_default_mess );
             }
         }
-        return complete_object( sch, jdn, outs);
+        return complete_object( *sch, jdn, outs);
     }
     Range range = value.get_range( success );
     if( success ) {
@@ -301,7 +298,7 @@ SValue glich::hic_at_scheme( const StdStrVec& quals, const SValueVec& args, std:
                 return SValue::create_error( no_default_mess );
             }
         }
-        return complete_object( sch, range, fcode );
+        return complete_object( *sch, range, fcode );
     }
     if( value.type() == SValue::Type::String ) {
         if( sch == nullptr ) {
@@ -311,7 +308,7 @@ SValue glich::hic_at_scheme( const StdStrVec& quals, const SValueVec& args, std:
             }
         }
         string text = value.get_str();
-        return complete_object( sch, text, fcode, outs );
+        return complete_object( *sch, text, fcode, outs );
     }
     return SValue::create_error( "Expected a field or string type." );
 }
