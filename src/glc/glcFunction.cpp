@@ -51,6 +51,17 @@ SValue Function::run( StdStrVec& qual, SValueVec& args, std::ostream& out ) cons
     return value;
 }
 
+SValue glich::Function::run( StdStrVec& qual, SValueVec& args ) const
+{
+    std::ostringstream sout;
+    SValue value = run( qual, args, sout );
+    string output = sout.str();
+    if( !output.empty() ) {
+        return SValue::create_error( output );
+    }
+    return value;
+}
+
 
 SValue Function::run( const SValue* left, StdStrVec& qual, SValueVec& args, std::ostream& out ) const
 {
@@ -71,6 +82,17 @@ SValue Function::run( const SValue* left, StdStrVec& qual, SValueVec& args, std:
     glc().run( iss, out, m_module, m_line );
     value = glc().get_local( "result" );
     glc().pop_store();
+    return value;
+}
+
+SValue glich::Function::run( const SValue* left, StdStrVec& qual, SValueVec& args ) const
+{
+    std::ostringstream sout;
+    SValue value = run( left, qual, args, sout );
+    string output = sout.str();
+    if( !output.empty() ) {
+        return SValue::create_error( output );
+    }
     return value;
 }
 

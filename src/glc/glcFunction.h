@@ -54,7 +54,9 @@ namespace glich {
         SValue get_default_value( size_t index ) const { return m_defs[index]; }
 
         SValue run( StdStrVec& qual, SValueVec& args, std::ostream& out ) const;
+        SValue run( StdStrVec& qual, SValueVec& args ) const;
         SValue run( const SValue* left, StdStrVec& qual, SValueVec& args, std::ostream& out ) const;
+        SValue run( const SValue* left, StdStrVec& qual, SValueVec& args ) const;
 
     private:
         void create_locals( StdStrVec& qual, SValueVec& args ) const;
