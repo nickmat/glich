@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     24th March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -95,7 +95,7 @@ namespace glich {
 
         virtual FormatType get_format_type() const = 0;
         virtual std::string get_text_output( Record& rec ) const = 0;
-        virtual BoolVec get_reveal( Record& rec1, Record& rec2 ) const { return BoolVec(); }
+        virtual BoolVec get_reveal( const Scheme& sch, Record& rec1, Record& rec2 ) const { return BoolVec(); }
         virtual std::string get_revealed_text( Record& record, BoolVec& reveal ) const;
         virtual std::string get_date_text( const std::string& str ) const { return str; };
         virtual std::string get_range_text( const std::string& beg, const std::string& end ) const;

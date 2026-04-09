@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     24th March 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -95,7 +95,7 @@ string Format::range_to_string( const Scheme& sch, const Range& rng ) const
 
     string str1, str2;
     if( allow_shorthand() ) {
-        BoolVec reveal = get_reveal( rec1, rec2 );
+        BoolVec reveal = get_reveal( sch, rec1, rec2 );
         str1 = get_revealed_text( rec1, reveal );
         str2 = get_revealed_text( rec2, reveal );
     }

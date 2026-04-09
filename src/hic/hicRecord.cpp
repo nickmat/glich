@@ -251,14 +251,14 @@ SValue Record::get_object( const string& ocode ) const
     return { values };
 }
 
-BoolVec Record::mark_balanced_fields( Record& rec, const XIndexVec& rank_to_def, size_t size )
+BoolVec Record::mark_balanced_fields( const Scheme& sch, Record& rec, const XIndexVec& rank_to_def, size_t size )
 {
     assert( size > 0 && rank_to_def.size() >= size );
     // Both must have the same Base and not be identical.
     if( &m_base != &rec.m_base || m_jdn == rec.get_jdn() ) {
         return BoolVec( m_f.size(), true );
     }
-    return m_base.mark_balanced_fields( get_field_vec(), rec.get_field_vec(), rank_to_def, size );
+    return m_base.mark_balanced_fields( sch, get_field_vec(), rec.get_field_vec(), rank_to_def, size );
 }
 
 Field Record::get_field( size_t index ) const

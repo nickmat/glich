@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     15th June 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -167,7 +167,7 @@ FieldVec Hybrid::get_fields( Field jdn ) const
     return f;
 }
 
-BoolVec Hybrid::mark_balanced_fields(
+BoolVec Hybrid::mark_balanced_fields( const Scheme& sch,
     const FieldVec& fbeg, const FieldVec& fend, const XIndexVec& rank_to_def, size_t size ) const
 {
     BoolVec mask( m_record_size, true );

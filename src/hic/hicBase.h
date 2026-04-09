@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -85,7 +85,7 @@ namespace glich {
 
         virtual bool is_leap_year( Field year ) const { return false; }
 
-        virtual BoolVec mark_balanced_fields(
+        virtual BoolVec mark_balanced_fields( const Scheme& sch,
             const FieldVec& fbeg, const FieldVec& fend, const XIndexVec& rank_to_def, size_t size ) const;
 
         // normalise is to correct illegal reg values

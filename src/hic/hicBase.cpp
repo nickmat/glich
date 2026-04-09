@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -27,9 +27,12 @@
 
 #include "hicBase.h"
 
+#include "glcFunction.h"
 #include "glcHelper.h"
 #include "hicGrammar.h"
 #include "hicMath.h"
+#include "hicScheme.h"
+#include "hicRecord.h"
 
 #include <cassert>
 
@@ -192,7 +195,7 @@ void Base::complete_end( FieldVec& fields ) const
     }
 }
 
-BoolVec Base::mark_balanced_fields(
+BoolVec Base::mark_balanced_fields( const Scheme& sch,
     const FieldVec& fbeg, const FieldVec& fend, const XIndexVec& rank_to_def, size_t size ) const
 {
     BoolVec mask( m_fieldnames.size(), true );
@@ -201,6 +204,35 @@ BoolVec Base::mark_balanced_fields(
         size_t def_index = rank_to_def[rank_index];
         Field beg = get_beg_field_value( fbeg, def_index );
         Field end = get_end_field_value( fend, def_index );
+        if(beg == f_invalid && end == f_invalid ) {
+            Function* fun_first = sch.get_function( "first" );
+            Function* fun_last = sch.get_function( "last" );
+            if( fun_first != nullptr && fun_last != nullptr ) {
+                Record rbeg( *this, fbeg );
+                SValue  bleft = rbeg.get_object( sch.get_code() );
+                StdStrVec qual = { get_fieldname( def_index ) };
+                SValue value = fun_first->run( &bleft, qual, SValueVec() );
+                bool success = false;
+                beg = value.get_field( success );
+                if( !success ) {
+                    beg = f_invalid;
+                    break;
+                }
+                Record rend( *this, fend );
+                SValue  eleft = rend.get_object( sch.get_code() );
+                value = fun_last->run( &eleft, qual, SValueVec() );
+                end = value.get_field( success );
+                if( !success ) {
+                    beg = f_invalid;
+                    end = f_invalid;
+                    break;
+                }
+            }
+            else {
+                beg = f_invalid;
+                break;
+            }
+        }
         if( fbeg[def_index] == beg && fend[def_index] == end ) {
             mask[def_index] = false;
         }

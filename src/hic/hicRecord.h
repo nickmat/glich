@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     http://historycal.org
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -71,7 +71,7 @@ namespace glich {
         Range get_range_from_mask() const;
         SValue get_object( const std::string& ocode ) const;
 
-        BoolVec mark_balanced_fields( Record& rec, const XIndexVec& rank_to_def, size_t size );
+        BoolVec mark_balanced_fields( const Scheme& sch, Record& rec, const XIndexVec& rank_to_def, size_t size );
 
         const Base& get_base() const { return m_base; }
         const FieldVec& get_field_vec() const { return m_f; }

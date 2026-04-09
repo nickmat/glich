@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     11th July 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -41,7 +41,7 @@ namespace glich {
 
         FormatType get_format_type() const override { return FormatType::iso; };
         std::string get_text_output( Record& record ) const override;
-        BoolVec get_reveal( Record& rec1, Record& rec2 ) const override;
+        BoolVec get_reveal( const Scheme& sch, Record& rec1, Record& rec2 ) const override;
         std::string get_revealed_text( Record& record, BoolVec& reveal ) const override;
         std::string get_date_text( const std::string& str ) const override;
         Range string_to_range( const Base& base, const std::string& input, FunctionData* fdata = nullptr ) const override;
@@ -52,7 +52,7 @@ namespace glich {
 
     private:
         std::string jdn_to_str( const Base& base, Field jdn ) const;
-        std::string range_to_str( const Base& base, const Range& range ) const;
+        std::string range_to_str( const Scheme& sch, const Range& range ) const;
         std::string get_masked_output( const Record& record, const BoolVec* mask = nullptr ) const;
         std::string output_year( Field year ) const;
 

@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     11th July 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -123,14 +123,14 @@ std::string FormatIso::get_text_output( Record& record ) const
     return str;
 }
 
-BoolVec FormatIso::get_reveal( Record& rec1, Record& rec2 ) const
+BoolVec FormatIso::get_reveal( const Scheme& sch, Record& rec1, Record& rec2 ) const
 {
     const Base& base = rec1.get_base();
     XIndexVec xref( base.record_size() );
     for( size_t i = 0; i < xref.size(); i++ ) {
         xref[i] = i;
     }
-    return rec1.mark_balanced_fields( rec2, xref, base.record_size() );
+    return rec1.mark_balanced_fields( sch, rec2, xref, base.record_size() );
 }
 
 string FormatIso::get_revealed_text( Record& record, BoolVec& reveal ) const
@@ -339,7 +339,7 @@ bool FormatIso::set_input( Record& record, const string& input, Boundary rb ) co
 
 string FormatIso::range_to_string( const Scheme& sch, const Range& range ) const
 {
-    string str = range_to_str( sch.get_base(), range);
+    string str = range_to_str( sch, range);
     if( m_dateset ) {
         return "[" + str + "]";
     }
@@ -353,7 +353,7 @@ string FormatIso::rlist_to_string( const Scheme& sch, const RList& rlist ) const
         if( i > 0 ) {
             str += (m_dateset ? "," : " | ");
         }
-        str += range_to_str( sch.get_base(), rlist[i]);
+        str += range_to_str( sch, rlist[i]);
     }
     if( m_dateset ) {
         return "[" + str + "]";
@@ -367,8 +367,9 @@ std::string glich::FormatIso::jdn_to_str( const Base& base, Field jdn ) const
     return get_masked_output( rec );
 }
 
-std::string glich::FormatIso::range_to_str( const Base& base, const Range& range ) const
+std::string glich::FormatIso::range_to_str( const Scheme& sch, const Range& range ) const
 {
+    const Base& base = sch.get_base();
     if( range.m_beg == range.m_end ) {
         return jdn_to_str( base, range.m_beg );
     }
@@ -385,7 +386,7 @@ std::string glich::FormatIso::range_to_str( const Base& base, const Range& range
         for( size_t i = 0; i < xref.size(); i++ ) {
             xref[i] = i;
         }
-        BoolVec mask = rec1.mark_balanced_fields( rec2, xref, base.record_size() );
+        BoolVec mask = rec1.mark_balanced_fields( sch, rec2, xref, base.record_size() );
         str1 = get_masked_output( rec1, &mask );
         str2 = get_masked_output( rec2, &mask );
         if( str1 == str2 ) {

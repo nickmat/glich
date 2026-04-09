@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     21st March 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -263,9 +263,9 @@ string FormatText::get_text_output( Record& record ) const
     return get_revealed_output( record, nullptr );
 }
 
-BoolVec FormatText::get_reveal( Record& rec1, Record& rec2 ) const
+BoolVec FormatText::get_reveal( const Scheme& sch, Record& rec1, Record& rec2 ) const
 {
-    return rec1.mark_balanced_fields( rec2, m_rank_to_def_index, m_sig_rank_size );
+    return rec1.mark_balanced_fields( sch, rec2, m_rank_to_def_index, m_sig_rank_size );
 }
 
 string FormatText::get_revealed_text( Record& record, BoolVec& reveal ) const
