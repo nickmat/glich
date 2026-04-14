@@ -1,11 +1,11 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Name:        src/glc/hicChinese.h
+ * Name:        src/hic/hicChinese.h
  * Project:     Glich: Extendable Script Language.
  * Purpose:     Chinese Lunisolar calendar.
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     13th August 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -25,8 +25,8 @@
 
 */
 
-#ifndef SRC_GLC_HICCHINESE_H_GUARD
-#define SRC_GLC_HICCHINESE_H_GUARD
+#ifndef SRC_HIC_HICCHINESE_H_GUARD
+#define SRC_HIC_HICCHINESE_H_GUARD
 
 #include "hicBase.h"
 
@@ -48,9 +48,9 @@ namespace glich {
         FieldVec get_fields( Field jdn ) const override;
 
         static bool is_leap_month( Field year, Field month );
-
+        static Field next_new_moon( Field jdn );
     };
 
 }
 
-#endif // SRC_GLC_HICCHINESE_H_GUARD
+#endif // SRC_HIC_HICCHINESE_H_GUARD

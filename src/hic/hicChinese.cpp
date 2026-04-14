@@ -1,11 +1,11 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Name:        src/glc/hicChinese.cpp
+ * Name:        src/hic/hicChinese.cpp
  * Project:     Glich: Extendable Script Language.
  * Purpose:     Chinese Lunisolar calendar.
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     13th August 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -323,4 +323,9 @@ bool Chinese::is_leap_month( Field year, Field month )
     return chinese_is_leap_month( cycle, cyear, month );
 }
 
-// End of src/glc/hicChinese.cpp
+Field Chinese::next_new_moon( Field jdn )
+{
+    return chinese_new_moon_on_or_after( jdn + 1 );
+}
+
+// End of src/hic/hicChinese.cpp
