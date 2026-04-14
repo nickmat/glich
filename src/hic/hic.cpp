@@ -29,6 +29,8 @@
 
 #include <glc/glc.h>
 
+#include "hicChinese.h"
+
 #include <cassert>
 
 using namespace glich;
@@ -75,6 +77,11 @@ HicGlich& glich::hic()
 {
     assert( s_hic != nullptr );
     return *s_hic;
+}
+
+Field glich::chinese_next_new_moon( Field jdn )
+{
+    return Chinese::next_new_moon( jdn );
 }
 
 // End of src/hic/hic.cpp
