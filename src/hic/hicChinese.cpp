@@ -253,7 +253,7 @@ Field Chinese::get_jdn( const FieldVec& fields ) const
     ) {
         return f_invalid;
     }
-    Field cycle = (fields[0] / 60 ) + 1;
+    Field cycle = ((fields[0] - 1) / 60) + 1;
     Field cyear = famod_f( fields[0], 60 );
     return chinese_to_jdn( cycle, cyear, fields[1], fields[2], fields[3] );
 }
@@ -285,7 +285,7 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
     if( fields[0] == f_invalid ) {
         return f_invalid;
     }
-    Field cycle = (fields[0] / 60) + 1;
+    Field cycle = ((fields[0] - 1)   / 60) + 1;
     Field cyear = famod_f( fields[0], 60 );
 
     switch( index )
