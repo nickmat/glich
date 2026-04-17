@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     5th September 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -63,7 +63,7 @@ TEST_CASE( "Scheme j Soak Test", "[j Soak]" )
         break;
     }
 
-    std::cout << ".";
+    std::cout << "j ";
 
     string sig = "j:def";
     string date = cvt_fields( start_year, 1, 1 );
