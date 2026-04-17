@@ -40,12 +40,9 @@ using std::string;
 #define BASEDATE_Chinese 758326L  // g# 15 Feb -2636
 
 namespace {
-
     enum ChineseField {
-        CHIN_cycle, CHIN_cyear, CHIN_month, CHIN_lmonth, CHIN_day
+        CHIN_year, CHIN_month, CHIN_lmonth, CHIN_day
     };
-
-    enum class ChinFN { cycle, cyear, month, lmonth, day };
 
     // CC3 p262
     const Field chinese_month_name_epoch = 57;
@@ -153,7 +150,7 @@ namespace {
 
     // CC3 p259 chinese-from-fixed
     bool chinese_from_jdn(
-        Field* cycle, Field* year, Field* month, Field* lmonth, Field* day, Field jdn )
+        Field* year, Field* month, Field* lmonth, Field* day, Field jdn )
     {
         Field s1 = chinese_winter_solstice_on_or_before( jdn );
         Field s2 = chinese_winter_solstice_on_or_before( s1 + 370 );
@@ -179,24 +176,23 @@ namespace {
         }
         Field elapsed_years = floor_f( 1.5 - double( *month ) / 12.0
             + double( jdn - BASEDATE_Chinese ) / mean_tropical_year );
-        *cycle = fdiv_f( elapsed_years - 1, 60 ) + 1;
-        *year = famod_f( elapsed_years, 60 );
+        *year = elapsed_years;
         *day = jdn - m + 1;
 
         return true;
     }
 
     // CC3 p260 fixed-from-chinese
-    Field chinese_to_jdn( Field cycle, Field year, Field month, Field lmonth, Field day )
+    Field chinese_to_jdn( Field year, Field month, Field lmonth, Field day )
     {
-        Field midyear = BASEDATE_Chinese + 
-            floor_f( ( double( (cycle-1) * 60 + year ) - 0.5 ) * mean_tropical_year );
+        Field midyear = BASEDATE_Chinese +
+            floor_f( (double( year ) - 0.5) * mean_tropical_year );
 
         Field newyear = chinese_new_year_on_or_before( midyear );
         Field p = chinese_new_moon_on_or_after( newyear + ( month - 1 ) * 29 );
 
-        Field d[5];
-        bool ret = chinese_from_jdn( &d[0], &d[1], &d[2], &d[3], &d[4], p );
+        Field d[4];
+        bool ret = chinese_from_jdn( &d[0], &d[1], &d[2], &d[3], p );
         if( !ret ) {
             return f_invalid;
         }
@@ -210,28 +206,23 @@ namespace {
         return prior_newmoon + day - 1;
     }
 
-    Field chinese_last_day_of_month( Field cycle, Field year, Field month, Field leap )
+    Field chinese_last_day_of_month( Field year, Field month, Field leap )
     {
-        Field jdn1 = chinese_to_jdn( cycle, year, month, leap, 1 );
+        Field jdn1 = chinese_to_jdn( year, month, leap, 1 );
         Field jdn2 = chinese_new_moon_on_or_after( jdn1 + 1 );
         return jdn2 - jdn1;
     }
 
-    bool chinese_is_leap_month( Field cycle, Field year, Field month )
+    bool chinese_is_leap_month( Field year, Field month )
     {
-        Field jdn1 = chinese_to_jdn( cycle, year, month, 0, 1 );
+        Field jdn1 = chinese_to_jdn( year, month, 0, 1 );
         Field m = month + 1;
         Field y = year;
-        Field c = cycle;
         if( m == 13 ) {
             m = 1;
             y++;
-            if( y == 61 ) {
-                y = 1;
-                c++;
-            }
         }
-        Field jdn2 = chinese_to_jdn( c, y, m, 0, 1 );
+        Field jdn2 = chinese_to_jdn( y, m, 0, 1 );
         return (jdn2 - jdn1) > 30;
     }
 
@@ -253,9 +244,7 @@ Field Chinese::get_jdn( const FieldVec& fields ) const
     ) {
         return f_invalid;
     }
-    Field cycle = ((fields[0] - 1) / 60) + 1;
-    Field cyear = famod_f( fields[0], 60 );
-    return chinese_to_jdn( cycle, cyear, fields[1], fields[2], fields[3] );
+    return chinese_to_jdn( fields[0], fields[1], fields[2], fields[3] );
 }
 
 
@@ -285,8 +274,6 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
     if( fields[0] == f_invalid ) {
         return f_invalid;
     }
-    Field cycle = ((fields[0] - 1)   / 60) + 1;
-    Field cyear = famod_f( fields[0], 60 );
 
     switch( index )
     {
@@ -295,9 +282,9 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
     case 1: // month
         return 12;
     case 2: // lmonth
-        return chinese_is_leap_month( cycle, cyear, fields[1] ) ? 1 : 0;
+        return chinese_is_leap_month( fields[0], fields[1]) ? 1 : 0;
     case 3: // day
-        return chinese_last_day_of_month( cycle, cyear, fields[1], fields[2] );
+        return chinese_last_day_of_month( fields[0], fields[1], fields[2] );
     }
     return f_invalid;
 }
@@ -305,22 +292,14 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
 FieldVec Chinese::get_fields( Field jdn ) const
 {
     FieldVec fields( record_size(), f_invalid );
-    Field cycle = f_invalid;
-    Field cyear = f_invalid;
-    chinese_from_jdn( &cycle, &cyear, &fields[1], &fields[2], &fields[3], jdn );
-    if( cycle == f_invalid || cyear == f_invalid ) {
-        return fields; // Invalid date
-    }
-    fields[0] = (cycle - 1) * 60 + cyear;
+    chinese_from_jdn( &fields[0], &fields[1], &fields[2], &fields[3], jdn);
     return fields;
 }
 
 /* static */
 bool Chinese::is_leap_month( Field year, Field month )
 {
-    Field cycle = (year / 60) + 1;
-    Field cyear = famod_f( year, 60 );
-    return chinese_is_leap_month( cycle, cyear, month );
+    return chinese_is_leap_month( year, month );
 }
 
 Field Chinese::next_new_moon( Field jdn )
