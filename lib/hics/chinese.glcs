@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     14th July 2024
- * Copyright:   Copyright (c) 2024..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2024..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -177,6 +177,10 @@ grammar c {
     };
     format animal {
         output "(Cycle {cycle})| Year of the {branch:animal} {cyear}| {lmonth:lmon}| {month}| Day {day}";
+    };
+    format rdef {
+        inout "{year}| {month}| {lmonth}| {day}";
+        visible no;
     };
     preferred cymld;
 };

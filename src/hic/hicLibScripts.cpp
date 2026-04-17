@@ -7,7 +7,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     1st April 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -908,6 +908,10 @@ glich::StdStrMap glich::hics_default_scripts = {
  "};\n"
  "format animal {\n"
  "output \"(Cycle {cycle})| Year of the {branch:animal} {cyear}| {lmonth:lmon}| {month}| Day {day}\";\n"
+ "};\n"
+ "format rdef {\n"
+ "inout \"{year}| {month}| {lmonth}| {day}\";\n"
+ "visible no;\n"
  "};\n"
  "preferred cymld;\n"
  "};\n"
