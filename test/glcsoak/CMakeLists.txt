@@ -4,12 +4,13 @@
 # Author:      Nick Matthews
 # Website:     https://github.com/nickmat/glich
 # Created:     4th September 2023
-# Copyright:   Copyright (c) 2023, Nick Matthews.
+# Copyright:   Copyright (c) 2023..2026, Nick Matthews.
 # Licence:     GNU GPLv3
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 set( TEST_GLCSOAK_FILES
     gsMain.cpp
+    gsSch_c.cpp
     gsSch_g.cpp
     gsSch_j.cpp
     gsSch_ja.cpp
