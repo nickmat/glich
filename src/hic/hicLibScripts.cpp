@@ -7,7 +7,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     1st April 2023
- * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -885,6 +885,12 @@ glich::StdStrMap glich::hics_default_scripts = {
  "stem = (cyear - 1) mod 10 + 1;\n"
  "branch = (cyear - 1) mod 12 + 1;\n"
  "result = this;\n"
+ "};\n"
+ "function first.field {\n"
+ "result = @if( field = \"cyear\", 1f, ?);\n"
+ "};\n"
+ "function last.field {\n"
+ "result = @if( field = \"cyear\", 60f, ?);\n"
  "};\n"
  "format ymld \"{year}| {month}| {lmonth:fs:a}| {day}\";\n"
  "format ylmd \"{year}| {lmonth:lmon:a}| {month}| {day}\";\n"

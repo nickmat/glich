@@ -154,6 +154,14 @@ grammar c {
         result = this;
     };
 
+    function first.field {
+        result = @if( field = "cyear", 1f, ?);
+    };
+
+    function last.field {
+        result = @if( field = "cyear", 60f, ?);
+    };
+
     format ymld "{year}| {month}| {lmonth:fs:a}| {day}";
     format ylmd "{year}| {lmonth:lmon:a}| {month}| {day}";
     // Note, format used in "Calendrical Calculations"
