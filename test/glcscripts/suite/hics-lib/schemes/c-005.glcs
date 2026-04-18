@@ -1,0 +1,24 @@
+// hics-lib/schemes/c-005.glcs - Test Hics library Chinese Calendar scheme.
+
+
+let d1 = 2467290;
+let d2 = 2467291;
+
+write nl;
+write @text.c:rdef( d1 ), @text.c:rdef( d2 ) nl;
+write @text.c( d1 ), @text.c( d2 ) nl;
+
+write nl;
+write @date.c:rdef("4679 12 0 30"), @date.c:rdef("4680 1 0 1") nl;
+write @date.c("78 59 12 f 30"), @date.c("78 60 1 f 1") nl;
+
+
+/*[OUTPUT]
+
+4679 12 0 30, 4680 1 0 1
+78 59 12 f 30, 78 60 1 f 1
+
+2467290, 2467291
+2467290, 2467291
+
+[OUTPUT]*/
