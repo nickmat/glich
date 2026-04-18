@@ -37,6 +37,8 @@ namespace glich {
     public:
         Chinese( const StdStrVec& data );
 
+        void cal_data( const std::string& word );
+
         const char* basename() const override { return "chinese"; }
         size_t required_size() const override { return 4; }
 
@@ -49,6 +51,9 @@ namespace glich {
 
         static bool is_leap_month( Field year, Field month );
         static Field next_new_moon( Field jdn );
+
+    protected:
+        Field m_year_offset;
     };
 
 }

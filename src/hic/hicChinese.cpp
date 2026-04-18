@@ -230,9 +230,24 @@ namespace {
 
 
 Chinese::Chinese( const StdStrVec& data )
-    : Base( data, 5 )
+    : m_year_offset( 0 ), Base( data, 5 )
 {
     m_fieldnames = { "year", "month", "lmonth", "day" };
+    for( const string& word : data ) {
+        cal_data( word );
+    }
+}
+
+void Chinese::cal_data( const string& word )
+{
+    string code, tail;
+    split_code( &code, &tail, word );
+    if( code == "year" ) {
+        m_year_offset = str_to_field( tail );
+    }
+    else {
+        set_data( word );
+    }
 }
 
 Field Chinese::get_jdn( const FieldVec& fields ) const
@@ -244,7 +259,8 @@ Field Chinese::get_jdn( const FieldVec& fields ) const
     ) {
         return f_invalid;
     }
-    return chinese_to_jdn( fields[0], fields[1], fields[2], fields[3] );
+    Field year = fields[0] + m_year_offset;
+    return chinese_to_jdn( year, fields[1], fields[2], fields[3] );
 }
 
 
@@ -274,6 +290,7 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
     if( fields[0] == f_invalid ) {
         return f_invalid;
     }
+    Field year = fields[0] + m_year_offset;
 
     switch( index )
     {
@@ -282,9 +299,9 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
     case 1: // month
         return 12;
     case 2: // lmonth
-        return chinese_is_leap_month( fields[0], fields[1]) ? 1 : 0;
+        return chinese_is_leap_month( year, fields[1]) ? 1 : 0;
     case 3: // day
-        return chinese_last_day_of_month( fields[0], fields[1], fields[2] );
+        return chinese_last_day_of_month( year, fields[1], fields[2] );
     }
     return f_invalid;
 }
@@ -292,7 +309,9 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
 FieldVec Chinese::get_fields( Field jdn ) const
 {
     FieldVec fields( record_size(), f_invalid );
-    chinese_from_jdn( &fields[0], &fields[1], &fields[2], &fields[3], jdn);
+    Field year = f_invalid;
+    chinese_from_jdn( &year, &fields[1], &fields[2], &fields[3], jdn);
+    fields[0] = year - m_year_offset;
     return fields;
 }
 
