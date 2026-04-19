@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     24th March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -41,7 +41,7 @@ namespace glich {
     class Grammar
     {
     public:
-        Grammar( const std::string& code, Glich* glc );
+        Grammar( const std::string& code );
         ~Grammar();
         Grammar( const Grammar& ) = delete;
         Grammar& operator=( const Grammar& ) = delete;
@@ -91,14 +91,13 @@ namespace glich {
         StdStrVec get_opt_fieldnames() const { return m_opt_fieldnames; }
         StdStrVec get_calc_fieldnames() const { return m_calc_fieldnames; }
         StdStrVec get_rank_fieldnames() const { return m_rank_fieldnames; }
-        Glich& get_glich() const { return *m_glc; }
         void remove_format( const std::string& fcode );
 
         bool add_function( SpFunction fun );
         Function* get_function( const std::string& funcode ) const;
         const SpFunctionMap& get_function_map() const { return m_functions; }
 
-        static Grammar* create_default_grammar( const Base* base, Glich* glc );
+        static Grammar* create_default_grammar( const Base* base );
 
     private:
         enum class InOut { input, output };
@@ -107,7 +106,6 @@ namespace glich {
         void create_def_format();
         void create_u_format();
 
-        Glich*      m_glc;
         std::string m_code;
         std::string m_name;
         bool        m_ok;

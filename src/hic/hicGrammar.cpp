@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     24th March 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -41,8 +41,8 @@ using namespace glich;
 using std::string;
 
 
-Grammar::Grammar( const string& code, Glich* glc )
-    : m_code( code ), m_glc( glc ), m_ok( false ), m_inherit( nullptr ),
+Grammar::Grammar( const string& code )
+    : m_code( code ), m_ok( false ), m_inherit( nullptr ),
     m_inherit_lexicons( true )
 {
 }
@@ -390,9 +390,9 @@ Function* Grammar::get_function( const string& code ) const
     return nullptr;
 }
 
-Grammar* Grammar::create_default_grammar( const Base* base, Glich* glc )
+Grammar* Grammar::create_default_grammar( const Base* base )
 {
-    Grammar* gmr = new Grammar( "", glc );
+    Grammar* gmr = new Grammar( string() );
     gmr->set_base_fieldnames( base->get_fieldnames() );
     gmr->constuct();
     return gmr;

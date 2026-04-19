@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -298,7 +298,7 @@ Scheme* HicScript::do_create_scheme( const string& code )
         return nullptr;
     }
     if( gmr == nullptr ) {
-        gmr = Grammar::create_default_grammar( base, &glc() );
+        gmr = Grammar::create_default_grammar( base );
     }
     if( !base->attach_grammar( gmr ) ) {
         if( gmr_code.empty() ) {
@@ -381,7 +381,7 @@ Grammar* HicScript::do_create_grammar( const string& code, const Base* base )
         error( "'{' expected." );
         return nullptr;
     }
-    Grammar* gmr = new Grammar( code, &glc() );
+    Grammar* gmr = new Grammar( code );
     StdStrVec basefields;
     if( base != nullptr ) {
         for( size_t i = 0; i < base->required_size(); i++ ) {
