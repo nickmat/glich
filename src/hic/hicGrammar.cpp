@@ -84,14 +84,15 @@ bool Grammar::constuct()
         }
     }
     else {
-        create_def_format();
+        create_all_format();
+        create_rank_format();
         create_u_format();
     }
     if( m_pref_input_fcode.empty() ) {
-        m_pref_input_fcode = "def";
+        m_pref_input_fcode = "r";
     }
     if( m_pref_output_fcode.empty() ) {
-        m_pref_output_fcode = "def";
+        m_pref_output_fcode = "r";
     }
     for( auto& fmt : m_formats ) {
         fmt.second->construct();
@@ -390,10 +391,17 @@ Function* Grammar::get_function( const string& code ) const
     return nullptr;
 }
 
+/* static */
 Grammar* Grammar::create_default_grammar( const Base* base )
 {
     Grammar* gmr = new Grammar( string() );
     gmr->set_base_fieldnames( base->get_fieldnames() );
+    size_t req_size = base->required_size();
+    StdStrVec rank_fieldnames;
+    for( size_t i = 0; i < req_size; i++ ) {
+        rank_fieldnames.push_back( base->get_fieldname( i ) );
+    }
+    gmr->set_rank_fieldnames( rank_fieldnames );
     gmr->constuct();
     return gmr;
 }
@@ -480,9 +488,10 @@ void Grammar::get_format_info( SchemeFormatInfo* info, const string& cur_code, I
     }
 }
 
-void Grammar::create_def_format()
+void Grammar::create_all_format()
 {
-    FormatText* fmt = new FormatText( "def", *this ); //create_format_text( "def" );
+    // Tex format using all register ordered field names.
+    FormatText* fmt = new FormatText( "a", *this );
     if( fmt == nullptr ) {
         return;
     }
@@ -495,6 +504,31 @@ void Grammar::create_def_format()
     }
     for( string fieldname : m_calc_fieldnames ) {
         control += "| {" + fieldname + "}";
+    }
+    for( string fieldname : m_opt_fieldnames ) {
+        control += "| {" + fieldname + "}";
+    }
+    fmt->set_control_in( control );
+    fmt->set_control_out( control );
+    fmt->set_visible( false );
+    add_format( fmt );
+}
+
+void Grammar::create_rank_format()
+{
+    // Text format using the ranked field names.
+    FormatText* fmt = new FormatText( "r", *this );
+    if( fmt == nullptr ) {
+        return;
+    }
+    string control;
+    const StdStrVec& names = m_rank_fieldnames.empty() ?
+        m_base_fieldnames : m_rank_fieldnames;
+    for( const string fieldname : names ) {
+        if( !control.empty() ) {
+            control += "| ";
+        }
+        control += "{" + fieldname + "}";
     }
     fmt->set_control_in( control );
     fmt->set_control_out( control );

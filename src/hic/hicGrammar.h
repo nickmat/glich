@@ -103,7 +103,8 @@ namespace glich {
         enum class InOut { input, output };
         bool has_format( InOut type ) const;
         void get_format_info( SchemeFormatInfo* info, const std::string& cur_code, InOut type ) const;
-        void create_def_format();
+        void create_all_format();
+        void create_rank_format();
         void create_u_format();
 
         std::string m_code;
