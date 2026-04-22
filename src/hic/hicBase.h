@@ -51,8 +51,9 @@ namespace glich {
         virtual const char* basename() const = 0;
         // Return the number of Required Fields.
         virtual size_t required_size() const = 0;
-        // Return the number of of all Fields including optional and calculated.
+        // Return the number of required and additional fields.
         size_t record_size() const { return m_record_size; }
+        // Return the number of of all Fields including optional and calculated.
         size_t object_size() const { return m_fieldnames.size(); }
         Grammar* get_grammar() const { return m_grammar; }
         // Get list of fieldnames in default order.
