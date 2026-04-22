@@ -1,9 +1,11 @@
-// record001.hcs - 
+// at-pseudo_in001.glcs - Test pseudo:in scheme value. 
+
 
 write nl;
-write @fmt:object.g:dmy[.pseudo:in], @fmt:object.g:def[.pseudo:in] nl;
+write @fmt:object.g:dmy[.pseudo:in], @fmt:object.g:r[.pseudo:in] nl;
 write @fmt:object.g:iso[.pseudo:in], @fmt:object.g:iso_set[.pseudo:in] nl;
 write @fmt:object.g:u[.pseudo:in] nl;
+
 
 
 /*[OUTPUT]

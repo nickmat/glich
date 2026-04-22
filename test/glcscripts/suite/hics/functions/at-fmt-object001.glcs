@@ -1,0 +1,19 @@
+// at-fmt-object001.glcs - Test @pseudo:in and @pseudo:out scheme values.
+
+scheme G {
+    base gregorian;
+};
+
+write nl;
+write @fmt:object.G:a[.pseudo:in], @fmt:object.G:a[.pseudo:out] nl;
+write @fmt:object.G:r[.pseudo:in], @fmt:object.G:r[.pseudo:out] nl;
+write @fmt:object.G:u[.pseudo:in], @fmt:object.G:u[.pseudo:out] nl;
+
+
+/*[OUTPUT]
+
+year month day, year month day
+year month day, year month day
+9year 9month 9day, 9year 9month 9day
+
+[OUTPUT]*/

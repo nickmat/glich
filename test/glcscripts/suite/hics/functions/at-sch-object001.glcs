@@ -11,8 +11,8 @@ write s[.formats] nl;
 
 /*[OUTPUT]
 
-G, gregorian, def, def, true
+G, gregorian, r, r, true
 {: "year", "month", "day"}
-{: "def", "u"}
+{: "a", "r", "u"}
 
 [OUTPUT]*/
