@@ -71,7 +71,7 @@ bool Base::attach_grammar( Grammar* gmr )
     // Check base and gmr fieldnames are the same.
     StdStrVec  base_fns = get_fieldnames();
     StdStrVec gmr_fns = gmr->get_base_fieldnames();
-    size_t size = required_size();
+    size_t size = record_size();
     if( base_fns.size() != size || gmr_fns.size() != size ) {
         return false; // At lest one list is short.
     }
