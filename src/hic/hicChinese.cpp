@@ -41,7 +41,7 @@ using std::string;
 
 namespace {
     enum ChineseField {
-        CHIN_year, CHIN_month, CHIN_lmonth, CHIN_day
+        CHIN_year, CHIN_month, CHIN_lmonth, CHIN_day, CHIN_cycle, CHIN_cyear
     };
 
     // CC3 p262
@@ -230,9 +230,11 @@ namespace {
 
 
 Chinese::Chinese( const StdStrVec& data )
-    : m_year_offset( 0 ), Base( data, 5 )
+    : m_year_offset( 0 ), Base( data, 6 )
 {
-    m_fieldnames = { "year", "month", "lmonth", "day" };
+    // 4 required fields: year, month, lmonth, day
+    // and 2 additional fields: cycle, cyear.
+    m_fieldnames = { "year", "month", "lmonth", "day", "cycle", "cyear" };
     for( const string& word : data ) {
         cal_data( word );
     }
@@ -272,11 +274,13 @@ Field Chinese::get_beg_field_value( const FieldVec& fields, size_t index ) const
     switch( index )
     {
     case 0: // year
+    case 4: // cycle
         return f_minimum;
     case 2: // lmonth
         return 0;
     case 1: // month
     case 3: // day
+    case 5: // cyear
         return 1;
     }
     return f_invalid;
@@ -295,6 +299,7 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
     switch( index )
     {
     case 0: // year
+    case 4:
         return f_maximum;
     case 1: // month
         return 12;
@@ -302,6 +307,8 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
         return chinese_is_leap_month( year, fields[1]) ? 1 : 0;
     case 3: // day
         return chinese_last_day_of_month( year, fields[1], fields[2] );
+    case 5: // cyear
+        return 60;
     }
     return f_invalid;
 }
@@ -312,6 +319,8 @@ FieldVec Chinese::get_fields( Field jdn ) const
     Field year = f_invalid;
     chinese_from_jdn( &year, &fields[1], &fields[2], &fields[3], jdn);
     fields[0] = year - m_year_offset;
+    fields[4] = ((year - 1) / 60) + 1; // cycle
+    fields[5] = famod_f( year, 60 ); // cyear
     return fields;
 }
 
