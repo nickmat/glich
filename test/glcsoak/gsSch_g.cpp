@@ -65,7 +65,7 @@ TEST_CASE( "Scheme g Soak Test", "[g Soak]" )
 
     std::cout << "g ";
 
-    string sig = "g:def";
+    string sig = "g:r";
     string date = cvt_fields( start_year, 1, 1 );
     Field daycount = g_glc->text_to_field( date, sig );
     REQUIRE( daycount == start_jdn );

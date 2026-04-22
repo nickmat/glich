@@ -79,7 +79,7 @@ TEST_CASE( "Scheme c Soak Test", "[c Soak]" )
         lmonth_index = 9;
     }
 
-    string sig = "c:rdef";
+    string sig = "c:r";
     string date_str = cvt_fields( start_year, 1, 0, 1 );
     Field daycount = g_glc->text_to_field( date_str, sig );
     REQUIRE( daycount == start_jdn );
