@@ -63,8 +63,8 @@ lexicon FS {
 };
 
 grammar C {
-    fields year month lmonth day;
-    calculated cycle cyear clmonth stem branch;
+    fields year month lmonth day cycle cyear;
+    calculated clmonth stem branch;
     // year month lmonth day cycle cyear clmonth stem branch
 
     lexicons LMON FS CSTEM CBRCH;
@@ -72,8 +72,6 @@ grammar C {
     alias unit { d day; m month; lm lmonth; y cyear; c cycle; };
 
     function calculate {
-        cycle = ( (year - 1) div 60 ) + 1;
-        cyear = ( (year - 1) mod 60 ) + 1;
         stem = (cyear - 1) mod 10 + 1;
         branch = (cyear - 1) mod 12 + 1;
         clmonth = @if(lmonth=0, null, 1);
@@ -137,8 +135,6 @@ scheme C {
 
 let d1 = 2460866;
 let d2 = 2460896;
-
-//write /*@scheme.C("78 42 6 f 15"),*/ @scheme.C("78 42 6 s 15") nl;
 
 write nl; // Default cymld format
 write "Default cymld format" nl;

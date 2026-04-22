@@ -13,6 +13,7 @@ lexicon FS {
 
 grammar C {
     fields year month lmonth day cycle cyear;
+    rank year month lmonth day;
     calculated clmonth stem branch;
     // year month lmonth day cycle cyear clmonth stem branch
 
@@ -48,10 +49,7 @@ grammar C {
     };
 
     // Note, format used in "Calendrical Calculations"
-    format cymld {
-        inout "{cycle}| {cyear}| {month}| {lmonth:FS:a:l}| {day}";
-        rank cycle cyear month lmonth day;
-    };
+    format cymld "{year}| {month}| {lmonth:FS:a:l}| {day}";
     preferred cymld;
 };
 
@@ -64,26 +62,23 @@ scheme C {
 
 write nl;
 write @fmt:object.C:u[.shorthand], @fmt:object.C:r[.shorthand], @fmt:object.C:cymld[.shorthand] nl;
-write @date.C( "78 42 6 f 15" ), @text.C( 2460866 ) nl;
-write @date.C( "78 42 6 f" ), @text.C( 2460852..2460881 ) nl;
-write @date.C( "78 42 6 s" ), @text.C( 2460882..2460910 ) nl;
-write @date.C( "78 42 7 f" ), @text.C( 2460911..2460940 ) nl;
-write @date.C( "78 42 6" ), @text.C( 2460852..2460910 ) nl;
-write @date.C( "78 42 7" ), @text.C( 2460911..2460940 ) nl;
-write @date.C( "78 42" ), @text.C( 2460705..2461088 ) nl;
-write @date.C( "78" ), @text.C( 2445733..2467644 ) nl;
-
+write @date.C( "4662 6 f 15" ), @text.C( 2460866 ) nl;
+write @date.C( "4662 6 f" ), @text.C( 2460852..2460881 ) nl;
+write @date.C( "4662 6 s" ), @text.C( 2460882..2460910 ) nl;
+write @date.C( "4662 7 f" ), @text.C( 2460911..2460940 ) nl;
+write @date.C( "4662 6" ), @text.C( 2460852..2460910 ) nl;
+write @date.C( "4662 7" ), @text.C( 2460911..2460940 ) nl;
+write @date.C( "4662" ), @text.C( 2460705..2461088 ) nl;
 
 /*[OUTPUT]
 
 false, true, true
-2460866, 78 42 6 f 15
-2460852..2460881, 78 42 6 f
-2460882..2460910, 78 42 6 s
-2460911..2460940, 78 42 7
-2460852..2460910, 78 42 6
-2460911..2460940, 78 42 7
-2460705..2461088, 78 42
-2445733..2467644, 78
+2460866, 4662 6 f 15
+2460852..2460881, 4662 6 f
+2460882..2460910, 4662 6 s
+2460911..2460940, 4662 7
+2460852..2460910, 4662 6
+2460911..2460940, 4662 7
+2460705..2461088, 4662
 
 [OUTPUT]*/
