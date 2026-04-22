@@ -1,0 +1,13 @@
+// jce-005.glcs // Test formats
+
+write nl;
+write @date.jce:std("16th June 2025 Common Era"), @text.jce:std( 2460856 ) nl;
+write @date.jce:full("Sunday 16th June 2025 Common Era"), @text.jce:full( 2460856 ) nl;
+
+
+/*[OUTPUT]
+
+2460856, 16th June 2025 Common Era
+2460856, Sunday 16th June 2025 Common Era
+
+[OUTPUT]*/

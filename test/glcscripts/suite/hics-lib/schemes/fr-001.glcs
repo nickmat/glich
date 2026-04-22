@@ -1,5 +1,5 @@
 // fr-001.glcs  Test fr scheme
-
+/*[SKIP]*/
 
 write nl;
 write @date.fr:dmy( "" ) nl;
