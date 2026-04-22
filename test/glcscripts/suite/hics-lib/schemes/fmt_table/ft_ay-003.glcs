@@ -1,5 +1,5 @@
 // ay-003.glcs  Create ay scheme format table.
-
+/*[SKIP]*/
 let sch = "ay";
 
 let d1 = 2299160;

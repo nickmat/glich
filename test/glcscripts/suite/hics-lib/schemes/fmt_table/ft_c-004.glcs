@@ -1,5 +1,5 @@
 // c-004.glcs  Create c scheme format table.
-
+/*[SKIP]*/
 let sch = "c";
 
 let d1 = 2460866;
@@ -84,6 +84,8 @@ write "</table>" nl;
 <tr><td class='example'>Cycle: 78, Year: Yǐ-sì (42), Month: 6, Day: 15<br />Cycle: 78, Year: Yǐ-sì (42), Leap-month: 6, Day: 15<br />Cycle: 78, Year: Yǐ-sì (42), Month: 7, Day: 15</td></tr>
 <tr><td rowspan='2'><b>animal</b></td><td rowspan='2'>text</td><td><b>Output:</b> (Cycle cc) Year of the Animal cy LeapMon mm Day dd</td><td rowspan='2'></td></tr>
 <tr><td class='example'>(Cycle 78) Year of the Snake 42 Month 6 Day 15<br />(Cycle 78) Year of the Snake 42 Leap-month 6 Day 15<br />(Cycle 78) Year of the Snake 42 Month 7 Day 15</td></tr>
+<tr><td rowspan='2'><b>rdef</b></td><td rowspan='2'>text</td><td><b>Input:</b> year month lmonth day<br /><b>Output:</b> yy mm lm dd</td><td rowspan='2'>H, S</td></tr>
+<tr><td class='example'>4662 6 0 15<br />4662 6 1 15<br />4662 7 0 15</td></tr>
 <tr><td rowspan='2'><b>def</b></td><td rowspan='2'>text</td><td><b>Input:</b> year month lmonth day cycle cyear clmonth stem branch<br /><b>Output:</b> yy mm lm dd cc cy cm ss bb</td><td rowspan='2'>H</td></tr>
 <tr><td class='example'>4662 6 0 15 78 42 2 6<br />4662 6 1 15 78 42 1 2 6<br />4662 7 0 15 78 42 2 6</td></tr>
 <tr><td rowspan='2'><b>u</b></td><td rowspan='2'>unit</td><td><b>Input:</b> 9year 9m 9lm 9d 9c 9y 9cm 9s 9b<br /><b>Output:</b> 9year 9m 9lm 9d 9c 9y 9cm 9s 9b</td><td rowspan='2'>H</td></tr>

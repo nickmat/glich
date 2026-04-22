@@ -1,5 +1,5 @@
 // h-002.glcs  Create h scheme format table.
-
+/*[SKIP]*/
 let sch = "h";
 
 let d1 = 2460380;

@@ -1,8 +1,8 @@
-// jdn-001.glcs  Create jwn scheme format table.
+// mjd-002.glcs  Create mjd scheme format table.
+/*[SKIP]*/
+let sch = "mjd";
 
-let sch = "jdn";
-
-let d1 = 2459984;
+let d1 = 2450139;
 
 let so = @sch:object.(sch);
 let sfl = so[.formats];
@@ -40,7 +40,7 @@ do {
 };
 
 write "<tr><td colspan='6'>Notes: D = Default, H = Hidden." nl;
-//write "Example based on jdn# " + d1 + "</td></tr>" nl;
+write "Example based on jdn# " + d1 + "</td></tr>" nl;
 write "</table>" nl;
 
 
@@ -49,10 +49,11 @@ write "</table>" nl;
 <table class='basic data'>
 <tr><th colspan='6'>Formats - Grammar d</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
-<tr><td><b>d</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>2459984</td><td>D</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>2459984</td><td>H</td></tr>
-<tr><td><b>u</b></td><td>unit</td><td>9d</td><td>9d</td><td class='example'>2459984d</td><td>H</td></tr>
+<tr><td><b>d</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>50138</td><td>D</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>50138</td><td>H</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9d</td><td>9d</td><td class='example'>50138d</td><td>H</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden.
+Example based on jdn# 2450139</td></tr>
 </table>
 
 [OUTPUT]*/

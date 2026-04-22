@@ -1,5 +1,5 @@
 // jap-002.glcs  Create jap scheme format table.
-
+/*[SKIP]*/
 let sch = "jap";
 
 let d1 = 2171859;

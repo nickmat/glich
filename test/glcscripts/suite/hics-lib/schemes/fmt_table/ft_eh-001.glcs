@@ -1,5 +1,5 @@
 // jeh-001.glcs  Create Julian Era Hispanica eh scheme format table.
-
+/*[SKIP]*/
 let sch = "eh";
 
 let d1 = 2459984;

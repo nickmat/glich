@@ -1,5 +1,5 @@
 // ja-001.glcs  Create ja scheme format table.
-
+/*[SKIP]*/
 let sch = "ja";
 
 let d1 = 2171859;

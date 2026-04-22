@@ -1,5 +1,5 @@
 // jn-001.glcs  Create jn scheme format table.
-
+/*[SKIP]*/
 let sch = "jn";
 
 let d1 = 2172134;

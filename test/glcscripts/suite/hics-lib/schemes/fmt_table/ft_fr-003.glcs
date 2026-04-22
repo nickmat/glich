@@ -1,5 +1,5 @@
 // fr-003.glcs  Create fr scheme format table.
-
+/*[SKIP]*/
 let sch = "fr";
 
 let d1 = 2460575;

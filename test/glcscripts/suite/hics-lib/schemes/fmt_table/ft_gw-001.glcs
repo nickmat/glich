@@ -1,8 +1,8 @@
-// i-004.glcs  Create i scheme format table.
+// gw-001.glcs  Create gw scheme format table.
+/*[SKIP]*/
+let sch = "gw";
 
-let sch = "i";
-
-let d1 = 2460491;
+let d1 = 2459984;
 
 let so = @sch:object.(sch);
 let sfl = so[.formats];
@@ -53,18 +53,15 @@ write "</table>" nl;
 /*[OUTPUT]
 
 <table class='basic data'>
-<tr><th colspan='6'>Formats - Grammar i</th></tr>
+<tr><th colspan='6'>Formats - Grammar gw</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
-<tr><td><b>dmy</b></td><td>text</td><td>day month year</td><td>dd Month yyyy</td><td class='example'>22 Dhū al-Ḥijjah 1445</td><td>D, S</td></tr>
-<tr><td><b>dmy_a</b></td><td>text</td><td>day month year</td><td>dd Mon yyyy</td><td class='example'>22 Dhu al-Hijjah 1445</td><td>S</td></tr>
-<tr><td><b>dmy_d</b></td><td>text</td><td>day month year</td><td>dd mm yyyy</td><td class='example'>22 12 1445</td><td>S</td></tr>
-<tr><td><b>wdmy</b></td><td>text</td><td>wsday day month year</td><td>Weekday dd Month yyyy</td><td class='example'>Yawm as-Sabt 22 Dhū al-Ḥijjah 1445</td><td></td></tr>
-<tr><td><b>wdmy_a</b></td><td>text</td><td>wsday day month year</td><td>WDay dd Mon yyyy</td><td class='example'>Sabt 22 Dhu al-Hijjah 1445</td><td></td></tr>
-<tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>yyyy Mon dd</td><td class='example'>1445 Dhu al-Hijjah 22</td><td>S</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>1445 12 22</td><td>H, S</td></tr>
-<tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>1445y 12m 22d</td><td>H</td></tr>
+<tr><td><b>ywd</b></td><td>text</td><td>year week day</td><td>yyyy ww Wday</td><td class='example'>2023 6 Wed</td><td>D, S</td></tr>
+<tr><td><b>ywd_f</b></td><td>text</td><td>year week day</td><td>yyyy ww Weekday</td><td class='example'>2023 6 Wednesday</td><td>S</td></tr>
+<tr><td><b>iso</b></td><td>iso8601</td><td>ISO:8601 Week -YYYY</td><td>-YYYY-Www-D</td><td class='example'>2023-W06-3</td><td>S</td></tr>
+<tr><td><b>def</b></td><td>text</td><td>year week day</td><td>yyyy ww d</td><td class='example'>2023 6 3</td><td>H, S</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td>9y 9w 9d</td><td>9y 9w 9d</td><td class='example'>2023y 6w 3d</td><td>H</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
-Example based on jdn# 2460491</td></tr>
+Example based on jdn# 2459984</td></tr>
 </table>
 
 [OUTPUT]*/

@@ -1,5 +1,5 @@
 // jce-004.glcs  Create jce scheme format table.
-
+/*[SKIP]*/
 let sch = "jce";
 
 let d1 = 1705426;
