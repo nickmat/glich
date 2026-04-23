@@ -1,0 +1,29 @@
+// cg-01.glcs  Test Chinese scheme with Gregorian year count.
+
+scheme G {
+    name "Gregorian";
+    base gregorian;
+};
+
+scheme C {
+    name "Chinese";
+    base chinese;
+};
+
+scheme CG {
+    name "Chinese with Gregorian Year";
+    base chinese year:2637;
+};
+
+write nl;
+write @scheme.G(2461149) nl;
+write @scheme.C(2461149) nl;
+write @scheme.CG(2461149) nl;
+
+/*[OUTPUT]
+
+{s:G 2026, 4, 18}
+{s:C 4663, 3, 0, 2, 78, 43}
+{s:CG 2026, 3, 0, 2, 78, 43}
+
+[OUTPUT]*/
