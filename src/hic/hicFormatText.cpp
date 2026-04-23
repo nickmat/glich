@@ -672,6 +672,9 @@ Field FormatText::find_token( Lexicon** lex, const string& word ) const
     Field field = f_invalid;
     for( size_t i = 0; i < m_lexicons.size(); i++ ) {
         Lexicon* lex_ptr = hic().get_lexicon( m_lexicons[i] );
+        if( lex_ptr == nullptr ) {
+            return f_invalid;
+        }
         field = lex_ptr->find( word );
         if( field != f_invalid ) {
             if( lex ) {
