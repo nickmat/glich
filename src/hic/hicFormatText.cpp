@@ -240,7 +240,7 @@ void FormatText::setup_control_out()
             }
             if( m_shorthand ) {
                 string field_name = get_owner()->resolve_field_alias( ele.get_field_name() );
-                if( !is_significant_rank_name( field_name ) ) {
+                if( !is_significant_rank_name( field_name ) && !ele.is_secondary() ) {
                     m_shorthand = false;
                 }
             }

@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     19th March 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -39,7 +39,8 @@ namespace glich {
     class Element
     {
     public:
-        Element() : m_state( State::do_field ), m_text_only( false ) {}
+        Element() : m_state( State::do_field ), m_text_only( false ),
+            m_secondary( false ) {}
         virtual ~Element() {}
 
         virtual void clear();
@@ -56,6 +57,7 @@ namespace glich {
 
         bool has_dual_field_name() const { return !m_dual_field_name.empty(); }
         bool is_text_only() const { return m_text_only; }
+        bool is_secondary() const { return m_secondary; }
 
     private:
         enum class State { do_field, do_dual, do_lcode, do_spec, do_qual, do_default };
@@ -68,7 +70,7 @@ namespace glich {
         std::string m_spec;
         std::string m_qualifier;
         std::string m_default_text;
-
+        bool m_secondary;
     };
 
     class ElementControlIn : public Element
