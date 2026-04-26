@@ -321,6 +321,7 @@ SValue glich::hic_at_element( const StdStrVec& quals, const SValueVec& args )
     }
     Element ele;
     if( !sig.empty() ) {
+        ele.add_char( '_' );
         ele.add_char( ':' );
         ele.add_string( sig );
     }
