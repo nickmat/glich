@@ -489,7 +489,7 @@ bool HicScript::do_create_format( const string& code, Grammar* gmr )
     assert( gmr != nullptr );
 
     string format_in, format_out, instring, outstring, separators, infun;
-    StdStrVec rankfields, rankoutfields, rules, padding;
+    StdStrVec rankfields, rules, padding;
     bool visible = true;
     if( current_token().type() == SToken::Type::LCbracket ) {
         for( ;;) {
@@ -522,10 +522,6 @@ bool HicScript::do_create_format( const string& code, Grammar* gmr )
                 }
                 if( name == "rank" ) {
                     rankfields = get_string_list( GetToken::next );
-                    continue;
-                }
-                if( name == "rankout" ) {
-                    rankoutfields = get_string_list( GetToken::next );
                     continue;
                 }
                 if( name == "visible" ) {
@@ -594,9 +590,6 @@ bool HicScript::do_create_format( const string& code, Grammar* gmr )
         }
         if( !rankfields.empty() ) {
             fmtt->set_rank_fieldnames( rankfields );
-        }
-        if( !rankoutfields.empty() ) {
-            fmtt->set_rankout_fieldnames( rankoutfields );
         }
         if( !format_out.empty() ) {
             fmtt->set_control_out( format_out );

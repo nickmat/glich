@@ -209,11 +209,6 @@ void FormatText::setup_control_in()
 void FormatText::setup_control_out()
 {
     assert( get_owner() );
-
-    if( m_rankout_fieldnames.empty() ) {
-        m_rankout_fieldnames = m_rank_fieldnames;
-    }
-
     ElementControlOut ele;
     string fieldout, output, lcode;
     bool do_output = true;

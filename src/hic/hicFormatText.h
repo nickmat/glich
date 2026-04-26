@@ -43,7 +43,6 @@ namespace glich {
 
         void set_separators( const std::string& sep ) { m_separators = sep; }
         void set_rank_fieldnames( StdStrVec fieldnames ) { m_rank_fieldnames = fieldnames; }
-        void set_rankout_fieldnames( StdStrVec fieldnames ) { m_rankout_fieldnames = fieldnames; }
         void set_control_out( const std::string& format ) { m_control_out = format; }
         void set_control_in( const std::string& format ) { m_control_in = format; }
         void set_padding( const StdStrVec& padding ) { m_padding = padding; }
@@ -94,9 +93,6 @@ namespace glich {
         StdStrVec   m_lexicons;
 
         // =============[unchecked]================
-        StdStrVec   m_rankout_fieldnames;
-
- 
         StdStrVec   m_rankin_order;
 
         StdStrVec   m_default_names;
