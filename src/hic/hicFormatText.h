@@ -93,8 +93,6 @@ namespace glich {
         StdStrVec   m_lexicons;
 
         // =============[unchecked]================
-        StdStrVec   m_rankin_order;
-
         StdStrVec   m_default_names;
         FieldVec    m_default_values;
     };
