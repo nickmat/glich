@@ -1,5 +1,5 @@
 // jdn-001.glcs  Create jwn scheme format table.
-/*[SKIP]*/
+
 let sch = "jdn";
 
 let d1 = 2459984;
@@ -50,7 +50,8 @@ write "</table>" nl;
 <tr><th colspan='6'>Formats - Grammar d</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
 <tr><td><b>d</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>2459984</td><td>D</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>2459984</td><td>H</td></tr>
+<tr><td><b>a</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>2459984</td><td>H</td></tr>
+<tr><td><b>r</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>2459984</td><td>H</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9d</td><td>9d</td><td class='example'>2459984d</td><td>H</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden.
 </table>
