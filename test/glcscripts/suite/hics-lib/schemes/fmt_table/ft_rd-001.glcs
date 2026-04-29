@@ -1,5 +1,5 @@
 // rd-002.glcs  Create rd scheme format table.
-/*[SKIP]*/
+
 let sch = "rd";
 
 let d1 = 2450139;
@@ -50,7 +50,8 @@ write "</table>" nl;
 <tr><th colspan='6'>Formats - Grammar d</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo:in</th><th>Pseudo:out</th><th>Example</th><th>Note</th></tr>
 <tr><td><b>d</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>728714</td><td>D</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>728714</td><td>H</td></tr>
+<tr><td><b>a</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>728714</td><td>H</td></tr>
+<tr><td><b>r</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>728714</td><td>H</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9d</td><td>9d</td><td class='example'>728714d</td><td>H</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden.
 Example based on jdn# 2450139</td></tr>
