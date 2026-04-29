@@ -96,6 +96,8 @@ namespace glich {
         // Return true if value adjusted or false if no change.
         virtual bool normalise( FieldVec& fields, Norm norm ) const;
 
+        virtual BoolError is_leap_month( Field year, Field month ) const { return BoolError::be_false; }
+
     protected:
         virtual Field last_day_in_month( Field year, Field month ) const { return f_invalid; }
 

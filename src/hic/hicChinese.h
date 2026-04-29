@@ -49,7 +49,8 @@ namespace glich {
 
         FieldVec get_fields( Field jdn ) const override;
 
-        static bool is_leap_month( Field year, Field month );
+        BoolError is_leap_month( Field year, Field month ) const override;
+
         static Field next_new_moon( Field jdn );
 
     protected:

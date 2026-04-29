@@ -324,10 +324,13 @@ FieldVec Chinese::get_fields( Field jdn ) const
     return fields;
 }
 
-/* static */
-bool Chinese::is_leap_month( Field year, Field month )
+BoolError Chinese::is_leap_month( Field year, Field month ) const
 {
-    return chinese_is_leap_month( year, month );
+    if( year == f_invalid || month == f_invalid ) {
+        return BoolError::be_error;
+    }
+    return chinese_is_leap_month( year, month ) ?
+        BoolError::be_true : BoolError::be_false;
 }
 
 Field Chinese::next_new_moon( Field jdn )

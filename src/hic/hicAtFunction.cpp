@@ -397,7 +397,7 @@ SValue glich::hic_at_leapyear( const StdStrVec& quals, const SValueVec& args )
 SValue glich::hic_at_leapmonth( const StdStrVec& quals, const SValueVec& args )
 {
     if( quals.empty() ) {
-        return SValue::create_error( "@leapmonth requires a base calendar qualifier." );
+        return SValue::create_error( "@leapmonth requires a scheme code qualifier." );
     }
     string mess = "@leapmonth requires two integer arguments.";
     if( args.size() < 2 ) {
@@ -410,11 +410,16 @@ SValue glich::hic_at_leapmonth( const StdStrVec& quals, const SValueVec& args )
     if( !(success1 && success2) ) {
         return SValue::create_error( mess );
     }
-    string calendar = quals[0];
-    if( calendar == "chinese" ) {
-        return Chinese::is_leap_month( year, month );
+    string scode = quals[0];
+    Scheme* sch = hic().get_scheme( scode );
+    if( sch == nullptr ) {
+        return SValue::create_error( "Scheme \"" + scode + "\" not found." );
     }
-    return false;
+    BoolError result = sch->get_base().is_leap_month( year, month );
+    if( result == BoolError::be_error ) {
+        return SValue::create_error( "Error determining leap month for scheme \"" + scode + "\"." );
+    }
+    return result == BoolError::be_true;
 }
 
 SValue glich::hic_at_easter( const StdStrVec& quals, const SValueVec& args )
