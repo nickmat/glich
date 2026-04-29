@@ -161,7 +161,7 @@ namespace glich {
 
     enum class DefinedStatus { none, module, defined };
     enum class Visibility { all, hidden, visible };
-
+    enum class BoolError { be_false, be_true, be_error };
 }
 
 #endif // INCLUDE_GLC_GLCDEFS_H
