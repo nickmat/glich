@@ -92,6 +92,7 @@ namespace glich {
 
         SValue string_to_object( const std::string& ocode, const Base& base, const std::string& input ) const;
         bool allow_shorthand() const { return m_shorthand; }
+        void set_allow_shorthand( bool allow ) { m_shorthand = allow; }
 
         virtual FormatType get_format_type() const = 0;
         virtual std::string get_text_output( Record& rec ) const = 0;
