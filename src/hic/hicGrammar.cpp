@@ -511,6 +511,7 @@ void Grammar::create_all_format()
     fmt->set_control_in( control );
     fmt->set_control_out( control );
     fmt->set_visible( false );
+    fmt->set_allow_shorthand( false );
     add_format( fmt );
 }
 
