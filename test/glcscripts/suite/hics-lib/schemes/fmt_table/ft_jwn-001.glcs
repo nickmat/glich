@@ -1,5 +1,5 @@
-// jwn-003.glcs  Create jwn scheme format table.
-/*[SKIP]*/
+// jwn-001.glcs  Create jwn scheme format table.
+
 let sch = "jwn";
 
 let d1 = 2460631;
