@@ -40,7 +40,8 @@
  generally used by astronomers. The year change is the 1st January, the year
  zero is included, years before year zero are given as negative. There is no
  attempt to allow for the irregular leap years that occurred when the calendar
- was first introduced.
+ was first introduced. The leap day is 29th February and
+ not 24th February (Bissextile day) as in the original Julius Caesar reform.
 </p>
 
 <h3>Use Case</h3>
@@ -128,7 +129,8 @@
 <tr><td><b>wmdy</b></td><td>text</td><td>wday month day year</td><td>Wday, Mon dd, yyyy</td><td class='example'>Wed, Jan 26, 2023</td><td></td></tr>
 <tr><td><b>wmdy_f</b></td><td>text</td><td>wday month day year</td><td>Weekday, Month dd, yyyy</td><td class='example'>Wednesday, January 26, 2023</td><td></td></tr>
 <tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>yyyy:Mon:dd</td><td class='example'>2023:Jan:26</td><td>S</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2023 1 26</td><td>H, S</td></tr>
+<tr><td><b>a</b></td><td>text</td><td>year month day wday</td><td>yyyy mm dd w</td><td class='example'>2023 1 26 3</td><td>H</td></tr>
+<tr><td><b>r</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2023 1 26</td><td>H, S</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>2023y 1m 26d</td><td>H</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
 Example based on jdn# 2459984</td></tr>
@@ -186,9 +188,10 @@ scheme j {
 </td></tr>
 </table>
 <p class='lclear'>
- The script uses the lexicon "w" definition from the
+ The script uses the <b>lexicon "w"</b> definition from the
  <a href='jwn.htm'><b>jwn</b> Julian Week Number</a> scheme
- for the optional field <code>wday.</code>
+ for the optional field <code>wday</code>
+ and is held in the module <b>hics:week</b>.
 </p>
 
 </div><!--id=content-->
