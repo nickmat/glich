@@ -113,7 +113,6 @@
 <p>
  The formats supplied with this scheme.
 </p>
-
 <table class='basic data'>
 <tr><th colspan='5'>Formats - Grammar jce</th></tr>
 <tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>
@@ -125,7 +124,8 @@
 <tr><td><b>wdmye_f</b></td><td>text</td><td><b>Input:</b> wday day month ceyear ce<br /><b>Output:</b> Weekday dd Month yyyy CommonEra</td><td class='example'>Wednesday 15 March 44 Before Common Era<br />Monday 16 July 31 Common Era<td></td></tr>
 <tr><td><b>std</b></td><td>text</td><td><b>Input:</b> day month ceyear ce<br /><b>Output:</b> ddth Month yyyy CommonEra</td><td class='example'>15th March 44 Before Common Era<br />16th July 31 Common Era<td>S</td></tr>
 <tr><td><b>full</b></td><td>text</td><td><b>Input:</b> wday day month ceyear ce<br /><b>Output:</b> Weekday ddth Month yyyy CommonEra</td><td class='example'>Wednesday 15th March 44 Before Common Era<br />Monday 16th July 31 Common Era<td></td></tr>
-<tr><td><b>def</b></td><td>text</td><td><b>Input:</b> year month day ce ceyear<br /><b>Output:</b> year mm dd ce yyyy</td><td class='example'>-43 3 15 0 44<br />31 7 16 1 31<td>H</td></tr>
+<tr><td><b>a</b></td><td>text</td><td><b>Input:</b> year month day ce ceyear wday<br /><b>Output:</b> year mm dd ce yyyy w</td><td class='example'>-43 3 15 0 44 3<br />31 7 16 1 31 1<td>H</td></tr>
+<tr><td><b>r</b></td><td>text</td><td><b>Input:</b> ce ceyear month day<br /><b>Output:</b> ce yyyy mm dd</td><td class='example'>0 44 3 15<br />1 31 7 16<td>H, S</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9y 9m 9d 9ce 9cy<br /><b>Output:</b> 9y 9m 9d 9ce 9cy</td><td class='example'>-43y 3m 15d 0ce 44cy<br />31y 7m 16d 1ce 31cy<td>H</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
 Example based on jdn# 1705426 and 1732577</td></tr>
@@ -181,13 +181,15 @@ scheme jce {
 </td></tr>
 </table>
 <p class='lclear'>
- The script uses the <b>lexicon</b> "w" definition from the
+ The script uses the <b>lexicon "w"</b> definition from the
  <a href='jwn.htm'><b>jwn</b> Julian Week Number</a> scheme
- for the optional field <code>wday.</code>
+ for the optional field <code>wday</code> 
+ and is held in the module <b>hics:week</b>.
 </p>
 <p>
- It also uses the <b>lexicon</b> "m" definition from
- <a href='j.htm'><b>j</b> Julian</a> for the <code>month</code> field.
+ It also uses the <b>lexicon "m"</b> definition from
+ <a href='j.htm'><b>j</b> Julian</a> scheme for the <code>month</code> field
+ which is held in the module <b>hics:julian</b>.
 </p>
 
 </div><!--id=content-->
