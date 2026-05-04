@@ -1,0 +1,64 @@
+// hics/schemes/sch_c-002.glcs - Test Chinese format ymld.
+
+lexicon FS {
+    name "First and Second";
+    fieldname lmonth;
+    lang en;
+    pseudo     FirstSecond,     FS;
+    tokens {
+        0,  "First", "F";
+        1,  "Second", "S";
+    };
+};
+
+grammar C {
+    fields year month lmonth day cycle cyear;
+    rank year month lmonth day;
+    lexicons FS;
+    alias pseudo { yy year; mm month; lm lmonth; dd day; };
+    alias unit { y year; m month; lm lmonth; d day; c cycle; cy cyear; };
+
+    format ymld "{year}| {month}| {lmonth:FS:a:l}| {day}";
+    preferred ymld;
+}
+
+scheme C {
+    base chinese;
+    grammar C;
+};
+
+let d1 = 2460866;   // 4662y 6m 0lm 15d
+let d2 = 2460896;   // 4662y 6m 1lm 15d
+let d3 = 2460925;   // 4662y 7m 0lm 15d
+let m1 = 2460852..2460881; // 4662y 6m 0lm
+let m2 = 2460882..2460910; // 4662y 6m 1lm
+let m3 = 2460911..2460940; // 4662y 7m
+let md = 2460852..2460910; // 4662y 6m
+let y = 2460705..2461088;  // 4662y
+
+let sig = "C:ymld";
+write nl; // default ymld format
+
+write @date.(sig)("4662 6 f 15"), @date.(sig)("4662 6 s 15"), @date.(sig)("4662 7 f 15") nl;
+write @date.(sig)("4662 6 f"), @date.(sig)("4662 6 s"), @date.(sig)("4662 7 f") nl;
+write @date.(sig)("4662 6"), @date.(sig)("4662 7") nl;
+write @date.(sig)("4662") nl;
+
+write @text.(sig)( d1 ), @text.(sig)( d2 ), @text.(sig)( d3 ) nl;
+write @text.(sig)( m1 ), @text.(sig)( m2 ), @text.(sig)( m3 ) nl;
+write @text.(sig)( md ) nl;
+write @text.(sig)( y ) nl;
+
+
+/*[OUTPUT]
+
+2460866, 2460896, 2460925
+2460852..2460881, 2460882..2460910, 2460911..2460940
+2460852..2460910, 2460911..2460940
+2460705..2461088
+4662 6 f 15, 4662 6 s 15, 4662 7 f 15
+4662 6 f, 4662 6 s, 4662 7
+4662 6
+4662
+
+[OUTPUT]*/
