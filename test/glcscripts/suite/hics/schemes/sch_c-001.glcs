@@ -1,4 +1,4 @@
-// hics/schemes/c-01.glcs - Test Chinese Calendar scheme.
+// hics/schemes/sch_c-001.glcs - Test base Chinese Calendar scheme.
 
 scheme C {
     base chinese;
