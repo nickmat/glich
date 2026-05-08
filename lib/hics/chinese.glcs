@@ -65,6 +65,25 @@ lexicon cbrch {
     };
 };
 
+lexicon yy_element {
+    name "Chinese Year Yin/Yang Elements";
+    fieldname stem;
+    lang en;
+    pseudo  Element;
+    tokens {
+        1,  "Yang Wood";
+        2,  "Yin Wood";
+        3,  "Yang Fire";
+        4,  "Yin Fire";
+        5,  "Yang Earth";
+        6,  "Yin Earth";
+        7,  "Yang Metal";
+        8,  "Yin Metal";
+        9,  "Yang Water";
+        10, "Yin Water";
+    };
+};
+
 lexicon animal {
     name "Chinese Year Animals";
     fieldname branch;
@@ -110,14 +129,14 @@ lexicon fs {
 
 grammar c {
     fields year month lmonth day cycle cyear;
-    rank year month lmonth day;
     calculated clmonth stem branch;
     // year month lmonth day cycle cyear clmonth stem branch
+    rank year month lmonth day;
 
-    lexicons lmon fs cstem cbrch animal;
+    lexicons lmon fs cstem cbrch animal yy_element;
 
     alias pseudo { yy year; mm month; lm lmonth; cm clmonth; dd day; cc cycle; cy cyear; ss stem; bb branch; };
-    alias unit { d day; m month; lm lmonth; y cyear; c cycle; cm clmonth; s stem; b branch; };
+    alias unit { y year; m month; lm lmonth; d day; c cycle; cy cyear; cm clmonth; s stem; b branch; };
 
     function calculate {
         stem = (cyear - 1) mod 10 + 1;
@@ -153,24 +172,26 @@ grammar c {
         result = this;
     };
 
-    function first.field {
-        result = @if( field = "cyear", 1f, ?);
-    };
-
-    function last.field {
-        result = @if( field = "cyear", 60f, ?);
-    };
-
+    // Year count formats.
     format ymld "{year}| {month}| {lmonth:fs:a}| {day}";
-    format ylmd "{year}| {lmonth:lmon:a}| {month}| {day}";
-    // Note, format used in "Calendrical Calculations"
-    format cymld {
+    format ylmd { 
+        inout "{year}| {clmonth:LMON*:a}| {month}| {day}";
+        rank year month clmonth day;
+    };
+    format animal "{year} Year of the {:branch:animal*}|, {lmonth:lmon}| {month}| Day {day}";
+    format elem_anim {
+       inout "{year} The {:stem:yy_element}-{:branch:animal} Year| {lmonth:lmon}| {month}| Day {day}";
+       separators "-,:";
+    };
+    
+    // Cycle and sexagenary formats.
+    format cymld {  // Note, format used in "Calendrical Calculations"
         inout "{cycle}| {cyear}| {month}| {lmonth:fs:a:l}| {day}";
         rank cycle cyear month lmonth day;
     };
     format cylmd {
         inout "{cycle}| {cyear}| {clmonth:lmon*:a}| {month}| {day}";
-        rank cycle cyear month day lmonth;
+        rank cycle cyear month clmonth day;
         use:in cycle_to_year;
     };
     format cylmd_s {
@@ -180,16 +201,17 @@ grammar c {
         use:in cycle_to_year;
     };
     format full {
-        output "Cycle: {cycle},| Year: {stem:cstem}-{branch:cbrch::l} ({cyear}),| {lmonth:lmon}:| {month},| Day: {day}";
+        inout "Cycle: {cycle}|, Year: {stem:cstem}-{branch:cbrch::l} ({cyear})|, {lmonth:lmon}:| {month}|, Day: {day}";
+        rank cycle month day;
+        separators ",-";
+        use:in cycle_to_year;
     };
-    format animal {
-        output "(Cycle {cycle})| Year of the {branch:animal} {cyear}| {lmonth:lmon}| {month}| Day {day}";
-    };
-    preferred cymld;
+    format animal_f "(Cycle {cycle})| Year of the {branch:animal} {cyear}|, {lmonth:lmon}| {month}| Day {day}";
+    preferred ymld;
 };
 
 scheme c {
-  name "Chinese";
+  name "Chinese Beta 1";
   base chinese;
   grammar c;
 };
