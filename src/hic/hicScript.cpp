@@ -490,6 +490,7 @@ bool HicScript::do_create_format( const string& code, Grammar* gmr )
 
     string format_in, format_out, instring, outstring, separators, infun;
     StdStrVec rankfields, rules, padding;
+    StdStrMap func_map;
     bool visible = true;
     if( current_token().type() == SToken::Type::LCbracket ) {
         for( ;;) {
@@ -540,6 +541,10 @@ bool HicScript::do_create_format( const string& code, Grammar* gmr )
                 }
                 if( name == "pseudo:out" ) {
                     outstring = expr( GetToken::next ).as_string();
+                    continue;
+                }
+                if( name == "functions" ) {
+                    func_map = get_string_map( GetToken::next );
                     continue;
                 }
                 if( name == "rules" ) {
@@ -631,6 +636,7 @@ bool HicScript::do_create_format( const string& code, Grammar* gmr )
     }
     assert( fmt != nullptr );
     fmt->set_visible( visible );
+    fmt->set_function_map( func_map );
     fmt->construct();
 
     if( !gmr->add_format( fmt ) ) {
