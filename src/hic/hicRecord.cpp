@@ -62,7 +62,7 @@ Record::Record( const Base& base, Field jdn )
     }
 }
 
-Record::Record( const Scheme& sch, Field jdn )
+Record::Record( const Scheme& sch, Field jdn, const std::string& fun_name )
     : m_base( sch.get_base() ), m_jdn( jdn ), m_f( m_base.record_size(), f_invalid )
 {
     if( jdn == f_minimum || jdn == f_maximum || jdn == f_invalid ) {
@@ -73,7 +73,7 @@ Record::Record( const Scheme& sch, Field jdn )
     for( size_t i = 0; i < fields.size(); i++ ) {
         m_f[i] = fields[i];
     }
-    Function* fun = sch.get_function( "calculate" );
+    Function* fun = sch.get_function( fun_name );
     if( fun != nullptr ) {
         SValue value = get_object( sch.get_code() );
         std::ostringstream outstm;

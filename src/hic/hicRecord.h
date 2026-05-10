@@ -45,7 +45,7 @@ namespace glich {
     public:
         Record( const Base& base );
         Record( const Base& base, Field jdn );
-        Record( const Scheme& sch, Field jdn );
+        Record( const Scheme& sch, Field jdn, const std::string& fun_name );
         Record( const Base& base, const std::string& str, const Format& fmt );
         Record( const Base& base, const std::string& str, const Format& fmt, Boundary rb );
         Record( const Base& base, const FieldVec& fields );

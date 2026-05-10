@@ -66,16 +66,12 @@ static SValue hic_object_to_date( Scheme* sch, const SValue& value )
 //FunctionData* HicScript::get_function_data( Scheme* sch, Format* fmt )
 static FunctionData* get_function_data( Scheme* sch, Format* fmt, std::ostream& outs )
 {
-    if( fmt->has_use_function() ) {
-        string ocode = sch->get_code();
-        Object* obj = glc().get_object( ocode );
-        string funcode = fmt->get_from_text_funcode();
-        Function* fun = obj->get_function( funcode );
-        if( fun != nullptr ) {
-            FunctionData* fundata = new FunctionData( *fun, outs );
-            fundata->ocode = ocode;
-            return fundata;
-        }
+    string fun_name = fmt->get_function_name( "fixed" );
+    Function* fun = sch->get_function( fun_name );
+    if( fun != nullptr ) {
+        FunctionData* fundata = new FunctionData( *fun, outs );
+        fundata->ocode = sch->get_code();
+        return fundata;
     }
     return nullptr;
 }
@@ -150,20 +146,15 @@ static SValue complete_object( const Scheme& sch, const string& input, const str
     }
     const Base& base = sch.get_base();
     Record mask( base, input, *fmt );
-    string ocode = sch. get_code();
-    SValue value = mask.get_object( ocode );
-    if( fmt->has_use_function() ) {
-        string funcode = fmt->get_from_text_funcode();
-        Object* obj = glc().get_object( ocode );
-        Function* fun = obj->get_function( funcode );
-        if( fun != nullptr ) {
-            StdStrVec qual;
-            SValueVec args;
-            value = fun->run( &value, qual, args, outs );
-        }
-        mask.set_object( value );
+    string fun_name = fmt->get_function_name( "fixed" );
+    Function* fun = sch.get_function( fun_name );
+    SValue value = mask.get_object( sch.get_code() );
+    if( fun != nullptr ) {
+        StdStrVec qual;
+        SValueVec args;
+        return fun->run( &value, qual, args, outs );
     }
-    return mask.get_object( ocode );
+    return value;
 }
 
 
