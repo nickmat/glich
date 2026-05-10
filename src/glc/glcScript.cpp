@@ -1359,6 +1359,40 @@ StdStrVec Script::get_string_list( GetToken get )
     return vec;
 }
 
+StdStrMap Script::get_string_map( GetToken get )
+{
+    StdStrMap map;
+    SToken token = (get == GetToken::next) ? next_token() : current_token();
+    if( token.type() != SToken::Type::LCbracket ) {
+        error( "'{' expected." );
+        return map;
+    }
+    for( ;; ) {
+        token = next_token();
+        if( token.type() == SToken::Type::RCbracket ||
+            token.type() == SToken::Type::End )
+        {
+            break;
+        }
+        StdStrVec pair = get_string_list( GetToken::current );
+        if( pair.size() != 2 ) {
+            error( "Name or String pair expected." );
+            return StdStrMap();
+        }
+        if( current_token().type() != SToken::Type::Semicolon ) {
+            error( "';' expected." );
+            return StdStrMap();
+        }
+        map[pair[0]] = pair[1];
+    }
+    token = next_token();
+    if( token.type() != SToken::Type::Semicolon ) {
+        error( "';' expected." );
+        return StdStrMap();
+    }
+    return map;
+}
+
 SValue Script::get_object( GetToken get )
 {
     string ocode = get_name_or_primary( get );
