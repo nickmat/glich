@@ -105,9 +105,6 @@ bool FormatText::construct()
     if( !m_control_out.empty() ) {
         setup_control_out();
     }
-    if( m_input_function.empty() ) {
-        m_input_function = "fixed";
-    }
     set_ok( true );
     return true;
 }
@@ -356,7 +353,7 @@ Range FormatText::string_to_range( const Base& base, const string& input, Functi
     Object* obj = hic().get_object( ovalue.get_object_code() );
     Function* fun_first = obj->get_function( "first" );
     Function* fun_last = obj->get_function( "last" );
-    Function* fun_complete = obj->get_function( get_from_text_funcode() );
+    Function* fun_complete = obj->get_function( get_function_name( "fixed" ));
     assert( fun_complete != nullptr );
     bool start = true;
     for( size_t i = 0; i < m_sig_rank_size; i++ ) {

@@ -71,7 +71,6 @@ namespace glich {
         void set_order( size_t order ) { m_order = order; }
         void set_user_input_str( const std::string str ) { m_input_str = str; }
         void set_user_output_str( const std::string str ) { m_output_str = str; }
-        void set_from_text_function( const std::string& ufcode ) { m_input_function = ufcode; }
         void set_visible( bool vis ) { m_visible = vis; }
         void set_ok( bool ok ) { m_ok = ok; }
 
@@ -84,8 +83,6 @@ namespace glich {
         bool has_output() const { return !m_output_str.empty(); }
         Grammar* get_owner() const { return &m_owner; }
         const Grammar& get_grammar() const { return m_owner; }
-        bool has_use_function() const { return !m_input_function.empty(); }
-        std::string get_from_text_funcode() const { return m_input_function; }
         FmtRules get_rules() const { return m_rules; }
         bool is_visible() const { return m_visible; }
         void get_info( Format_info* info ) const;
@@ -126,9 +123,7 @@ namespace glich {
         int         m_priority;
         std::string m_input_str;
         std::string m_output_str;
-
-        std::string m_input_function;
-        bool m_shorthand; // Shorthand range allowed
+        bool        m_shorthand; // Shorthand range allowed
         StdStrMap   m_function_map;
     };
 

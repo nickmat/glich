@@ -488,7 +488,7 @@ bool HicScript::do_create_format( const string& code, Grammar* gmr )
     }
     assert( gmr != nullptr );
 
-    string format_in, format_out, instring, outstring, separators, infun;
+    string format_in, format_out, instring, outstring, separators;
     StdStrVec rankfields, rules, padding;
     StdStrMap func_map;
     bool visible = true;
@@ -551,10 +551,6 @@ bool HicScript::do_create_format( const string& code, Grammar* gmr )
                     rules = get_string_list( GetToken::next );
                     continue;
                 }
-                if( name == "use:in" ) {
-                    infun = get_name_or_primary( GetToken::next );
-                    continue;
-                }
                 if( name == "padding" ) {
                     padding = get_string_list( GetToken::next );
                     continue;
@@ -607,9 +603,6 @@ bool HicScript::do_create_format( const string& code, Grammar* gmr )
         }
         if( !outstring.empty() ) {
             fmtt->set_user_output_str( outstring );
-        }
-        if( !infun.empty() ) {
-            fmtt->set_from_text_function( infun );
         }
         if( !padding.empty() ) {
             fmtt->set_padding( padding );
