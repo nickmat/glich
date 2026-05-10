@@ -409,10 +409,6 @@ bool FormatText::set_input( Record& record, const string& input, Boundary rb ) c
     parse_date( ifs, input );
     bool ret = resolve_input( base, record.get_field_vec(), ifs );
 
-    if( ret && has_use_function() ) {
-        string in_function = get_from_text_funcode();
-        Function* fun = m_owner.get_function( in_function );
-    }
     record.update_input();
     if( !ret || rb == Boundary::None ) {
         record.calc_jdn();
