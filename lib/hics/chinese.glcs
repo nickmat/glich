@@ -192,19 +192,19 @@ grammar c {
     format cylmd {
         inout "{cycle}| {cyear}| {clmonth:lmon*:a}| {month}| {day}";
         rank cycle cyear month clmonth day;
-        use:in cycle_to_year;
+        functions { fixed cycle_to_year; };
     };
     format cylmd_s {
         inout "{cycle}| {stem:cstem}|-{branch:cbrch::l}|, {clmonth:lmon:a}| {month}| {day}";
         rank cycle month day;
         separators ",-";
-        use:in cycle_to_year;
+        functions { fixed cycle_to_year; };
     };
     format full {
         inout "Cycle: {cycle}|, Year: {stem:cstem}-{branch:cbrch::l} ({cyear})|, {lmonth:lmon}:| {month}|, Day: {day}";
         rank cycle month day;
         separators ",-";
-        use:in cycle_to_year;
+        functions { fixed cycle_to_year; };
     };
     format animal_f "(Cycle {cycle})| Year of the {branch:animal} {cyear}|, {lmonth:lmon}| {month}| Day {day}";
     preferred ymld;

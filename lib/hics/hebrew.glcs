@@ -95,19 +95,19 @@ grammar h {
     format  dmy_d {
         inout "{day} |{month} |{year}";
         rank year month day;
-        use:in calculate;
+        functions { fixed calculate; }; 
     };
     format  wdmy  "{wsday:hw} |{day} |{cmonth:hcm} |{year}";
     format  ymd   "{year}| {cmonth:hcm}| {day}";
     format  ymd_d {
         inout "{year}| {month}| {day}";
         rank year month day;
-        use:in calculate;
+        functions { fixed calculate; };
     };
     format gedcom {
         inout "{day} |{month:hm:a:u} |{year}";
         rank year month day;
-        use:in calculate;
+        functions { fixed calculate; };
     };
     preferred dmy;
 };

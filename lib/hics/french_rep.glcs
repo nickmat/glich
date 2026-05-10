@@ -132,17 +132,17 @@ grammar fr {
     format dmy_a {
         inout "{day} |{month:frm:a} |{year}";
         rank year month day;
-        use:in calculate;
+        functions { fixed calculate; }; 
     };
     format dmy {
         inout "{day} |{month:frm} |{year}";
         rank year month day;
-        use:in calculate;
+        functions { fixed calculate; };
     };
     format ymd {
         inout "{year}| {month:frm}| {day}";
         rank year month day;
-        use:in calculate;
+        functions { fixed calculate; };
     };
     format  cdmy    "{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
     format  cdmy_a  "{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
@@ -154,7 +154,7 @@ grammar fr {
     format gedcom {
         inout "{day} |{month:frm:a:u} |{year}";
         rank year month day;
-        use:in calculate;
+        functions { fixed calculate; };
     };
     preferred dmy;
 };
