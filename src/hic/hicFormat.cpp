@@ -61,6 +61,15 @@ SValue Format::string_to_object( const string& ocode, const Base& base, const st
     return mask.get_object( ocode );
 }
 
+std::string glich::Format::get_function_name( const std::string& code ) const
+{
+    auto it = m_function_map.find( code );
+    if( it != m_function_map.end() ) {
+        return it->second;
+    }
+    return code;
+}
+
 string Format::get_revealed_text( Record& record, BoolVec& reveal ) const
 {
     return get_text_output( record );

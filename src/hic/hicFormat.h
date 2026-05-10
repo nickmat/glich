@@ -93,6 +93,8 @@ namespace glich {
         SValue string_to_object( const std::string& ocode, const Base& base, const std::string& input ) const;
         bool allow_shorthand() const { return m_shorthand; }
         void set_allow_shorthand( bool allow ) { m_shorthand = allow; }
+        void set_function_map( const StdStrMap& map ) { m_function_map = map; }
+        std::string get_function_name( const std::string& code ) const;
 
         virtual FormatType get_format_type() const = 0;
         virtual std::string get_text_output( Record& rec ) const = 0;
@@ -127,6 +129,7 @@ namespace glich {
 
         std::string m_input_function;
         bool m_shorthand; // Shorthand range allowed
+        StdStrMap   m_function_map;
     };
 
 }
