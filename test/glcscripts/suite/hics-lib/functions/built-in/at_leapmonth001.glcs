@@ -1,10 +1,10 @@
-// at-leapyear001.glcs  Test scheme functions
+// at-leapmonth001.glcs  Test scheme functions
 
 
 write nl;
-write @leapmonth.chinese( 4662, 6 ) nl;
-write @leapmonth.chinese( 4662, 7 ) nl;
-write @leapmonth.chinese( 4662 ) nl;
+write @leapmonth.c( 4662, 6 ) nl;
+write @leapmonth.c( 4662, 7 ) nl;
+write @leapmonth.c( 4662 ) nl;
 write @leapmonth( 4662, 6 ) nl;
 
 /*[OUTPUT]
@@ -12,6 +12,6 @@ write @leapmonth( 4662, 6 ) nl;
 true
 false
 Error file:at_leapmonth001 (7): @leapmonth requires two integer arguments.
-Error file:at_leapmonth001 (8): @leapmonth requires a base calendar qualifier.
+Error file:at_leapmonth001 (8): @leapmonth requires a scheme code qualifier.
 
 [OUTPUT]*/
