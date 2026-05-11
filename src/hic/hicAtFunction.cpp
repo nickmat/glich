@@ -144,17 +144,19 @@ static SValue complete_object( const Scheme& sch, const string& input, const str
     if( fmt == nullptr ) {
         return SValue();
     }
-    const Base& base = sch.get_base();
-    Record mask( base, input, *fmt );
     string fun_name = fmt->get_function_name( "fixed" );
     Function* fun = sch.get_function( fun_name );
-    SValue value = mask.get_object( sch.get_code() );
+    string ocode = sch.get_code();
+    const Base& base = sch.get_base();
+    Record mask( base, input, *fmt );
     if( fun != nullptr ) {
+        SValue value = mask.get_object( ocode );
         StdStrVec qual;
         SValueVec args;
-        return fun->run( &value, qual, args, outs );
+        value = fun->run( &value, qual, args, outs );
+        mask.set_object( value );
     }
-    return value;
+    return mask.get_object( ocode );
 }
 
 
