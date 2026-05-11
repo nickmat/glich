@@ -1,0 +1,41 @@
+// format010.glcs  Test format with calculated fields.
+
+grammar C {
+    fields year month lmonth day cycle cyear;
+    calculated stem branch;
+    rank cycle cyear month lmonth day;
+    function fixed {
+        if stem <> null and branch <> null
+            cyear = ((stem - branch) mod 12) * 5 + stem;
+        endif
+        year = (cycle - 1) * 60 + cyear;
+        result = this;
+    };
+    function calculate {
+        cycle = ( (year - 1) div 60 ) + 1;
+        cyear = ( (year - 1) mod 60 ) + 1;
+        stem = (cyear - 1) mod 10 + 1;
+        branch = (cyear - 1) mod 12 + 1;
+        result = this;
+    };
+
+    format cymld {
+        inout "{cycle}| {cyear}| ({stem}-{branch})| {month}| {lmonth}| {day}";
+    };
+};
+
+scheme C {base chinese; grammar C;};
+
+
+write nl;
+write @scheme.C:cymld(2446012), @scheme.C:cymld(2446042) nl;
+write @date.C:cymld("78 1 10 0 15"), @text.C:cymld( 2446012 ) nl;
+write @date.C:cymld("78 1 10 1 15"), @text.C:cymld( 2446042 ) nl;
+
+/*[OUTPUT]
+
+{s:C 4621, 10, 0, 15, 78, 1, 1, 1}, {s:C 4621, 10, 1, 15, 78, 1, 1, 1}
+2446012, 78 1 (1-1) 10 0 15
+2446042, 78 1 (1-1) 10 1 15
+
+[OUTPUT]*/
