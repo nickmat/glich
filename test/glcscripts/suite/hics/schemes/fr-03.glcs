@@ -89,17 +89,17 @@ grammar FR {
     format dmy {
         inout "{day} |{month:FRM:a} |{year}";
         rank year month day;
-        use:in calculate;
+        functions { fixed calculate; };
     };
     format "dmy+" {
         inout "{day} |{month:FRM} |{year}";
         rank year month day;
-        use:in calculate;
+        functions { fixed calculate; };
     };
     format ymd {
         inout "{year} |{month:FRM:a} |{day}";
         rank year month day;
-        use:in calculate;
+        functions { fixed calculate; }; 
     };
     format cdmy {
         inout "{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";

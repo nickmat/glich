@@ -71,7 +71,7 @@ grammar H {
     format "dmy-" {
         inout "{day} |{month} |{year}";
         rank year month day;
-        use:in calculate;
+        functions { fixed calculate; };
     };
     format  wdmy   "{wsday:HW:a} |{day} |{cmonth:HCM:a} |{year}";
     format "wdmy+" "{wsday:HW} |{day} |{cmonth:HCM} |{year}";

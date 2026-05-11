@@ -113,13 +113,13 @@ grammar C {
     format cylmd {
         inout "{cycle}| {cyear}| {clmonth:LMON*:a}| {month}| {day}";
         rank cycle cyear month day lmonth;
-        use:in cycle_to_year;
+        functions { fixed cycle_to_year; };
     };
     format cylmd_s {
         inout "{cycle}| {stem:CSTEM}|-{branch:CBRCH::l}|, {clmonth:LMON:a}| {month}| {day}";
         rank cycle month day;
         separators ",-";
-        use:in cycle_to_year;
+        functions { fixed cycle_to_year; };
     };
     format full {
         output "Cycle: {cycle},| Year: {stem:CSTEM}-{branch:CBRCH::l} ({cyear}),| {lmonth:LMON}:| {month},| Day: {day}";

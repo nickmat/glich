@@ -76,7 +76,7 @@ grammar JE {
     };
     format  dme {
         inout "{repeat:REP} |{day} |{month:M:a} |{eyear}";
-        use:in calculate;
+        functions { fixed calculate; };
     };
     preferred dmeh;
 };
