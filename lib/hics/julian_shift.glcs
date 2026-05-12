@@ -46,10 +46,6 @@ grammar j_sh {
     format  mdy_f "{month:m} |{day}, |{cyear/year}";
     format  wmdy "{wday:w:a}, |{month:m:a} |{day}, |{cyear/year}";
     format  wmdy_f "{wday:w}, |{month:m} |{day}, |{cyear/year}";
-    format  cdef {
-        inout "{cyear}| {month}| {day}";
-        visible no;
-    };
     preferred dmy;
 };
 
