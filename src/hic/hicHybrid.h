@@ -67,7 +67,8 @@ namespace glich {
         // Converts the given jdn into the Records' Fields.
         FieldVec get_fields( Field jdn ) const override;
 
-        BoolVec mark_balanced_fields( const Scheme& sch,
+        BoolVec mark_balanced_fields(
+            const Scheme& sch, const Format& fmt,
             const FieldVec& fbeg, const FieldVec& fend, const XIndexVec& rank_to_def, size_t size ) const override;
 
     private:

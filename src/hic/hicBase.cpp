@@ -27,6 +27,7 @@
 
 #include "hicBase.h"
 
+#include "hicFormat.h"
 #include "glcFunction.h"
 #include "glcHelper.h"
 #include "hicGrammar.h"
@@ -195,8 +196,10 @@ void Base::complete_end( FieldVec& fields ) const
     }
 }
 
-BoolVec Base::mark_balanced_fields( const Scheme& sch,
-    const FieldVec& fbeg, const FieldVec& fend, const XIndexVec& rank_to_def, size_t size ) const
+BoolVec Base::mark_balanced_fields(
+    const Scheme& sch, const Format& fmt,
+    const FieldVec& fbeg, const FieldVec& fend,
+    const XIndexVec& rank_to_def, size_t size ) const
 {
     BoolVec mask( m_fieldnames.size(), true );
     size_t rank_index = size - 1;
@@ -205,8 +208,10 @@ BoolVec Base::mark_balanced_fields( const Scheme& sch,
         Field beg = get_beg_field_value( fbeg, def_index );
         Field end = get_end_field_value( fend, def_index );
         if(beg == f_invalid && end == f_invalid ) {
-            Function* fun_first = sch.get_function( "first" );
-            Function* fun_last = sch.get_function( "last" );
+            string fun_first_name = fmt.get_function_name( "first" );
+            Function* fun_first = sch.get_function( fun_first_name );
+            string fun_last_name = fmt.get_function_name( "last" );
+            Function* fun_last = sch.get_function( fun_last_name );
             if( fun_first != nullptr && fun_last != nullptr ) {
                 Record rbeg( *this, fbeg );
                 SValue  bleft = rbeg.get_object( sch.get_code() );

@@ -86,8 +86,10 @@ namespace glich {
 
         virtual bool is_leap_year( Field year ) const { return false; }
 
-        virtual BoolVec mark_balanced_fields( const Scheme& sch,
-            const FieldVec& fbeg, const FieldVec& fend, const XIndexVec& rank_to_def, size_t size ) const;
+        virtual BoolVec mark_balanced_fields(
+            const Scheme& sch, const Format& fmt,
+            const FieldVec& fbeg, const FieldVec& fend,
+            const XIndexVec& rank_to_def, size_t size ) const;
 
         // normalise is to correct illegal reg values
         // when considered in combination.

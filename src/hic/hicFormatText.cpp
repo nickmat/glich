@@ -257,7 +257,7 @@ string FormatText::get_text_output( Record& record ) const
 
 BoolVec FormatText::get_reveal( const Scheme& sch, Record& rec1, Record& rec2 ) const
 {
-    return rec1.mark_balanced_fields( sch, rec2, m_rank_to_def_index, m_sig_rank_size );
+    return rec1.mark_balanced_fields( sch, *this, rec2, m_rank_to_def_index, m_sig_rank_size );
 }
 
 string FormatText::get_revealed_text( Record& record, BoolVec& reveal ) const

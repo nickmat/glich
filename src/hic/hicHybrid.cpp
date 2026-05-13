@@ -167,8 +167,10 @@ FieldVec Hybrid::get_fields( Field jdn ) const
     return f;
 }
 
-BoolVec Hybrid::mark_balanced_fields( const Scheme& sch,
-    const FieldVec& fbeg, const FieldVec& fend, const XIndexVec& rank_to_def, size_t size ) const
+BoolVec Hybrid::mark_balanced_fields(
+    const Scheme& sch, const Format& fmt,
+    const FieldVec& fbeg, const FieldVec& fend,
+    const XIndexVec& rank_to_def, size_t size ) const
 {
     BoolVec mask( m_record_size, true );
 

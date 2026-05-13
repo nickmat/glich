@@ -130,7 +130,7 @@ BoolVec FormatIso::get_reveal( const Scheme& sch, Record& rec1, Record& rec2 ) c
     for( size_t i = 0; i < xref.size(); i++ ) {
         xref[i] = i;
     }
-    return rec1.mark_balanced_fields( sch, rec2, xref, base.record_size() );
+    return rec1.mark_balanced_fields( sch, *this, rec2, xref, base.record_size() );
 }
 
 string FormatIso::get_revealed_text( Record& record, BoolVec& reveal ) const
@@ -386,7 +386,7 @@ std::string glich::FormatIso::range_to_str( const Scheme& sch, const Range& rang
         for( size_t i = 0; i < xref.size(); i++ ) {
             xref[i] = i;
         }
-        BoolVec mask = rec1.mark_balanced_fields( sch, rec2, xref, base.record_size() );
+        BoolVec mask = rec1.mark_balanced_fields( sch, *this, rec2, xref, base.record_size() );
         str1 = get_masked_output( rec1, &mask );
         str2 = get_masked_output( rec2, &mask );
         if( str1 == str2 ) {
