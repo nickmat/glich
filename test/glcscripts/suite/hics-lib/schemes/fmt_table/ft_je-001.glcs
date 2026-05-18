@@ -1,5 +1,5 @@
-// je-002.glcs  Create je scheme format table.
-/*[SKIP]*/
+// ft_je-001.glcs  Create je scheme format table.
+
 let sch = "je";
 
 let d1 = 2460050;
@@ -72,7 +72,8 @@ write "</table>" nl;
 <tr><td><b>mdy_a</b></td><td>text</td><td><b>Input:</b> month day eyear repeated<br /><b>Output:</b> Mon dd, yyyy/h Rpt</td><td class='example'>Apr 2, 2022/3<br />Apr 3, 2023<br />Apr 3, 2023/4 Rpt</td><td></td></tr>
 <tr><td><b>all</b></td><td>text</td><td><b>Input:</b> wsday day month eyear repeat<br /><b>Output:</b> Weekday dd Month yyyy/h Repeated</td><td class='example'>Saturday 2 April 2022/3 First<br />Sunday 3 April 2023 First<br />Tuesday 3 April 2023/4 Repeated</td><td></td></tr>
 <tr><td><b>all_a</b></td><td>text</td><td><b>Input:</b> wsday day month eyear repeat<br /><b>Output:</b> Wday dd Mon yyyy/h Rpt</td><td class='example'>Sat 2 Apr 2022/3 F<br />Sun 3 Apr 2023 F<br />Tue 3 Apr 2023/4 Rpt</td><td></td></tr>
-<tr><td><b>def</b></td><td>text</td><td><b>Input:</b> eyear repeat month day repeated<br /><b>Output:</b> yyyy rpt mm dd repeated</td><td class='example'>2022 0 4 2<br />2023 0 4 3<br />2023 1 4 3 1</td><td>H</td></tr>
+<tr><td><b>a</b></td><td>text</td><td><b>Input:</b> eyear repeat month day repeated hyear wsday<br /><b>Output:</b> yyyy rpt mm dd repeated h w</td><td class='example'>2022 0 4 2 2023 7<br />2023 0 4 3 2023 1<br />2023 1 4 3 1 2024 3</td><td>H</td></tr>
+<tr><td><b>r</b></td><td>text</td><td><b>Input:</b> eyear month day<br /><b>Output:</b> yyyy mm dd</td><td class='example'>2022 4 2<br />2023 4 3<br />2023 4 3</td><td>H, S</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9y 9r 9m 9d 9rptd<br /><b>Output:</b> 9y 9r 9m 9d 9rptd</td><td class='example'>2022y 0r 4m 2d<br />2023y 0r 4m 3d<br />2023y 1r 4m 3d 1rptd</td><td>H</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden.
 Example based on jdn# 2460050, 2460051 and 2460417</td></tr>
