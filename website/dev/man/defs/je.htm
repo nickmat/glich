@@ -155,6 +155,24 @@
 Example based on jdn# 2460050, 2460051 and 2460417</td></tr>
 </table>
 
+<table class='basic data'>
+<tr><th colspan='5'>Formats - Grammar je</th></tr>
+<tr><th>Code</th><th>Rule</th><th>Pseudo</th><th>Example</th><th>Note</th></tr>
+<tr><td><b>dmy</b></td><td>text</td><td><b>Input:</b> day month eyear repeated<br /><b>Output:</b> dd Month yyyy/h Repeated</td><td class='example'>2 April 2022/3<br />3 April 2023<br />3 April 2023/4 Repeated</td><td>D</td></tr>
+<tr><td><b>dmy_a</b></td><td>text</td><td><b>Input:</b> day month eyear repeated<br /><b>Output:</b> dd Mon yyyy/h Rpt</td><td class='example'>2 Apr 2022/3<br />3 Apr 2023<br />3 Apr 2023/4 Rpt</td><td></td></tr>
+<tr><td><b>wdmy</b></td><td>text</td><td><b>Input:</b> wsday day month eyear repeated<br /><b>Output:</b> Weekday dd Month yyyy/h Repeated</td><td class='example'>Saturday 2 April 2022/3<br />Sunday 3 April 2023<br />Tuesday 3 April 2023/4 Repeated</td><td></td></tr>
+<tr><td><b>wdmy_a</b></td><td>text</td><td><b>Input:</b> wsday day month eyear repeated<br /><b>Output:</b> Wday dd Mon yyyy/h Rpt</td><td class='example'>Sat 2 Apr 2022/3<br />Sun 3 Apr 2023<br />Tue 3 Apr 2023/4 Rpt</td><td></td></tr>
+<tr><td><b>mdy</b></td><td>text</td><td><b>Input:</b> month day eyear repeated<br /><b>Output:</b> Month dd, yyyy/h Repeated</td><td class='example'>April 2, 2022/3<br />April 3, 2023<br />April 3, 2023/4 Repeated</td><td></td></tr>
+<tr><td><b>mdy_a</b></td><td>text</td><td><b>Input:</b> month day eyear repeated<br /><b>Output:</b> Mon dd, yyyy/h Rpt</td><td class='example'>Apr 2, 2022/3<br />Apr 3, 2023<br />Apr 3, 2023/4 Rpt</td><td></td></tr>
+<tr><td><b>all</b></td><td>text</td><td><b>Input:</b> wsday day month eyear repeat<br /><b>Output:</b> Weekday dd Month yyyy/h Repeated</td><td class='example'>Saturday 2 April 2022/3 First<br />Sunday 3 April 2023 First<br />Tuesday 3 April 2023/4 Repeated</td><td></td></tr>
+<tr><td><b>all_a</b></td><td>text</td><td><b>Input:</b> wsday day month eyear repeat<br /><b>Output:</b> Wday dd Mon yyyy/h Rpt</td><td class='example'>Sat 2 Apr 2022/3 F<br />Sun 3 Apr 2023 F<br />Tue 3 Apr 2023/4 Rpt</td><td></td></tr>
+<tr><td><b>a</b></td><td>text</td><td><b>Input:</b> eyear repeat month day repeated hyear wsday<br /><b>Output:</b> yyyy rpt mm dd repeated h w</td><td class='example'>2022 0 4 2 2023 7<br />2023 0 4 3 2023 1<br />2023 1 4 3 1 2024 3</td><td>H</td></tr>
+<tr><td><b>r</b></td><td>text</td><td><b>Input:</b> eyear month day<br /><b>Output:</b> yyyy mm dd</td><td class='example'>2022 4 2<br />2023 4 3<br />2023 4 3</td><td>H, S</td></tr>
+<tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9y 9r 9m 9d 9rptd<br /><b>Output:</b> 9y 9r 9m 9d 9rptd</td><td class='example'>2022y 0r 4m 2d<br />2023y 0r 4m 3d<br />2023y 1r 4m 3d 1rptd</td><td>H</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden.
+Example based on jdn# 2460050, 2460051 and 2460417</td></tr>
+</table>
+
 <h3>Script</h3>
 <table class='code lfloat'>
 <tr><th>Script - Module hics:easter</th></tr>
@@ -207,12 +225,17 @@ scheme je {
 </td></tr>
 </table>
 <p class='clear'>
- The script uses the <b>lexicon</b> "m" definition from
- <a href='j.htm'><b>j</b> Julian</a> for the <code>month</code> field
- and "w" definition from the
- <a href='jwsn.htm'><b>jwsn</b> Julian Week (Sunday) Number</a> scheme
- for the optional field <code>wsday.</code>
+ The script uses the <b>lexicon "m"</b> definition from
+ <a href='j.htm'><b>j</b> Julian</a> scheme for the <code>month</code> field
+ which is held in the module <b>hics:julian</b>.
 </p>
+<p>
+ It also uses the <b>lexicon "w"</b> definition from the
+ <a href='jwn.htm'><b>jwn</b> Julian Week Number</a> scheme
+ for the optional field <code>wday</code> 
+ and is held in the module <b>hics:week</b>.
+</p>
+
 
 </div><!--id=content-->
 
