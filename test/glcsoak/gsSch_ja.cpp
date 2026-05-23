@@ -61,7 +61,7 @@ TEST_CASE( "Scheme ja Soak Test", "[ja Soak]" )
         break;
     }
 
-    string sig = "ja:cdef";
+    string sig = "ja:r";
     Field cyear = start_year - 1; // Civil year.
     string date = cvt_fields( cyear, 1, 1 );
     Field daycount = g_glc->text_to_field( date, sig );
