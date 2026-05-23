@@ -77,6 +77,7 @@ SValue Function::run( const SValue* left, StdStrVec& qual, SValueVec& args, std:
     assert( !ocode.empty() );
     const Object* obj = glc().get_object( ocode );
     assert( obj != nullptr );
+    obj->add_locals();
 
     create_locals( qual, args );
     glc().run( iss, out, m_module, m_line );
