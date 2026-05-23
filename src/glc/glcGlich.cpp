@@ -298,6 +298,14 @@ bool Glich::create_local( const string& name )
     return m_store->create_local( name );
 }
 
+bool glich::Glich::create_local( const std::string& name, SValue& value )
+{
+    if( !create_local( name ) ) {
+        return false;
+    }
+    return update_local( name, value );
+}
+
 bool Glich::update_local( const string& name, SValue& value )
 {
     return m_store->update_local( name, value );

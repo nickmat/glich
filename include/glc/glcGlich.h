@@ -86,6 +86,7 @@ namespace glich {
         bool create_variable( const std::string& name, VariableType type );
         SValue* get_variable_ptr( const std::string& name );
         bool create_local( const std::string& name );
+        bool create_local( const std::string& name, SValue& value );
         bool update_local( const std::string& name, SValue& value );
         SValue get_local( const std::string& name ) const;
         SValue* get_local_ptr( const std::string& name );
