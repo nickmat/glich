@@ -52,6 +52,7 @@ namespace glich {
 
         bool add_function( SpFunction fun );
         Function* get_function( const std::string& fcode ) const;
+        virtual void add_locals() const {}
 
         std::string get_list( const SValueVec& elements ) const;
 
