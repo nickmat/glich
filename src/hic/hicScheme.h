@@ -91,6 +91,8 @@ namespace glich {
             const StdStrVec& fieldnames,
             const std::vector<HybridData>& data );
 
+        void add_locals() const override;
+
     private:
         bool create_epoch_functions( Field epoch, const std::string& module, int line );
 

@@ -275,6 +275,11 @@ Base* Scheme::create_base_hybrid( const StdStrVec& fieldnames, const std::vector
     return nullptr;
 }
 
+void Scheme::add_locals() const
+{
+    glc().create_local( "scode", SValue( get_scode() ) );
+}
+
 bool Scheme::create_epoch_functions( Field epoch, const std::string& module, int line )
 {
     int index = m_base.get_fieldname_index( "cyear" );
