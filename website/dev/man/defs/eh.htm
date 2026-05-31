@@ -106,7 +106,8 @@
 <tr><td><b>wmdy</b></td><td>text</td><td>wday month day year</td><td>Wday, Mon dd, yyyy</td><td class='example'>Wed, Jan 26, 2061</td><td></td></tr>
 <tr><td><b>wmdy_f</b></td><td>text</td><td>wday month day year</td><td>Weekday, Month dd, yyyy</td><td class='example'>Wednesday, January 26, 2061</td><td></td></tr>
 <tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>yyyy:Mon:dd</td><td class='example'>2061:Jan:26</td><td>S</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2061 1 26</td><td>H, S</td></tr>
+<tr><td><b>a</b></td><td>text</td><td>year month day wday</td><td>yyyy mm dd w</td><td class='example'>2061 1 26 3</td><td>H</td></tr>
+<tr><td><b>r</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2061 1 26</td><td>H, S</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>2061y 1m 26d</td><td>H</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
 Example based on jdn# 2459984</td></tr>
@@ -125,15 +126,15 @@ Example based on jdn# 2459984</td></tr>
 </table>
 
 <p>
- The script uses the <b>grammar</b> "j" definition from
- <a href='j.htm'><b>j</b> Julian</a>.
+ The script uses the <b>grammar "j"</b> and <b>lexicon "m"</b> definitions from
+ from the <a href='j.htm'><b>j</b> Julian</a> scheme
+ which is in the <b>hics:julian</b> module.
 </p>
 <p>
- It also uses the <b>lexicon</b> "m" definition from
- <a href='j.htm'><b>j</b> Julian</a> for the <code>month</code> field
- and "w" definition from the
+ It also uses the <b>lexicon "w"</b> definition from the
  <a href='jwn.htm'><b>jwn</b> Julian Week Number</a> scheme
- for the optional field <code>wday.</code>
+ for the optional field <code>wday</code> 
+ and is held in the module <b>hics:week</b>.
 </p>
 
 </div><!--id=content-->
