@@ -1,5 +1,5 @@
-// g-002.glcs  Create g scheme format table.
-/*[SKIP]*/
+// ft_g-001.glcs  Create g scheme format table.
+
 let sch = "g";
 
 let d1 = 2459984;
@@ -68,7 +68,8 @@ write "</table>" nl;
 <tr><td><b>wmdy</b></td><td>text</td><td>wday month day year</td><td>Wday, Mon dd, yyyy</td><td class='example'>Wed, Feb 8, 2023</td><td></td></tr>
 <tr><td><b>wmdy_f</b></td><td>text</td><td>wday month day year</td><td>Weekday, Month dd, yyyy</td><td class='example'>Wednesday, February 8, 2023</td><td></td></tr>
 <tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>yyyy:Mon:dd</td><td class='example'>2023:Feb:8</td><td>S</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2023 2 8</td><td>H, S</td></tr>
+<tr><td><b>a</b></td><td>text</td><td>year month day wday</td><td>yyyy mm dd w</td><td class='example'>2023 2 8 3</td><td>H</td></tr>
+<tr><td><b>r</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2023 2 8</td><td>H, S</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>2023y 2m 8d</td><td>H</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
 Example based on jdn# 2459984</td></tr>
