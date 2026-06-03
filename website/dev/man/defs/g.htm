@@ -121,7 +121,8 @@
 <tr><td><b>wmdy</b></td><td>text</td><td>wday month day year</td><td>Wday, Mon dd, yyyy</td><td class='example'>Wed, Feb 8, 2023</td><td></td></tr>
 <tr><td><b>wmdy_f</b></td><td>text</td><td>wday month day year</td><td>Weekday, Month dd, yyyy</td><td class='example'>Wednesday, February 8, 2023</td><td></td></tr>
 <tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>yyyy:Mon:dd</td><td class='example'>2023:Feb:8</td><td>S</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2023 2 8</td><td>H, S</td></tr>
+<tr><td><b>a</b></td><td>text</td><td>year month day wday</td><td>yyyy mm dd w</td><td class='example'>2023 2 8 3</td><td>H</td></tr>
+<tr><td><b>r</b></td><td>text</td><td>year month day</td><td>yyyy mm dd</td><td class='example'>2023 2 8</td><td>H, S</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>2023y 2m 8d</td><td>H</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
 Example based on jdn# 2459984</td></tr>
@@ -146,8 +147,15 @@ scheme g {
 </td></tr>
 </table>
 <p class='lclear'>
- The <b>grammar</b> "g" inherits from the <b>grammar</b> "j" definition from
- <a href='j.htm'><b>j</b> Julian</a>.
+ The <b>grammar "g"</b> inherits from the <b>grammar "j"</b> definition from
+ <a href='j.htm'><b>j</b> Julian</a> scheme
+ which is in the <b>hics:julian</b> module.
+</p>
+<p>
+ It also uses the <b>lexicon "w"</b> definition from the
+ <a href='jwn.htm'><b>jwn</b> Julian Week Number</a> scheme
+ for the optional field <code>wday</code> 
+ and is held in the module <b>hics:week</b>.
 </p>
 <p>
  This scheme is set as the system default in the <b>hics:hic_lib</b> module.
