@@ -1,5 +1,5 @@
-// gw-001.glcs  Create gw scheme format table.
-/*[SKIP]*/
+// ft_gw-001.glcs  Create gw scheme format table.
+
 let sch = "gw";
 
 let d1 = 2459984;
@@ -58,7 +58,8 @@ write "</table>" nl;
 <tr><td><b>ywd</b></td><td>text</td><td>year week day</td><td>yyyy ww Wday</td><td class='example'>2023 6 Wed</td><td>D, S</td></tr>
 <tr><td><b>ywd_f</b></td><td>text</td><td>year week day</td><td>yyyy ww Weekday</td><td class='example'>2023 6 Wednesday</td><td>S</td></tr>
 <tr><td><b>iso</b></td><td>iso8601</td><td>ISO:8601 Week -YYYY</td><td>-YYYY-Www-D</td><td class='example'>2023-W06-3</td><td>S</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>year week day</td><td>yyyy ww d</td><td class='example'>2023 6 3</td><td>H, S</td></tr>
+<tr><td><b>a</b></td><td>text</td><td>year week day</td><td>yyyy ww d</td><td class='example'>2023 6 3</td><td>H</td></tr>
+<tr><td><b>r</b></td><td>text</td><td>year week day</td><td>yyyy ww d</td><td class='example'>2023 6 3</td><td>H, S</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9y 9w 9d</td><td>9y 9w 9d</td><td class='example'>2023y 6w 3d</td><td>H</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
 Example based on jdn# 2459984</td></tr>
