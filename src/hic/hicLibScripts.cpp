@@ -369,7 +369,7 @@ glich::StdStrMap glich::hics_default_scripts = {
  "name \"Year Week Day\";\n"
  "fields year week day;\n"
  "lexicons w;\n"
- "alias field { wday week; };\n"
+ "alias lexicon { wday day; };\n"
  "alias pseudo { d day; ww week; yyyy year; };\n"
  "alias unit { d day; w week; y year; };\n"
  "format ywd \"{year}| {week}| {day:w:a}\";\n"

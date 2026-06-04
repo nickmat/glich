@@ -42,7 +42,7 @@ grammar gw {
     name "Year Week Day";
     fields year week day;
     lexicons w;
-    alias field { wday week; };
+    alias lexicon { wday day; };
     alias pseudo { d day; ww week; yyyy year; };
     alias unit { d day; w week; y year; };
     format  ywd "{year}| {week}| {day:w:a}";
