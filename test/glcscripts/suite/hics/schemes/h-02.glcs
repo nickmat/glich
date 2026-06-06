@@ -59,7 +59,7 @@ grammar H {
     alias unit { d day; m month; cm cmonth; y year; };
 
     function calculate {
-        cmonth = @if( month=12 and @leapyear.hebrew(year), 14, month );
+        cmonth = @if( month=12 and @leapyear.(scode)(year), 14, month );
         result = this;
     };
     function fixed {
