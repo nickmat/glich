@@ -2,12 +2,15 @@
 
 
 write nl;
-write @leapyear.gregorian(1900) nl;
-write @leapyear.gregorian(2024) nl;
-write @leapyear.gregorian(2025) nl;
-write @leapyear.julian(2024) nl;
-write @leapyear.julian(2025) nl;
+write @leapyear.g(1900) nl;
+write @leapyear.g(2024) nl;
+write @leapyear.g(2025) nl;
+write @leapyear.j(2024) nl;
+write @leapyear.j(2025) nl;
 write @leapyear(2025) nl;
+write @leapyear.X(2025) nl;
+write @leapyear.g nl;
+write @leapyear.rd(2025) nl;
 
 
 /*[OUTPUT]
@@ -17,6 +20,9 @@ true
 false
 true
 false
-Error file:at_leapyear001 (10): @leapyear requires a qualifier.
+Error file:at_leapyear001 (10): @leapyear requires a scheme code qualifier.
+Error file:at_leapyear001 (11): Scheme "X" not found.
+Error file:at_leapyear001 (12): @leapyear requires integer argument.
+Error file:at_leapyear001 (13): "rd" unsupported for leap year.
 
 [OUTPUT]*/
