@@ -70,7 +70,7 @@ namespace glich {
         Format* get_input_format( const std::string& fcode ) const;
         void get_info( Scheme_info* info ) const;
         void get_format_text_info( FormatText_info* info, const std::string& fcode ) const;
-        bool is_leap_year( Field year ) const;
+        BoolError is_leap_year( Field year ) const;
         bool allow_shorthand() const { return m_base.allow_shorthand(); }
 
         FieldVec get_object_fields( const SValueVec& values ) const;

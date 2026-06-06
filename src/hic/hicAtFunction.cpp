@@ -373,23 +373,11 @@ SValue glich::hic_at_leapyear( const StdStrVec& quals, const SValueVec& args )
     if( sch == nullptr ) {
         return SValue::create_error( "Scheme \"" + scode + "\" not found." );
     }
-    string calendar = sch->get_base().basename();
-    if( calendar == "julian" ) {
-        return Julian::leap_year( year );
+    BoolError result = sch->is_leap_year( year );
+    if( result == BoolError::be_error ) {
+        return SValue::create_error( "\"" + scode + "\" unsupported for leap year." );
     }
-    if( calendar == "gregorian" ) {
-        return Gregorian::leap_year( year );
-    }
-    if( calendar == "hebrew" ) {
-        return Hebrew::leap_year( year );
-    }
-    if( calendar == "ordinal" ) {
-        return IsoOrdinal::leap_year( year );
-    }
-    if( calendar == "isoweek" ) {
-        return IsoWeek::leap_year( year );
-    }
-    return SValue::create_error("\"" + scode + "\" unsupported for leap year." );
+    return SValue( result == BoolError::be_true );
 }
 
 SValue glich::hic_at_leapmonth( const StdStrVec& quals, const SValueVec& args )
