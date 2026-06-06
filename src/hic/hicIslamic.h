@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     13th August 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -49,7 +49,7 @@ namespace glich {
         FieldVec get_fields( Field jdn ) const override;
 
     private:
-        bool is_leap_year( Field year ) const override;
+        BoolError is_leap_year( Field year ) const override;
         Field last_day_in_month( Field year, Field month ) const override;
         Field to_jdn( Field year, Field month, Field day ) const;
         bool from_jdn( Field* year, Field* month, Field* day, Field jdn ) const;

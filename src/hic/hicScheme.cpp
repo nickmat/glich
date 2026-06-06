@@ -164,7 +164,7 @@ void Scheme::get_format_text_info( FormatText_info* info, const string& fcode ) 
 
 bool Scheme::is_leap_year( Field year ) const
 {
-    return m_base.is_leap_year( year );;
+    return m_base.is_leap_year( year ) == BoolError::be_true;
 }
 
 FieldVec Scheme::get_object_fields( const SValueVec& values ) const

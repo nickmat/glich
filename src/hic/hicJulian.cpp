@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th March 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -176,7 +176,7 @@ Field Julian::last_day_in_month( Field year, Field month ) const
     case 4: case 6: case 9: case 11:
         return 30;
     case 2:
-        return is_leap_year( year ) ? 29 : 28;
+        return is_leap_year( year ) == BoolError::be_true ? 29 : 28;
     }
     return f_invalid;
 }

@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     13th August 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -116,9 +116,10 @@ FieldVec Islamic::get_fields( Field jdn ) const
 
 /*! Returns true if the year is a leap year in the Islamic Calendar.
  */
-bool Islamic::is_leap_year( Field year ) const
+BoolError Islamic::is_leap_year( Field year ) const
 {
-    return mod_f( m_delta + 11 * year, 30 ) < 11;
+    return mod_f( m_delta + 11 * year, 30 ) < 11 
+        ? BoolError::be_true : BoolError::be_false;
 }
 
 /*! Returns the last day of the month for the given month and year
@@ -127,7 +128,7 @@ bool Islamic::is_leap_year( Field year ) const
 Field Islamic::last_day_in_month( Field year, Field month ) const
 {
     if( month == 12 ) {
-        return is_leap_year( year ) ? 30 : 29;
+        return is_leap_year( year ) == BoolError::be_true ? 30 : 29;
     } else {
         return (month % 2) == 0 ? 29 : 30;
     }

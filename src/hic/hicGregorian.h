@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     6th April 2023
- * Copyright:   Copyright (c) 2023..2024, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -52,7 +52,7 @@ namespace glich {
         static Field easter( Field year );
         static Field today();
 
-        bool is_leap_year( Field year ) const override { return leap_year( year ); }
+        BoolError is_leap_year( Field year ) const override { return leap_year( year ) ? BoolError::be_true : BoolError::be_false; }
 
     };
 

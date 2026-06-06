@@ -84,7 +84,7 @@ namespace glich {
         // Converts the given jdn into the Records' Fields.
         virtual FieldVec get_fields( Field jdn ) const = 0;
 
-        virtual bool is_leap_year( Field year ) const { return false; }
+        virtual BoolError is_leap_year( Field year ) const { return BoolError::be_error; }
 
         virtual BoolVec mark_balanced_fields(
             const Scheme& sch, const Format& fmt,
