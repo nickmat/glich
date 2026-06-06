@@ -356,7 +356,7 @@ SValue glich::hic_at_phrase( const StdStrVec& quals, const SValueVec& args )
 SValue glich::hic_at_leapyear( const StdStrVec& quals, const SValueVec& args )
 {
     if( quals.empty() ) {
-        return SValue::create_error( "@leapyear requires a qualifier." );
+        return SValue::create_error( "@leapyear requires a scheme code qualifier." );
     }
     string mess = "@leapyear requires integer argument.";
     if( args.empty() ) {
@@ -368,7 +368,12 @@ SValue glich::hic_at_leapyear( const StdStrVec& quals, const SValueVec& args )
         return SValue::create_error( mess );
     }
 
-    string calendar = quals[0];
+    string scode = quals[0];
+    Scheme* sch = hic().get_scheme( scode );
+    if( sch == nullptr ) {
+        return SValue::create_error( "Scheme \"" + scode + "\" not found." );
+    }
+    string calendar = sch->get_base().basename();
     if( calendar == "julian" ) {
         return Julian::leap_year( year );
     }
@@ -384,7 +389,7 @@ SValue glich::hic_at_leapyear( const StdStrVec& quals, const SValueVec& args )
     if( calendar == "isoweek" ) {
         return IsoWeek::leap_year( year );
     }
-    return false;
+    return SValue::create_error("\"" + scode + "\" unsupported for leap year." );
 }
 
 SValue glich::hic_at_leapmonth( const StdStrVec& quals, const SValueVec& args )
