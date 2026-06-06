@@ -533,7 +533,7 @@ glich::StdStrMap glich::hics_default_scripts = {
  "alias pseudo { w wsday; dd day; mm month; mm cmonth; yyyy year; };\n"
  "alias unit { d day; m month; cm cmonth; y year; };\n"
  "function calculate {\n"
- "cmonth = @if( month=12 and @leapyear.hebrew(year), 14, month );\n"
+ "cmonth = @if( month=12 and @leapyear.(scode)(year), 14, month );\n"
  "result = this;\n"
  "};\n"
  "function fixed {\n"
