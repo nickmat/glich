@@ -1,5 +1,5 @@
-// roc-002.glcs  Create Republic of China Gregorian scheme format table.
-/*[SKIP]*/
+// ft_roc-001.glcs  Create Republic of China Gregorian scheme format table.
+
 let sch = "roc";
 
 let d1 = 2460841;
@@ -58,7 +58,8 @@ write "</table>" nl;
 <tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>ROC yyy/mm/dd</td><td class='example'>ROC 114/6/14</td><td>D, S</td></tr>
 <tr><td><b>ymd.</b></td><td>text</td><td>year month day</td><td>ROC yyy.mm.dd</td><td class='example'>ROC 114.6.14</td><td>S</td></tr>
 <tr><td><b>cns7648</b></td><td>text</td><td>yyy-mm-dd</td><td>ROC yyy-mm-dd</td><td class='example'>ROC 114-06-14</td><td>S</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyy mm dd</td><td class='example'>114 6 14</td><td>H, S</td></tr>
+<tr><td><b>a</b></td><td>text</td><td>year month day</td><td>yyy mm dd</td><td class='example'>114 6 14</td><td>H</td></tr>
+<tr><td><b>r</b></td><td>text</td><td>year month day</td><td>yyy mm dd</td><td class='example'>114 6 14</td><td>H, S</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>114y 6m 14d</td><td>H</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
 Example based on jdn# 2460841</td></tr>
