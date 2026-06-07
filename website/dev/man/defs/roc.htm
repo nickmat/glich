@@ -91,7 +91,8 @@
 <tr><td><b>ymd</b></td><td>text</td><td>year month day</td><td>ROC yyy/mm/dd</td><td class='example'>ROC 114/6/14</td><td>D, S</td></tr>
 <tr><td><b>ymd.</b></td><td>text</td><td>year month day</td><td>ROC yyy.mm.dd</td><td class='example'>ROC 114.6.14</td><td>S</td></tr>
 <tr><td><b>cns7648</b></td><td>text</td><td>yyy-mm-dd</td><td>ROC yyy-mm-dd</td><td class='example'>ROC 114-06-14</td><td>S</td></tr>
-<tr><td><b>def</b></td><td>text</td><td>year month day</td><td>yyy mm dd</td><td class='example'>114 6 14</td><td>H, S</td></tr>
+<tr><td><b>a</b></td><td>text</td><td>year month day</td><td>yyy mm dd</td><td class='example'>114 6 14</td><td>H</td></tr>
+<tr><td><b>r</b></td><td>text</td><td>year month day</td><td>yyy mm dd</td><td class='example'>114 6 14</td><td>H, S</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9y 9m 9d</td><td>9y 9m 9d</td><td class='example'>114y 6m 14d</td><td>H</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
 Example based on jdn# 2460841</td></tr>
@@ -101,7 +102,7 @@ Example based on jdn# 2460841</td></tr>
  The <b>cns7648</b> format is based on the
  National Standards of the Republic of China CNS 7648
  which is similar to the ISO 8601 standard.
- This is implemented using <b>text</b> rules with the hyphan '-'
+ This is implemented using <b>text</b> rules with the hyphen '-'
  as a separator.
  This is the same as the minus character
  which means it is not possible to show negative years.
