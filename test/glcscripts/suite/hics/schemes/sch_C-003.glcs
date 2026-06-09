@@ -1,0 +1,67 @@
+// hics/schemes/c-01.glcs - Test Chinese Calendar scheme.
+
+lexicon FS {
+    name "First and Second";
+    fieldname lmonth;
+    lang en;
+    pseudo     FirstSecond,     FS;
+    tokens {
+        0,  "First", "F";
+        1,  "Second", "S";
+    };
+};
+
+lexicon FS_CLM {
+    inherit FS;
+    fieldname clmonth;
+};
+
+grammar C {
+    fields year month lmonth day cycle cyear;
+    calculated clmonth;
+    rank year month lmonth day;
+    lexicons FS;
+    alias pseudo { yy year; mm month; lm lmonth; cm clmonth; dd day; cc cycle; cy cyear; };
+    alias unit { y year; m month; lm lmonth; d day; c cycle; cy cyear; };
+
+    function calculate {
+        clmonth = @if(lmonth=0, @if(@leapmonth.(scode)( year, month),0,null), 1);
+        result = this;
+    };
+
+    function fixed {
+        lmonth = @if(clmonth<>1, 0, 1);
+        result = this;
+    };
+
+    format ylmd {
+        inout "{year}| {clmonth:FS_CLM}| {month}| {day}";
+        rank year month day;
+    };
+    preferred ylmd;
+};
+
+scheme C {
+    base chinese;
+    grammar C;
+};
+
+let d1 = 2460866;   // 4662y 6m 0lm 15d
+let d2 = 2460896;   // 4662y 6m 1lm 15d
+let d3 = 2460925;   // 4662y 7m 0lm 15d
+
+let sig = "C:ylmd";
+
+write nl;
+write "Shorthand: " + @fmt:object.(sig)[.shorthand] nl;
+write @text.(sig)( d1 ), @text.(sig)( d2 ), @text.(sig)( d3 ) nl;
+write @date.(sig)("4662 First 6 15"), @date.(sig)("4662 Second 6 15"), @date.(sig)("4662 7 15") nl;
+
+
+/*[OUTPUT]
+
+Shorthand: false
+4662 First 6 15, 4662 Second 6 15, 4662 7 15
+2460866, 2460896, 2460925
+
+[OUTPUT]*/
