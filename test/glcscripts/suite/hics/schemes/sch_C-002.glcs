@@ -1,4 +1,4 @@
-// hics/schemes/sch_c-002.glcs - Test Chinese format ymld.
+// hics/schemes/sch_C-002.glcs - Test Chinese format ymld.
 
 lexicon FS {
     name "First and Second";
