@@ -291,24 +291,28 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
     if( index > 0 && fields[0] == f_maximum ) {
         return f_invalid;
     }
+    // These cases do not depend on year - handle before the year validity check
+    switch( index )
+    {
+    case 0: // year
+    case 4: // cycle
+        return f_maximum;
+    case 1: // month
+        return 12;
+    case 5: // cyear
+        return 60;
+    }
+    // lmonth and day require year to be known
     if( fields[0] == f_invalid ) {
         return f_invalid;
     }
     Field year = fields[0] + m_year_offset;
-
     switch( index )
     {
-    case 0: // year
-    case 4:
-        return f_maximum;
-    case 1: // month
-        return 12;
     case 2: // lmonth
         return chinese_is_leap_month( year, fields[1]) ? 1 : 0;
     case 3: // day
         return chinese_last_day_of_month( year, fields[1], fields[2] );
-    case 5: // cyear
-        return 60;
     }
     return f_invalid;
 }

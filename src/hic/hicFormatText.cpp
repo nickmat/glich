@@ -357,10 +357,12 @@ Range FormatText::string_to_range( const Base& base, const string& input, Functi
         if( start && bfields[def_index] != f_invalid ) {
             continue;
         }
-        if(def_index >= base.required_size() ) {
-            // Set calculated fields.
-            // Use functions defined in Grammar to calculate the beg/end field
-            if( fun_first == nullptr || fun_last == nullptr ) {
+        start = false;
+        bfields[def_index] = base.get_beg_field_value( bfields, def_index );
+        efields[def_index] = base.get_end_field_value( efields, def_index );
+        if( bfields[def_index] == f_invalid || efields[def_index] == f_invalid ) {
+            // Base can't provide bounds - fall back to grammar functions.
+            if( def_index < base.required_size() || fun_first == nullptr || fun_last == nullptr ) {
                 break;
             }
             SValue obj_first = beg.get_object( fdata->ocode );
@@ -369,26 +371,31 @@ Range FormatText::string_to_range( const Base& base, const string& input, Functi
             StdStrVec qual;
             SValueVec args;
             SValue val_first = fun_first->run( &obj_first, qual_fname, args, fdata->out_stream );
-            if( val_first.type() == SValue::Type::field ){
+            if( val_first.type() == SValue::Type::field ) {
                 bfields[def_index] = val_first.get_as_field();
                 obj_first = beg.get_object( fdata->ocode );
                 obj_first = fun_complete->run( &obj_first, qual, args, fdata->out_stream );
                 beg.set_object( obj_first );
             }
             SValue val_last = fun_last->run( &obj_last, qual_fname, args, fdata->out_stream );
-            if( val_last.type() == SValue::Type::field ){
+            if( val_last.type() == SValue::Type::field ) {
                 efields[def_index] = val_last.get_as_field();
                 obj_last = end.get_object( fdata->ocode );
                 obj_last = fun_complete->run( &obj_last, qual, args, fdata->out_stream );
                 end.set_object( obj_last );
             }
         }
-        else {
-            // Set required fields.
-            bfields[def_index] = base.get_beg_field_value( bfields, def_index );
-            efields[def_index] = base.get_end_field_value( efields, def_index );
+        else if( def_index >= base.required_size() ) {
+            // Calculated field set from base: propagate to derive required fields (e.g. year from cycle+cyear)
+            StdStrVec qual;
+            SValueVec args;
+            SValue obj_beg = beg.get_object( fdata->ocode );
+            obj_beg = fun_complete->run( &obj_beg, qual, args, fdata->out_stream );
+            beg.set_object( obj_beg );
+            SValue obj_end = end.get_object( fdata->ocode );
+            obj_end = fun_complete->run( &obj_end, qual, args, fdata->out_stream );
+            end.set_object( obj_end );
         }
-        start = false;
     }
     range.m_beg = beg.calc_jdn();
     range.m_end = end.calc_jdn();
