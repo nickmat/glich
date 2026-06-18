@@ -1,4 +1,4 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+﻿/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Name:        src/glc/hicFormatText.cpp
  * Project:     Glich: Extendable Script Language.
  * Purpose:     FormatText class to control formatting and parsing of dates.
@@ -337,13 +337,9 @@ Range FormatText::string_to_range( const Base& base, const string& input, Functi
         return Range();
     }
     Record mask( base, ovalue );
-    for( size_t i = 1, cnt = 0; i < values->size(); i++ ) {
-        if( values->at(i).type() == SValue::Type::field ) {
-            cnt++;
-        }
-        if( cnt == m_sig_rank_size - 1 ) {
-            return mask.get_range_from_mask();
-        }
+    if( mask.get_jdn() != f_invalid ) {
+        Field jdn = mask.get_jdn();
+        return { jdn, jdn };
     }
 
     Range range;
