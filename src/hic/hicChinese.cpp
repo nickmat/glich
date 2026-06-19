@@ -342,4 +342,13 @@ Field Chinese::next_new_moon( Field jdn )
     return chinese_new_moon_on_or_after( jdn + 1 );
 }
 
+void Chinese::update_input( FieldVec& fields ) const
+{
+    if( fields[CHIN_year] == f_invalid &&
+        fields[CHIN_cycle] != f_invalid &&
+        fields[CHIN_cyear] != f_invalid ) {
+        fields[CHIN_year] = ( fields[CHIN_cycle] - 1 ) * 60 + fields[CHIN_cyear];
+    }
+}
+
 // End of src/hic/hicChinese.cpp

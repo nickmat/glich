@@ -51,6 +51,8 @@ namespace glich {
 
         BoolError is_leap_month( Field year, Field month ) const override;
 
+        void update_input( FieldVec& fields ) const override;
+
         static Field next_new_moon( Field jdn );
 
     protected:
