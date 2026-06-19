@@ -42,6 +42,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <optional>
 
 using namespace glich;
 using std::string;
@@ -324,33 +325,45 @@ string FormatText::get_revealed_output( const Record& record, const BoolVec* rev
 Range FormatText::string_to_range( const Base& base, const string& input, FunctionData* fdata ) const
 {
     Record mask1( base, input, *this, Boundary::None );
-    if( !fdata || (input == "today" || input == "past" || input == "future") ) {
+    if( input == "today" || input == "past" || input == "future" ) {
         return mask1.get_range_from_mask();
     }
-    SValue value = mask1.get_object( fdata->ocode );
-    value = fdata->run( &value );
-    const SValue& ovalue = value;
-
-    assert( m_sig_rank_size > 1 );
-    const SValueVec* values = ovalue.get_object_values();
-    if( values == nullptr || values->size() <= 1 ) {
-        return Range();
+    // If no grammar fixed function AND the base has no non-required fields,
+    // get_range_from_mask() handles this directly (e.g. Hybrid, Jwn).
+    if( !fdata && base.required_size() == base.record_size() ) {
+        return mask1.get_range_from_mask();
     }
-    Record mask( base, ovalue );
+
+    // Build the working mask - either via fdata object transform or directly from mask1.
+    std::optional<Record> opt_mask;
+    if( fdata ) {
+        SValue value = mask1.get_object( fdata->ocode );
+        value = fdata->run( &value );
+        const SValueVec* values = value.get_object_values();
+        if( values == nullptr || values->size() <= 1 ) {
+            return Range();
+        }
+        opt_mask.emplace( base, value );
+    }
+    const Record& mask = opt_mask.has_value() ? opt_mask.value() : mask1;
+
     if( mask.get_jdn() != f_invalid ) {
         Field jdn = mask.get_jdn();
         return { jdn, jdn };
     }
 
+    assert( m_sig_rank_size > 1 );
+
     Range range;
     Record beg( mask ), end( mask );
     FieldVec& bfields = beg.get_field_vec();
     FieldVec& efields = end.get_field_vec();
-    Object* obj = hic().get_object( ovalue.get_object_code() );
-    Function* fun_first = obj->get_function( "first" );
-    Function* fun_last = obj->get_function( "last" );
-    Function* fun_complete = obj->get_function( get_function_name( "fixed" ));
-    assert( fun_complete != nullptr );
+
+    Object* obj = fdata ? hic().get_object( fdata->ocode ) : nullptr;
+    Function* fun_first = obj ? obj->get_function( "first" ) : nullptr;
+    Function* fun_last = obj ? obj->get_function( "last" ) : nullptr;
+    Function* fun_complete = obj ? obj->get_function( get_function_name( "fixed" ) ) : nullptr;
+
     bool start = true;
     for( size_t i = 0; i < m_sig_rank_size; i++ ) {
         size_t def_index = m_rank_to_def_index[i];
@@ -362,7 +375,7 @@ Range FormatText::string_to_range( const Base& base, const string& input, Functi
         efields[def_index] = base.get_end_field_value( efields, def_index );
         if( bfields[def_index] == f_invalid || efields[def_index] == f_invalid ) {
             // Base can't provide bounds - fall back to grammar functions.
-            if( def_index < base.required_size() || fun_first == nullptr || fun_last == nullptr ) {
+            if( fun_first == nullptr || fun_last == nullptr || fun_complete == nullptr ) {
                 break;
             }
             SValue obj_first = beg.get_object( fdata->ocode );
@@ -386,15 +399,8 @@ Range FormatText::string_to_range( const Base& base, const string& input, Functi
             }
         }
         else if( def_index >= base.required_size() ) {
-            // Calculated field set from base: propagate to derive required fields (e.g. year from cycle+cyear)
-            StdStrVec qual;
-            SValueVec args;
-            SValue obj_beg = beg.get_object( fdata->ocode );
-            obj_beg = fun_complete->run( &obj_beg, qual, args, fdata->out_stream );
-            beg.set_object( obj_beg );
-            SValue obj_end = end.get_object( fdata->ocode );
-            obj_end = fun_complete->run( &obj_end, qual, args, fdata->out_stream );
-            end.set_object( obj_end );
+            base.update_input( bfields );
+            base.update_input( efields );
         }
     }
     range.m_beg = beg.calc_jdn();
