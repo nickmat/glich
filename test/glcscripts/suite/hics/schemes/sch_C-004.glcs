@@ -1,0 +1,58 @@
+// hics/schemes/sch_C-004.glcs - Test Chinese Calendar scheme.
+
+lexicon FS {
+    name "First and Second";
+    fieldname lmonth;
+    lang en;
+    pseudo     FirstSecond,     FS;
+    tokens {
+        0,  "First", "F";
+        1,  "Second", "S";
+    };
+};
+
+grammar C {
+    fields year month lmonth day cycle cyear;
+    rank cycle cyear month lmonth day;
+
+    lexicons FS;
+    alias pseudo { dd day; mm month; lm lmonth; yy year; cc cycle; };
+    alias unit { d day; m month; lm lmonth; y cyear; c cycle; };
+
+    // Note, format used in "Calendrical Calculations"
+    format cymld "{cycle}| {cyear}| {month}| {lmonth:FS:a:l}| {day}";
+    preferred cymld;
+};
+
+scheme C {
+  name "Chinese";
+  base chinese;
+  grammar C;
+};
+
+write nl;
+write "Shorthand range: " + @fmt:object.C:cymld[.shorthand] nl;
+write @date.C( "78 42 6 f 15" ), @text.C( 2460866 ) nl;
+write @date.C( "78 42 6 f" ), @text.C( 2460852..2460881 ) nl;
+write @date.C( "78 42 6 s" ), @text.C( 2460882..2460910 ) nl;
+write @date.C( "78 42 7 f" ), @text.C( 2460911..2460940 ) nl;
+write @date.C( "78 42 6" ), @text.C( 2460852..2460910 ) nl;
+write @date.C( "78 42 7" ), @text.C( 2460911..2460940 ) nl;
+write @date.C( "78 42" ), @text.C( 2460705..2461088 ) nl;
+write @date.C( "78" ), @text.C( 2445733..2467644 ) nl;
+
+
+/*[OUTPUT]
+
+Shorthand range: true
+2460866, 78 42 6 f 15
+2460852..2460881, 78 42 6 f
+2460882..2460910, 78 42 6 s
+2460911..2460940, 78 42 7
+2460852..2460910, 78 42 6
+2460911..2460940, 78 42 7
+2460705..2461088, 78 42
+2445733..2467644, 78
+
+[OUTPUT]*/
+
