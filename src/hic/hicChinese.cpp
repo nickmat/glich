@@ -41,7 +41,8 @@ using std::string;
 
 namespace {
     enum ChineseField {
-        CHIN_year, CHIN_month, CHIN_lmonth, CHIN_day, CHIN_cycle, CHIN_cyear
+        CHIN_year, CHIN_month, CHIN_lmonth, CHIN_day, CHIN_cycle, CHIN_cyear,
+        CHIN_stem, CHIN_branch, CHIN_element, CHIN_yinyang
     };
 
     // CC3 p262
@@ -233,8 +234,10 @@ Chinese::Chinese( const StdStrVec& data )
     : m_year_offset( 0 ), Base( data, 6 )
 {
     // 4 required fields: year, month, lmonth, day
-    // and 2 additional fields: cycle, cyear.
-    m_fieldnames = { "year", "month", "lmonth", "day", "cycle", "cyear" };
+    // and 4 additional fields: cycle, cyear, stem, branch.
+    m_fieldnames = {
+        "year", "month", "lmonth", "day",
+        "cycle", "cyear", "stem", "branch", "element", "yinyang" };
     for( const string& word : data ) {
         cal_data( word );
     }
@@ -281,6 +284,10 @@ Field Chinese::get_beg_field_value( const FieldVec& fields, size_t index ) const
     case 1: // month
     case 3: // day
     case 5: // cyear
+    case 6: // stem
+    case 7: // branch
+    case 8: // element
+    case 9: // yinyang
         return 1;
     }
     return f_invalid;
@@ -301,6 +308,14 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
         return 12;
     case 5: // cyear
         return 60;
+    case 6: // stem
+        return 10;
+    case 7: // branch
+        return 12;
+    case 8: // element
+        return 5;
+    case 9: // yinyang
+        return 2;
     }
     // lmonth and day require year to be known
     if( fields[0] == f_invalid ) {
@@ -325,6 +340,10 @@ FieldVec Chinese::get_fields( Field jdn ) const
     fields[0] = year - m_year_offset;
     fields[4] = ((year - 1) / 60) + 1; // cycle
     fields[5] = famod_f( year, 60 ); // cyear
+    fields[6] = famod_f( year, 10 ); // stem
+    fields[7] = famod_f( year, 12 ); // branch
+    fields[8] = famod_f( fields[6], 5 ); // element
+    fields[9] = famod_f( fields[6], 2 ); // yinyang
     return fields;
 }
 
@@ -344,6 +363,16 @@ Field Chinese::next_new_moon( Field jdn )
 
 void Chinese::update_input( FieldVec& fields ) const
 {
+    if( fields[CHIN_stem] == f_invalid &&
+        fields[CHIN_element] != f_invalid &&
+        fields[CHIN_yinyang] != f_invalid ) {
+        fields[CHIN_stem] = fmod_e( fields[CHIN_element] - 1, 5 ) * 2 + fmod_e( fields[CHIN_yinyang] - 1, 2 ) + 1;
+    }
+    if( fields[CHIN_cyear] == f_invalid &&
+        fields[CHIN_stem] != f_invalid &&
+        fields[CHIN_branch] != f_invalid ) {
+        fields[CHIN_cyear] = fmod_e( fields[CHIN_stem] - 1, 10 ) * 12 + fmod_e( fields[CHIN_branch] - 1, 12 ) + 1;
+    }
     if( fields[CHIN_year] == f_invalid &&
         fields[CHIN_cycle] != f_invalid &&
         fields[CHIN_cyear] != f_invalid ) {
