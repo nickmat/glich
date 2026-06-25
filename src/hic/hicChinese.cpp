@@ -231,7 +231,7 @@ namespace {
 
 
 Chinese::Chinese( const StdStrVec& data )
-    : m_year_offset( 0 ), Base( data, 6 )
+    : m_year_offset( 0 ), Base( data, 10 )
 {
     // 4 required fields: year, month, lmonth, day
     // and 4 additional fields: cycle, cyear, stem, branch.
