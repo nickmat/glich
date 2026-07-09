@@ -127,6 +127,11 @@ lexicon fs {
     };
 };
 
+lexicon fs_clm {
+    inherit fs;
+    fieldname clmonth;
+};
+
 grammar c {
     fields year month lmonth day cycle cyear;
     calculated clmonth stem branch;
@@ -175,7 +180,7 @@ grammar c {
     // Year count formats.
     format ymld "{year}| {month}| {lmonth:fs:a}| {day}";
     format ylmd { 
-        inout "{year}| {clmonth:LMON*:a}| {month}| {day}";
+        inout "{year}| {clmonth:lmon*:a}| {month}| {day}";
         rank year month clmonth day;
     };
     format animal "{year} Year of the {:branch:animal*}|, {lmonth:lmon}| {month}| Day {day}";
@@ -212,7 +217,7 @@ grammar c {
 
 scheme c {
   name "Chinese Beta 1";
-  base chinese;
+  base chinese additional;
   grammar c;
 };
 

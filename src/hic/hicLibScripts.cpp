@@ -861,6 +861,10 @@ glich::StdStrMap glich::hics_default_scripts = {
  "1, \"Second\", \"S\";\n"
  "};\n"
  "};\n"
+ "lexicon fs_clm {\n"
+ "inherit fs;\n"
+ "fieldname clmonth;\n"
+ "};\n"
  "grammar c {\n"
  "fields year month lmonth day cycle cyear;\n"
  "calculated clmonth stem branch;\n"
@@ -901,7 +905,7 @@ glich::StdStrMap glich::hics_default_scripts = {
  "};\n"
  "format ymld \"{year}| {month}| {lmonth:fs:a}| {day}\";\n"
  "format ylmd {\n"
- "inout \"{year}| {clmonth:LMON*:a}| {month}| {day}\";\n"
+ "inout \"{year}| {clmonth:lmon*:a}| {month}| {day}\";\n"
  "rank year month clmonth day;\n"
  "};\n"
  "format animal \"{year} Year of the {:branch:animal*}|, {lmonth:lmon}| {month}| Day {day}\";\n"
@@ -935,7 +939,7 @@ glich::StdStrMap glich::hics_default_scripts = {
  "};\n"
  "scheme c {\n"
  "name \"Chinese Beta 1\";\n"
- "base chinese;\n"
+ "base chinese additional;\n"
  "grammar c;\n"
  "};\n" },
     { "roc",  /* roc.glcs */
