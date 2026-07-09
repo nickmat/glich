@@ -231,15 +231,18 @@ namespace {
 
 
 Chinese::Chinese( const StdStrVec& data )
-    : m_year_offset( 0 ), Base( data, 10 )
+    : m_year_offset( 0 ), m_additional_fields(false), Base(data, 4)
 {
     // 4 required fields: year, month, lmonth, day
-    // and 4 additional fields: cycle, cyear, stem, branch.
-    m_fieldnames = {
-        "year", "month", "lmonth", "day",
-        "cycle", "cyear", "stem", "branch", "element", "yinyang" };
+    m_fieldnames = { "year", "month", "lmonth", "day" };
     for( const string& word : data ) {
         cal_data( word );
+    }
+    if( m_additional_fields ) {
+        // add additional fields: cycle, cyear, stem, branch, element, yinyang
+        vec_append( m_fieldnames,
+            { "cycle", "cyear", "stem", "branch", "element", "yinyang" } );
+        m_record_size = 10;
     }
 }
 
@@ -249,6 +252,9 @@ void Chinese::cal_data( const string& word )
     split_code( &code, &tail, word );
     if( code == "year" ) {
         m_year_offset = str_to_field( tail );
+    }
+    else if( code == "additional" ) {
+        m_additional_fields = true;
     }
     else {
         set_data( word );
@@ -338,12 +344,14 @@ FieldVec Chinese::get_fields( Field jdn ) const
     Field year = f_invalid;
     chinese_from_jdn( &year, &fields[1], &fields[2], &fields[3], jdn);
     fields[0] = year - m_year_offset;
-    fields[4] = ((year - 1) / 60) + 1; // cycle
-    fields[5] = famod_f( year, 60 ); // cyear
-    fields[6] = famod_f( year, 10 ); // stem
-    fields[7] = famod_f( year, 12 ); // branch
-    fields[8] = famod_f( fields[6], 5 ); // element
-    fields[9] = famod_f( fields[6], 2 ); // yinyang
+    if( m_additional_fields ) {
+        fields[4] = ((year - 1) / 60) + 1; // cycle
+        fields[5] = famod_f( year, 60 ); // cyear
+        fields[6] = famod_f( year, 10 ); // stem
+        fields[7] = famod_f( year, 12 ); // branch
+        fields[8] = famod_f( fields[6], 5 ); // element
+        fields[9] = famod_f( fields[6], 2 ); // yinyang
+    }
     return fields;
 }
 
@@ -363,6 +371,9 @@ Field Chinese::next_new_moon( Field jdn )
 
 void Chinese::update_input( FieldVec& fields ) const
 {
+    if( !m_additional_fields ) {
+        return;
+    }
     if( fields[CHIN_stem] == f_invalid &&
         fields[CHIN_element] != f_invalid &&
         fields[CHIN_yinyang] != f_invalid ) {

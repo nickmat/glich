@@ -57,6 +57,7 @@ namespace glich {
 
     protected:
         Field m_year_offset;
+        bool m_additional_fields;
     };
 
 }
