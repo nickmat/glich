@@ -7,39 +7,39 @@ scheme C {
 
 write nl;
 write "Shorthand: " + @fmt:object.C:r[.shorthand] nl;
-write @scheme.C( 758326 ), @date( {s:C 1, 1, 0, 1} ) nl;
+write @scheme.C( 758326 ), @date( {s:C 1, 1, 1, 1} ) nl;
 write @text.C( 2460494 ), @scheme.C( 2460494 ) nl;
-write @date.C( "4661 5 0 27" ),  @scheme.C( "4661 5 0 27" ) nl;
-write @text( {s:C 4661, 5, 0, 27} ), @date( {s:C 4661, 5, 0, 27} ) nl;
+write @date.C( "4661 5 1 27" ),  @scheme.C( "4661 5 1 27" ) nl;
+write @text( {s:C 4661, 5, 1, 27} ), @date( {s:C 4661, 5, 1, 27} ) nl;
 write nl;
-write @date.C( "4662 6 0 20" ), @text.C( 2460871 ) nl;
-write @date.C( "4662 6 0" ), @text.C( 2460852..2460881 ) nl;
+write @date.C( "4662 6 1 20" ), @text.C( 2460871 ) nl;
+write @date.C( "4662 6 1" ), @text.C( 2460852..2460881 ) nl;
 write @date.C( "4662 6" ), @text.C( 2460852..2460910 ) nl;
 write @date.C( "4662" ), @text.C( 2460705..2461088 ) nl;
 write nl;
 write "Shorthand: " + @fmt:object.C:a[.shorthand] nl;
-write @date.C:a( "4662 6 0 20" ), @text.C:a( 2460871 ) nl;
+write @date.C:a( "4662 6 1 20" ), @text.C:a( 2460871 ) nl;
 write nl;
 write "Shorthand: " + @fmt:object.C:u[.shorthand] nl;
-write @date.C:u( "4662year 6month 0lmonth 20day" ), @text.C:u( 2460871 ) nl;
+write @date.C:u( "4662year 6month 1lmonth 20day" ), @text.C:u( 2460871 ) nl;
 
 /*[OUTPUT]
 
 Shorthand: true
-{s:C 1, 1, 0, 1, 1, 1, 1, 1, 1, 1}, 758326
-4661 5 0 27, {s:C 4661, 5, 0, 27, 78, 41, 1, 5, 1, 1}
-2460494, {s:C 4661, 5, 0, 27, null, null, null, null, null, null}
-4661 5 0 27, 2460494
+{s:C 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 758326
+4661 5 1 27, {s:C 4661, 5, 1, 27, 78, 41, 1, 5, 1, 1}
+2460494, {s:C 4661, 5, 1, 27, null, null, null, null, null, null}
+4661 5 1 27, 2460494
 
-2460871, 4662 6 0 20
-2460852..2460881, 4662 6 0
+2460871, 4662 6 1 20
+2460852..2460881, 4662 6 1
 2460852..2460910, 4662 6
 2460705..2461088, 4662
 
 Shorthand: false
-2460871, 4662 6 0 20 78 42 2 6 2 2
+2460871, 4662 6 1 20 78 42 2 6 2 2
 
 Shorthand: false
-2460871, 4662year 6month 0lmonth 20day 78cycle 42segyear 2stem 6branch 2element 2yinyang
+2460871, 4662year 6month 1lmonth 20day 78cycle 42segyear 2stem 6branch 2element 2yinyang
 
 [OUTPUT]*/
