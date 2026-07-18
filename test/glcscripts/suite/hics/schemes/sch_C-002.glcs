@@ -6,8 +6,8 @@ lexicon FS {
     lang en;
     pseudo     FirstSecond,     FS;
     tokens {
-        0,  "First", "F";
-        1,  "Second", "S";
+        1,  "First", "F";
+        2,  "Second", "S";
     };
 };
 
@@ -26,11 +26,11 @@ scheme C {
     grammar C;
 };
 
-let d1 = 2460866;   // 4662y 6m 0lm 15d
-let d2 = 2460896;   // 4662y 6m 1lm 15d
-let d3 = 2460925;   // 4662y 7m 0lm 15d
-let m1 = 2460852..2460881; // 4662y 6m 0lm
-let m2 = 2460882..2460910; // 4662y 6m 1lm
+let d1 = 2460866;   // 4662y 6m 1lm 15d
+let d2 = 2460896;   // 4662y 6m 2lm 15d
+let d3 = 2460925;   // 4662y 7m 1lm 15d
+let m1 = 2460852..2460881; // 4662y 6m 1lm
+let m2 = 2460882..2460910; // 4662y 6m 2lm
 let m3 = 2460911..2460940; // 4662y 7m
 let md = 2460852..2460910; // 4662y 6m
 let y = 2460705..2461088;  // 4662y
