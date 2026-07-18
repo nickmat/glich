@@ -80,7 +80,7 @@ TEST_CASE( "Scheme c Soak Test", "[c Soak]" )
     }
 
     string sig = "c:r";
-    string date_str = cvt_fields( start_year, 1, 0, 1 );
+    string date_str = cvt_fields( start_year, 1, 1, 1 );
     Field daycount = g_glc->text_to_field( date_str, sig );
     REQUIRE( daycount == start_jdn );
 
@@ -93,14 +93,14 @@ TEST_CASE( "Scheme c Soak Test", "[c Soak]" )
             if( leap_months[lmonth_index].year == year &&
                 leap_months[lmonth_index].month == month )
             {
-                leap_month = 1;
+                leap_month = 2;
                 lmonth_index++;
                 REQUIRE( lmonth_index < leap_months_size );
             } else {
-                leap_month = 0;
+                leap_month = 1;
             }
             Field day2 = daycount;
-            for( Field lmonth = 0; lmonth <= leap_month; lmonth++ ) {
+            for( Field lmonth = 1; lmonth <= leap_month; lmonth++ ) {
                 int month_len = month_length( daycount );
                 REQUIRE( month_len >= 29 );
                 REQUIRE( month_len <= 30 );
@@ -113,7 +113,7 @@ TEST_CASE( "Scheme c Soak Test", "[c Soak]" )
                     REQUIRE( date_str == cvtdate );
                     daycount++;
                 }
-                if( leap_month == 0 ) {
+                if( leap_month == 1 ) {
                     date_str = cvt_fields( year, month );
                 }
                 else {
