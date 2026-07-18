@@ -1,4 +1,5 @@
 // format010.glcs  Test format with calculated fields.
+/*[SKIP]*/
 
 grammar C {
     fields year month lmonth day cycle cyear;

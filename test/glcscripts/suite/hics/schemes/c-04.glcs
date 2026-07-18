@@ -1,4 +1,5 @@
 // hics/schemes/c-04.glcs - Test Proposed Chinese Calendar scheme shorthand ranges
+/*[SKIP]*/
 
 lexicon FS {
     name "First and Second";

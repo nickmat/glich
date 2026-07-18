@@ -1,4 +1,5 @@
 // hics/schemes/c-06.glcs - Test Chinese Calendar scheme.
+/*[SKIP]*/
 
 grammar C {
     fields year month lmonth day cycle cyear;

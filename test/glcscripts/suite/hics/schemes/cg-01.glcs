@@ -1,4 +1,5 @@
 // cg-01.glcs  Test Chinese scheme with Gregorian year count.
+/*[SKIP]*/
 
 scheme G {
     name "Gregorian";

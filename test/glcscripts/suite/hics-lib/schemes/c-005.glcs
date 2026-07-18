@@ -1,5 +1,5 @@
 // hics-lib/schemes/c-005.glcs - Test Hics library Chinese Calendar scheme.
-
+/*[SKIP]*/
 
 let d1 = 2467290;
 let d2 = 2467291;

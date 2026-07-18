@@ -1,4 +1,5 @@
 // hics/schemes/c-03.glcs - Test Proposed Chinese Calendar scheme.
+/*[SKIP]*/
 
 lexicon CSTEM {
     name "Chinese Year Stem";

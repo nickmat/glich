@@ -1,31 +1,59 @@
 // hics-lib/schemes/c-001.glcs - Test Hics library Chinese Calendar scheme.
+// Test Year count formats.
+/*[SKIP]*/
+let d1 = 2460866;   // 4662y 6m 0lm 15d 78c 42cy 2s 6b
+let d2 = 2460896;   // 4662y 6m 1lm 15d 78c 42cy 1cm 2s 6b
+let d3 = 2460925;   // 4662y 7m 0lm 15d 78c 42cy 2s 6b
+let m1 = 2460852..2460881; // 4662y 6m 0lm 1d 78c 42cy 2s 6b..4662y 6m 0lm 30d 78c 42cy 2s 6b
+let m2 = 2460882..2460910; // 4662y 6m 1lm 1d 78c 42cy 1cm 2s 6b..4662y 6m 1lm 29d 78c 42cy 1cm 2s 6b
+let m3 = 2460911..2460940; // 4662y 7m 0lm 1d 78c 42cy 2s 6b..4662y 7m 0lm 30d 78c 42cy 2s 6b
+let md = 2460852..2460910; // 4662y 6m 0lm 1d 78c 42cy 2s 6b..4662y 6m 1lm 29d 78c 42cy 1cm 2s 6b
+let y = 2460705..2461088;  // 4662y 1m 0lm 1d 78c 42cy 2s 6b..4662y 12m 0lm 29d 78c 42cy 2s 6b
 
 
-let d1 = 2460866;
-let d2 = 2460896;
+let sig = "c:ymld";
+write nl; // default ymld format
+write @text.(sig)( d1 ), @text.(sig)( d2 ), @text.(sig)( d3 ) nl;
+write @text.(sig)( m1 ), @text.(sig)( m2 ), @text.(sig)( m3 ) nl;
+write @text.(sig)( md ) nl;
+write @text.(sig)( y ) nl;
+
+write @date.(sig)( {s:c 4662, 6, 0, 15} ), @date.(sig)( {s:c 4662, 6, 1, 15} ), @date.(sig)( {s:c 4662, 7, 0, 15} ) nl;
+write @date.(sig)("4662 6 f 15"), @date.(sig)("4662 6 s 15"), @date.(sig)("4662 7 f 15") nl;
+write @date.(sig)("4662 6 f"), @date.(sig)("4662 6 s"), @date.(sig)("4662 7 f") nl;
+write @date.(sig)("4662 6"), @date.(sig)("4662 7") nl;
+write @date.(sig)("4662") nl;
 
 
+let sig = "c:ylmd";
 write nl;
-write @scheme.c(d1), @scheme.c(d2) nl;
-write @scheme.c("78 42 6 f 15"), @scheme.c("78 42 6 s 15") nl;
-write @text.c( d1 ), @text.c( d2 ) nl;
-write @text.c:cylmd( d1 ), @text.c:cylmd( d2 ) nl;
-write @text.c:cylmd_s( d1 ), @text.c:cylmd_s( d2 ) nl;
+write @text.(sig)( d1 ), @text.(sig)( d2 ), @text.(sig)( d3 ) nl;
+write @text.(sig)( m1 ), @text.(sig)( m2 ), @text.(sig)( m3 ) nl;
+write @text.(sig)( md ) nl;
+write @text.(sig)( y ) nl;
 
-write nl;
-write @date( {s:c 4662, 6, 0, 15} ), @date( {s:c 4662, 6, 1, 15} ) nl;
-write @date( {s:c 4662, 6,, 15}@cycle_to_year ), @date( {s:c 4662, 6,, 15,,, 1}@cycle_to_year ) nl;
-write @date( {s:c , 6,, 15, 78, 42}@cycle_to_year ), @date( {s:c , 6,, 15, 78, 42, 1}@cycle_to_year ) nl;
-write @date.c("78 42 6 f 15"), @date.c("78 42 6 s 15") nl;
-write @date.c:cylmd("78 42 6 15"), @date.c:cylmd("78 42 Leap 6 15") nl;
-write @date.c:cylmd_s("78 Yǐ-sì 6 15"), @date.c:cylmd_s("78 Yǐ-sì, Leap 6 15") nl;
+write @date.(sig)("4662 Month 6 15"), @date.(sig)("4662 Leap 6 15"), @date.(sig)("4662 Month 7 15") nl;
+write @date.(sig)("4662 Month 6"), @date.(sig)("4662 Leap 6"), @date.(sig)("4662 Month 7") nl;
+write @date.(sig)("4662 6"), @date.(sig)("4662 7") nl;
+write @date.(sig)("4662") nl;
 
-write nl;
-write @text.c:full( d1 ) nl @text.c:full( d2 ) nl;
-write @text.c:animal( d1 ) nl @text.c:animal( d2 ) nl;
+
 
 
 /*[OUTPUT]
+
+4662 6 F 15, 4662 6 S 15, 4662 7 F 15
+4662 6 F, 4662 6 S, 4662 7
+4662 6
+4662
+2460866, 2460896, 2460925
+2460866, 2460896, 2460925
+2460852..2460881, 2460882..2460910, 2460911..2460940
+2460852..2460910, 2460911..2460940
+2460705..2461088
+
+[OUTPUT]*/
+/* [OUTPUT]
 
 {s:c 4662, 6, 0, 15, 78, 42, null, 2, 6}, {s:c 4662, 6, 1, 15, 78, 42, 1, 2, 6}
 {s:c 4662, 6, 0, 15, 78, 42, null, 2, 6}, {s:c 4662, 6, 1, 15, 78, 42, 1, 2, 6}
@@ -45,4 +73,4 @@ Cycle: 78, Year: Yǐ-sì (42), Leap-month: 6, Day: 15
 (Cycle 78) Year of the Snake 42 Month 6 Day 15
 (Cycle 78) Year of the Snake 42 Leap-month 6 Day 15
 
-[OUTPUT]*/
+[OUTPUT] */

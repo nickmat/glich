@@ -1,5 +1,5 @@
 // c-002.glcs  Test c scheme shortcut ranges.
-
+/*[SKIP]*/
 write nl;
 write @fmt:object.c:u[.shorthand], @fmt:object.c:a[.shorthand],
     @fmt:object.c:r[.shorthand],

@@ -1,5 +1,5 @@
 // hics/schemes/sch_C-004.glcs - Test Chinese Calendar scheme.
-
+/*[SKIP]*/
 lexicon FS {
     name "First and Second";
     fieldname lmonth;

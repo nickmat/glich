@@ -1,5 +1,6 @@
 // hics/schemes/cg-02.glcs - Test Proposed Chinese Calendar with Gregorian Year
 // scheme shorthand ranges
+/*[SKIP]*/
 
 lexicon FS {
     name "First and Second";

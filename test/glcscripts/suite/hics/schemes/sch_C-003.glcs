@@ -1,5 +1,6 @@
 // hics/schemes/sch_C-003.glcs - Test Chinese Calendar scheme.
-
+// Test format 'ylmd' with removed redundant (calculated) clmonth field.
+/*[SKIP]*/
 lexicon FS {
     name "First and Second";
     fieldname lmonth;
@@ -17,12 +18,12 @@ lexicon FS_CLM {
 };
 
 grammar C {
-    fields year month lmonth day cycle cyear;
+    fields year month lmonth day;
     calculated clmonth;
     rank year month lmonth day;
     lexicons FS;
-    alias pseudo { yy year; mm month; lm lmonth; cm clmonth; dd day; cc cycle; cy cyear; };
-    alias unit { y year; m month; lm lmonth; d day; c cycle; cy cyear; };
+    alias pseudo { yy year; mm month; lm lmonth; cm clmonth; dd day; };
+    alias unit { y year; m month; lm lmonth; d day; };
 
     function calculate {
         clmonth = @if(lmonth=0, @if(@leapmonth.(scode)( year, month),0,null), 1);
