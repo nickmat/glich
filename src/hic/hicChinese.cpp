@@ -241,7 +241,7 @@ Chinese::Chinese( const StdStrVec& data )
     if( m_additional_fields ) {
         // add additional fields: cycle, cyear, stem, branch, element, yinyang
         vec_append( m_fieldnames,
-            { "cycle", "cyear", "stem", "branch", "element", "yinyang" } );
+            { "cycle", "segyear", "stem", "branch", "element", "yinyang" } );
         m_record_size = 10;
     }
 }
