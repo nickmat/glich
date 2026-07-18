@@ -168,12 +168,12 @@ namespace {
         }
         *month = famod_f( mon - addm, 12 );
 
-        *lmonth = 0;
+        *lmonth = 1;
         if( leapyear && 
             chinese_is_no_major_solar_term( m ) &&
             !chinese_is_prior_leap_month( m12, chinese_new_moon_before( m ) )
         ) {
-            *lmonth = 1;
+            *lmonth = 2;
         }
         Field elapsed_years = floor_f( 1.5 - double( *month ) / 12.0
             + double( jdn - BASEDATE_Chinese ) / mean_tropical_year );
@@ -216,14 +216,14 @@ namespace {
 
     bool chinese_is_leap_month( Field year, Field month )
     {
-        Field jdn1 = chinese_to_jdn( year, month, 0, 1 );
+        Field jdn1 = chinese_to_jdn( year, month, 1, 1 );
         Field m = month + 1;
         Field y = year;
         if( m == 13 ) {
             m = 1;
             y++;
         }
-        Field jdn2 = chinese_to_jdn( y, m, 0, 1 );
+        Field jdn2 = chinese_to_jdn( y, m, 1, 1 );
         return (jdn2 - jdn1) > 30;
     }
 
@@ -285,9 +285,8 @@ Field Chinese::get_beg_field_value( const FieldVec& fields, size_t index ) const
     case 0: // year
     case 4: // cycle
         return f_minimum;
-    case 2: // lmonth
-        return 0;
     case 1: // month
+    case 2: // lmonth
     case 3: // day
     case 5: // cyear
     case 6: // stem
@@ -331,7 +330,7 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
     switch( index )
     {
     case 2: // lmonth
-        return chinese_is_leap_month( year, fields[1]) ? 1 : 0;
+        return chinese_is_leap_month( year, fields[1]) ? 2 : 1;
     case 3: // day
         return chinese_last_day_of_month( year, fields[1], fields[2] );
     }
