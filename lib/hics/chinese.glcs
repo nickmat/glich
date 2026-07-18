@@ -111,8 +111,8 @@ lexicon lmon {
     lang en;
     pseudo     LeapMon,     LM;
     tokens {
-        0,  "Month";
-        1,  "Leap-month", "Leap";
+        1,  "Month";
+        2,  "Leap-month", "Leap";
     };
 };
 
@@ -122,8 +122,8 @@ lexicon fs {
     lang en;
     pseudo     FirstSecond,     FS;
     tokens {
-        0,  "First", "F";
-        1,  "Second", "S";
+        1,  "First", "F";
+        2,  "Second", "S";
     };
 };
 
@@ -146,7 +146,7 @@ grammar c {
     function calculate {
         stem = (segyear - 1) mod 10 + 1;
         branch = (segyear - 1) mod 12 + 1;
-        clmonth = @if(lmonth=0, null, 1);
+        clmonth = @if(lmonth=1, null, 2);
         result = this;
     };
 
@@ -157,7 +157,7 @@ grammar c {
         if cycle <> null and segyear <> null {
             year = (cycle - 1) * 60 + segyear;
         };
-        clmonth = @if(lmonth=0, null, 1);
+        clmonth = @if(lmonth=1, null, 2);
         stem = (segyear - 1) mod 10 + 1;
         branch = (segyear - 1) mod 12 + 1;
         result = this;
