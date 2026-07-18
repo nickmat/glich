@@ -12,11 +12,10 @@ lexicon FS {
 };
 
 grammar C {
-    fields year month lmonth day cycle cyear;
-    rank year month lmonth day;
+    fields year month lmonth day;
     lexicons FS;
     alias pseudo { yy year; mm month; lm lmonth; dd day; };
-    alias unit { y year; m month; lm lmonth; d day; c cycle; cy cyear; };
+    alias unit { y year; m month; lm lmonth; d day; };
 
     format ymld "{year}| {month}| {lmonth:FS:a:l}| {day}";
     preferred ymld;
