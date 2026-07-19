@@ -1,32 +1,34 @@
 // hics/schemes/sch_C-004.glcs - Test Chinese Calendar scheme.
-/*[SKIP]*/
+// Test format 'cymld' with additional fields cycle and segyear.
+// This is the format used in "Calendrical Calculations" by Reingold and Dershowitz.  
+
 lexicon FS {
     name "First and Second";
     fieldname lmonth;
     lang en;
     pseudo     FirstSecond,     FS;
     tokens {
-        0,  "First", "F";
-        1,  "Second", "S";
+        1,  "First", "F";
+        2,  "Second", "S";
     };
 };
 
 grammar C {
-    fields year month lmonth day cycle cyear;
-    rank cycle cyear month lmonth day;
+    fields year month lmonth day cycle segyear;
+    rank cycle segyear month lmonth day;
 
     lexicons FS;
-    alias pseudo { dd day; mm month; lm lmonth; yy year; cc cycle; };
-    alias unit { d day; m month; lm lmonth; y cyear; c cycle; };
+    alias pseudo { dd day; mm month; lm lmonth; yy year; cc cycle; ss segyear; };
+    alias unit { d day; m month; lm lmonth; y year; c cycle; sy segyear; };
 
     // Note, format used in "Calendrical Calculations"
-    format cymld "{cycle}| {cyear}| {month}| {lmonth:FS:a:l}| {day}";
+    format cymld "{cycle}| {segyear}| {month}| {lmonth:FS:a:l}| {day}";
     preferred cymld;
 };
 
 scheme C {
-  name "Chinese";
-  base chinese;
+  name "Chinese Test";
+  base chinese additional;
   grammar C;
 };
 
