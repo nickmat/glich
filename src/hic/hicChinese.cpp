@@ -42,7 +42,7 @@ using std::string;
 namespace {
     enum ChineseField {
         CHIN_year, CHIN_month, CHIN_lmonth, CHIN_day, CHIN_cycle, CHIN_cyear,
-        CHIN_stem, CHIN_branch, CHIN_element, CHIN_yinyang
+        CHIN_stem, CHIN_branch, CHIN_element, CHIN_polarity
     };
 
     // CC3 p262
@@ -239,9 +239,9 @@ Chinese::Chinese( const StdStrVec& data )
         cal_data( word );
     }
     if( m_additional_fields ) {
-        // add additional fields: cycle, cyear, stem, branch, element, yinyang
+        // add additional fields: cycle, cyear, stem, branch, element, polarity
         vec_append( m_fieldnames,
-            { "cycle", "segyear", "stem", "branch", "element", "yinyang" } );
+            { "cycle", "segyear", "stem", "branch", "element", "polarity" } );
         m_record_size = 10;
     }
 }
@@ -292,7 +292,7 @@ Field Chinese::get_beg_field_value( const FieldVec& fields, size_t index ) const
     case 6: // stem
     case 7: // branch
     case 8: // element
-    case 9: // yinyang
+    case 9: // polarity
         return 1;
     }
     return f_invalid;
@@ -319,7 +319,7 @@ Field Chinese::get_end_field_value( const FieldVec& fields, size_t index ) const
         return 12;
     case 8: // element
         return 5;
-    case 9: // yinyang
+    case 9: // polarity
         return 2;
     }
     // lmonth and day require year to be known
@@ -349,7 +349,7 @@ FieldVec Chinese::get_fields( Field jdn ) const
         fields[6] = famod_f( year, 10 ); // stem
         fields[7] = famod_f( year, 12 ); // branch
         fields[8] = famod_f( fields[6], 5 ); // element
-        fields[9] = famod_f( fields[6], 2 ); // yinyang
+        fields[9] = famod_f( fields[6], 2 ); // polarity
     }
     return fields;
 }
@@ -375,8 +375,8 @@ void Chinese::update_input( FieldVec& fields ) const
     }
     if( fields[CHIN_stem] == f_invalid &&
         fields[CHIN_element] != f_invalid &&
-        fields[CHIN_yinyang] != f_invalid ) {
-        fields[CHIN_stem] = fmod_e( fields[CHIN_element] - 1, 5 ) * 2 + fmod_e( fields[CHIN_yinyang] - 1, 2 ) + 1;
+        fields[CHIN_polarity] != f_invalid ) {
+        fields[CHIN_stem] = fmod_e( fields[CHIN_element] - 1, 5 ) * 2 + fmod_e( fields[CHIN_polarity] - 1, 2 ) + 1;
     }
     if( fields[CHIN_cyear] == f_invalid &&
         fields[CHIN_stem] != f_invalid &&
