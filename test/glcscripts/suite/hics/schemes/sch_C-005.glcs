@@ -1,0 +1,241 @@
+// hics/schemes/sch_C-005.glcs - Test Chinese Calendar scheme.
+// Test the proposed library version of the Chinese Calendar scheme.
+
+lexicon CSTEM {
+    name "Chinese Year Stem";
+    fieldname stem;
+    lang en;
+    pseudo   Stem,   Stm;
+    tokens {
+        1,  "Jiǎ",  "Jia";
+        2,  "Yǐ",   "Yi";
+        3,  "Bǐng", "Bing";
+        4,  "Dīng", "Ding";
+        5,  "Wù",   "Wu";
+        6,  "Jǐ",   "Ji";
+        7,  "Gēng", "Geng";
+        8,  "Xīn",  "Xin";
+        9,  "Rén",  "Ren";
+        10, "Guì",  "Gui";
+    };
+};
+
+lexicon CBRCH {
+    name "Chinese Year Branch";
+    fieldname branch;
+    lang en;
+    pseudo  branch,  brch;
+    tokens {
+        1,  "Zǐ",   "Zi";
+        2,  "Chǒu", "Chou";
+        3,  "Yín",  "Yin";
+        4,  "Mǎo",  "Mao";
+        5,  "Chén", "Chen";
+        6,  "Sì",   "Si";
+        7,  "Wǔ",   "Wu";
+        8,  "Wèi",  "Wei";
+        9,  "Shēn", "Shen";
+        10, "Yǒu",  "You";
+        11, "Xū",   "Xu";
+        12, "Hài",  "Hai";
+    };
+};
+
+lexicon ANIMAL {
+    name "Chinese Year Animals";
+    fieldname branch;
+    lang en;
+    pseudo  Animal;
+    tokens {
+        1,  "Rat";
+        2,  "Ox";
+        3,  "Tiger";
+        4,  "Rabbit";
+        5,  "Dragon";
+        6,  "Snake";
+        7,  "Horse";
+        8,  "Goat";
+        9,  "Monkey";
+        10, "Rooster";
+        11, "Dog";
+        12, "Pig";
+    };
+};
+
+lexicon ELEMENT {
+    name "Chinese Year Elements";
+    fieldname element;
+    lang en;
+    pseudo  Element;
+    tokens {
+        1,  "Wood";
+        2,  "Fire";
+        3,  "Earth";
+        4,  "Metal";
+        5,  "Water";
+    };
+};
+
+lexicon YINYANG {
+    name "Chinese Year Yin/Yang";
+    fieldname polarity;
+    lang en;
+    pseudo  Pol;
+    tokens {
+        1,  "Yang";
+        2,  "Yin";
+    };
+};
+
+lexicon FS {
+    name "First and Second";
+    fieldname lmonth;
+    lang en;
+    pseudo  FirstSecond, FS;
+    tokens {
+        1,  "First", "F";
+        2,  "Second", "S";
+    };
+};
+
+lexicon LMON {
+    name "Leap month";
+    fieldname clmonth;
+    lang en;
+    pseudo     LeapMon,     LM;
+    tokens {
+        1,  "Month";
+        2,  "Leap-month", "Leap";
+    };
+};
+
+grammar C {
+    fields year month lmonth day cycle segyear stem branch element polarity;
+    rank year month lmonth day;
+    calculated clmonth;
+
+    lexicons CSTEM CBRCH ANIMAL ELEMENT YINYANG FS LMON;
+    alias pseudo { dd day; mm month; lm lmonth; yyyy year; cc cycle; sy segyear; ss stem; bb branch; e element; y yinyang; };
+    alias unit { d day; m month; lm lmonth; y year; c cycle; sy segyear; s stem; b branch; e element; yy yinyang; };
+
+    function calculate_clmonth {
+        clmonth = @if(lmonth=1, @if(@leapmonth.(scode)( year, month),1,null), 2);
+        result = this;
+    };
+
+    function fixed_from_clmonth {
+        lmonth = @if(clmonth<>2, 1, 2);
+        result = this;
+    };
+
+    format ymld "{year}| {month}| {lmonth:FS:a:l}| {day}";
+    format ylmd {
+        inout "{year}| {clmonth:LMON:a}| {month}| {day}";
+        rank year month day;
+        functions {
+            calculate calculate_clmonth;
+            fixed fixed_from_clmonth;
+        };
+    };
+    // Note, format used in "Calendrical Calculations"
+    format cymld {
+        inout "{cycle}| {segyear}| {month}| {lmonth:FS:a:l}| {day}";
+        rank cycle segyear month lmonth day;
+    };
+    format cylmd {
+        inout "{cycle}| {segyear}| {clmonth:LMON:a}| {month}| {day}";
+        rank cycle segyear month day;
+         functions {
+            calculate calculate_clmonth;
+            fixed fixed_from_clmonth;
+        };
+    };
+
+    preferred cymld;
+};
+
+scheme C {
+  name "Chinese";
+  base chinese additional;
+  grammar C;
+};
+
+
+let sig = "C:ymld";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( "4662 6 f 15" ), @text.(sig)( 2460866 ) nl;
+write @date.(sig)( "4662 6 s 15" ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( "4662 7 f 15" ), @text.(sig)( 2460925 ) nl;
+write @date.(sig)( "4662 6 f" ), @text.(sig)( 2460852..2460881 ) nl;
+write @date.(sig)( "4662 6 s" ), @text.(sig)( 2460882..2460910 ) nl;
+write @date.(sig)( "4662 7 f" ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( "4662 6" ), @text.(sig)( 2460852..2460910 ) nl;
+write @date.(sig)( "4662 7" ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( "4662" ), @text.(sig)( 2460705..2461088 ) nl;
+
+let sig = "C:ylmd";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( "4662 Month 6 15" ), @text.(sig)( 2460866 ) nl;
+write @date.(sig)( "4662 Leap 6 15" ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( "4662 7 15" ), @text.(sig)( 2460925 ) nl;
+
+let sig = "C:cymld";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( "78 42 6 f 15" ), @text.(sig)( 2460866 ) nl;
+write @date.(sig)( "78 42 6 s 15" ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( "78 42 7 f 15" ), @text.(sig)( 2460925 ) nl;
+write @date.(sig)( "78 42 6 f" ), @text.(sig)( 2460852..2460881 ) nl;
+write @date.(sig)( "78 42 6 s" ), @text.(sig)( 2460882..2460910 ) nl;
+write @date.(sig)( "78 42 7 f" ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( "78 42 6" ), @text.(sig)( 2460852..2460910 ) nl;
+write @date.(sig)( "78 42 7" ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( "78 42" ), @text.(sig)( 2460705..2461088 ) nl;
+write @date.(sig)( "78" ), @text.(sig)( 2445733..2467644 ) nl;
+
+let sig = "C:cylmd";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( "78 42 Month 6 15" ), @text.(sig)( 2460866 ) nl;
+write @date.(sig)( "78 42 Leap 6 15" ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( "78 42 7 15" ), @text.(sig)( 2460925 ) nl;
+
+
+/*[OUTPUT]
+
+Shorthand range for C:ymld: true
+2460866, 4662 6 f 15
+2460896, 4662 6 s 15
+2460925, 4662 7 f 15
+2460852..2460881, 4662 6 f
+2460882..2460910, 4662 6 s
+2460911..2460940, 4662 7
+2460852..2460910, 4662 6
+2460911..2460940, 4662 7
+2460705..2461088, 4662
+
+Shorthand range for C:ylmd: false
+2460866, 4662 Month 6 15
+2460896, 4662 Leap 6 15
+2460925, 4662 7 15
+
+Shorthand range for C:cymld: true
+2460866, 78 42 6 f 15
+2460896, 78 42 6 s 15
+2460925, 78 42 7 f 15
+2460852..2460881, 78 42 6 f
+2460882..2460910, 78 42 6 s
+2460911..2460940, 78 42 7
+2460852..2460910, 78 42 6
+2460911..2460940, 78 42 7
+2460705..2461088, 78 42
+2445733..2467644, 78
+
+Shorthand range for C:cylmd: false
+2460866, 78 42 Month 6 15
+2460896, 78 42 Leap 6 15
+2460925, 78 42 7 15
+
+[OUTPUT]*/
