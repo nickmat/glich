@@ -150,7 +150,15 @@ grammar C {
             fixed fixed_from_clmonth;
         };
     };
-
+    format cylmd_s {
+        inout "{cycle}| {stem:CSTEM}|-{branch:CBRCH::l}|, {clmonth:LMON:a}| {month}| {day}";
+        rank cycle month day;
+        separators ",-";
+         functions {
+            calculate calculate_clmonth;
+            fixed fixed_from_clmonth;
+        };
+    };
     preferred cymld;
 };
 
@@ -202,6 +210,12 @@ write @date.(sig)( "78 42 Month 6 15" ), @text.(sig)( 2460866 ) nl;
 write @date.(sig)( "78 42 Leap 6 15" ), @text.(sig)( 2460896 ) nl;
 write @date.(sig)( "78 42 7 15" ), @text.(sig)( 2460925 ) nl;
 
+let sig = "C:cylmd_s";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( "78 Yǐ-sì, Month 6 15" ), @text.(sig)( 2460866 ) nl;
+write @date.(sig)( "78 Yǐ-sì, Leap 6 15" ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( "78 Yǐ-sì, 7 15" ), @text.(sig)( 2460925 ) nl;
 
 /*[OUTPUT]
 
@@ -237,5 +251,10 @@ Shorthand range for C:cylmd: false
 2460866, 78 42 Month 6 15
 2460896, 78 42 Leap 6 15
 2460925, 78 42 7 15
+
+Shorthand range for C:cylmd_s: false
+2460866, 78 Yǐ-sì, Month 6 15
+2460896, 78 Yǐ-sì, Leap 6 15
+2460925, 78 Yǐ-sì 7 15
 
 [OUTPUT]*/
