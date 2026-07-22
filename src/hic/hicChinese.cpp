@@ -381,7 +381,7 @@ void Chinese::update_input( FieldVec& fields ) const
     if( fields[CHIN_cyear] == f_invalid &&
         fields[CHIN_stem] != f_invalid &&
         fields[CHIN_branch] != f_invalid ) {
-        fields[CHIN_cyear] = fmod_e( fields[CHIN_stem] - 1, 10 ) * 12 + fmod_e( fields[CHIN_branch] - 1, 12 ) + 1;
+        fields[CHIN_cyear] = fmod_e( fields[CHIN_stem] - fields[CHIN_branch], 12 ) * 5 + fields[CHIN_stem];
     }
     if( fields[CHIN_year] == f_invalid &&
         fields[CHIN_cycle] != f_invalid &&
