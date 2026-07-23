@@ -173,7 +173,11 @@ grammar C {
             fixed fixed_from_clmonth;
         };
     };
-    format animal "{year} Year of the {:branch:ANIMAL*}|, {lmonth:LMON2}| {month}| Day {day}";
+    format animal "{year} Year of the {:branch:ANIMAL}|, {lmonth:LMON2}| {month}| Day {day}";
+    format cy_animal {
+        inout "(Cycle {cycle})| Year of the {:branch:ANIMAL} {segyear}| {lmonth:LMON2}| {month}| Day {day}";
+        rank cycle segyear month lmonth day;
+    };
     preferred cymld;
 };
 
@@ -252,6 +256,20 @@ write @date.(sig)( "4662 Year of the Snake 6" ), @text.(sig)( 2460852..2460910 )
 write @date.(sig)( "4662 Year of the Snake 7" ), @text.(sig)( 2460911..2460940 ) nl;
 write @date.(sig)( "4662 Year of the Snake" ), @text.(sig)( 2460705..2461088 ) nl;
 
+let sig = "C:cy_animal";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( "(Cycle 78) Year of the Snake 42 Month 6 Day 15" ), @text.(sig)( 2460866 ) nl;
+write @date.(sig)( "(Cycle 78) Year of the Snake 42 Leap-month 6 Day 15" ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( "(Cycle 78) Year of the Snake 42 Month 7 Day 15" ), @text.(sig)( 2460925 ) nl;
+write @date.(sig)( "(Cycle 78) Year of the Snake 42 Month 6" ), @text.(sig)( 2460852..2460881 ) nl;
+write @date.(sig)( "(Cycle 78) Year of the Snake 42 Leap-month 6" ), @text.(sig)( 2460882..2460910 ) nl;
+write @date.(sig)( "(Cycle 78) Year of the Snake 42 Month 7" ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( "(Cycle 78) Year of the Snake 42 6" ), @text.(sig)( 2460852..2460910 ) nl;
+write @date.(sig)( "(Cycle 78) Year of the Snake 42 7" ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( "(Cycle 78) Year of the Snake 42" ), @text.(sig)( 2460705..2461088 ) nl;
+write @date.(sig)( "(Cycle 78)" ), @text.(sig)( 2445733..2467644 ) nl;
+
 
 /*[OUTPUT]
 
@@ -308,5 +326,17 @@ Shorthand range for C:animal: true
 2460852..2460910, 4662 Year of the Snake 6
 2460911..2460940, 4662 Year of the Snake 7
 2460705..2461088, 4662 Year of the Snake
+
+Shorthand range for C:cy_animal: true
+2460866, (Cycle 78) Year of the Snake 42 Month 6 Day 15
+2460896, (Cycle 78) Year of the Snake 42 Leap-month 6 Day 15
+2460925, (Cycle 78) Year of the Snake 42 Month 7 Day 15
+2460852..2460881, (Cycle 78) Year of the Snake 42 Month 6
+2460882..2460910, (Cycle 78) Year of the Snake 42 Leap-month 6
+2460911..2460940, (Cycle 78) Year of the Snake 42 7
+2460852..2460910, (Cycle 78) Year of the Snake 42 6
+2460911..2460940, (Cycle 78) Year of the Snake 42 7
+2460705..2461088, (Cycle 78) Year of the Snake 42
+2445733..2467644, (Cycle 78)
 
 [OUTPUT]*/
