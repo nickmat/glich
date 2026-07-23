@@ -109,6 +109,11 @@ lexicon LMON {
     };
 };
 
+lexicon LMON2 {
+    inherit LMON;
+    fieldname lmonth;
+}; 
+
 grammar C {
     fields year month lmonth day cycle segyear stem branch element polarity;
     rank year month lmonth day;
@@ -168,6 +173,7 @@ grammar C {
             fixed fixed_from_clmonth;
         };
     };
+    format animal "{year} Year of the {:branch:ANIMAL*}|, {lmonth:LMON2}| {month}| Day {day}";
     preferred cymld;
 };
 
@@ -233,6 +239,20 @@ write @date.(sig)( "78 Yǐ-sì, Month 6 15" ), @text.(sig)( 2460866 ) nl;
 write @date.(sig)( "78 Yǐ-sì, Leap 6 15" ), @text.(sig)( 2460896 ) nl;
 write @date.(sig)( "78 Yǐ-sì, 7 15" ), @text.(sig)( 2460925 ) nl;
 
+let sig = "C:animal";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( "4662 Year of the Snake, Month 6 Day 15" ), @text.(sig)( 2460866 ) nl;
+write @date.(sig)( "4662 Year of the Snake, Leap-month 6 Day 15" ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( "4662 Year of the Snake, Month 7 Day 15" ), @text.(sig)( 2460925 ) nl;
+write @date.(sig)( "4662 Year of the Snake, Month 6" ), @text.(sig)( 2460852..2460881 ) nl;
+write @date.(sig)( "4662 Year of the Snake, Leap-month 6" ), @text.(sig)( 2460882..2460910 ) nl;
+write @date.(sig)( "4662 Year of the Snake 7" ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( "4662 Year of the Snake 6" ), @text.(sig)( 2460852..2460910 ) nl;
+write @date.(sig)( "4662 Year of the Snake 7" ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( "4662 Year of the Snake" ), @text.(sig)( 2460705..2461088 ) nl;
+
+
 /*[OUTPUT]
 
 Shorthand range for C:ymld: true
@@ -277,5 +297,16 @@ Shorthand range for C:cylmd_f: false
 2460866, Cycle: 78, Year: Yǐ-sì (42), Month 6, Day: 15
 2460896, Cycle: 78, Year: Yǐ-sì (42), Leap 6, Day: 15
 2460925, Cycle: 78, Year: Yǐ-sì (42), Month 7, Day: 15
+
+Shorthand range for C:animal: true
+2460866, 4662 Year of the Snake, Month 6 Day 15
+2460896, 4662 Year of the Snake, Leap-month 6 Day 15
+2460925, 4662 Year of the Snake, Month 7 Day 15
+2460852..2460881, 4662 Year of the Snake, Month 6
+2460882..2460910, 4662 Year of the Snake, Leap-month 6
+2460911..2460940, 4662 Year of the Snake 7
+2460852..2460910, 4662 Year of the Snake 6
+2460911..2460940, 4662 Year of the Snake 7
+2460705..2461088, 4662 Year of the Snake
 
 [OUTPUT]*/
