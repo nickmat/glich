@@ -348,7 +348,7 @@ FieldVec Chinese::get_fields( Field jdn ) const
         fields[5] = famod_f( year, 60 ); // cyear
         fields[6] = famod_f( year, 10 ); // stem
         fields[7] = famod_f( year, 12 ); // branch
-        fields[8] = famod_f( fields[6], 5 ); // element
+        fields[8] = (fields[6] - 1) / 2 + 1; // element
         fields[9] = famod_f( fields[6], 2 ); // polarity
     }
     return fields;
