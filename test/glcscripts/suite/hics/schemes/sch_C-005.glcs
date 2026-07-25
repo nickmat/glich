@@ -105,7 +105,7 @@ lexicon LMON {
     pseudo     LeapMon,     LM;
     tokens {
         1,  "Month";
-        2,  "Leap-month", "Leap";
+        2,  "Leap month", "Leap";
     };
 };
 
@@ -174,6 +174,10 @@ grammar C {
         };
     };
     format animal "{year} Year of the {:branch:ANIMAL}|, {lmonth:LMON2}| {month}| Day {day}";
+    format elem_anim {
+        inout "{year} The {:polarity:YINYANG}-{:element:ELEMENT}-{:branch:ANIMAL} Year| {lmonth:LMON2}| {month}| Day {day}";
+        separators ",-";
+    };
     format cy_animal {
         inout "(Cycle {cycle})| Year of the {:branch:ANIMAL} {segyear}| {lmonth:LMON2}| {month}| Day {day}";
         rank cycle segyear month lmonth day;
@@ -187,6 +191,8 @@ scheme C {
   grammar C;
 };
 
+write nl;
+write @sch:object.C[.formats] nl;
 
 let sig = "C:ymld";
 write nl;
@@ -247,23 +253,36 @@ let sig = "C:animal";
 write nl;
 write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
 write @date.(sig)( "4662 Year of the Snake, Month 6 Day 15" ), @text.(sig)( 2460866 ) nl;
-write @date.(sig)( "4662 Year of the Snake, Leap-month 6 Day 15" ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( "4662 Year of the Snake, Leap month 6 Day 15" ), @text.(sig)( 2460896 ) nl;
 write @date.(sig)( "4662 Year of the Snake, Month 7 Day 15" ), @text.(sig)( 2460925 ) nl;
 write @date.(sig)( "4662 Year of the Snake, Month 6" ), @text.(sig)( 2460852..2460881 ) nl;
-write @date.(sig)( "4662 Year of the Snake, Leap-month 6" ), @text.(sig)( 2460882..2460910 ) nl;
+write @date.(sig)( "4662 Year of the Snake, Leap month 6" ), @text.(sig)( 2460882..2460910 ) nl;
 write @date.(sig)( "4662 Year of the Snake 7" ), @text.(sig)( 2460911..2460940 ) nl;
 write @date.(sig)( "4662 Year of the Snake 6" ), @text.(sig)( 2460852..2460910 ) nl;
 write @date.(sig)( "4662 Year of the Snake 7" ), @text.(sig)( 2460911..2460940 ) nl;
 write @date.(sig)( "4662 Year of the Snake" ), @text.(sig)( 2460705..2461088 ) nl;
 
+let sig = "C:elem_anim";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( "4662 The Yin-Wood-Snake Year Month 6 Day 15" ), @text.(sig)( 2460866 ) nl;
+write @date.(sig)( "4662 The Yin-Wood-Snake Year Leap month 6 Day 15" ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( "4662 The Yin-Wood-Snake Year Month 7 Day 15" ), @text.(sig)( 2460925 ) nl;
+write @date.(sig)( "4662 The Yin-Wood-Snake Year Month 6" ), @text.(sig)( 2460852..2460881 ) nl;
+write @date.(sig)( "4662 The Yin-Wood-Snake Year Leap month 6" ), @text.(sig)( 2460882..2460910 ) nl;
+write @date.(sig)( "4662 The Yin-Wood-Snake Year 7" ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( "4662 The Yin-Wood-Snake Year 6" ), @text.(sig)( 2460852..2460910 ) nl;
+write @date.(sig)( "4662 The Yin-Wood-Snake Year 7" ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( "4662 The Yin-Wood-Snake Year" ), @text.(sig)( 2460705..2461088 ) nl;
+
 let sig = "C:cy_animal";
 write nl;
 write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
 write @date.(sig)( "(Cycle 78) Year of the Snake 42 Month 6 Day 15" ), @text.(sig)( 2460866 ) nl;
-write @date.(sig)( "(Cycle 78) Year of the Snake 42 Leap-month 6 Day 15" ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( "(Cycle 78) Year of the Snake 42 Leap month 6 Day 15" ), @text.(sig)( 2460896 ) nl;
 write @date.(sig)( "(Cycle 78) Year of the Snake 42 Month 7 Day 15" ), @text.(sig)( 2460925 ) nl;
 write @date.(sig)( "(Cycle 78) Year of the Snake 42 Month 6" ), @text.(sig)( 2460852..2460881 ) nl;
-write @date.(sig)( "(Cycle 78) Year of the Snake 42 Leap-month 6" ), @text.(sig)( 2460882..2460910 ) nl;
+write @date.(sig)( "(Cycle 78) Year of the Snake 42 Leap month 6" ), @text.(sig)( 2460882..2460910 ) nl;
 write @date.(sig)( "(Cycle 78) Year of the Snake 42 Month 7" ), @text.(sig)( 2460911..2460940 ) nl;
 write @date.(sig)( "(Cycle 78) Year of the Snake 42 6" ), @text.(sig)( 2460852..2460910 ) nl;
 write @date.(sig)( "(Cycle 78) Year of the Snake 42 7" ), @text.(sig)( 2460911..2460940 ) nl;
@@ -272,6 +291,8 @@ write @date.(sig)( "(Cycle 78)" ), @text.(sig)( 2445733..2467644 ) nl;
 
 
 /*[OUTPUT]
+
+{: "ymld", "ylmd", "cymld", "cylmd", "cylmd_s", "cylmd_f", "animal", "elem_anim", "cy_animal", "a", "r", "u"}
 
 Shorthand range for C:ymld: true
 2460866, 4662 6 f 15
@@ -318,21 +339,32 @@ Shorthand range for C:cylmd_f: false
 
 Shorthand range for C:animal: true
 2460866, 4662 Year of the Snake, Month 6 Day 15
-2460896, 4662 Year of the Snake, Leap-month 6 Day 15
+2460896, 4662 Year of the Snake, Leap month 6 Day 15
 2460925, 4662 Year of the Snake, Month 7 Day 15
 2460852..2460881, 4662 Year of the Snake, Month 6
-2460882..2460910, 4662 Year of the Snake, Leap-month 6
+2460882..2460910, 4662 Year of the Snake, Leap month 6
 2460911..2460940, 4662 Year of the Snake 7
 2460852..2460910, 4662 Year of the Snake 6
 2460911..2460940, 4662 Year of the Snake 7
 2460705..2461088, 4662 Year of the Snake
 
+Shorthand range for C:elem_anim: true
+2460866, 4662 The Yin-Wood-Snake Year Month 6 Day 15
+2460896, 4662 The Yin-Wood-Snake Year Leap month 6 Day 15
+2460925, 4662 The Yin-Wood-Snake Year Month 7 Day 15
+2460852..2460881, 4662 The Yin-Wood-Snake Year Month 6
+2460882..2460910, 4662 The Yin-Wood-Snake Year Leap month 6
+2460911..2460940, 4662 The Yin-Wood-Snake Year 7
+2460852..2460910, 4662 The Yin-Wood-Snake Year 6
+2460911..2460940, 4662 The Yin-Wood-Snake Year 7
+2460705..2461088, 4662 The Yin-Wood-Snake Year
+
 Shorthand range for C:cy_animal: true
 2460866, (Cycle 78) Year of the Snake 42 Month 6 Day 15
-2460896, (Cycle 78) Year of the Snake 42 Leap-month 6 Day 15
+2460896, (Cycle 78) Year of the Snake 42 Leap month 6 Day 15
 2460925, (Cycle 78) Year of the Snake 42 Month 7 Day 15
 2460852..2460881, (Cycle 78) Year of the Snake 42 Month 6
-2460882..2460910, (Cycle 78) Year of the Snake 42 Leap-month 6
+2460882..2460910, (Cycle 78) Year of the Snake 42 Leap month 6
 2460911..2460940, (Cycle 78) Year of the Snake 42 7
 2460852..2460910, (Cycle 78) Year of the Snake 42 6
 2460911..2460940, (Cycle 78) Year of the Snake 42 7
