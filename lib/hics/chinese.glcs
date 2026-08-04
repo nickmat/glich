@@ -221,4 +221,10 @@ scheme c {
   grammar c;
 };
 
+scheme cg {
+  name "Chinese with Gregorian Year";
+  base chinese "year:+2637" additional;
+  grammar c;
+};
+
 // End of lib/hics/chinese.glcs file

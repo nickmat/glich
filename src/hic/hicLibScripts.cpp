@@ -113,7 +113,7 @@ glich::StdStrMap glich::hics_default_scripts = {
  "module hics:chinese {\n"
  "lexicon cstem cbrch animal element yinyang fs fs2 lmon lmon2;\n"
  "grammar c;\n"
- "scheme c;\n"
+ "scheme c cg;\n"
  "};\n"
  "module hics:roc {\n"
  "grammar roc;\n"
@@ -943,6 +943,11 @@ glich::StdStrMap glich::hics_default_scripts = {
  "scheme c {\n"
  "name \"Chinese\";\n"
  "base chinese additional;\n"
+ "grammar c;\n"
+ "};\n"
+ "scheme cg {\n"
+ "name \"Chinese with Gregorian Year\";\n"
+ "base chinese \"year:+2637\" additional;\n"
  "grammar c;\n"
  "};\n" },
     { "roc",  /* roc.glcs */
