@@ -111,7 +111,7 @@ glich::StdStrMap glich::hics_default_scripts = {
  "scheme i ims if;\n"
  "};\n"
  "module hics:chinese {\n"
- "lexicon cstem cbrch animal lmon fs;\n"
+ "lexicon cstem cbrch animal element yinyang fs fs2 lmon lmon2;\n"
  "grammar c;\n"
  "scheme c;\n"
  "};\n"
