@@ -116,13 +116,19 @@ table.record th {
 table.record td {
  white-space: pre;
  font-family: "Courier New", Courier, monospace;
+ font-weight: bold;
  background-color: aliceblue;
+ color: black;
  border: 1px solid blue;
  padding: 0.5em 1em;
 }
 
 table.record td.rdonly {
  background-color: MistyRose;
+}
+
+table.record td.rec-add {
+ background-color: rgb(237, 225, 255);
 }
 
 table.record td.rec-opt {
