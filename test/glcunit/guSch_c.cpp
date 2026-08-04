@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     29th August 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -80,16 +80,8 @@ TEST_CASE( "Library Scheme c", "[c]" )
     REQUIRE( info.name == "Chinese" );
     REQUIRE( info.code == "c" );
     REQUIRE( info.grammar_code == "c" );
-    REQUIRE( info.lexicon_codes[0] == "lmon" );
-    REQUIRE( info.lexicon_codes[1] == "fs" );
-    REQUIRE( info.lexicon_codes[2] == "cstem" );
-    REQUIRE( info.lexicon_codes[3] == "cbrch" );
-    REQUIRE( info.lexicon_codes[4] == "animal" );
-    REQUIRE( info.lexicon_names[0] == "Leap month" );
-    REQUIRE( info.lexicon_names[1] == "First and Second" );
-    REQUIRE( info.lexicon_names[2] == "Chinese Stem" );
-    REQUIRE( info.lexicon_names[3] == "Chinese Branch" );
-    REQUIRE( info.lexicon_names[4] == "Chinese Year Animals" );
+    REQUIRE( info.lexicon_codes.size() == 0 );
+    REQUIRE( info.lexicon_names.size() == 0 );
 }
 
 TEST_CASE( "Scheme c Test Table", "[c TestTable]" )

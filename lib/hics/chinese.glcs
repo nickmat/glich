@@ -26,7 +26,7 @@
 
 
 lexicon cstem {
-    name "Chinese Stem";
+    name "Chinese Year Stem";
     fieldname stem;
     lang en;
     pseudo   Stem,   Stm;
@@ -45,7 +45,7 @@ lexicon cstem {
 };
 
 lexicon cbrch {
-    name "Chinese Branch";
+    name "Chinese Year Branch";
     fieldname branch;
     lang en;
     pseudo  branch,  brch;
@@ -62,25 +62,6 @@ lexicon cbrch {
         10, "Yǒu",  "You";
         11, "Xū",   "Xu";
         12, "Hài",  "Hai";
-    };
-};
-
-lexicon yy_element {
-    name "Chinese Year Yin/Yang Elements";
-    fieldname stem;
-    lang en;
-    pseudo  Element;
-    tokens {
-        1,  "Yang Wood";
-        2,  "Yin Wood";
-        3,  "Yang Fire";
-        4,  "Yin Fire";
-        5,  "Yang Earth";
-        6,  "Yin Earth";
-        7,  "Yang Metal";
-        8,  "Yin Metal";
-        9,  "Yang Water";
-        10, "Yin Water";
     };
 };
 
@@ -105,14 +86,28 @@ lexicon animal {
     };
 };
 
-lexicon lmon {
-    name "Leap month";
-    fieldname clmonth;
+lexicon element {
+    name "Chinese Year Elements";
+    fieldname element;
     lang en;
-    pseudo     LeapMon,     LM;
+    pseudo  Element;
     tokens {
-        1,  "Month";
-        2,  "Leap-month", "Leap";
+        1,  "Wood";
+        2,  "Fire";
+        3,  "Earth";
+        4,  "Metal";
+        5,  "Water";
+    };
+};
+
+lexicon yinyang {
+    name "Chinese Year Polarity";
+    fieldname polarity;
+    lang en;
+    pseudo  Pol;
+    tokens {
+        1,  "Yang";
+        2,  "Yin";
     };
 };
 
@@ -120,103 +115,108 @@ lexicon fs {
     name "First and Second";
     fieldname lmonth;
     lang en;
-    pseudo     FirstSecond,     FS;
+    pseudo  FirstSecond, FS;
     tokens {
         1,  "First", "F";
         2,  "Second", "S";
     };
 };
 
-lexicon fs_clm {
+lexicon fs2 {
+    name "First and Second for clmonth";
     inherit fs;
     fieldname clmonth;
 };
 
+lexicon lmon {
+    name "Regular or Leap month";
+    fieldname lmonth;
+    lang en;
+    pseudo     LeapMon,     LM;
+    tokens {
+        1,  "Regular Month", "Regular";
+        2,  "Leap Month", "Leap";
+    };
+};
+
+lexicon lmon2 {
+    name "Regular or Leap month for clmonth";
+    inherit lmon;
+    fieldname clmonth;
+}; 
+
 grammar c {
-    fields year month lmonth day cycle segyear;
-    calculated clmonth stem branch;
-    // year month lmonth day cycle segyear clmonth stem branch
+    fields year month lmonth day cycle segyear stem branch element polarity;
     rank year month lmonth day;
+    calculated clmonth;
 
-    lexicons lmon fs cstem cbrch animal yy_element;
+    alias pseudo { dd day; mm month; lm lmonth; yyyy year; cc cycle; sy segyear; ss stem; bb branch; e element; y yinyang; };
+    alias unit { d day; m month; lm lmonth; y year; c cycle; sy segyear; s stem; b branch; e element; p polarity; };
 
-    alias pseudo { yy year; mm month; lm lmonth; cm clmonth; dd day; cc cycle; sy segyear; ss stem; bb branch; };
-    alias unit { y year; m month; lm lmonth; d day; c cycle; sy segyear; cm clmonth; s stem; b branch; };
-
-    function calculate {
-        stem = (segyear - 1) mod 10 + 1;
-        branch = (segyear - 1) mod 12 + 1;
-        clmonth = @if(lmonth=1, null, 2);
+    function calculate_clmonth {
+        clmonth = @if(lmonth=1, @if(@leapmonth.(scode)( year, month),1,null), 2);
         result = this;
     };
 
-    function fixed { // format cymld
-        if stem <> null and branch <> null {
-            segyear = ((stem - branch) mod 12) * 5 + stem;
-        };
-        if cycle <> null and segyear <> null {
-            year = (cycle - 1) * 60 + segyear;
-        };
-        clmonth = @if(lmonth=1, null, 2);
-        stem = (segyear - 1) mod 10 + 1;
-        branch = (segyear - 1) mod 12 + 1;
+    function fixed_from_clmonth {
+        lmonth = @if(clmonth<>2, 1, 2);
         result = this;
     };
 
-    function cycle_to_year { // format cylmd
-        if stem <> null and branch <> null {
-            segyear = ((stem - branch) mod 12) * 5 + stem;
+    format ymld "{year}| {month}| {lmonth:fs:a:l}| {day}";
+    format ylmd {
+        inout "{year}| {clmonth:fs2}| {month}| {day}";
+        rank year month day;
+        functions {
+            calculate calculate_clmonth;
+            fixed fixed_from_clmonth;
         };
-        if cycle <> null and segyear <> null {
-            year = (cycle - 1) * 60 + segyear;
-        };
-        lmonth = @if( clmonth = null, 0, clmonth );
-        clmonth = @if(lmonth=0, null, 1);
-        stem = (segyear - 1) mod 10 + 1;
-        branch = (segyear - 1) mod 12 + 1;
-        result = this;
     };
-
-    // Year count formats.
-    format ymld "{year}| {month}| {lmonth:fs:a}| {day}";
-    format ylmd { 
-        inout "{year}| {clmonth:lmon*:a}| {month}| {day}";
-        rank year month clmonth day;
-    };
-    format animal "{year} Year of the {:branch:animal*}|, {lmonth:lmon}| {month}| Day {day}";
-    format elem_anim {
-       inout "{year} The {:stem:yy_element}-{:branch:animal} Year| {lmonth:lmon}| {month}| Day {day}";
-       separators "-,:";
-    };
-    
-    // Cycle and sexagenary formats.
-    format cymld {  // Note, format used in "Calendrical Calculations"
+    // Note, format used in "Calendrical Calculations"
+    format cymld {
         inout "{cycle}| {segyear}| {month}| {lmonth:fs:a:l}| {day}";
         rank cycle segyear month lmonth day;
     };
     format cylmd {
-        inout "{cycle}| {segyear}| {clmonth:lmon*:a}| {month}| {day}";
-        rank cycle segyear month clmonth day;
-        functions { fixed cycle_to_year; };
+        inout "{cycle}| {segyear}| {clmonth:lmon2:a}| {month}| {day}";
+        rank cycle segyear month day;
+         functions {
+            calculate calculate_clmonth;
+            fixed fixed_from_clmonth;
+        };
     };
     format cylmd_s {
-        inout "{cycle}| {stem:cstem}|-{branch:cbrch::l}|, {clmonth:lmon:a}| {month}| {day}";
+        inout "{cycle}| {stem:cstem}|-{branch:cbrch::l}|, {clmonth:lmon2:a}| {month}| {day}";
         rank cycle month day;
         separators ",-";
-        functions { fixed cycle_to_year; };
+        functions {
+            calculate calculate_clmonth;
+            fixed fixed_from_clmonth;
+        };
     };
-    format full {
-        inout "Cycle: {cycle}|, Year: {stem:cstem}-{branch:cbrch::l} ({segyear})|, {lmonth:lmon}:| {month}|, Day: {day}";
-        rank cycle month day;
+    format cylmd_f {
+        inout "Cycle: {cycle}| Year: {:stem:cstem}-{:branch:cbrch::l} ({segyear})| {clmonth:lmon2:a}| Month: {month}| Day: {day}";
+        rank cycle segyear month day;
         separators ",-";
-        functions { fixed cycle_to_year; };
+        functions {
+            calculate calculate_clmonth;
+            fixed fixed_from_clmonth;
+        };
     };
-    format animal_f "(Cycle {cycle})| Year of the {branch:animal} {segyear}|, {lmonth:lmon}| {month}| Day {day}";
-    preferred ymld;
+    format animal "{year} Year of the {:branch:animal}|, {lmonth:lmon}| {month}| Day {day}";
+    format elem_anim {
+        inout "{year} The {:polarity:yinyang}-{:element:element}-{:branch:animal} Year| {lmonth:lmon}| {month}| Day {day}";
+        separators ",-";
+    };
+    format cy_animal {
+        inout "(Cycle {cycle})| Year of the {:branch:animal} {segyear}| {lmonth:lmon}| {month}| Day {day}";
+        rank cycle segyear month lmonth day;
+    };
+    preferred cymld;
 };
 
 scheme c {
-  name "Chinese Beta 1";
+  name "Chinese";
   base chinese additional;
   grammar c;
 };
