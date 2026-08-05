@@ -1,0 +1,55 @@
+// hics/schemes/ls_cg-001.glcs - Test library scheme Chinese "cg".
+// Check the scheme object and its formats.
+
+let detail = @sch:object.cg;
+
+write nl;
+write detail@obj:list nl;
+
+write nl;
+write "Default input format:-" nl;
+write @fmt:object.("cg:" + detail[.default:in])@obj:list nl;
+
+
+write nl;
+do d in detail[.formats] {
+    let fmt = "c:" + d;
+    write @fmt:object.(fmt) nl;
+};
+
+
+/*[OUTPUT]
+
+code = "cg"
+name = "Chinese with Gregorian Year"
+basename = "chinese"
+fieldnames = {: "year", "month", "lmonth", "day", "cycle", "segyear", "stem", "branch", "element", "polarity", "clmonth"}
+grammar = "c"
+formats = {: "ymld", "ylmd", "cymld", "cylmd", "cylmd_s", "cylmd_f", "animal", "elem_anim", "cy_animal", "a", "r", "u"}
+default:in = "cymld"
+default:out = "cymld"
+visible = true
+
+Default input format:-
+code = "cymld"
+grammar = "c"
+rules = "text"
+visible = true
+pseudo:in = "cycle segyear month lmonth day"
+pseudo:out = "cc sy mm lm dd"
+shorthand = true
+
+{fmt: "ymld", "c", "text", true, "year month lmonth day", "yyyy mm lm dd", true}
+{fmt: "ylmd", "c", "text", true, "year clmonth month day", "yyyy clmonth mm dd", false}
+{fmt: "cymld", "c", "text", true, "cycle segyear month lmonth day", "cc sy mm lm dd", true}
+{fmt: "cylmd", "c", "text", true, "cycle segyear clmonth month day", "cc sy clmonth mm dd", false}
+{fmt: "cylmd_s", "c", "text", true, "cycle stem branch clmonth month day", "cc ss-bb, clmonth mm dd", false}
+{fmt: "cylmd_f", "c", "text", true, "cycle stem branch segyear clmonth month day", "Cycle: cc Year: ss-bb (sy) clmonth Month: mm Day: dd", false}
+{fmt: "animal", "c", "text", true, "year branch lmonth month day", "yyyy Year of the bb, lm mm Day dd", true}
+{fmt: "elem_anim", "c", "text", true, "year polarity element branch lmonth month day", "yyyy The polarity-e-bb Year lm mm Day dd", true}
+{fmt: "cy_animal", "c", "text", true, "cycle branch segyear lmonth month day", "(Cycle cc) Year of the bb sy lm mm Day dd", true}
+{fmt: "a", "c", "text", false, "year month lmonth day cycle segyear stem branch element polarity clmonth", "yyyy mm lm dd cc sy ss bb e polarity clmonth", false}
+{fmt: "r", "c", "text", false, "year month lmonth day", "yyyy mm lm dd", true}
+{fmt: "u", "c", "unit", false, "9y 9m 9lm 9d 9c 9sy 9s 9b 9e 9p 9clmonth", "9y 9m 9lm 9d 9c 9sy 9s 9b 9e 9p 9clmonth", false}
+
+[OUTPUT]*/
