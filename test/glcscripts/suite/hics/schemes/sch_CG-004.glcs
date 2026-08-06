@@ -1,0 +1,73 @@
+// hics/schemes/sch_CG-004.glcs - Test Chinese Calendar scheme.
+// Test for specific problem where the clmonth fails to display the value 1.
+
+lexicon FS {
+    name "First and Second";
+    fieldname lmonth;
+    lang en;
+    pseudo  FirstSecond, FS;
+    tokens {
+        1,  "First", "F";
+        2,  "Second", "S";
+    };
+};
+
+lexicon FS2 {
+    name "First and Second for clmonth";
+    inherit FS;
+    fieldname clmonth;
+};
+
+grammar C {
+    fields year month lmonth day cycle segyear stem branch element polarity;
+    rank year month lmonth day;
+    calculated clmonth;
+
+    alias pseudo { dd day; mm month; lm lmonth; yyyy year; cc cycle; sy segyear; ss stem; bb branch; e element; y yinyang; };
+    alias unit { d day; m month; lm lmonth; y year; c cycle; sy segyear; s stem; b branch; e element; p polarity; };
+
+    function calculate_clmonth {
+        clmonth = @if(lmonth=1, @if(@leapmonth.(scode)( year, month),1,null), 2);
+        result = this;
+    };
+
+    function fixed_from_clmonth {
+        lmonth = @if(clmonth<>2, 1, 2);
+        result = this;
+    };
+
+    format ylmd {
+        inout "{year}| {clmonth:FS2}| {month}| {day}";
+        rank year month day;
+        functions {
+            calculate calculate_clmonth;
+            fixed fixed_from_clmonth;
+        };
+    };
+    preferred ylmd;
+};
+
+scheme CG {
+  name "Chinese Gregorian Year";
+  base chinese additional "year:+2637";
+  grammar C;
+};
+
+
+let sig = "CG:ylmd";
+
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460866 ) ), @text.(sig)( 2460866 ) nl;
+write @date.(sig)( @text.(sig)( 2460896 ) ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( @text.(sig)( 2460925 ) ), @text.(sig)( 2460925 ) nl;
+
+
+/*[OUTPUT]
+
+Shorthand range for CG:ylmd: false
+2460866, 2025 First 6 15
+2460896, 2025 Second 6 15
+2460925, 2025 7 15
+
+[OUTPUT]*/
