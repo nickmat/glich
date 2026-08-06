@@ -359,7 +359,7 @@ BoolError Chinese::is_leap_month( Field year, Field month ) const
     if( year == f_invalid || month == f_invalid ) {
         return BoolError::be_error;
     }
-    return chinese_is_leap_month( year, month ) ?
+    return chinese_is_leap_month( year + m_year_offset, month ) ?
         BoolError::be_true : BoolError::be_false;
 }
 
