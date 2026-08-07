@@ -87,10 +87,10 @@ namespace glich {
         Field find_token( Lexicon** lex, const std::string& word ) const;
         Lexicon* find_lexicon( const std::string& code ) const;
 
-        StdStrVec get_base_fieldnames() const { return m_base_fieldnames; }
-        StdStrVec get_opt_fieldnames() const { return m_opt_fieldnames; }
-        StdStrVec get_calc_fieldnames() const { return m_calc_fieldnames; }
-        StdStrVec get_rank_fieldnames() const { return m_rank_fieldnames; }
+        StdStrVec get_base_fieldnames() const;
+        StdStrVec get_opt_fieldnames() const;
+        StdStrVec get_calc_fieldnames() const;
+        StdStrVec get_rank_fieldnames() const;
         void remove_format( const std::string& fcode );
 
         bool add_function( SpFunction fun );
