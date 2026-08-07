@@ -82,6 +82,11 @@ bool Grammar::constuct()
         if( m_rank_fieldnames.empty() ) {
             m_rank_fieldnames = m_inherit->m_rank_fieldnames;
         }
+        for( auto& fun : m_inherit->m_functions ) {
+            if( m_functions.count( fun.first ) == 0 ) {
+                m_functions[fun.first] = fun.second;
+            }
+        }
     }
     else {
         create_all_format();
@@ -366,6 +371,38 @@ Lexicon* Grammar::find_lexicon( const string& code ) const
         return m_inherit->find_lexicon( code );
     }
     return nullptr;
+}
+
+StdStrVec glich::Grammar::get_base_fieldnames() const
+{
+    if( m_base_fieldnames.empty() && m_inherit ) {
+        return m_inherit->get_base_fieldnames();
+    }
+    return m_base_fieldnames;
+}
+
+StdStrVec glich::Grammar::get_opt_fieldnames() const
+{
+    if( m_opt_fieldnames.empty() && m_inherit ) {
+        return m_inherit->get_opt_fieldnames();
+    }
+    return m_opt_fieldnames;
+}
+
+StdStrVec glich::Grammar::get_calc_fieldnames() const
+{
+    if( m_calc_fieldnames.empty() && m_inherit ) {
+        return m_inherit->get_calc_fieldnames();
+    }
+    return m_calc_fieldnames;
+}
+
+StdStrVec glich::Grammar::get_rank_fieldnames() const
+{
+    if( m_rank_fieldnames.empty() && m_inherit ) {
+        return m_inherit->get_rank_fieldnames();
+    }
+    return m_rank_fieldnames;
 }
 
 void Grammar::remove_format( const string& fcode )
