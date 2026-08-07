@@ -148,6 +148,17 @@ grammar C {
             fixed fixed_from_clmonth;
         };
     };
+    format animal "{year} Year of the {:branch:ANIMAL}|, {lmonth:LMON}| {month}| Day {day}";
+    format elem_anim {
+        inout "{year} The {:polarity:YINYANG}-{:element:ELEMENT}-{:branch:ANIMAL} Year| {lmonth:LMON}| {month}| Day {day}";
+        separators ",-";
+    };
+    preferred ymld;
+};
+
+grammar CCSY {
+    name "Chinese Cycle and Segyear formats";
+    inherit C;
     // Note, format used in "Calendrical Calculations"
     format cymld {
         inout "{cycle}| {segyear}| {month}| {lmonth:FS:a:l}| {day}";
@@ -179,11 +190,6 @@ grammar C {
             fixed fixed_from_clmonth;
         };
     };
-    format animal "{year} Year of the {:branch:ANIMAL}|, {lmonth:LMON}| {month}| Day {day}";
-    format elem_anim {
-        inout "{year} The {:polarity:YINYANG}-{:element:ELEMENT}-{:branch:ANIMAL} Year| {lmonth:LMON}| {month}| Day {day}";
-        separators ",-";
-    };
     format cy_animal {
         inout "(Cycle {cycle})| Year of the {:branch:ANIMAL} {segyear}| {lmonth:LMON}| {month}| Day {day}";
         rank cycle segyear month lmonth day;
@@ -194,9 +200,8 @@ grammar C {
 scheme C {
   name "Chinese";
   base chinese additional;
-  grammar C;
+  grammar CCSY;
 };
-
 
 write nl;
 write @sch:object.C[.formats] nl;
@@ -329,7 +334,7 @@ write @date.(sig)( @text.(sig)( 2460925 ) ), @text.(sig)( 2460925 ) nl;
 
 /*[OUTPUT]
 
-{: "ymld", "ylmd", "cymld", "cylmd", "cylmd_s", "cylmd_f", "animal", "elem_anim", "cy_animal", "a", "r", "u"}
+{: "cymld", "cylmd", "cylmd_s", "cylmd_f", "cy_animal", "ymld", "ylmd", "animal", "elem_anim", "a", "r", "u"}
 @scheme.C( 2460866 ) = {s:C 4662, 6, 1, 15, 78, 42, 2, 6, 1, 2, null}
 
 Shorthand range for C:ymld: true
