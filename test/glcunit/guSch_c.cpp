@@ -79,7 +79,7 @@ TEST_CASE( "Library Scheme c", "[c]" )
     g_glc->get_scheme_info( &info, "c" );
     REQUIRE( info.name == "Chinese" );
     REQUIRE( info.code == "c" );
-    REQUIRE( info.grammar_code == "c" );
+    REQUIRE( info.grammar_code == "ccsy" );
     REQUIRE( info.lexicon_codes.size() == 0 );
     REQUIRE( info.lexicon_names.size() == 0 );
 }
