@@ -172,6 +172,17 @@ grammar c {
             fixed fixed_from_clmonth;
         };
     };
+    format animal "{year} Year of the {:branch:animal}|, {lmonth:lmon}| {month}| Day {day}";
+    format elem_anim {
+        inout "{year} The {:polarity:yinyang}-{:element:element}-{:branch:animal} Year| {lmonth:lmon}| {month}| Day {day}";
+        separators ",-";
+    };
+    preferred ymld;
+};
+
+grammar ccsy {
+    name "Chinese cycle and segyear formats";
+    inherit c;
     // Note, format used in "Calendrical Calculations"
     format cymld {
         inout "{cycle}| {segyear}| {month}| {lmonth:fs:a:l}| {day}";
@@ -203,11 +214,6 @@ grammar c {
             fixed fixed_from_clmonth;
         };
     };
-    format animal "{year} Year of the {:branch:animal}|, {lmonth:lmon}| {month}| Day {day}";
-    format elem_anim {
-        inout "{year} The {:polarity:yinyang}-{:element:element}-{:branch:animal} Year| {lmonth:lmon}| {month}| Day {day}";
-        separators ",-";
-    };
     format cy_animal {
         inout "(Cycle {cycle})| Year of the {:branch:animal} {segyear}| {lmonth:lmon}| {month}| Day {day}";
         rank cycle segyear month lmonth day;
@@ -218,7 +224,7 @@ grammar c {
 scheme c {
   name "Chinese";
   base chinese additional;
-  grammar c;
+  grammar ccsy;
 };
 
 scheme cg {

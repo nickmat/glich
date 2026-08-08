@@ -92,7 +92,7 @@ module hics:islamic {
 
 module hics:chinese {
     lexicon cstem cbrch animal element yinyang fs fs2 lmon lmon2;
-    grammar c;
+    grammar c ccsy;
     scheme c cg;
 };
 
