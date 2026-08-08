@@ -1,0 +1,147 @@
+// hics/schemes/ls_cg-002.glcs - Test library scheme Chinese "cg".
+// Check the scheme formats.
+
+write nl;
+write @sch:object.cg[.formats] nl;
+write "@scheme.cg( 2460866 ) = " + @scheme.cg( 2460866 ) nl;
+
+let sig = "cg:ymld";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460866 ) ), @text.(sig)( 2460866 ) nl;
+write @date.(sig)( @text.(sig)( 2460896 ) ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( @text.(sig)( 2460925 ) ), @text.(sig)( 2460925 ) nl;
+write @date.(sig)( @text.(sig)( 2460852..2460881 ) ), @text.(sig)( 2460852..2460881 ) nl;
+write @date.(sig)( @text.(sig)( 2460882..2460910 ) ), @text.(sig)( 2460882..2460910 ) nl;
+write @date.(sig)( @text.(sig)( 2460911..2460940 ) ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( @text.(sig)( 2460852..2460910 ) ), @text.(sig)( 2460852..2460910 ) nl;
+write @date.(sig)( @text.(sig)( 2460911..2460940 ) ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( @text.(sig)( 2460705..2461088 ) ), @text.(sig)( 2460705..2461088 ) nl;
+
+
+let sig = "cg:ylmd";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460866 ) ), @text.(sig)( 2460866 ) nl;
+write @date.(sig)( @text.(sig)( 2460896 ) ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( @text.(sig)( 2460925 ) ), @text.(sig)( 2460925 ) nl;
+
+let sig = "cg:animal";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460866 ) ), @text.(sig)( 2460866 ) nl;
+write @date.(sig)( @text.(sig)( 2460896 ) ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( @text.(sig)( 2460925 ) ), @text.(sig)( 2460925 ) nl;
+write @date.(sig)( @text.(sig)( 2460852..2460881 ) ), @text.(sig)( 2460852..2460881 ) nl;
+write @date.(sig)( @text.(sig)( 2460882..2460910 ) ), @text.(sig)( 2460882..2460910 ) nl;
+write @date.(sig)( @text.(sig)( 2460911..2460940 ) ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( @text.(sig)( 2460852..2460910 ) ), @text.(sig)( 2460852..2460910 ) nl;
+write @date.(sig)( @text.(sig)( 2460911..2460940 ) ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( @text.(sig)( 2460705..2461088 ) ), @text.(sig)( 2460705..2461088 ) nl;
+
+let sig = "cg:elem_anim";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460866 ) ), @text.(sig)( 2460866 ) nl;
+write @date.(sig)( @text.(sig)( 2460896 ) ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( @text.(sig)( 2460925 ) ), @text.(sig)( 2460925 ) nl;
+write @date.(sig)( @text.(sig)( 2460852..2460881 ) ), @text.(sig)( 2460852..2460881 ) nl;
+write @date.(sig)( @text.(sig)( 2460882..2460910 ) ), @text.(sig)( 2460882..2460910 ) nl;
+write @date.(sig)( @text.(sig)( 2460911..2460940 ) ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( @text.(sig)( 2460852..2460910 ) ), @text.(sig)( 2460852..2460910 ) nl;
+write @date.(sig)( @text.(sig)( 2460911..2460940 ) ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( @text.(sig)( 2460705..2461088 ) ), @text.(sig)( 2460705..2461088 ) nl;
+
+let sig = "cg:a";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460866 ) ), @text.(sig)( 2460866 ) nl;
+write @date.(sig)( @text.(sig)( 2460896 ) ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( @text.(sig)( 2460925 ) ), @text.(sig)( 2460925 ) nl;
+
+let sig = "cg:r";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460866 ) ), @text.(sig)( 2460866 ) nl;
+write @date.(sig)( @text.(sig)( 2460896 ) ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( @text.(sig)( 2460925 ) ), @text.(sig)( 2460925 ) nl;
+write @date.(sig)( @text.(sig)( 2460852..2460881 ) ), @text.(sig)( 2460852..2460881 ) nl;
+write @date.(sig)( @text.(sig)( 2460882..2460910 ) ), @text.(sig)( 2460882..2460910 ) nl;
+write @date.(sig)( @text.(sig)( 2460911..2460940 ) ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( @text.(sig)( 2460852..2460910 ) ), @text.(sig)( 2460852..2460910 ) nl;
+write @date.(sig)( @text.(sig)( 2460911..2460940 ) ), @text.(sig)( 2460911..2460940 ) nl;
+write @date.(sig)( @text.(sig)( 2460705..2461088 ) ), @text.(sig)( 2460705..2461088 ) nl;
+
+let sig = "cg:u";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460866 ) ), @text.(sig)( 2460866 ) nl;
+write @date.(sig)( @text.(sig)( 2460896 ) ), @text.(sig)( 2460896 ) nl;
+write @date.(sig)( @text.(sig)( 2460925 ) ), @text.(sig)( 2460925 ) nl;
+
+
+/*[OUTPUT]
+
+{: "ymld", "ylmd", "animal", "elem_anim", "a", "r", "u"}
+@scheme.cg( 2460866 ) = {s:cg 2025, 6, 1, 15, 78, 42, 2, 6, 1, 2, null}
+
+Shorthand range for cg:ymld: true
+2460866, 2025 6 f 15
+2460896, 2025 6 s 15
+2460925, 2025 7 f 15
+2460852..2460881, 2025 6 f
+2460882..2460910, 2025 6 s
+2460911..2460940, 2025 7
+2460852..2460910, 2025 6
+2460911..2460940, 2025 7
+2460705..2461088, 2025
+
+Shorthand range for cg:ylmd: false
+2460866, 2025 First 6 15
+2460896, 2025 Second 6 15
+2460925, 2025 7 15
+
+Shorthand range for cg:animal: true
+2460866, 2025 Year of the Snake, Regular Month 6 Day 15
+2460896, 2025 Year of the Snake, Leap Month 6 Day 15
+2460925, 2025 Year of the Snake, Regular Month 7 Day 15
+2460852..2460881, 2025 Year of the Snake, Regular Month 6
+2460882..2460910, 2025 Year of the Snake, Leap Month 6
+2460911..2460940, 2025 Year of the Snake 7
+2460852..2460910, 2025 Year of the Snake 6
+2460911..2460940, 2025 Year of the Snake 7
+2460705..2461088, 2025 Year of the Snake
+
+Shorthand range for cg:elem_anim: true
+2460866, 2025 The Yin-Wood-Snake Year Regular Month 6 Day 15
+2460896, 2025 The Yin-Wood-Snake Year Leap Month 6 Day 15
+2460925, 2025 The Yin-Wood-Snake Year Regular Month 7 Day 15
+2460852..2460881, 2025 The Yin-Wood-Snake Year Regular Month 6
+2460882..2460910, 2025 The Yin-Wood-Snake Year Leap Month 6
+2460911..2460940, 2025 The Yin-Wood-Snake Year 7
+2460852..2460910, 2025 The Yin-Wood-Snake Year 6
+2460911..2460940, 2025 The Yin-Wood-Snake Year 7
+2460705..2461088, 2025 The Yin-Wood-Snake Year
+
+Shorthand range for cg:a: false
+2460866, 2025 6 1 15 78 42 2 6 1 2
+2460896, 2025 6 2 15 78 42 2 6 1 2
+2460925, 2025 7 1 15 78 42 2 6 1 2
+
+Shorthand range for cg:r: true
+2460866, 2025 6 1 15
+2460896, 2025 6 2 15
+2460925, 2025 7 1 15
+2460852..2460881, 2025 6 1
+2460882..2460910, 2025 6 2
+2460911..2460940, 2025 7
+2460852..2460910, 2025 6
+2460911..2460940, 2025 7
+2460705..2461088, 2025
+
+Shorthand range for cg:u: false
+2460866, 2025y 6m 1lm 15d 78c 42sy 2s 6b 1e 2p
+2460896, 2025y 6m 2lm 15d 78c 42sy 2s 6b 1e 2p
+2460925, 2025y 7m 1lm 15d 78c 42sy 2s 6b 1e 2p
+
+[OUTPUT]*/
