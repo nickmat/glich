@@ -132,7 +132,7 @@ write @date.(sig)( @text.(sig)( 2460925 ) ), @text.(sig)( 2460925 ) nl;
 
 /*[OUTPUT]
 
-{: "ymld", "ylmd", "cymld", "cylmd", "cylmd_s", "cylmd_f", "animal", "elem_anim", "cy_animal", "a", "r", "u"}
+{: "cymld", "cylmd", "cylmd_s", "cylmd_f", "cy_animal", "ymld", "ylmd", "animal", "elem_anim", "a", "r", "u"}
 @scheme.c( 2460866 ) = {s:c 4662, 6, 1, 15, 78, 42, 2, 6, 1, 2, null}
 
 Shorthand range for c:ymld: true
