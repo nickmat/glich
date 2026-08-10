@@ -1,0 +1,69 @@
+// chinese-eras-01.glcs - Example script for Chinese eras.
+
+mark example_chinese_eras;
+
+let today_ = today;
+write nl;
+write "Today: " + @text.jce( today_ ) + " = " + today_ nl;
+write "scode, Epoch jdn, Epoch jce, Today (:ymld) in Epoch, Scheme name" nl;
+write nl;
+
+scheme ch {
+  name "Chinese (Huangdi Epoch)";
+  base chinese "year:-60" additional;
+  grammar c;
+};
+
+let era = @date.ch( {s:ch 1, 1, 1, 1} );
+write "ch", era, @text.jce( era ), @text.ch:ymld( today_ ), @sch:object.ch[.name] nl;
+
+scheme ch1 {
+  name "Chinese (Huangdi Epoch + 1)";
+  base chinese "year:-61" additional;
+  grammar c;
+};
+
+let era = @date.ch1( {s:ch1 1, 1, 1, 1} );
+write "ch1", era, @text.jce( era ), @text.ch1:ymld( today_ ), @sch:object.ch1[.name] nl;
+
+let era = @date.c( {s:c 1, 1, 1, 1} );
+write "c", era, @text.jce( era ), @text.c:ymld( today_ ), @sch:object.c[.name] nl;
+
+scheme cy {
+  name "Chinese (Yao Epoch)";
+  base chinese "year:+481" additional;
+  grammar c;
+};
+
+let era = @date.cy( {s:cy 1, 1, 1, 1} );
+write "cy", era, @text.jce( era ), @text.cy:ymld( today_ ), @sch:object.cy[.name] nl;
+
+scheme cgh {
+  name "Chinese (Gonghe Epoch)";
+  base chinese "year:+1796" additional;
+  grammar c;
+};
+
+let era = @date.cgh( {s:cgh 1, 1, 1, 1} );
+write "cgh", era, @text.jce( era ), @text.cgh:ymld( today_ ), @sch:object.cgh[.name] nl;
+
+scheme ccf {
+  name "Chinese (Confucius Epoch)";
+  base chinese "year:+2086" additional;
+  grammar c;
+};
+
+let era = @date.ccf( {s:ccf 1, 1, 1, 1} );
+write "ccf", era, @text.jce( era ), @text.ccf:ymld( today_ ), @sch:object.ccf[.name] nl;
+
+scheme cu {
+  name "Chinese (Unity Epoch)";
+  base chinese "year:+2416" additional;
+  grammar c;
+};
+let era = @date.cu( {s:cu 1, 1, 1, 1} );
+write "cu", era, @text.jce( era ), @text.cu:ymld( today_ ), @sch:object.cu[.name] nl;
+
+let era = @date.cg( {s:cg 1, 1, 1, 1} );
+write "cg", era, @text.jce( era ), @text.cg:ymld( today_ ), @sch:object.cg[.name] nl;
+
