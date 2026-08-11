@@ -172,10 +172,12 @@ Example based on jdn# 2460050, 2460051 and 2460417</td></tr>
   };
 };
 lexicon rptd {
+  name "Repeated Date for repeated";
   inherit rpt;
   fieldname repeated;
 };
 grammar je {
+    name "Julian Easter";
     fields eyear repeat month day;
     calculated repeated; 
     optional hyear wsday;

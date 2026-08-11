@@ -66,7 +66,7 @@ lexicon cbrch {
 };
 
 lexicon animal {
-    name "Chinese Year Animals";
+    name "Chinese Year Animal";
     fieldname branch;
     lang en;
     pseudo  Animal;
@@ -87,7 +87,7 @@ lexicon animal {
 };
 
 lexicon element {
-    name "Chinese Year Elements";
+    name "Chinese Year Element";
     fieldname element;
     lang en;
     pseudo  Element;
@@ -146,6 +146,7 @@ lexicon lmon2 {
 }; 
 
 grammar c {
+    name "Chinese year count formats";
     fields year month lmonth day cycle segyear stem branch element polarity;
     rank year month lmonth day;
     calculated clmonth;
