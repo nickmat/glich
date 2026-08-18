@@ -1,5 +1,5 @@
-// j-001.glcs  Create Julian j scheme format table.
-/*[SKIP]*/
+// ft_j-001.glcs  Create Julian j scheme format table.
+
 let sch = "j";
 
 let d1 = 2459984;
