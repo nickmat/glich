@@ -31,7 +31,138 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Page Under Construction</h2>
+<h2>Calendar Description - Scheme cg</h2>
+<p>
+ This scheme presents the traditional Chinese lunisolar calendar with the Gregorian calendar’s year number.
+ The underlying structure remains fully Chinese — lunar months, leap months, solar terms,
+ and sexagenary cycle — but the year count is taken directly from the Gregorian civil calendar.
+ This hybrid reflects the modern coexistence of two parallel systems: the lunisolar calendar
+ for cultural and seasonal purposes, and the Gregorian calendar for civil, administrative,
+ and international use.
+</p>
+<p>
+ See <a href='https://en.wikipedia.org/wiki/Chinese_calendar'>Wikipedia entry</a>.
+</p>
+
+<h3>Use Case</h3>
+<p>
+ This form has been in practical use since 1912,
+ when the Republic of China adopted the Gregorian calendar as its official civil calendar.
+ From that point onward, lunisolar dates were routinely expressed within the Gregorian year,
+ especially in newspapers, almanacs, and public communication.
+ Expressions such as “Chinese New Year 2024” or “Lunar 8th Month, 15th Day (2026)” became standard.
+ Although never an official reform of the Chinese calendar itself,
+ this pairing is now the dominant modern framing for Chinese festival dates across mainland China,
+ Taiwan, Hong Kong, and overseas Chinese communities.
+</p>
+
+<h3>Definition</h3>
+
+<table class='record'>
+<tr><th colspan='11'>Record - Default Order</th></tr>
+<tr><td>year</td><td>month</td><td>lmonth</td><td>day</td>
+<td class='rec-add'>cycle</td>
+<td class='rec-add'>segyear</td>
+<td class='rec-add'>stem</td>
+<td class='rec-add'>branch</td>
+<td class='rec-add'>element</td>
+<td class='rec-add'>polarity</td>
+<td class='rec-calc'>clmonth</td>
+</tr>
+</table>
+
+<p class='clear'>
+ The <b>Record</b> consists of four required <b>Fields</b> named <code>year,</code>
+ <code>month,</code> <code>lmonth,</code> and <code>day.</code>
+ There are twelve regular months in a year numbered 1 to 12.
+ The lmonth field is set to 1 for these months.
+ In a leap year, one of the months will be repeated with the lmonth field set to 2.
+ Each month starts on day 1, the day of the new moon, and will be 29 or 30 days long.
+</p>
+<div>
+ The <b>Epoch</b> is set at
+ <table class='rec-value'>
+   <tr><td rowspan='2' class='sig'>cg</td><th>year</th><th>month</th><th>lmonth</th><th>day</th></tr>
+   <tr class='value'><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+ </table>
+ =
+ <table class='rec-value'>
+   <tr><td rowspan='2' class='sig'>g</td><th>year</th><th>month</th><th>day</th></tr>
+   <tr class='value'><td>1</td><td>2</td><td>10</td></tr>
+ </table>
+  =
+ <table class='rec-value'>
+  <tr><td rowspan='2' class='sig'>jdn</td><th>day</th></tr>
+  <tr class='value'><td>1721466</td></tr>
+ </table>.
+</div>
+<p>
+ The additional <code>cycle</code> field counts the number of 60 year sexagenary cycles since the year -2636 Gregorian.
+ The additional <code>segyear</code> field is the year within the sexagenary cycle.
+</p>
+<p>
+    The additional <code>stem</code> and <code>branch</code> fields
+    are the year stem and branch of the sexagenary cycle.
+    The additional <code>element</code> and <code>polarity</code> fields
+    are the element and polarity of the year stem.
+</p>
+
+<h3>Formats</h3>
+
+<p class='clear'>
+ The lmonth field only needs to be displayed when there are a leap month pair,
+ for other months it is redundant.
+ The calculated <code>clmonth</code> field
+ is a copy of the <code>lmonth</code> when one of a leap month pair
+ and a null value otherwise.
+</p>
+<p>
+ The formats supplied with this scheme.
+</p>
+
+<table class='basic data'>
+<tr><th colspan='4'>Formats - Grammar c</th></tr>
+<tr><th>Code</th><th>Rule</th><th>Pseudo / Example</th><th>Note</th></tr>
+<tr><td rowspan='2'><b>ymld</b></td><td rowspan='2'>text</td><td><b>Input:</b> year month lmonth day<br /><b>Output:</b> yyyy mm lm dd</td><td rowspan='2'>D, S</td></tr>
+<tr><td class='example'>2025 6 f 15<br />2025 6 s 15<br />2025 7 f 15</td></tr>
+<tr><td rowspan='2'><b>ylmd</b></td><td rowspan='2'>text</td><td><b>Input:</b> year clmonth month day<br /><b>Output:</b> yyyy clmonth mm dd</td><td rowspan='2'></td></tr>
+<tr><td class='example'>2025 First 6 15<br />2025 Second 6 15<br />2025 7 15</td></tr>
+<tr><td rowspan='2'><b>animal</b></td><td rowspan='2'>text</td><td><b>Input:</b> year branch lmonth month day<br /><b>Output:</b> yyyy Year of the bb, lm mm Day dd</td><td rowspan='2'>S</td></tr>
+<tr><td class='example'>2025 Year of the Snake, Regular Month 6 Day 15<br />2025 Year of the Snake, Leap Month 6 Day 15<br />2025 Year of the Snake, Regular Month 7 Day 15</td></tr>
+<tr><td rowspan='2'><b>elem_anim</b></td><td rowspan='2'>text</td><td><b>Input:</b> year polarity element branch lmonth month day<br /><b>Output:</b> yyyy The polarity-e-bb Year lm mm Day dd</td><td rowspan='2'>S</td></tr>
+<tr><td class='example'>2025 The Yin-Wood-Snake Year Regular Month 6 Day 15<br />2025 The Yin-Wood-Snake Year Leap Month 6 Day 15<br />2025 The Yin-Wood-Snake Year Regular Month 7 Day 15</td></tr>
+<tr><td rowspan='2'><b>a</b></td><td rowspan='2'>text</td><td><b>Input:</b> year month lmonth day cycle segyear stem branch element polarity clmonth<br /><b>Output:</b> yyyy mm lm dd cc sy ss bb e polarity clmonth</td><td rowspan='2'>H</td></tr>
+<tr><td class='example'>2025 6 1 15 78 42 2 6 1 2<br />2025 6 2 15 78 42 2 6 1 2<br />2025 7 1 15 78 42 2 6 1 2</td></tr>
+<tr><td rowspan='2'><b>r</b></td><td rowspan='2'>text</td><td><b>Input:</b> year month lmonth day<br /><b>Output:</b> yyyy mm lm dd</td><td rowspan='2'>H, S</td></tr>
+<tr><td class='example'>2025 6 1 15<br />2025 6 2 15<br />2025 7 1 15</td></tr>
+<tr><td rowspan='2'><b>u</b></td><td rowspan='2'>unit</td><td><b>Input:</b> 9y 9m 9lm 9d 9c 9sy 9s 9b 9e 9p 9clmonth<br /><b>Output:</b> 9y 9m 9lm 9d 9c 9sy 9s 9b 9e 9p 9clmonth</td><td rowspan='2'>H</td></tr>
+<tr><td class='example'>2025y 6m 1lm 15d 78c 42sy 2s 6b 1e 2p<br />2025y 6m 2lm 15d 78c 42sy 2s 6b 1e 2p<br />2025y 7m 1lm 15d 78c 42sy 2s 6b 1e 2p</td></tr>
+<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
+Example based on jdn# 2460866, 2460896 and 2460925</td></tr>
+</table>
+
+<p>
+ The formats that show the sexagenary year and cycle number and not the epoch year
+ are available in the <a href='c.htm'>Chinese scheme "c"</a>.
+</p>
+
+<h3 class='clear'>Script</h3>
+<table class='code lfloat'>
+<tr><th>Script - Module hics:chinese</th></tr>
+<tr><td
+>scheme cg {
+  name "Chinese with Gregorian Year";
+  base chinese "year:+2637" additional;
+  grammar c;
+};
+</td></tr>
+</table>
+<p>
+ The <b>scheme "cg"</b> uses the <b>grammar "c"</b> definition defined in
+ <a href='c.htm'><b>c</b> Chinese</a> scheme
+ which is also in the <b>hics:chinese</b> module.
+</p>
+
 
 </div><!--id=content-->
 
