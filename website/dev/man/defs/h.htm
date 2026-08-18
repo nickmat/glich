@@ -48,6 +48,13 @@
  The rules for calculations slowly evolved until around the 12th century,
  when the calendar described here was formulated.
 </p>
+<p>
+ The algorithm used is based on the rules described in the book
+ "Calendrical Calculations" 3rd edition by Nachum Dershowitz and Edward M. Reingold.
+</p>
+<p>
+ See also the <a href='https://en.wikipedia.org/wiki/Hebrew_calendar'>Wikipedia entry</a>.
+</p>
 
 <h3>Use Case</h3>
 <p>
@@ -207,7 +214,8 @@ falls and thus, the length of the year.
 <tr><td><b>ymd</b></td><td>text</td><td><b>Input:</b> year cmonth day<br /><b>Output:</b> yyyy Month dd</td><td class='example'>5784 Adar I 30<br />5784 Adar II 29<br />5785 Adar 29</td><td>S</td></tr>
 <tr><td><b>ymd_d</b></td><td>text</td><td><b>Input:</b> year month day<br /><b>Output:</b> yyyy mm dd</td><td class='example'>5784 12 30<br />5784 13 29<br />5785 12 29</td><td>S</td></tr>
 <tr><td><b>gedcom</b></td><td>text</td><td><b>Input:</b> day month year<br /><b>Output:</b> dd MON yyyy</td><td class='example'>30 ADR 5784<br />29 ADS 5784<br />29 ADR 5785</td><td>S</td></tr>
-<tr><td><b>def</b></td><td>text</td><td><b>Input:</b> year month day cmonth<br /><b>Output:</b> yyyy mm dd mm</td><td class='example'>5784 12 30 14<br />5784 13 29 13<br />5785 12 29 12</td><td>H</td></tr>
+<tr><td><b>a</b></td><td>text</td><td><b>Input:</b> year month day cmonth wsday<br /><b>Output:</b> yyyy mm dd mm w</td><td class='example'>5784 12 30 14 1<br />5784 13 29 13 2<br />5785 12 29 12 7</td><td>H</td></tr>
+<tr><td><b>r</b></td><td>text</td><td><b>Input:</b> year cmonth day<br /><b>Output:</b> yyyy mm dd</td><td class='example'>5784 14 30<br />5784 13 29<br />5785 12 29</td><td>H, S</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td><b>Input:</b> 9y 9m 9d 9cm<br /><b>Output:</b> 9y 9m 9d 9cm</td><td class='example'>5784y 12m 30d 14cm<br />5784y 13m 29d 13cm<br />5785y 12m 29d 12cm</td><td>H</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden.
 Example based on jdn# 2460380, 2460409 and 2460764</td></tr>
@@ -311,7 +319,7 @@ scheme h {
  <a href='http://www.phpgedview.net/ged551-5.pdf'>GEDCOM standard version 5.5.1 Page 53</a> (PDF).
 </p>
 <p>
-  Note, the use of optional field "<a href='7dayweek.htm'>wsday</a>" in which the week starts on Sunday (day 1).
+  Note, the use of optional field "<a href='jwsn.htm'>wsday</a>" in which the week starts on Sunday (day 1).
 </p>
 
 </div><!--id=content-->
