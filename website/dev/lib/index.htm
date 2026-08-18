@@ -41,60 +41,112 @@
 
 <h2>Calendar Scheme Codes</h2>
 
+<!--
+<tr><td>scode</td><td>Name</td><td>Proposed</td><td></td><td class='note'></td></tr>
+-->
+
 <table class='basic'>
 <tr><th colspan='5'>Calendar Schemes</th></tr>
 <tr><th>Code</th><th>Name</th><th>Status</th><th>Module</th><th>Notes</th></tr>
+<tr><td>a</td><td>Armenian</td><td>Proposed</td><td></td><td class='note'>cc3 p25 (Variation of Egyptian)</td></tr>
 <tr><td>ay</td><td>Astronomical Year Calendar</td><td>Library</td><td>hics:ay</td><td class='note'>Hybrid of "j" and "g".</td></tr>
+<tr><td>azt</td><td>Aztec Tonalpohualli</td><td>Proposed</td><td></td><td class='note'>cc3 p148 (no year count)</td></tr>
+<tr><td>azx</td><td>Aztec Xihuitl</td><td>Proposed</td><td></td><td class='note'>cc3 p146 (no year count)</td></tr>
+<tr><td>bah</td><td>Baha'i (Badi)</td><td>Proposed</td><td></td><td class='note'>cc3 p229</td></tr>
+<tr><td>ba</td><td>Balinese Pawukon</td><td>Proposed</td><td></td><td class='note'>cc3 p153</td></tr>
+<tr><td>b</td><td>Buddhist</td><td>Proposed</td><td></td><td class='note'><a href='https://en.wikipedia.org/wiki/Buddhist_calendar'>wikipedia</a></td></tr>
+<tr><td>bur</td><td>Burmese (Myanmar)</td><td>Proposed</td><td></td><td class='note'><a href='https://en.wikipedia.org/wiki/Burmese_calendar'>wikipedia</a></td></tr>
 <tr><td>c</td><td>Chinese</td><td>Library</td><td>hics:chinese</td><td class='note'></td></tr>
-<tr><td>cath</td><td>Catholic Hybrid</td><td>Proposed</td><td></td><td class='note'>Hybrid calendar that changed 15 Oct 1582.</td></tr>
-<tr><td>ce</td><td>Common Era</td><td>Proposed</td><td></td><td class='note'>Hybrid of "jce" and "gce"</td></tr>
+<tr><td>cath</td><td>Catholic Hybrid</td><td>Development</td><td></td><td class='note'>Hybrid calendar that changed 15 Oct 1582.</td></tr>
+<tr><td>ccf</td><td>Chinese Confucius Epoch</td><td>Use Case Needed</td><td></td><td class='note'>See example chinese-eras.glcs</td></tr>
+<tr><td>ce</td><td>Common Era</td><td>Use Case Needed</td><td></td><td class='note'>Hybrid of "jce" and "gce"</td></tr>
+<tr><td>cg</td><td>Chinese with Gregorian Year</td><td>Library</td><td>hics:chinese</td><td class='note'></td></tr>
+<tr><td>cgh</td><td>Chinese Gonghe Epoch</td><td>Use Case Needed</td><td></td><td class='note'>See example chinese-eras.glcs</td></tr>
+<tr><td>ch</td><td>Chinese Huangdi Epoch</td><td>Use Case Needed</td><td></td><td class='note'>See example chinese-eras.glcs</td></tr>
+<tr><td>ch1</td><td>Chinese Huangdi Epoch + 1</td><td>Use Case Needed</td><td></td><td class='note'>See example chinese-eras.glcs</td></tr>
+<tr><td>co</td><td>Coptic</td><td>Proposed</td><td></td><td class='note'>cc3 p73</td></tr>
+<tr><td>cr</td><td>Chinese Regnal</td><td>Proposed</td><td></td><td class='note'><a href='https://en.wikipedia.org/wiki/Chinese_era_name'>wikipedia</a></td></tr>
+<tr><td>cu</td><td>Chinese Unit Epoch</td><td>Use Case Needed</td><td></td><td class='note'>See example chinese-eras.glcs</td></tr>
+<tr><td>cy</td><td>Chinese Yao Epoch</td><td>Use Case Needed</td><td></td><td class='note'>See example chinese-eras.glcs</td></tr>
+<tr><td>e</td><td>Egyptian</td><td>Proposed</td><td></td><td class='note'>cc3 p25</td></tr>
 <tr><td>eh</td><td>Julian Era Hispanica</td><td>Library</td><td>hics:eh</td><td class='note'>Includes year zero</td></tr>
-<tr><td>eng</td><td>English Hybrid</td><td>Proposed</td><td></td><td class='note'></td></tr>
-<tr><td>er</td><td>English Regnal</td><td>Proposed</td><td></td><td class='note'></td></tr>
+<tr><td>eng</td><td>English Hybrid</td><td>Development</td><td></td><td class='note'></td></tr>
+<tr><td>er</td><td>English Regnal</td><td>Development</td><td></td><td class='note'></td></tr
+<tr><td>et</td><td>Ethiopian</td><td>Proposed</td><td></td><td class='note'>cc3 p75</td></tr>
 <tr><td>fr</td><td>French Republican</td><td>Library</td><td>hics:french_rep</td><td class='note'>Includes year zero</td></tr>
+<tr><td>fra</td><td>French Republican Arithmetic</td><td>Use Case Needed</td><td></td><td class='note'>cc3 p242</td></tr>
 <tr><td>g</td><td>Gregorian</td><td>Library</td><td>hics:gregorian</td><td class='note'>Includes year zero</td></tr>
-<tr><td>gce</td><td>Gregorian Common Era</td><td>Proposed</td><td></td><td class='note'></td></tr>
+<tr><td>gce</td><td>Gregorian Common Era</td><td>Use Case Needed</td><td></td><td class='note'></td></tr>
+<tr><td>glit</td><td>Gregorian Liturgical Weeks</td><td>Development</td><td></td><td class='note'></td></tr>
 <tr><td>go</td><td>Gregorian Ordinal</td><td>Library</td><td>hics:gregorian</td><td class='note'></td></tr>
 <tr><td>gw</td><td>Gregorian ISO Week</td><td>Library</td><td>hics:gregorian</td><td class='note'></td></tr>
 <tr><td>h</td><td>Hebrew</td><td>Library</td><td>hics:hebrew</td><td class='note'>Includes year zero</td></tr>
+<tr><td>hal</td><td>Hindu Astro Lunar</td><td>Proposed</td><td></td><td class='note'>cc3 p301</td></tr>
+<tr><td>has</td><td>Hindu Astro Solar</td><td>Proposed</td><td></td><td class='note'>cc3 p300</td></tr>
+<tr><td>hb</td><td>Hindu Buddhist</td><td>Proposed</td><td></td><td class='note'></td></tr>
+<tr><td>hl</td><td>Hindu Lunar</td><td>Proposed</td><td></td><td class='note'>cc3 p289</td></tr>
+<tr><td>ho</td><td>Hebrew Observational</td><td>Proposed</td><td></td><td class='note'>cc3 p329</td></tr>
+<tr><td>hol</td><td>Hindu Old Lunar</td><td>Proposed</td><td></td><td class='note'>cc3 p128</td></tr>
+<tr><td>hos</td><td>Hindu Old Solar</td><td>Proposed</td><td></td><td class='note'>cc3 p126</td></tr>
+<tr><td>hs</td><td>Hindu Solar</td><td>Proposed</td><td></td><td class='note'>cc3 p288</td></tr>
 <tr><td>i</td><td>Islamic Tabular</td><td>Library</td><td>hics:islamic</td><td class='note'>Includes year zero</td></tr>
-<tr><td>i_ia</td><td>Islamic Tabular Ia</td><td>Proposed</td><td></td><td class='note'><a href='http://www.staff.science.uu.nl/~gent0113/islam/islam_tabcal.htm'>See website</a></td></tr>
-<tr><td>i_ic</td><td>Islamic Tabular Ic</td><td>Proposed</td><td></td><td class='note'><a href='http://www.staff.science.uu.nl/~gent0113/islam/islam_tabcal.htm'>See website</a></td></tr>
-<tr><td>i_iiic</td><td>Islamic Tabular IIIc</td><td>Proposed</td><td></td><td class='note'><a href='http://www.staff.science.uu.nl/~gent0113/islam/islam_tabcal.htm'>See website</a></td></tr>
-<tr><td>i_iva</td><td>Islamic Tabular IVa</td><td>Proposed</td><td></td><td class='note'><a href='http://www.staff.science.uu.nl/~gent0113/islam/islam_tabcal.htm'>See website</a></td></tr>
-<tr><td>i_ivc</td><td>Islamic Tabular IVc</td><td>Proposed</td><td></td><td class='note'><a href='http://www.staff.science.uu.nl/~gent0113/islam/islam_tabcal.htm'>See website</a></td></tr>
+<tr><td>i_ia</td><td>Islamic Tabular Ia</td><td>Use Case Needed</td><td></td><td class='note'><a href='http://www.staff.science.uu.nl/~gent0113/islam/islam_tabcal.htm'>See website</a></td></tr>
+<tr><td>i_ic</td><td>Islamic Tabular Ic</td><td>Use Case Needed</td><td></td><td class='note'><a href='http://www.staff.science.uu.nl/~gent0113/islam/islam_tabcal.htm'>See website</a></td></tr>
+<tr><td>i_iiic</td><td>Islamic Tabular IIIc</td><td>Use Case Needed</td><td></td><td class='note'><a href='http://www.staff.science.uu.nl/~gent0113/islam/islam_tabcal.htm'>See website</a></td></tr>
+<tr><td>i_iva</td><td>Islamic Tabular IVa</td><td>Use Case Needed</td><td></td><td class='note'><a href='http://www.staff.science.uu.nl/~gent0113/islam/islam_tabcal.htm'>See website</a></td></tr>
+<tr><td>i_ivc</td><td>Islamic Tabular IVc</td><td>Use Case Needed</td><td></td><td class='note'><a href='http://www.staff.science.uu.nl/~gent0113/islam/islam_tabcal.htm'>See website</a></td></tr>
+<tr><td>ic</td><td>Icelandic</td><td>Proposed</td><td></td><td class='note'></td></tr>
 <tr><td>if</td><td>Islamic Fātimid</td><td>Library</td><td>hics:islamic</td><td class='note'>Includes year zero</td></tr>
 <tr><td>ims</td><td>Islamic Microsoft Hijri</td><td>Library</td><td>hics:islamic</td><td class='note'>Includes year zero</td></tr>
+<tr><td>io</td><td>Islamic Observational</td><td>Development</td><td></td><td class='note'>cc3 p328</td></tr>
+<tr><td>ir</td><td>Iranian</td><td>Proposed</td><td></td><td class='note'></td></tr>
 <tr><td>j</td><td>Julian</td><td>Library</td><td>hics:julian</td><td class='note'>Includes year zero</td></tr>
 <tr><td>ja</td><td>Julian Annunciation Florence</td><td>Library</td><td>hics:julian_shift</td><td class='note'>Includes year zero</td></tr>
+<tr><td>jal</td><td>Jalali</td><td>Proposed</td><td></td><td class='note'></td></tr>
 <tr><td>jap</td><td>Julian Annunciation Pisa</td><td>Library</td><td>hics:julian_shift</td><td class='note'>Includes year zero</td></tr>
+<tr><td>jav</td><td>Javanese</td><td>Proposed</td><td></td><td class='note'></td></tr>
 <tr><td>jce</td><td>Julian Common Era</td><td>Library</td><td>hics:jce</td><td class='note'></td></tr>
-<tr><td>jd</td><td>Julian Day</td><td>Proposed</td><td></td><td class='note'>Day starts at midday</td></tr>
+<tr><td>jd</td><td>Julian Day</td><td>Development</td><td></td><td class='note'>Day starts at midday</td></tr>
 <tr><td>jdn</td><td>Julian Day Number</td><td>Library</td><td>hics:jdn</td><td class='note'>Internal representation</td></tr>
 <tr><td>je</td><td>Julian Easter</td><td>Library</td><td>hics:easter</td><td class='note'>Use repeated flag to avoid ambiguity</td></tr>
+<tr><td>jlit</td><td>Julian Liturgical Weeks</td><td>Development</td><td></td><td class='note'></td></tr>
 <tr><td>jn</td><td>Julian Nativity</td><td>Library</td><td>hics:julian_shift</td><td class='note'>Includes year zero</td></tr>
+<tr><td>jp</td><td>Japanese</td><td>Proposed</td><td></td><td class='note'>cc3 p268</td></tr>
+<tr><td>jpr</td><td>Japanese Regnal</td><td>Proposed</td><td></td><td class='note'></td></tr>
 <tr><td>jwn</td><td>Julian Week Number</td><td>Library</td><td>hics:week</td><td class='note'>Hidden</td></tr>
 <tr><td>jwsn</td><td>Julian Week (Sunday) Number</td><td>Library</td><td>hics:week</td><td class='note'>Hidden</td></tr>
-<tr><td>mjd</td><td>Modified Julian Day</td><td>Library</td><td>hics:jdn</td><td class='note'></td></tr>
-<tr><td>rd</td><td>Rata Die</td><td>Library</td><td>hics:jdn</td><td class='note'></td></tr>
+<tr><td>k</td><td>Korean</td><td>Proposed</td><td></td><td class='note'>cc3 p269</td></tr>
+<tr><td>mh</td><td>Mayan Haab</td><td>Proposed</td><td></td><td class='note'>cc3 p139 (no year count)</td></tr>
+<tr><td>mjd</td><td>Modified Julian Day</td><td>Library</td><td>hics:jdn</td><td class='note'>Hidden</td></tr>
+<tr><td>mlc</td><td>Mayan Long Count</td><td>Proposed</td><td></td><td class='note'>cc3 p138</td></tr>
+<tr><td>mt</td><td>Mayan Tzolkin</td><td>Proposed</td><td></td><td class='note'>cc3 p142 (no year count)</td></tr>
+<tr><td>par</td><td>Persian Arithmetical</td><td>Proposed</td><td></td><td class='note'>cc3 p221</td></tr>
+<tr><td>pas</td><td>Persian Astronomical</td><td>Proposed</td><td></td><td class='note'>cc3 p219</td></tr>
+<tr><td>pr</td><td>Papal Regnal</td><td>Proposed</td><td></td><td class='note'></td></tr>
+<tr><td>r</td><td>Roman (pre Julian)</td><td>Proposed</td><td></td><td class='note'></td></tr>
+<tr><td>rd</td><td>Rata Die</td><td>Library</td><td>hics:jdn</td><td class='note'>Hidden</td></tr>
 <tr><td>roc</td><td>Republic of China (Gregorian)</td><td>Library</td><td>hics:roc</td><td class='note'></td></tr>
-<tr><td>scot</td><td>Scottish Hybrid</td><td>Proposed</td><td></td><td class='note'></td></tr>
-<tr><td>sr</td><td>Scottish Regnal</td><td>Proposed</td><td></td><td class='note'></td></tr>
-<tr><td>swed</td><td>Swedish Hybrid</td><td>Proposed</td><td></td><td class='note'>The calendar used by Sweden.</td></tr>
+<tr><td>scot</td><td>Scottish Hybrid</td><td>Development</td><td></td><td class='note'></td></tr>
+<tr><td>sr</td><td>Scottish Regnal</td><td>Development</td><td></td><td class='note'></td></tr>
+<tr><td>swed</td><td>Swedish Hybrid</td><td>Development</td><td></td><td class='note'>The calendar used by Sweden.</td></tr>
+<tr><td>t</td><td>Tibetan (Phugpa)</td><td>Proposed</td><td></td><td class='note'>cc3 p315</td></tr>
+<tr><td>v</td><td>Vietnamese</td><td>Proposed</td><td></td><td class='note'>cc3 p271</td></tr>
+<tr><td colspan='5'>cc3 = Calendrical Calculation 3rd Edition by Nachum Dershowitz and Edward M. Reingold.</td></tr>
 </table>
 
 <table class='basic'>
 <tr><th colspan='5'>Grammar Definitions</th></tr>
 <tr><th>Code</th><th>Name</th><th>Status</th><th>Module</th><th>Notes</th></tr>
-<tr><td>c</td><td>Chinese scheme</td><td>Library</td><td>hics:chinese</td><td class='note'></td></tr>
+<tr><td>c</td><td>Chinese year count formats</td><td>Library</td><td>hics:chinese</td><td class='note'></td></tr>
+<tr><td>ccsy</td><td>Chinese cycle and segyear formats</td><td>Library</td><td>hics:chinese</td><td class='note'>Inherits from "c"</td></tr>
 <tr><td>d</td><td>Simple Day Count</td><td>Library</td><td>hics:jdn</td><td class='note'></td></tr>
-<tr><td>er</td><td>English Regnal</td><td>Proposed</td><td></td><td class='note'></td></tr>
+<tr><td>er</td><td>English Regnal</td><td>Development</td><td></td><td class='note'></td></tr>
 <tr><td>fr</td><td>French Republic</td><td>Library</td><td>hics:french_rep</td><td class='note'></td></tr>
 <tr><td>g</td><td>Gregorian scheme</td><td>Library</td><td>hics:gregorian</td><td class='note'>Inherits from "j"</td></tr>
 <tr><td>go</td><td>Gregorian Year Day</td><td>Library</td><td>hics:gregorian</td><td class='note'></td></tr>
 <tr><td>gw</td><td>Gregorian Year Week Day</td><td>Library</td><td>hics:gregorian</td><td class='note'></td></tr>
 <tr><td>h</td><td>Hebrew</td><td>Library</td><td>hics:hebrew</td><td class='note'></td></tr>
-<tr><td>hy</td><td>Julian - Gregorian hybrids</td><td>Proposed</td><td></td><td class='note'></td></tr>
+<tr><td>hy</td><td>Julian - Gregorian hybrids</td><td>Development</td><td></td><td class='note'></td></tr>
 <tr><td>i</td><td>Islamic schemes</td><td>Library</td><td>hics:islamic</td><td class='note'></td></tr>
 <tr><td>j</td><td>Basic Julian and Gregorian schemes</td><td>Library</td><td>hics:julian</td><td class='note'></td></tr>
 <tr><td>j_sh</td><td>Shifted Julian and Gregorian schemes</td><td>Library</td><td>hics:julian_shift</td><td class='note'></td></tr>
@@ -103,20 +155,22 @@
 <tr><td>jg</td><td>Julian and Gregorian hybrid scheme</td><td>Library</td><td>hics:ay</td><td class='note'></td></tr>
 <tr><td>jwn</td><td>Julian Week Monday scheme</td><td>Library</td><td>hics:week</td><td class='note'></td></tr>
 <tr><td>jwsn</td><td>Julian Week Sunday scheme</td><td>Library</td><td>hics:week</td><td class='note'></td></tr>
-<tr><td>lit</td><td>Christian Liturgical Weeks</td><td>Proposed</td><td></td><td class='note'></td></tr>
-<tr><td>sr</td><td>Scottish Regnal</td><td>Proposed</td><td></td><td class='note'></td></tr>
+<tr><td>lit</td><td>Christian Liturgical Weeks</td><td>Development</td><td></td><td class='note'></td></tr>
+<tr><td>sr</td><td>Scottish Regnal</td><td>Development</td><td></td><td class='note'></td></tr>
 <tr><td>roc</td><td>Republic of China</td><td>Library</td><td>hics:roc</td><td class='note'></td></tr>
 </table>
 
 <table class='basic'>
 <tr><th colspan='6'>Lexicon Definitions</th></tr>
 <tr><th>Code</th><th>Name</th><th>Field</th><th>Status</th><th>Script</th><th>Notes</th></tr>
-<tr><td>animal</td><td>Chinese Year Animals</td><td>branch</td><td>Library</td><td>hics:chinese</td><td class='note'></td></tr>
-<tr><td>cbrch</td><td>Chinese Branch</td><td>branch</td><td>Library</td><td>hics:chinese</td><td class='note'></td></tr>
+<tr><td>animal</td><td>Chinese Year Animal</td><td>branch</td><td>Library</td><td>hics:chinese</td><td class='note'></td></tr>
+<tr><td>cbrch</td><td>Chinese Year Branch</td><td>branch</td><td>Library</td><td>hics:chinese</td><td class='note'></td></tr>
 <tr><td>ce</td><td>Historic Era</td><td>ce</td><td>Library</td><td>hics:jce</td><td class='note'></td></tr>
-<tr><td>cstem</td><td>Chinese Stem</td><td>stem</td><td>Library</td><td>hics:chinese</td><td class='note'></td></tr>
-<tr><td>er</td><td>English Monarchs</td><td></td><td>Proposed</td><td></td><td class='note'></td></tr>
+<tr><td>cstem</td><td>Chinese Year Stem</td><td>stem</td><td>Library</td><td>hics:chinese</td><td class='note'></td></tr>
+<tr><td>element</td><td>Chinese Year Element</td><td>element</td><td>Library</td><td>hics:chinese</td><td class='note'></td></tr>
+<tr><td>er</td><td>English Monarchs</td><td></td><td>Development</td><td></td><td class='note'></td></tr>
 <tr><td>fs</td><td>First and Second</td><td>lmonth</td><td>Library</td><td>hics:chinese</td><td class='note'></td></tr>
+<tr><td>fs2</td><td>First and Second for clmonth</td><td>clmonth</td><td>Library</td><td>hics:chinese</td><td class='note'></td></tr>
 <tr><td>frcomp</td><td>Complementary Days</td><td>cday</td><td>Library</td><td>hics:french_rep</td><td class='note'>For French Republican calendar</td></tr>
 <tr><td>frdd</td><td>Decade Day</td><td>dday</td><td>Library</td><td>hics:french_rep</td><td class='note'>For French Republican calendar</td></tr>
 <tr><td>frm</td><td>Month names</td><td>month</td><td>Library</td><td>hics:french_rep</td><td class='note'>For French Republican calendar</td></tr>
@@ -126,18 +180,20 @@
 <tr><td>hw</td><td>Weekday names</td><td>wsday</td><td>Library</td><td>hics:hebrew</td><td class='note'>For Hebrew calendar</td></tr>
 <tr><td>im</td><td>Month names</td><td>month</td><td>Library</td><td>hics:islamic</td><td class='note'>For Islamic calendar</td></tr>
 <tr><td>iw</td><td>Weekday names</td><td>wsday</td><td>Library</td><td>hics:islamic</td><td class='note'>For Islamic calendar</td></tr>
-<tr><td>jajg</td><td>Scheme names</td><td></td><td>Proposed</td><td></td><td class='note'>Used for Julian/Gregorian hybrids</td></tr>
+<tr><td>jajg</td><td>Scheme names</td><td></td><td>Development</td><td></td><td class='note'>Used for Julian/Gregorian hybrids</td></tr>
 <tr><td>jg</td><td>Scheme names</td><td>scheme</td><td>Library</td><td>hics:ay</td><td class='note'>Used for Julian/Gregorian hybrids</td></tr>
-<tr><td>lit</td><td>Liturgy Weeks</td><td></td><td>Proposed</td><td></td><td class='note'>Week starts Monday = 1</td></tr>
-<tr><td>lmon</td><td>Leap Month</td><td>clmonth</td><td>Library</td><td>hics:chinese</td><td class='note'></td></tr>
+<tr><td>lit</td><td>Liturgy Weeks</td><td></td><td>Development</td><td></td><td class='note'>Week starts Monday = 1</td></tr>
+<tr><td>lmon</td><td>Regular or Leap month</td><td>lmonth</td><td>Library</td><td>hics:chinese</td><td class='note'></td></tr>
+<tr><td>lmon2</td><td>Regular or Leap month for clmonth</td><td>clmonth</td><td>Library</td><td>hics:chinese</td><td class='note'></td></tr>
 <tr><td>m</td><td>Month names</td><td>month</td><td>Library</td><td>hics:julian</td><td class='note'></td></tr>
-<tr><td>on</td><td>Scheme names</td><td></td><td>Proposed</td><td></td><td class='note'>Old/New style</td></tr>
-<tr><td>part</td><td>Part of Reign Year</td><td></td><td>Proposed</td><td></td><td class='note'>First/Second part</td></tr>
+<tr><td>on</td><td>Scheme names</td><td></td><td>Development</td><td></td><td class='note'>Old/New style</td></tr>
+<tr><td>part</td><td>Part of Reign Year</td><td></td><td>Development</td><td></td><td class='note'>First/Second part</td></tr>
 <tr><td>rpt</td><td>Repeated Date</td><td>repeat</td><td>Library</td><td>hics:easter</td><td class='note'></td></tr>
 <tr><td>rptd</td><td>Repeated Date</td><td>repeated</td><td>Library</td><td>hics:easter</td><td class='note'></td></tr>
-<tr><td>sr</td><td>Scottish Monarchs</td><td></td><td>Proposed</td><td></td><td class='note'></td></tr>
+<tr><td>sr</td><td>Scottish Monarchs</td><td></td><td>Development</td><td></td><td class='note'></td></tr>
 <tr><td>w</td><td>Weekday names Monday start</td><td>wday</td><td>Library</td><td>hics:week</td><td class='note'></td></tr>
 <tr><td>ws</td><td>Weekday names Sunday start</td><td>wsday</td><td>Library</td><td>hics:week</td><td class='note'></td></tr>
+<tr><td>yingyang</td><td>Chinese Year Yin-Yang</td><td>polarity</td><td>Library</td><td>hics:chinese</td><td class='note'></td></tr>
 </table>
 
 </div><!--id=content-->
