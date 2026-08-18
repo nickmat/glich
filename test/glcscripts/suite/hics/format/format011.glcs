@@ -1,41 +1,49 @@
 // format011.glcs  Test format using alternate function names in format definition.
-/*[SKIP]*/
 
-grammar C {
-    fields year month lmonth day cycle cyear;
-    calculated stem branch;
-    rank cycle cyear month lmonth day;
-    function ex_fixed {
-        if stem <> null and branch <> null
-            cyear = ((stem - branch) mod 12) * 5 + stem;
-        endif
-        year = (cycle - 1) * 60 + cyear;
+lexicon CE {
+    fieldname ce;
+    tokens {
+        0, "Before Common Era", "BCE";
+        1, "Common Era",        "CE";
+    };
+};
+
+grammar JCE {
+    fields year month day;
+    calculated ce ceyear;
+    rank ce ceyear month day;
+    function ex_calculate { // output
+        ce = @if( year<1, 0, 1 );
+        ceyear = @if( year<1, -year+1, year );
         result = this;
     };
-    function ex_calculate {
-        cycle = ( (year - 1) div 60 ) + 1;
-        cyear = ( (year - 1) mod 60 ) + 1;
-        stem = (cyear - 1) mod 10 + 1;
-        branch = (cyear - 1) mod 12 + 1;
+    function ex_fixed { // input
+        year = @if( ce=1, ceyear, -ceyear+1 );
         result = this;
     };
-
-    format cymld {
-        inout "{cycle}| {cyear}| ({stem}-{branch})| {month}| {lmonth}| {day}";
+    format dmye {
+        inout "{day} |{month} |{ceyear} |{ce:CE:a}";
         functions { calculate ex_calculate; fixed ex_fixed; };
     };
 };
 
-scheme C {base chinese; grammar C;};
-
+scheme JCE {
+    base julian;
+    grammar JCE;
+};
 
 write nl;
-write @date.C:cymld("78 1 10 0 15"), @text.C:cymld( 2446012 ) nl;
-write @date.C:cymld("78 1 10 1 15"), @text.C:cymld( 2446042 ) nl;
+write @scheme.JCE:dmye(2446012), @scheme.JCE:dmye(1705582) nl;
+write @scheme.JCE:dmye(2446012)@ex_calculate, @scheme.JCE:dmye(1705582)@ex_calculate nl;
+write @date.JCE:dmye("25 10 1984 CE"), @text.JCE:dmye( 2446012 ) nl;
+write @date.JCE:dmye("18 8 44 BCE"), @text.JCE:dmye( 1705582 ) nl;
 
 /*[OUTPUT]
 
-2446012, 78 1 (1-1) 10 0 15
-2446042, 78 1 (1-1) 10 1 15
+{s:JCE 1984, 10, 25, null, null}, {s:JCE -43, 8, 18, null, null}
+{s:JCE 1984, 10, 25, 1, 1984}, {s:JCE -43, 8, 18, 0, 44}
+2446012, 25 10 1984 CE
+1705582, 18 8 44 BCE
 
 [OUTPUT]*/
+
