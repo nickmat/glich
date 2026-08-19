@@ -1,4 +1,4 @@
-// hics/schemes/fr-04.glcs - Test French Republic Calendar schemes.
+// hics/schemes/sch_FR-004.glcs - Test French Republic Calendar schemes.
 
 lexicon FRNM {
     name "Normal Month names";

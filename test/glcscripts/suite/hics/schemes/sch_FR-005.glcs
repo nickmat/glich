@@ -1,4 +1,4 @@
-// hics/schemes/fr-05.glcs - Test French Republic standard format
+// hics/schemes/sch_FR-005.glcs - Test French Republic standard format
 // Including padding and Roman numerals for years.
 
 lexicon FRNM {

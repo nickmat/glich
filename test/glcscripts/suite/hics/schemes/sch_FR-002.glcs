@@ -1,4 +1,4 @@
-// hics/schemes/fr-02.glcs - Test French Republic Calendar schemes.
+// hics/schemes/sch_FR-002.glcs - Test French Republic Calendar schemes.
 
 lexicon FRM {
     name "Month names";
