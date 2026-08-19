@@ -1,0 +1,48 @@
+// hics/schemes/sch_FR-001.glcs - Test base French Calendar scheme.
+
+scheme FR {
+    base french;
+};
+
+
+write nl;
+write "Shorthand: " + @fmt:object.FR:r[.shorthand] nl;
+write @scheme.FR( 2375840 ), @date( {s:FR 1, 1, 1} ) nl;
+write @text.FR( 2460575 ), @scheme.FR( 2460575 ) nl;
+write @date.FR( "232 13 5" ),  @scheme.FR( "232 13 5" ) nl;
+write @text( {s:FR 232, 13, 5} ), @date( {s:FR 232, 13, 5} ) nl;
+
+// Note, Autumn Equinox is 7.50am GMT on September 23, 2023 (jdn# 2460211)
+// Only a few minutes difference from Paris local time (the time used by French Rep. calendar).
+write nl;
+write @date.FR( "232 1 1" ), @text.FR( 2460211 ) nl;
+write @date.FR( "232 1" ), @text.FR( 2460211..2460240 ) nl;
+write @date.FR( "232" ), @text.FR( 2460211..2460575 ) nl;
+
+write nl;
+write "Shorthand: " + @fmt:object.FR:a[.shorthand] nl;
+write @date.FR:a( "232 1 1" ), @text.FR:a( 2460211 ) nl;
+
+write nl;
+write "Shorthand: " + @fmt:object.FR:u[.shorthand] nl;
+write @date.FR:u( "232year 1month 1day" ), @text.FR:u( 2460211 ) nl;
+
+/*[OUTPUT]
+
+Shorthand: true
+{s:FR 1, 1, 1}, 2375840
+232 13 5, {s:FR 232, 13, 5}
+2460575, {s:FR 232, 13, 5}
+232 13 5, 2460575
+
+2460211, 232 1 1
+2460211..2460240, 232 1
+2460211..2460575, 232
+
+Shorthand: false
+2460211, 232 1 1
+
+Shorthand: false
+2460211, 232year 1month 1day
+
+[OUTPUT]*/
