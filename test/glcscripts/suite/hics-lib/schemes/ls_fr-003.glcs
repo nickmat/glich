@@ -1,4 +1,4 @@
-// fr-004.glcs  Test fr scheme with roman numerals
+// ls_fr-003.glcs  Test fr scheme with roman numerals
 
 
 format fr:YMD "{year::rn}| {nmonth:frnm:a}| {nmday}";
