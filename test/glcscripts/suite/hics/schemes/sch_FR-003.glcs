@@ -68,7 +68,6 @@ grammar FR {
     name "French Republic";
     fields year month day;
     calculated nmonth nmday cday;
-    rank year nmonth nmday;
     lexicons FRM FRNM FRCOMP;
     alias pseudo { d day; mm month; yyyy year; };
     alias unit { d day; m month; y year; };
@@ -88,21 +87,20 @@ grammar FR {
 
     format dmy {
         inout "{day} |{month:FRM:a} |{year}";
-        rank year month day;
         functions { fixed calculate; };
     };
     format "dmy+" {
         inout "{day} |{month:FRM} |{year}";
-        rank year month day;
         functions { fixed calculate; };
     };
     format ymd {
         inout "{year} |{month:FRM:a} |{day}";
-        rank year month day;
         functions { fixed calculate; }; 
     };
+
     format cdmy {
         inout "{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";
+        rank year nmonth nmday;
     };
     preferred dmy;
 };
@@ -113,7 +111,6 @@ scheme FR {
     base french;
     grammar FR;
 };
-
 
 write nl;
 write @scheme.FR( 2460300 ), @scheme.FR( 2460207 ) nl;
