@@ -67,6 +67,9 @@ static SValue hic_object_to_date( Scheme* sch, const SValue& value )
 static FunctionData* get_function_data( Scheme* sch, Format* fmt, std::ostream& outs )
 {
     string fun_name = fmt->get_function_name( "fixed" );
+    if( fun_name.empty() ) {
+        fun_name = fmt->get_function_name( "calculate" );
+    }
     Function* fun = sch->get_function( fun_name );
     if( fun != nullptr ) {
         FunctionData* fundata = new FunctionData( *fun, outs );
