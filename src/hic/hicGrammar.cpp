@@ -549,6 +549,7 @@ void Grammar::create_all_format()
     fmt->set_control_out( control );
     fmt->set_visible( false );
     fmt->set_allow_shorthand( false );
+    fmt->set_show_nulls( true );
     add_format( fmt );
 }
 
