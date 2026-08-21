@@ -1,14 +1,19 @@
 // ls_fr-001.glcs  Test fr scheme
 /*[SKIP]*/
 
+write "fr:r", @text.fr:r( 2460575 ) nl;
+
+
 write nl;
 write @date.fr:dmy( "" ) nl;
 write @date.fr({s:fr 232, 13, 5}), @scheme.fr( 2460576 ) nl;
 write @date.fr({s:fr 233, 1, 1}), @scheme.fr( 2460575 ) nl;
 write @date.fr:u("232y 13m 5d 5cd"), @text.fr:u( 2460575 ) nl;
 write @date.fr:u("233y 1m 1d 1nm 1nd 1dd"), @text.fr:u( 2460576 ) nl;
-write @date.fr:def("232 13 5"), @text.fr:def( 2460575 ) nl;
-write @date.fr:def("233 1 1"), @text.fr:def( 2460576 ) nl;
+write "fr:r", @date.fr:r("232 13 5"), @text.fr:r( 2460575 ) nl;
+write "fr:r", @date.fr:r("233 1 1"), @text.fr:r( 2460576 ) nl;
+write "fr:a", @date.fr:a("232 13 5"), @text.fr:a( 2460575 ) nl;
+write "fr:a", @date.fr:a("233 1 1"), @text.fr:a( 2460576 ) nl;
 write @date.fr:dmy_a("5 Comp 232"), @text.fr:dmy_a( 2460575 ) nl;
 write @date.fr:dmy_a("1 Vend 233"), @text.fr:dmy_a( 2460576 ) nl;
 write @date.fr:dmy("5 Complémentaires 232"), @text.fr:dmy( 2460575 ) nl;

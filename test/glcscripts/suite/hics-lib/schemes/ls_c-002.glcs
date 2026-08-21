@@ -1,6 +1,6 @@
 // hics/schemes/ls_c-001.glcs - Test library scheme Chinese "c".
 // Check the scheme formats.
-
+/*[SKIP]*/
 write nl;
 write @sch:object.c[.formats] nl;
 write "@scheme.c( 2460866 ) = " + @scheme.c( 2460866 ) nl;

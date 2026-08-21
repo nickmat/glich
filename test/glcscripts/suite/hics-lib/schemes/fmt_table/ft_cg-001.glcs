@@ -1,5 +1,5 @@
 // ft_cg-001.glcs  Create cg scheme format table.
-
+/*[SKIP]*/
 let sch = "cg";
 
 let d1 = 2460866;

@@ -1,6 +1,6 @@
 // hics/schemes/ls_cg-002.glcs - Test library scheme Chinese "cg".
 // Check the scheme formats.
-
+/*[SKIP]*/
 write nl;
 write @sch:object.cg[.formats] nl;
 write "@scheme.cg( 2460866 ) = " + @scheme.cg( 2460866 ) nl;

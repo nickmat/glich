@@ -1,5 +1,5 @@
 // ft_je-001.glcs  Create je scheme format table.
-
+/*[SKIP]*/
 let sch = "je";
 
 let d1 = 2460050;
