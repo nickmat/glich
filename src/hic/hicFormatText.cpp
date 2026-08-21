@@ -50,7 +50,7 @@ using std::string;
 
 FormatText::FormatText( const string& code, Grammar& gmr )
     : Format( code, gmr, FmtRules::Text ), m_separators(":,"),
-    m_has_roman(false), m_sig_rank_size(0)
+    m_has_roman(false), m_show_nulls(false), m_sig_rank_size(0)
 {
     m_shorthand = true;
 }
@@ -302,6 +302,9 @@ string FormatText::get_revealed_output( const Record& record, const BoolVec* rev
                 }
                 else {
                     value = ele.get_formatted_element( f );
+                    if( m_show_nulls && value.empty() ) {
+                        value = "?";
+                    }
                 }
                 if( value.empty() ) {
                     fieldout.clear();

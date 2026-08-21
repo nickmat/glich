@@ -46,6 +46,7 @@ namespace glich {
         void set_control_out( const std::string& format ) { m_control_out = format; }
         void set_control_in( const std::string& format ) { m_control_in = format; }
         void set_padding( const StdStrVec& padding ) { m_padding = padding; }
+        void set_show_nulls( bool show ) { m_show_nulls = show; }
 
         std::string get_control_in() const { return m_control_in; }
         std::string get_control_out() const { return m_control_out; }
@@ -80,6 +81,7 @@ namespace glich {
         std::string m_separators;
         StdStrVec   m_padding;
         bool        m_has_roman;
+        bool        m_show_nulls;
 
         StdStrVec   m_default_fieldnames;
         StdStrVec   m_rank_fieldnames;
