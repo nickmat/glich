@@ -1,5 +1,4 @@
 // hics/schemes/sch_FR-004.glcs - Test French Republic Calendar schemes.
-/*[SKIP]*/
 
 lexicon FRNM {
     name "Normal Month names";
@@ -86,10 +85,9 @@ grammar FR {
     fields year month day;
     calculated nmonth nmday cday, dday;
     optional wday;
-//    rank year nmonth nmday;
     lexicons FRM FRNM FRCOMP FRDD W;
     alias pseudo { d day; mm month; yyyy year; };
-    alias unit { d day; m month; y year; };
+    alias unit { d day; m month; y year; nm nmonth; nd nmday; cd cday; dd dday; };
 
     // Record: year month day nmonth nmday cday dday wday
     function fixed_from_comp {
@@ -125,30 +123,26 @@ grammar FR {
     format dmy "{day} |{month:FRM:a} |{year}";
     format "dmy+" "{day} |{month:FRM} |{year}";
     format ymd "{year}| {month:FRM:a}| {day}";
-/*
-    format dmy {
-        inout "{day} |{month:FRM:a} |{year}";
-        rank year month day;
-        functions { fixed calculate; };
+    format cdmy {
+        inout "{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";
+        rank year nmonth nmday;
+        functions { fixed fixed_from_comp; };
     };
-    format "dmy+" {
-        inout "{day} |{month:FRM} |{year}";
-        rank year month day;
-        functions { fixed calculate; };
-    };
-    format ymd {
-        inout "{year} |{month:FRM:a} |{day}";
-        rank year month day;
-        functions { fixed calculate; };
-    };
-*/
-    format cdmy  "{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";
     format out {
-        output "{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |an {year::rn}";
+        inout "{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |an {year::rn}";
+        rank year nmonth nmday;
+        functions { fixed fixed_from_comp; };
     };
-    format dcdmy  "{dday:FRDD} |{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";
-    format wcdmy  "{wday:W}, |{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";
-
+    format dcdmy {
+        inout "{dday:FRDD} |{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";
+        rank year nmonth nmday;
+        functions { fixed fixed_from_comp; };
+    };
+    format wcdmy {
+        inout "{wday:W}, |{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";
+        rank year nmonth nmday;
+        functions { fixed fixed_from_comp; };
+    };
     preferred dmy;
 };
 
@@ -160,14 +154,10 @@ scheme FR {
 };
 
 let sig = "FR:a";
-write @text.(sig)( 2461302 ) nl;
-
 write nl;
 write @sch:object.FR[.formats] nl;
 write "@scheme.FR( 2461274 ) = " + @scheme.FR( 2461274 ) nl;
 write "@scheme.FR( 2461302 ) = " + @scheme.FR( 2461302 ) nl;
-//write "@scheme.FR( ""4 Fruc 234"" ) = " + @scheme.FR:cdmy( "4 Fruc 234" ) nl;
-//write "@scheme.FR( ""2 Comp 234"" ) = " + @scheme.FR:cdmy( "2 Comp 234" ) nl;
 
 let sig = "FR:a";
 write nl;
@@ -184,30 +174,73 @@ write @date.(sig)( @text.(sig)( 2461271..2461300 ) ), @text.(sig)( 2461271..2461
 write @date.(sig)( @text.(sig)( 2461301..2461306 ) ), @text.(sig)( 2461301..2461306 ) nl;
 write @date.(sig)( @text.(sig)( 2460941..2461306 ) ), @text.(sig)( 2460941..2461306 ) nl;
 
-/*
+let sig = "FR:u";
 write nl;
-write @date.FR:dmy("xyz") nl;
-write @scheme.FR( 2460300 ), @scheme.FR( 2460572 ) nl;
-write @scheme.FR:cdmy( "30 Frim 232" ), @scheme.FR:cdmy( "Fête du Génie 232" ) nl;
-write @scheme.FR:dmy( "30 Frim 232" ), @scheme.FR:dmy( "2 Comp 232" ) nl;
-write @text.FR:ymd( 2460300 ), @text.FR:ymd( 2460572 ) nl;
-write @text.FR:cdmy( 2460300 ), @text.FR:cdmy( 2460572 ) nl;
-write @text.FR:out( 2460300 ), @text.FR:out( 2460572 ) nl;
-write @text.FR:dcdmy( 2460300 ), @text.FR:dcdmy( 2460572 ) nl;
-write @text.FR:wcdmy( 2460300 ), @text.FR:wcdmy( 2460572 ) nl;
-write @text.FR:ymd( {s:FR 232, 3, 30} ), @text.FR:ymd( {s:FR 232, 13, 2} ) nl;
-write @date.FR:ymd( "232 Frim 30" ), @date.FR:ymd( "232 Comp 2" ) nl;
-write @date.FR:cdmy( "30 Frim 232" ), @date.FR:cdmy( "Gen 232" ) nl;
-write @date.FR:dcdmy( "Décadi 30 Frimaire 232" ), @date.FR:dcdmy( "Fête du Génie 232" ) nl;
-write @date.FR:wcdmy( "Thursday, 30 Frimaire 232" ), @date.FR:wcdmy( "Wednesday, Fête du Génie 232" ) nl;
-write @date( {s:FR 232, 3, 30} ), @date( {s:FR 232,,,,,2}@fixed ) nl;
-*/
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2461274 ) ), @text.(sig)( 2461274 ) nl;
+write @date.(sig)( @text.(sig)( 2461302 ) ), @text.(sig)( 2461302 ) nl;
+
+let sig = "FR:dmy";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2461274 ) ), @text.(sig)( 2461274 ) nl;
+write @date.(sig)( @text.(sig)( 2461302 ) ), @text.(sig)( 2461302 ) nl;
+write @date.(sig)( @text.(sig)( 2461271..2461300 ) ), @text.(sig)( 2461271..2461300 ) nl;
+write @date.(sig)( @text.(sig)( 2461301..2461306 ) ), @text.(sig)( 2461301..2461306 ) nl;
+write @date.(sig)( @text.(sig)( 2460941..2461306 ) ), @text.(sig)( 2460941..2461306 ) nl;
+
+let sig = "FR:dmy+";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2461274 ) ), @text.(sig)( 2461274 ) nl;
+write @date.(sig)( @text.(sig)( 2461302 ) ), @text.(sig)( 2461302 ) nl;
+write @date.(sig)( @text.(sig)( 2461271..2461300 ) ), @text.(sig)( 2461271..2461300 ) nl;
+write @date.(sig)( @text.(sig)( 2461301..2461306 ) ), @text.(sig)( 2461301..2461306 ) nl;
+write @date.(sig)( @text.(sig)( 2460941..2461306 ) ), @text.(sig)( 2460941..2461306 ) nl;
+
+let sig = "FR:ymd";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2461274 ) ), @text.(sig)( 2461274 ) nl;
+write @date.(sig)( @text.(sig)( 2461302 ) ), @text.(sig)( 2461302 ) nl;
+write @date.(sig)( @text.(sig)( 2461271..2461300 ) ), @text.(sig)( 2461271..2461300 ) nl;
+write @date.(sig)( @text.(sig)( 2461301..2461306 ) ), @text.(sig)( 2461301..2461306 ) nl;
+write @date.(sig)( @text.(sig)( 2460941..2461306 ) ), @text.(sig)( 2460941..2461306 ) nl;
+
+let sig = "FR:cdmy";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2461274 ) ), @text.(sig)( 2461274 ) nl;
+write @date.(sig)( @text.(sig)( 2461302 ) ), @text.(sig)( 2461302 ) nl;
+
+let sig = "FR:out";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2461274 ) ), @text.(sig)( 2461274 ) nl;
+write @date.(sig)( @text.(sig)( 2461302 ) ), @text.(sig)( 2461302 ) nl;
+
+let sig = "FR:dcdmy";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2461274 ) ), @text.(sig)( 2461274 ) nl;
+write @date.(sig)( @text.(sig)( 2461302 ) ), @text.(sig)( 2461302 ) nl;
+
+let sig = "FR:wcdmy";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2461274 ) ), @text.(sig)( 2461274 ) nl;
+write @date.(sig)( @text.(sig)( 2461302 ) ), @text.(sig)( 2461302 ) nl;
+
 
 /*[OUTPUT]
 
 {: "dmy", "dmy+", "ymd", "cdmy", "out", "dcdmy", "wcdmy", "a", "r", "u"}
 @scheme.FR( 2461274 ) = {s:FR 234, 12, 4, 12, 4, null, 4, 5}
 @scheme.FR( 2461302 ) = {s:FR 234, 13, 2, null, null, 2, null, 5}
+
+Shorthand range for FR:a: false
+2461274, 234 12 4 12 4 ? 4 5
+2461302, 234 13 2 ? ? 2 ? 5
 
 Shorthand range for FR:r: true
 2461274, 234 12 4
@@ -216,23 +249,45 @@ Shorthand range for FR:r: true
 2461301..2461306, 234 13
 2460941..2461306, 234
 
+Shorthand range for FR:u: false
+2461274, 234y 12m 4d 12nm 4nd 4dd
+2461302, 234y 13m 2d 2cd
+
+Shorthand range for FR:dmy: true
+2461274, 4 Fruc 234
+2461302, 2 Comp 234
+2461271..2461300, Fruc 234
+2461301..2461306, Comp 234
+2460941..2461306, 234
+
+Shorthand range for FR:dmy+: true
+2461274, 4 Fructidor 234
+2461302, 2 Complémentaires 234
+2461271..2461300, Fructidor 234
+2461301..2461306, Complémentaires 234
+2460941..2461306, 234
+
+Shorthand range for FR:ymd: true
+2461274, 234 Fruc 4
+2461302, 234 Comp 2
+2461271..2461300, 234 Fruc
+2461301..2461306, 234 Comp
+2460941..2461306, 234
+
+Shorthand range for FR:cdmy: false
+2461274, 4 Fructidor 234
+2461302, Fête du Génie 234
+
+Shorthand range for FR:out: false
+2461274, 4 Fructidor an CCXXXIV
+2461302, Fête du Génie an CCXXXIV
+
+Shorthand range for FR:dcdmy: false
+2461274, Quartidi 4 Fructidor 234
+2461302, Fête du Génie 234
+
+Shorthand range for FR:wcdmy: false
+2461274, Friday, 4 Fructidor 234
+2461302, Friday, Fête du Génie 234
+
 [OUTPUT]*/
-/*[xxxOUTPUT]
-
-empty
-{s:FR 232, 3, 30, 3, 30, null, 10, 4}, {s:FR 232, 13, 2, null, null, 2, null, 3}
-{s:FR 232, 3, 30, 3, 30, null, 10, 4}, {s:FR 232, 13, 2, null, null, 2, null, 3}
-{s:FR 232, 3, 30, 3, 30, null, 10, 4}, {s:FR 232, 13, 2, null, null, 2, null, 3}
-232 Frim 30, 232 Comp 2
-30 Frimaire 232, Fête du Génie 232
-30 Frimaire an CCXXXII, Fête du Génie an CCXXXII
-Décadi 30 Frimaire 232, Fête du Génie 232
-Thursday, 30 Frimaire 232, Wednesday, Fête du Génie 232
-232 Frim 30, 232 Comp 2
-2460300, 2460572
-2460300, 2460572
-2460300, 2460572
-2460300, 2460572
-2460300, 2460572
-
-[xxxOUTPUT]*/
