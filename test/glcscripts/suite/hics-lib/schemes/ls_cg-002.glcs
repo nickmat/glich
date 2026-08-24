@@ -1,6 +1,6 @@
 // hics/schemes/ls_cg-002.glcs - Test library scheme Chinese "cg".
 // Check the scheme formats.
-/*[SKIP]*/
+
 write nl;
 write @sch:object.cg[.formats] nl;
 write "@scheme.cg( 2460866 ) = " + @scheme.cg( 2460866 ) nl;
@@ -124,9 +124,9 @@ Shorthand range for cg:elem_anim: true
 2460705..2461088, 2025 The Yin-Wood-Snake Year
 
 Shorthand range for cg:a: false
-2460866, 2025 6 1 15 78 42 2 6 1 2
-2460896, 2025 6 2 15 78 42 2 6 1 2
-2460925, 2025 7 1 15 78 42 2 6 1 2
+2460866, 2025 6 1 15 78 42 2 6 1 2 ?
+2460896, 2025 6 2 15 78 42 2 6 1 2 ?
+2460925, 2025 7 1 15 78 42 2 6 1 2 ?
 
 Shorthand range for cg:r: true
 2460866, 2025 6 1 15
