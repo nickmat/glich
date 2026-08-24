@@ -127,9 +127,9 @@ grammar C {
     calculated clmonth;
 
     alias pseudo { dd day; mm month; lm lmonth; yyyy year; cc cycle; sy segyear; ss stem; bb branch; e element; y yinyang; };
-    alias unit { d day; m month; lm lmonth; y year; c cycle; sy segyear; s stem; b branch; e element; p polarity; };
+    alias unit { d day; m month; lm lmonth; y year; c cycle; sy segyear; s stem; b branch; e element; p polarity; clm clmonth; };
 
-    function calculate_clmonth {
+    function calculate {
         clmonth = @if(lmonth=1, @if(@leapmonth.(scode)( year, month),1,null), 2);
         result = this;
     };
@@ -144,7 +144,6 @@ grammar C {
         inout "{year}| {clmonth:FS2}| {month}| {day}";
         rank year month day;
         functions {
-            calculate calculate_clmonth;
             fixed fixed_from_clmonth;
         };
     };
@@ -168,7 +167,6 @@ grammar CCSY {
         inout "{cycle}| {segyear}| {clmonth:LMON2:a}| {month}| {day}";
         rank cycle segyear month day;
          functions {
-            calculate calculate_clmonth;
             fixed fixed_from_clmonth;
         };
     };
@@ -177,7 +175,6 @@ grammar CCSY {
         rank cycle month day;
         separators ",-";
         functions {
-            calculate calculate_clmonth;
             fixed fixed_from_clmonth;
         };
     };
@@ -186,7 +183,6 @@ grammar CCSY {
         rank cycle segyear month day;
         separators ",-";
         functions {
-            calculate calculate_clmonth;
             fixed fixed_from_clmonth;
         };
     };
@@ -335,7 +331,7 @@ write @date.(sig)( @text.(sig)( 2460925 ) ), @text.(sig)( 2460925 ) nl;
 /*[OUTPUT]
 
 {: "cymld", "cylmd", "cylmd_s", "cylmd_f", "cy_animal", "ymld", "ylmd", "animal", "elem_anim", "a", "r", "u"}
-@scheme.C( 2460866 ) = {s:C 4662, 6, 1, 15, 78, 42, 2, 6, 1, 2, null}
+@scheme.C( 2460866 ) = {s:C 4662, 6, 1, 15, 78, 42, 2, 6, 1, 2, 1}
 
 Shorthand range for C:ymld: true
 2460866, 4662 6 f 15
@@ -415,9 +411,9 @@ Shorthand range for C:cy_animal: true
 2445733..2467644, (Cycle 78)
 
 Shorthand range for C:a: false
-2460866, 4662 6 1 15 78 42 2 6 1 2
-2460896, 4662 6 2 15 78 42 2 6 1 2
-2460925, 4662 7 1 15 78 42 2 6 1 2
+2460866, 4662 6 1 15 78 42 2 6 1 2 1
+2460896, 4662 6 2 15 78 42 2 6 1 2 2
+2460925, 4662 7 1 15 78 42 2 6 1 2 ?
 
 Shorthand range for C:r: true
 2460866, 4662 6 1 15
@@ -431,8 +427,8 @@ Shorthand range for C:r: true
 2460705..2461088, 4662
 
 Shorthand range for C:u: false
-2460866, 4662y 6m 1lm 15d 78c 42sy 2s 6b 1e 2p
-2460896, 4662y 6m 2lm 15d 78c 42sy 2s 6b 1e 2p
+2460866, 4662y 6m 1lm 15d 78c 42sy 2s 6b 1e 2p 1clm
+2460896, 4662y 6m 2lm 15d 78c 42sy 2s 6b 1e 2p 2clm
 2460925, 4662y 7m 1lm 15d 78c 42sy 2s 6b 1e 2p
 
 [OUTPUT]*/
