@@ -1,6 +1,6 @@
 // hics/schemes/ls_c-001.glcs - Test library scheme Chinese "c".
 // Check the scheme formats.
-/*[SKIP]*/
+
 write nl;
 write @sch:object.c[.formats] nl;
 write "@scheme.c( 2460866 ) = " + @scheme.c( 2460866 ) nl;
@@ -213,9 +213,9 @@ Shorthand range for c:cy_animal: true
 2445733..2467644, (Cycle 78)
 
 Shorthand range for c:a: false
-2460866, 4662 6 1 15 78 42 2 6 1 2
-2460896, 4662 6 2 15 78 42 2 6 1 2
-2460925, 4662 7 1 15 78 42 2 6 1 2
+2460866, 4662 6 1 15 78 42 2 6 1 2 ?
+2460896, 4662 6 2 15 78 42 2 6 1 2 ?
+2460925, 4662 7 1 15 78 42 2 6 1 2 ?
 
 Shorthand range for c:r: true
 2460866, 4662 6 1 15
