@@ -1,5 +1,7 @@
 rem Examine test output
 
+@echo off
+
 python split_test_output.py
 if %errorlevel% neq 0 (
     echo Aborted.
