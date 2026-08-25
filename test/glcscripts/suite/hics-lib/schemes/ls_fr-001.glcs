@@ -1,73 +1,185 @@
 // ls_fr-001.glcs  Test fr scheme
-/*[SKIP]*/
-
-write "fr:r", @text.fr:r( 2460575 ) nl;
-
 
 write nl;
-write @date.fr:dmy( "" ) nl;
-write @date.fr({s:fr 232, 13, 5}), @scheme.fr( 2460576 ) nl;
-write @date.fr({s:fr 233, 1, 1}), @scheme.fr( 2460575 ) nl;
-write @date.fr:u("232y 13m 5d 5cd"), @text.fr:u( 2460575 ) nl;
-write @date.fr:u("233y 1m 1d 1nm 1nd 1dd"), @text.fr:u( 2460576 ) nl;
-write "fr:r", @date.fr:r("232 13 5"), @text.fr:r( 2460575 ) nl;
-write "fr:r", @date.fr:r("233 1 1"), @text.fr:r( 2460576 ) nl;
-write "fr:a", @date.fr:a("232 13 5"), @text.fr:a( 2460575 ) nl;
-write "fr:a", @date.fr:a("233 1 1"), @text.fr:a( 2460576 ) nl;
-write @date.fr:dmy_a("5 Comp 232"), @text.fr:dmy_a( 2460575 ) nl;
-write @date.fr:dmy_a("1 Vend 233"), @text.fr:dmy_a( 2460576 ) nl;
-write @date.fr:dmy("5 Complémentaires 232"), @text.fr:dmy( 2460575 ) nl;
-write @date.fr:dmy("1 Vendémiaire 233"), @text.fr:dmy( 2460576 ) nl;
-write @date.fr:ymd("232 Complémentaires 5"), @text.fr:ymd( 2460575 ) nl;
-write @date.fr:ymd("233 Vendémiaire 1"), @text.fr:ymd( 2460576 ) nl;
-write @date.fr:cdmy("Fête des Récompenses 232"), @text.fr:cdmy( 2460575 ) nl;
-write @date.fr:cdmy("1 Vendémiaire 233"), @text.fr:cdmy( 2460576 ) nl;
-write @date.fr:cdmy_a("Rec 232"), @text.fr:cdmy_a( 2460575 ) nl;
-write @date.fr:cdmy_a("1 Vend 233"), @text.fr:cdmy_a( 2460576 ) nl;
-write @date.fr:std("Fête des Récompenses an CCXXXII"), @text.fr:std( 2460575 ) nl;
-write @date.fr:std("1 Vendémiaire an CCXXXIII"), @text.fr:std( 2460576 ) nl;
-write @date.fr:dcdmy("Fête des Récompenses 232"), @text.fr:dcdmy( 2460575 ) nl;
-write @date.fr:dcdmy("Primidi 1 Vendémiaire 233"), @text.fr:dcdmy( 2460576 ) nl;
-write @date.fr:dcdmy_a("Rec 232"), @text.fr:dcdmy_a( 2460575 ) nl;
-write @date.fr:dcdmy_a("Prim 1 Vend 233"), @text.fr:dcdmy_a( 2460576 ) nl;
-write @date.fr:wcdmy("Saturday, Fête des Récompenses 232"), @text.fr:wcdmy( 2460575 ) nl;
-write @date.fr:wcdmy("Sunday, 1 Vendémiaire 233"), @text.fr:wcdmy( 2460576 ) nl;
-write @date.fr:wcdmy_a("Sat, Rec 232"), @text.fr:wcdmy_a( 2460575 ) nl;
-write @date.fr:wcdmy_a("Sun, 1 Vend 233"), @text.fr:wcdmy_a( 2460576 ) nl;
-write @date.fr:gedcom("5 COMP 232"), @text.fr:gedcom( 2460575 ) nl;
-write @date.fr:gedcom("1 VEND 233"), @text.fr:gedcom( 2460576 ) nl;
+write @sch:object.fr[.formats] nl;
+write "@scheme.fr( 2460575 ) = " + @scheme.fr( 2460575 ) nl;
+write "@scheme.fr( 2460576 ) = " + @scheme.fr( 2460576 ) nl;
+
+let sig = "fr:a";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460575 ) ), @text.(sig)( 2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576 ) ), @text.(sig)( 2460576 ) nl;
+
+let sig = "fr:r";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460575 ) ), @text.(sig)( 2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576 ) ), @text.(sig)( 2460576 ) nl;
+write @date.(sig)( @text.(sig)( 2460571..2460575 ) ), @text.(sig)( 2460571..2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576..2460605 ) ), @text.(sig)( 2460576..2460605 ) nl;
+write @date.(sig)( @text.(sig)( 2460576..2460940 ) ), @text.(sig)( 2460576..2460940 ) nl;
+
+let sig = "fr:u";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460575 ) ), @text.(sig)( 2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576 ) ), @text.(sig)( 2460576 ) nl;
+
+let sig = "fr:dmy_a";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460575 ) ), @text.(sig)( 2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576 ) ), @text.(sig)( 2460576 ) nl;
+write @date.(sig)( @text.(sig)( 2460571..2460575 ) ), @text.(sig)( 2460571..2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576..2460605 ) ), @text.(sig)( 2460576..2460605 ) nl;
+write @date.(sig)( @text.(sig)( 2460576..2460940 ) ), @text.(sig)( 2460576..2460940 ) nl;
+
+let sig = "fr:dmy";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460575 ) ), @text.(sig)( 2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576 ) ), @text.(sig)( 2460576 ) nl;
+write @date.(sig)( @text.(sig)( 2460571..2460575 ) ), @text.(sig)( 2460571..2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576..2460605 ) ), @text.(sig)( 2460576..2460605 ) nl;
+write @date.(sig)( @text.(sig)( 2460576..2460940 ) ), @text.(sig)( 2460576..2460940 ) nl;
+
+let sig = "fr:ymd";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460575 ) ), @text.(sig)( 2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576 ) ), @text.(sig)( 2460576 ) nl;
+write @date.(sig)( @text.(sig)( 2460571..2460575 ) ), @text.(sig)( 2460571..2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576..2460605 ) ), @text.(sig)( 2460576..2460605 ) nl;
+write @date.(sig)( @text.(sig)( 2460576..2460940 ) ), @text.(sig)( 2460576..2460940 ) nl;
+
+let sig = "fr:cdmy";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460575 ) ), @text.(sig)( 2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576 ) ), @text.(sig)( 2460576 ) nl;
+
+let sig = "fr:cdmy_a";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460575 ) ), @text.(sig)( 2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576 ) ), @text.(sig)( 2460576 ) nl;
+
+let sig = "fr:std";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460575 ) ), @text.(sig)( 2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576 ) ), @text.(sig)( 2460576 ) nl;
+
+let sig = "fr:dcdmy";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460575 ) ), @text.(sig)( 2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576 ) ), @text.(sig)( 2460576 ) nl;
+
+let sig = "fr:dcdmy_a";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460575 ) ), @text.(sig)( 2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576 ) ), @text.(sig)( 2460576 ) nl;
+
+let sig = "fr:wcdmy";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460575 ) ), @text.(sig)( 2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576 ) ), @text.(sig)( 2460576 ) nl;
+
+let sig = "fr:wcdmy_a";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460575 ) ), @text.(sig)( 2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576 ) ), @text.(sig)( 2460576 ) nl;
+
+let sig = "fr:gedcom";
+write nl;
+write "Shorthand range for " + sig + ": " + @fmt:object.(sig)[.shorthand] nl;
+write @date.(sig)( @text.(sig)( 2460575 ) ), @text.(sig)( 2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576 ) ), @text.(sig)( 2460576 ) nl;
+write @date.(sig)( @text.(sig)( 2460571..2460575 ) ), @text.(sig)( 2460571..2460575 ) nl;
+write @date.(sig)( @text.(sig)( 2460576..2460605 ) ), @text.(sig)( 2460576..2460605 ) nl;
+write @date.(sig)( @text.(sig)( 2460576..2460940 ) ), @text.(sig)( 2460576..2460940 ) nl;
 
 
 /*[OUTPUT]
 
-empty
-2460575, {s:fr 233, 1, 1, 1, 1, null, 1, 7}
-2460576, {s:fr 232, 13, 5, null, null, 5, null, 6}
+{: "dmy_a", "dmy", "ymd", "cdmy", "cdmy_a", "std", "dcdmy", "dcdmy_a", "wcdmy", "wcdmy_a", "gedcom", "a", "r", "u"}
+@scheme.fr( 2460575 ) = {s:fr 232, 13, 5, null, null, 5, null, 6}
+@scheme.fr( 2460576 ) = {s:fr 233, 1, 1, 1, 1, null, 1, 7}
+
+Shorthand range for fr:a: false
+2460575, 232 13 5 ? ? 5 ? 6
+2460576, 233 1 1 1 1 ? 1 7
+
+Shorthand range for fr:r: true
+2460575, 232 13 5
+2460576, 233 1 1
+2460571..2460575, 232 13
+2460576..2460605, 233 1
+2460576..2460940, 233
+
+Shorthand range for fr:u: false
 2460575, 232y 13m 5d 5cd
 2460576, 233y 1m 1d 1nm 1nd 1dd
-2460575, 232 13 5 5
-2460576, 233 1 1 1 1 1
+
+Shorthand range for fr:dmy_a: true
 2460575, 5 Comp 232
 2460576, 1 Vend 233
+2460571..2460575, Comp 232
+2460576..2460605, Vend 233
+2460576..2460940, 233
+
+Shorthand range for fr:dmy: true
 2460575, 5 Complémentaires 232
 2460576, 1 Vendémiaire 233
+2460571..2460575, Complémentaires 232
+2460576..2460605, Vendémiaire 233
+2460576..2460940, 233
+
+Shorthand range for fr:ymd: true
 2460575, 232 Complémentaires 5
 2460576, 233 Vendémiaire 1
+2460571..2460575, 232 Complémentaires
+2460576..2460605, 233 Vendémiaire
+2460576..2460940, 233
+
+Shorthand range for fr:cdmy: false
 2460575, Fête des Récompenses 232
 2460576, 1 Vendémiaire 233
+
+Shorthand range for fr:cdmy_a: false
 2460575, Rec 232
 2460576, 1 Vend 233
+
+Shorthand range for fr:std: false
 2460575, Fête des Récompenses an CCXXXII
 2460576, 1 Vendémiaire an CCXXXIII
+
+Shorthand range for fr:dcdmy: false
 2460575, Fête des Récompenses 232
 2460576, Primidi 1 Vendémiaire 233
+
+Shorthand range for fr:dcdmy_a: false
 2460575, Rec 232
 2460576, Prim 1 Vend 233
+
+Shorthand range for fr:wcdmy: false
 2460575, Saturday, Fête des Récompenses 232
 2460576, Sunday, 1 Vendémiaire 233
+
+Shorthand range for fr:wcdmy_a: false
 2460575, Sat, Rec 232
 2460576, Sun, 1 Vend 233
+
+Shorthand range for fr:gedcom: true
 2460575, 5 COMP 232
 2460576, 1 VEND 233
+2460571..2460575, COMP 232
+2460576..2460605, VEND 233
+2460576..2460940, 233
 
 [OUTPUT]*/
