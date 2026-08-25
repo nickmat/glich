@@ -105,15 +105,15 @@
  The additional <code>segyear</code> field is the year within the sexagenary cycle.
 </p>
 <p>
-    The additional <code>stem</code> and <code>branch</code> fields
-    are the year stem and branch of the sexagenary cycle.
-    The additional <code>element</code> and <code>polarity</code> fields
-    are the element and polarity of the year stem.
+ The additional <code>stem</code> and <code>branch</code> fields
+ are the year stem and branch of the sexagenary cycle.
+ The additional <code>element</code> and <code>polarity</code> fields
+ are the element and polarity of the year stem.
 </p>
 <p>
  The calculated field <code>clmonth</code> is a copy of the <code>lmonth</code>
- field when one of a leap month pair and an invalid or null value otherwise.
- It is used to display the leap month status in formats where it is required or omitted.
+ field when one of the months is a leap month pair and an invalid or null value otherwise.
+ It is used to display the leap month status in formats where it is omitted if not required.
 </p>
 
 <h3>Formats</h3>
@@ -187,6 +187,8 @@
  The calculated <code>clmonth</code> field
  is a copy of the <code>lmonth</code> when one of a leap month pair
  and a null value otherwise.
+ To use this field a format must name the functions to be used
+ as they are not automatically applied.
 </p>
 <p>
  The formats supplied with this scheme.
@@ -197,27 +199,27 @@
 <tr><th>Code</th><th>Rule</th><th>Pseudo / Example</th><th>Note</th></tr>
 <tr><td rowspan='2'><b>cymld</b></td><td rowspan='2'>text</td><td><b>Input:</b> cycle segyear month lmonth day<br /><b>Output:</b> cc sy mm lm dd</td><td rowspan='2'>D, S</td></tr>
 <tr><td class='example'>78 42 6 f 15<br />78 42 6 s 15<br />78 42 7 f 15</td></tr>
-<tr><td rowspan='2'><b>cylmd</b></td><td rowspan='2'>text</td><td><b>Input:</b> cycle segyear clmonth month day<br /><b>Output:</b> cc sy clmonth mm dd</td><td rowspan='2'></td></tr>
+<tr><td rowspan='2'><b>cylmd</b></td><td rowspan='2'>text</td><td><b>Input:</b> cycle segyear clmonth month day<br /><b>Output:</b> cc sy cl mm dd</td><td rowspan='2'></td></tr>
 <tr><td class='example'>78 42 Regular 6 15<br />78 42 Leap 6 15<br />78 42 7 15</td></tr>
-<tr><td rowspan='2'><b>cylmd_s</b></td><td rowspan='2'>text</td><td><b>Input:</b> cycle stem branch clmonth month day<br /><b>Output:</b> cc ss-bb, clmonth mm dd</td><td rowspan='2'></td></tr>
+<tr><td rowspan='2'><b>cylmd_s</b></td><td rowspan='2'>text</td><td><b>Input:</b> cycle stem branch clmonth month day<br /><b>Output:</b> cc ss-bb, cl mm dd</td><td rowspan='2'></td></tr>
 <tr><td class='example'>78 Yǐ-sì, Regular 6 15<br />78 Yǐ-sì, Leap 6 15<br />78 Yǐ-sì 7 15</td></tr>
-<tr><td rowspan='2'><b>cylmd_f</b></td><td rowspan='2'>text</td><td><b>Input:</b> cycle stem branch segyear clmonth month day<br /><b>Output:</b> Cycle: cc Year: ss-bb (sy) clmonth Month: mm Day: dd</td><td rowspan='2'></td></tr>
+<tr><td rowspan='2'><b>cylmd_f</b></td><td rowspan='2'>text</td><td><b>Input:</b> cycle stem branch segyear clmonth month day<br /><b>Output:</b> Cycle: cc Year: ss-bb (sy) cl Month: mm Day: dd</td><td rowspan='2'></td></tr>
 <tr><td class='example'>Cycle: 78 Year: Yǐ-sì (42) Regular Month: 6 Day: 15<br />Cycle: 78 Year: Yǐ-sì (42) Leap Month: 6 Day: 15<br />Cycle: 78 Year: Yǐ-sì (42) Month: 7 Day: 15</td></tr>
 <tr><td rowspan='2'><b>cy_animal</b></td><td rowspan='2'>text</td><td><b>Input:</b> cycle branch segyear lmonth month day<br /><b>Output:</b> (Cycle cc) Year of the bb sy lm mm Day dd</td><td rowspan='2'>S</td></tr>
 <tr><td class='example'>(Cycle 78) Year of the Snake 42 Regular Month 6 Day 15<br />(Cycle 78) Year of the Snake 42 Leap Month 6 Day 15<br />(Cycle 78) Year of the Snake 42 Regular Month 7 Day 15</td></tr>
 <tr><td rowspan='2'><b>ymld</b></td><td rowspan='2'>text</td><td><b>Input:</b> year month lmonth day<br /><b>Output:</b> yyyy mm lm dd</td><td rowspan='2'>S</td></tr>
 <tr><td class='example'>4662 6 f 15<br />4662 6 s 15<br />4662 7 f 15</td></tr>
-<tr><td rowspan='2'><b>ylmd</b></td><td rowspan='2'>text</td><td><b>Input:</b> year clmonth month day<br /><b>Output:</b> yyyy clmonth mm dd</td><td rowspan='2'></td></tr>
+<tr><td rowspan='2'><b>ylmd</b></td><td rowspan='2'>text</td><td><b>Input:</b> year clmonth month day<br /><b>Output:</b> yyyy cl mm dd</td><td rowspan='2'></td></tr>
 <tr><td class='example'>4662 First 6 15<br />4662 Second 6 15<br />4662 7 15</td></tr>
 <tr><td rowspan='2'><b>animal</b></td><td rowspan='2'>text</td><td><b>Input:</b> year branch lmonth month day<br /><b>Output:</b> yyyy Year of the bb, lm mm Day dd</td><td rowspan='2'>S</td></tr>
 <tr><td class='example'>4662 Year of the Snake, Regular Month 6 Day 15<br />4662 Year of the Snake, Leap Month 6 Day 15<br />4662 Year of the Snake, Regular Month 7 Day 15</td></tr>
-<tr><td rowspan='2'><b>elem_anim</b></td><td rowspan='2'>text</td><td><b>Input:</b> year polarity element branch lmonth month day<br /><b>Output:</b> yyyy The polarity-e-bb Year lm mm Day dd</td><td rowspan='2'>S</td></tr>
+<tr><td rowspan='2'><b>elem_anim</b></td><td rowspan='2'>text</td><td><b>Input:</b> year polarity element branch lmonth month day<br /><b>Output:</b> yyyy The pol-e-bb Year lm mm Day dd</td><td rowspan='2'>S</td></tr>
 <tr><td class='example'>4662 The Yin-Wood-Snake Year Regular Month 6 Day 15<br />4662 The Yin-Wood-Snake Year Leap Month 6 Day 15<br />4662 The Yin-Wood-Snake Year Regular Month 7 Day 15</td></tr>
-<tr><td rowspan='2'><b>a</b></td><td rowspan='2'>text</td><td><b>Input:</b> year month lmonth day cycle segyear stem branch element polarity clmonth<br /><b>Output:</b> yyyy mm lm dd cc sy ss bb e polarity clmonth</td><td rowspan='2'>H</td></tr>
-<tr><td class='example'>4662 6 1 15 78 42 2 6 1 2<br />4662 6 2 15 78 42 2 6 1 2<br />4662 7 1 15 78 42 2 6 1 2</td></tr>
+<tr><td rowspan='2'><b>a</b></td><td rowspan='2'>text</td><td><b>Input:</b> year month lmonth day cycle segyear stem branch element polarity clmonth<br /><b>Output:</b> yyyy mm lm dd cc sy ss bb e pol cl</td><td rowspan='2'>H</td></tr>
+<tr><td class='example'>4662 6 1 15 78 42 2 6 1 2 ?<br />4662 6 2 15 78 42 2 6 1 2 ?<br />4662 7 1 15 78 42 2 6 1 2 ?</td></tr>
 <tr><td rowspan='2'><b>r</b></td><td rowspan='2'>text</td><td><b>Input:</b> year month lmonth day<br /><b>Output:</b> yyyy mm lm dd</td><td rowspan='2'>H, S</td></tr>
 <tr><td class='example'>4662 6 1 15<br />4662 6 2 15<br />4662 7 1 15</td></tr>
-<tr><td rowspan='2'><b>u</b></td><td rowspan='2'>unit</td><td><b>Input:</b> 9y 9m 9lm 9d 9c 9sy 9s 9b 9e 9p 9clmonth<br /><b>Output:</b> 9y 9m 9lm 9d 9c 9sy 9s 9b 9e 9p 9clmonth</td><td rowspan='2'>H</td></tr>
+<tr><td rowspan='2'><b>u</b></td><td rowspan='2'>unit</td><td><b>Input:</b> 9y 9m 9lm 9d 9c 9sy 9s 9b 9e 9p 9cl<br /><b>Output:</b> 9y 9m 9lm 9d 9c 9sy 9s 9b 9e 9p 9cl</td><td rowspan='2'>H</td></tr>
 <tr><td class='example'>4662y 6m 1lm 15d 78c 42sy 2s 6b 1e 2p<br />4662y 6m 2lm 15d 78c 42sy 2s 6b 1e 2p<br />4662y 7m 1lm 15d 78c 42sy 2s 6b 1e 2p</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
 Example based on jdn# 2460866, 2460896 and 2460925</td></tr>
@@ -343,8 +345,8 @@ grammar c {
     fields year month lmonth day cycle segyear stem branch element polarity;
     rank year month lmonth day;
     calculated clmonth;
-    alias pseudo { dd day; mm month; lm lmonth; yyyy year; cc cycle; sy segyear; ss stem; bb branch; e element; y yinyang; };
-    alias unit { d day; m month; lm lmonth; y year; c cycle; sy segyear; s stem; b branch; e element; p polarity; };
+    alias pseudo { dd day; mm month; lm lmonth; yyyy year; cc cycle; sy segyear; ss stem; bb branch; e element; y yinyang; pol polarity; cl clmonth; };
+    alias unit { d day; m month; lm lmonth; y year; c cycle; sy segyear; s stem; b branch; e element; p polarity; cl clmonth; };
     function calculate_clmonth {
         clmonth = @if(lmonth=1, @if(@leapmonth.(scode)( year, month),1,null), 2);
         result = this;
