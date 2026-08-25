@@ -1,5 +1,5 @@
 // ft_cg-001.glcs  Create cg scheme format table.
-/*[SKIP]*/
+
 let sch = "cg";
 
 let d1 = 2460866;
@@ -72,17 +72,17 @@ write "</table>" nl;
 <tr><th>Code</th><th>Rule</th><th>Pseudo / Example</th><th>Note</th></tr>
 <tr><td rowspan='2'><b>ymld</b></td><td rowspan='2'>text</td><td><b>Input:</b> year month lmonth day<br /><b>Output:</b> yyyy mm lm dd</td><td rowspan='2'>D, S</td></tr>
 <tr><td class='example'>2025 6 f 15<br />2025 6 s 15<br />2025 7 f 15</td></tr>
-<tr><td rowspan='2'><b>ylmd</b></td><td rowspan='2'>text</td><td><b>Input:</b> year clmonth month day<br /><b>Output:</b> yyyy clmonth mm dd</td><td rowspan='2'></td></tr>
+<tr><td rowspan='2'><b>ylmd</b></td><td rowspan='2'>text</td><td><b>Input:</b> year clmonth month day<br /><b>Output:</b> yyyy cl mm dd</td><td rowspan='2'></td></tr>
 <tr><td class='example'>2025 First 6 15<br />2025 Second 6 15<br />2025 7 15</td></tr>
 <tr><td rowspan='2'><b>animal</b></td><td rowspan='2'>text</td><td><b>Input:</b> year branch lmonth month day<br /><b>Output:</b> yyyy Year of the bb, lm mm Day dd</td><td rowspan='2'>S</td></tr>
 <tr><td class='example'>2025 Year of the Snake, Regular Month 6 Day 15<br />2025 Year of the Snake, Leap Month 6 Day 15<br />2025 Year of the Snake, Regular Month 7 Day 15</td></tr>
-<tr><td rowspan='2'><b>elem_anim</b></td><td rowspan='2'>text</td><td><b>Input:</b> year polarity element branch lmonth month day<br /><b>Output:</b> yyyy The polarity-e-bb Year lm mm Day dd</td><td rowspan='2'>S</td></tr>
+<tr><td rowspan='2'><b>elem_anim</b></td><td rowspan='2'>text</td><td><b>Input:</b> year polarity element branch lmonth month day<br /><b>Output:</b> yyyy The pol-e-bb Year lm mm Day dd</td><td rowspan='2'>S</td></tr>
 <tr><td class='example'>2025 The Yin-Wood-Snake Year Regular Month 6 Day 15<br />2025 The Yin-Wood-Snake Year Leap Month 6 Day 15<br />2025 The Yin-Wood-Snake Year Regular Month 7 Day 15</td></tr>
-<tr><td rowspan='2'><b>a</b></td><td rowspan='2'>text</td><td><b>Input:</b> year month lmonth day cycle segyear stem branch element polarity clmonth<br /><b>Output:</b> yyyy mm lm dd cc sy ss bb e polarity clmonth</td><td rowspan='2'>H</td></tr>
-<tr><td class='example'>2025 6 1 15 78 42 2 6 1 2<br />2025 6 2 15 78 42 2 6 1 2<br />2025 7 1 15 78 42 2 6 1 2</td></tr>
+<tr><td rowspan='2'><b>a</b></td><td rowspan='2'>text</td><td><b>Input:</b> year month lmonth day cycle segyear stem branch element polarity clmonth<br /><b>Output:</b> yyyy mm lm dd cc sy ss bb e pol cl</td><td rowspan='2'>H</td></tr>
+<tr><td class='example'>2025 6 1 15 78 42 2 6 1 2 ?<br />2025 6 2 15 78 42 2 6 1 2 ?<br />2025 7 1 15 78 42 2 6 1 2 ?</td></tr>
 <tr><td rowspan='2'><b>r</b></td><td rowspan='2'>text</td><td><b>Input:</b> year month lmonth day<br /><b>Output:</b> yyyy mm lm dd</td><td rowspan='2'>H, S</td></tr>
 <tr><td class='example'>2025 6 1 15<br />2025 6 2 15<br />2025 7 1 15</td></tr>
-<tr><td rowspan='2'><b>u</b></td><td rowspan='2'>unit</td><td><b>Input:</b> 9y 9m 9lm 9d 9c 9sy 9s 9b 9e 9p 9clmonth<br /><b>Output:</b> 9y 9m 9lm 9d 9c 9sy 9s 9b 9e 9p 9clmonth</td><td rowspan='2'>H</td></tr>
+<tr><td rowspan='2'><b>u</b></td><td rowspan='2'>unit</td><td><b>Input:</b> 9y 9m 9lm 9d 9c 9sy 9s 9b 9e 9p 9cl<br /><b>Output:</b> 9y 9m 9lm 9d 9c 9sy 9s 9b 9e 9p 9cl</td><td rowspan='2'>H</td></tr>
 <tr><td class='example'>2025y 6m 1lm 15d 78c 42sy 2s 6b 1e 2p<br />2025y 6m 2lm 15d 78c 42sy 2s 6b 1e 2p<br />2025y 7m 1lm 15d 78c 42sy 2s 6b 1e 2p</td></tr>
 <tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
 Example based on jdn# 2460866, 2460896 and 2460925</td></tr>
