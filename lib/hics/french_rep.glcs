@@ -94,13 +94,12 @@ grammar fr {
     fields year month day;
     calculated nmonth nmday cday, dday;
     optional wday;
-    rank year nmonth nmday;
     lexicons frm, frnm, frcomp, frdd, w;
     alias pseudo { dd day; mm month; yyyy year; mm nmonth; dd nmday; c cday; d dday; w wday; }
     alias unit { d day; m month; y year; nm nmonth; nd nmday; cd cday; dd dday; }
 
     // Record: year month day nmonth nmday cday dday wday
-    function fixed {
+    function fixed_from_comp {
         if cday = null {
             month = nmonth;
             day = nmday;
@@ -129,33 +128,45 @@ grammar fr {
         result = this;
     };
 
-    format dmy_a {
-        inout "{day} |{month:frm:a} |{year}";
-        rank year month day;
-        functions { fixed calculate; }; 
+    format dmy_a "{day} |{month:frm:a} |{year}";
+    format dmy "{day} |{month:frm} |{year}";
+    format ymd "{year}| {month:frm}| {day}";
+    format cdmy { 
+        inout "{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
+        rank year nmonth nmday;
+        functions { fixed fixed_from_comp; };
     };
-    format dmy {
-        inout "{day} |{month:frm} |{year}";
-        rank year month day;
-        functions { fixed calculate; };
+    format cdmy_a { 
+        inout "{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
+        rank year nmonth nmday;
+        functions { fixed fixed_from_comp; };
     };
-    format ymd {
-        inout "{year}| {month:frm}| {day}";
-        rank year month day;
-        functions { fixed calculate; };
+    format std {
+        inout "{cday:frcomp} |{nmday} |{nmonth:frnm} |an {year::rn}";
+        rank year nmonth nmday;
+        functions { fixed fixed_from_comp; };
     };
-    format  cdmy    "{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
-    format  cdmy_a  "{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
-    format  std     "{cday:frcomp} |{nmday} |{nmonth:frnm} |an {year::rn}";
-    format  dcdmy   "{dday:frdd} |{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
-    format  dcdmy_a "{dday:frdd:a} |{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
-    format  wcdmy   "{wday:w}, |{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
-    format  wcdmy_a "{wday:w:a}, |{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
-    format gedcom {
-        inout "{day} |{month:frm:a:u} |{year}";
-        rank year month day;
-        functions { fixed calculate; };
+    format dcdmy {   
+        inout "{dday:frdd} |{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
+        rank year nmonth nmday;
+        functions { fixed fixed_from_comp; };
     };
+    format dcdmy_a {   
+        inout "{dday:frdd:a} |{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
+        rank year nmonth nmday;
+        functions { fixed fixed_from_comp; };
+    };
+    format wcdmy {   
+        inout "{wday:w}, |{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
+        rank year nmonth nmday;
+        functions { fixed fixed_from_comp; };
+    };
+    format wcdmy_a {
+        inout "{wday:w:a}, |{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
+        rank year nmonth nmday;
+        functions { fixed fixed_from_comp; };
+    };
+    format gedcom "{day} |{month:frm:a:u} |{year}";
     preferred dmy;
 };
 
