@@ -40,11 +40,11 @@ pseudo:out = "yyyy mm lm dd"
 shorthand = true
 
 {fmt: "ymld", "c", "text", true, "year month lmonth day", "yyyy mm lm dd", true}
-{fmt: "ylmd", "c", "text", true, "year clmonth month day", "yyyy clmonth mm dd", false}
+{fmt: "ylmd", "c", "text", true, "year clmonth month day", "yyyy cl mm dd", false}
 {fmt: "animal", "c", "text", true, "year branch lmonth month day", "yyyy Year of the bb, lm mm Day dd", true}
-{fmt: "elem_anim", "c", "text", true, "year polarity element branch lmonth month day", "yyyy The polarity-e-bb Year lm mm Day dd", true}
-{fmt: "a", "c", "text", false, "year month lmonth day cycle segyear stem branch element polarity clmonth", "yyyy mm lm dd cc sy ss bb e polarity clmonth", false}
+{fmt: "elem_anim", "c", "text", true, "year polarity element branch lmonth month day", "yyyy The pol-e-bb Year lm mm Day dd", true}
+{fmt: "a", "c", "text", false, "year month lmonth day cycle segyear stem branch element polarity clmonth", "yyyy mm lm dd cc sy ss bb e pol cl", false}
 {fmt: "r", "c", "text", false, "year month lmonth day", "yyyy mm lm dd", true}
-{fmt: "u", "c", "unit", false, "9y 9m 9lm 9d 9c 9sy 9s 9b 9e 9p 9clmonth", "9y 9m 9lm 9d 9c 9sy 9s 9b 9e 9p 9clmonth", false}
+{fmt: "u", "c", "unit", false, "9y 9m 9lm 9d 9c 9sy 9s 9b 9e 9p 9cl", "9y 9m 9lm 9d 9c 9sy 9s 9b 9e 9p 9cl", false}
 
 [OUTPUT]*/
