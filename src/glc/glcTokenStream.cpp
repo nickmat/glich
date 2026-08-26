@@ -294,6 +294,9 @@ SToken& STokenStream::next()
         set_type( SToken::Type::End );
         break; // Error
     }
+    if( m_in->eof() ) {
+        set_type( SToken::Type::End );
+    }
     return m_cur_token;
 }
 

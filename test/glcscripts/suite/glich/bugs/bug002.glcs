@@ -1,0 +1,9 @@
+// bug002.glcs If the closing multi-line comment is the last character in a script
+// it will return an error.
+
+write "Test";
+
+// note: The following multi-line [OUTPUT] comment is the last character in this script.
+/*[OUTPUT]
+Test
+[OUTPUT]*/
