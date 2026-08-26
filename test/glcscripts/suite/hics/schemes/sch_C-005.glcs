@@ -129,12 +129,12 @@ grammar C {
     alias pseudo { dd day; mm month; lm lmonth; yyyy year; cc cycle; sy segyear; ss stem; bb branch; e element; y yinyang; };
     alias unit { d day; m month; lm lmonth; y year; c cycle; sy segyear; s stem; b branch; e element; p polarity; clm clmonth; };
 
-    function calculate {
+    function calculated {
         clmonth = @if(lmonth=1, @if(@leapmonth.(scode)( year, month),1,null), 2);
         result = this;
     };
 
-    function fixed_from_clmonth {
+    function required_from_clmonth {
         lmonth = @if(clmonth<>2, 1, 2);
         result = this;
     };
@@ -144,7 +144,7 @@ grammar C {
         inout "{year}| {clmonth:FS2}| {month}| {day}";
         rank year month day;
         functions {
-            fixed fixed_from_clmonth;
+            required required_from_clmonth;
         };
     };
     format animal "{year} Year of the {:branch:ANIMAL}|, {lmonth:LMON}| {month}| Day {day}";
@@ -167,7 +167,7 @@ grammar CCSY {
         inout "{cycle}| {segyear}| {clmonth:LMON2:a}| {month}| {day}";
         rank cycle segyear month day;
          functions {
-            fixed fixed_from_clmonth;
+            required required_from_clmonth;
         };
     };
     format cylmd_s {
@@ -175,7 +175,7 @@ grammar CCSY {
         rank cycle month day;
         separators ",-";
         functions {
-            fixed fixed_from_clmonth;
+            required required_from_clmonth;
         };
     };
     format cylmd_f {
@@ -183,7 +183,7 @@ grammar CCSY {
         rank cycle segyear month day;
         separators ",-";
         functions {
-            fixed fixed_from_clmonth;
+            required required_from_clmonth;
         };
     };
     format cy_animal {

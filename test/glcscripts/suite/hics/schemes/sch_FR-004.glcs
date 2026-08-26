@@ -90,7 +90,7 @@ grammar FR {
     alias unit { d day; m month; y year; nm nmonth; nd nmday; cd cday; dd dday; };
 
     // Record: year month day nmonth nmday cday dday wday
-    function fixed_from_comp {
+    function required_from_comp {
         if cday = null {
             month = nmonth;
             day = nmday;
@@ -101,8 +101,8 @@ grammar FR {
             dday = null;
         };
         result = this;
-    }
-    function calculate {
+    };
+    function calculated {
         if month = null {
             exit;
         };
@@ -126,22 +126,22 @@ grammar FR {
     format cdmy {
         inout "{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";
         rank year nmonth nmday;
-        functions { fixed fixed_from_comp; };
+        functions { required required_from_comp; };
     };
     format out {
         inout "{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |an {year::rn}";
         rank year nmonth nmday;
-        functions { fixed fixed_from_comp; };
+        functions { required required_from_comp; };
     };
     format dcdmy {
         inout "{dday:FRDD} |{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";
         rank year nmonth nmday;
-        functions { fixed fixed_from_comp; };
+        functions { required required_from_comp; };
     };
     format wcdmy {
         inout "{wday:W}, |{cday:FRCOMP} |{nmday} |{nmonth:FRNM} |{year}";
         rank year nmonth nmday;
-        functions { fixed fixed_from_comp; };
+        functions { required required_from_comp; };
     };
     preferred dmy;
 };

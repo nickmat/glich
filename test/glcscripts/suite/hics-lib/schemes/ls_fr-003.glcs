@@ -5,7 +5,7 @@ format fr:YMD "{year::rn}| {month:frm:a}| {day}";
 format fr:STD {
     inout "{cday:frcomp} |{nmday} |{nmonth:frnm} |an {year::rn}";
     rank year nmonth nmday;
-    functions { fixed fixed_from_comp; };
+    functions { required required_from_comp; };
 }
 
 

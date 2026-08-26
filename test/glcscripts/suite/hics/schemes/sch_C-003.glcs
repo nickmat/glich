@@ -25,12 +25,12 @@ grammar C {
     alias pseudo { yy year; mm month; lm lmonth; cm clmonth; dd day; };
     alias unit { y year; m month; lm lmonth; d day; };
 
-    function calculate {
+    function calculated {
         clmonth = @if(lmonth=1, @if(@leapmonth.(scode)( year, month),1,null), 2);
         result = this;
     };
 
-    function fixed {
+    function required {
         lmonth = @if(clmonth<>2, 1, 2);
         result = this;
     };

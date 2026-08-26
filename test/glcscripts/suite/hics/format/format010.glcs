@@ -12,12 +12,12 @@ grammar JCE {
     fields year month day;
     calculated ce ceyear;
     rank ce ceyear month day;
-    function calculate { // output
+    function calculated { // output
         ce = @if( year<1, 0, 1 );
         ceyear = @if( year<1, -year+1, year );
         result = this;
     };
-    function fixed { // input
+    function required { // input
         year = @if( ce=1, ceyear, -ceyear+1 );
         result = this;
     };

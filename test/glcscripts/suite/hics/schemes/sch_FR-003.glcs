@@ -73,12 +73,12 @@ grammar FR {
     alias unit { d day; m month; y year; };
 
     // Record: year month day nmonth nmday cday
-    function fixed {
+    function required {
         month = @if( cday=null, nmonth, 13 );
         day = @if( cday=null, nmday, cday );
         result = this;
     };
-    function calculate {
+    function calculated {
         nmonth = @if( month<13, month, null );
         nmday = @if( month<13, day, null );
         cday = @if( month=13, day, null );
@@ -87,15 +87,15 @@ grammar FR {
 
     format dmy {
         inout "{day} |{month:FRM:a} |{year}";
-        functions { fixed calculate; };
+        functions { required calculated; };
     };
     format "dmy+" {
         inout "{day} |{month:FRM} |{year}";
-        functions { fixed calculate; };
+        functions { required calculated; };
     };
     format ymd {
         inout "{year} |{month:FRM:a} |{day}";
-        functions { fixed calculate; }; 
+        functions { required calculated; }; 
     };
 
     format cdmy {
@@ -121,7 +121,7 @@ write @text.FR:cdmy( 2460300 ), @text.FR:cdmy( 2460207 ) nl;
 write @text.FR:ymd( {s:FR 232, 3, 30} ), @text.FR:ymd( {s:FR 231, 13, 2} ) nl;
 write @date.FR:ymd( "232 Frim 30" ), @date.FR:ymd( "231 Comp 2" ) nl;
 write @date.FR:cdmy( "30 Frim 232" ), @date.FR:cdmy( "Gen 231" ) nl;
-write @date( {s:FR 232, 3, 30} ), @date( {s:FR 231,,,,, 2}@fixed ) nl;
+write @date( {s:FR 232, 3, 30} ), @date( {s:FR 231,,,,, 2}@required ) nl;
 
 /*[OUTPUT]
 

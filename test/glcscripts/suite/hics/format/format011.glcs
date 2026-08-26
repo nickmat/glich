@@ -12,18 +12,18 @@ grammar JCE {
     fields year month day;
     calculated ce ceyear;
     rank ce ceyear month day;
-    function ex_calculate { // output
+    function ex_calculated { // output
         ce = @if( year<1, 0, 1 );
         ceyear = @if( year<1, -year+1, year );
         result = this;
     };
-    function ex_fixed { // input
+    function ex_required { // input
         year = @if( ce=1, ceyear, -ceyear+1 );
         result = this;
     };
     format dmye {
         inout "{day} |{month} |{ceyear} |{ce:CE:a}";
-        functions { calculate ex_calculate; fixed ex_fixed; };
+        functions { calculated ex_calculated; required ex_required; };
     };
 };
 
@@ -34,7 +34,7 @@ scheme JCE {
 
 write nl;
 write @scheme.JCE:dmye(2446012), @scheme.JCE:dmye(1705582) nl;
-write @scheme.JCE:dmye(2446012)@ex_calculate, @scheme.JCE:dmye(1705582)@ex_calculate nl;
+write @scheme.JCE:dmye(2446012)@ex_calculated, @scheme.JCE:dmye(1705582)@ex_calculated nl;
 write @date.JCE:dmye("25 10 1984 CE"), @text.JCE:dmye( 2446012 ) nl;
 write @date.JCE:dmye("18 8 44 BCE"), @text.JCE:dmye( 1705582 ) nl;
 

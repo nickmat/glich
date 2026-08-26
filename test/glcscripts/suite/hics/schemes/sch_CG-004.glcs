@@ -26,12 +26,12 @@ grammar C {
     alias pseudo { dd day; mm month; lm lmonth; yyyy year; cc cycle; sy segyear; ss stem; bb branch; e element; y yinyang; };
     alias unit { d day; m month; lm lmonth; y year; c cycle; sy segyear; s stem; b branch; e element; p polarity; };
 
-    function calculate_clmonth {
+    function calculated_clmonth {
         clmonth = @if(lmonth=1, @if(@leapmonth.(scode)( year, month),1,null), 2);
         result = this;
     };
 
-    function fixed_from_clmonth {
+    function required_from_clmonth {
         lmonth = @if(clmonth<>2, 1, 2);
         result = this;
     };
@@ -40,8 +40,8 @@ grammar C {
         inout "{year}| {clmonth:FS2}| {month}| {day}";
         rank year month day;
         functions {
-            calculate calculate_clmonth;
-            fixed fixed_from_clmonth;
+            calculated calculated_clmonth;
+            required required_from_clmonth;
         };
     };
     preferred ylmd;

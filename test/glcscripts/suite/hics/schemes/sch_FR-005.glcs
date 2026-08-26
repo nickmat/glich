@@ -57,7 +57,7 @@ grammar FR {
     alias unit { d day; m month; y year; nm nmonth; nd nmday; cd cday; dd dday; };
 
     // Record: year month day nmonth nmday cday dday wday
-    function fixed {
+    function required {
         if cday = null {
             month = nmonth;
             day = nmday;
@@ -69,7 +69,7 @@ grammar FR {
         };
         result = this;
     };
-    function calculate {
+    function calculated {
         if month <> null {
             if month < 13 {
                 nmonth = month;
