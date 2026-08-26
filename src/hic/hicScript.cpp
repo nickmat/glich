@@ -218,8 +218,7 @@ SValue HicScript::do_object_at( bool& success, Object* obj, const string& fcode,
         default: break;
         }
     }
-    success = false;
-    return SValue();
+    return Script::do_object_at( success, obj, fcode, left );
 }
 
 Scheme* HicScript::do_create_scheme( const string& code )

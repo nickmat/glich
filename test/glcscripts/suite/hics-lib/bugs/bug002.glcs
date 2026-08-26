@@ -1,0 +1,14 @@
+// hics-lib/bugs/bug002.glcs - @scheme(today)@obj:list "function not found"?
+
+write nl;
+write @scheme( 2461279 )@obj:list nl;
+// bug: outputs "function not found" instead of field value list.
+
+/*[OUTPUT]
+
+year = 2026
+month = 8
+day = 26
+wday = 3
+
+[OUTPUT]*/
