@@ -99,7 +99,7 @@ grammar fr {
     alias unit { d day; m month; y year; nm nmonth; nd nmday; cd cday; dd dday; }
 
     // Record: year month day nmonth nmday cday dday wday
-    function fixed_from_comp {
+    function required_from_comp {
         if cday = null {
             month = nmonth;
             day = nmday;
@@ -111,7 +111,7 @@ grammar fr {
         };
         result = this;
     };
-    function calculate {
+    function calculated {
         if month <> null {
             if month < 13 {
                 nmonth = month;
@@ -134,37 +134,37 @@ grammar fr {
     format cdmy { 
         inout "{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
         rank year nmonth nmday;
-        functions { fixed fixed_from_comp; };
+        functions { required required_from_comp; };
     };
     format cdmy_a { 
         inout "{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
         rank year nmonth nmday;
-        functions { fixed fixed_from_comp; };
+        functions { required required_from_comp; };
     };
     format std {
         inout "{cday:frcomp} |{nmday} |{nmonth:frnm} |an {year::rn}";
         rank year nmonth nmday;
-        functions { fixed fixed_from_comp; };
+        functions { required required_from_comp; };
     };
     format dcdmy {   
         inout "{dday:frdd} |{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
         rank year nmonth nmday;
-        functions { fixed fixed_from_comp; };
+        functions { required required_from_comp; };
     };
     format dcdmy_a {   
         inout "{dday:frdd:a} |{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
         rank year nmonth nmday;
-        functions { fixed fixed_from_comp; };
+        functions { required required_from_comp; };
     };
     format wcdmy {   
         inout "{wday:w}, |{cday:frcomp} |{nmday} |{nmonth:frnm} |{year}";
         rank year nmonth nmday;
-        functions { fixed fixed_from_comp; };
+        functions { required required_from_comp; };
     };
     format wcdmy_a {
         inout "{wday:w:a}, |{cday:frcomp:a} |{nmday} |{nmonth:frnm:a} |{year}";
         rank year nmonth nmday;
-        functions { fixed fixed_from_comp; };
+        functions { required required_from_comp; };
     };
     format gedcom "{day} |{month:frm:a:u} |{year}";
     preferred dmy;

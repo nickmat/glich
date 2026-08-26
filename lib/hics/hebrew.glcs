@@ -81,11 +81,11 @@ grammar h {
     alias pseudo { w wsday; dd day; mm month; mm cmonth; yyyy year; };
     alias unit { d day; m month; cm cmonth; y year; };
 
-    function calculate {
+    function calculated {
         cmonth = @if( month=12 and @leapyear.(scode)(year), 14, month );
         result = this;
     };
-    function fixed {
+    function required {
         month = @if( cmonth=14, 12, cmonth );
         result = this;
     };
@@ -95,19 +95,19 @@ grammar h {
     format  dmy_d {
         inout "{day} |{month} |{year}";
         rank year month day;
-        functions { fixed calculate; }; 
+        functions { required calculated; }; 
     };
     format  wdmy  "{wsday:hw} |{day} |{cmonth:hcm} |{year}";
     format  ymd   "{year}| {cmonth:hcm}| {day}";
     format  ymd_d {
         inout "{year}| {month}| {day}";
         rank year month day;
-        functions { fixed calculate; };
+        functions { required calculated; };
     };
     format gedcom {
         inout "{day} |{month:hm:a:u} |{year}";
         rank year month day;
-        functions { fixed calculate; };
+        functions { required calculated; };
     };
     preferred dmy;
 };
