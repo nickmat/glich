@@ -308,7 +308,7 @@ bool Scheme::create_epoch_functions( Field epoch, const std::string& module, int
         " result = this;";
 
 
-    SpFunction fun = SpFunction( new Function( "fixed" ) );
+    SpFunction fun = SpFunction( new Function( "required" ) );
     if( fun == nullptr ) {
         return false;
     }
@@ -321,7 +321,7 @@ bool Scheme::create_epoch_functions( Field epoch, const std::string& module, int
         " year" + adj_year_true + ", year" + adj_year_false + ");"
         " result = this;";
 
-    fun = SpFunction( new Function( "calculate" ) );
+    fun = SpFunction( new Function( "calculated" ) );
     if( fun == nullptr ) {
         return false;
     }

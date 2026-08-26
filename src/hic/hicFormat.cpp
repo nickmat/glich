@@ -93,14 +93,14 @@ string Format::jdn_to_string( const Scheme& sch, Field jdn ) const
     if( jdn == f_maximum ) {
         return "future";
     }
-    string fun_name = get_function_name( "calculate" );
+    string fun_name = get_function_name( "calculated" );
     Record rec( sch, jdn, fun_name );
     return get_text_output( rec );
 }
 
 string Format::range_to_string( const Scheme& sch, const Range& rng ) const
 {
-    string fun_name = get_function_name( "calculate" );
+    string fun_name = get_function_name( "calculated" );
     Record rec1( sch, rng.m_beg, fun_name );
     Record rec2( sch, rng.m_end, fun_name );
 

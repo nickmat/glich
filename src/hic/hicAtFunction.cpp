@@ -66,9 +66,9 @@ static SValue hic_object_to_date( Scheme* sch, const SValue& value )
 //FunctionData* HicScript::get_function_data( Scheme* sch, Format* fmt )
 static FunctionData* get_function_data( Scheme* sch, Format* fmt, std::ostream& outs )
 {
-    string fun_name = fmt->get_function_name( "fixed" );
+    string fun_name = fmt->get_function_name( "required" );
     if( fun_name.empty() ) {
-        fun_name = fmt->get_function_name( "calculate" );
+        fun_name = fmt->get_function_name( "calculated" );
     }
     Function* fun = sch->get_function( fun_name );
     if( fun != nullptr ) {
@@ -114,7 +114,7 @@ static SValue complete_object( const Scheme& sch, Field jdn, std::ostream& outs 
     SValue value = record.get_object( sch.get_code() );
     const Grammar* gmr = sch.get_grammar();
     assert( gmr != nullptr );
-    Function* fun = sch.get_function( "calculate" );
+    Function* fun = sch.get_function( "calculated" );
     if( fun != nullptr ) {
         StdStrVec qual;
         SValueVec args;
@@ -147,7 +147,7 @@ static SValue complete_object( const Scheme& sch, const string& input, const str
     if( fmt == nullptr ) {
         return SValue();
     }
-    string fun_name = fmt->get_function_name( "fixed" );
+    string fun_name = fmt->get_function_name( "required" );
     Function* fun = sch.get_function( fun_name );
     string ocode = sch.get_code();
     const Base& base = sch.get_base();

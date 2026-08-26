@@ -365,7 +365,7 @@ Range FormatText::string_to_range( const Base& base, const string& input, Functi
     Object* obj = fdata ? hic().get_object( fdata->ocode ) : nullptr;
     Function* fun_first = obj ? obj->get_function( "first" ) : nullptr;
     Function* fun_last = obj ? obj->get_function( "last" ) : nullptr;
-    Function* fun_complete = obj ? obj->get_function( get_function_name( "fixed" ) ) : nullptr;
+    Function* fun_complete = obj ? obj->get_function( get_function_name( "required" ) ) : nullptr;
 
     bool start = true;
     for( size_t i = 0; i < m_sig_rank_size; i++ ) {
