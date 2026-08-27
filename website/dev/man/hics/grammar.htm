@@ -108,8 +108,9 @@
 
 <h3>Sub-Statement: lexicons</h3>
 <p>
- Declare all the lexicon statements to be used.
- The format definitions can only refer to the lexicons listed here.
+ Declare the lexicon statements to be used (lookup or searched).
+ Formats will always use the lexicons referenced by the format string.
+ In addition, the lexicons listed here will also be used.
 </p>
 
 <h3>Sub-Statement: alias</h3>
@@ -163,46 +164,53 @@
 <p>
  This defines a function that can be used by any scheme which has attached the grammar.
  The function is defined in the same way as an
- <a href='../script/object.htm#function'>object function</a>.
+ <a href='../script/stmts/object.htm'>object function</a>.
 </p>
 <p>
- The fixed, calculated and optional field names
+ The required, additional, calculated and optional field names
  will be available to the function as local variables.
+ A variable <code>scode</code> containing the scheme code is also available.
  To actually make changes to the scheme object,
- the function should set the result to 'this' (the modified scheme object).
+ the function should set the result to <code>'this'</code> (the modified scheme object).
 </p>
 <p>
  The following functions are required when using calculated fields.
 </p>
 <ol>
  <li>
-  A function named <code>calculate</code>.
-  Converting a jdn (Julian Day Number) to a text string
-  which uses calculated fields.
-  The jdn is converted into the fixed fields
-  and a function would complete the calculated fields
-  before formulating the text string.
+  A function named <code>calculated</code>.
+  The calculated function is used to complete the calculated fields from the required fields.
+  If this function is defined,
+  it will be called automatically by the scheme before outputting a formatted text string or a scheme object.
+  A different function name may be used,
+  in which case the format must specify which function to use with the <b>functions</b> sub-statement.
  </li>
  <li>
-  A function named <code>fixed</code>
-  When converting a text string to a jdn.
-  The date elements are composed into their fields
-  and any calculated fields are used to complete the fixed fields.
-  The fixed fields are then used to obtain the jdn value.
+  A function named <code>required</code>
+  The required function is used to complete the required fields from the calculated fields.
+  If this function is defined,
+  it will be called automatically when reading a formatted text string or a scheme object.
+  The function should use the calculated fields used by the format to complete the required fields.
+  This may require different functions for different formats
+  so more than one required function may be defined (using different names).
+  The format will need to specify which function to use with the <b>functions</b> sub-statement.
  </li>
 </ol>
-<p>
- If there are different ways to find the fixed fields,
- different formats may require the use of different functions
- depending on the calculated fields used.
- If a format does not use the "fixed" function for text input
- then it can be specified it with the <b><a href='format.htm#use-in'>use:in</a></b> sub-statement.
-</p>
+<!--
+<table class='basic'>
+<tr><th colspan='2'>Functions used with calculated fields</th></tr>
+<tr><th>Sub-Statement</th><th>Use</th></tr>
+<tr><td class='code'>calculated</td><td>Completes calculated fields using the required fields.</td></tr>
+<tr><td class='code'>required</td><td>Completes required fields using calculated fields from the format.</td></tr>
+<tr><td class='code'>first.&lt;<i>field</i>&gt;</td><td>Returns the first value of the field.</td></tr>
+<tr><td class='code'>last.&lt;<i>field</i>&gt;</td><td>Returns the last value of the field.</td></tr>
+</table>
+-->
 
 <h3 id="use">Sub-Statement: use</h3>
 <p>
  Used to indicate when functions are automatically created by the scheme.
- The "calculated" and "fixed" functions are created when the grammar is attached to the scheme.
+ The "calculated" and "required" functions are created when the grammar is attached to the scheme.
 </p>
 <table class='basic'>
 <tr><th colspan='3'>grammar use Sub-Statement</th></tr>
