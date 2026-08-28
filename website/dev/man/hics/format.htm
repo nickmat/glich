@@ -41,26 +41,24 @@
 <table class='basic'>
  <tr><th colspan='3'>format Statement</th></tr>
  <tr><th>Format</th><th>Example</th><th>Output</th></tr>
+
  <tr>
-  <td class='code'><b>format</b> <i>gcode</i><b>:</b><i>fcode</i> <b>{</b>
-    <i>format-statements</i>
-<b>};</b></td> <!-- See test file - test/tscripts/suite/suite\hics-lib\format\format001.glcs -->
-  <td class='example'><b>format</b> j:OBLIQUE <b>{</b>
-    separators "/";
-    inout "{day}/|{month}/|{year}"; 
+  <td class='code'><b>grammar</b> <i>gcode</i> <b>{</b>
+    <i>grammar-statements</i>
+    <b>format</b> <i>fcode</i> <i>format-string</i><b>;</b>
+<b>};</b></td>
+  <!-- See test file - hics-lib\manual\hics_format-001.glcs -->
+  <td class='example'><b>grammar</b> XG <b>{</b>
+    inherit g;
+    <b>format</b> html
+        "{day}&lt;sup&gt;{day::oa}&lt;/sup&gt; |{month:m} |{year}";
 <b>};</b>
-writeln text.g:OBLIQUE 2460136;
-writeln date.j:OBLIQUE "27/6/2023";
+scheme XS{ base gregorian; grammar XG; };
+write @text.XS:html( 2460127 ) nl;
 </td>
-  <td>10/7/2023<br>2460136</td>
+  <td>1<sup>st</sup> July 2023</td>
  </tr>
- <tr>
-  <td class='code'><b>format</b> <i>gcode</i><b>:</b><i>fcode</i> <i>format-string</i><b>;</b></td>
-  <!-- See test file - test/tscripts/suite/statements/format002.hcs -->
-  <td class='example'><b>format</b> g:UPPER  "{day} |{month:m:a:u} |{year}"; 
-writeln text.g:UPPER 2460141;</td>
-  <td>15 JUL 2023</td>
- </tr>
+
  <tr>
   <td class='code'><b>grammar</b> <i>gcode</i> <b>{</b>
     <i>grammar-statements</i>
@@ -68,32 +66,42 @@ writeln text.g:UPPER 2460141;</td>
         <i>format-statements</i>
     <b>};</b>
 <b>};</b></td>
-  <!-- See test file - test/tscripts/suite/statements/grammar/g_format003.hcs -->
+  <!-- See test file - hics-lib\manual\hics_format-003.glcs -->
   <td class='example'><b>grammar</b> XG <b>{</b>
     inherit g;
     <b>format</b> dXmy <b>{</b>
-        output "{Day} |{Month::rn} |{Year}";
+        separators ".";
+        inout "{day}.{month::rn}.{year}";
     <b>};</b>
 <b>};</b>
 scheme XS{ base gregorian; grammar XG; }
-writeln text.XS:dXmy 2460141;</td>
-  <td>15 VII 2023</td>
+write @text.XS:dXmy( 2460141 ) nl;</td>
+  <td>15.VII.2023</td>
  </tr>
+ 
  <tr>
-  <td class='code'><b>grammar</b> <i>gcode</i> <b>{</b>
-    <i>grammar-statements</i>
-    <b>format</b> <i>fcode</i> <i>format-string</i><b>;</b>
-<b>};</b></td>
-  <!-- See test file - test/tscripts/suite/statements/grammar/g_format004.hcs -->
-  <td class='example'><b>grammar</b> XG <b>{</b>
-    inherit g;
-    <b>format</b> html
-        "{day}&lt;sup&gt;{day::oa}&lt;/sup&gt; |{month:m} |{year}";
-<b>};</b>
-scheme XS{ base gregorian; grammar XG; };
-writeln text.XS:html 2460127;</td>
-  <td>1<sup>st</sup> July 2023</td>
+  <td class='code'><b>format</b> <i>gcode</i><b>:</b><i>fcode</i> <i>format-string</i><b>;</b></td>
+  <!-- See test file - test/tscripts/suite/statements/format002.hcs -->
+  <td class='example'><b>format</b> g:UPPER  "{day} |{month:m:a:u} |{year}"; 
+write @text.g:UPPER( 2460141 ) nl;</td>
+  <td>15 JUL 2023</td>
  </tr>
+
+ <tr>
+  <td class='code'><b>format</b> <i>gcode</i><b>:</b><i>fcode</i> <b>{</b>
+    <i>format-statements</i>
+<b>};</b></td>
+  <!-- See test file - hics-lib\manual\hics_format-004.glcs -->
+  <td class='example'><b>format</b> j:OBLIQUE <b>{</b>
+    separators "/";
+    inout "{day}/|{month}/|{year}"; 
+<b>};</b>
+write @text.g:OBLIQUE( 2460136 ) nl;
+write @date.j:OBLIQUE( "27/6/2023" ) nl;
+</td>
+  <td>10/7/2023<br>2460136</td>
+ </tr>
+
 </table>
     
 <p>
@@ -122,38 +130,49 @@ writeln text.XS:html 2460127;</td>
 <table class='basic'>
 <tr><th colspan='2'>rules Statements</th></tr>
 <tr><th>Statement</th><th>Use</th></tr>
-<tr><td class='code'><b>rules text</b></td><td>Use a text string to define the date. The default value.</td></tr>
+<tr><td class='code'><b>rules text</b></td><td>Use a text string to define the date. This is the default statement.</td></tr>
 <tr><td class='code'><b>rules units</b></td><td>Use value, unit pairs to define the date, or date elements.</td></tr>
 <tr><td class='code'><b>rules iso8601</b></td><td>Use the ISO 8601 standard that defines Gregorian dates.</td></tr>
 </table>
+<p>
+ If no rules statement is given, the default is <b>rules text</b>.
+</p>
 
 <h3 id='rules-text'>Format Sub-Statement: rules text</h3>
 <p>
  The text format rule uses a format string to control the order and style of the text being read or written.
  Since this is the default rule, there is no need to explicitly state it.
 </p>
+<p>
+ The control string is split into elements with each element associated with a field.
+ The elements are separated by the '|' character.
+ This allows elements to be excluded from the output text if the field value is null or suppressed.
+ This is particularly useful when a field is optional, or when a range shorthand is used.
+</p>
 
 <table class='basic'>
 <tr><th colspan='3'>Format Sub-Statements used with rules text</th></tr>
 <tr><th>Statement</th><th>Example</th><th>Note</th></tr>
-<tr><td class='code'><b>inout</b> <i>format-string</i>;</td><td class='example'><b>inout</b> "{day} |{month:m:a} |{year}";</td><td>Format string used for both input and output.</td></tr>
-<tr><td class='code'><b>input</b> <i>format-string</i>;</td><td class='example'><b>input</b> "{day} |{month} |{year}";</td><td>Format string used for just input.</td></tr>
-<tr><td class='code'><b>output</b> <i>format-string</i>;</td><td class='example'><b>output</b> "{day::os} |{month:m} |{year}";</td><td>Format string used for just output.</td></tr>
+<tr><td class='code'><b>inout</b> <i>control-string</i>;</td><td class='example'><b>inout</b> "{day} |{month:m:a} |{year}";</td><td>Control string used for both input and output.</td></tr>
+<tr><td class='code'><b>output</b> <i>control-string</i>;</td><td class='example'><b>output</b> "{day::os} |{month:m} |{year}";</td><td>Control string used for just output.</td></tr>
+<tr><td class='code'><b>input</b> <i>control-string</i>;</td><td class='example'><b>input</b> "{day} |{month} |{year}";</td><td>Control string used for just input.</td></tr>
 <tr><td class='code'><b>separators</b> <i>string-expr</i>;</td><td class='example'><b>separators</b> "-";</td><td>Characters to be used to separate date elements. Default is ":,".</td></tr>
 <tr><td class='code'><b>rank</b> <i>string-list</i>;</td><td class='example'><b>rank</b> "ce", "ceyear", "month", "day";</td><td>Set the significance order for input and output fields.</td></tr>
-<tr><td class='code'><b>rankout</b> <i>string-list</i>;</td><td class='example'><b>rankout</b> year, nmonth, nmday, cday;</td><td>Set the significance order for output fields only.</td></tr>
 <tr><td class='code'><b>visible</b> <i>switch</i>;</td><td class='example'><b>visible</b> yes;</td><td>Set the visibility for the format when listed.</td></tr>
 <tr><td class='code'><b>pseudo:in</b> <i>string</i>;</td><td class='example'><b>pseudo:in</b> "Day Month Year";</td><td>Set the string that shows the input format.</td></tr>
 <tr><td class='code'><b>pseudo:out</b> <i>string</i>;</td><td class='example'><b>pseudo:out</b> "d-Mmm-yyyy";</td><td>Set the string that shows the output format.</td></tr>
-<tr><td class='code'><b>use:in</b> <i>string</i>;</td><td class='example'><b>use:in</b> calc_month;</td><td>Function code used to complete default fields.</td></tr>
+<tr><td class='code'><b>functions {</b>
+    <i>std-name alt-name</i>;
+<b>};</b></td><td class='example'><b>functions {</b> required req_from_calc; <b>};</b></td><td>Provides alternative names for the standard functions.</td></tr>
 <tr><td class='code'><b>padding</b> <i>string-list</i>;</td><td class='example'><b>padding</b> mon tue wed thur fri sat sun;</td><td>These words will be ignored if included.</td></tr>
 </table>
 
+<h4>Format Control String</h4>
 <p>
  The format definition must contain either the
  <code><b>inout</b></code> or,
  one or both of the <code><b>input</b></code> and <code><b>output</b></code> sub-statements.
- All these statements use the <i>format-string</i> to describe
+ All these statements use the <i>control-string</i> to describe
  how text is to be interpreted as a date
  and/or how a date is to be output as text.
 </p>
@@ -162,7 +181,7 @@ writeln text.XS:html 2460127;</td>
  For input text, the format describes the expected order of the elements.
  The exact form of those elements (digits or text) is not normally important.
  If the number of elements is less than the format's,
- then the lest significant field or fields are removed from the format.
+ then the least significantly ranked field or fields are removed from the format.
  A fields significance is determined by its ranking order. 
  For example:-
 </p>
@@ -239,12 +258,6 @@ writeln text.XS:html 2460127;</td>
  If not given, the rank order is that stated by the <b>grammar</b> or the same as the default order.
 </p>
 
-<h4>Format Sub-Statement: rankout</h4>
-<p>
- The same as the <b>rank</b> sub-statement but it only affects the output of a format.
- It is used when separate <b>input</b> and <b>output</b> sub-statements are used.
-</p>
-
 <h4>Format Sub-Statement: visible</h4>
 <p>
  Set the visibility attribute for the Format to <code>yes</code> or <code>no</code>.
@@ -264,15 +277,29 @@ writeln text.XS:html 2460127;</td>
  can be used to override the automatically constructed ones.
 </p>
 
-<h4 id="use-in">Format Sub-Statement: use:in</h4>
+<h4 id="use-in">Format Sub-Statement: functions</h4>
 <p>
- Required when there are calculated fields included in the scheme.
+ There are currently four standard functions that can be with calculated fields.
+ These are <b>calculated</b>, <b>required</b>, <b>first</b> and <b>last</b>.
+ The grammar may define these and other alternative functions.
+</p>
+<table class='basic'>
+ <tr>
+  <td class='code'><b>functions {</b>
+    <i>std-name</i><b>;</b> <i>alt-name</i><b>;</b>
+    ...
+<b>};</b>
+</td>
+ </tr>
+</table>
+<p>
+ This sub-statement allows the alternative functions to be used as, or replace, the standard functions.
 </p>
 <p>
- The function name to be used to complete all the fields
- based on those fields used in the input text string.
- If not given the the function specified by the grammar
- sub-statement <b><a href="grammar.htm#use">use from_text</a></b> is used.
+ Use case: these functions are always called during date - text conversions
+ and sometimes they incur a performance penalty.
+ If they are not required they may not be defined by their standard name but given an alternative name.
+ The format statement is then used to activate the alternative function only when needed.
 </p>
 
 <h4 id="use-in">Format Sub-Statement: padding</h4>
@@ -313,6 +340,7 @@ writeln text.XS:html 2460127;</td>
 <tr><td class='example'>@scheme.g:u( "2023y 9m 21d" )</td><td>{s:g 2023, 9, 21, 4}</td></tr> <!-- see as above -->
 <tr><td class='example'>@text.g:u( 2460048 )</td><td>"2023y 4m 13d"</td></tr> <!-- see suite/hics-lib/functions/built-in/at-text003.glcs -->
 </table>
+<!-- See test file - hics-lib\manual\hics_format-005.glcs -->
 
 <div class='note'><div class='inner'>
   <p>
