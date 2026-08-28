@@ -1,0 +1,14 @@
+// hics_format-001.glcs  Verify format example within grammar.
+
+grammar XG {
+    inherit g;
+    format html
+        "{day}<sup>{day::oa}</sup> |{month:m} |{year}";
+};
+scheme XS{ base gregorian; grammar XG; };
+write @text.XS:html( 2460127 ) nl;
+
+/*[OUTPUT]
+1<sup>st</sup> July 2023
+
+[OUTPUT]*/

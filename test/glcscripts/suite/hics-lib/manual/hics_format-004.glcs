@@ -1,0 +1,14 @@
+// hics_format-004.glcs  Verify format statement example.
+
+format j:OBLIQUE {
+    separators "/";
+    inout "{day}/|{month}/|{year}"; 
+};
+write @text.g:OBLIQUE( 2460136 ) nl;
+write @date.j:OBLIQUE( "27/6/2023" ) nl;
+
+/*[OUTPUT]
+10/7/2023
+2460136
+
+[OUTPUT]*/

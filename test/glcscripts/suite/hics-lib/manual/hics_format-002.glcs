@@ -1,0 +1,16 @@
+// hics_format-002.glcs  Verify format example within grammar.
+
+grammar XG {
+    inherit g;
+    format dXmy {
+        separators ".";
+        inout "{day}.{month::rn}.{year}";
+    };
+};
+scheme XS{ base gregorian; grammar XG; }
+write @text.XS:dXmy( 2460141 ) nl;
+
+/*[OUTPUT]
+15.VII.2023
+
+[OUTPUT]*/

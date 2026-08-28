@@ -1,0 +1,9 @@
+// hics_format-003.glcs  Verify format statement example.
+
+format g:UPPER  "{day} |{month:m:a:u} |{year}"; 
+write @text.g:UPPER( 2460141 ) nl;
+
+/*[OUTPUT]
+15 JUL 2023
+
+[OUTPUT]*/

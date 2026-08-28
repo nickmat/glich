@@ -1,0 +1,18 @@
+// hics_format-005.glcs  Verify format unit rules examples.
+
+write nl;
+write @date.g:u( "9month1948year19day" ) nl;
+write @date.g:u( "2023y 4d 13m" ) nl;
+write @scheme.g:u( "9 month" ) nl;
+write @scheme.g:u( "2023y 9m 21d" ) nl;
+write @text.g:u( 2460048 ) nl;
+
+/*[OUTPUT]
+
+2432814
+2460314
+{s:g null, 9, null, null}
+{s:g 2023, 9, 21, 4}
+2023y 4m 13d
+
+[OUTPUT]*/
