@@ -193,6 +193,12 @@ SToken& STokenStream::next()
     case '/':
         switch( m_in->peek() ) {
         case '=': m_in->get( ch ); set_type( SToken::Type::DivideEq ); break;
+        case '.':
+            m_in->get( ch );
+            switch( m_in->peek() ) {
+            case '=': m_in->get( ch ); set_type( SToken::Type::FloatDivEq ); break;
+            default: set_type( SToken::Type::FloatDiv ); break;
+            } break;
         case '%':
             m_in->get( ch );
             switch( m_in->peek() ) {
@@ -275,6 +281,7 @@ SToken& STokenStream::next()
         } break;
     case '\\':
         switch( m_in->peek() ) {
+        case '=': m_in->get( ch ); set_type( SToken::Type::BackslashEq ); break;
         case '\\':
             m_in->get( ch );
             switch( m_in->peek() ) {

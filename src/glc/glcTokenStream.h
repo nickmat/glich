@@ -41,16 +41,47 @@ namespace glich {
     public:
         enum class Type {
             Null, End, String, Name, Number, Field, Real,
-            Equal, Plus, Minus, Divide, Star,
-            PlusEq, MinusEq, DivideEq, StarEq,
-            IntDivEq, ModEq,
-            Percent, Backslash, DblBackslash, Tilde,
-            Dot, Comma, Semicolon, Qmark,
-            Vline, Ampersand, DblAmpersand, Exclamation, DblExclamation,
-            Carrot, DblCarrot, At,
-            Lbracket, Rbracket, LCbracket, RCbracket,
-            LSbracket, RSbracket,
-            Div, Mod, And, Or, Not,
+            Equal,       // "="
+            Plus,        // "+"
+            Minus,       // "-"
+            Divide,      // "/"
+            Star,        // "*"
+            PlusEq,      // "+="
+            MinusEq,     // "-="
+            DivideEq,    // "/="
+            StarEq,      // "*="
+            IntDivEq,    // "\%="
+            ModEq,       // "%="
+            Percent,     // "%"
+            Backslash,   // "\"
+            DblBackslash,// "\\"
+            BackslashEq, // "\="
+            Tilde,       // "~"
+            Dot,         // "."
+            Comma,       // ","
+            Semicolon,   // ";"
+            Qmark,       // "?"
+            Vline,       // "|"
+            Ampersand,   // "&"
+            DblAmpersand,// "&&"
+            Exclamation, // "!"
+            DblExclamation,// "!!"
+            Carrot,      // "^"
+            DblCarrot,   // "^^"
+            At,          // "@"
+            Lbracket,    // "("
+            Rbracket,    // ")"
+            LCbracket,   // "{"
+            RCbracket,   // "}"
+            LSbracket,   // "["
+            RSbracket,   // "]"
+            Div,         // "/%" or "div"
+            FloatDiv,    // "/."
+            FloatDivEq,  // "/.="
+            Mod,         // "%" or "mod"
+            And,         // "and"
+            Or,          // "or"
+            Not,         // "not"
             DotDot,      //  ".."
             NotEqual,    //  "<>"
             GtThan,      //  ">"
