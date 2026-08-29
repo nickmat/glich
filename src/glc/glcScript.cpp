@@ -684,6 +684,9 @@ bool Script::do_assign( const string& name, VariableType vartype )
         case SToken::Type::IntDivEq:
             value.int_div( expr( GetToken::next ) );
             break;
+        case SToken::Type::FloatDivEq:
+            value.float_div( expr( GetToken::next ) );
+            break;
         case SToken::Type::ModEq:
             value.modulus( expr( GetToken::next ) );
             break;
@@ -1221,6 +1224,9 @@ SValue Script::term( GetToken get )
             break;
         case SToken::Type::Div:
             left.int_div( subscript( GetToken::next ) );
+            break;
+        case SToken::Type::FloatDiv:
+            left.float_div( subscript( GetToken::next ) );
             break;
         case SToken::Type::Mod:
             left.modulus( subscript( GetToken::next ) );

@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     8th February 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -135,6 +135,7 @@ namespace glich {
         void multiply( const SValue& value );
         void divide( const SValue& value );
         void int_div( const SValue& value );
+        void float_div( const SValue& value );
         void modulus( const SValue& value );
 
         void rlist_union( const SValue& value );

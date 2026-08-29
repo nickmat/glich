@@ -1,0 +1,11 @@
+// divide014.glcs Test file to test float division of integers with '/.' operator
+
+let a=15/.3;
+let b=99/.a;
+let c = 22;
+c /.= 2;
+write a, b, c;
+
+/*[OUTPUT]
+5.0, 19.8, 11.0
+[OUTPUT]*/

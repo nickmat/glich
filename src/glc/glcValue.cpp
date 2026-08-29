@@ -1149,6 +1149,100 @@ void glich::SValue::int_div( const SValue& value )
     set_field( fdiv_e( left, right ) );
 }
 
+void glich::SValue::float_div( const SValue& value )
+{
+    if( propagate_error( value ) ) {
+        return;
+    }
+    const char* only_ints_err = "Can only divide numeric values.";
+    double left = 0.0;
+    double right = 0.0;
+    switch( type() )
+    {
+    case Type::Number:
+        switch( value.type() )
+        {
+        case Type::Number:
+            left = static_cast<double>(get_number());
+            right = static_cast<double>(value.get_number());
+            break;
+        case Type::field:
+            left = static_cast<double>(get_number());
+            right = value.get_field_as_float();
+            break;
+        case Type::Float:
+            left = static_cast<double>(get_number());
+            right = value.get_float();
+            break;
+        default:
+            set_error( only_ints_err );
+            return;
+        }
+        break;
+    case Type::field:
+        switch( value.type() )
+        {
+        case Type::Number:
+            left = get_field_as_float();
+            right = static_cast<double>(value.get_number());
+            break;
+        case Type::field:
+            left = get_field_as_float();
+            right = value.get_field_as_float();
+            break;
+        case Type::Float:
+            left = get_field_as_float();
+            right = value.get_float();
+            break;
+        default:
+            set_error( only_ints_err );
+            return;
+        }
+        break;
+    case Type::Float:
+        switch( value.type() )
+        {
+        case Type::Number:
+            left = get_float();
+            right = static_cast<double>(value.get_number());
+            break;
+        case Type::field:
+            left = get_float();
+            right = value.get_field_as_float();
+            break;
+        case Type::Float:
+            left = get_float();
+            right = value.get_float();
+            break;
+        default:
+            set_error( only_ints_err );
+            return;
+        }
+        break;
+    default:
+        set_error( only_ints_err );
+        return;
+    }
+    if( std::isnan( right ) ) {
+        set_error( "Division by nan." );
+        return;
+    }
+    if( std::isinf( right ) ) {
+        string sign = (right > 0) ? "+" : "-";
+        set_error( "Division by " + sign + "inf." );
+        return;
+    }
+    if( is_zero( right ) ) {
+        set_error( "Division by zero." );
+        return;
+    }
+    if( std::isnan( left ) ) {
+        set_error( "Cannot divide nan." );
+        return;
+    }
+    set_float( left / right );
+}
+
 void SValue::modulus( const SValue& value )
 {
     if( propagate_error( value ) ) {
