@@ -197,7 +197,7 @@ SToken& STokenStream::next()
             m_in->get( ch );
             switch( m_in->peek() ) {
             case '=': m_in->get( ch ); set_type( SToken::Type::IntDivEq ); break;
-            default: m_in->get( ch ); set_type( SToken::Type::Div ); break;
+            default: set_type( SToken::Type::Div ); break;
             }
             break;
         default: set_type( SToken::Type::Divide ); break;
