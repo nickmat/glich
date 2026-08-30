@@ -12,8 +12,11 @@ write x nl;
 x *= 7;
 write x nl;
 
+x /= 2;
+write x nl;
+
 let y = 50;
-y /= 7;
+y /.= 7;
 write y nl;
 
 let y = 50;
@@ -30,6 +33,7 @@ write y nl;
 11
 6
 42
+21
 7.142857
 7
 1

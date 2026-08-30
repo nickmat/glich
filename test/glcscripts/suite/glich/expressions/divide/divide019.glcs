@@ -1,0 +1,21 @@
+// divide019.glcs Test file to test division of special field errors
+
+write nl;
+
+write 10 / 0;
+write 10f / 0;
+write 10 / ?;
+write 10 / -infinity;
+write 10 / +infinity;
+write ? / 2;
+
+/*[OUTPUT]
+
+Error file:divide019 (5): Division by zero.
+Error file:divide019 (6): Division by zero.
+Error file:divide019 (7): Division by invalid.
+Error file:divide019 (8): Division by -infinity.
+Error file:divide019 (9): Division by +infinity.
+Error file:divide019 (10): Cannot divide invalid.
+
+[OUTPUT]*/

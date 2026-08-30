@@ -1,0 +1,11 @@
+// divide018.glcs Test file to test division of special fields
+
+let a = infinity / 2;
+let b = -infinity / 2;
+
+write a, b;
+
+
+/*[OUTPUT]
++infinity, -infinity
+[OUTPUT]*/
