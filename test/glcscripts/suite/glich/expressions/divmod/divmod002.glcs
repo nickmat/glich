@@ -1,0 +1,37 @@
+// divmod002.glcs Test file to test divmod of negative fields
+
+let a = 4 /% 2;
+let b = 3 /% 2;
+let c = 2 /% 2;
+let d = 1 /% 2;
+let e = 0 /% 2;
+let f = -1 /% 2;
+let g = -2 /% 2;
+let h = -3 /% 2;
+let i = -4 /% 2;
+
+write nl;
+write a, 2 * a[0] + a[1] nl;
+write b, 2 * b[0] + b[1] nl;
+write c, 2 * c[0] + c[1] nl;
+write d, 2 * d[0] + d[1] nl;
+write e, 2 * e[0] + e[1] nl;
+write f, 2 * f[0] + f[1] nl;
+write g, 2 * g[0] + g[1] nl;
+write h, 2 * h[0] + h[1] nl;
+write i, 2 * i[0] + i[1] nl;
+
+
+/*[OUTPUT]
+
+{: 2, 0}, 4
+{: 1, 1}, 3
+{: 1, 0}, 2
+{: 0, 1}, 1
+{: 0, 0}, 0
+{: -1, 1}, -1
+{: -1, 0}, -2
+{: -2, 1}, -3
+{: -2, 0}, -4
+
+[OUTPUT]*/

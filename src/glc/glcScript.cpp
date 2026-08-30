@@ -690,6 +690,9 @@ bool Script::do_assign( const string& name, VariableType vartype )
         case SToken::Type::ModEq:
             value.modulus( expr( GetToken::next ) );
             break;
+        case SToken::Type::DivModEq:
+            value.div_mod( expr( GetToken::next ) );
+            break;
         case SToken::Type::RangeEq:
             value.range_op( expr( GetToken::next ) );
             break;
@@ -1230,6 +1233,9 @@ SValue Script::term( GetToken get )
             break;
         case SToken::Type::Mod:
             left.modulus( subscript( GetToken::next ) );
+            break;
+        case SToken::Type::DivMod:
+            left.div_mod( subscript( GetToken::next ) );
             break;
         default:
             return left;

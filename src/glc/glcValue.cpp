@@ -1161,6 +1161,35 @@ void glich::SValue::float_div( const SValue& value )
     set_float( left / right );
 }
 
+void glich::SValue::div_mod( const SValue& value )
+{
+    if( propagate_error( value ) ) {
+        return;
+    }
+    SValue quotient( *this );
+    quotient.divide( value );
+    if( quotient.is_error() ) {
+        set_error( quotient.get_str() );
+        return;
+    }
+    if( quotient.type() != Type::Number ) {
+        set_error( "Must use divmod with integers." );
+        return;
+    }
+    SValue remainder( *this );
+    remainder.modulus( value );
+    if( remainder.is_error() ) {
+        set_error( remainder.get_str() );
+        return;
+    }
+    if( remainder.type() != Type::Number ) {
+        // This should never happen, but just in case.
+        set_error( "Must use divmod with integers." );
+        return;
+    }
+    set_object( { SValue( ":" ), quotient, remainder } );
+}
+
 void SValue::modulus( const SValue& value )
 {
     if( propagate_error( value ) ) {
