@@ -1222,7 +1222,7 @@ SValue Script::term( GetToken get )
         case SToken::Type::Divide:
             left.divide( subscript( GetToken::next ) );
             break;
-        case SToken::Type::Div:
+        case SToken::Type::IntDiv:
             left.int_div( subscript( GetToken::next ) );
             break;
         case SToken::Type::FloatDiv:

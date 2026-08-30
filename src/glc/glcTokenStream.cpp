@@ -145,7 +145,7 @@ SToken& STokenStream::next()
             set_type( SToken::Type::Not );
         }
         else if( str == "div" ) {
-            set_type( SToken::Type::Div );
+            set_type( SToken::Type::IntDiv );
         }
         else if( str == "mod" ) {
             set_type( SToken::Type::Mod );
@@ -202,8 +202,8 @@ SToken& STokenStream::next()
         case '%':
             m_in->get( ch );
             switch( m_in->peek() ) {
-            case '=': m_in->get( ch ); set_type( SToken::Type::IntDivEq ); break;
-            default: set_type( SToken::Type::Div ); break;
+            case '=': m_in->get( ch ); set_type( SToken::Type::DivModEq ); break;
+            default: set_type( SToken::Type::DivMod ); break;
             }
             break;
         default: set_type( SToken::Type::Divide ); break;
@@ -281,14 +281,14 @@ SToken& STokenStream::next()
         } break;
     case '\\':
         switch( m_in->peek() ) {
-        case '=': m_in->get( ch ); set_type( SToken::Type::BackslashEq ); break;
+        case '=': m_in->get( ch ); set_type( SToken::Type::IntDivEq ); break;
         case '\\':
             m_in->get( ch );
             switch( m_in->peek() ) {
             case '=': m_in->get( ch ); set_type( SToken::Type::RelCompEq ); break;
             default: set_type( SToken::Type::DblBackslash ); break;
             } break;
-        default: set_type( SToken::Type::Backslash ); break;
+        default: set_type( SToken::Type::IntDiv ); break;
         } break;
     case '?': set_type( SToken::Type::Qmark ); break;
     case '@':
