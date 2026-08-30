@@ -1,7 +1,7 @@
 // divide013.glcs Test file to test division of integers with %/ without spaces
 
-let a=15/%3;
-let b=99/%a;
+let a=15\3;
+let b=99\a;
 write a, b;
 
 /*[OUTPUT]

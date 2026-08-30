@@ -4,84 +4,84 @@ write nl;
 
 let a = 15;
 let n = 4;
-let q = a /% n;
+let q = a \ n;
 let r = a % n;
 let b = (a = n * q + r);
 write b, q, r,;
 
 let a = -15;
 let n = 4;
-let q = a /% n;
+let q = a \ n;
 let r = a % n;
 let b = (a = n * q + r);
 write b, q, r,;
 
 let a = 15;
 let n = -4;
-let q = a /% n;
+let q = a \ n;
 let r = a % n;
 let b = (a = n * q + r);
 write b, q, r,;
 
 let a = -15;
 let n = -4;
-let q = a /% n;
+let q = a \ n;
 let r = a % n;
 let b = (a = n * q + r);
 write b, q, r nl;
 
 let a = 16;
 let n = 4;
-let q = a /% n;
+let q = a \ n;
 let r = a % n;
 let b = (a = n * q + r);
 write b, q, r,;
 
 let a = -16;
 let n = 4;
-let q = a /% n;
+let q = a \ n;
 let r = a % n;
 let b = (a = n * q + r);
 write b, q, r,;
 
 let a = 16;
 let n = -4;
-let q = a /% n;
+let q = a \ n;
 let r = a % n;
 let b = (a = n * q + r);
 write b, q, r,;
 
 let a = -16;
 let n = -4;
-let q = a /% n;
+let q = a \ n;
 let r = a % n;
 let b = (a = n * q + r);
 write b, q, r nl;
 
 let a = 17;
 let n = 4;
-let q = a /% n;
+let q = a \ n;
 let r = a % n;
 let b = (a = n * q + r);
 write b, q, r,;
 
 let a = -17;
 let n = 4;
-let q = a /% n;
+let q = a \ n;
 let r = a % n;
 let b = (a = n * q + r);
 write b, q, r,;
 
 let a = 17;
 let n = -4;
-let q = a /% n;
+let q = a \ n;
 let r = a % n;
 let b = (a = n * q + r);
 write b, q, r,;
 
 let a = -17;
 let n = -4;
-let q = a /% n;
+let q = a \ n;
 let r = a % n;
 let b = (a = n * q + r);
 write b, q, r nl;

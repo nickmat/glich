@@ -4,14 +4,14 @@ write nl;
 
 let a = +infinity;
 let n = 4;
-let q = a /% n;
+let q = a \ n;
 let r = a % n;
 let b = (a = n * q + r);
 write b, q, r nl;
 
 let a = -infinity;
 let n = 4;
-let q = a /% n;
+let q = a \ n;
 let r = a % n;
 let b = (a = n * q + r);
 write b, q, r nl;
