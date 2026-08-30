@@ -1172,7 +1172,7 @@ void glich::SValue::div_mod( const SValue& value )
         set_error( quotient.get_str() );
         return;
     }
-    if( quotient.type() != Type::Number ) {
+    if( quotient.type() != Type::Number && quotient.type() != Type::field ) {
         set_error( "Must use divmod with integers." );
         return;
     }
@@ -1182,7 +1182,7 @@ void glich::SValue::div_mod( const SValue& value )
         set_error( remainder.get_str() );
         return;
     }
-    if( remainder.type() != Type::Number ) {
+    if( remainder.type() != Type::Number && remainder.type() != Type::field ) {
         // This should never happen, but just in case.
         set_error( "Must use divmod with integers." );
         return;
