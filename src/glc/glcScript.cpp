@@ -104,6 +104,7 @@ bool Script::statement()
         if( name == "exit" ) return false;
         if( name == "mark" ) return do_mark();
         if( name == "if" ) return do_if();
+        if( name == "for" ) return do_do();
         if( name == "do" ) return do_do();
         if( name == "set" ) return do_set();
         if( name == "let" ) return do_let( VariableType::local );
@@ -435,7 +436,7 @@ bool Script::do_do()
     }
     string code = m_ts.read_until( "}", "{" );
     if( code.empty() ) {
-        error( "Do loop not terminated." );
+        error( "For loop not terminated." );
         return false;
     }
     token = next_token();

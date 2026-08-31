@@ -1,4 +1,4 @@
-// do010.hcs Test incomplete do statement
+// do009.glcs Test incomplete do statement
 
 write nl;
 
@@ -7,6 +7,6 @@ do {
 
 /*[OUTPUT]
 
-Error file:do009 (14): Do loop not terminated.
+Error file:do009 (14): For loop not terminated.
 
 [OUTPUT]*/
