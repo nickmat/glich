@@ -8,7 +8,7 @@
       { "name": "let", "label": "Variables & Constants" },
       { "name": "exit", "label": "exit Statement" },
       { "name": "if", "label": "if Statement" },
-      { "name": "do", "label": "do Statement", "subtitle": "do Loop Statement" },
+      { "name": "for", "label": "for Statement", "subtitle": "for Loop Statement" },
       { "name": "function", "label": "Define function" },
       { "name": "command", "label": "command & call", "subtitle": "Define command & call Statement" },
       { "name": "object", "label": "Define object" },
