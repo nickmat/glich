@@ -1495,6 +1495,11 @@ void SValue::property_op( const SValue& value )
         case Type::Object:
             set_number( get_object().size() - 1 );
             return;
+        case Type::Number:
+        case Type::field:
+        case Type::range:
+            set_number( 1 );
+            return;
         case Type::rlist:
             set_number( get_rlist().size() );
             return;
