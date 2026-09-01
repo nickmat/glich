@@ -56,13 +56,20 @@
  If a double quote is required in the text, use two double quotes together.
  For example, the value "Say ""Hello""" would print as Say "Hello".
 </p>
+<p>
+    A string literal may include literal newline characters. The text inside the
+    quotation marks is taken exactly as written, including embedded line breaks.
+</p>
+<p>
+    The string constant <code>nl</code> is also available and represents a newline character.
+</p>
 
 <h3>Float</h3>
 <p>
  A floating point number.
 </p>
 <p>
- A float may hold the following special values.
+ A float may hold the following special constant values.
 </p>
 <table class='basic'>
 <tr><th>Keyword</th><th>Meaning</th></tr>
@@ -74,9 +81,17 @@
  with the exception of equal <b>=</b> and not equal <b>&lt;&gt;</b>.
 </p>
 <p>
- <span class='example'>float_type</span> is also part of the
- <span class='example'>numeric_type</span> and
- <span class='example'>any_numeric_type</span> groups.
+ <code>float_type</code> is also part of the
+ <code>numeric_type</code> and
+ <code>any_numeric_type</code> groups.
+</p>
+<p>
+    A float literal must begin with a digit. If the value starts with a decimal point,
+    a leading zero is required (for example, <code>0.5</code> rather than <code>.5</code>).
+</p>
+<p>
+    Exponent-form float literals (such as <code>1.2e6</code>) are not yet supported.
+    This will be added in a future revision of the language.
 </p>
 
 <h3>Number</h3>
@@ -84,10 +99,10 @@
  A number is a 64 bit signed integer value.
 </p>
 <p>
- <span class='example'>number_type</span> is also part of the
- <span class='example'>integer_type</span>,
- <span class='example'>numeric_type</span> and
- <span class='example'>any_numeric_type</span> groups.
+ <code>number_type</code> is also part of the
+ <code>integer_type</code>,
+ <code>numeric_type</code> and
+ <code>any_numeric_type</code> groups.
 </p>
 
 <h3>Field</h3>
@@ -95,11 +110,11 @@
  A field is a 32 bit signed integer value with some fixed values.
  It is used to form integer ranges and sets.
  It can be used with the set operands:
- complement <b>'!'</b>, union <b>'|'</b>, intersection <b>'&amp;'</b>,
- symmetric difference <b>'^'</b> and relative compliment <b>'\'</b>.
+ complement <b>'!'</b>, union <b>'|'</b>, intersection <b>'&amp;&amp;'</b>,
+ symmetric difference <b>'^^'</b> and relative compliment <b>'\\'</b>.
 </p>
 <p>
- A field may hold the following special values.
+ A field may hold the following special constant values.
 </p>
 <table class='basic'>
 <tr><th>Keyword</th><th>Meaning</th></tr>
@@ -107,11 +122,32 @@
 <tr><td><b>?</b></td><td>An unknown or indeterminate value.</td></tr>
 </table>
 <p>
- <span class='example'>field_type</span> is also part of the
- <span class='example'>set_type</span>,
- <span class='example'>integer_type</span>,
- <span class='example'>numeric_type</span> and
- <span class='example'>any_numeric_type</span> groups.
+    The Field type includes two special infinite constants. In core Glich these are
+    written as <code>-infinity</code> and <code>+infinity</code>. When the Hics
+    extension is active, the alternative symbolic names <code>past</code> and
+    <code>future</code> are used instead. Both forms are accepted as input, but
+    only the context’s form is used when printing values.
+</p>
+
+<p>
+ <code>field_type</code> is also part of the
+ <code>set_type</code>,
+ <code>integer_type</code>,
+ <code>numeric_type</code> and
+ <code>any_numeric_type</code> groups.
+</p>
+<p>
+    A numeric literal may be forced to be a Number or a Field by adding a suffix:
+</p>
+
+<ul>
+    <li><code>n</code> forces a Number (for example, <code>3n</code>)</li>
+    <li><code>f</code> forces a Field (for example, <code>5f</code>)</li>
+</ul>
+
+<p>
+    These suffixes are rarely needed in normal scripts but are useful for testing
+    and for code that must avoid automatic type promotion.
 </p>
 
 <h3>Range</h3>
@@ -132,10 +168,10 @@
  A range may only be demoted to a field if both values are equal. 
 </p>
 <p>
- <span class='example'>range_type</span> is also part of the
- <span class='example'>set_type</span>,
- <span class='example'>combined_type</span> and
- <span class='example'>any_numeric_type</span> groups.
+ <code>range_type</code> is also part of the
+ <code>set_type</code>,
+ <code>combined_type</code> and
+ <code>any_numeric_type</code> groups.
 </p>
 
 <h3>Rlist</h3>
@@ -151,7 +187,7 @@
   multiple ranges do not overlap or abut one another and are in ascending order.
 </p>
 <p>
- The rlist may hold the special value keyword <b>'empty'</b>,
+ The rlist may hold the special constant value <b>'empty'</b>,
  meaning it is the empty or null set.
 </p>
 <p>
@@ -162,15 +198,29 @@
  it contains a single range.
 </p>
 <p>
- <span class='example'>rlist_type</span> is also part of the
- <span class='example'>set_type</span>,
- <span class='example'>combined_type</span> and
- <span class='example'>any_numeric_type</span> groups.
+ <code>rlist_type</code> is also part of the
+ <code>set_type</code>,
+ <code>combined_type</code> and
+ <code>any_numeric_type</code> groups.
 </p>
+
+<p>
+    An rlist is always stored in <em>well‑formed</em> canonical form. When an rlist is
+    created—whether by parsing a literal expression or by any rlist or range operation—
+    the elements are sorted into ascending order, adjacent fields are merged into ranges,
+    overlapping ranges are combined, and duplicates are removed.
+</p>
+<p>
+    For example, the expression <code>15 | 10..8 | 14</code> is parsed and immediately
+    normalised to <code>8..10 | 14..15</code>. This canonical form is both the internal
+    representation and the printed form.
+</p>
+
+
 
 <h3>Boolean</h3>
 <p>
- A boolean value holds one of the two keywords <b>'true'</b> or <b>'false'</b>.
+ A boolean value holds one of the two special constant values <b>'true'</b> or <b>'false'</b>.
 </p>
 
 <h3>Object</h3>
@@ -215,10 +265,14 @@
  When written out, the value should print text that describes where and why
  the error was created.
 </p>
+<p>
+    An error value may be created explicitly using the <code>@error(message)</code>
+    function. The message is a string describing the error condition.
+</p>
 
 <h3>Null</h3>
 <p>
- A null value holds the keyword <b>'null'</b>.
+ A null value holds the special constant value <b>'null'</b>.
 </p>
 <p>
  Only the equal <b>'='</b> and not equal <b>'&lt;&gt;'</b> operators may be used with null values.

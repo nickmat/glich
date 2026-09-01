@@ -47,18 +47,21 @@
 
 <div id='content'>
 
-<h2>Introduction</h2>
+
+<h2>Glich Script – Core Language</h2>
+
 <p>
- Although it is designed to be extended, Glich is perfectly usable in its base form.
- A particular feature is its ability to perform integer set operations
- and to handle infinite integer ranges.
+    Although it is designed to be extended, Glich is perfectly usable in its base form.
+    A particular feature is its ability to perform integer set operations and to handle
+    infinite integer ranges.
 </p>
 
-<h3>Hello World</h3>
+<h3>Hello script</h3>
+
 <p>
- A script consists of one or more statements.
- As is usual in these circumstances, we present a hello world script.
+    The simplest possible script just writes a short message to the terminal:
 </p>
+
 <table class='code'>
 <tr><th>Hello Script</th></tr>
 <tr><td
@@ -67,86 +70,131 @@
 write "Hello world!" nl;
 </td></tr>
 </table>
+<p>
 <img class='scrnprnt' src='../images/glcs-hello.png' alt='Hello World message screen print' />
-<p>
- Using a text editor, copy the script and save as "hello.glcs".
- '.glcs' is the standard extension for Glich scripts.
- Run the Glich Script by starting the Glich interactive program glcs.exe
- and run the script with the command 'run hello.glcs'
- This should then result in the output shown.
-</p>
-<p>
- Scripts always use the UTF-8 character set.
 </p>
 
-<h3 class='clear'>Comments and White Space</h3>
-<table class='code'>
-<tr><td
->// A single line comment
-/*
-  This is a
-  multi-line
-  comment.
-*/
-</td></tr>
+<p>
+    Save this as <code>hello.glcs</code> and run it with the interactive terminal
+    (for example, <code>glcs hello.glcs</code>). Scripts must use the
+    <code>.glcs</code> extension and are always encoded as UTF‑8.
+</p>
+
+<p>
+    The interactive terminal will display the script output and any error messages.
+    A typical session looks like this:
+</p>
+
+
+<h3>Statements</h3>
+
+<p>
+    A Glich script is composed entirely of <strong>statements</strong>.
+    Every statement follows the same simple rule:
+</p>
+
+<ul>
+    <li>It begins with a <em>statement name</em>, or with a predefined variable name for assignments.</li>
+    <li>It may contain further sub‑statements inside a <code>{ ... }</code> block.</li>
+    <li>It always ends with a semicolon <code>;</code>.</li>
+</ul>
+
+<p>
+    There are no exceptions to this rule – all script structure is built from statements.
+</p>
+
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+ <tr><td class='example'>for i in 1..5 {
+    write i,;
+};</td><td class='example'>1, 2, 3, 4, 5,</td></tr>
 </table>
+
+<h3>Comments and white space</h3>
+
 <p>
- The first line is a single line comment.
- Every thing from the "//" token to the end of the line taken to be a comment.
+    Comments and white space are treated equally and are only required when needed to
+    separate tokens.
 </p>
+
+<ul>
+    <li><code>//</code> starts a single‑line comment, which runs to the end of the line.</li>
+    <li><code>/* ... */</code> starts a multi‑line comment, which may span several lines.</li>
+</ul>
+
 <p>
- Multi-line comments are included by placing them between the
- "/*" and "*/" tokens. Multi-line comments cannot be nested.
-</p>
-<p>
- Tabs, spaces, newlines and comments can appear anywhere within a script
- without its meaning being affecting.
- They are required only when necessary to separate tokens.
+    Multi‑line comments cannot be nested. Comments and white space may appear anywhere
+    in a script; they do not affect execution.
 </p>
 
 <h3>Tokens</h3>
+
 <p>
- The tokens that make up the script can be categorised into three groups,
- operators, literals and names.
-</p>
-<p>
- Operators are used to construct expressions.
- Mostly they are non-alphanumeric characters but they also include some text words.
- A complete list is given in the <a href='expr.htm#operator-list'>Operator List</a> table.
- Where words are used, they are reserved and cannot be used as names.
-</p>
-<p>
- Literals can be numbers, text strings or collections of these values as objects.
- Numbers consist of the numeric characters '0-9' and optionally a type character.
- At this time, two types of integer numbers and a floating point number can be used,
- Numbers, Fields and Floats.
- Text strings are placed between '"' double quote characters.
- If you need to include a double quote in the text, use two together,
- as in "Say ""Hello""".
-</p>
-<p>
- Names are constructed from alphanumeric, '_' underline and ':' colon characters.
- They can not start with a numeric character.
- The meaning of a name is dependant on the context
- and the same name can be used for different purposes in a script.
- Names are used as statements, sub-statements, statements arguments and variables. 
+    Glich scripts are built from <strong>tokens</strong>. Tokens fall into three groups:
 </p>
 
-<h3>Entities and Codes</h3>
+<ul>
+    <li><strong>Operators</strong> – symbols and reserved words that perform actions.</li>
+    <li><strong>Literals</strong> – fixed values such as numbers, text strings, and objects.</li>
+    <li><strong>Names</strong> – identifiers used for variables, functions, and objects.</li>
+</ul>
+
+<h4>Operators</h4>
+
 <p>
- A code name is the term used to describe the name given to created entities
- such as <b>file</b>s, <b>function</b>s, <b>command</b>s and <b>object</b>s.
- It is always a text string but it need not be in quotes
- if it conforms with the name standard.
+    Operators include punctuation symbols (such as <code>+</code>, <code>-</code>, <code>..</code>)
+    and reserved words (such as <code>and</code>, <code>or</code>, <code>not</code>).
+    They are defined in detail in the Operators section of the manual.
+</p>
+
+<h4>Literals</h4>
+
+<p>
+    Literal tokens represent fixed values. Core Glich supports:
+</p>
+
+<ul>
+    <li>numeric literals (Numbers, Fields, Floats),</li>
+    <li>text string literals,</li>
+    <li>object literals.</li>
+</ul>
+<p>
+    Note that <strong>ranges and rlists are not literals</strong>.  
+    For example, <code>1 | 5..8</code> consists of three literal numbers and two operators.
+    Glich will print such values in the same operator‑based form.
 </p>
 <p>
- A code name can use any character except white space and the '#' hash character.
- The ':' colon character may be restricted for some objects as well,
- as these may be used to combine codes into signatures.
- (More characters may be added to the excluded list in the future.)
- If the code conforms to the script name token definition it can be written directly,
- otherwise it must be written as a literal (i.e. in double quotes).
- If an expression is used to form a code, it must be placed in parenthesis.
+    These are described fully on the Value Types page.
+</p>
+
+<h4>Names</h4>
+
+<p>
+    Names are used for variables, functions, and objects. A name:
+</p>
+
+<ul>
+    <li>consists of letters, digits, underscore (<code>_</code>) and colon (<code>:</code>),</li>
+    <li>must not start with a digit,</li>
+    <li>must not be a reserved word.</li>
+</ul>
+<p>
+    The colon (<code>:</code>) is a normal name character, just like underscore.
+    This is important because names such as <code>abc:def</code> or <code>:root</code>
+    are valid and commonly used. It is easy to overlook this rule.
+</p>
+
+<p>
+    Names are case‑sensitive. The detailed rules for names and objects are covered in
+    later sections of the manual.
+</p>
+
+<h2>Next steps</h2>
+
+<p>
+    The next page describes the eleven value types in detail, including type groups
+    (such as <code>set_type</code> for Field, Range, and Rlist) and the automatic type
+    conversions used by Glich.
 </p>
 
 </div><!--id=content-->
