@@ -1,13 +1,19 @@
 // bool001.glcs Test file to test bool maths.
 
+write nl;
 write 1 = 1 nl;
 write 1 = 2 nl;
 write 1 <> 1 nl;
 write 1 <> 2 nl;
+write 1 != 1 nl;
+write 1 != 2 nl; 
 
 /*[OUTPUT]
+
 true
 false
+false
+true
 false
 true
 

@@ -70,7 +70,7 @@ namespace glich {
             Semicolon,       // ";"
             LessThan,        // "<"
             LessThanEq,      // "<="
-            NotEqual,        // "<>"
+            NotEqual,        // "<>" or "!="
             Equal,           // "="
             GtThan,          // ">"
             GtThanEq,        // ">="

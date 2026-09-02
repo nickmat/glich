@@ -267,6 +267,7 @@ SToken& STokenStream::next()
     case '!':
         switch( m_in->peek() ) {
         case '!': m_in->get( ch ); set_type( SToken::Type::DblExclamation ); break;
+        case '=': m_in->get( ch ); set_type( SToken::Type::NotEqual ); break;
         default: set_type( SToken::Type::Exclamation ); break;
         } break;
     case '^':
