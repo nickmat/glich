@@ -102,6 +102,8 @@ Glich::Glich( InOut* inout )
         { "true", true },
         { "false", false },
         { "infinity", SValue( f_maximum, SValue::Type::field ) },
+        { "past", SValue( f_minimum, SValue::Type::field ) },
+        { "future", SValue( f_maximum, SValue::Type::field ) },
         { "inf", std::numeric_limits<double>::infinity() },
         { "nan", std::numeric_limits<double>::quiet_NaN() },
         { "null", SValue() },

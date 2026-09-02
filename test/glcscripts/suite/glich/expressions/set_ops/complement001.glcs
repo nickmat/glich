@@ -1,8 +1,8 @@
 // complement001.glcs
 
-write !infinity, !-infinity;
+write !infinity, !-infinity, !future, !past;
 
 
 /*[OUTPUT]
--infinity, +infinity
+-infinity, +infinity, -infinity, +infinity
 [OUTPUT]*/
