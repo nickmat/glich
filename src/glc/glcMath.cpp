@@ -311,23 +311,28 @@ RList glich::set_operation( SetOp op, const RList& left, const RList& right )
 
 RList glich::op_set_complement( const RList& input )
 {
-    // Note, we assume the complement of the range infinite is -infinite and vice versa.
-    // This may not be correct (it should be invalid?) but it should be safe.
-    RList answer;
-    Range range;
-
+    // We can assume the input is well ordered and normalised.
     // Check for empty set.
     if( input.empty() ) {
-        range.m_beg = f_minimum;
-        range.m_end = f_maximum;
-        answer.push_back( range );
-        return answer; // Return the full set.
+        return { Range( f_minimum, f_maximum ) }; // Return the full set.
+    }
+    // Note, we assume the complement of the range infinite is -infinite and vice versa.
+    // This may not be correct (it should be invalid?) but it should be safe.
+    // Check for the minimum value.
+    if( input[0].m_end == f_minimum ) {
+        return { Range( f_maximum, f_maximum ) }; // Return maximum.
+    }
+    // Check for the maximum value.
+    if( input.back().m_beg == f_maximum ) {
+        return { Range( f_minimum, f_minimum ) }; // Return minimum.
     }
 
+    RList answer;
+    Range range;
     int i = 0;
     if( input[0].m_beg != f_minimum ) {
         range.m_beg = f_minimum;
-        range.m_end = (input[0].m_end == f_maximum) ? f_minimum : input[0].m_beg - 1;
+        range.m_end = input[0].m_beg - 1;
         answer.push_back( range );
     }
     while( i < (int) input.size() - 1 ) {
@@ -337,7 +342,7 @@ RList glich::op_set_complement( const RList& input )
         answer.push_back( range );
     }
     if( input[i].m_end != f_maximum ) {
-        range.m_beg = (input[i].m_beg == f_minimum) ? f_maximum : input[i].m_end + 1;
+        range.m_beg = input[i].m_end + 1;
         range.m_end = f_maximum;
         answer.push_back( range );
     }

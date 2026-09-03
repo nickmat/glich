@@ -1,0 +1,15 @@
+// complement004.glcs
+
+write nl;
+write !(0..infinity), !(-infinity..0) nl;
+write !(-infinity..-1|1..infinity), !(0) nl;
+write !(-infinity..-10|0|10..infinity), !(-9..-1|1..9) nl;
+
+
+/*[OUTPUT]
+
+-infinity..-1, 1..+infinity
+0, -infinity..-1 | 1..+infinity
+-9..-1 | 1..9, -infinity..-10 | 0 | 10..+infinity
+
+[OUTPUT]*/
