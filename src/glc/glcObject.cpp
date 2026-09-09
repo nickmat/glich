@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     4th March 2023
- * Copyright:   Copyright (c) 2023..2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -85,7 +85,7 @@ string Object::get_list( const SValueVec& elements ) const
             result += m_values[i];
         }
         else {
-            result += std::to_string( i );
+            result += "[" + std::to_string( i ) + "]";
         }
         if( i < elements.size() - 1 ) {
             const SValue& value = elements[i + 1];

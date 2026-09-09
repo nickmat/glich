@@ -19,15 +19,15 @@ zero = 0
 one = 1
 two = 2
 three = 3
-4 = "four"
-5 = "five"
+[4] = "four"
+[5] = "five"
 
 zero = "zero"
 one = "one"
 two = null
 three = null
 
-0 = 100
-1 = 101
+[0] = 100
+[1] = 101
 
 [OUTPUT]*/
