@@ -446,6 +446,8 @@ write value, @global.value;</td><td class='example'>100, hundred</td></tr>
 <p>
  If <i>value</i> is of type <b>text</b>, the function returns the number of characters in the string.
  If <i>value</i> is of type <b>rlist</b>, the function returns the number of ranges in the rlist.
+ If <i>value</i> is of type <b>range</b>, <b>field</b> or <b>number</b>, the function returns 1
+ since they may be promoted to a rlist with 1 range.
  If <i>value</i> is of type <b>object</b>, the function returns the number of elements in the object.
 </p>
 <p>
@@ -454,11 +456,11 @@ write value, @global.value;</td><td class='example'>100, hundred</td></tr>
 </p>
 <table class='basic'>
 <tr><th>Example</th><th>Result</th></tr>
- <tr><td class='example'>@size( 123n )</td><td class='example'>0</td></tr>
- <tr><td class='example'>@size( 456f )</td><td class='example'>0</td></tr>
+ <tr><td class='example'>@size( 123n )</td><td class='example'>1</td></tr>
+ <tr><td class='example'>@size( 456f )</td><td class='example'>1</td></tr>
  <tr><td class='example'>@size( 10.5 )</td><td class='example'>0</td></tr>
  <tr><td class='example'>@size( "text" )</td><td class='example'>4</td></tr>
- <tr><td class='example'>@size( 5..10 )</td><td class='example'>0</td></tr>
+ <tr><td class='example'>@size( 5..10 )</td><td class='example'>1</td></tr>
  <tr><td class='example'>@size( 4..8 | 10..18 )</td><td class='example'>2</td></tr>
  <tr><td class='example'>@size( {: 10, 20, 30} )</td><td class='example'>3</td></tr>
  <tr><td class='example'>@size( true )</td><td class='example'>0</td></tr>
