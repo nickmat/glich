@@ -31,7 +31,7 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Value Types</h2>
+<h1>Value Types</h1>
 <p>
  Glich supports the following value types.
 </p>
@@ -49,7 +49,7 @@
  <li><b>Null</b> - A value which has no defined content.</li>
 </ul>
 
-<h3>String</h3>
+<h2>String</h2>
 <p>
  A string is sequence of unicode (UTF-8) characters.
  It is written by enclosing the text in double quotes <b>'"'</b>.
@@ -64,7 +64,7 @@
     The string constant <code>nl</code> is also available and represents a newline character.
 </p>
 
-<h3>Float</h3>
+<h2>Float</h2>
 <p>
  A floating point number.
 </p>
@@ -94,7 +94,7 @@
     This will be added in a future revision of the language.
 </p>
 
-<h3>Number</h3>
+<h2>Number</h2>
 <p>
  A number is a 64 bit signed integer value.
 </p>
@@ -105,7 +105,7 @@
  <code>any_numeric_type</code> groups.
 </p>
 
-<h3>Field</h3>
+<h2>Field</h2>
 <p>
  A field is a 32 bit signed integer value with some fixed values.
  It is used to form integer ranges and sets.
@@ -150,7 +150,7 @@
     and for code that must avoid automatic type promotion.
 </p>
 
-<h3>Range</h3>
+<h2>Range</h2>
 <p>
  A range is expressed as two field values which denote the first and last values of an inclusive, continuous list.
  Both values may be the same, which implies a list of one value.
@@ -174,7 +174,7 @@
  <code>any_numeric_type</code> groups.
 </p>
 
-<h3>Rlist</h3>
+<h2>Rlist</h2>
 <p>
  An rlist is a list of ranges. The list may contain zero or more ranges.
  If the rlist has more than one range,
@@ -218,12 +218,12 @@
 
 
 
-<h3>Boolean</h3>
+<h2>Boolean</h2>
 <p>
  A boolean value holds one of the two special constant values <b>'true'</b> or <b>'false'</b>.
 </p>
 
-<h3>Object</h3>
+<h2>Object</h2>
 <p>
  An object value holds a collection of other values.
  It has to be defined and given a code first.
@@ -236,7 +236,7 @@
  This is documented <a href='bi-objects.htm'>here</a>.
 </p>
 
-<h3>Blob</h3>
+<h2>Blob</h2>
 <p>
  Can be used for binary data, as listed below.
 </p>
@@ -259,7 +259,7 @@
  <span class='example'>blob:png:1999</span>.
 </p>
 
-<h3>Error</h3>
+<h2>Error</h2>
 <p>
  An error value is created whenever an operation is carried which has undefined results.
  When written out, the value should print text that describes where and why
@@ -270,7 +270,7 @@
     function. The message is a string describing the error condition.
 </p>
 
-<h3>Null</h3>
+<h2>Null</h2>
 <p>
  A null value holds the special constant value <b>'null'</b>.
 </p>
@@ -300,7 +300,7 @@
 <tr><td><b>null</b></td><td class="code">null_type</td><td colspan="4"></td></tr>
 </table>
 
-<h2>Automatic Type Conversions</h2>
+<h1>Automatic Type Conversions</h1>
 <p>
  When an operation expects two numeric types then, if both types are the same,
  this will be the type of the output.
