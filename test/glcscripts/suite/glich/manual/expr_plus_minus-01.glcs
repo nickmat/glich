@@ -31,6 +31,14 @@ write (8..16 | 20..50) + 20 nl;
 write 250 + (-infinity..90 | 500..infinity) nl;
 write 10 - (1 | 5..7) nl;
 
+// String concatenation with plus operator
+write nl;
+write "Hello" + " " + "World!" nl;
+write "Answer: " + 50 nl;
+write "" + 10 + 66 nl;
+write "" + (10 + 66) nl;
+write 100 + " remainder" nl;
+
 /*[OUTPUT]
 
 5
@@ -56,5 +64,11 @@ Error file:expr_plus_minus-01 (29): Unable to add or subtract types.
 28..36 | 40..70
 -infinity..340 | 750..+infinity
 3..5 | 9
+
+Hello World!
+Answer: 50
+1066
+76
+100 remainder
 
 [OUTPUT]*/
