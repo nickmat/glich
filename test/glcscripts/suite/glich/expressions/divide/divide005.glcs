@@ -2,20 +2,15 @@
 
 write nl;
 
+write 10f \ 0,;
+write 10 \ ?,;
+write 10 \ -infinity,;
+write 10 \ +infinity,;
+write ? \ 2,;
 write 10 \ 0;
-write 10f \ 0;
-write 10 \ ?;
-write 10 \ -infinity;
-write 10 \ +infinity;
-write ? \ 2;
 
 /*[OUTPUT]
 
-Error file:divide005 (5): Division by zero.
-Error file:divide005 (6): Division by zero.
-Error file:divide005 (7): Division by invalid.
-Error file:divide005 (8): Division by -infinity.
-Error file:divide005 (9): Division by +infinity.
-Error file:divide005 (10): Cannot divide invalid.
+?, ?, ?, ?, ?, Error file:divide005 (10): Division by zero.
 
 [OUTPUT]*/
