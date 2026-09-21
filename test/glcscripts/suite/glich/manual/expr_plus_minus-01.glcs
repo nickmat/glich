@@ -1,0 +1,60 @@
+// expr_plus_minus-01.glcs  Verify Arithmetic plus/minus examples.
+// Example in dev\man\script\expr.htm.
+
+// Unary plus operator
+write nl;
+write +5 nl;
+write +1.5 nl;
+write +infinity nl;
+write +inf nl;
+
+// Unary minus operator
+write nl;
+write -5 nl;
+write -1.5 nl;
+write -(+infinity) nl;
+write -(1..3) nl;
+write -(-1..1) nl;
+write -(1 | 5..7) nl;
+
+// Binary plus and minus operators
+write nl;
+write 5 + 10 nl;
+write 10 - 1.5 nl;
+write infinity + 123 nl;
+write 100 - infinity nl;
+write -infinity + infinity nl;
+write 50 + ? nl;
+write (8..16) + 20 nl;
+write (8..16) + (10..20) nl;
+write (8..16 | 20..50) + 20 nl;
+write 250 + (-infinity..90 | 500..infinity) nl;
+write 10 - (1 | 5..7) nl;
+
+/*[OUTPUT]
+
+5
+1.5
++infinity
+inf
+
+-5
+-1.5
+-infinity
+-3..-1
+-1..1
+-7..-5 | -1
+
+15
+8.5
++infinity
+-infinity
+?
+?
+28..36
+Error file:expr_plus_minus-01 (29): Unable to add or subtract types.
+28..36 | 40..70
+-infinity..340 | 750..+infinity
+3..5 | 9
+
+[OUTPUT]*/
