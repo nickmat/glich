@@ -135,6 +135,8 @@ namespace glich {
         void multiply( const SValue& value );
         void divide( const SValue& value );
         void int_div( const SValue& value );
+        void num_div( const SValue& value );
+        void field_div( const SValue& value );
         void float_div( const SValue& value );
         void div_mod( const SValue& value );
         void modulus( const SValue& value );

@@ -76,7 +76,7 @@ string SValue::as_string() const
     return string();
 }
 
-std::string glich::SValue::object_to_string( const SValueVec& values ) const
+string SValue::object_to_string( const SValueVec& values ) const
 {
     if( values.empty() ) {
         return "{}";
@@ -116,14 +116,14 @@ string SValue::blob_to_string( const Blob& blob ) const
 }
 
 /* static */
-SValue SValue::create_error( const std::string& mess )
+SValue SValue::create_error( const string& mess )
 {
     SValue value;
     value.set_error( mess );
     return value;
 }
 
-void glich::SValue::set_range_demote( Range rng )
+void SValue::set_range_demote( Range rng )
 {
     if( rng.m_beg == f_invalid || rng.m_end == f_invalid ) {
         set_error( "Invalid range." );
@@ -136,7 +136,7 @@ void glich::SValue::set_range_demote( Range rng )
     }
 }
 
-void glich::SValue::set_rlist_demote( const RList& rlist )
+void SValue::set_rlist_demote( const RList& rlist )
 {
     if( rlist.size() == 1 ) {
         set_range_demote( rlist[0] );
@@ -146,7 +146,7 @@ void glich::SValue::set_rlist_demote( const RList& rlist )
     }
 }
 
-void SValue::set_error( const std::string& str )
+void SValue::set_error( const string& str )
 {
     STokenStream* ts = Script::get_current_ts();
     m_type = Type::Error;
@@ -180,7 +180,7 @@ SValue* SValue::get_object_element( size_t index, size_t expand )
     return nullptr;
 }
 
-SValueVec* glich::SValue::get_object_values()
+SValueVec* SValue::get_object_values()
 {
     if( std::holds_alternative<SValueVec>( m_data ) ) {
         return &std::get<SValueVec>( m_data );
@@ -188,7 +188,7 @@ SValueVec* glich::SValue::get_object_values()
     return nullptr;
 }
 
-const SValueVec* glich::SValue::get_object_values() const
+const SValueVec* SValue::get_object_values() const
 {
     if( std::holds_alternative<SValueVec>( m_data ) ) {
         return &std::get<SValueVec>( m_data );
@@ -205,7 +205,7 @@ Object* SValue::get_object_ptr()
     return glc().get_object(ocode);
 }
 
-void glich::SValue::object_fill_store( Store* store )
+void SValue::object_fill_store( Store* store )
 {
     if( std::holds_alternative<SValueVec>( m_data ) ) {
         SValueVec& vv = std::get<SValueVec>( m_data );
@@ -366,7 +366,7 @@ string SValue::get_str( bool& success ) const
     return string();
 }
 
-Num glich::SValue::get_number( bool& success ) const
+Num SValue::get_number( bool& success ) const
 {
     if( std::holds_alternative<Num>( m_data ) && m_type == Type::Number ) {
         success = true;
@@ -464,7 +464,7 @@ RList SValue::get_rlist( bool& success ) const
     return RList( 0 );
 }
 
-double glich::SValue::get_float( bool& success ) const
+double SValue::get_float( bool& success ) const
 {
     success = true;
     if( std::holds_alternative<double>( m_data ) ) {
@@ -474,7 +474,7 @@ double glich::SValue::get_float( bool& success ) const
     return 0.0;
 }
 
-SValueVec glich::SValue::get_object( bool& success ) const
+SValueVec SValue::get_object( bool& success ) const
 {
     success = true;
     if( std::holds_alternative<SValueVec>( m_data ) ) {
@@ -484,7 +484,7 @@ SValueVec glich::SValue::get_object( bool& success ) const
     return SValueVec();
 }
 
-std::string glich::SValue::get_object_code() const
+string SValue::get_object_code() const
 {
     if( std::holds_alternative<SValueVec>( m_data ) ) {
         SValueVec values = std::get<SValueVec>( m_data );
@@ -542,7 +542,7 @@ size_t SValue::get_int_as_size_t( bool& success ) const
     return 0;
 }
 
-double glich::SValue::get_any_as_float( bool& success ) const
+double SValue::get_any_as_float( bool& success ) const
 {
     success = true;
     switch( type() )
@@ -985,80 +985,60 @@ void SValue::divide( const SValue& value )
     int_div( value );
 }
 
-void glich::SValue::int_div( const SValue& value )
+void SValue::int_div( const SValue& value )
 {
     if( propagate_error( value ) ) {
         return;
     }
-    const char* only_ints_err = "Can only divide fields and numbers.";
-    const char* divide_zero_err = "Division by zero.";
-    Field left = f_invalid;
-    Field right = f_invalid;
-    switch( type() )
-    {
-    case Type::Number:
-        switch( value.type() )
-        {
-        case Type::Number:
-        {
-            Num num1 = get_number();
-            Num num2 = value.get_number();
-            if( num2 == 0 ) {
-                set_error( divide_zero_err );
-                return;
-            }
-            set_number( div_e( num1, num2 ) );
-        }
-        return;
-        case Type::field:
-            left = get_num_as_field();
-            right = value.get_field();
-            break;
-        default:
-            set_error( only_ints_err );
-            return;
-        }
-        break;
-    case Type::field:
-        switch( value.type() )
-        {
-        case Type::Number:
-            left = get_field();
-            right = value.get_num_as_field();
-            break;
-        case Type::field:
-            left = get_field();
-            right = value.get_field();
-            break;
-        default:
-            set_error( only_ints_err );
-            return;
-        }
-        break;
-    default:
-        set_error( only_ints_err );
+    if( type() == Type::field || value.type() == Type::field ) {
+        field_div( value );
         return;
     }
+    num_div( value );
+}
+
+void SValue::num_div( const SValue& value )
+{
+    if( propagate_error( value ) ) {
+        return;
+    }
+    if( type() != Type::Number || value.type() != Type::Number ) {
+        set_error( "Can only divide fields and numbers." );
+        return;
+    }
+    Num left = get_number();
+    Num right = value.get_number();
+    if( right == 0 ) {
+        set_error( "Division by zero." );
+        return;
+    }
+    set_number( div_e( left, right ) );
+}
+
+void SValue::field_div( const SValue& value )
+{
+    if( propagate_error( value ) ) {
+        return;
+    }
+    if( ( type() != Type::Number && type() != Type::field ) ||
+        ( value.type() != Type::Number && value.type() != Type::field ) ) {
+        set_error( "Can only divide fields and numbers." );
+        return;
+    }
+    Field left = (type() != Type::field) ? get_num_as_field() : get_field();
+    Field right = (value.type() != Type::field) ? value.get_num_as_field() : value.get_field();
     switch( right )
     {
     case 0:
-        set_error( divide_zero_err );
-        return;
     case f_invalid:
-        set_error( "Division by invalid." );
-        return;
     case f_maximum:
-        set_error( "Division by +infinity." );
-        return;
     case f_minimum:
-        set_error( "Division by -infinity." );
+        set_field( f_invalid );
         return;
     }
     switch( left )
     {
     case f_invalid:
-        set_error( "Cannot divide invalid." );
-        return;
     case f_maximum:
     case f_minimum:
         set_field( left );
@@ -1067,7 +1047,7 @@ void glich::SValue::int_div( const SValue& value )
     set_field( fdiv_e( left, right ) );
 }
 
-void glich::SValue::float_div( const SValue& value )
+void SValue::float_div( const SValue& value )
 {
     if( propagate_error( value ) ) {
         return;
@@ -1144,7 +1124,7 @@ void glich::SValue::float_div( const SValue& value )
     set_float( left / right );
 }
 
-void glich::SValue::div_mod( const SValue& value )
+void SValue::div_mod( const SValue& value )
 {
     if( propagate_error( value ) ) {
         return;
