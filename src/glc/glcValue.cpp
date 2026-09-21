@@ -1141,23 +1141,6 @@ void glich::SValue::float_div( const SValue& value )
         set_error( only_ints_err );
         return;
     }
-    if( std::isnan( right ) ) {
-        set_error( "Division by nan." );
-        return;
-    }
-    if( std::isinf( right ) ) {
-        string sign = (right > 0) ? "+" : "-";
-        set_error( "Division by " + sign + "inf." );
-        return;
-    }
-    if( is_zero( right ) ) {
-        set_error( "Division by zero." );
-        return;
-    }
-    if( std::isnan( left ) ) {
-        set_error( "Cannot divide nan." );
-        return;
-    }
     set_float( left / right );
 }
 
