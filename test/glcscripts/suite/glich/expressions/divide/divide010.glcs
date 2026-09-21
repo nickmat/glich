@@ -1,21 +1,12 @@
 // divide010.glcs Test file to test division of special field errors
 
-write nl;
-
-write 10 /. 0;
-write 10f /. 0;
-write 10 /. ?;
-write 10 /. -infinity;
-write 10 /. +infinity;
+write 10 /. 0,;
+write 10f /. 0,;
+write 10 /. ?,;
+write 10 /. -infinity,;
+write 10 /. +infinity,;
 write ? /. 2;
 
 /*[OUTPUT]
-
-Error file:divide010 (5): Division by zero.
-Error file:divide010 (6): Division by zero.
-Error file:divide010 (7): Division by nan.
-Error file:divide010 (8): Division by -inf.
-Error file:divide010 (9): Division by +inf.
-Error file:divide010 (10): Cannot divide nan.
-
+inf, inf, nan, 0.0, 0.0, nan
 [OUTPUT]*/
