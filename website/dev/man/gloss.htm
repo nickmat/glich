@@ -30,7 +30,136 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Page Under Construction</h2>
+<h1>Introduction</h1>
+<p>
+ The Glich script, Hics extension and documentation gives some precise definitions to certain words or phrases.
+</p>
+
+<dl class='gloss'>
+
+ <dt id='date-phrase'>Date Phrase</dt><dd>
+  A compact textual expression describing dates, ranges, or sets of dates.
+  A date phrase is parsed into Glich code and evaluated.
+  For details see the <a href='hics/phrase.htm'>Date Phrase</a> page.
+ </dd>
+
+ <dt id='date-signature'>Date Signature</dt><dd>
+  A date signature is a string combining a calendar scheme and format to define a text representation of a date.
+  It is often used with Glich script functions to specify a date format for parsing or formatting dates.
+  As in <code>@text.g:mdy(@date.j:ymd( "1750 May 5" ))</code>.
+  It may also be used within a date phrase to specify the scheme and format of a date within that phrase.
+  In this case it precedes the date and is terminated with a '#' character.
+  For example, <code>"h:dmy# 11 Tishrei 5787"</code>.
+ </dd>
+
+ <dt id='dual-dates'>Dual Dates</dt><dd>
+  Showing a date using two different year systems.
+  Typically used when both the civil year and the historic year are given, separated by a '/' character.
+ </dd>
+
+ <dt id='element'>Element</dt><dd>
+  A part of a date’s text description.
+  When parsing a date, elements are matched to the <a href='#field-record'>fields</a>
+  within the scheme's record.
+ </dd>
+
+ <dt id='endpoint'>Endpoint</dt><dd>
+  The boundary value of a <a href='#range'>Range</a>.
+  Endpoints may be finite integers or special <a href='#field'>Field</a> values.
+ </dd>
+ 
+ <dt id='epoch'>Epoch</dt><dd>
+  The mathematical starting point of a calendar scheme.
+  All scheme calculations are performed relative to the epoch.
+ </dd>
+
+ <dt id='era'>Era</dt><dd>
+  A period of time defined within a calendar scheme.
+  Eras may represent reigns, historical periods, or scheme-specific subdivisions.
+ </dd>
+
+ <dt id='field-interval'>Field (Interval)</dt><dd>
+  A Field used as an endpoint of a <a href='#range'>Range</a>.
+  Interval Fields may be integers, -∞, +∞, or an indeterminate value.
+  They form the basic type used for interval and set operations.
+</dd>
+
+<dt id='field-record'>Field (Scheme Record)</dt><dd>
+  A Field used within a <a href='#scheme-record'>Scheme Record</a>.
+  Record Fields hold the individual components of a date, such as year, month, or day.
+  These values are finite integers defined by the scheme.
+</dd>
+
+ <dt id='interval-algebra'>Interval Algebra</dt><dd>
+  The set of operations defined on <a href='#range'>Ranges</a> and <a href='#rlist'>Rlists</a>.
+  Includes union, intersection, difference, and normalisation.
+ </dd>
+
+<dt id='julian-day-number'>Julian Day Number</dt><dd>
+  The continuous day count used internally by Glich's Hics extension.
+  Abbreviated to <b>jdn</b>.
+  Formally defined <a href='defs/jdn.htm'>here</a>.
+ </dd>
+
+ <dt id='historycal-script'>HistoryCal Script</dt><dd>
+  The original scripting language used by the Cal library.
+  Modern Glich syntax derives from this language.
+  Files containing HistoryCal Script use the .hcs extension.
+ </dd>
+
+ <dt id='infinity'>Infinity</dt><dd>
+  Sentinel values representing unbounded endpoints.
+  Used for open-ended historical or temporal ranges.
+ </dd>
+
+ <dt id='normalisation'>Normalisation</dt><dd>
+  The process of merging overlapping or adjacent <a href='#range'>Ranges</a> in an <a href='#rlist'>Rlist</a>.
+  Ensures rlists remain disjoint and ordered.
+ </dd>
+
+ <dt id='pseudo-date'>Pseudo Date</dt><dd>
+  A text representation of a scheme’s output or input format.
+  For example, <code>"dd Mon yyyy"</code> describes a formatting pattern rather than a specific date.
+ </dd>
+
+ <dt id='scheme'>Scheme</dt><dd>
+  A calendar definition used by the Hics system.
+  A scheme specifies the epoch, structure, leap rules, and formatting behaviour.
+ </dd>
+
+ <dt id='scheme-record'>Scheme Record</dt><dd>
+  A Scheme Record is the collection of <a href='#field-record'>Record Fields</a> which define a date
+  for a particular calendar scheme. Each field holds one component of the date, such as year, month,
+  or day, according to the rules of the scheme.
+ </dd>
+
+ <dt id='scheme-usable-range'>Scheme Usable Range</dt><dd>
+  The period during which a calendar scheme was historically in use.
+  Dates outside this range may be valid mathematically but not historically.
+ </dd>
+
+ <dt id='scheme-working-range'>Scheme Working Range</dt><dd>
+  The range of dates for which conversions are defined for a scheme.
+  This may extend beyond the scheme’s usable range.
+ </dd>
+
+ <dt id='range'>Range</dt><dd>
+  A range is a closed integer interval of the form [a..b], including both endpoints.
+  Ranges are used to represent spans of discrete values such as days, months, or years.
+ </dd>
+
+ <dt id='rlist'>Rlist</dt><dd>
+  An rlist is a normalised list of non-overlapping <a href='#range'>Ranges</a>.
+  It represents a disjoint interval set used for union, intersection, and other interval operations.
+ </dd>
+
+ <dt id='unknown'>Unknown</dt><dd>
+  A special <a href='#field'>Field</a> value indicating an indeterminate or undefined endpoint.
+  Represented by the '?' character in the script.
+ </dd>
+
+</dl>
+
 
 </div><!--id=content-->
 
