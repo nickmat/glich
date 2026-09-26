@@ -12,9 +12,11 @@ let e = -inf - ?;
 
 let f = -inf - -infinity;
 
+let g = inf - inf;
 
-write a, b, c, d, e, f;
+
+write a, b, c, d, e, f, g;
 
 /*[OUTPUT]
-inf, inf, nan, -inf, nan, nan
+inf, inf, nan, -inf, nan, nan, nan
 [OUTPUT]*/
