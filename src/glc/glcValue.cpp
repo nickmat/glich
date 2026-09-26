@@ -964,13 +964,9 @@ void SValue::multiply( const SValue& value )
     default:
         break;
     }
-    if( type() == Type::field ) {
-        if( get_field() == f_invalid ) {
-            set_error( "Multiply has invalid result." );
-        }
-        return;
+    if( type() != Type::field ) {
+        set_error( "Can only multiply fields and numbers." );
     }
-    set_error( "Can only multiply fields and numbers." );
 }
 
 void SValue::divide( const SValue& value )
