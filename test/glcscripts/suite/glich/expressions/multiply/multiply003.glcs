@@ -2,12 +2,12 @@
 
 write nl;
 
-write 0 * -infinity;
-write infinity * 0;
+write 0 * -infinity nl;
+write infinity * 0 nl;
 
 /*[OUTPUT]
 
-Error file:multiply003 (5): Multiply has invalid result.
-Error file:multiply003 (6): Multiply has invalid result.
+?
+?
 
 [OUTPUT]*/

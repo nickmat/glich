@@ -2,16 +2,18 @@
 
 write nl;
 
-write 3 * ?;
-write ? * -infinity;
-write ? * infinity;
-write -infinity * infinity;
+write 3 * ? nl;
+write ? * 3 nl;
+write ? * -infinity nl;
+write ? * infinity nl;
+write -infinity * infinity nl;
 
 /*[OUTPUT]
 
-Error file:multiply002 (5): Multiply has invalid result.
-Error file:multiply002 (6): Multiply has invalid result.
-Error file:multiply002 (7): Multiply has invalid result.
-Error file:multiply002 (8): Multiply has invalid result.
+?
+?
+?
+?
+?
 
 [OUTPUT]*/
