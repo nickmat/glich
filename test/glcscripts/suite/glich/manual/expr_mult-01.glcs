@@ -1,0 +1,41 @@
+// expr_mult-01.glcs  Verify Arithmetic multiplication examples.
+// Example in dev\man\script\expr.htm.
+
+
+// Floats
+write nl;
+write 5.0 * 10 nl;
+write -5 * 1.5 nl;
+write +inf * 2 nl;
+write -inf * nan nl;
+write inf * -inf nl;
+write inf * 0 nl;
+
+// Fields
+write nl;
+write 5f *  10n nl;
+write @type( 5f * 10n ) nl;
+write +infinity * 2 nl;
+write -infinity * 3 nl;
+write infinity * ? nl;
+write infinity * -infinity nl;
+write infinity * 0 nl;
+
+/*[OUTPUT]
+
+50.0
+-7.5
+inf
+nan
+-inf
+nan
+
+50
+field
++infinity
+-infinity
+?
+?
+?
+
+[OUTPUT]*/
