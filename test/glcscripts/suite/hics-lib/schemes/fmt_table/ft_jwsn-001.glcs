@@ -45,7 +45,7 @@ do {
     until index = size;
 };
 
-write "<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported." nl;
+write "<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shorthand supported." nl;
 write "Example based on jdn# " + d1 + "</td></tr>" nl;
 write "</table>" nl;
 
@@ -61,7 +61,7 @@ write "</table>" nl;
 <tr><td><b>a</b></td><td>text</td><td>week day</td><td>wwwww d</td><td class='example'>351518 7</td><td>H</td></tr>
 <tr><td><b>r</b></td><td>text</td><td>week day</td><td>wwwww d</td><td class='example'>351518 7</td><td>H, S</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9w 9d</td><td>9w 9d</td><td class='example'>351518w 7d</td><td>H</td></tr>
-<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shortcut supported.
+<tr><td colspan='6'>Notes: D = Default, H = Hidden, S = Range shorthand supported.
 Example based on jdn# 2460631</td></tr>
 </table>
 

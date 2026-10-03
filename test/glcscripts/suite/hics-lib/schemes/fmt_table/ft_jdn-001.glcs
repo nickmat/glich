@@ -39,8 +39,7 @@ do {
     until index = size;
 };
 
-write "<tr><td colspan='6'>Notes: D = Default, H = Hidden." nl;
-//write "Example based on jdn# " + d1 + "</td></tr>" nl;
+write "<tr><td colspan='6'>Notes: D = Default, H = Hidden.</td></tr>" nl;
 write "</table>" nl;
 
 
@@ -53,7 +52,7 @@ write "</table>" nl;
 <tr><td><b>a</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>2459984</td><td>H</td></tr>
 <tr><td><b>r</b></td><td>text</td><td>day</td><td>dddd</td><td class='example'>2459984</td><td>H</td></tr>
 <tr><td><b>u</b></td><td>unit</td><td>9d</td><td>9d</td><td class='example'>2459984d</td><td>H</td></tr>
-<tr><td colspan='6'>Notes: D = Default, H = Hidden.
+<tr><td colspan='6'>Notes: D = Default, H = Hidden.</td></tr>
 </table>
 
 [OUTPUT]*/
