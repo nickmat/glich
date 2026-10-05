@@ -1,0 +1,23 @@
+// divmod004.glcs Test file to test modulus of invalid fields
+
+write nl;
+
+write 9 /% 0;
+write 9 /% ?;
+write ? /% 3;
+write 9 /% -infinity;
+write -infinity /% 3 nl;
+write 9 /% +infinity;
+write +infinity /% 3 nl;
+
+/*[OUTPUT]
+
+Error file:divmod004 (5): Division by zero.
+Error file:divmod004 (6): Modulo by invalid.
+Error file:divmod004 (7): Cannot modulo invalid.
+Error file:divmod004 (8): Modulo by -infinity.
+{: -infinity, 0}
+Error file:divmod004 (10): Modulo by +infinity.
+{: +infinity, 0}
+
+[OUTPUT]*/
