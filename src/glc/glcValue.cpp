@@ -1136,7 +1136,7 @@ void SValue::div_mod( const SValue& value )
     SValue quotient( *this );
     quotient.divide( value );
     if( quotient.is_error() ) {
-//        set_error( quotient.get_str() );
+        copy_error( quotient );
         return;
     }
     if( quotient.type() != Type::Number && quotient.type() != Type::field ) {
@@ -1146,7 +1146,7 @@ void SValue::div_mod( const SValue& value )
     SValue remainder( *this );
     remainder.modulus( value );
     if( remainder.is_error() ) {
-        set_error( remainder.get_str() );
+        copy_error( remainder );
         return;
     }
     if( remainder.type() != Type::Number && remainder.type() != Type::field ) {
