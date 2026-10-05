@@ -159,6 +159,14 @@ void SValue::set_error( const string& str )
     }
 }
 
+void SValue::copy_error( const SValue& value )
+{
+    if( value.m_type == Type::Error ) {
+        m_type = Type::Error;
+        m_data = value.m_data;
+    }
+}
+
 SValue* SValue::get_object_element( size_t index, size_t expand )
 {
     if( std::holds_alternative<SValueVec>( m_data ) ) {
@@ -1128,7 +1136,7 @@ void SValue::div_mod( const SValue& value )
     SValue quotient( *this );
     quotient.divide( value );
     if( quotient.is_error() ) {
-        set_error( quotient.get_str() );
+//        set_error( quotient.get_str() );
         return;
     }
     if( quotient.type() != Type::Number && quotient.type() != Type::field ) {

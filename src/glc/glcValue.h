@@ -81,6 +81,7 @@ namespace glich {
         void set_rlist_demote( const RList& rlist );
 
         void set_error( const std::string& str );
+        void copy_error( const SValue& value );
 
         SValue* get_object_element( size_t index, size_t expand = 10 );
         SValueVec* get_object_values();
