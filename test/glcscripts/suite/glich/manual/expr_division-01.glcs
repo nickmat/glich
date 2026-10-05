@@ -1,0 +1,65 @@
+// expr_mult-01.glcs  Verify Arithmetic multiplication examples.
+// Example in dev\man\script\expr.htm.
+
+
+// Floats
+write nl;
+write 50 /. 10 nl;
+write -6 /. 1.5 nl;
+write +inf /. 2 nl;
+write -inf /. nan nl;
+write inf /. -inf nl;
+write 10 /. inf nl;
+write 1 /. 0 nl;
+
+// Integer
+write nl;
+write 50f \ 10n nl;
+write @type( 50f \ 10n ) nl;
+write @type( 50 \ 10 ) nl;
+write +infinity \ 2 nl;
+write -infinity \ 3 nl;
+write infinity \ ? nl;
+write infinity \ -infinity nl;
+write 10 \ infinity nl;
+write infinity \ 0 nl;
+
+// Natural
+write nl;
+write 50 / 10.0 nl;
+write 50 / 10 nl;
+write -7 / 2 nl;
+write inf / ? nl;
+write infinity / ? nl;
+write 19 / 0 nl;
+write 19f / 0 nl;
+
+/*[OUTPUT]
+
+5.0
+-4.0
+inf
+nan
+nan
+0.0
+inf
+
+5
+field
+number
++infinity
+-infinity
+?
+?
+?
+?
+
+5.0
+5
+-4
+nan
+?
+Error file:expr_division-01 (34): Division by zero.
+?
+
+[OUTPUT]*/
