@@ -1,0 +1,29 @@
+// divmod004.glcs Test file to test modulus of invalid fields
+
+command divmod( a, b ) {
+    let q = a \ b;
+    let r = a % b;
+    let o = a /% b;
+    write a, b, q, r, o, a = b * q + r nl;
+};
+
+let a = 80;
+let b = 13;
+
+write nl;
+
+call divmod( a, b );
+call divmod( -a, b );
+call divmod( a, -b );
+call divmod( -a, -b );
+call divmod( infinity, 99 );
+
+/*[OUTPUT]
+
+80, 13, 6, 2, {: 6, 2}, true
+-80, 13, -7, 11, {: -7, 11}, true
+80, -13, -6, 2, {: -6, 2}, true
+-80, -13, 7, 11, {: 7, 11}, true
++infinity, 99, +infinity, 0, {: +infinity, 0}, true
+
+[OUTPUT]*/
