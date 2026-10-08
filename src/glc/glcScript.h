@@ -119,6 +119,8 @@ namespace glich {
         SValue do_at_property( const std::string& property );
         SValue at_global();
         SValue com_save_blob();
+        SValue at_min();
+        SValue at_max();
 
         SValue get_value_var( const std::string& name );
         virtual SValue get_builtin_var( bool& success, const std::string& name );
