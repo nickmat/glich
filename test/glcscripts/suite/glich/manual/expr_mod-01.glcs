@@ -1,0 +1,24 @@
+// expr_mod-01.glcs  Verify Arithmetic modulus examples.
+// Example in dev\man\script\expr.htm.
+
+
+// Floats
+write nl;
+write 50 % 10.0 nl;
+write 50 % 11 nl;
+write -7 % 2 nl;
+write infinity % 999 nl;
+write 10 % infinity nl;
+write 19 % 0 nl;
+
+
+/*[OUTPUT]
+
+Error file:expr_mod-01 (7): Can only use modulus with numbers.
+6
+1
+0
+Error file:expr_mod-01 (11): Modulo by +infinity.
+Error file:expr_mod-01 (12): Modulo by zero.
+
+[OUTPUT]*/

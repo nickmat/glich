@@ -1,0 +1,26 @@
+// expr_divmod-01.glcs  Verify Arithmetic division and modulus examples.
+// Example in dev\man\script\expr.htm.
+
+
+// Floats
+write nl;
+write 80 /% 13 nl;
+write -80 /% 13 nl;
+write 80 /% -13 nl;
+write -80 /% -13 nl;
+write infinity /% 99 nl;
+write ? /% 99 nl;
+write 17 /% infinity nl;
+
+
+/*[OUTPUT]
+
+{: 6, 2}
+{: -7, 11}
+{: -6, 2}
+{: 7, 11}
+{: +infinity, 0}
+Error file:expr_divmod-01 (12): Cannot modulo invalid.
+Error file:expr_divmod-01 (13): Modulo by +infinity.
+
+[OUTPUT]*/
