@@ -31,22 +31,117 @@
 
 <div id='content' class='nomenu'>
 
-<h2>Operators</h2>
-
-<h3>Arithmetic Operations</h3>
+<!-- 
 <table class='basic'>
-<tr><th>Operator</th><th>Name</th><th>Use Type</th><th>Result Type</th></tr>
-<tr><td class='code'>+</td><td>Unary plus</td><td class='example'><b>+</b> any_numeric_type</td><td class='example'>any_numeric_type</td></tr>
-<tr><td class='code'>-</td><td>Unary minus</td><td class='example'><b>-</b> any_numeric_type</td><td class='example'>any_numeric_type</td></tr>
-<tr><td class='code'>+</td><td>Plus</td><td class='example'>any_numeric_type <b>+</b> numeric_type<br>numeric_type <b>+</b> any_numeric_type</td><td class='example'>any_numeric_type</td></tr>
-<tr><td class='code'>-</td><td>Minus</td><td class='example'>any_numeric_type <b>-</b> numeric_type<br>numeric_type <b>-</b> any_numeric_type</td><td class='example'>any_numeric_type</td></tr>
-<tr><td class='code'>*</td><td>Multiply</td><td class='example'>numeric_type <b>*</b> numeric_type</td><td class='example'>numeric_type</td></tr>
-<tr><td class='code'>/</td><td>Divide</td><td class='example'>numeric_type <b>/</b> numeric_type</td><td class='example'>numeric_type</td></tr>
-<tr><td class='code'>\</td><td>Integer divide</td><td class='example'>integer_type <b>\</b> integer_type</td><td class='example'>integer_type</td></tr>
-<tr><td class='code'>/.</td><td>Float divide</td><td class='example'>numeric_type <b>/.</b> numeric_type</td><td class='example'>float_type</td></tr>
-<tr><td class='code'>%</td><td>Integer modulo</td><td class='example'>integer_type <b>%</b> integer_type</td><td class='example'>integer_type</td></tr>
-<tr><td class='code'>/%</td><td>Divide and modulo</td><td class='example'>integer_type <b>/%</b> integer_type</td><td class='example'>object_type</td></tr>
+<tr><th>Example</th><th>Result</th></tr>
+ <tr><td class='example'>(8..16|20..50|75..99)[1]</td><td class='example'>20..50</td></tr>
 </table>
+
+<table class='basic'>
+ <tr><td class='code'>number → field → range → rlist</td></tr>
+</table>
+ -->
+
+
+<h1>Introduction</h1>
+<p>
+    An expression combines literals, names, and operators to produce a <b>value</b>.
+    Expressions do not create or modify entities; they only compute results.
+    All operators follow the usual precedence rules,
+    and mixed-type expressions use the promotion rules described below.
+</p>
+
+<h1>Expression Evaluation Model</h1>
+<p>
+    Expressions are evaluated from left to right, subject to operator precedence.
+    Each operator defines how its operands are combined,
+    including any type promotion needed to produce a valid result.
+    Evaluation always produces a single value or an error.
+</p>
+<ul>
+    <li><b>Left to right</b> - Expressions are evaluated from left to right, subject to operator precedence.</li>
+    <li><b>Operator precedence</b> - 
+        Operators with higher precedence are evaluated before operators with lower precedence. 
+        The precedence table appears later in this page.</li>
+    <li><b>Type promotion</b> - 
+        Mixed‑type expressions promote values as needed (for example, numbers to Fields, Fields to ranges). 
+        Full rules are described in the Promotion section.</li>
+    <li><b>Special Field values</b> - +infinity, -infinity, and ? behave like IEEE‑754 float infinities and NaN.
+        They propagate through expressions according to their semantics.</li>
+    <li><b>Errors</b> - 
+        Any error produced by an operator stops evaluation and becomes the result of the expression</li>
+    <li><b>Side effects</b> -
+        Expressions do not create or modify entities.
+        However, functions invoked within an expression may access or modify global variables,
+        depending on how the function is defined.</li>
+</ul>
+
+<h1>Type Promotion and Demotion</h1>
+<p>
+Expressions involving ranges and rlists use a unified internal representation.
+All set operators (!, |, &&, \\, ^^) operate on rlists,
+regardless of whether the operands are numbers, fields, ranges, or rlists.
+Promotion and demotion happen automatically and are usually invisible.</p>
+
+<h2>Promotion</h2>
+<ul>
+    <li><b>Numbers → Fields</b> - Numbers are promoted to Fields whenever an operator requires Field behaviour.</li>
+    <li><b>Fields → Ranges</b> - Fields are promoted to ranges with start and end equal to the field value.</li>
+    <li><b>Ranges → Rlists</b> - Ranges are promoted to rlists with a single range element.</li>
+    <li>All set operations work internally on rlists.</li>
+</ul>
+<h2>Demotion</h2>
+<p>After an operation completes, the result is demoted to the simplest type possible.</p>
+<ul>
+    <li><b>Rlists → Ranges</b> - Rlists are demoted to a range if it consists of a single range.</li>
+    <li><b>Ranges → Fields</b> - Ranges are demoted to a field if the start and end are equal.</li>
+    <li><b>Fields → Numbers</b> - No further demotion occurs unless an operator requires a numeric value.</li>
+</ul>
+<h2>Numbers vs Fields</h2>
+<p>
+    Printed output does not distinguish numbers from fields.
+    Both appear simply as integers.
+    The only way to determine the underlying type is:
+</p>
+<table class='basic'>
+ <tr><td class='code'>@type(value)</td></tr>
+</table>
+<p>
+    which returns the type name as a string.
+</p>
+
+
+<h1>Operators Groups</h1>
+
+<table class='basic'>
+<tr><th>Group</th><th>Operators</th><th>Applies To</th><th>Notes</th></tr>
+<tr><td>Arithmetic</td><td class='code'>+ - * / \ /. % /%</td><td>any numeric type</td><td>Standard arithmetic operations</td></tr>
+<tr><td>Integer Sets</td><td class='code'>.. ! | && \\ ^^</td><td>set type</td><td>Standard set operations</td></tr>
+<tr><td>Comparison</td><td class='code'>= &lt;&gt; &lt; &lt;= &gt; &gt;=</td><td>any type</td><td>Equality and magnitude comparisons</td></tr>
+<tr><td>Boolean</td><td class='code'>not and or</td><td>boolean type</td><td>Logical operations</td></tr>
+<tr><td>Indexing</td><td class='code'>[ ]</td><td>any indexable type</td><td>Access elements by index or name</td></tr>
+<tr><td>Functions</td><td class='code'>@</td><td>function and object</td><td>Function calls</td></tr>
+</table>
+
+<h2>Arithmetic Operations</h2>
+<p>
+ Arithmetic operators perform numeric calculations on numbers and Fields.
+ Some operators also apply to ranges and rlists.
+ The plus '+' operator is overloaded to perform string concatenation.
+</p>
+<table class='basic'>
+<tr><th>Operator</th><th>Name</th><th>Meaning</th></tr>
+<tr><td class='code'>+</td><td>Plus</td><td>Addition, range/rlist shifting, string concatenation</td></tr>
+<tr><td class='code'>-</td><td>Minus</td><td>Subtraction, unary negation, range/rlist shifting</td></tr
+<tr><td class='code'>*</td><td>Multiply</td><td>Multiplication (scalar only)</td></tr>
+<tr><td class='code'>/</td><td>Divide</td><td>Natural division (integer or float)</td></tr>
+<tr><td class='code'>\</td><td>Integer divide</td><td>Integer division</td></tr>
+<tr><td class='code'>/.</td><td>Float divide</td><td>Floating point division</td></tr>
+<tr><td class='code'>%</td><td>Modulo</td><td>Integer modulo</td></tr>
+<tr><td class='code'>/%</td><td>Divide and modulo</td><td>Quotient and remainder object</td></tr>
+</table>
+
+<!--
 <p>
  For numeric_types,
  the arithmetic operators '+' (addition), '-' (subtraction, negation)
@@ -57,49 +152,92 @@
  Note that the modulo operator always returns a positive value
  and that if q = a div b and r = a mod b then a = b * q + r.
 </p>
+-->
 
-<h4>Unary Plus and Minus</h4>
+<h3>Unary Plus '+' and Minus '-'</h3>
+<p>
+ Unary operators apply to numbers, fields, ranges, and rlists.
+</p>
+
+<h4>Unary Plus '+'</h4>
 <p>
  Unitary plus is included for completeness.
  It currently does nothing.
  It is often used with inf and infinity to clarify when compared to -inf and -infinity
 </p>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+<tr><td class='example'>+5</td><td class='example'>5</td></tr>
+<tr><td class='example'>+1.5</td><td class='example'>1.5</td></tr>
+<tr><td class='example'>+infinity</td><td class='example'>+infinity</td></tr>
+<tr><td class='example'>+inf</td><td class='example'>inf</td></tr>
+</table>
+
+<h4>Unary Minus '-'</h4>
 <p>
  Unary minus has normal meaning of negation.
 </p>
 <p>
- Negation of a range negates both limits, so -(a..b) = (-b..-a).
+ Negation of a range negates both limits.
+ It reflects a range about zero, re-normalising it to ascending order which reverses its endpoints.
+ Applying it twice returns the original range.
 </p>
-<p>
- Negation of an rlist negates all the ranges, but retains the well orderliness,<br />
- so -(a..b | c..d) = (-d..-c | -b..-a).
-</p>
+<table class='basic'>
+ <tr><td class='code'>-(a..b) = -b..-a</td></tr>
+</table>
 
-<h4>Addition and Subtraction</h4>
 <p>
- Normal addition is applied when both sides of an expression are numeric values.
+ Negation of an rlist negates all the ranges, but retains the well orderliness.
+</p>
+<table class='basic'>
+ <tr><td class='code'>-(a..b | c..d) = -d..-c | -b..-a</td></tr>
+</table>
+
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+<tr><td class='example'>-5</td><td class='example'>-5</td></tr>
+<tr><td class='example'>-1.5</td><td class='example'>-1.5</td></tr>
+<tr><td class='example'>-(+infinity)</td><td class='example'>-infinity</td></tr>
+<tr><td class='example'>-(1..3)</td><td class='example'>-3..-1</td></tr>
+<tr><td class='example'>-(-1..1)</td><td class='example'>-1..1</td></tr>
+<tr><td class='example'>-(1 | 5..7)</td><td class='example'>-7..-5 | -1</td></tr>
+</table>
+
+<h4>Binary Plus '+' and Minus '-'</h4>
+<p>
+ Normal addition or subtraction is applied when both sides of an expression are numeric values.
  A numeric value can be added or subtracted from range or rlist.
  But ranges and rlists cannot be added or subtracted from each other
  and will result in an error.
 </p>
+<table class='basic'>
+ <tr><td class='code'>a + (b..c) = a + b..a + c</td></tr>
+ <tr><td class='code'>(a | b..c) + d = a + d | b + d..c + d</td></tr>
+</table>
 <p>
  Subtraction is carried out by adding the negated right hand side.
- So a - b = a + -b and a - (c..d) = a + (-d..-c).
 </p>
 <table class='basic'>
-<tr><th>Expression</th><th>Example</th><th>Result</th></tr>
-<tr><td class='code'>field_type + field_type</td><td class='example'>5 + 10<br />-infinity + 123<br />-infinity + infinity</td><td class='example'>15<br />-infinity<br />Error</td></tr>
-<tr>
- <td class='code'>range_type + field_type<br />field_type + range_type</td>
- <td class='example'>(8..16) + 20<br />250 + (500..+infinity)<br />-infinity + (500..+infinity)</td>
- <td class='example'>28..36<br />750..+infinity<br />Error</td>
- </tr>
-<tr><td class='code'>range_type + range_type</td><td class='example'>(8..16) + (10..20)</td><td class='example'>Error</td></tr>
-<tr>
- <td class='code'>rlist_type + field_type<br />field_type + rlist_type</td>
- <td class='example'>(8..16 | 20..50) + 20<br />250 + (-infinity..90 | 500..+infinity)</td>
- <td class='example'>28..36 | 40..70<br />-infinity..340 | 750..+infinity</td>
-</tr>
+ <tr><td class='code'>a - b = a + -b</td></tr>
+ <tr><td class='code'>a - (c..d) = a + (-d..-c) = a - d..a - c</td></tr>
+</table>
+
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+<tr><td class='example'>5 + 10</td><td class='example'>15</td></tr>
+<tr><td class='example'>10 - 1.5</td><td class='example'>8.5</td></tr>
+<tr><td class='example'>infinity + 123</td><td class='example'>+infinity</td></tr>
+<tr><td class='example'>100 - infinity</td><td class='example'>-infinity</td></tr>
+<tr><td class='example'>-infinity + infinity</td><td class='example'>?</td></tr>
+<tr><td class='example'>50 + ?</td><td class='example'>?</td></tr>
+<tr><td class='example'>(8..16) + 20</td><td class='example'>28..36</td></tr>
+<tr><td class='example'>(8..16) - 20</td><td class='example'>-12..-4</td></tr>
+<tr><td class='example'>250 + (500..+infinity)</td><td class='example'>750..+infinity</td></tr>
+<tr><td class='example'>-infinity + (500..+infinity)</td><td class='example'>Error</td></tr>
+<tr><td class='example'>(8..16) + (10..20)</td><td class='example'>Error</td></tr>
+<tr><td class='example'>(8..16 | 20..50) + 20</td><td class='example'>28..36 | 40..70</td></tr>
+<tr><td class='example'>250 + (-infinity..90 | 500..infinity)</td><td class='example'>-infinity..340 | 750..+infinity</td></tr>
+<tr><td class='example'>10 - (1 | 5..7)</td><td class='example'>3..5 | 9</td></tr>
 </table>
 
 <h4>String Concatenation</h4>
@@ -110,61 +248,213 @@
  If just one side is a string value then the other is stringified first (see <a href='write.htm'>write Statement</a>).
 </p>
 
-<h4>Multiplication, Division and Modulo</h4>
+<table class='basic'>
+<tr><th>Example</th><th>String Result</th></tr>
+<tr><td class='example'>"Hello" + " " + "World!"</td><td class='example'>Hello World!</td></tr>
+<tr><td class='example'>"Answer: " + 50</td><td class='example'>Answer: 50</td></tr>
+<tr><td class='example'>"" + 10 + 66</td><td class='example'>1066</td></tr>
+<tr><td class='example'>"" + (10 + 66)</td><td class='example'>76</td></tr>
+<tr><td class='example'>100 + " remainder"</td><td class='example'>100 remainder</td></tr>
+</table>
+
+
+<h3>Multiplication, Division and Modulo</h3>
 <p>
- Glich has two distinct division operators, floating point division <b>'/'</b>
- and integer division <b>'/%'</b>.
- The <b>'%'</b> operator is only used for integer modulo.
+ Currently, these operators can only be used with numerical types,
+ <b>float</b>, <b>number</b> and <b>field</b>.
+ Use with <b>ranges</b> and <b>rlists</b> will result in an error.
 </p>
 <p>
- Currently, these operators can only be used with numerical types.
- The integer division and modulus operators are based on Euclidean integer division.
+ If one operand is a <b>float</b> the other operand will be promoted to <b>float</b> before the operation.
 </p>
 <p>
- Multiplication of any number with the ? value is an error.<br />
- Multiplication of any number with +infinity (except ? and -infinity) results in +infinity.<br />
- Multiplication of any number with -infinity (except ? and +infinity) results in -infinity.<br />
- Multiplication of -infinity and +infinity values is an error.
+ If one operand is a <b>field</b> the other operand will be converted to a <b>field</b> if possible before the operation.
+ An error will result if the conversion is not possible.
+</p>
+
+<h4>Multiplication</h4>
+<p>
+ The multiplication operator '*' has the normal meaning of multiplication.
 </p>
 <p>
- For the normal division operator, the following conditions apply.<br />
- The divisor must be a non-zero integer value.
- Using the values 0, ?, -infinity or +infinity results in an error.<br />
- If the dividend is -infinity and the divisor valid, the result is also -infinity.<br />
- If the dividend is +infinity and the divisor valid, the result is also +infinity.<br />
- Division of the ? value results in an error.
+ Float multiplication follows the IEEE-754 standard for floating point arithmetic.
+</p>
+<table class='basic'>
+<tr><th>Float Example</th><th>Result</th></tr>
+<tr><td class='example'>5.0 * 10</td><td class='example'>50.0</td></tr>
+<tr><td class='example'>-5 * 1.5</td><td class='example'>-7.5</td></tr>
+<tr><td class='example'>+inf * 2</td><td class='example'>inf</td></tr>
+<tr><td class='example'>-inf * nan</td><td class='example'>nan</td></tr>
+<tr><td class='example'>inf * -inf</td><td class='example'>-inf</td></tr>
+<tr><td class='example'>inf * 0</td><td class='example'>nan</td></tr>
+</table>
+
+<p>
+ Field multiplication follows the rules of integer arithmetic.
+</p>
+ <ul>
+  <li>Multiplication of any number with the ? value is ?.</li>
+  <li>Multiplication of any number with +infinity (except ? and -infinity) results in +infinity.</li>
+  <li>Multiplication of any number with -infinity (except ? and +infinity) results in -infinity.</li>
+  <li>Multiplication of -infinity and +infinity values is ?.</li>
+ </ul>
+<table class='basic'>
+<tr><th>Field Example</th><th>Result</th></tr>
+<tr><td class='example'>5f * 10n</td><td class='example'>50</td></tr>
+<tr><td class='example'>@type(5f * 10n)</td><td class='example'>field</td></tr>
+<tr><td class='example'>+infinity * 2</td><td class='example'>+infinity</td></tr>
+<tr><td class='example'>-infinity * 3</td><td class='example'>-infinity</td></tr>
+<tr><td class='example'>infinity * ?</td><td class='example'>?</td></tr>
+<tr><td class='example'>infinity * -infinity</td><td class='example'>?</td></tr>
+<tr><td class='example'>infinity * 0</td><td class='example'>?</td></tr>
+</table>
+
+<h4>Division and Modulo</h4>
+<p>
+ Glich has three distinct division operators, floating point division <b>'/.'</b>,
+ integer division <b>'\'</b> and natural division <b>'/'</b>
+ which depends on the types of the operands.
 </p>
 <p>
- For the modulo operator, the following conditions apply.<br />
- Using ? on the left hand side of the operation results in an error.<br />
- Using -infinity or +infinity on the left hand side of the operation always equals 0.<br />
- Use of 0, ?, -infinity or +infinity on right side the operation results in an error.
+ It has an integer only modulo operator <b>'%'</b>
+ and a combined integer division and modulo operator <b>'/%'</b>
+ which returns a quotient and remainder object.
 </p>
+<p>
+ Integer division and modulo operators are based on Euclidean integer division.
+ This means that the quotient is always rounded down to the next integer (the floor)
+ and the remainder is always positive.
+</p>
+
+<h5>Floating Point Division</h5>
+<p>
+    Floating point division <b>'/.'</b> always returns a floating point result.
+    It follows the IEEE-754 standard for floating point arithmetic.
+</p>
+<p>
+    The natural division operator <b>'/'</b> follows the same rule
+    if one or both operands are a <b>float</b>.
+    If only one operand is a <b>float</b>,
+    the other operand will be promoted before the operation.
+</p>
+<table class='basic'>
+<tr><th>Float Example</th><th>Result</th></tr>
+<tr><td class='example'>50 /. 10</td><td class='example'>5.0</td></tr>
+<tr><td class='example'>-6 /. 1.5</td><td class='example'>-4.0</td></tr>
+<tr><td class='example'>+inf /. 2</td><td class='example'>inf</td></tr>
+<tr><td class='example'>-inf /. nan</td><td class='example'>nan</td></tr>
+<tr><td class='example'>inf /. -inf</td><td class='example'>nan</td></tr>
+<tr><td class='example'>10 /. inf</td><td class='example'>0.0</td></tr>
+<tr><td class='example'>1 /. 0</td><td class='example'>inf</td></tr>
+</table>
+
+<h5>Integer Division</h5>
+<p>
+    Integer division <b>'\'</b> always returns an integer result.
+    It follows the Euclidean division rules described above.
+</p>
+<p>
+    If one or both operands are <b>fields</b>, the result will be a <b>field</b>.
+    If only one operand is a <b>field</b>,
+    the other operand will be promoted before the operation.
+    If promotion is not possible the result will be <b>'?'</b> unknown. 
+</p>
+<p>
+    Division with <b>field</b> operands follows the following rules:
+</p>
+ <ul>
+  <li>Division of any number by 0, ?, -infinity or +infinity results in <b>'?'</b>.</li>
+  <li>Dividing +infinity by any number except 0, ? or +/-infinity results in +infinity.</li>
+  <li>Dividing -infinity by any number except 0, ? or +/-infinity results in -infinity.</li>
+ </ul>
+<table class='basic'>
+<tr><th>Integer Example</th><th>Result</th></tr>
+<tr><td class='example'>50f \ 10n</td><td class='example'>5</td></tr>
+<tr><td class='example'>@type( 50f \ 10n )</td><td class='example'>field</td></tr>
+<tr><td class='example'>@type( 50 \ 10 )</td><td class='example'>number</td></tr>
+<tr><td class='example'>+infinity \ 2</td><td class='example'>+infinity</td></tr>
+<tr><td class='example'>-infinity \ 3</td><td class='example'>-infinity</td></tr>
+<tr><td class='example'>infinity \ ?</td><td class='example'>?</td></tr>
+<tr><td class='example'>infinity \ -infinity</td><td class='example'>?</td></tr>
+<tr><td class='example'>10 \ infinity</td><td class='example'>?</td></tr>
+<tr><td class='example'>infinity \ 0</td><td class='example'>?</td></tr>
+<tr><td class='example'>1 \ 0</td><td class='example'>Error</td></tr>
+</table>
+
+<h5>Natural Division</h5>
+
+<p>
+    The natural division operator <b>'/'</b> follows the rules
+    of floating point division if one or both operands are <b>floats</b>.
+    Otherwise, it follows the rules of integer division:
+    if one or both operands are <b>fields</b>,
+    the result will be a <b>field</b>.
+</p>
+<table class='basic'>
+<tr><th>Natural Division Example</th><th>Result</th></tr>
+<tr><td class='example'>50 / 10.0</td><td class='example'>5.0</td></tr>
+<tr><td class='example'>50 / 10</td><td class='example'>5</td></tr>
+<tr><td class='example'>-7 / 2</td><td class='example'>-4</td></tr>
+<tr><td class='example'>inf / ?</td><td class='example'>nan</td></tr>
+<tr><td class='example'>infinity / ?</td><td class='example'>?</td></tr>
+<tr><td class='example'>19 / 0</td><td class='example'>Error</td></tr>
+<tr><td class='example'>19f / 0</td><td class='example'>?</td></tr>
+</table>
+
+<h5>Integer Modulo</h5>
+<p>
+     The modulo <b>'%'</b> operator is used for integer modulo.
+     It computes the remainder of the integer division of its operands
+     and follows the Euclidean division rules described above.
+</p>
+ <ul>
+  <li>The right hand side (divisor) must be a non-zero, finite integer. Anything else results in an error.</li>
+  <li>If left hand side (dividend) is +/-infinity, the result is 0.</li>
+  <li>If left hand side (dividend) is ? the result is an error.</li>
+ </ul>
+ <p>
+     If the result of the modulo operation is not an error,
+     it will return a finite, non-negative integer less than the divisor.
+ </p>
 <div class='note'><div class='inner'>
     <p>Note, these rules have been set to ensure the following is always true:<br />
-    If <b>q = a /% b</b> and <b>r = a % b</b> then <b>a = b * q + r</b>
+    If <b>q = a \ b</b> and <b>r = a % b</b> then <b>a = b * q + r</b>
     and <b>r</b> is always positive.
 </div></div>
 <table class='basic'>
-<tr><th>Expression</th><th>Example</th><th>Result</th></tr>
-<tr>
- <td class='code'>field_type * field_type</td>
- <td class='example'>5 * 10<br />-infinity * 123<br />-infinity * +infinity</td>
- <td class='example'>50<br />-infinity<br />Error</td>
-</tr>
-<tr>
- <td class='code'>field_type <b>/%</b> field_type</td>
- <td class='example'>10 <b>/%</b> 5<br />-infinity <b>/%</b> 123<br />123 <b>/%</b> +infinity</td>
- <td class='example'>2<br />-infinity<br />Error</td>
-</tr>
-<tr>
- <td class='code'>field_type <b>%</b> field_type</td>
- <td class='example'>21 <b>%</b> 5<br />-100 <b>%</b> -6<br />-infinity <b>%</b> 2</td>
- <td class='example'>1<br />2<br />0</td>
-</tr>
+<tr><th>Integer Modulo Example</th><th>Result</th></tr>
+<tr><td class='example'>50 % 10.0</td><td class='example'>Error</td></tr>
+<tr><td class='example'>50 % 11</td><td class='example'>6</td></tr>
+<tr><td class='example'>-7 % 2</td><td class='example'>1</td></tr>
+<tr><td class='example'>infinity % 999</td><td class='example'>0</td></tr>
+<tr><td class='example'>10 % infinity</td><td class='example'>Error</td></tr>
+<tr><td class='example'>19 % 0</td><td class='example'>Error</td></tr>
 </table>
 
-<h3>Range Operator</h3>
+<h5>Combined Integer Division and Modulo</h5>
+<p>
+    The combined integer division and modulo operator <b>'/%'</b> (divmod)
+    returns a quotient and remainder object.
+    It follows the same rules as the integer division and modulo operators.
+    If either the division or modulo operation would result in an error,
+    then the combined operation will also result in an error.
+</p>
+<table class='basic'>
+ <tr><td class='code'>a /% b = {: a \ b, a % b}</td></tr>
+</table>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+<tr><td class='example'>80 /% 13</td><td class='example'>{: 6, 2}</td></tr>
+<tr><td class='example'>-80 /% 13</td><td class='example'>{: -7, 11}</td></tr>
+<tr><td class='example'>80 /% -13</td><td class='example'>{: -6, 2}</td></tr>
+<tr><td class='example'>-80 /% -13</td><td class='example'>{: 7, 11}</td></tr>
+<tr><td class='example'>infinity /% 99</td><td class='example'>{: +infinity, 0}</td></tr>
+<tr><td class='example'>? /% 99</td><td class='example'>Error</td></tr>
+<tr><td class='example'>17 /% infinity</td><td class='example'>Error</td></tr>
+</table>
+
+
+<h2>Range Operator</h2>
 <p>
  The binary range operator creates a range value which is just large enough to include
  both its operands.<br />
@@ -187,7 +477,7 @@
  <tr><td class='example'>48..25..5..10</td><td class='example'>5..48</td></tr>
 </table>
 
-<h3 id='set'>Set Operators</h3>
+<h2 id='set'>Set Operators</h2>
 <p>
  The set operators operate on set_types, any numerical_type will be promoted as necessary.
  The output is always a demoted set_type.
@@ -203,7 +493,7 @@
 </table>
 
 
-<h3>Comparison Operators</h3>
+<h2>Comparison Operators</h2>
 <p>
  The comparison operators must have operands of the same type,
  after allowing for type promotion.
@@ -227,7 +517,7 @@
 <tr><td class='code'>&gt;=</td><td>Greater than or equal</td><td class='example'>10 &gt;= 5</td><td class='example'>true</td></tr>
 </table>
 
-<h3 id='boolean'>Boolean Operators</h3>
+<h2 id='boolean'>Boolean Operators</h2>
 <p>
  The unary prefix operator <b>'not'</b> and the binary operators <b>'and'</b> and <b>'or'</b>
  can be used with boolean types only.
@@ -241,11 +531,11 @@
 <tr><td class='code'>or</td><td>or</td><td class='example'>true <b>or</b> false</td><td class='example'>true</td></tr>
 </table>
 
-<h3>Subscript operators</h3>
+<h2>Subscript operators</h2>
 <p>
  The subscript operators allow access to to the various parts of the more complex value types.
 </p>
-<h4>Index operator</h4>
+<h3>Index operator</h3>
 <p>
  Used in the form <b>Value[ Index ]</b>,
  the square brackets are used to enclose an index into left hand value.
@@ -268,7 +558,7 @@
  <tr><td class='example'>{complex 10, 25}[real]</td><td class='example'>10</td></tr>
 </table>
 
-<h3>Function Operator</h3>
+<h2>Function Operator</h2>
 <table class='basic'>
 <tr><th>Operator</th><th>Name</th><th>Use Type</th><th>Result Type</th></tr>
 <tr><td class='code'>@</td><td>Unary function.qualifier( arguments )</td><td class='example'><b>@</b> function_name</td><td class='example'>value</td></tr>
@@ -318,7 +608,7 @@
  <tr><td class='example'>{pair 3, 4} @ sum</td><td class='example'>7</td></tr>
 </table>
 
-<h2>Operator Precedence</h2>
+<h1>Operator Precedence</h1>
 <p>
  Expressions are evaluated according to the operators detailed in the table.
  Operators with higher precedence are listed first.
