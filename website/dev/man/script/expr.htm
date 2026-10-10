@@ -43,7 +43,7 @@
  -->
 
 
-<h1>Introduction</h1>
+<h1 id="introduction">Introduction</h1>
 <p>
     An expression combines literals, names, and operators to produce a <b>value</b>.
     Expressions do not create or modify entities; they only compute results.
@@ -51,7 +51,7 @@
     and mixed-type expressions use the promotion rules described below.
 </p>
 
-<h1>Expression Evaluation Model</h1>
+<h1 id="evaluation-model">Expression Evaluation Model</h1>
 <p>
     Expressions are evaluated from left to right, subject to operator precedence.
     Each operator defines how its operands are combined,
@@ -76,28 +76,28 @@
         depending on how the function is defined.</li>
 </ul>
 
-<h1>Type Promotion and Demotion</h1>
+<h1 id="type-promotion-and-demotion">Type Promotion and Demotion</h1>
 <p>
 Expressions involving ranges and rlists use a unified internal representation.
 All set operators (!, |, &&, \\, ^^) operate on rlists,
 regardless of whether the operands are numbers, fields, ranges, or rlists.
 Promotion and demotion happen automatically and are usually invisible.</p>
 
-<h2>Promotion</h2>
+<h2 id="promotion">Promotion</h2>
 <ul>
     <li><b>Numbers → Fields</b> - Numbers are promoted to Fields whenever an operator requires Field behaviour.</li>
     <li><b>Fields → Ranges</b> - Fields are promoted to ranges with start and end equal to the field value.</li>
     <li><b>Ranges → Rlists</b> - Ranges are promoted to rlists with a single range element.</li>
     <li>All set operations work internally on rlists.</li>
 </ul>
-<h2>Demotion</h2>
+<h2 id="demotion">Demotion</h2>
 <p>After an operation completes, the result is demoted to the simplest type possible.</p>
 <ul>
     <li><b>Rlists → Ranges</b> - Rlists are demoted to a range if it consists of a single range.</li>
     <li><b>Ranges → Fields</b> - Ranges are demoted to a field if the start and end are equal.</li>
     <li><b>Fields → Numbers</b> - No further demotion occurs unless an operator requires a numeric value.</li>
 </ul>
-<h2>Numbers vs Fields</h2>
+<h2 id="numbers-vs-fields">Numbers vs Fields</h2>
 <p>
     Printed output does not distinguish numbers from fields.
     Both appear simply as integers.
@@ -111,7 +111,7 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 </p>
 
 
-<h1>Operators Groups</h1>
+<h1 id="operators-groups">Operators Groups</h1>
 
 <table class='basic'>
 <tr><th>Group</th><th>Operators</th><th>Applies To</th><th>Notes</th></tr>
@@ -123,7 +123,7 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 <tr><td>Functions</td><td class='code'>@</td><td>function and object</td><td>Function calls</td></tr>
 </table>
 
-<h2>Arithmetic Operations</h2>
+<h2 id="arithmetic-operations">Arithmetic Operations</h2>
 <p>
  Arithmetic operators perform numeric calculations on numbers and Fields.
  Some operators also apply to ranges and rlists.
@@ -154,12 +154,12 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 </p>
 -->
 
-<h3>Unary Plus '+' and Minus '-'</h3>
+<h3 id="unary-plus-and-minus">Unary Plus '+' and Minus '-'</h3>
 <p>
  Unary operators apply to numbers, fields, ranges, and rlists.
 </p>
 
-<h4>Unary Plus '+'</h4>
+<h4 id="unary-plus">Unary Plus '+'</h4>
 <p>
  Unitary plus is included for completeness.
  It currently does nothing.
@@ -173,7 +173,7 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 <tr><td class='example'>+inf</td><td class='example'>inf</td></tr>
 </table>
 
-<h4>Unary Minus '-'</h4>
+<h4 id="unary-minus">Unary Minus '-'</h4>
 <p>
  Unary minus has normal meaning of negation.
 </p>
@@ -203,7 +203,7 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 <tr><td class='example'>-(1 | 5..7)</td><td class='example'>-7..-5 | -1</td></tr>
 </table>
 
-<h4>Binary Plus '+' and Minus '-'</h4>
+<h4 id="binary-plus-and-minus">Binary Plus '+' and Minus '-'</h4>
 <p>
  Normal addition or subtraction is applied when both sides of an expression are numeric values.
  A numeric value can be added or subtracted from range or rlist.
@@ -240,7 +240,7 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 <tr><td class='example'>10 - (1 | 5..7)</td><td class='example'>3..5 | 9</td></tr>
 </table>
 
-<h4>String Concatenation</h4>
+<h4 id="string-concatenation">String Concatenation</h4>
 <p>
  The '+' operator is also used to combine string values.
  If both sides of the operator are string values,
@@ -258,7 +258,7 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 </table>
 
 
-<h3>Multiplication, Division and Modulo</h3>
+<h3 id="multiplication-division-and-modulo">Multiplication, Division and Modulo</h3>
 <p>
  Currently, these operators can only be used with numerical types,
  <b>float</b>, <b>number</b> and <b>field</b>.
@@ -272,7 +272,7 @@ Promotion and demotion happen automatically and are usually invisible.</p>
  An error will result if the conversion is not possible.
 </p>
 
-<h4>Multiplication</h4>
+<h4 id="multiplication">Multiplication</h4>
 <p>
  The multiplication operator '*' has the normal meaning of multiplication.
 </p>
@@ -309,7 +309,7 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 <tr><td class='example'>infinity * 0</td><td class='example'>?</td></tr>
 </table>
 
-<h4>Division and Modulo</h4>
+<h4 id="division-and-modulo">Division and Modulo</h4>
 <p>
  Glich has three distinct division operators, floating point division <b>'/.'</b>,
  integer division <b>'\'</b> and natural division <b>'/'</b>
@@ -326,7 +326,7 @@ Promotion and demotion happen automatically and are usually invisible.</p>
  and the remainder is always positive.
 </p>
 
-<h5>Floating Point Division</h5>
+<h5 id="floating-point-division">Floating Point Division</h5>
 <p>
     Floating point division <b>'/.'</b> always returns a floating point result.
     It follows the IEEE-754 standard for floating point arithmetic.
@@ -348,7 +348,7 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 <tr><td class='example'>1 /. 0</td><td class='example'>inf</td></tr>
 </table>
 
-<h5>Integer Division</h5>
+<h5 id="integer-division">Integer Division</h5>
 <p>
     Integer division <b>'\'</b> always returns an integer result.
     It follows the Euclidean division rules described above.
@@ -381,7 +381,7 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 <tr><td class='example'>1 \ 0</td><td class='example'>Error</td></tr>
 </table>
 
-<h5>Natural Division</h5>
+<h5 id="natural-division">Natural Division</h5>
 
 <p>
     The natural division operator <b>'/'</b> follows the rules
@@ -401,7 +401,7 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 <tr><td class='example'>19f / 0</td><td class='example'>?</td></tr>
 </table>
 
-<h5>Integer Modulo</h5>
+<h5 id="integer-modulo">Integer Modulo</h5>
 <p>
      The modulo <b>'%'</b> operator is used for integer modulo.
      It computes the remainder of the integer division of its operands
@@ -431,7 +431,7 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 <tr><td class='example'>19 % 0</td><td class='example'>Error</td></tr>
 </table>
 
-<h5>Combined Integer Division and Modulo</h5>
+<h5 id="combined-integer-division-and-modulo">Combined Integer Division and Modulo</h5>
 <p>
     The combined integer division and modulo operator <b>'/%'</b> (divmod)
     returns a quotient and remainder object.
@@ -453,44 +453,149 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 <tr><td class='example'>17 /% infinity</td><td class='example'>Error</td></tr>
 </table>
 
-
-<h2>Range Operator</h2>
+<h2 id="integer-range-and-set-operations">Integer Range and Set Operations</h2>
 <p>
- The binary range operator creates a range value which is just large enough to include
- both its operands.<br />
- The order of the operands is not significant.<br />
- The operands can be either field or range types. Numbers will be converted to a field if possible.<br />
- The values -infinity and +infinity may be used.<br />
- Use of the ? value is an error.
+    Integer set operations work on <b>fields</b>, <b>ranges</b> and <b>rlists</b>,
+    collectively known as set types.
+    All numeric types (numbers, Fields, ranges)
+    are automatically promoted to rlists when used with set operators.
+    If a number can not be promoted to a field (due to overflow), an error will result.
+    After the operation completes, the result is demoted to the simplest set type possible.
+    Set operators always use inclusive integer semantics and
+    operate on canonical (well ordered) rlists internally.
 </p>
-<div class='note'><div class='inner'>
-    <p>Note, the size of a range is always greater than 0.
-</div></div>
+<table class='basic'>
+<tr><th>Operator</th><th>Name</th><th>Meaning</th></tr>
+<tr><td class='code'>..</td><td>Range</td><td>Constructs the smallest inclusive range containing both operands</td></tr>
+<tr><td class='code'>!</td><td>Complement</td><td>Set complement (NOT)</td></tr>
+<tr><td class='code'>|</td><td>Union</td><td>Set union (OR)</td></tr>
+<tr><td class='code'>&amp;&amp;</td><td>Intersection</td><td>Set intersection (AND)</td></tr>
+<tr><td class='code'>^^</td><td>Symmetric difference</td><td>Set symmetric difference (XOR)</td></tr>
+<tr><td class='code'>\\</td><td>Relative complement</td><td>Set relative complement (AND NOT)</td></tr>
+</table>
+
+
+<h3 id="range-operator">Range Operator '..'</h3>
+<p>
+    The range operator constructs the smallest inclusive range that contains both operands.
+</p>
+<table class='basic'>
+ <tr><td class='code'>a .. b = @min(a, b)..@max(a, b)</td></tr>
+</table>
+<ul>
+    <li>Operands may be <b>fields</b> or <b>ranges</b>.</li>
+    <li><b>Numbers</b> are promoted to <b>fields</b> automatically.</li>
+    <li><b>?</b> is an error.</li>
+    <li>-infinity and +infinity are allowed.</li>
+    <li>The result is always a <b>non‑empty range</b> (start &lt;= end).</li>
+    <li>Multiple '<b>..</b>' operators collapse to the smallest range containing all operands.</li>
+</ul>
+<p>
+    Note that when printing a range,
+    the start and end fields are separated by the range operator.
+</p>
 
 <table class='basic'>
 <tr><th>Example</th><th>Result</th></tr>
  <tr><td class='example'>5..10</td><td class='example'>5..10</td></tr>
+ <tr><td class='example'>5..5</td><td class='example'>5</td></tr>
  <tr><td class='example'>123..-infinity</td><td class='example'>-infinity..123</td></tr>
- <tr><td class='example'>?..40</td><td class='example'>Error</td></tr>
  <tr><td class='example'>(5..10)..6</td><td class='example'>5..10</td></tr>
  <tr><td class='example'>(5..10)..(15..8)</td><td class='example'>5..15</td></tr>
  <tr><td class='example'>48..25..5..10</td><td class='example'>5..48</td></tr>
+ <tr><td class='example'>?..40</td><td class='example'>Error</td></tr>
 </table>
 
-<h2 id='set'>Set Operators</h2>
+<h3 id="set-operators">Set Operators</h3>
 <p>
- The set operators operate on set_types, any numerical_type will be promoted as necessary.
+ The set operators operate on set_types (<b>fields, ranges, rlists</b>).
+ <b>Number</b> types will be promoted to <b>fields</b> if possible. 
  The output is always a demoted set_type.
+</p>
+<p>
+    The canonical form of a set is a well ordered rlist.
+    That is, a list of non-overlapping and non-adjacent ranges in ascending order.
+</p>
+
+<h4 id="complement">Complement '!' (NOT)</h4>
+<p>
+    A unary operator that constructs the set of all elements not in the operand set.
 </p>
 
 <table class='basic'>
-<tr><th>Operator</th><th>Name</th><th>Example</th><th>Result</th></tr>
-<tr><td class='code'>!</td><td>Complement (NOT)</td><td class='example'><b>!</b>0<br><b>!</b>empty</td><td class='example'>-infinity..-1 | 1..+infinity<br>-infinity..+infinity</td></tr>
-<tr><td class='code'>|</td><td>Union (OR)</td><td class='example'>1..100 <b>|</b> 50..150</td><td class='example'>1..150</td></tr>
-<tr><td class='code'>&amp;&amp;</td><td>Intersection (AND)</td><td class='example'>1..100 <b>&amp;&amp;</b> 50..150</td><td class='example'>50..100</td></tr>
-<tr><td class='code'>^^</td><td>Symmetric difference (XOR)</td><td class='example'>1..100 <b>^^</b> 50..150</td><td class='example'>1..49 | 101..150</td></tr>
-<tr><td class='code'>\\</td><td>Relative complement (AND NOT)</td><td class='example'>1..100 <b>\\</b> 50..150</td><td class='example'>1..49</td></tr>
+<tr><th>Example</th><th>Result</th></tr>
+ <tr><td class='example'>!0</td><td class='example'>-infinity..-1 | 1..+infinity</td></tr>
+ <tr><td class='example'>!(5..10)</td><td class='example'>-infinity..4 | 11..+infinity</td></tr>
+ <tr><td class='example'>!empty</td><td class='example'>-infinity..+infinity</td></tr>
+ <tr><td class='example'>!(-infinity..123)</td><td class='example'>124..+infinity</td></tr>
+ <tr><td class='example'>!(5..10 | 20..25)</td><td class='example'>-infinity..4 | 11..19 | 26..+infinity</td></tr>
+ <tr><td class='example'>!(-infinity..10 | 20..25)</td><td class='example'>11..19 | 26..+infinity</td></tr>
 </table>
+
+<h4 id="union">Union '|' (OR)</h4>
+<p>
+    A binary operator that constructs the set of all elements
+    in either of the operand sets.
+</p>
+<p>
+    Note that when printing a set with more than one range,
+    the ranges are separated by the union operator.
+</p>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+ <tr><td class='example'>0 | 5..10</td><td class='example'>0 | 5..10</td></tr>
+ <tr><td class='example'>5..10 | 8..25</td><td class='example'>5..25</td></tr>
+ <tr><td class='example'>empty | 5..10</td><td class='example'>5..10</td></tr>
+ <tr><td class='example'>-infinity..123 | 5..10</td><td class='example'>-infinity..123</td></tr>
+ <tr><td class='example'>5..10 | 20..25 | 11..19</td><td class='example'>5..25</td></tr>
+ <tr><td class='example'>-infinity..10 | 20..25 | 30..35</td><td class='example'>-infinity..10 | 20..25 | 30..35</td></tr>
+</table>
+
+<h4 id="intersection">Intersection '&amp;&amp;' (AND)</h4>
+<p>
+    A binary operator that constructs the set of all elements
+    common to both of the operand sets.
+</p>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+ <tr><td class='example'>0 &amp;&amp; 5..10</td><td class='example'>empty</td></tr>
+ <tr><td class='example'>5..10 &amp;&amp; 8..25</td><td class='example'>8..10</td></tr>
+ <tr><td class='example'>empty &amp;&amp; 5..10</td><td class='example'>empty</td></tr>
+ <tr><td class='example'>-infinity..123 &amp;&amp; 5..10</td><td class='example'>5..10</td></tr>
+ <tr><td class='example'>(10..20 | 30..40) &amp;&amp; 15..35</td><td class='example'>15..20 | 30..35</td></tr>
+ <tr><td class='example'>-infinity..10 &amp;&amp; -infinity..5</td><td class='example'>-infinity..5</td></tr>
+</table>
+
+<h4 id="symmetric-difference">Symmetric Difference '^^' (XOR)</h4>
+<p>
+    A binary operator that constructs the set of all elements
+    that are in either of the operand sets but not in both.
+</p>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+ <tr><td class='example'>0 ^^ 5..10</td><td class='example'>0 | 5..10</td></tr>
+ <tr><td class='example'>5..10 ^^ 8..25</td><td class='example'>5..7 | 11..25</td></tr>
+ <tr><td class='example'>empty ^^ 5..10</td><td class='example'>5..10</td></tr>
+ <tr><td class='example'>-infinity..123 ^^ 5..10</td><td class='example'>-infinity..4 | 11..123</td></tr>
+ <tr><td class='example'>(10..20 | 30..40) ^^ 15..35</td><td class='example'>10..14 | 21..29 | 36..40</td></tr>
+ <tr><td class='example'>-infinity..10 ^^ -infinity..5</td><td class='example'>6..10</td></tr>
+</table>
+
+<h4 id="relative-complement">Relative Complement '\\' (AND NOT)</h4>
+<p>
+    A binary operator that constructs the set of all elements
+    in the left operand set that are not in the right operand set.
+</p>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+ <tr><td class='example'>1..100 \\ 50..150</td><td class='example'>1..49</td></tr>
+ <tr><td class='example'>5..10 \\ empty</td><td class='example'>empty</td></tr>
+ <tr><td class='example'>(10..20 | 30..40) \\ 15..35</td><td class='example'>10..14 | 36..40</td></tr>
+ <tr><td class='example'>5..20 \\ (-infinity..10 | 15..+infinity)</td><td class='example'>11..14</td></tr>
+ <tr><td class='example'>-infinity..10 \\ -infinity..5</td><td class='example'>6..10</td></tr>
+</table>
+
+
 
 
 <h2>Comparison Operators</h2>
