@@ -1,0 +1,26 @@
+// expr_range-01.glcs  Verify Range Operator examples.
+// Example in dev\man\script\expr.htm.
+
+
+// Range
+write nl;
+write 5..10 nl;
+write 5..5 nl;
+write 123..-infinity nl;
+write (5..10)..6 nl;
+write (5..10)..(15..8) nl;
+write 48..25..5..10 nl;
+write ?..40 nl;
+
+
+/*[OUTPUT]
+
+5..10
+5
+-infinity..123
+5..10
+5..15
+5..48
+Error file:expr_range-01 (13): Range invalid.
+
+[OUTPUT]*/

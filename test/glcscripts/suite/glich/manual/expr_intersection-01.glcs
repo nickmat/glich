@@ -1,0 +1,24 @@
+// expr_intersection-01.glcs  Verify Intersection Operator examples.
+// Example in dev\man\script\expr.htm.
+
+
+// Intersection
+write nl;
+write 0 && 5..10 nl;
+write 5..10 && 8..25 nl;
+write empty && 5..10 nl;
+write -infinity..123 && 5..10 nl;
+write (10..20 | 30..40) && 15..35 nl;
+write -infinity..10 && -infinity..5 nl;
+
+
+/*[OUTPUT]
+
+empty
+8..10
+empty
+5..10
+15..20 | 30..35
+-infinity..5
+
+[OUTPUT]*/

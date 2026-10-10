@@ -1,0 +1,24 @@
+// expr_sym_diff-01.glcs  Verify Symmetric Difference Operator examples.
+// Example in dev\man\script\expr.htm.
+
+
+// Symmetric Difference
+write nl;
+write 0 ^^ 5..10 nl;
+write 5..10 ^^ 8..25 nl;
+write empty ^^ 5..10 nl;
+write -infinity..123 ^^ 5..10 nl;
+write (10..20 | 30..40) ^^ 15..35 nl;
+write -infinity..10 ^^ -infinity..5 nl;
+
+
+/*[OUTPUT]
+
+0 | 5..10
+5..7 | 11..25
+5..10
+-infinity..4 | 11..123
+10..14 | 21..29 | 36..40
+6..10
+
+[OUTPUT]*/

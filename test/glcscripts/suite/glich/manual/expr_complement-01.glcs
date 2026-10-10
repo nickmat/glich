@@ -1,0 +1,24 @@
+// expr_complement-01.glcs  Verify Complement Operator examples.
+// Example in dev\man\script\expr.htm.
+
+
+// Complement
+write nl;
+write !0 nl;
+write !(5..10) nl;
+write !empty nl;
+write !(-infinity..123) nl;
+write !(5..10 | 20..25) nl;
+write !(-infinity..10 | 20..25) nl;
+
+
+/*[OUTPUT]
+
+-infinity..-1 | 1..+infinity
+-infinity..4 | 11..+infinity
+-infinity..+infinity
+124..+infinity
+-infinity..4 | 11..19 | 26..+infinity
+11..19 | 26..+infinity
+
+[OUTPUT]*/

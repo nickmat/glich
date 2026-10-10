@@ -1,0 +1,22 @@
+// expr_rel_comp-01.glcs  Verify Relative Complement Operator examples.
+// Example in dev\man\script\expr.htm.
+
+
+// Relative Complement
+write nl;
+write 1..100 \\ 50..150 nl;
+write 5..10 \\ empty nl;
+write (10..20 | 30..40) \\ 15..35 nl;
+write 5..20 \\ (-infinity..10 | 15..+infinity) nl;
+write -infinity..10 \\ -infinity..5 nl;
+
+
+/*[OUTPUT]
+
+1..49
+empty
+10..14 | 36..40
+11..14
+6..10
+
+[OUTPUT]*/
