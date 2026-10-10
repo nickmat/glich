@@ -628,6 +628,19 @@ void SValue::equal( const SValue& value )
     if( propagate_error( value ) ) {
         return;
     }
+    // Check mixed Float.
+    if( (type() == Type::Float && value.type() != Type::Float) ||
+        (type() != Type::Float && value.type() == Type::Float) ) {
+        bool success1, success2;
+        double left = get_any_as_float( success1 );
+        double right = value.get_any_as_float( success2 );
+        if( !success1 || !success2 ) {
+            set_error( "Could not convert to Float type." );
+            return;
+        }
+        set_bool( left == right );
+        return;
+    }
     // Check mixed Integer.
     if( (type() == Type::Number && value.type() == Type::field) ||
         (type() == Type::field && value.type() == Type::Number) ) {
@@ -686,6 +699,19 @@ void SValue::equal( const SValue& value )
 void SValue::greater_than( const SValue& value )
 {
     if( propagate_error( value ) ) {
+        return;
+    }
+    // Check mixed Float.
+    if( (type() == Type::Float && value.type() != Type::Float) ||
+        (type() != Type::Float && value.type() == Type::Float) ) {
+        bool success1, success2;
+        double left = get_any_as_float( success1 );
+        double right = value.get_any_as_float( success2 );
+        if( !success1 || !success2 ) {
+            set_error( "Could not convert to Float type." );
+            return;
+        }
+        set_bool( left > right );
         return;
     }
     // Check mixed Integer.
