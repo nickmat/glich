@@ -1,0 +1,16 @@
+// bool001.glcs Test file to test bool maths
+
+write nl;
+write true xor true nl;
+write true xor false nl;
+write false xor true nl;
+write false xor false nl;
+
+/*[OUTPUT]
+
+false
+true
+true
+false
+
+[OUTPUT]*/
