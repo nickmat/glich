@@ -128,6 +128,7 @@ namespace glich {
 
         void logical_or( const SValue& value );
         void logical_and( const SValue& value );
+        void logical_xor( const SValue& value );
         void equal( const SValue& value );
         void greater_than( const SValue& value );
         void less_than( const SValue& value );

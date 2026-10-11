@@ -95,6 +95,7 @@ namespace glich {
             And,             // "and"
             Not,             // "not"
             Or,              // "or"
+            Xor,             // "xor"
             // Alternative token names
             UNION = Vline,
             INTERSECTION = DblAmpersand,

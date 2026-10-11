@@ -141,6 +141,9 @@ SToken& STokenStream::next()
         else if( str == "and" ) {
             set_type( SToken::Type::And );
         }
+        else if( str == "xor" ) {
+            set_type( SToken::Type::Xor );
+        }
         else if( str == "not" ) {
             set_type( SToken::Type::Not );
         }

@@ -1110,6 +1110,9 @@ SValue Script::expr( GetToken get )
         case SToken::Type::And:
             left.logical_and( compare( GetToken::next ) );
             break;
+        case SToken::Type::Xor:
+            left.logical_xor( compare( GetToken::next ) );
+            break;
         default:
             return left;
         }

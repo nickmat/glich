@@ -623,6 +623,18 @@ void SValue::logical_and( const SValue& value )
     set_error( "Operator 'and' requires boolean values." );
 }
 
+void glich::SValue::logical_xor( const SValue& value )
+{
+    if( propagate_error( value ) ) {
+        return;
+    }
+    if( type() == Type::Bool && value.type() == Type::Bool ) {
+        set_bool( get_bool() != value.get_bool() );
+        return;
+    }
+    set_error( "Operator 'xor' requires boolean values." );
+}
+
 void SValue::equal( const SValue& value )
 {
     if( propagate_error( value ) ) {
