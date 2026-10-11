@@ -249,6 +249,27 @@ void SValue::object_fill_store( Store* store )
     }
 }
 
+bool SValue::is_object_equal( const SValue& value ) const
+{
+    if( m_type != Type::Object || value.m_type != Type::Object ) {
+        return false;
+    }
+    const SValueVec& vv1 = std::get<SValueVec>( m_data );
+    const SValueVec& vv2 = std::get<SValueVec>( value.m_data );
+    if( vv1.size() != vv2.size() ) {
+        return false;
+    }
+    for( size_t i = 0; i < vv1.size(); i++ ) {
+        SValue v1 = vv1[i];
+        v1.equal( vv2[i] );
+        bool success = false;
+        if( !v1.get_bool( success ) || !success ) {
+            return false;
+        }
+    }
+    return true;
+}
+
 string SValue::get_str() const
 {
     if( std::holds_alternative<string>( m_data ) ) {
@@ -729,6 +750,9 @@ void SValue::equal( const SValue& value )
             break;
         case Type::Null:
             result = true;
+            break;
+        case Type::Object:
+            result = is_object_equal( value );
             break;
         default:
             set_error( "Type cannot be compared." );

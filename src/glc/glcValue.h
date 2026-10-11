@@ -89,6 +89,7 @@ namespace glich {
         const SValueVec* get_object_values() const;
         Object* get_object_ptr();
         void object_fill_store( Store* store );
+        bool is_object_equal( const SValue& value ) const;
 
         std::string as_string() const;
         std::string object_to_string( const SValueVec& values ) const;
