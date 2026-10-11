@@ -1,0 +1,36 @@
+// comp007.glcs Test file for comparison operators with floats
+
+write nl;
+write 10.0 > 10.0,;
+write 10 > 10.0,;
+write 10.0 > 10,;
+write 10f > 10.0,;
+write 10.0 > 10f nl;
+
+write 11.0 > 10.0,;
+write 11 > 10.0,;
+write 11.0 > 10,;
+write 11f > 10.0,;
+write 11.0 > 10f nl;
+
+write 10.0 >= 10.0,;
+write 10 >= 10.0,;
+write 10.0 >= 10,;
+write 10f >= 10.0,;
+write 10.0 >= 10f nl;
+
+write 9.0 >= 10.0,;
+write 9 >= 10.0,;
+write 9.0 >= 10,;
+write 9f >= 10.0,;
+write 9.0 >= 10f nl;
+
+
+/*[OUTPUT]
+
+false, false, false, false, false
+true, true, true, true, true
+true, true, true, true, true
+false, false, false, false, false
+
+[OUTPUT]*/
