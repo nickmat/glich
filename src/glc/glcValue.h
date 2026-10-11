@@ -79,6 +79,7 @@ namespace glich {
 
         void set_range_demote( Range rng );
         void set_rlist_demote( const RList& rlist );
+        void set_demote();
 
         void set_error( const std::string& str );
         void copy_error( const SValue& value );

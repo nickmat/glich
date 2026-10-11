@@ -146,6 +146,16 @@ void SValue::set_rlist_demote( const RList& rlist )
     }
 }
 
+void SValue::set_demote()
+{
+    if( m_type == Type::rlist ) {
+        set_rlist_demote( std::get<RList>( m_data ) );
+    }
+    else if( m_type == Type::range ) {
+        set_range_demote( std::get<Range>( m_data ) );
+    }
+}
+
 void SValue::set_error( const string& str )
 {
     STokenStream* ts = Script::get_current_ts();
@@ -623,7 +633,7 @@ void SValue::logical_and( const SValue& value )
     set_error( "Operator 'and' requires boolean values." );
 }
 
-void glich::SValue::logical_xor( const SValue& value )
+void SValue::logical_xor( const SValue& value )
 {
     if( propagate_error( value ) ) {
         return;
@@ -640,35 +650,61 @@ void SValue::equal( const SValue& value )
     if( propagate_error( value ) ) {
         return;
     }
-    // Check mixed Float.
-    if( (type() == Type::Float && value.type() != Type::Float) ||
-        (type() != Type::Float && value.type() == Type::Float) ) {
+    Type ltype = type();
+    Type rtype = value.type();
+    if( ltype != rtype ) {
+        set_demote();
         bool success1, success2;
-        double left = get_any_as_float( success1 );
-        double right = value.get_any_as_float( success2 );
-        if( !success1 || !success2 ) {
-            set_error( "Could not convert to Float type." );
+        // Check mixed Float.
+        if( ltype == Type::Null || rtype == Type::Null ) {
+            set_bool( false );
             return;
         }
-        set_bool( left == right );
-        return;
-    }
-    // Check mixed Integer.
-    if( (type() == Type::Number && value.type() == Type::field) ||
-        (type() == Type::field && value.type() == Type::Number) ) {
-        bool success1, success2;
-        Field left = get_int_as_field( success1 );
-        Field right = value.get_int_as_field( success2 );
-        if( !success1 || !success2 ) {
-            set_error( "Could not convert to Field type." );
+        if( ltype == Type::Float || rtype == Type::Float ) {
+            double left = get_any_as_float( success1 );
+            double right = value.get_any_as_float( success2 );
+            if( !success1 || !success2 ) {
+                set_error( "Could not convert to Float type." );
+                return;
+            }
+            set_bool( left == right );
             return;
         }
-        set_bool( left == right );
-        return;
+        // Check mixed Integer.
+        if( ltype == Type::field || rtype == Type::field ) {
+            Field left = get_int_as_field( success1 );
+            Field right = value.get_int_as_field( success2 );
+            if( !success1 || !success2 ) {
+                set_error( "Could not convert to Field type." );
+                return;
+            }
+            set_bool( left == right );
+            return;
+        }
+        if( ltype == Type::range || rtype == Type::range ) {
+            Range left = get_range( success1 );
+            Range right = value.get_range( success2 );
+            if( !success1 || !success2 ) {
+                set_error( "Could not convert to Range type." );
+                return;
+            }
+            set_bool( left == right );
+            return;
+        }
+        if( ltype == Type::rlist || rtype == Type::rlist ) {
+            RList left = get_rlist( success1 );
+            RList right = value.get_rlist( success2 );
+            if( !success1 || !success2 ) {
+                set_error( "Could not convert to RList type." );
+                return;
+            }
+            set_bool( left == right );
+            return;
+        }
     }
-    if( m_type == value.type() ) {
+    else {
         bool result = false;
-        switch( m_type )
+        switch( ltype )
         {
         case Type::String:
             result = (get_str() == value.get_str());
@@ -699,10 +735,6 @@ void SValue::equal( const SValue& value )
             return;
         }
         set_bool( result );
-        return;
-    }
-    if( m_type == Type::Null || value.type() == Type::Null ) {
-        set_bool( false );
         return;
     }
     set_error( "Must compare same types." );
