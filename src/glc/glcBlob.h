@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     11th March 2025
- * Copyright:   Copyright (c) 2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2025..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -38,13 +38,17 @@ namespace glich {
     {
     public:
         Blob() {}
+        Blob( BlobType type, const std::string& data )
+            : m_type( type ), m_data( data.begin(), data.end() ) {}
+
+        static BlobType string_to_type( const std::string& str );
 
         bool load( const std::string& filename, BlobType type = BlobType::unknown );
         bool save( const std::string& filename ) const;
 
         std::string type_str() const;
         size_t size() const { return m_data.size(); }
-
+        
     private:
         BlobType m_type = BlobType::unknown;
         std::vector<unsigned char> m_data;

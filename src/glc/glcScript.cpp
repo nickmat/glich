@@ -1614,7 +1614,7 @@ SValue Script::builtin_function_call( bool& success, const string& name )
     enum f {
         f_if, f_error, f_string, f_quote, f_field, f_range, f_rlist, f_number, f_float, f_read, f_filesys,
         f_version, f_low, f_high, f_span, f_size, f_envelope, f_type, f_object, f_global, f_load_blob,
-        f_min, f_max
+        f_min, f_max, f_blob
     };
     const static std::map<string, f> fmap = {
         { "if", f_if }, { "error", f_error }, { "string", f_string }, { "quote", f_quote }, { "field", f_field },
@@ -1622,7 +1622,7 @@ SValue Script::builtin_function_call( bool& success, const string& name )
         { "read", f_read }, { "filesys", f_filesys }, { "version", f_version }, { "low", f_low },
         { "high", f_high }, { "span", f_span }, { "size", f_size }, { "envelope", f_envelope },
         { "type", f_type }, { "object", f_object }, { "global", f_global }, { "load:blob", f_load_blob },
-        { "min", f_min }, { "max", f_max }
+        { "min", f_min }, { "max", f_max }, { "blob", f_blob }
     };
 
     auto fnum = fmap.find( name );
@@ -1653,6 +1653,7 @@ SValue Script::builtin_function_call( bool& success, const string& name )
         case f_load_blob: return at_load_blob();
         case f_min: return at_min();
         case f_max: return at_max();
+        case f_blob: return at_blob();
         }
         return SValue::create_error( "Built-in hics function error." );
     }
@@ -2168,6 +2169,24 @@ SValue glich::Script::at_max()
         return SValue::create_error( "Function @max failure." );
     }
     return result.get_bool() ? args[0] : args[1];
+}
+
+// Create a blob value from a string, for testing:
+// @blob.type( data )
+// 'type' is an optional qualifier: file, mp3, mp4, jpeg (or jpg), png.
+// If omitted or not recognised, the blob type is unknown.
+SValue Script::at_blob()
+{
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current );
+    if( args.empty() || args[0].type() != SValue::Type::String ) {
+        return SValue::create_error( "Function @blob requires a string argument." );
+    }
+    BlobType type = BlobType::unknown;
+    if( !quals.empty() ) {
+        type = Blob::string_to_type( quals[0] );
+    }
+    return SValue( Blob( type, args[0].get_str() ) );
 }
 
 SValue Script::get_value_var( const string& name )

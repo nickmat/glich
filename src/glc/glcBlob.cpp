@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     11th March 2025
- * Copyright:   Copyright (c) 2025, Nick Matthews.
+ * Copyright:   Copyright (c) 2025..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -87,6 +87,16 @@ string Blob::type_str() const
     case BlobType::png: return "png";
     default: return "unknown";
     }
+}
+
+BlobType Blob::string_to_type( const string& str )
+{
+    if( str == "file" ) return BlobType::file;
+    if( str == "mp3" ) return BlobType::mp3;
+    if( str == "mp4" ) return BlobType::mp4;
+    if( str == "jpeg" || str == "jpg" ) return BlobType::jpeg;
+    if( str == "png" ) return BlobType::png;
+    return BlobType::unknown;
 }
 
 // End of src/glc/glcBlob.cpp
