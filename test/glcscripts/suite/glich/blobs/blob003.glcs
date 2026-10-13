@@ -1,0 +1,8 @@
+// blob003.glcs - create blob type with text content.
+
+let b = @blob.txt( "This is a text blob" );
+write b;
+
+/*[OUTPUT]
+blob:txt:19
+[OUTPUT]*/
