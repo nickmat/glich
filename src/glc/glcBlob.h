@@ -49,6 +49,10 @@ namespace glich {
         std::string type_str() const;
         size_t size() const { return m_data.size(); }
         
+        bool operator==( const Blob& other ) const {
+            return m_type == other.m_type && m_data == other.m_data;
+        }
+
     private:
         BlobType m_type = BlobType::unknown;
         std::vector<unsigned char> m_data;
