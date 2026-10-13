@@ -754,6 +754,9 @@ void SValue::equal( const SValue& value )
         case Type::Object:
             result = is_object_equal( value );
             break;
+        case Type::blob:
+            result = (get_blob() == value.get_blob());
+            break;
         default:
             set_error( "Type cannot be compared." );
             return;
