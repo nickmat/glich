@@ -32,7 +32,7 @@
 
 namespace glich {
 
-    enum class BlobType { unknown, file, mp3, mp4, jpeg, png };
+    enum class BlobType { unknown, file, mp3, mp4, jpeg, png, txt };
 
     class Blob
     {

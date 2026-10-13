@@ -62,6 +62,9 @@ bool Blob::load( const string& filename, BlobType type )
         else if( ext == ".png" ) {
             type = BlobType::png;
         }
+        else if( ext == ".txt" ) {
+            type = BlobType::txt;
+        }
     }
     m_type = type;
     return true;
@@ -85,6 +88,7 @@ string Blob::type_str() const
     case BlobType::mp4: return "mp4";
     case BlobType::jpeg: return "jpeg";
     case BlobType::png: return "png";
+    case BlobType::txt: return "txt";
     default: return "unknown";
     }
 }
@@ -96,6 +100,7 @@ BlobType Blob::string_to_type( const string& str )
     if( str == "mp4" ) return BlobType::mp4;
     if( str == "jpeg" || str == "jpg" ) return BlobType::jpeg;
     if( str == "png" ) return BlobType::png;
+    if( str == "txt" ) return BlobType::txt;
     return BlobType::unknown;
 }
 
