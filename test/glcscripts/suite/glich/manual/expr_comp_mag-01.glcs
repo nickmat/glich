@@ -1,0 +1,25 @@
+// expr_comp_mag-01.glcs  Verify comparison magnitude examples.
+// Example in dev\man\script\expr.htm.
+
+write nl;
+write 5 < 10 nl;
+write 10 <= 10.0 nl;
+write 10 > infinity nl;
+write 5 < ? nl;
+write ? < nan nl;
+write (1..3) < 10 nl;
+write "apple" < "banana" nl;
+write "z" >= "a" nl;
+
+/*[OUTPUT]
+
+true
+true
+false
+Error file:expr_comp_mag-01 (8): Cannot compare invalid fields.
+false
+Error file:expr_comp_mag-01 (10): Must compare same types.
+true
+true
+
+[OUTPUT]*/
