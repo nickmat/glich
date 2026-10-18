@@ -1416,10 +1416,8 @@ SValue Script::get_object( GetToken get )
 {
     string ocode = get_name_or_primary( get );
     Object* obj = glc().get_object( ocode );
-    SValue value;
     if( obj == nullptr ) {
-        value.set_error( "Object name not recognised." );
-        return value;
+        return SValue::create_error( "Object name not recognised." );
     }
 
     SValueVec vlist;
@@ -1449,6 +1447,9 @@ SValue Script::get_object( GetToken get )
             break;
         default: {
                 SValue value = expr( GetToken::current );
+                if( value.is_error() ) {
+                    return value;
+                }
                 vlist.push_back( value );
             }
             token = current_token();

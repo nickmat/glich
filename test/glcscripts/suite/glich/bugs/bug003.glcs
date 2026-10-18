@@ -1,0 +1,9 @@
+// bug003.glcs Bug in literal objects.
+// Including a ';' character inside a literal object halts the script.
+
+write {: 1; };
+
+/*[OUTPUT]
+Error file:bug003 (4): Primary value expected.
+
+[OUTPUT]*/
