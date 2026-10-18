@@ -1,0 +1,14 @@
+// object003.glcs  Test deprecated subscript syntax with object.
+
+
+object pair { values first second; };
+let p = {pair "this", 100};
+write nl;
+write p["second"], p[.first] nl;
+
+
+/*[OUTPUT]
+
+100, this
+
+[OUTPUT]*/

@@ -1,0 +1,20 @@
+// object001.glcs  Test subscript with object.
+
+object pair { values first second; };
+
+let p = {pair "this", 100};
+let f = "first";
+
+write nl;
+write p.first, p.second nl;
+write p."first", p.(f) nl;
+write p[0], p[1], p[2] nl;
+
+
+/*[OUTPUT]
+
+this, 100
+this, this
+this, 100, null
+
+[OUTPUT]*/

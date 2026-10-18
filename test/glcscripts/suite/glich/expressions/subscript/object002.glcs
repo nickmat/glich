@@ -1,0 +1,25 @@
+// object002.glcs  Test subscript with object.
+
+object pair { values first second; };
+function test { result = {pair "val", 100 }; };
+
+let f = "first";
+
+write nl;
+write @test nl;
+write @test().first, @test()."first", @test().(f) nl;
+write @test[0], @test[1], @test[2] nl;
+write @test.first nl; // Here "first" is a qualifier,
+                      // and as @test is not expecting a qualifier,
+                      // it is ignored and the value of @test.first
+                      // is the same as @test 
+
+
+/*[OUTPUT]
+
+{pair "val", 100}
+val, val, val
+val, 100, null
+{pair "val", 100}
+
+[OUTPUT]*/
