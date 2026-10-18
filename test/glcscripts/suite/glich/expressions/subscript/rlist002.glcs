@@ -1,0 +1,12 @@
+// rlist002.glcs  Test subscript with rlist.
+
+let list = 10..20 | 100 | 110..200; 
+
+do i in 0..3 {
+    write list[i],;
+};
+write "done";
+
+/*[OUTPUT]
+10..20, 100, 110..200, null, done
+[OUTPUT]*/
