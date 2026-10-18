@@ -1269,6 +1269,9 @@ SValue Script::subscript( GetToken get )
             }
             next_token(); // Step over ']'.
             break;
+        case SToken::Type::Dot:
+            left = do_subscript( left, SValue( get_name_or_primary( GetToken::next ) ) );
+            break;
         case SToken::Type::At:
             left = do_at( left, get_name_or_primary( GetToken::next ) );
             break;
