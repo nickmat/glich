@@ -1,0 +1,32 @@
+// expr_boolean-01.glcs  Verify boolean expressions.
+// Example in dev\man\script\expr.htm.
+
+write nl;
+write not true nl;
+write not false nl;
+write false and true nl;
+write true and true nl;
+write false or true nl;
+write false or false nl;
+write true xor false nl;
+write true xor true nl;
+write 15 > 10 and 15 < 20 nl;
+write not 0 nl;
+write false or "x" nl;
+
+
+/*[OUTPUT]
+
+false
+true
+false
+true
+true
+false
+true
+false
+true
+Error file:expr_boolean-01 (14): Logical 'not' only operates on bools
+Error file:expr_boolean-01 (15): Operator 'or' requires boolean values.
+
+[OUTPUT]*/
