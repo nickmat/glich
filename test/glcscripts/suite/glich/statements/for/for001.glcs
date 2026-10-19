@@ -1,9 +1,9 @@
-// do001.glcs Test file to test do statement
+// for001.glcs Test file to test for statement
 
 write "Start ";
 
 let count = 0;
-do { 
+for { 
   while count < 2;
   let count += 1;
   write count,;

@@ -1,0 +1,12 @@
+// for009.glcs Test incomplete for statement
+
+write nl;
+
+for {
+    write "hello";
+
+/*[OUTPUT]
+
+Error file:for009 (14): For loop not terminated.
+
+[OUTPUT]*/

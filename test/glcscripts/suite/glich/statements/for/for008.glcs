@@ -1,13 +1,13 @@
-// do008.glcs Test file to test nested do statements
+// for008.glcs Test file to test nested for statements
 
 write "Start ";
 
 let count = 0;
-do {
+for {
   let count += 1;
   let newcount = count;
   write "[";
-  do {
+  for {
     let newcount = newcount - 1;
     write newcount;
     while newcount <> 0;
