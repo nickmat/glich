@@ -607,12 +607,15 @@ bool Script::do_assign( const string& name, VariableType vartype )
     }
     assert( vp != nullptr );
 
-    while( token.type() == SToken::Type::LSbracket ) {
+    while( token.type() == SToken::Type::LSbracket || token.type() == SToken::Type::Dot ) {
         if( vp->type() != SValue::Type::Object ) {
             error( "Object type expected." );
             return false;
         }
-        token = next_token();
+        bool sbracket = (token.type() == SToken::Type::LSbracket);
+        if( sbracket ) {
+            token = next_token();
+        }
         if( token.type() == SToken::Type::RSbracket || token.type() == SToken::Type::End) {
             error( "Subscript expected." );
             return false;
@@ -655,11 +658,16 @@ bool Script::do_assign( const string& name, VariableType vartype )
             error( "Object index error." );
             return false;
         }
-        if( current_token().type() != SToken::Type::RSbracket ) {
-            error( "']' expected." );
-            return false;
+        if( sbracket ) {
+            if( current_token().type() != SToken::Type::RSbracket ) {
+                error( "']' expected." );
+                return false;
+            }
+            token = next_token();
         }
-        token = next_token();
+        else {
+            token = current_token();
+        }
     }
 
     SValue value;
