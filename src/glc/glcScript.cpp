@@ -1626,7 +1626,7 @@ SValue Script::builtin_function_call( bool& success, const string& name )
     enum f {
         f_if, f_error, f_string, f_quote, f_field, f_range, f_rlist, f_number, f_float, f_read, f_filesys,
         f_version, f_low, f_high, f_span, f_size, f_envelope, f_type, f_object, f_global, f_load_blob,
-        f_min, f_max, f_blob
+        f_min, f_max, f_blob, f_count
     };
     const static std::map<string, f> fmap = {
         { "if", f_if }, { "error", f_error }, { "string", f_string }, { "quote", f_quote }, { "field", f_field },
@@ -1634,7 +1634,8 @@ SValue Script::builtin_function_call( bool& success, const string& name )
         { "read", f_read }, { "filesys", f_filesys }, { "version", f_version }, { "low", f_low },
         { "high", f_high }, { "span", f_span }, { "size", f_size }, { "envelope", f_envelope },
         { "type", f_type }, { "object", f_object }, { "global", f_global }, { "load:blob", f_load_blob },
-        { "min", f_min }, { "max", f_max }, { "blob", f_blob }
+        { "min", f_min }, { "max", f_max }, { "blob", f_blob },
+        { "count", f_count }
     };
 
     auto fnum = fmap.find( name );
@@ -1666,6 +1667,7 @@ SValue Script::builtin_function_call( bool& success, const string& name )
         case f_min: return at_min();
         case f_max: return at_max();
         case f_blob: return at_blob();
+        case f_count: return at_count();
         }
         return SValue::create_error( "Built-in hics function error." );
     }
@@ -2199,6 +2201,42 @@ SValue Script::at_blob()
         type = Blob::string_to_type( quals[0] );
     }
     return SValue( Blob( type, args[0].get_str() ) );
+}
+
+// Return an exclusive range value, similar to Python range() function:
+// @ex:range( stop ) or @ex:range( start, stop )
+SValue glich::Script::at_count()
+{
+    StdStrVec quals = get_qualifiers( GetToken::next );
+    SValueVec args = get_args( GetToken::current );
+    Field start = 0, end = 0;
+    bool success = false;
+    if( args.size() == 1 ) {
+        end = args[0].get_field( success );
+        if( !success ) {
+            return SValue::create_error( "Function @count argument must be a field value." );
+        }
+    }
+    else if( args.size() == 2 ) {
+        start = args[0].get_field( success );
+        if( !success ) {
+            return SValue::create_error( "Function @count argument must be a field value." );
+        }
+        end = args[1].get_field( success );
+        if( !success ) {
+            return SValue::create_error( "Function @count argument must be a field value." );
+        }
+    }
+    else {
+        return SValue::create_error( "Function @count requires one or two arguments." );
+    }
+    if( end < start ) {
+        return SValue::create_error( "Function @count requires end >= start." );
+    }
+    if( end == start ) {
+        return SValue( RList() ); // Empty RList.
+    }
+    return SValue( Range(start, end - 1) );
 }
 
 SValue Script::get_value_var( const string& name )

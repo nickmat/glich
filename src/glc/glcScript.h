@@ -122,6 +122,7 @@ namespace glich {
         SValue at_min();
         SValue at_max();
         SValue at_blob();
+        SValue at_count();
 
         SValue get_value_var( const std::string& name );
         virtual SValue get_builtin_var( bool& success, const std::string& name );
