@@ -115,12 +115,12 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 
 <table class='basic'>
 <tr><th>Group</th><th>Operators</th><th>Applies To</th><th>Notes</th></tr>
-<tr><td>Arithmetic</td><td class='code'>+ - * / \ /. % /%</td><td>any numeric type</td><td>Standard arithmetic operations</td></tr>
-<tr><td>Integer Sets</td><td class='code'>.. ! | && \\ ^^</td><td>set type</td><td>Standard set operations</td></tr>
-<tr><td>Comparison</td><td class='code'>= &lt;&gt; &lt; &lt;= &gt; &gt;=</td><td>any type</td><td>Equality and magnitude comparisons</td></tr>
-<tr><td>Boolean</td><td class='code'>not and or</td><td>boolean type</td><td>Logical operations</td></tr>
-<tr><td>Indexing</td><td class='code'>[ ]</td><td>any indexable type</td><td>Access elements by index or name</td></tr>
-<tr><td>Functions</td><td class='code'>@</td><td>function and object</td><td>Function calls</td></tr>
+<tr><td><a href="#arithmetic-operations">Arithmetic</a></td><td class='code'>+ - * / \ /. % /%</td><td>any numeric type</td><td>Standard arithmetic operations</td></tr>
+<tr><td><a href="#range-and-set-operations">Integer Sets</a></td><td class='code'>.. ! | && \\ ^^</td><td>set type</td><td>Standard set operations</td></tr>
+<tr><td><a href="#comparison-operations">Comparison</a></td><td class='code'>= &lt;&gt; &lt; &lt;= &gt; &gt;=</td><td>any type</td><td>Equality and magnitude comparisons</td></tr>
+<tr><td><a href="#boolean-operations">Boolean</a></td><td class='code'>not and or</td><td>boolean type</td><td>Logical operations</td></tr>
+<tr><td><a href="#indexing-operations">Indexing</a></td><td class='code'>[ ] . (dot)</td><td>any indexable type</td><td>Access elements by index or name</td></tr>
+<tr><td><a href="#function-calls">Functions</a></td><td class='code'>@</td><td>function and object</td><td>Function calls</td></tr>
 </table>
 
 <h2 id="arithmetic-operations">Arithmetic Operations</h2>
@@ -453,7 +453,7 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 <tr><td class='example'>17 /% infinity</td><td class='example'>Error</td></tr>
 </table>
 
-<h2 id="integer-range-and-set-operations">Integer Range and Set Operations</h2>
+<h2 id="range-and-set-operations">Integer Range and Set Operations</h2>
 <p>
     Integer set operations work on <b>fields</b>, <b>ranges</b> and <b>rlists</b>,
     collectively known as set types.
@@ -595,48 +595,175 @@ Promotion and demotion happen automatically and are usually invisible.</p>
  <tr><td class='example'>-infinity..10 \\ -infinity..5</td><td class='example'>6..10</td></tr>
 </table>
 
-
-
-
-<h2>Comparison Operators</h2>
+<h3 id="sets-and-arithmetic-operators">Sets and Arithmetic Operators</h3>
 <p>
- The comparison operators must have operands of the same type,
- after allowing for type promotion.
- The output is always a boolean type.
+ Sets interact with arithmetic operators in the following well-defined ways:
 </p>
+<ul>
+    <li>Unary <b>-</b> negates ranges and rlists structurally.</li>
+    <li>Binary <b>+</b> and <b>-</b> operators shift ranges and rlists.</li>
+    <li><b>*</b>, <b>/</b>, <b>/.</b>, <b>\</b>, <b>%</b>, <b>/%</b> are not allowed on ranges or rlists</li>
+    <li>Promotion rules ensure numbers and fields become ranges when needed</li>
+</ul>
 <p>
- Any types, other than error types, can be compared for equality or non-equality.
+    Examples are shown above
+    in the sections on arithmetic operators and set operators.
 </p>
+
+<h2 id="comparison-operations">Comparison Operations</h2>
 <p>
- Comparison operators that compare magnitude can only be used with numeric or string types.
- Use with any other type results in an error.
+    Comparison operators test equality or magnitude between two values.
+    All comparison operators produce a <b>boolean</b> result.</p>
+<p>
+    Before comparison, operands are promoted as needed so they share a compatible type.
+    If promotion is not possible, the comparison produces an error.
 </p>
 
 <table class='basic'>
-<tr><th>Operator</th><th>Name</th><th>Example</th><th>Result</th></tr>
-<tr><td class='code'>=</td><td>Equality</td><td class='example'>5 = 5</td><td class='example'>true</td></tr>
-<tr><td class='code'>&lt;&gt;</td><td>Non-equality</td><td class='example'>5 &lt;&gt; 3</td><td class='example'>true</td></tr>
-<tr><td class='code'>&lt;</td><td>Less than</td><td class='example'>5 &lt; 10</td><td class='example'>true</td></tr>
-<tr><td class='code'>&lt;=</td><td>Less than or equal</td><td class='example'>5 &lt;= 10</td><td class='example'>true</td></tr>
-<tr><td class='code'>&gt;</td><td>Greater than</td><td class='example'>10 &gt; 5</td><td class='example'>true</td></tr>
-<tr><td class='code'>&gt;=</td><td>Greater than or equal</td><td class='example'>10 &gt;= 5</td><td class='example'>true</td></tr>
+<tr><th>Operator</th><th>Name</th><th>Note</th></tr>
+<tr><td class='code'>=</td><td>Equality</td><td>Structural equality across all types</td></tr>
+<tr><td class='code'>&lt;&gt;</td><td>Non-equality</td><td>Canonical non-equality across all types</td></tr>
+<tr><td class='code'>!=</td><td>Non-equality alias</td><td>Alternative non-equality across all types</td></tr>
+<tr><td class='code'>&lt;</td><td>Less than</td><td>Numeric or string types only</td></tr>
+<tr><td class='code'>&lt;=</td><td>Less than or equal</td><td>Numeric or string types only</td></tr>
+<tr><td class='code'>&gt;</td><td>Greater than</td><td>Numeric or string types only</td></tr>
+<tr><td class='code'>&gt;=</td><td>Greater than or equal</td><td>Numeric or string types only</td></tr>
 </table>
 
-<h2 id='boolean'>Boolean Operators</h2>
+<p>
+    Before comparison, operands are promoted as needed so they share a compatible type.
+    If promotion is not possible, the comparison produces an error.
+</p>
+<ul>
+    <li>If one operand is a floating-point type and the other is an integer type,
+        the integer is promoted to floating-point.</li>
+    <li>If one operand is a field type and the other is a number type,
+        the number is promoted to a field if possible.</li>
+    <li>If one operand is a range or rlist type,
+        the other is promoted to a range or rlist if possible.</li>
+</ul>
+
+<h3 id="equality-and-non-equality">Equality and Non-Equality</h3>
+<p>
+    Equality operators may be used with any type except error types.
+</p>
+<p>
+    Two values are equal if:
+</p>
+<ul>
+    <li>They are of the same type after promotion.</li>
+    <li>They have the same canonical value.</li>
+</ul>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+    <tr><td class='example'>10.0 = 10</td><td class='example'>true</td></tr>
+    <tr><td class='example'>10 &lt;&gt; 10.0</td><td class='example'>false</td></tr>
+    <tr><td class='example'>10.5 = 10</td><td class='example'>false</td></tr>
+    <tr><td class='example'>10f = 10n</td><td class='example'>true</td></tr>
+    <tr><td class='example'>"cat" = "cat"</td><td class='example'>true</td></tr>
+    <tr><td class='example'>1..3 = 3..1</td><td class='example'>true</td></tr>
+    <tr><td class='example'>1..3 | 10..12 = 1..3 | 12..10</td><td class='example'>true</td></tr>
+    <tr><td class='example'>{: "one", 2} = {: "one", 1 + 1}</td><td class='example'>true</td></tr>
+    <tr><td class='example'>null = null</td><td class='example'>true</td></tr>
+    <tr><td class='example'>null = empty</td><td class='example'>false</td></tr>
+</table>
+
+<h4 id="special-values">Special Values</h4>
+<p>
+    The <b>float</b> type follows the IEEE-754 standard for floating-point arithmetic.
+    Its special values <b>inf</b>, <b>-inf</b>, and <b>nan</b>
+    behave exactly as defined by that standard.
+    In particular, <b>nan</b> represents an indeterminate floating‑point result
+    and never compares equal to anything, including itself.
+</p>
+<p>
+    The <b>field</b> type is designed for discrete, deterministic logic.
+    Its special values <b>+infinity</b>, <b>-infinity</b>, and <b>?</b>
+    behave consistently within integer-like semantics.
+    The value <b>?</b> represents an unknown or indeterminate integer,
+    but unlike IEEE-754 <b>nan</b>, it is a single, well-defined value.
+    Therefore <b>?</b> compares equal to itself:
+</p>
+<table class='basic'>
+    <tr><th>Example</th><th>Result</th></tr>
+    <tr><td class='example'>nan = nan</td><td class='example'>false</td></tr>
+    <tr><td class='example'>nan &lt;&gt; nan</td><td class='example'>true</td></tr>
+    <tr><td class='example'>? = ?</td><td class='example'>true</td></tr>
+    <tr><td class='example'>? &lt;&gt; ?</td><td class='example'>false</td></tr>
+    <tr><td class='example'>nan = ?</td><td class='example'>false</td></tr>
+    <tr><td class='example'>? &lt;&gt; nan</td><td class='example'>true</td></tr>
+</table>
+<div class='note'><div class='inner'>
+    <p>Note: this difference reflects the distinct roles of the two types:
+    <b>floats</b> model real-number arithmetic with IEEE-754 behaviour,
+    while <b>fields</b> model integer-like values with deterministic comparison rules.
+</div></div>
+
+<h3 id="magnitude-comparisons">Magnitude Comparisons</h3>
+<p>
+    Magnitude comparison operators may be used with
+    <b>float</b>, <b>number</b>, <b>field</b> and <b>string</b> types.
+    Other types with magnitude comparison operators will produce an error.
+</p>
+<p>
+    Numeric comparisons follow normal <b>number</b>, <b>field</b> and <b>float</b> ordering:
+</p>
+<ul>
+    <li><b>Numbers</b> and <b>fields</b> promote to <b>floats</b> when needed</li>
+    <li><b>-infinity</b> or <b>-inf</b> is less than all finite values.</li>
+    <li><b>+infinity</b> or <b>inf</b> is greater than all finite values.</li>
+    <li>Any magnitude comparison involving <b>nan</b> is false.</li>
+    <li>Any magnitude comparison involving <b>?</b> is an error.</li>
+</ul>
+<table class='basic'>
+    <tr><th>Example</th><th>Result</th></tr>
+    <tr><td class='example'>5 &lt; 10</td><td class='example'>true</td></tr>
+    <tr><td class='example'>10 &lt;= 10.0</td><td class='example'>true</td></tr>
+    <tr><td class='example'>10 &gt; infinity</td><td class='example'>false</td></tr>
+    <tr><td class='example'>5 &lt; ?</td><td class='example'>Error</td></tr>
+    <tr><td class='example'>? &lt; nan</td><td class='example'>false</td></tr>
+    <tr><td class='example'>(1..3) &lt; 10</td><td class='example'>Error</td></tr>
+    <tr><td class='example'>"apple" &lt; "banana"</td><td class='example'>true</td></tr>
+    <tr><td class='example'>"z" &gt;= "a"</td><td class='example'>true</td></tr>
+</table>
+
+
+<h2 id='boolean-operations'>Boolean Operations</h2>
 <p>
  The unary prefix operator <b>'not'</b> and the binary operators <b>'and'</b> and <b>'or'</b>
- can be used with boolean types only.
- Use with any other type will produce an error.
+ perform logical operations on boolean values.
+ They accept only the boolean type.
+ Use with any other type produces an error. 
+</p>
+<p>
+    Boolean operators never perform automatic conversion.
+    All other types must be explicitly converted to boolean before use.
 </p>
 
 <table class='basic'>
-<tr><th>Operator</th><th>Name</th><th>Example</th><th>Result</th></tr>
-<tr><td class='code'>not</td><td>not</td><td class='example'><b>not</b> true</td><td class='example'>false</td></tr>
-<tr><td class='code'>and</td><td>and</td><td class='example'>true <b>and</b> false</td><td class='example'>false</td></tr>
-<tr><td class='code'>or</td><td>or</td><td class='example'>true <b>or</b> false</td><td class='example'>true</td></tr>
+<tr><th>Operator</th><th>Name</th><th>Note</th></tr>
+<tr><td class='code'>not</td><td>Logical NOT</td><td>Unary</td></tr>
+<tr><td class='code'>and</td><td>Logical AND</td><td>Binary</td></tr>
+<tr><td class='code'>or</td><td>Logical OR</td><td>Binary</td></tr>
+<tr><td class='code'>xor</td><td>Logical exclusive OR</td><td>Binary</td></tr>
 </table>
 
-<h2>Subscript operators</h2>
+<table class='basic'>
+<tr><th>Example</th><th>Result</th></tr>
+    <tr><td class='example'>not true</td><td class='example'>false</td></tr>
+    <tr><td class='example'>not false</td><td class='example'>true</td></tr>
+    <tr><td class='example'>false and true</td><td class='example'>false</td></tr>
+    <tr><td class='example'>true and true</td><td class='example'>true</td></tr>
+    <tr><td class='example'>false or true</td><td class='example'>true</td></tr>
+    <tr><td class='example'>false or false</td><td class='example'>false</td></tr>
+    <tr><td class='example'>true xor false</td><td class='example'>true</td></tr>
+    <tr><td class='example'>true xor true</td><td class='example'>false</td></tr>
+    <tr><td class='example'>15 &gt; 10 and 15 &lt; 20</td><td class='example'>true</td></tr>
+    <tr><td class='example'>not 0</td><td class='example'>Error</td></tr>
+    <tr><td class='example'>false or "x"</td><td class='example'>Error</td></tr>
+</table>
+
+<h2 id='indexing-operations'>Indexing Operations</h2>
 <p>
  The subscript operators allow access to to the various parts of the more complex value types.
 </p>
