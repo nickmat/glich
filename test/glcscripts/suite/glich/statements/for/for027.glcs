@@ -1,0 +1,36 @@
+// for027.glcs Test file to test for statement with @count function
+
+command test1( end ) {
+  write "Start",;
+  for i in @count( end ) {
+    write i,;
+  };
+  write "end" nl;
+};
+
+command test2( beg, end ) {
+  write "Start",;
+  for i in @count( beg, end ) {
+    write i,;
+  };
+  write "end" nl;
+};
+
+write nl;
+call test1( 0 );
+call test1( 1 );
+call test1( 3 );
+call test2( 10, 10 );
+call test2( 10, 11 );
+call test2( 10, 15 );
+
+/*[OUTPUT]
+
+Start, end
+Start, 0, end
+Start, 0, 1, 2, end
+Start, end
+Start, 10, end
+Start, 10, 11, 12, 13, 14, end
+
+[OUTPUT]*/
