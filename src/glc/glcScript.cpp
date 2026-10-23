@@ -1480,13 +1480,15 @@ SValue Script::do_subscript( const SValue& left, const SValue& right )
     if( left.type() == SValue::Type::Object ) {
         SValueVec values = left.get_object();
         if( values.empty() || values[0].type() != SValue::Type::String ) {
-            value.set_error( "Malformed Object." );
-            return value;
+            return SValue::create_error( "Malformed Object." );
         }
         string code = values[0].get_str();
         Object* obj = glc().get_object( code );
         if( right.type() == SValue::Type::String ) {
             size_t index = obj->get_vindex( right.get_str() );
+            if( index == 0 ) {
+                return SValue::create_error( "Subscript \"" + right.get_str() + "\" not found." );
+            }
             if( index < values.size() ) {
                 return values[index];
             }
