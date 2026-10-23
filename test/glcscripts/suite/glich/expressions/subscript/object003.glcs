@@ -4,7 +4,7 @@
 object pair { values first second; };
 let p = {pair "this", 100};
 write nl;
-write p["second"], p[.first] nl;
+write p[.second], p[.first] nl;
 
 
 /*[OUTPUT]

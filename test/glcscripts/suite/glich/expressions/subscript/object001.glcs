@@ -8,12 +8,14 @@ let f = "first";
 write nl;
 write p.first, p.second nl;
 write p."first", p.(f) nl;
+write p["first"], p[f] nl;
 write p[0], p[1], p[2] nl;
 
 
 /*[OUTPUT]
 
 this, 100
+this, this
 this, this
 this, 100, null
 
