@@ -1,0 +1,18 @@
+// object001.glcs  Test subscript with object.
+
+object pair { values first second; };
+
+let p = {pair "this", 100};
+let f = "none";
+
+write nl;
+write p.xxx nl;
+write p[f] nl;
+
+
+/*[OUTPUT]
+
+Error file:object004 (9): Subscript "xxx" not found.
+Error file:object004 (10): Subscript "none" not found.
+
+[OUTPUT]*/
