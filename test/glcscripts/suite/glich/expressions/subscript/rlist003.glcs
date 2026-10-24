@@ -1,0 +1,12 @@
+// rlist003.glcs  Test subscript with rlist.
+
+let list = 10..20 | 100 | 110..200; 
+
+write nl;
+write list["zero"] nl;
+
+/*[OUTPUT]
+
+Error file:rlist003 (6): Numeric subscript expected.
+
+[OUTPUT]*/
