@@ -1,0 +1,15 @@
+// object001.glcs  Test subscript with object.
+
+object pair { values first second; };
+
+let p = {pair "this", 100};
+
+write nl;
+write p[second] nl;
+
+
+/*[OUTPUT]
+
+Error file:object005 (8): Numeric or string subscript expected.
+
+[OUTPUT]*/
