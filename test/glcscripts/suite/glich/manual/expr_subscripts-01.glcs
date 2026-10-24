@@ -1,0 +1,55 @@
+// expr_subscripts-01.glcs  Verify Subscript Operator examples.
+// Example in dev\man\script\expr.htm.
+
+
+// indexing
+let n = 2;
+object pair { values first second; };
+write nl;
+write (8..16|20..50|75..99)[1] nl;
+write (8..16|20..50|75..99)[n] nl;
+write (8..16|20..50|75..99)[3] nl;
+write (8..16|20..50|75..99)["zero"] nl;
+write {: "one", "two"}[0] nl;
+write {pair "here", 25}[1] nl;
+write {pair "here", 25}[5] nl;
+
+// Member access
+let v = "second";
+write nl;
+write {pair "text", 123}.second nl;
+write {pair "text", 123}."second" nl;
+write {pair "text", 123}.(v) nl;
+write {pair "text", 123}.("sec" + "ond") nl;
+write {pair "text", 123}["second"] nl;
+write {pair "text", 123}[v] nl;
+write {pair "text", 123}["sec" + "ond"] nl;
+write {pair "text", 123}[.second] nl;
+write {pair "text", 123}[second] nl;
+write {pair "text", 123}.sec nl;
+write {pair "text", 123}["sec"] nl;
+
+
+/*[OUTPUT]
+
+20..50
+75..99
+null
+Error file:expr_subscripts-01 (12): Numeric subscript expected.
+one
+25
+null
+
+123
+123
+123
+123
+123
+123
+123
+123
+Error file:expr_subscripts-01 (28): Numeric or string subscript expected.
+Error file:expr_subscripts-01 (29): Subscript "sec" not found.
+Error file:expr_subscripts-01 (30): Subscript "sec" not found.
+
+[OUTPUT]*/
