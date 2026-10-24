@@ -1510,6 +1510,9 @@ SValue Script::do_subscript( const SValue& left, const SValue& right )
                 return rlist[index];
             }
         }
+        else {
+            return SValue::create_error( "Numeric subscript expected." );
+        }
     }
     return SValue();
 }
