@@ -1499,6 +1499,9 @@ SValue Script::do_subscript( const SValue& left, const SValue& right )
             if( !success ) {
                 return SValue::create_error( "Numeric or string subscript expected." );
             }
+            if( num < 0 ) {
+                num = static_cast<Num>( values.size() ) + num - 1;
+            }
             if( num >= 0 && num < (values.size() - 1) ) {
                 return values[num + 1];
             }
@@ -1509,6 +1512,9 @@ SValue Script::do_subscript( const SValue& left, const SValue& right )
         bool success = false;
         Num index = right.get_number( success );
         if( success ) {
+            if( index < 0 ) {
+                index = static_cast<Num>( rlist.size() ) + index;
+            }
             if( index >= 0 && index < rlist.size() ) {
                 return rlist[index];
             }
