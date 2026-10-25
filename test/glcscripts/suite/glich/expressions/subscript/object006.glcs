@@ -1,0 +1,14 @@
+// object006.glcs  Test subscript with object.
+// Test negative subscript with object.
+
+
+let o = {: 100, 200, 300, 400, 500};
+
+write nl;
+write o[-1], o[-2], o[-3], o[-4], o[-5], o[-6] nl;
+
+/*[OUTPUT]
+
+500, 400, 300, 200, 100, null
+
+[OUTPUT]*/
