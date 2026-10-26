@@ -634,11 +634,14 @@ bool Script::do_assign( const string& name, VariableType vartype )
                 bool success = false;
                 Num num = sub.get_number( success );
                 if( !success ) {
-                    error( "Numeric or string subscript expected." );
+                    error( "Integer or string subscript expected." );
                     return false;
                 }
                 if( num < 0 ) {
-                    error( "Negative subscript not allowed." );
+                    num = static_cast<Num>(vp->get_object_size()) + num;
+                }
+                if( num < 0 ) {
+                    error( "Index out of range." );
                     return false;
                 }
                 index = static_cast<size_t>( num );
