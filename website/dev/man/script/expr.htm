@@ -115,12 +115,12 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 
 <table class='basic'>
 <tr><th>Group</th><th>Operators</th><th>Applies To</th><th>Notes</th></tr>
-<tr><td><a href="#arithmetic-operations">Arithmetic</a></td><td class='code'>+ - * / \ /. % /%</td><td>any numeric type</td><td>Standard arithmetic operations</td></tr>
-<tr><td><a href="#range-and-set-operations">Integer Sets</a></td><td class='code'>.. ! | && \\ ^^</td><td>set type</td><td>Standard set operations</td></tr>
-<tr><td><a href="#comparison-operations">Comparison</a></td><td class='code'>= &lt;&gt; &lt; &lt;= &gt; &gt;=</td><td>any type</td><td>Equality and magnitude comparisons</td></tr>
-<tr><td><a href="#boolean-operations">Boolean</a></td><td class='code'>not and or</td><td>boolean type</td><td>Logical operations</td></tr>
-<tr><td><a href="#indexing-operations">Indexing</a></td><td class='code'>[ ] . (dot)</td><td>any indexable type</td><td>Access elements by index or name</td></tr>
-<tr><td><a href="#function-calls">Functions</a></td><td class='code'>@</td><td>function and object</td><td>Function calls</td></tr>
+<tr><td><a href="#arithmetic-operations">Arithmetic</a></td><td class='code'><b>+ - * / \ /. % /%</b></td><td>any numeric type</td><td>Standard arithmetic operations</td></tr>
+<tr><td><a href="#range-and-set-operations">Integer Sets</a></td><td class='code'><b>.. ! | && \\ ^^</b></td><td>set type</td><td>Standard set operations</td></tr>
+<tr><td><a href="#comparison-operations">Comparison</a></td><td class='code'><b>= &lt;&gt; &lt; &lt;= &gt; &gt;=</b></td><td>any type</td><td>Equality and magnitude comparisons</td></tr>
+<tr><td><a href="#boolean-operations">Boolean</a></td><td class='code'><b>not and or xor</b></td><td>boolean type</td><td>Logical operations</td></tr>
+<tr><td><a href="#subscript-operations">Subscript</a></td><td class='code'><b>[] .</b></td><td>rlist and object</td><td>Access elements by index or name</td></tr>
+<tr><td><a href="#function-calls">Functions</a></td><td class='code'><b>@</b></td><td>function and object</td><td>Function calls</td></tr>
 </table>
 
 <h2 id="arithmetic-operations">Arithmetic Operations</h2>
@@ -730,8 +730,8 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 
 <h2 id='boolean-operations'>Boolean Operations</h2>
 <p>
- The unary prefix operator <b>'not'</b> and the binary operators <b>'and'</b> and <b>'or'</b>
- perform logical operations on boolean values.
+ The unary prefix operator <b>'not'</b> and the binary operators <b>'and'</b>, <b>'or'</b>
+ and <b>'xor'</b> perform logical operations on boolean values.
  They accept only the boolean type.
  Use with any other type produces an error. 
 </p>
@@ -763,31 +763,102 @@ Promotion and demotion happen automatically and are usually invisible.</p>
     <tr><td class='example'>false or "x"</td><td class='example'>Error</td></tr>
 </table>
 
-<h2 id='indexing-operations'>Indexing Operations</h2>
+<h2 id='subscript-operations'>Subscript (Indexing) Operations</h2>
 <p>
- The subscript operators allow access to to the various parts of the more complex value types.
-</p>
-<h3>Index operator</h3>
-<p>
- Used in the form <b>Value[ Index ]</b>,
- the square brackets are used to enclose an index into left hand value.
+    Subscripts provide access to elements within rlists and objects.
 </p>
 <p>
- If the value is a rlist type and the index a number type,
- then the result is the range pointed to by the (zero based) index.
+    Glich supports two forms of subscripting:
+</p>
+<ul>
+    <li>Numeric index operator: <b>value[ index ]</b></li>
+    <li>Member access operator: <b>value.name</b> or <b>value["name"]</b></li>
+</ul>
+
+
+<h3 id="index-operator">Numeric Index Operator [ ]</h3>
+<p>
+    Used in the form <b>Value[ Integer ]</b>,
+    the square brackets are used to enclose a zero based index into left hand value.
 </p>
 <p>
- If the value is an object type and the index a number type,
- then the result is the member value.
- If the index is a name or string value
- then this is matched with an objects member variable name
- and the result is the corresponding value.
+    If the value is a <b>rlist</b> type,
+    the index selects the range at the zero‑based position.
+</p>
+<p>
+    If the value is an <b>object</b> type,
+    the index selects the member by position.
+</p>
+<p>
+    Negative indexes are counted from the end of the list,
+    with -1 being the last element.
+</p>
+<p>
+    If the index is out of bounds, the result is a null value.
 </p>
 <table class='basic'> <!-- See test file subscript006.hcs -->
 <tr><th>Example</th><th>Result</th></tr>
+ <tr><td colspan="2" class="code">// Code prior to the examples
+let n = 2;
+object pair { values first second; };</td></tr>
  <tr><td class='example'>(8..16|20..50|75..99)[1]</td><td class='example'>20..50</td></tr>
- <tr><td class='example'>{complex 10, 25}[1]</td><td class='example'>25</td></tr>
- <tr><td class='example'>{complex 10, 25}[real]</td><td class='example'>10</td></tr>
+ <tr><td class='example'>(8..16|20..50|75..99)[n]</td><td class='example'>75..99</td></tr>
+ <tr><td class='example'>(8..16|20..50|75..99)[3]</td><td class='example'>null</td></tr>
+ <tr><td class='example'>(8..16|20..50|75..99)[-1]</td><td class='example'>75..99</td></tr>
+ <tr><td class='example'>(8..16|20..50|75..99)["zero"]</td><td class='example'>Error</td></tr>
+ <tr><td class='example'>{: "one", "two"}[0]</td><td class='example'>"one"</td></tr>
+ <tr><td class='example'>{: 10, 20, 30, 40}[-1]</td><td class='example'>40</td></tr>
+ <tr><td class='example'>{pair "here", 25}[1]</td><td class='example'>25</td></tr>
+ <tr><td class='example'>{pair "here", 25}[5]</td><td class='example'>null</td></tr>
+</table>
+
+<h3 id="member-access-operator">Member access operator dot . or [ ]</h3>
+<p>
+    Member access retrieves named member values of an <b>object</b>.
+</p>
+<p>
+    The dot <b>.</b> access operator is used to access a member by name.
+    The name may be a literal string with or without quotes.
+    A string expression may also be used
+    but it must be contained in parentheses.
+</p>
+<p>
+    The square bracket <b>[ ]</b> access operator may also be used to access a member by name.
+    The name must be a quoted string literal or a string expression.
+</p>
+
+<table class='basic'> <!-- See test file subscript006.hcs -->
+ <tr><th>Example</th><th>Result</th></tr>
+ <tr><td colspan="2" class="code">// Code prior to the examples
+object pair { values first second; };
+let v = "second";</td></tr>
+ <tr><td class='example'>{pair "text", 123}.second</td><td class='example'>123</td></tr>
+ <tr><td class='example'>{pair "text", 123}."second"</td><td class='example'>123</td></tr>
+ <tr><td class='example'>{pair "text", 123}.(v)</td><td class='example'>123</td></tr>
+ <tr><td class='example'>{pair "text", 123}.("sec"+"ond")</td><td class='example'>123</td></tr>
+ <tr><td class='example'>{pair "text", 123}["second"]</td><td class='example'>123</td></tr>
+ <tr><td class='example'>{pair "text", 123}[v]</td><td class='example'>123</td></tr>
+ <tr><td class='example'>{pair "text", 123}["sec"+"ond"]</td><td class='example'>123</td></tr>
+ <tr><td class='example'>{pair "text", 123}[.second]</td><td class='example'>123 //Deprecated</td></tr>
+ <tr><td class='example'>{pair "text", 123}[second]</td><td class='example'>Error</td></tr>
+ <tr><td class='example'>{pair "text", 123}.sec</td><td class='example'>Error</td></tr>
+ <tr><td class='example'>{pair "text", 123}["sec"]</td><td class='example'>Error</td></tr>
+</table>
+
+<h4 id="functions-returning-objects">Functions Returning Objects</h4>
+<p>
+    As described below, functions without arguments do not require parentheses when called.
+    This can be ambiguous when the function returns an object
+    as, if the object is immediately subscripted, it will conflict with a function's qualifier.
+    To avoid this use empty parentheses to show the end of the function call
+    or use square brackets.
+</p>
+
+<table class='basic'>
+<tr><th>Example</th><th>Note</th></tr>
+ <tr><td class='example'>@get_object.qualifier().member</td><td>Correct</td></tr>
+ <tr><td class='example'>@get_object.qualifier["member"]</td><td>Correct</td></tr>
+ <tr><td class='example'>@get_object.qualifier.member</td><td>Error (ambiguous)</td></tr>
 </table>
 
 <h2>Function Operator</h2>
@@ -797,7 +868,6 @@ Promotion and demotion happen automatically and are usually invisible.</p>
 <tr><td class='code'>@</td><td>Object function.qualifier( arguments )</td><td class='example'>object_type <b>@</b> object_function_name</td><td class='example'>value</td></tr>
 </table>
 <p>
-
  The unitary function operator introduces either a built-in
  or a user defined function.
 </p>
