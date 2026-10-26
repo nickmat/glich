@@ -1,0 +1,24 @@
+// subscript004.glcs Test let statement with negative subscript index
+
+write nl;
+let o = {: 100, 200, 300, 400, 500};
+o[-5] = "first";
+o[-1] = "last";
+write o nl;
+
+o = {: 1};
+o[-1] = "only";
+write o nl;
+
+o = {:};
+o[-1] = "last";
+write o nl;
+
+
+/*[OUTPUT]
+
+{: "first", 200, 300, 400, "last"}
+{: "only"}
+Error file:subscript004 (14): Index out of range.
+
+[OUTPUT]*/
