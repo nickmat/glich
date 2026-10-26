@@ -223,6 +223,14 @@ Object* SValue::get_object_ptr()
     return glc().get_object(ocode);
 }
 
+size_t SValue::get_object_size() const
+{
+    if( std::holds_alternative<SValueVec>( m_data ) ) {
+        return static_cast<int>(std::get<SValueVec>( m_data ).size()) - 1;
+    }
+    return 0;
+}
+
 void SValue::object_fill_store( Store* store )
 {
     if( std::holds_alternative<SValueVec>( m_data ) ) {

@@ -88,6 +88,7 @@ namespace glich {
         SValueVec* get_object_values();
         const SValueVec* get_object_values() const;
         Object* get_object_ptr();
+        size_t get_object_size() const;
         void object_fill_store( Store* store );
         bool is_object_equal( const SValue& value ) const;
 
