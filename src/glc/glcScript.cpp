@@ -2111,6 +2111,12 @@ SValue Script::at_version()
     if( !quals.empty() ) {
         if( quals[0] == "number" ) {
             return glc_version_number;
+        } else if( quals[0] == "major" ) {
+            return glc_version_major;
+        } else if( quals[0] == "minor" ) {
+            return glc_version_minor;
+        } else if( quals[0] == "revision" ) {
+            return glc_version_revision;
         }
     }
     return glc_version;
