@@ -5,7 +5,7 @@
  * Author:      Nick Matthews
  * Website:     https://github.com/nickmat/glich
  * Created:     17th August 2023
- * Copyright:   Copyright (c) 2023, Nick Matthews.
+ * Copyright:   Copyright (c) 2023..2026, Nick Matthews.
  * Licence:     GNU GPLv3
  *
  *  Glich is free software: you can redistribute it and/or modify
@@ -28,6 +28,10 @@
 #include "glcVersion.h"
 
 #define VERSION_NUM      "0.3.0"
+#define VERSION_MAJOR    0
+#define VERSION_MINOR    3
+#define VERSION_REVISION 0
+
 
 #if defined(NDEBUG) || !defined(_DEBUG)
 #define VERSION_CONFIG   ""
@@ -41,7 +45,12 @@ const char* glich::glc_version_number = VERSION_NUM;
 
 /*! A string containing the current full version number.
  */
-const char* glich::glc_version = VERSION_NUM VERSION_CONFIG;
+const char* glich::glc_version = "V" VERSION_NUM VERSION_CONFIG;
+
+
+const int glich::glc_version_major = VERSION_MAJOR;
+const int glich::glc_version_minor = VERSION_MINOR;
+const int glich::glc_version_revision = VERSION_REVISION;
 
 /*****************************************************************************
 
