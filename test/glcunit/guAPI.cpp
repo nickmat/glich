@@ -35,8 +35,8 @@ using std::string;
 TEST_CASE( "Test Version", "[Version]" )
 {
     string ver = g_glc->version();
-    string ver_num = ver.substr( 0, 5 );
-    REQUIRE( ver_num == "0.3.0" );
+    string ver_num = ver.substr( 0, 6 );
+    REQUIRE( ver_num == "V0.3.0" );
 }
 
 TEST_CASE( "Test get_scheme_list", "[get_scheme_list]" )
