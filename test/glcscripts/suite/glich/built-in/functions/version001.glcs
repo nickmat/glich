@@ -1,0 +1,10 @@
+// version001.glcs  Test version function
+
+let ver = @version.major + "." + @version.minor + "." + @version.revision;
+
+write ver = @version.number;
+
+
+/*[OUTPUT]
+true
+[OUTPUT]*/
