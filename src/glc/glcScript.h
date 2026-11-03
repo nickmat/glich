@@ -88,6 +88,7 @@ namespace glich {
         SValue subscript( GetToken get );
         SValue primary( GetToken get );
         std::string get_name_or_primary( GetToken get );
+        std::string get_name_or_primary( GetToken get, bool& success );
         StdStrVec get_string_list( GetToken get );
         StdStrMap get_string_map( GetToken get );
         SValue get_object( GetToken get );
@@ -96,6 +97,7 @@ namespace glich {
         SValue do_at( const SValue& left, const SValue& right );
         virtual SValue do_object_at( bool& success, Object* obj, const std::string& fcode, const SValue& left );
         StdStrVec get_qualifiers( GetToken get );
+        StdStrVec get_qualifiers( GetToken get, bool& success );
         SValueVec get_args( GetToken get );
         SValue function_call();
         virtual SValue builtin_function_call( bool& success, const std::string& name );

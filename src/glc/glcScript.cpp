@@ -1354,20 +1354,36 @@ SValue Script::primary( GetToken get )
 
 string Script::get_name_or_primary( GetToken get )
 {
-    string str;
     SToken token = (get == GetToken::next) ? next_token() : current_token();
     if( token.type() == SToken::Type::Name ) {
-        str = token.get_str();
+        string str = token.get_str();
         next_token();
+        return str;
     }
-    else {
-        SValue value = primary( GetToken::current );
-        if( value.type() == SValue::Type::String || value.type() == SValue::Type::Number
-            || value.type() == SValue::Type::field || value.type() == SValue::Type::Float ) {
-            str = value.as_string();
-        }
+    SValue value = primary( GetToken::current );
+    if( value.type() == SValue::Type::String || value.type() == SValue::Type::Number
+        || value.type() == SValue::Type::field ) {
+        return value.as_string();
     }
-    return str;
+    return string();
+}
+
+string Script::get_name_or_primary( GetToken get, bool& success )
+{
+    success = true;
+    SToken token = (get == GetToken::next) ? next_token() : current_token();
+    if( token.type() == SToken::Type::Name ) {
+        string str = token.get_str();
+        next_token();
+        return str;
+    }
+    SValue value = primary( GetToken::current );
+    if( value.type() == SValue::Type::String || value.type() == SValue::Type::Number
+        || value.type() == SValue::Type::field ) {
+        return value.as_string();
+    }
+    success = false;
+    return string();
 }
 
 StdStrVec Script::get_string_list( GetToken get )
@@ -1584,6 +1600,22 @@ StdStrVec Script::get_qualifiers( GetToken get )
     StdStrVec quals;
     while( token.type() == SToken::Type::Dot ) {
         string str = get_name_or_primary( GetToken::next );
+        quals.push_back( str );
+        token = current_token();
+    }
+    return quals;
+}
+
+StdStrVec Script::get_qualifiers( GetToken get, bool& success )
+{
+    success = true;
+    SToken token = (get == GetToken::next) ? m_ts.next() : current_token();
+    StdStrVec quals;
+    while( token.type() == SToken::Type::Dot ) {
+        string str = get_name_or_primary( GetToken::next, success );
+        if( !success ) {
+            return StdStrVec();
+        }
         quals.push_back( str );
         token = current_token();
     }
