@@ -1726,8 +1726,12 @@ SValue Script::builtin_function_call( bool& success, const string& name )
 
 SValue Script::run_function( Function* fun, const SValue* left )
 {
+    bool success = true;
     GetToken get = (left == nullptr) ? GetToken::next : GetToken::current;
-    StdStrVec qualifiers = get_qualifiers( get );
+    StdStrVec qualifiers = get_qualifiers( get, success );
+    if( !success ) {
+        return SValue::create_error( "Invalid qualifier type." );
+    }
     SValueVec args = get_args( GetToken::current );
 
     if( left != nullptr ) {
