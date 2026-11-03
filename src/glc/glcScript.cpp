@@ -1495,7 +1495,9 @@ SValue Script::get_object( GetToken get )
 
 SValue Script::do_subscript( const SValue& left, const SValue& right )
 {
-    SValue value( left );
+    if( left.is_error() ) {
+        return left;
+    }
     if( left.type() == SValue::Type::Object ) {
         SValueVec values = left.get_object();
         if( values.empty() || values[0].type() != SValue::Type::String ) {
@@ -1541,6 +1543,9 @@ SValue Script::do_subscript( const SValue& left, const SValue& right )
         else {
             return SValue::create_error( "Numeric subscript expected." );
         }
+    }
+    else {
+        return SValue::create_error( "Invalid subscript." );
     }
     return SValue();
 }
