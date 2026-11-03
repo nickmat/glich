@@ -86,29 +86,27 @@ SToken& STokenStream::next()
         do {
             text += ch;
         } while( m_in->get( ch ) && isdigit( ch ) );
-        if( ch == 'f' || ch == 'n' || ch == '.' ) {
-            int ch2 = m_in->peek();
-            if( (ch != '.' || ch2 != '.') ) {
-                if( ch == '.' ) {
-                    text += ch;
-                    ch = m_in->get();
-                    if( isdigit( ch ) ) {
-                        do {
-                            text += ch;
-                        } while( m_in->get( ch ) && isdigit( ch ) );
-                    }
-                    m_in->putback(ch);
-                    set_current( SToken::Type::Real, text );
-                    return m_cur_token;
+        int ch2 = m_in->peek();
+        if( ch == 'f' || ch == 'n' || ( ch == '.' && isdigit( ch2 ) ) ) {
+            if( ch == '.' ) {
+                text += ch;
+                ch = m_in->get();
+                if( isdigit( ch ) ) {
+                    do {
+                        text += ch;
+                    } while( m_in->get( ch ) && isdigit( ch ) );
                 }
-                else if( !isalpha( ch2 ) ) {
-                    SToken::Type type = SToken::Type::Number;
-                    if( ch == 'f' ) {
-                        type = SToken::Type::Field;
-                    }
-                    set_current( type, text );
-                    return m_cur_token;
+                m_in->putback(ch);
+                set_current( SToken::Type::Real, text );
+                return m_cur_token;
+            }
+            else if( !isalpha( ch2 ) ) {
+                SToken::Type type = SToken::Type::Number;
+                if( ch == 'f' ) {
+                    type = SToken::Type::Field;
                 }
+                set_current( type, text );
+                return m_cur_token;
             }
         }
         m_in->putback( ch );
