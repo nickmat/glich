@@ -1,0 +1,27 @@
+// function002.glcs - Test function qualifier names.
+
+function fun.sig1.sig2 {
+    result = {: sig1, sig2};
+};
+
+write nl;
+write @fun.1 .2 nl;
+write @fun.(2+3).(10-4) nl;
+let n1 = 5;
+let n2 = 10;
+write @fun.(n1).(n2) nl;
+write @fun."".12 nl;
+write @fun() nl;
+write @fun nl;
+
+
+/*[OUTPUT]
+
+{: "1", "2"}
+{: "5", "6"}
+{: "5", "10"}
+{: "", "12"}
+{: "", ""}
+{: "", ""}
+
+[OUTPUT]*/
