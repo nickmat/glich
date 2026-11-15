@@ -1,0 +1,15 @@
+// plus017.glcs Test file to test addition overflow.
+
+
+let big = max_field;
+
+write nl;
+write big, big + 1, big + 2, big + 100 nl;
+write 1..5 + big nl;
+
+/*[OUTPUT]
+
+2147483644, ?, ?, ?
+Error file:plus017 (8): Range invalid.
+
+[OUTPUT]*/
