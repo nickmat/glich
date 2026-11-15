@@ -110,7 +110,8 @@ Glich::Glich( InOut* inout )
         { "empty", SValue( RList() ) },
         { "blob", SValue( Blob() ) },
         { "nl", "\n" },
-        { "pi", cal_pi }
+        { "pi", cal_pi },
+        { "max_field", SValue( f_maximum - 1, SValue::Type::field ) }
     };
     m_module_names = { "object" };
 }
