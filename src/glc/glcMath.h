@@ -122,6 +122,17 @@ namespace glich {
     extern double mult_float_field( double dbl, Field fld );
     extern Field mult_field( Field left, Field right );
 
+    inline bool is_valid_rlist( const RList& rlist ) {
+        for( size_t i = 0; i < rlist.size(); i++ ) {
+            if( !rlist[i].is_valid() ) {
+                return false;
+            }
+            if( i > 0 && static_cast<LongField>(rlist[i].m_beg) - rlist[i - 1].m_end <= 1 ) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
 #endif // SRC_GLC_GLCMATH_H_GUARD
