@@ -63,10 +63,15 @@ namespace glich {
     using FieldVecVec = std::vector<FieldVec>;
 
     constexpr Field f_invalid = -2147483648;  // INT_MIN
+    constexpr Field f_overflow = -2147483647; // INT_MIN + 1, arithmetic overflow error
     constexpr Field f_minimum = -2147483645;  // -(INT_MAX - 2)
     constexpr Field f_maximum =  2147483645;  // INT_MAX - 2
     constexpr Field f_end     =  2147483646;  // INT_MAX - 1
     constexpr Field f_invalid2 = 2147483647;  // INT_MAX
+
+    // f_invalid means undefined, f_overflow means a calculation error.
+    inline bool is_overflow( Field fld ) { return fld == f_overflow; }
+    inline bool is_invalid_or_overflow( Field fld ) { return fld == f_invalid || fld == f_overflow; }
 
     struct Range
     {
