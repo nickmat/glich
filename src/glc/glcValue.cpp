@@ -465,29 +465,41 @@ Field SValue::get_field( bool& success ) const
 Range SValue::get_range( bool& success ) const
 {
     success = true;
+    Range result;
     if( std::holds_alternative<Range>( m_data ) ) {
-        return std::get<Range>( m_data );
+        result = std::get<Range>( m_data );
     }
-    if( std::holds_alternative<Num>( m_data ) && m_type == Type::field ) {
-        Field fld = Field( std::get<Num>( m_data ) );
-        return { fld, fld };
-    }
-    if( std::holds_alternative<Num>( m_data ) && m_type == Type::Number ) {
+    else if( std::holds_alternative<Num>( m_data ) ) {
         Num num = std::get<Num>( m_data );
-        if( num >= f_maximum || num <= f_minimum ) {
-            return f_invalid;
+        Field fld = f_invalid;
+        if( m_type == Type::Number ) {
+            fld = num_to_field( num, success );
+            if( !success ) {
+                return Range( f_invalid, f_invalid );
+            }
         }
-        Field fld = Field( num );
-        return { fld, fld };
-    }
-    if( std::holds_alternative<RList>( m_data ) ) {
-        RList rl = std::get<RList>( m_data );
-        if( rl.size() == 1 ) {
-            return rl[0];
+        else {
+            fld = static_cast<Field>(num); // A field value always holds a valid Field.
         }
+        result = Range( fld, fld );
     }
-    success = false;
-    return Range( f_invalid, f_invalid );
+    else if( std::holds_alternative<RList>( m_data ) ) {
+        const RList& rl = std::get<RList>( m_data );
+        if( rl.size() != 1 ) {
+            success = false;
+            return Range( f_invalid, f_invalid );
+        }
+        result = rl[0];
+    }
+    else {
+        success = false;
+        return Range( f_invalid, f_invalid );
+    }
+    if( !result.is_valid() ) {
+        success = false;
+        return Range( f_invalid, f_invalid );
+    }
+    return result;
 }
 
 RList SValue::get_rlist( bool& success ) const
