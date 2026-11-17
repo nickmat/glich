@@ -1,0 +1,15 @@
+// rel_complement002.glcs Test invalid relative complement operations.
+
+write nl;
+write ? \\ 1..3 nl;
+write 1..3 \\ ? nl;
+write ? \\ ? nl;
+
+
+/*[OUTPUT]
+
+Error file:rel_complement002 (4): Cannot convert left hand to RList.
+Error file:rel_complement002 (5): Cannot convert right hand to RList.
+Error file:rel_complement002 (6): Cannot convert left hand to RList.
+
+[OUTPUT]*/

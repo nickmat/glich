@@ -493,22 +493,36 @@ Range SValue::get_range( bool& success ) const
 RList SValue::get_rlist( bool& success ) const
 {
     success = true;
+    RList result;
     if( std::holds_alternative<RList>( m_data ) ) {
-        return std::get<RList>( m_data );
+        result = std::get<RList>( m_data );
     }
-    if( std::holds_alternative<Range>( m_data ) ) {
-        Range rng = std::get<Range>( m_data );
-        return { rng };
+    else if( std::holds_alternative<Range>( m_data ) ) {
+        result = { std::get<Range>( m_data ) };
     }
-    if( std::holds_alternative<Num>( m_data ) ) {
-        Field fld = Field( std::get<Num>( m_data ) );
+    else if( std::holds_alternative<Num>( m_data ) ) {
+        Num num = std::get<Num>( m_data );
+        Field fld = f_invalid;
         if( m_type == Type::Number ) {
-            fld = get_num_as_field();
+            fld = num_to_field( num, success );
+            if( !success ) {
+                return RList( 0 );
+            }
         }
-        return { Range( fld, fld ) };
+        else {
+            fld = static_cast<Field>(num); // A field value always holds a valid Field.
+        }
+        result = { Range( fld, fld ) };
     }
-    success = false;
-    return RList( 0 );
+    else {
+        success = false;
+        return RList( 0 );
+    }
+    if( !is_valid_rlist( result ) ) {
+        success = false;
+        return RList( 0 );
+    }
+    return result;
 }
 
 double SValue::get_float( bool& success ) const
@@ -1751,6 +1765,5 @@ string SValue::get_special_rlist_string( RList rlist )
     }
     return str;
 }
-
 
 // End of src/glc/glcValue.cpp
