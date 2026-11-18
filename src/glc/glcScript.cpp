@@ -45,6 +45,19 @@ using std::string;
 using std::vector;
 
 
+namespace {
+
+    // A string argument is evaluated as a script expression, other values are used as given.
+    SValue evaluate_arg( const SValue& arg )
+    {
+        if( arg.type() == SValue::Type::String ) {
+            return glc().evaluate( arg.get_str() );
+        }
+        return arg;
+    }
+
+}
+
 STokenStream* Script::s_current_ts = nullptr;
 
 Script::Script( std::istream& in, std::ostream& out)
@@ -1968,45 +1981,20 @@ SValue Script::at_range()
     if( args.empty() ) {
         return SValue::create_error( "Function @range requires one argument." );
     }
-
-    SValue value;
+    SValue value = evaluate_arg( args[0] );
+    if( value.is_error() ) {
+        return value;
+    }
     Range rng;
-    Field fld = f_invalid;
     bool success = false;
-    if( args[0].type() == SValue::Type::String ) {
-        value = glc().evaluate( args[0].get_str() );
-    }
-    else {
-        value = args[0];
-    }
-    SValue::Type type = value.type();
-    switch( type )
-    {
-    case SValue::Type::field:
-        fld = value.get_field( success );
-        rng = Range( fld, fld );
-        break;
-    case SValue::Type::Number:
-        fld = num_to_field( value.get_number(), success );
-        rng = Range( fld, fld );
-        break;
-    case SValue::Type::range:
-    case SValue::Type::rlist:
-        rng = value.get_range( success );
-        break;
-    default:
-        break;
+    rng = value.get_range( success );
+    if( !success && args.size() > 1 ) {
+        rng = args[1].get_range( success );
     }
     if( !success ) {
-        if( args.size() > 1 ) {
-            rng = args[1].get_range( success );
-        }
-        if( !success ) {
-            rng = Range( 0, 0 );
-        }
+        return SValue::create_error( "Function @range cannot convert argument to a valid range." );
     }
-    value.set_range( rng );
-    return value;
+    return SValue( rng );
 }
 
 SValue Script::at_rlist()
@@ -2015,37 +2003,13 @@ SValue Script::at_rlist()
     if( args.empty() ) {
         return SValue::create_error( "Function @rlist requires one argument." );
     }
-
-    SValue value;
+    SValue value = evaluate_arg( args[0] );
+    if( value.is_error() ) {
+        return value;
+    }
     RList rlist;
-    Field fld = 0;
     bool success = false;
-    if( args[0].type() == SValue::Type::String ) {
-        value = glc().evaluate( args[0].get_str() );
-    }
-    else {
-        value = args[0];
-    }
-    SValue::Type type = value.type();
-    switch( type )
-    {
-    case SValue::Type::field:
-        fld = value.get_field( success );
-        rlist = { {fld, fld } };
-        break;
-    case SValue::Type::Number:
-        fld = num_to_field( value.get_number(), success );
-        rlist = { { fld, fld } };
-        break;
-    case SValue::Type::range:
-        rlist = { value.get_range( success ) };
-        break;
-    case SValue::Type::rlist:
-        rlist = value.get_rlist( success );
-        break;
-    default:
-        break;
-    }
+    rlist = value.get_rlist( success );
     if( !success ) {
         if( args.size() > 1 ) {
             rlist = args[1].get_rlist( success );
@@ -2054,8 +2018,13 @@ SValue Script::at_rlist()
             rlist = RList();
         }
     }
-    value.set_rlist( rlist );
-    return value;
+    if( !success && args.size() > 1 ) {
+        rlist = args[1].get_rlist( success );
+    }
+    if( !success ) {
+        return SValue::create_error( "Function @rlist cannot convert argument to a valid rlist." );
+    }
+    return SValue( rlist );
 }
 
 SValue Script::at_number()

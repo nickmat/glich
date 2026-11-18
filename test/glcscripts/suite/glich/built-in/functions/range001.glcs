@@ -1,51 +1,47 @@
 // range001.glcs - @range( value ) // convert value to range.
 
+// Valid range values tests.
 write nl;
+write @range( max_field ), @type(@range( max_field )) nl;
+write @range( -max_field ), @type(@range( -max_field )) nl;
+write @range( infinity ), @type(@range( infinity )) nl;
+write @range( 123n ), @type(@range( 123n )) nl;
+write @range( 123..321 ), @type(@range( 123..321 )) nl;
+write @range( @rlist( 123..321 ) ), @type(@range(@rlist( 123..321 ))) nl;
+write @range( "123..321" ), @type(@range( "123..321" )) nl;
+write @range( "123 | 123..321" ), @type(@range( "123 | 123..321" )) nl;
 
-let a = null;
-let v = @range( a );
-write v, @type( a ), @type( v ) nl;
-a = "321..320";
-let v = @range( a );
-write v, @type( a ), @type( v ) nl;
-a = true;
-let v = @range( a );
-write v, @type( a ), @type( v ) nl;
-a = 123n;
-let v = @range( a );
-write v, @type( a ), @type( v ) nl;
-a = 345f;
-let v = @range( a );
-write v, @type( a ), @type( v ) nl;
-a = 1.2;
-let v = @range( a );
-write v, @type( a ), @type( v ) nl;
-a = 10 .. 20;
-let v = @range( a );
-write v, @type( a ), @type( v ) nl;
-// Note, RLists are automatically well formed and demoted.
-a = 199 | 199 .. 200;
-let v = @range( a );
-write v, @type( a ), @type( v ) nl;
-a = {:,11};
-let v = @range( a );
-write v, @type( a ), @type( v ) nl;
-a = @error( "Test" );
-let v = @range( a );
-write v, @type( a ), @type( v ) nl;
-
+// Invalid range values tests.
+write nl;
+write @range( null ) nl;
+write @range( true ) nl;
+write @range( 1.2 ) nl;
+write @range( {: 10, 11} ) nl;
+write @range( "This is a test" ) nl;
+write @range( 100 | 199..200 ) nl;
+write @range( max_field + 1 ) nl;
+write @range( -( max_field + 1 ) ) nl;
+write @range( ? ) nl;
 
 /*[OUTPUT]
 
-0, null, range
-320..321, string, range
-0, bool, range
-123, number, range
-345, field, range
-0, float, range
-10..20, range, range
-199..200, range, range
-0, object, range
-0, error, range
+2147483644, range
+-2147483644, range
++infinity, range
+123, range
+123..321, range
+123..321, range
+123..321, range
+123..321, range
+
+Error file:range001 (16): Function @range cannot convert argument to a valid range.
+Error file:range001 (17): Function @range cannot convert argument to a valid range.
+Error file:range001 (18): Function @range cannot convert argument to a valid range.
+Error file:range001 (19): Function @range cannot convert argument to a valid range.
+Error file:range001 (20): Variable "This" not found.
+Error file:range001 (21): Function @range cannot convert argument to a valid range.
+Error file:range001 (22): Function @range cannot convert argument to a valid range.
+Error file:range001 (23): Function @range cannot convert argument to a valid range.
+Error file:range001 (24): Function @range cannot convert argument to a valid range.
 
 [OUTPUT]*/

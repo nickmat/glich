@@ -1,52 +1,48 @@
-// rlist001.glcs - @rlist( value ) // convert value to rlist.
+// rlist002.glcs - @rlist( value ) // convert value to rlist.
 
+// Valid rlist values tests.
 write nl;
+write @rlist( ?, max_field | 1 ), @type(@rlist( ?, max_field | 1 )) nl;
+write @rlist( ?, -max_field | 1 ), @type(@rlist( ?, -max_field | 1 )) nl;
+write @rlist( ?, max_field  ), @type(@rlist( ?, max_field )) nl;
+write @rlist( ?, -max_field ), @type(@rlist( ?, -max_field )) nl;
+write @rlist( ?, infinity | 1 ), @type(@rlist( ?, infinity | 1 )) nl;
+write @rlist( ?, 123n ), @type(@rlist( ?, 123n )) nl;
+write @rlist( ?, 123..321 ), @type(@rlist( ?, 123..321 )) nl;
+write @rlist( ?, 100 | 123..321 ), @type(@rlist( ?, 100 | 123..321 )) nl;
 
-let rl = 1 | 3..5;
-
-let a = null;
-let v = @rlist( a, rl );
-write v, @type( a ), @type( v ) nl;
-a = "300|321..320";
-let v = @rlist( a, rl );
-write v, @type( a ), @type( v ) nl;
-a = true;
-let v = @rlist( a, rl );
-write v, @type( a ), @type( v ) nl;
-a = 123n;
-let v = @rlist( a, rl );
-write v, @type( a ), @type( v ) nl;
-a = 345f;
-let v = @rlist( a, rl );
-write v, @type( a ), @type( v ) nl;
-a = 1.2;
-let v = @rlist( a, rl );
-write v, @type( a ), @type( v ) nl;
-a = 10 .. 20;
-let v = @rlist( a, rl );
-write v, @type( a ), @type( v ) nl;
-a = 100 | 199 .. 200;
-let v = @rlist( a, rl );
-write v, @type( a ), @type( v ) nl;
-a = {:,11};
-let v = @rlist( a, rl );
-write v, @type( a ), @type( v ) nl;
-a = @error( "Test" );
-let v = @rlist( a, rl );
-write v, @type( a ), @type( v ) nl;
+// Invalid rlist values tests.
+write nl;
+write @rlist( ?, null ) nl;
+write @rlist( ?, true ) nl;
+write @rlist( ?, 1.2 ) nl;
+write @rlist( ?, {: 10, 11} ) nl;
+write @rlist( ?, "This is a test" ) nl;
+write @rlist( ?, max_field + 1 ) nl;
+write @rlist( ?, -( max_field + 1 ) ) nl;
+write @rlist( ?, "100 | 123..321" ), @type(@rlist( ?, "100 | 123..321" )) nl;
+write @rlist( ? ) nl;
 
 
 /*[OUTPUT]
 
-1 | 3..5, null, rlist
-300 | 320..321, string, rlist
-1 | 3..5, bool, rlist
-123, number, rlist
-345, field, rlist
-1 | 3..5, float, rlist
-10..20, range, rlist
-100 | 199..200, rlist, rlist
-1 | 3..5, object, rlist
-1 | 3..5, error, rlist
+1 | 2147483644, rlist
+-2147483644 | 1, rlist
+2147483644, rlist
+-2147483644, rlist
+1 | +infinity, rlist
+123, rlist
+123..321, rlist
+100 | 123..321, rlist
+
+Error file:rlist002 (16): Function @rlist cannot convert argument to a valid rlist.
+Error file:rlist002 (17): Function @rlist cannot convert argument to a valid rlist.
+Error file:rlist002 (18): Function @rlist cannot convert argument to a valid rlist.
+Error file:rlist002 (19): Function @rlist cannot convert argument to a valid rlist.
+Error file:rlist002 (20): Function @rlist cannot convert argument to a valid rlist.
+Error file:rlist002 (21): Function @rlist cannot convert argument to a valid rlist.
+Error file:rlist002 (22): Function @rlist cannot convert argument to a valid rlist.
+Error file:rlist002 (23): Function @rlist cannot convert argument to a valid rlist.
+Error file:rlist002 (24): Function @rlist cannot convert argument to a valid rlist.
 
 [OUTPUT]*/
