@@ -167,6 +167,7 @@ namespace glich {
         static std::string get_special_field_string( Field fld );
         static std::string get_special_range_string( Range rng );
         static std::string get_special_rlist_string( RList rlist );
+        void set_field_result( Field fld, bool success );
 
         Type m_type;
         std::variant<bool, Num, std::string, Range, RList, double, SValueVec, Blob> m_data;

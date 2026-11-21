@@ -120,7 +120,7 @@ namespace glich {
     extern RList add_rlist( const RList& rlist, Field fld, bool& success );
 
     extern double mult_float_field( double dbl, Field fld );
-    extern Field mult_field( Field left, Field right );
+    extern Field mult_field( Field left, Field right, bool& success );
 
     inline bool is_valid_rlist( const RList& rlist ) {
         for( size_t i = 0; i < rlist.size(); i++ ) {

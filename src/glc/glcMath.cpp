@@ -477,8 +477,9 @@ double glich::mult_float_field( double dbl, Field fld )
     return dbl * static_cast<double>(fld);
 }
 
-Field glich::mult_field( Field left, Field right )
+Field glich::mult_field( Field left, Field right, bool& success )
 {
+    success = true;
     // Checks for f_invalid
     if( left == f_invalid || right == f_invalid ) {
         return f_invalid;
@@ -501,11 +502,9 @@ Field glich::mult_field( Field left, Field right )
 
     // Checks for overflow.
     LongField lf = static_cast<LongField>(left) * static_cast<LongField>(right);
-    if( lf <= static_cast<LongField>(f_minimum) ) {
-        return f_invalid;
-    }
-    if( lf >= static_cast<LongField>(f_maximum) ) {
-        return f_invalid;
+    if( lf <= static_cast<LongField>(f_minimum) || lf >= static_cast<LongField>(f_maximum) ) {
+        success = false;
+        return f_overflow;
     }
     return static_cast<Field>(lf);
 }

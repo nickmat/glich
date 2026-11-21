@@ -1059,7 +1059,7 @@ void SValue::multiply( const SValue& value )
     if( propagate_error( value ) ) {
         return;
     }
-    const char* only_ints_err = "Can only multiply fields and numbers.";
+    bool success = true;
     switch( type() )
     {
     case Type::Number:
@@ -1068,9 +1068,11 @@ void SValue::multiply( const SValue& value )
         case Type::Number:
             set_number( get_number() * value.get_number() );
             return;
-        case Type::field:
-            set_field( mult_field( get_num_as_field(), value.get_field() ) );
-            break;
+        case Type::field: {
+            Field field = mult_field( get_num_as_field(), value.get_field(), success );
+            set_field_result( field, success );
+        }
+            return;
         case Type::Float:
             set_float( static_cast<double>(get_number()) * value.get_float() );
             return;
@@ -1081,12 +1083,16 @@ void SValue::multiply( const SValue& value )
     case Type::field:
         switch( value.type() )
         {
-        case Type::Number:
-            set_field( mult_field( get_field(), value.get_num_as_field() ) );
-            break;
-        case Type::field:
-            set_field( mult_field( get_field(), value.get_field() ) );
-            break;
+        case Type::Number: {
+            Field field = mult_field( get_field(), value.get_num_as_field(), success );
+            set_field_result( field, success );
+        }
+            return;
+        case Type::field: {
+            Field field = mult_field( get_field(), value.get_field(), success );
+            set_field_result( field, success );
+        }
+            return;
         case Type::Float:
             set_float( mult_float_field( value.get_float(), get_field() ) );
             return;
@@ -1107,15 +1113,13 @@ void SValue::multiply( const SValue& value )
             set_float( get_float() * value.get_float() );
             return;
         default:
-            break;  
+            break;
         }
         break;
     default:
         break;
     }
-    if( type() != Type::field ) {
-        set_error( "Can only multiply fields and numbers." );
-    }
+    set_error( "Can only multiply fields and numbers." );
 }
 
 void SValue::divide( const SValue& value )
@@ -1786,6 +1790,16 @@ string SValue::get_special_rlist_string( RList rlist )
         first = false;
     }
     return str;
+}
+
+// Store the result of a field calculation, turning overflow into an error.
+void SValue::set_field_result( Field fld, bool success )
+{
+    if( !success ) {
+        set_error( "Field overflow." );
+        return;
+    }
+    set_field( fld );
 }
 
 // End of src/glc/glcValue.cpp

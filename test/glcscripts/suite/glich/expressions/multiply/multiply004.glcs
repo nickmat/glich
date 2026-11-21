@@ -1,17 +1,29 @@
-// multiply003.hcs Test file for multiplication of fields
+// multiply004.glcs Test file for multiplication of fields
 
 write nl;
 
-write 2147483640f * 1 nl;
-write 2147483640f * 2 nl; // overflow
-write -2147483640f * 1 nl;
-write -2147483640f * 2 nl; // overflow
+write max_field * 1 nl;
+write max_field * 2 nl; // overflow
+write max_field * max_field nl; // overflow
+write -max_field * 1 nl;
+write -max_field * 2 nl; // overflow
+write -max_field * max_field nl; // overflow
+write 1 * max_field * 1 nl;
+write 2 * max_field * 2 nl; // overflow
+write 1 * -max_field * 1 nl;
+write 2 * -max_field * 2 nl; // overflow
 
 /*[OUTPUT]
 
-2147483640
-?
--2147483640
-?
+2147483644
+Error file:multiply004 (6): Field overflow.
+Error file:multiply004 (7): Field overflow.
+-2147483644
+Error file:multiply004 (9): Field overflow.
+Error file:multiply004 (10): Field overflow.
+2147483644
+Error file:multiply004 (12): Field overflow.
+-2147483644
+Error file:multiply004 (14): Field overflow.
 
 [OUTPUT]*/
