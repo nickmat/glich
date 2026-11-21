@@ -1,8 +1,10 @@
 // intersection002.glcs Test invalid intersection operations.
 
+let big = @number( max_field ) + 1;
+
 write nl;
 write max_field && 1..3 nl;
-write max_field + 1 && 1..3 nl;
+write big && 1..3 nl;
 write ? && 1..3 nl;
 write 1..3 && ? nl;
 write ? && ? nl;
@@ -11,9 +13,9 @@ write ? && ? nl;
 /*[OUTPUT]
 
 empty
-Error file:intersection002 (5): Cannot convert left hand to RList.
-Error file:intersection002 (6): Cannot convert left hand to RList.
-Error file:intersection002 (7): Cannot convert right hand to RList.
+Error file:intersection002 (7): Cannot convert left hand to RList.
 Error file:intersection002 (8): Cannot convert left hand to RList.
+Error file:intersection002 (9): Cannot convert right hand to RList.
+Error file:intersection002 (10): Cannot convert left hand to RList.
 
 [OUTPUT]*/

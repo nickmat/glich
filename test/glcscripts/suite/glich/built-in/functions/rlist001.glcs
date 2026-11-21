@@ -1,5 +1,6 @@
 // rlist001.glcs - @rlist( value ) // convert value to rlist.
 
+let big = @number( max_field ) + 1;
 
 // Valid rlist values tests.
 write nl;
@@ -21,8 +22,8 @@ write @rlist( true ) nl;
 write @rlist( 1.2 ) nl;
 write @rlist( {: 10, 11} ) nl;
 write @rlist( "This is a test" ) nl;
-write @rlist( max_field + 1 ) nl;
-write @rlist( -( max_field + 1 ) ) nl;
+write @rlist( big ) nl;
+write @rlist( -big ) nl;
 write @rlist( ? ) nl;
 
 /*[OUTPUT]
@@ -38,13 +39,13 @@ write @rlist( ? ) nl;
 123..321, rlist
 100 | 123..321, rlist
 
-Error file:rlist001 (19): Function @rlist cannot convert argument to a valid rlist.
 Error file:rlist001 (20): Function @rlist cannot convert argument to a valid rlist.
 Error file:rlist001 (21): Function @rlist cannot convert argument to a valid rlist.
 Error file:rlist001 (22): Function @rlist cannot convert argument to a valid rlist.
-Error file:rlist001 (23): Variable "This" not found.
-Error file:rlist001 (24): Function @rlist cannot convert argument to a valid rlist.
+Error file:rlist001 (23): Function @rlist cannot convert argument to a valid rlist.
+Error file:rlist001 (24): Variable "This" not found.
 Error file:rlist001 (25): Function @rlist cannot convert argument to a valid rlist.
 Error file:rlist001 (26): Function @rlist cannot convert argument to a valid rlist.
+Error file:rlist001 (27): Function @rlist cannot convert argument to a valid rlist.
 
 [OUTPUT]*/

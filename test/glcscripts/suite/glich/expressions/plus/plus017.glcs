@@ -4,12 +4,18 @@
 let big = max_field;
 
 write nl;
-write big, big + 1, big + 2, big + 100 nl;
+write big nl;
+write big + 1 nl;
+write big + 2 nl;
+write big + 100 nl;
 write 1..5 + big nl;
 
 /*[OUTPUT]
 
-2147483644, ?, ?, ?
-Error file:plus017 (8): Range invalid.
+2147483644
+Error file:plus017 (8): Field overflow.
+Error file:plus017 (9): Field overflow.
+Error file:plus017 (10): Field overflow.
+Error file:plus017 (11): Field overflow.
 
 [OUTPUT]*/

@@ -898,6 +898,7 @@ void SValue::plus( const SValue& value )
         return;
     }
     bool success = true;
+    const char* field_overflow_err = "Field overflow.";
     const char* invalid_range_err = "Invalid range.";
     const char* invalid_rlist_err = "Invalid rlist.";
     switch( type() )
@@ -911,7 +912,10 @@ void SValue::plus( const SValue& value )
             set_number( get_number() + value.get_number() );
             return;
         case Type::field:
-            set_field( add_field( fld, value.get_field() ) );
+            set_field( add_field( fld, value.get_field(), success ) );
+            if( !success ) {
+                set_error( field_overflow_err );
+            }
             return;
         case Type::Float:
             set_float( static_cast<double>(get_number()) + value.get_float() );
@@ -937,10 +941,16 @@ void SValue::plus( const SValue& value )
         switch( value.type() )
         {
         case Type::Number:
-            set_field( add_field( get_field(), value.get_num_as_field() ) );
+            set_field( add_field( get_field(), value.get_num_as_field(), success ) );
+            if( !success ) {
+                set_error( field_overflow_err );
+            }
             return;
         case Type::field:
-            set_field( add_field( get_field(), value.get_field() ) );
+            set_field( add_field( get_field(), value.get_field(), success ) );
+            if( !success ) {
+                set_error( field_overflow_err );
+            }
             return;
         case Type::Float:
             set_float( add_float_field( value.get_float(), get_field() ) );

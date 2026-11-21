@@ -1,8 +1,10 @@
 // sym_difference002.glcs Test invalid symmetric difference operations.
 
+let big = @number( max_field ) + 1;
+
 write nl;
 write max_field ^^ 1..3 nl;
-write max_field + 1 ^^ 1..3 nl;
+write big ^^ 1..3 nl;
 write ? ^^ 1..3 nl;
 write 1..3 ^^ ? nl;
 write ? ^^ ? nl;
@@ -11,9 +13,9 @@ write ? ^^ ? nl;
 /*[OUTPUT]
 
 1..3 | 2147483644
-Error file:sym_difference002 (5): Cannot convert left hand to RList.
-Error file:sym_difference002 (6): Cannot convert left hand to RList.
-Error file:sym_difference002 (7): Cannot convert right hand to RList.
+Error file:sym_difference002 (7): Cannot convert left hand to RList.
 Error file:sym_difference002 (8): Cannot convert left hand to RList.
+Error file:sym_difference002 (9): Cannot convert right hand to RList.
+Error file:sym_difference002 (10): Cannot convert left hand to RList.
 
 [OUTPUT]*/

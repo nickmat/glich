@@ -403,8 +403,9 @@ double glich::add_float_field( double dbl, Field fld )
     return dbl + static_cast<double>(fld);
 }
 
-Field glich::add_field( Field left, Field right )
+Field glich::add_field( Field left, Field right, bool& success )
 {
+    success = true;
     if( left == f_invalid || right == f_invalid ) {
         return f_invalid;
     }
@@ -418,11 +419,9 @@ Field glich::add_field( Field left, Field right )
         return right;
     }
     LongField lf = static_cast<LongField>(left) + static_cast<LongField>(right);
-    if( lf <= static_cast<LongField>(f_minimum) ) {
-        return f_invalid;
-    }
-    if( lf >= static_cast<LongField>(f_maximum) ) {
-        return f_invalid;
+    if( lf <= static_cast<LongField>(f_minimum) || lf >= static_cast<LongField>(f_maximum) ) {
+        success = false;
+        return f_overflow;
     }
     return static_cast<Field>(lf);
 }
@@ -430,9 +429,9 @@ Field glich::add_field( Field left, Field right )
 Range glich::add_range( Range rng, Field fld, bool& success )
 {
     success = true;
-    Field beg = add_field( rng.m_beg, fld );
-    Field end = add_field( rng.m_end, fld );
-    if( beg == f_invalid || end == f_invalid ) {
+    Field beg = add_field( rng.m_beg, fld, success );
+    Field end = add_field( rng.m_end, fld, success );
+    if( is_invalid_or_overflow( beg ) || is_invalid_or_overflow( end ) ) {
         success = false;
     }
     return Range( beg, end );
