@@ -491,15 +491,20 @@ Field glich::mult_field( Field left, Field right, bool& success )
         if( left == 0 || right == 0 ) {
             return f_invalid; // -infinity * 0 = invalid
         }
-        return f_minimum;
+        if( left > 0 || right > 0 ) {
+            return f_minimum; // -infinity * positive = -infinity
+        }
+        return f_maximum; // -infinity * negative = +infinity
     }
     if( left == f_maximum || right == f_maximum ) {
         if( left == 0 || right == 0 ) {
             return f_invalid; // +infinity * 0 = invalid
         }
-        return f_maximum;
+        if( left < 0 || right < 0 ) {
+            return f_minimum; // +infinity * negative = -infinity
+        }
+        return f_maximum; // +infinity * positive = +infinity
     }
-
     // Checks for overflow.
     LongField lf = static_cast<LongField>(left) * static_cast<LongField>(right);
     if( lf <= static_cast<LongField>(f_minimum) || lf >= static_cast<LongField>(f_maximum) ) {
