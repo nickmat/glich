@@ -1188,9 +1188,13 @@ void SValue::field_div( const SValue& value )
     switch( left )
     {
     case f_invalid:
+        set_field( f_invalid );
+        return;
     case f_maximum:
+        set_field( (right > 0) ? f_maximum : f_minimum );
+        return;
     case f_minimum:
-        set_field( left );
+        set_field( (right > 0) ? f_minimum : f_maximum );
         return;
     }
     set_field( fdiv_e( left, right ) );
