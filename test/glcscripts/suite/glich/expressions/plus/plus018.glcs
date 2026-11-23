@@ -1,0 +1,22 @@
+// plus018.glcs Test file to test addition overflow with ranges.
+
+
+let bf = max_field;
+let bn = @number(bf);
+
+write nl;
+write bf, bn nl;
+write bf + (1..3) nl;
+write (1..3) + bf nl;
+write bn + (1..3) nl;
+write (1..3) + bn nl;
+
+/*[OUTPUT]
+
+2147483644, 2147483644
+Error file:plus018 (9): Field overflow.
+Error file:plus018 (10): Field overflow.
+Error file:plus018 (11): Field overflow.
+Error file:plus018 (12): Field overflow.
+
+[OUTPUT]*/

@@ -133,6 +133,14 @@ namespace glich {
         }
         return true;
     }
+
+    // Error text for a range that could not be created, or "" if it is valid.
+    inline const char* get_range_error_text( const Range& rng ) {
+        if( rng.m_beg == f_overflow || rng.m_end == f_overflow ) return "Field overflow.";
+        if( !rng.is_valid() ) return "Invalid range.";
+        return "";
+    }
+
 }
 
 #endif // SRC_GLC_GLCMATH_H_GUARD

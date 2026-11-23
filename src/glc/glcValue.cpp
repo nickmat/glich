@@ -901,6 +901,7 @@ void SValue::plus( const SValue& value )
     const char* field_overflow_err = "Field overflow.";
     const char* invalid_range_err = "Invalid range.";
     const char* invalid_rlist_err = "Invalid rlist.";
+    Range rng;
     switch( type() )
     {
     case Type::Number:
@@ -921,10 +922,12 @@ void SValue::plus( const SValue& value )
             set_float( static_cast<double>(get_number()) + value.get_float() );
             return;
         case Type::range:
-            set_range_demote( add_range( value.get_range(), fld, success ) );
+            rng = add_range( value.get_range(), fld, success );
             if( !success ) {
-                set_error( invalid_range_err );
+                set_error( get_range_error_text( rng ) );
+                return;
             }
+            set_range_demote( rng );
             return;
         case Type::rlist:
             set_rlist( add_rlist( value.get_rlist(), fld, success ) );
@@ -956,10 +959,12 @@ void SValue::plus( const SValue& value )
             set_float( add_float_field( value.get_float(), get_field() ) );
             return;
         case Type::range:
-            set_range_demote( add_range( value.get_range(), get_field(), success ) );
+            rng = add_range( value.get_range(), get_field(), success );
             if( !success ) {
-                set_error( invalid_range_err );
+                set_error( get_range_error_text( rng ) );
+                return;
             }
+            set_range_demote( rng );
             return;
         case Type::rlist:
             set_rlist( add_rlist( value.get_rlist(), get_field(), success ) );
@@ -991,16 +996,20 @@ void SValue::plus( const SValue& value )
         switch( value.type() )
         {
         case Type::Number:
-            set_range_demote( add_range( get_range(), value.get_num_as_field(), success ) );
+            rng = add_range( get_range(), value.get_num_as_field(), success );
             if( !success ) {
-                set_error( invalid_range_err );
+                set_error( get_range_error_text(rng) );
+                return;
             }
+            set_range_demote( rng );
             return;
         case Type::field:
-            set_range_demote( add_range( get_range(), value.get_field(), success ) );
+            rng = add_range( get_range(), value.get_field(), success );
             if( !success ) {
-                set_error( invalid_range_err );
+                set_error( get_range_error_text( rng ) );
+                return;
             }
+            set_range_demote( rng );
             return;
         default:
             break;
