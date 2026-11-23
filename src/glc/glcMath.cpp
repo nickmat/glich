@@ -430,10 +430,18 @@ Range glich::add_range( Range rng, Field fld, bool& success )
 {
     success = true;
     Field beg = add_field( rng.m_beg, fld, success );
-    Field end = add_field( rng.m_end, fld, success );
-    if( is_invalid_or_overflow( beg ) || is_invalid_or_overflow( end ) ) {
-        success = false;
+    if( !success ) {
+        return Range( f_overflow, f_overflow );
     }
+    Field end = add_field( rng.m_end, fld, success );
+    if( !success ) {
+        return Range( f_overflow, f_overflow );
+    }
+    if( beg == f_invalid || end == f_invalid ) {
+        success = false;
+        return Range(); // ?..?, the undefined marker
+    }
+    success = true;
     return Range( beg, end );
 }
 
