@@ -140,6 +140,12 @@ namespace glich {
         if( !rng.is_valid() ) return "Invalid range.";
         return "";
     }
+    // Error text for a rlist that could not be created, or "" if it is valid.
+    inline const char* get_rlist_error_text( const Range& rng ) {
+        if( rng.m_beg == f_overflow || rng.m_end == f_overflow ) return "Field overflow in rlist.";
+        if( !rng.is_valid() ) return "Invalid rlist.";
+        return "";
+    }
 
 }
 

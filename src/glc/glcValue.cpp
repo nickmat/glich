@@ -899,9 +899,9 @@ void SValue::plus( const SValue& value )
     }
     bool success = true;
     const char* field_overflow_err = "Field overflow.";
-    const char* invalid_range_err = "Invalid range.";
     const char* invalid_rlist_err = "Invalid rlist.";
     Range rng;
+    RList rlist;
     switch( type() )
     {
     case Type::Number:
@@ -930,10 +930,17 @@ void SValue::plus( const SValue& value )
             set_range_demote( rng );
             return;
         case Type::rlist:
-            set_rlist( add_rlist( value.get_rlist(), fld, success ) );
+            rlist = add_rlist( value.get_rlist(), fld, success );
             if( !success ) {
-                set_error( invalid_rlist_err );
+                if( rlist.size() > 0 ) {
+                    set_error( get_rlist_error_text( rlist[0]) );
+                }
+                else {
+                    set_error( invalid_rlist_err );
+                }
+                return;
             }
+            set_rlist_demote( rlist );
             return;
         default:
             break;
@@ -967,10 +974,17 @@ void SValue::plus( const SValue& value )
             set_range_demote( rng );
             return;
         case Type::rlist:
-            set_rlist( add_rlist( value.get_rlist(), get_field(), success ) );
+            rlist = add_rlist( value.get_rlist(), get_field(), success );
             if( !success ) {
-                set_error( invalid_rlist_err );
+                if( rlist.size() > 0 ) {
+                    set_error( get_rlist_error_text( rlist[0] ) );
+                }
+                else {
+                    set_error( invalid_rlist_err );
+                }
+                return;
             }
+            set_rlist_demote( rlist );
             return;
         default:
             break;
@@ -1019,16 +1033,30 @@ void SValue::plus( const SValue& value )
         switch( value.type() )
         {
         case Type::Number:
-            set_rlist( add_rlist( get_rlist(), value.get_num_as_field(), success ) );
+            rlist = add_rlist( get_rlist(), value.get_num_as_field(), success );
             if( !success ) {
-                set_error( invalid_rlist_err );
+                if( rlist.size() > 0 ) {
+                    set_error( get_rlist_error_text( rlist[0] ) );
+                }
+                else {
+                    set_error( invalid_rlist_err );
+                }
+                return;
             }
+            set_rlist_demote( rlist );
             return;
         case Type::field:
-            set_rlist( add_rlist( get_rlist(), value.get_field(), success ) );
+            rlist = add_rlist( get_rlist(), value.get_field(), success );
             if( !success ) {
-                set_error( invalid_rlist_err );
+                if( rlist.size() > 0 ) {
+                    set_error( get_rlist_error_text( rlist[0] ) );
+                }
+                else {
+                    set_error( invalid_rlist_err );
+                }
+                return;
             }
+            set_rlist_demote( rlist );
             return;
         case Type::rlist:
             set_error( "Unable to add or subtract rlists." );

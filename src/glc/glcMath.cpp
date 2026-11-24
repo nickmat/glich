@@ -448,12 +448,11 @@ Range glich::add_range( Range rng, Field fld, bool& success )
 RList glich::add_rlist( const RList& rlist, Field fld, bool& success )
 {
     success = true;
-    bool step = true;
     RList result;
     for( Range range : rlist ) {
-        Range r = add_range( range, fld, step );
-        if( !step ) {
-            success = false;
+        Range r = add_range( range, fld, success );
+        if( !success ) {
+            return RList( { r } ); // undefined or overflow marker
         }
         result.push_back( r );
     }
