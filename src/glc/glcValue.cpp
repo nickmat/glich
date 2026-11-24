@@ -916,19 +916,24 @@ void SValue::plus( const SValue& value )
     bool success = true;
     const char* field_overflow_err = "Field overflow.";
     const char* invalid_rlist_err = "Invalid rlist.";
+    Field fld = f_invalid;
     Range rng;
     RList rlist;
     switch( type() )
     {
     case Type::Number:
     {
-        Field fld = get_num_as_field();
         switch( value.type() )
         {
         case Type::Number:
             set_number( get_number() + value.get_number() );
             return;
         case Type::field:
+            fld = get_field_from_num( success );
+            if( !success ) {
+                set_error( field_overflow_err );
+                return;
+            }
             set_field( add_field( fld, value.get_field(), success ) );
             if( !success ) {
                 set_error( field_overflow_err );
@@ -938,6 +943,11 @@ void SValue::plus( const SValue& value )
             set_float( static_cast<double>(get_number()) + value.get_float() );
             return;
         case Type::range:
+            fld = get_field_from_num( success );
+            if( !success ) {
+                set_error( field_overflow_err );
+                return;
+            }
             rng = add_range( value.get_range(), fld, success );
             if( !success ) {
                 set_error( get_range_error_text( rng ) );
@@ -946,6 +956,11 @@ void SValue::plus( const SValue& value )
             set_range_demote( rng );
             return;
         case Type::rlist:
+            fld = get_field_from_num( success );
+            if( !success ) {
+                set_error( field_overflow_err );
+                return;
+            }
             rlist = add_rlist( value.get_rlist(), fld, success );
             if( !success ) {
                 if( rlist.size() > 0 ) {
@@ -967,6 +982,11 @@ void SValue::plus( const SValue& value )
         switch( value.type() )
         {
         case Type::Number:
+            fld = value.get_field_from_num( success );
+            if( !success ) {
+                set_error( field_overflow_err );
+                return;
+            }
             set_field( add_field( get_field(), value.get_num_as_field(), success ) );
             if( !success ) {
                 set_error( field_overflow_err );
@@ -1026,7 +1046,12 @@ void SValue::plus( const SValue& value )
         switch( value.type() )
         {
         case Type::Number:
-            rng = add_range( get_range(), value.get_num_as_field(), success );
+            fld = value.get_field_from_num( success );
+            if( !success ) {
+                set_error( field_overflow_err );
+                return;
+            }
+            rng = add_range( get_range(), fld, success );
             if( !success ) {
                 set_error( get_range_error_text(rng) );
                 return;
@@ -1049,7 +1074,12 @@ void SValue::plus( const SValue& value )
         switch( value.type() )
         {
         case Type::Number:
-            rlist = add_rlist( get_rlist(), value.get_num_as_field(), success );
+            fld = value.get_field_from_num( success );
+            if( !success ) {
+                set_error( field_overflow_err );
+                return;
+            }
+            rlist = add_rlist( get_rlist(), fld, success );
             if( !success ) {
                 if( rlist.size() > 0 ) {
                     set_error( get_rlist_error_text( rlist[0] ) );

@@ -1,0 +1,25 @@
+// plus020.glcs Test file to test addition overflow.
+
+let bn = @number(max_field) * 2;
+
+
+write nl;
+write bn, bn + 1 nl;
+write bn + 1f nl;
+write 1f + bn nl;
+write bn + (1..3) nl;
+write (-3..-1) + bn nl;
+write bn + (1..3 | 5) nl;
+write (-5 | -3..-1) + bn nl;
+
+/*[OUTPUT]
+
+4294967288, 4294967289
+Error file:plus020 (8): Field overflow.
+Error file:plus020 (9): Field overflow.
+Error file:plus020 (10): Field overflow.
+Error file:plus020 (11): Field overflow.
+Error file:plus020 (12): Field overflow.
+Error file:plus020 (13): Field overflow.
+
+[OUTPUT]*/
