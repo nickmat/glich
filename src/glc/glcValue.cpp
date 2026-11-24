@@ -372,6 +372,22 @@ Field SValue::get_num_as_field() const
     return Field();
 }
 
+// Only fails on overflow. 
+Field SValue::get_field_from_num( bool& success ) const
+{
+    success = true;
+    if( std::holds_alternative<Num>( m_data ) && m_type == Type::Number ) {
+        Num num = std::get<Num>( m_data );
+        if( num >= f_maximum || num <= f_minimum ) {
+            success = false;
+            return f_overflow;
+        }
+        return Field( num );
+    }
+    success = false;
+    return f_invalid;
+}
+
 double SValue::get_field_as_float() const
 {
     if( std::holds_alternative<Num>( m_data ) && m_type == Type::field ) {
