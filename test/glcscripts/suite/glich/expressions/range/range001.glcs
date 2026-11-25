@@ -1,0 +1,13 @@
+// range001.glcs Test file to test invalid range.
+
+
+write nl;
+write 1..? nl;
+write ?..1 nl;
+
+/*[OUTPUT]
+
+Error file:range001 (5): Range invalid.
+Error file:range001 (6): Range invalid.
+
+[OUTPUT]*/

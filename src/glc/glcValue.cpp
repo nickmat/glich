@@ -1545,9 +1545,11 @@ void SValue::range_op( const SValue& value )
         return;
     }
     Range lhs, rhs;
+    bool success = true;
     const char* type_err_mess = "Range operator requires number types.";
     const char* empty_err_mess = "Range operator cannot use empty rlist.";
     const char* invalid_err_mess = "Range invalid.";
+    const char* field_overflow_err = "Field overflow.";
     switch( m_type )
     {
     case Type::rlist:
@@ -1558,7 +1560,11 @@ void SValue::range_op( const SValue& value )
         lhs = enclosing_range( get_rlist() );
         break;
     case Type::Number:
-        lhs.m_beg = lhs.m_end = get_num_as_field();
+        lhs.m_beg = lhs.m_end = get_field_from_num( success );
+        if( !success ) {
+            set_error( field_overflow_err );
+            return;
+        }
         break;
     case Type::field:
         lhs.m_beg = lhs.m_end = get_field();
@@ -1580,7 +1586,11 @@ void SValue::range_op( const SValue& value )
         rhs = enclosing_range( value.get_rlist() );
         break;
     case Type::Number:
-        rhs.m_beg = rhs.m_end = value.get_num_as_field();
+        rhs.m_beg = rhs.m_end = value.get_field_from_num( success );
+        if( !success ) {
+            set_error( field_overflow_err );
+            return;
+        }
         break;
     case Type::field:
         rhs.m_beg = rhs.m_end = value.get_field();

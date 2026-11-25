@@ -1,0 +1,22 @@
+// range002.glcs Test file to test range overflow.
+
+let mf = @number( max_field );
+let bn = mf + 1;
+
+
+write nl;
+write mf, bn nl;
+write 1..mf nl;
+write 1..bn nl;
+write mf..1 nl;
+write bn..1 nl;
+
+/*[OUTPUT]
+
+2147483644, 2147483645
+1..2147483644
+Error file:range002 (10): Field overflow.
+1..2147483644
+Error file:range002 (12): Field overflow.
+
+[OUTPUT]*/
