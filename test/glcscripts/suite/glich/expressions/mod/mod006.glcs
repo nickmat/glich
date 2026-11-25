@@ -1,0 +1,25 @@
+// mod006.glcs Test file to test modulus of field overflow
+
+let mf = @number( max_field );
+let bn = mf + 1;
+
+
+write nl;
+write mf % 2f nl;
+write bn % 2f nl;
+write mf % max_field nl;
+write bn % max_field nl;
+write max_field % mf nl;
+write max_field % bn nl;
+
+
+/*[OUTPUT]
+
+0
+Error file:mod006 (9): Field overflow.
+0
+Error file:mod006 (11): Field overflow.
+0
+Error file:mod006 (13): Field overflow.
+
+[OUTPUT]*/

@@ -1422,6 +1422,8 @@ void SValue::modulus( const SValue& value )
     }
     const char* only_ints_err = "Can only use modulus with numbers.";
     const char* modulo_zero_err = "Modulo by zero.";
+    const char* field_overflow_err = "Field overflow.";
+    bool success = true;
     Field left = f_invalid;
     Field right = f_invalid;
     switch( type() )
@@ -1441,7 +1443,11 @@ void SValue::modulus( const SValue& value )
         }
         return;
         case Type::field:
-            left = get_num_as_field();
+            left = get_field_from_num( success );
+            if( !success ) {
+                set_error( field_overflow_err );
+                return;
+            }
             right = value.get_field();
             break;
         default:
@@ -1454,7 +1460,11 @@ void SValue::modulus( const SValue& value )
         {
         case Type::Number:
             left = get_field();
-            right = value.get_num_as_field();
+            right = value.get_field_from_num( success );
+            if( !success ) {
+                set_error( field_overflow_err );
+                return;
+            }
             break;
         case Type::field:
             left = get_field();
