@@ -1,0 +1,24 @@
+// divide020.glcs Test file to test division of field overflow
+
+let mf = @number( max_field );
+let bn = mf + 1;
+
+write nl;
+
+write max_field / mf nl;
+write max_field / bn nl;
+write mf / 1f nl;
+write bn / 1f nl;
+write mf / 10f nl;
+write bn / 10f nl;
+
+/*[OUTPUT]
+
+1
+Error file:divide020 (9): Field overflow.
+2147483644
+Error file:divide020 (11): Field overflow.
+214748364
+Error file:divide020 (13): Field overflow.
+
+[OUTPUT]*/

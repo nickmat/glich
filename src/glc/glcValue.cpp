@@ -1262,8 +1262,29 @@ void SValue::field_div( const SValue& value )
         set_error( "Can only divide fields and numbers." );
         return;
     }
-    Field left = (type() != Type::field) ? get_num_as_field() : get_field();
-    Field right = (value.type() != Type::field) ? value.get_num_as_field() : value.get_field();
+    const char* field_overflow_err = "Field overflow.";
+    Field left = f_invalid, right = f_invalid;
+    bool success = true;
+    if( type() == Type::field ) {
+        left = get_field();
+    }
+    else {
+        left = get_field_from_num( success );
+        if( !success ) {
+            set_error( field_overflow_err );
+            return;
+        }
+    }
+    if( value.type() == Type::field ) {
+        right = value.get_field();
+    }
+    else {
+        right = value.get_field_from_num( success );
+        if( !success ) {
+            set_error( field_overflow_err );
+            return;
+        }
+    }
     switch( right )
     {
     case 0:
