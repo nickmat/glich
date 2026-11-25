@@ -105,7 +105,6 @@ namespace glich {
         double get_float() const;
         SValueVec get_object() const;
         Blob get_blob() const;
-        Field get_num_as_field() const;
         Field get_field_from_num( bool& success ) const; // Fail on overflow.
         double get_field_as_float() const;
 

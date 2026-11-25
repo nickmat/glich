@@ -359,19 +359,6 @@ Blob SValue::get_blob() const
     return Blob();
 }
 
-Field SValue::get_num_as_field() const
-{
-    if( std::holds_alternative<Num>( m_data ) && m_type == Type::Number ) {
-        Num num = std::get<Num>( m_data );
-        if( num >= f_maximum || num <= f_minimum ) {
-            return f_invalid;
-        }
-        return Field( num );
-    }
-    assert( false );
-    return Field();
-}
-
 // Only fails on overflow. 
 Field SValue::get_field_from_num( bool& success ) const
 {
