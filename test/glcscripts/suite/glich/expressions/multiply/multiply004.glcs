@@ -8,10 +8,10 @@ write max_field * max_field nl; // overflow
 write -max_field * 1 nl;
 write -max_field * 2 nl; // overflow
 write -max_field * max_field nl; // overflow
-write 1 * max_field * 1 nl;
-write 2 * max_field * 2 nl; // overflow
-write 1 * -max_field * 1 nl;
-write 2 * -max_field * 2 nl; // overflow
+write 1 * max_field nl;
+write 2 * max_field nl; // overflow
+write 1 * -max_field nl;
+write 2 * -max_field nl; // overflow
 
 /*[OUTPUT]
 

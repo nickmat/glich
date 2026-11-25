@@ -1,0 +1,24 @@
+// multiply009.glcs Test file for multiplication of mixed types
+
+let mf = @number( max_field );
+let bn = mf + 1;
+
+
+write nl;
+write mf nl;
+write mf * 1f nl;
+write 1f * mf nl;
+write bn nl;
+write bn * 1f nl;
+write 1f * bn nl;
+
+/*[OUTPUT]
+
+2147483644
+2147483644
+2147483644
+2147483645
+Error file:multiply009 (12): Field overflow.
+Error file:multiply009 (13): Field overflow.
+
+[OUTPUT]*/

@@ -987,7 +987,7 @@ void SValue::plus( const SValue& value )
                 set_error( field_overflow_err );
                 return;
             }
-            set_field( add_field( get_field(), value.get_num_as_field(), success ) );
+            set_field( add_field( get_field(), fld, success ) );
             if( !success ) {
                 set_error( field_overflow_err );
             }
@@ -1143,6 +1143,8 @@ void SValue::multiply( const SValue& value )
         return;
     }
     bool success = true;
+    const char* field_overflow_err = "Field overflow.";
+    Field fld = f_invalid;
     switch( type() )
     {
     case Type::Number:
@@ -1151,10 +1153,12 @@ void SValue::multiply( const SValue& value )
         case Type::Number:
             set_number( get_number() * value.get_number() );
             return;
-        case Type::field: {
-            Field field = mult_field( get_num_as_field(), value.get_field(), success );
-            set_field_result( field, success );
-        }
+        case Type::field:
+            fld = get_field_from_num( success );
+            if( success ) {
+                fld = mult_field( fld, value.get_field(), success );
+            }
+            set_field_result( fld, success );
             return;
         case Type::Float:
             set_float( static_cast<double>(get_number()) * value.get_float() );
@@ -1166,15 +1170,16 @@ void SValue::multiply( const SValue& value )
     case Type::field:
         switch( value.type() )
         {
-        case Type::Number: {
-            Field field = mult_field( get_field(), value.get_num_as_field(), success );
-            set_field_result( field, success );
-        }
+        case Type::Number:
+            fld = value.get_field_from_num( success );
+            if( success ) {
+                fld = mult_field( get_field(), fld, success );
+            }
+            set_field_result( fld, success );
             return;
-        case Type::field: {
-            Field field = mult_field( get_field(), value.get_field(), success );
-            set_field_result( field, success );
-        }
+        case Type::field:
+            fld = mult_field( get_field(), value.get_field(), success );
+            set_field_result( fld, success );
             return;
         case Type::Float:
             set_float( mult_float_field( value.get_float(), get_field() ) );
