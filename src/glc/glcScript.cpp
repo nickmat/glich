@@ -1944,13 +1944,19 @@ SValue Script::at_field()
 
     Field field = f_invalid;
     bool success = false;
-    SValue value = ( args[0].type() == SValue::Type::String ) ? glc().evaluate( args[0].get_str() ) : args[0];
+    bool is_error = false;
+    const char* err_message = "@field cannot convert to a valid field.";
+    SValue value = ( args[0].type() == SValue::Type::String ) ?
+        glc().evaluate( args[0].get_str() ) : args[0];
     switch( value.type() )
     {
     case SValue::Type::field:
         return value;
     case SValue::Type::Number:
         field = num_to_field( value.get_number(), success );
+        if( !success ) {
+            err_message = "Field overflow.";
+        }
         break;
     case SValue::Type::range:
     case SValue::Type::rlist:
@@ -1959,16 +1965,22 @@ SValue Script::at_field()
     case SValue::Type::Float:
         field = std::round( value.get_float( success ) );
         break;
-    default:
-        field = f_invalid;
+    case SValue::Type::Error:
+        is_error = true;
         break;
     }
     if( !success ) {
         if( args.size() > 1 ) {
             field = args[1].get_field( success );
+            if( !success ) {
+                err_message = "Unable to convert default value.";
+            }
         }
         if( !success ) {
-            field = f_invalid;
+            if( is_error ) {
+                return value;
+            }
+            return SValue::create_error( err_message );
         }
     }
     value.set_field( field );

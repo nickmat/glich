@@ -1,51 +1,59 @@
 // field001.glcs - @field( value ) // convert value to field.
 
-write nl;
+let mf = @number( max_field );
+let bn = mf + 1n;
 
-let a = null;
-let v = @field( a );
-write v, @type( a ), @type( v ) nl;
-a = "321";
-let v = @field( a );
-write v, @type( a ), @type( v ) nl;
-a = true;
-let v = @field( a );
-write v, @type( a ), @type( v ) nl;
-a = 123n;
-let v = @field( a );
-write v, @type( a ), @type( v ) nl;
-a = 345f;
-let v = @field( a );
-write v, @type( a ), @type( v ) nl;
-a = 1.2;
-let v = @field( a );
-write v, @type( a ), @type( v ) nl;
-a = 10 .. 10;
-let v = @field( a );
-write v, @type( a ), @type( v ) nl;
-// Note, RLists are automatically well formed and demoted.
-a = 199 | 199 .. 199;
-let v = @field( a );
-write v, @type( a ), @type( v ) nl;
-a = {:,11};
-let v = @field( a );
-write v, @type( a ), @type( v ) nl;
-a = @error( "Test" );
-let v = @field( a );
-write v, @type( a ), @type( v ) nl;
+// Valid field values tests.
+write nl;
+write @field( mf ), @type(@field( mf )) nl;
+write @field( -mf ), @type(@field( -mf )) nl;
+write @field( infinity ), @type(@field( infinity )) nl;
+write @field( 123n ), @type(@field( 123n )) nl;
+write @field( 1.7 ), @type(@field( 1.7 )) nl;
+write @field( "-10" ), @type(@field( "-10" )) nl;
+write @field( "11+1..13-1" ), @type(@field( "11+1..13-1" )) nl;
+write @field( "?" ), @type(@field( "?" )) nl;
+
+// Invalid field values tests.
+write nl;
+write @field( null ) nl;
+write @field( true ) nl;
+write @field( {: 10, 11} ) nl;
+write @field( 123..321 ), @type(@field( 123..321 )) nl;
+write @field( @rlist( 123..321 ) ), @type(@field(@rlist( 123..321 ))) nl;
+write @field( "123 | 123..321" ), @type(@field( "123 | 123..321" )) nl;
+write @field( "This is a test" ) nl;
+write @field( 100 | 199..200 ) nl;
+write @field( max_field + 1 ) nl;
+write @field( -( max_field + 1 ) ) nl;
+write @field( bn ) nl;
+write @field( -bn ) nl;
+write @field( @error( "Test" ) ) nl;
 
 
 /*[OUTPUT]
 
-?, null, field
-321, string, field
-?, bool, field
-123, number, field
-345, field, field
-1, float, field
-10, range, field
-199, field, field
-?, object, field
-?, error, field
+2147483644, field
+-2147483644, field
++infinity, field
+123, field
+2, field
+-10, field
+12, field
+?, field
+
+Error file:field001 (19): @field cannot convert to a valid field.
+Error file:field001 (20): @field cannot convert to a valid field.
+Error file:field001 (21): @field cannot convert to a valid field.
+Error file:field001 (22): @field cannot convert to a valid field.
+Error file:field001 (23): @field cannot convert to a valid field.
+Error file:field001 (24): @field cannot convert to a valid field.
+Error file:field001 (25): Variable "This" not found.
+Error file:field001 (26): @field cannot convert to a valid field.
+Error file:field001 (27): Field overflow.
+Error file:field001 (28): Field overflow.
+Error file:field001 (29): Field overflow.
+Error file:field001 (30): Field overflow.
+Error file:field001 (31): Test
 
 [OUTPUT]*/

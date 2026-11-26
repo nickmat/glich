@@ -1,10 +1,29 @@
-// field003.glcs - @field( value ) // convert string to field.
+// field003.glcs - @field( value ) // test default value conversion failure.
 
+let bn = @number( max_field ) + 1n;
 
-write @field( "-10" ),;
-write @field( "11+1..13-1" ),;
-write @field( "?" );
+write nl;
+write @field( null, null ) nl;
+write @field( 123..321, null ) nl;
+write @field( "123 | 123..321", null ) nl;
+write @field( "This is a test", null ) nl;
+write @field( 100 | 199..200, null ) nl;
+write @field( max_field + 1, null ) nl;
+write @field( bn, null ) nl;
+write @field( -bn, null ) nl;
+write @field( @error( "Test" ), null ) nl;
+
 
 /*[OUTPUT]
--10, 12, ?
+
+Error file:field003 (6): Unable to convert default value.
+Error file:field003 (7): Unable to convert default value.
+Error file:field003 (8): Unable to convert default value.
+Error file:field003 (9): Variable "This" not found.
+Error file:field003 (10): Unable to convert default value.
+Error file:field003 (11): Field overflow.
+Error file:field003 (12): Unable to convert default value.
+Error file:field003 (13): Unable to convert default value.
+Error file:field003 (14): Test
+
 [OUTPUT]*/

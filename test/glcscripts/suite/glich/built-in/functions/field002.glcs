@@ -1,53 +1,37 @@
 // field002.glcs - @field( value, default ) // convert value to field.
 
+let bn = @number( max_field ) + 1n;
+
 write nl;
-
-
-let a = null;
-let v = @field( a, 0 );
-write v, @type( a ), @type( v ) nl;
-a = "321";
-let v = @field( a, 0 );
-write v, @type( a ), @type( v ) nl;
-a = true;
-let v = @field( a, 0 );
-write v, @type( a ), @type( v ) nl;
-a = 123n;
-let v = @field( a, 0 );
-write v, @type( a ), @type( v ) nl;
-a = 345f;
-let v = @field( a, 0 );
-write v, @type( a ), @type( v ) nl;
-a = 1.2;
-let v = @field( a, 0 );
-write v, @type( a ), @type( v ) nl;
-a = 10 .. 10;
-let v = @field( a, 0 );
-write v, @type( a ), @type( v ) nl;
-// Note, RLists are automatically well formed and demoted.
-a = 199 | 199 .. 199;
-let v = @field( a, 0 );
-write v, @type( a ), @type( v ) nl;
-a = {:,11};
-let v = @field( a, 0 );
-write v, @type( a ), @type( v ) nl;
-a = @error( "Test" );
-let v = @field( a, 0 );
-write v, @type( a ), @type( v ) nl;
-
+write @field( null, 0 ) nl;
+write @field( true, 0 ) nl;
+write @field( {: 10, 11}, 0 ) nl;
+write @field( 123..321, 0 ) nl;
+write @field( @rlist( 123..321 ), 0 ) nl;
+write @field( "123 | 123..321", 0 ) nl;
+write @field( "This is a test", 0 ) nl;
+write @field( 100 | 199..200, 0 ) nl;
+write @field( max_field + 1, 0 ) nl;
+write @field( -( max_field + 1 ), 0 ) nl;
+write @field( bn, 0 ) nl;
+write @field( -bn, 0 ) nl;
+write @field( @error( "Test" ), 0 ) nl;
 
 
 /*[OUTPUT]
 
-0, null, field
-321, string, field
-0, bool, field
-123, number, field
-345, field, field
-1, float, field
-10, range, field
-199, field, field
-0, object, field
-0, error, field
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
 
 [OUTPUT]*/
