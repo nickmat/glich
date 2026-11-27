@@ -1,0 +1,31 @@
+// range003.glcs - @field( value, default ) // convert value to range using invalid default.
+
+let mf = @number( max_field );
+let bn = mf + 1n;
+
+
+// Use default range values tests.
+write nl;
+write @range( null, ? ) nl;
+write @range( true, ? ) nl;
+write @range( 1.2, ? ) nl;
+write @range( {: 10, 11}, ? ) nl;
+write @range( "This is a test", ? ) nl;
+write @range( 100 | 199..200, ? ) nl;
+write @range( bn, ? ) nl;
+write @range( -bn, ? ) nl;
+write @range( ?, ? ) nl;
+
+/*[OUTPUT]
+
+Error file:range003 (9): Unable to convert @range default value.
+Error file:range003 (10): Unable to convert @range default value.
+Error file:range003 (11): Unable to convert @range default value.
+Error file:range003 (12): Unable to convert @range default value.
+Error file:range003 (13): Unable to convert @range default value.
+Error file:range003 (14): Unable to convert @range default value.
+Error file:range003 (15): Unable to convert @range default value.
+Error file:range003 (16): Unable to convert @range default value.
+Error file:range003 (17): Unable to convert @range default value.
+
+[OUTPUT]*/

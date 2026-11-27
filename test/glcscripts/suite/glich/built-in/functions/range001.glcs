@@ -1,11 +1,14 @@
 // range001.glcs - @range( value ) // convert value to range.
 
-let big = @number( max_field ) + 1;
+let mf = @number( max_field );
+let bn = mf + 1n;
+
 
 // Valid range values tests.
 write nl;
 write @range( max_field ), @type(@range( max_field )) nl;
 write @range( -max_field ), @type(@range( -max_field )) nl;
+write @range( mf ), @type(@range( mf )) nl;
 write @range( infinity ), @type(@range( infinity )) nl;
 write @range( 123n ), @type(@range( 123n )) nl;
 write @range( 123..321 ), @type(@range( 123..321 )) nl;
@@ -21,14 +24,16 @@ write @range( 1.2 ) nl;
 write @range( {: 10, 11} ) nl;
 write @range( "This is a test" ) nl;
 write @range( 100 | 199..200 ) nl;
-write @range( big ) nl;
-write @range( -big ) nl;
+write @range( bn ) nl;
+write @range( -bn ) nl;
 write @range( ? ) nl;
+write @range( @error( "Test" ) ) nl;
 
 /*[OUTPUT]
 
 2147483644, range
 -2147483644, range
+2147483644, range
 +infinity, range
 123, range
 123..321, range
@@ -36,14 +41,15 @@ write @range( ? ) nl;
 123..321, range
 123..321, range
 
-Error file:range001 (18): Function @range cannot convert argument to a valid range.
-Error file:range001 (19): Function @range cannot convert argument to a valid range.
-Error file:range001 (20): Function @range cannot convert argument to a valid range.
-Error file:range001 (21): Function @range cannot convert argument to a valid range.
-Error file:range001 (22): Variable "This" not found.
-Error file:range001 (23): Function @range cannot convert argument to a valid range.
-Error file:range001 (24): Function @range cannot convert argument to a valid range.
-Error file:range001 (25): Function @range cannot convert argument to a valid range.
-Error file:range001 (26): Function @range cannot convert argument to a valid range.
+Error file:range001 (21): @range cannot convert to a valid range.
+Error file:range001 (22): @range cannot convert to a valid range.
+Error file:range001 (23): @range cannot convert to a valid range.
+Error file:range001 (24): @range cannot convert to a valid range.
+Error file:range001 (25): Variable "This" not found.
+Error file:range001 (26): @range cannot convert to a valid range.
+Error file:range001 (27): Field overflow.
+Error file:range001 (28): Field overflow.
+Error file:range001 (29): Invalid range.
+Error file:range001 (30): Test
 
 [OUTPUT]*/

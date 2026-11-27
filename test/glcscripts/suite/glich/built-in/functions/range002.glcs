@@ -1,43 +1,33 @@
-// range002.glcs - @field( value, default ) // convert value to range.
+// range002.glcs - @field( value, default ) // convert value to range using default.
 
-// Valid range values tests.
-write nl;
-write @range( ?, max_field ), @type(@range( ?, max_field )) nl;
-write @range( ?, -max_field ), @type(@range( ?, -max_field )) nl;
-write @range( ?, infinity ), @type(@range( infinity )) nl;
-write @range( ?, 123n ), @type(@range( ?, 123n )) nl;
-write @range( ?, 123..321 ), @type(@range( ?, 123..321 )) nl;
-write @range( ?, @rlist( 123..321 ) ), @type(@range( ?, @rlist( 123..321 ))) nl;
+let mf = @number( max_field );
+let bn = mf + 1n;
 
-// Invalid range values tests.
+
+// Use default range values tests.
 write nl;
-write @range( ?, null ) nl;
-write @range( ?, true ) nl;
-write @range( ?, 1.2 ) nl;
-write @range( ?, {: 10, 11} ) nl;
-write @range( ?, "This is a test" ) nl;
-write @range( ?, 100 | 199..200 ) nl;
-write @range( ?, max_field + 1 ) nl;
-write @range( ?, -( max_field + 1 ) ) nl;
-write @range( ?, ? ) nl;
+write @range( null, 1..3 ) nl;
+write @range( true, 1..3 ) nl;
+write @range( 1.2, 1..3 ) nl;
+write @range( {: 10, 11}, 1..3 ) nl;
+write @range( "This is a test", 1..3 ) nl;
+write @range( 100 | 199..200, 1..3 ) nl;
+write @range( bn, 1..3 ) nl;
+write @range( -bn, 1..3 ) nl;
+write @range( ?, 1..3 ) nl;
+write @range( @error( "Test" ), 1..3 ) nl;
 
 /*[OUTPUT]
 
-2147483644, range
--2147483644, range
-+infinity, range
-123, range
-123..321, range
-123..321, range
-
-Error file:range002 (14): Function @range cannot convert argument to a valid range.
-Error file:range002 (15): Function @range cannot convert argument to a valid range.
-Error file:range002 (16): Function @range cannot convert argument to a valid range.
-Error file:range002 (17): Function @range cannot convert argument to a valid range.
-Error file:range002 (18): Function @range cannot convert argument to a valid range.
-Error file:range002 (19): Function @range cannot convert argument to a valid range.
-Error file:range002 (20): Function @range cannot convert argument to a valid range.
-Error file:range002 (21): Function @range cannot convert argument to a valid range.
-Error file:range002 (22): Function @range cannot convert argument to a valid range.
+1..3
+1..3
+1..3
+1..3
+1..3
+1..3
+1..3
+1..3
+1..3
+1..3
 
 [OUTPUT]*/

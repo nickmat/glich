@@ -1946,8 +1946,7 @@ SValue Script::at_field()
     bool success = false;
     bool is_error = false;
     const char* err_message = "@field cannot convert to a valid field.";
-    SValue value = ( args[0].type() == SValue::Type::String ) ?
-        glc().evaluate( args[0].get_str() ) : args[0];
+    SValue value = evaluate_arg( args[0] );
     switch( value.type() )
     {
     case SValue::Type::field:
@@ -1991,22 +1990,54 @@ SValue Script::at_range()
 {
     SValueVec args = get_args( GetToken::next );
     if( args.empty() ) {
-        return SValue::create_error( "Function @range requires one argument." );
-    }
-    SValue value = evaluate_arg( args[0] );
-    if( value.is_error() ) {
-        return value;
+        return SValue::create_error( "@range requires one or two arguments." );
     }
     Range rng;
+    Field fld = f_invalid;
     bool success = false;
-    rng = value.get_range( success );
-    if( !success && args.size() > 1 ) {
-        rng = args[1].get_range( success );
+    bool is_error = false;
+    const char* err_message = "Invalid @range argument.";
+    SValue value = evaluate_arg( args[0] );
+    switch( value.type() )
+    {
+    case SValue::Type::range:
+        return value;
+    case SValue::Type::rlist:
+        rng = value.get_range( success );
+        break;
+    case SValue::Type::Number:
+        fld = value.get_field_from_num( success );
+        if( !success ) {
+            err_message = "Field overflow.";
+            break;
+        }
+        [[fallthrough]];
+    case SValue::Type::field:
+        rng = value.get_range( success );
+        if( !success ) {
+            err_message = "Invalid range.";
+        }
+        break;
+    case SValue::Type::Error:
+        is_error = true;
+        break;
     }
     if( !success ) {
-        return SValue::create_error( "Function @range cannot convert argument to a valid range." );
+        if( args.size() > 1 ) {
+            rng = args[1].get_range( success );
+            if( !success ) {
+                return SValue::create_error( "Invalid @range default value." );
+            }
+        }
+        if( !success ) {
+            if( is_error ) {
+                return value;
+            }
+            return SValue::create_error( err_message );
+        }
     }
-    return SValue( rng );
+    value.set_range( rng );
+    return value;
 }
 
 SValue Script::at_rlist()
